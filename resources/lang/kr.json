@@ -49,6 +49,8 @@
     "Submit" : "연락하기",
     "Users": "사용자들",
     "Contact Us": "문의하기",
-    "Contact Us Info": "연락처 정보",
-    "Contact Us Inbox": "문의하기 받은 편지함"
+    "Contact Us Info": "연락처",
+    "Contact Us Inbox": "받은 편지함",
+    "Edit": "편집",
+    "Save": "저장"
 }
