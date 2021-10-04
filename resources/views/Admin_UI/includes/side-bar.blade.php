@@ -36,12 +36,32 @@
                 @foreach(Config::get('admin_menus') as $menu=>$menus)
                     <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                     @foreach($menus['menus'] as $mainmenu)
-                        <li>
-                            <a href="{{$mainmenu['url']}}" {{ Request::is('/users/*') ? ' class="mm-active"' : null }}>
-                                <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
-                                {{__($mainmenu['name'])}}
-                            </a>
-                        </li>
+                        @if($mainmenu['child'])
+                            <li class="mm-active">
+                                <a href="#" aria-expanded="true">
+                                    <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
+                                    {{__($mainmenu['name'])}}
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul class="mm-collapse mm-show" style="">
+                                    @foreach($mainmenu['child'] as $child)
+                                        <li>
+                                            <a href="{{__($child['url'])}}">
+{{--                                                    <i class="metismenu-icon"></i>--}}
+                                                {{__($child['name'])}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{$mainmenu['url']}}" {{ Request::is('/users/*') ? ' class="mm-active"' : null }}>
+                                    <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
+                                    {{__($mainmenu['name'])}}
+                                </a>
+                            </li>
+                        @endif
                     @endforeach
                 @endforeach
 
