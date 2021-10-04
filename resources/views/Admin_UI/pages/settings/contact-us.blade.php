@@ -35,7 +35,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative mb-3">
                                     <label for="exampleAddress" class="form-label">{{__('Address')}}</label>
-                                    <textarea name="address" placeholder="{{__('1234 Main St')}}" type="text" class="form-control"></textarea>
+                                    <textarea name="address" placeholder="{{__('Only write the official address')}}" type="text" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
