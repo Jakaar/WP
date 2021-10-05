@@ -29,13 +29,13 @@
                             <div class="col-md-6">
                                 <div class="position-relative mb-3">
                                     <label for="short_content" class="form-label">{{__('Short content')}}</label>
-                                    <textarea name="short_content" placeholder="{{__('Enter short content')}}" type="text" id="short_content" class="form-control"   rows="6"> </textarea>
+                                    <textarea type="text" id="short_content" class="form-control" name="short_content" placeholder="{{__('Enter short content')}}" row="1"> </textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="position-relative mb-3">
-                                    <label for="address" class="form-label">{{__('Address')}}</label>
-                                    <textarea name="address" placeholder="{{__('1234 Main St')}}" type="text" id="address" class="form-control" rows="6"></textarea>
+                                    <label for="exampleAddress" class="form-label">{{__('Address')}}</label>
+                                    <textarea name="address" placeholder="{{__('Only write the official address')}}" type="text" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
