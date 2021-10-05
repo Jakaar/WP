@@ -1,6 +1,17 @@
 import Axios from "axios";
 import Swal from "../vendors/sweetalert2";
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 // $(document).ready(function(){
 //     Axios.post('/lang/kr').then((resp)=> {
 //         console.log(resp);
@@ -10,13 +21,15 @@ import Swal from "../vendors/sweetalert2";
 // contact us submit START
 
 // Form disabler Start
-$('.disabler').on('click', ()=>{
+$('.disabler').on('click', () => {
     if ($('#ContactUsForm fieldset').attr('disabled') === 'disabled'){
         $('#ContactUsForm fieldset').removeAttr('disabled');
         $('#contactSaveBtn').removeClass('invisible');
+        // $('#contactEditBtn').html('Cancel');
     }else {
         $('#ContactUsForm fieldset').attr('disabled','disabled');
         $('#contactSaveBtn').addClass('invisible');
+        // $('#contactEditBtn').html('Edit');
     }
 });
 // Form disabler End
@@ -34,27 +47,11 @@ $('.contactSubmit').on('click', () => {
         linkedin:$("#linkedin").val()
     };
     Axios.post('contact_us_save', data).then((resp)=>{
-        toastr.options = {
-            closeButton: true,
-            debug: false,
-            newestOnTop: true,
-            progressBar: true,
-            positionClass: "toast-bottom-center",
-            preventDuplicates: false,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            timeOut: "5000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-        };
-        toastr["info"](
-            "You don't have any new items in your calendar today!",
-            "Example Toastr"
-        );
+        $('#contactSaveBtn').addClass('invisible');
+        Toast.fire({
+            icon: 'success',
+            title: 'Successfully save'
+        });
     }).catch((err)=>{
         console.log(err);
     });

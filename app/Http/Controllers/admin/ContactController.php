@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -14,17 +15,36 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('admin::settings.contact-us');
+        $data['contact_us'] = DB::table('wpanel_contact_us')
+            ->first();
+        return view('admin::settings.contact-us', compact('data'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function contact_us(Request $request)
     {
-        dd($request->all());
+        try {
+            DB::table('wpanel_contact_us')
+//                ->where('id', 1)
+                ->updateOrInsert(['id'=>1],[
+                'title'=> $request->title,
+                'email'=> $request->email,
+                'phone'=> $request->phone,
+                'short_content'=> $request->short_content,
+                'address'=> $request->address,
+                'facebook'=> $request->facebook,
+                'youtube'=> $request->youtube,
+                'twitter'=> $request->twitter,
+                'linkedin'=> $request->linkedin,
+            ]);
+            return response()->json(['msg'=>'success'],200);
+        }catch (\Exception $exception){
+            return response()->json(['msg'=>'error'], 422);
+        }
     }
 
     /**

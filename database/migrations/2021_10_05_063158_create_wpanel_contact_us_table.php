@@ -13,7 +13,7 @@ class CreateWpanelContactusTable extends Migration
      */
     public function up()
     {
-        Schema::create('wpanel_contactus', function (Blueprint $table) {
+        Schema::create('wpanel_contact_us', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('email')->nullable();
@@ -34,6 +34,6 @@ class CreateWpanelContactusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wpanel_contactus');
+        Schema::dropIfExists('wpanel_contact_us');
     }
 }
