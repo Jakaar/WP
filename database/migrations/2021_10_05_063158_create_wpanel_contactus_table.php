@@ -14,6 +14,7 @@ class CreateWpanelContactusTable extends Migration
     public function up()
     {
         Schema::create('wpanel_contactus', function (Blueprint $table) {
+            $table->id();
             $table->string('title')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
