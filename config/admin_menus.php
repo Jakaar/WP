@@ -18,7 +18,7 @@ return [
                         'icon'=>'pe-7s-call',
                         'name'=>'Contact Us Info',
                     ],[
-                        'url'=>'contact-us',
+                        'url'=>'contactus-inbox',
                         'icon'=>'pe-7s-call',
                         'name'=>'Contact Us Inbox',
                     ],

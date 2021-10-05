@@ -26,6 +26,7 @@
                     <div class="app-main__inner">
                         @include('Admin_UI.includes.titler')
                         @yield('contect')
+                        @yield('contactus_inbox')
                     </div>
                     @include('Admin_UI.includes.footer')
                 </div>
