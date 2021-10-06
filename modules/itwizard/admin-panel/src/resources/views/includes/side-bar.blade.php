@@ -33,7 +33,7 @@
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
 
-                @foreach(Config::get('admin_menus') as $menu=>$menus)
+                @foreach(Config::get('Menu') as $menu=>$menus)
                     <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                     @foreach($menus['menus'] as $mainmenu)
                         @if($mainmenu['child'])
