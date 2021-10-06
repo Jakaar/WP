@@ -3,7 +3,7 @@ import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
 
-import * as bootstrap from 'bootstrap';
+import * as bootstrap from './../vendors/bootstrap';
 import "moment";
 import "metismenu/dist/metisMenu";
 // import "bootstrap4-toggle";
