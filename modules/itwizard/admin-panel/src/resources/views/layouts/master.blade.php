@@ -27,6 +27,7 @@
                         @include('Admin::includes.titler')
                         @yield('contect')
                         @yield('contactus_inbox')
+                        @yield('content')
                     </div>
                     @include('Admin::includes.footer')
                 </div>

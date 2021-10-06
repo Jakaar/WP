@@ -49,7 +49,7 @@ return [
                 'child' => null
             ],
             [
-                'url'=>'',
+                'url'=>'seo_list',
                 'icon'=>'pe-7s-users',
                 'name'=>'SEO management',
                 'child' => null
