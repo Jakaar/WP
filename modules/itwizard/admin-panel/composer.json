@@ -1,0 +1,26 @@
+{
+    "name": "itwizard/admin-panel",
+    "description": "IT Wizard developing admin Package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakaar",
+            "email": "54393995+Jakaar@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Itwizard\\Adminpanel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Itwizard\\Adminpanel\\AdminServiceProvider"
+            ]
+        }
+    }
+}
