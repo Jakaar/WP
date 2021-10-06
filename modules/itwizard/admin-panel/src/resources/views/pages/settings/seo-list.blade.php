@@ -2,7 +2,7 @@
 @section('content')
 <div class="main-card mb-3 card">
     <div class="card-body">
-        <table style="width: 100%;"  class="table table-hover table-striped table-bordered">
+        <table style="width: 100%;" id="example"  class="table table-hover table-striped table-bordered">
             <thead>
             <tr>
                 <th>Number</th>
@@ -22,10 +22,10 @@
                 <td>Home Page</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 btn-icon btn btn-success">
+                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
                         <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
                     </button>
-                    <button class="mb-2 me-2 btn-icon btn btn-danger">
+                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
                         <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
                     </button></td>
             </tr>
@@ -36,10 +36,10 @@
                 <td>Login Page</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 btn-icon btn btn-success">
+                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
                         <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
                     </button>
-                    <button class="mb-2 me-2 btn-icon btn btn-danger">
+                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
                         <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
                     </button></td>
             </tr>
@@ -50,10 +50,10 @@
                 <td>homepage</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 btn-icon btn btn-success">
+                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
                         <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
                     </button>
-                    <button class="mb-2 me-2 btn-icon btn btn-danger">
+                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
                         <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
                     </button></td>
             </tr>
@@ -64,10 +64,10 @@
                 <td>Consulting Page</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 btn-icon btn btn-success">
+                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
                         <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
                     </button>
-                    <button class="mb-2 me-2 btn-icon btn btn-danger">
+                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
                         <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
                     </button></td>
             </tr>
@@ -78,10 +78,10 @@
                 <td>1</td>
                 <td>use/28</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 btn-icon btn btn-success">
+                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
                         <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
                     </button>
-                    <button class="mb-2 me-2 btn-icon btn btn-danger">
+                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
                         <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
                     </button></td>
             </tr>
