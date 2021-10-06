@@ -8,21 +8,21 @@
                 <label class="form-label" for="firstname">Site name</label>
                 <div>
                     <input type="text" class="form-control"
-                           id="firstname" name="firstname" placeholder="First name">
+                           id="sitename" name="sitename" placeholder="Site name">
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="lastname">Company Name</label>
                 <div>
                     <input type="text" class="form-control"
-                           id="lastname" name="lastname" placeholder="Last name">
+                           id="companyname" name="companyname" placeholder="Company name">
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="username">Business addresss</label>
                 <div>
                     <input type="text" class="form-control"
-                           id="username" name="username" placeholder="Username">
+                           id="address" name="address" placeholder="Address">
                 </div>
             </div>
             <div class="mb-3">

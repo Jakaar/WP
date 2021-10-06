@@ -2,7 +2,6 @@
 
 namespace Itwizard\Adminpanel;
 
-use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\Localization;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
@@ -30,7 +29,6 @@ class AdminServiceProvider extends ServiceProvider
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
 //                \App\Http\Middleware\IsAdmin::class
                 Localization::class,
-                Authenticate::class
             )
         );
     }

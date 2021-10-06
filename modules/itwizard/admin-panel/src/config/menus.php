@@ -18,7 +18,7 @@ return [
         'menus'=> [
             [
                 'url'=>'',
-                'icon'=>'pe-7s-config',
+                'icon'=>'pe-7s-users',
                 'name'=>'Basic settings',
                 'child' => [
                     [
@@ -31,31 +31,31 @@ return [
             ],
             [
                 'url'=>'',
-                'icon'=>'pe-7s-display1',
+                'icon'=>'pe-7s-users',
                 'name'=>'Notice board',
                 'child' => null
             ],
             [
                 'url'=>'',
-                'icon'=>'pe-7s-box1',
+                'icon'=>'pe-7s-users',
                 'name'=>'Product management',
                 'child' => null
             ],
             [
                 'url'=>'',
-                'icon'=>'pe-7s-id',
+                'icon'=>'pe-7s-users',
                 'name'=>'Member management',
                 'child' => null
             ],
             [
                 'url'=>'',
-                'icon'=>'pe-7s-link',
+                'icon'=>'pe-7s-users',
                 'name'=>'API management',
                 'child' => null
             ],
             [
                 'url'=>'seo_list',
-                'icon'=>'pe-7s-graph1',
+                'icon'=>'pe-7s-users',
                 'name'=>'SEO management',
                 'child' => null
             ],

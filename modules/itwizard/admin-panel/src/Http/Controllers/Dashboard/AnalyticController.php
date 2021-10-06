@@ -14,6 +14,6 @@ class AnalyticController extends Controller
     }
     public function index(){
 
-        return view('Admin::pages.dashboard.analytic');
+        return view('Admin::pages.settings.users');
     }
 }

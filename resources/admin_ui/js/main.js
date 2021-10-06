@@ -32,21 +32,19 @@ require('./treeview');
 require('./form-components/toggle-switch');
 require('./tables');
 require('./carousel-slider');
-require('./customs/custom');
-require('./customs/loader');
+require('./custom');
 
 // // Stylesheets
 
 $(document).ready(() => {
-    $.blockUI.defaults = {
-        // timeout: 2000,
-        fadeIn: 200,
-        fadeOut: 400,
-    };
-    $.blockUI({ message: $(".body-block-example-1") });
-  // setTimeout(function () {
-  //   $(".vertical-nav-menu").metisMenu();
-  // }, 100);
+    // alert('hi')
+  // Sidebar Menu
+    $("example").DataTable({
+
+    })
+  setTimeout(function () {
+    $(".vertical-nav-menu").metisMenu();
+  }, 100);
 
   // Search wrapper trigger
 
@@ -182,18 +180,24 @@ $(document).ready(() => {
 
   // Responsive
 
-  // var resizeClass = function () {
-  //   var win = document.body.clientWidth;
-  //   if (win < 1250) {
-  //     $(".app-container").addClass("closed-sidebar-mobile closed-sidebar");
-  //   } else {
-  //     $(".app-container").removeClass("closed-sidebar-mobile closed-sidebar");
-  //   }
-  // };
+  var resizeClass = function () {
+    var win = document.body.clientWidth;
+    if (win < 1250) {
+      $(".app-container").addClass("closed-sidebar-mobile closed-sidebar");
+    } else {
+      $(".app-container").removeClass("closed-sidebar-mobile closed-sidebar");
+    }
+  };
 
-  // $(window).on("resize", function () {
-  //   resizeClass();
-  // });
-  //
-  // resizeClass();
+  $(window).on("resize", function () {
+    resizeClass();
+  });
+
+  resizeClass();
 });
+// import $ from 'jquery';
+// import 'datatables.net';
+
+// $(document).ready(function(){
+//     $('#example').DataTable({})
+// });

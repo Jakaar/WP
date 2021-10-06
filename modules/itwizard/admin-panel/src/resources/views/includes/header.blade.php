@@ -3,7 +3,7 @@
         <div class="logo-src"></div>
         <div class="header__pane ms-auto">
             <div>
-                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic">
+                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
                     <span class="hamburger-box">
                         <span class="hamburger-inner"></span>
                     </span>
@@ -744,10 +744,11 @@
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left me-3">
-                                                            <img width="42" class="rounded-circle" src="{{auth()->user()->avatar ?? asset('/storage/users/avatars/avatar.jpg')}}"  alt="">
+                                                            <img width="42" class="rounded-circle"
+                                                                src="images/avatars/1.jpg"  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">{{auth()->user()->name}}</div>
+                                                            <div class="widget-heading">Alina Mcloughlin</div>
                                                             <div class="widget-subheading opacity-8">A short profile description</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">

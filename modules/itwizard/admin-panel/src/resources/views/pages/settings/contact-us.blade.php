@@ -1,5 +1,5 @@
 @extends('Admin_UI.layouts.master')
-@section('content')
+@section('contect')
 <section>
     <div class="tab-content">
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">

@@ -358,7 +358,7 @@ var series =
 
 // Radial
 
-const options444 = {
+var options444 = {
     chart: {
         height: 350,
         type: 'radialBar',
@@ -439,7 +439,7 @@ const options444 = {
 
 };
 
-const chart444 = new ApexCharts(
+var chart444 = new ApexCharts(
     document.querySelector("#chart-radial"),
     options444
 );

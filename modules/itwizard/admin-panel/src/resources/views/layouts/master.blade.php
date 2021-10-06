@@ -14,15 +14,19 @@
         <link rel="stylesheet" href="{{asset('aPanel/css/admin.css')}}">
     </head>
     <body>
-        <div id="sideBarMini" class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-                @include('Admin::includes.header')
-                @include('Admin::includes.ui-settings')
+        <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+            @include('Admin::includes.header')
+            @include('Admin::includes.ui-settings')
+
+
             <div class="app-main">
                 @include('Admin::includes.side-bar')
 
                 <div class="app-main__outer">
                     <div class="app-main__inner">
-{{--                        @yield('breadcrumb')--}}
+                        @include('Admin::includes.titler')
+                        @yield('contect')
+                        @yield('contactus_inbox')
                         @yield('content')
                     </div>
                     @include('Admin::includes.footer')
@@ -451,23 +455,6 @@
             </div>
         </div>
         <div class="app-drawer-overlay d-none animated fadeIn"></div>
-        <div class="body-block-example-1 d-none">
-            <div class="loader bg-transparent no-shadow p-0">
-                <div class="ball-grid-pulse">
-                    <div class="bg-blue"></div>
-                    <div class="bg-white"></div>
-                    <div class="bg-warning"></div>
-
-                    <div class="bg-white"></div>
-                    <div class="bg-warning"></div>
-                    <div class="bg-blue"></div>
-
-                    <div class="bg-warning"></div>
-                    <div class="bg-blue"></div>
-                    <div class="bg-white"></div>
-                </div>
-            </div>
-        </div>
         <script type="text/javascript" src="{{asset('aPanel/js/main.js')}}"></script>
     </body>
 </html>

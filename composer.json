@@ -21,11 +21,10 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
-        "itwizard/admin-panel": "@dev",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
-        "spatie/laravel-analytics": "^3.11"
+        "itwizard/admin-panel": "@dev"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
