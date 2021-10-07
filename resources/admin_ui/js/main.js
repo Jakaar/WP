@@ -22,7 +22,8 @@ import "datatables.net-responsive";
 import "datatables.net-responsive-bs4";
 import "slick-carousel";
 
-
+require('./customs/custom');
+require('./customs/loader');
 require('./charts/apex-charts');
 require('./circle-progress')
 require('./demo');
@@ -32,16 +33,13 @@ require('./treeview');
 require('./form-components/toggle-switch');
 require('./tables');
 require('./carousel-slider');
-require('./customs/custom');
+
 
 // // Stylesheets
 
 $(document).ready(() => {
-    // alert('hi')
-  // Sidebar Menu
-    $("example").DataTable({
 
-    })
+  // Sidebar Menu
   setTimeout(function () {
     $(".vertical-nav-menu").metisMenu();
   }, 100);
@@ -185,7 +183,7 @@ $(document).ready(() => {
     if (win < 1250) {
       $(".app-container").addClass("closed-sidebar-mobile closed-sidebar");
     } else {
-      $(".app-container").removeClass("closed-sidebar-mobile closed-sidebar");
+      $(".app-container").removeClass("closed-sidebar-mobile");
     }
   };
 
@@ -195,9 +193,3 @@ $(document).ready(() => {
 
   resizeClass();
 });
-// import $ from 'jquery';
-// import 'datatables.net';
-
-// $(document).ready(function(){
-//     $('#example').DataTable({})
-// });

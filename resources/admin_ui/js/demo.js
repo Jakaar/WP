@@ -1,42 +1,40 @@
 // Demo Theme Options
 
 $(document).ready(() => {
+
+    $(".close-sidebar-btn").click(function () {
+        const closeBtn = $(this);
+
+        if (closeBtn.hasClass("is-active")) {
+            closeBtn.removeClass("is-active");
+            localStorage.removeItem('sideBarClass');
+            $('#sideBarMini').removeClass('closed-sidebar');
+
+        } else {
+            closeBtn.addClass("is-active");
+            localStorage.setItem('sideBarClass','closed-sidebar')
+            $('#sideBarMini').addClass('closed-sidebar');
+        }
+    });
+
   $(".btn-open-options").click(function () {
     $(".ui-theme-settings").toggleClass("settings-open");
   });
 
-  $(".close-sidebar-btn").click(function () {
-    // var classToSwitch = $(this).attr("data-class");
-    // var containerElement = ".app-container";
-    // $(containerElement).toggleClass(classToSwitch);
-    //
-    var closeBtn = $(this);
-
-    if (closeBtn.hasClass("is-active")) {
-      closeBtn.removeClass("is-active");
-      $('#SideBar').removeClass('closed-sidebar')
-        localStorage.removeItem('sideBarClass')
-    } else {
-      closeBtn.addClass("is-active");
-      $('#SideBar').addClass('closed-sidebar')
-        localStorage.getItem('sideBarClass', 'closed-sidebar')
-    }
-  });
-
   $(".switch-container-class").on("click", function () {
-    var classToSwitch = $(this).attr("data-class");
-    var containerElement = ".app-container";
-    $(containerElement).toggleClass(classToSwitch);
+      const classToSwitch = $(this).attr("data-class");
+      const containerElement = ".app-container";
+      $(containerElement).toggleClass(classToSwitch);
 
     $(this).parent().find(".switch-container-class").removeClass("active");
     $(this).addClass("active");
   });
 
   $(".switch-theme-class").on("click", function () {
-    var classToSwitch = $(this).attr("data-class");
-    var containerElement = ".app-container";
+      const classToSwitch = $(this).attr("data-class");
+      const containerElement = ".app-container";
 
-    if (classToSwitch == "app-theme-white") {
+      if (classToSwitch == "app-theme-white") {
       $(containerElement).removeClass("app-theme-gray");
       $(containerElement).addClass(classToSwitch);
     }

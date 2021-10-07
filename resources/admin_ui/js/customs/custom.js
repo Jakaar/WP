@@ -17,7 +17,10 @@ const Toast = Swal.mixin({
     }
 })
 $(document).ready(function(){
-
+    if(localStorage.getItem('sideBarClass')){
+        $('#sideBarMini').addClass(localStorage.getItem('sideBarClass'));
+        $('.close-sidebar-btn').addClass('is-active')
+    }
 })
 
 // contact us submit START
