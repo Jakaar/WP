@@ -1,10 +1,8 @@
 /vendor/
 node_modules/
-public/aPanel/
 npm-debug.log
 yarn-error.log
 .idea/
-public/aPanel/
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -19,3 +17,4 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 public/aPanel/js/main.js
+public/aPanel/css/admin.css
