@@ -21,7 +21,12 @@ return [
                 'icon'=>'pe-7s-config',
                 'name'=>'Basic settings',
                 'child' => [
-
+                    [
+                'url'=>'site_info',
+                'icon'=>'pe-7s-users',
+                'name'=>'Site information',
+                'child' => null
+            ],
                 ]
             ],
             [

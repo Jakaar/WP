@@ -22,11 +22,11 @@
                 <td>Home Page</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
-                        <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
+                <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary">
+                        <i class="pe-7s-pen btn-icon-wrapper"></i>
                     </button>
-                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
-                        <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
+                    <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
+                        <i class="pe-7s-trash btn-icon-wrapper"></i>
                     </button></td>
             </tr>
             <tr>
@@ -36,11 +36,11 @@
                 <td>Login Page</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
-                        <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
+                <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary">
+                        <i class="pe-7s-pen btn-icon-wrapper"></i>
                     </button>
-                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
-                        <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
+                    <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
+                        <i class="pe-7s-trash btn-icon-wrapper"></i>
                     </button></td>
             </tr>
             <tr>
@@ -50,11 +50,11 @@
                 <td>homepage</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
-                        <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
+                <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary">
+                        <i class="pe-7s-pen btn-icon-wrapper"></i>
                     </button>
-                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
-                        <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
+                    <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
+                        <i class="pe-7s-trash btn-icon-wrapper"></i>
                     </button></td>
             </tr>
             <tr>
@@ -64,11 +64,11 @@
                 <td>Consulting Page</td>
                 <td>use</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
-                        <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
+                <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary">
+                        <i class="pe-7s-pen btn-icon-wrapper"></i>
                     </button>
-                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
-                        <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
+                    <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
+                        <i class="pe-7s-trash btn-icon-wrapper"></i>
                     </button></td>
             </tr>
             <tr>
@@ -78,11 +78,11 @@
                 <td>1</td>
                 <td>use/28</td>
                 <td>2018-11-21 PM 06:28</td>
-                <td><button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">
-                        <i class="pe-7s-pen btn-icon-wrapper"></i>Edit
+                <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary">
+                        <i class="pe-7s-pen btn-icon-wrapper"></i>
                     </button>
-                    <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">
-                        <i class="pe-7s-trash btn-icon-wrapper"></i>Delete
+                    <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
+                        <i class="pe-7s-trash btn-icon-wrapper"></i>
                     </button></td>
             </tr>
 
