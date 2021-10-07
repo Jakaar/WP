@@ -37,13 +37,13 @@
                     <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                     @foreach($menus['menus'] as $mainmenu)
                         @if($mainmenu['child'])
-                            <li class="mm-active">
+                            <li class="">
                                 <a href="#" aria-expanded="true">
                                     <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
                                     {{__($mainmenu['name'])}}
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
-                                <ul class="mm-collapse mm-show" style="">
+                                <ul class="mm-collapse" style="">
                                     @foreach($mainmenu['child'] as $child)
                                         <li>
                                             <a href="{{__($child['url'])}}">
