@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{asset('aPanel/css/admin.css')}}">
     </head>
     <body>
-        <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <div id="SideBar" class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
             @include('Admin::includes.header')
             @include('Admin::includes.ui-settings')
 

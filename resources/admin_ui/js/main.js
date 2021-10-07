@@ -32,7 +32,7 @@ require('./treeview');
 require('./form-components/toggle-switch');
 require('./tables');
 require('./carousel-slider');
-require('./custom');
+require('./customs/custom');
 
 // // Stylesheets
 
