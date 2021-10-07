@@ -14,6 +14,27 @@ return [
 
     ],
     [
+        'title'=>'News',
+        'menus'=> [
+            [
+                'url'=>'#',
+                'icon'=>'pe-7s-rocket',
+                'name'=>'News',
+                'child' => [
+                    [
+                        'url'=>'#',
+                        'name'=>'News',
+                    ],
+                    [
+                        'url'=>'/cms/new',
+                        'name'=>'News Category',
+                    ],
+                ],
+            ]
+        ],
+
+    ],
+    [
         'title'=>'Settings',
         'menus'=> [
             [

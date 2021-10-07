@@ -1,57 +1,5 @@
 @extends('Admin::layouts.master')
 @section('content')
-    <div class="app-page-title app-page-title-simple">
-        <div class="page-title-wrapper">
-            <div class="page-title-heading">
-                <div>
-                    <div class="page-title-head center-elem">
-                                            <span class="d-inline-block pe-2">
-                                                <i class="lnr-apartment opacity-6"></i>
-                                            </span>
-                        <span class="d-inline-block">Minimal Dashboard</span>
-                    </div>
-                    <div class="page-title-subheading opacity-10">
-                        <nav class="" aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a>
-                                        <i aria-hidden="true" class="fa fa-home"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a>Dashboards</a>
-                                </li>
-                                <li class="active breadcrumb-item" aria-current="page">
-                                    Minimal Dashboard Example
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="page-title-actions">
-                <div class="d-inline-block pe-3">
-                    <select id="custom-inp-top" type="select" class="form-select">
-                        <option>Select period...</option>
-                        <option>Last Week</option>
-                        <option>Last Month</option>
-                        <option>Last Year</option>
-                    </select>
-                </div>
-                <button type="button" data-bs-toggle="tooltip" data-bs-placement="left"
-                        class="btn btn-dark" title="Show a Toastr Notification!">
-                    <i class="fa fa-battery-three-quarters"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="mbg-3 alert alert-info alert-dismissible fade show" role="alert">
-                            <span class="pe-2">
-                                <i class="fa fa-question-circle"></i>
-                            </span>
-        This dashboard example was created using only the available elements and components, no additional SCSS was
-        written!
-    </div>
     <div class="row">
         <div class="col-md-6 col-lg-3">
             <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">

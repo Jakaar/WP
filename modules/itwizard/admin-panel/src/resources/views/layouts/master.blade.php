@@ -21,10 +21,8 @@
 
             <div class="app-main">
                 @include('Admin::includes.side-bar')
-
                 <div class="app-main__outer">
                     <div class="app-main__inner">
-{{--                        @yield('breadcrumb')--}}
                         @yield('content')
                     </div>
                     @include('Admin::includes.footer')
