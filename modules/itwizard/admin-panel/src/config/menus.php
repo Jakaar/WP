@@ -9,6 +9,20 @@ return [
                 'name'=>'Analytic',
                 'function'=>'index',
                 'child' => [],
+            ],
+            [
+                'url'=>'/cms/banner',
+                'icon'=>'pe-7s-photo-gallery',
+                'name'=>'Banner',
+                'function'=>'index',
+                'child' => [],
+            ],
+            [
+                'url'=>'/cms/user_menu',
+                'icon'=>'pe-7s-menu',
+                'name'=>'User menu',
+                'function'=>'index',
+                'child' => [],
             ]
         ],
 
@@ -90,6 +104,12 @@ return [
                 'url'=>'/cms/permission',
                 'icon'=>'pe-7s-key',
                 'name'=>'Permission manage',
+                'child' => null,
+            ],
+            [
+                'url'=>'/cms/menu_manage',
+                'icon'=>'pe-7s-menu',
+                'name'=>'User management',
                 'child' => null,
             ]
         ],
