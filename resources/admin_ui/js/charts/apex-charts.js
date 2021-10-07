@@ -445,7 +445,7 @@ const chart444 = new ApexCharts(
 );
 
 // Vertical Bars
-
+//
 var optionsBar = {
     chart: {
         type: 'bar',

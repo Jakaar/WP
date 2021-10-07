@@ -69011,6 +69011,7 @@ var options444 = {
   labels: ['Percent']
 };
 var chart444 = new ApexCharts(document.querySelector("#chart-radial"), options444); // Vertical Bars
+//
 
 var optionsBar = {
   chart: {
@@ -71182,6 +71183,7 @@ $('.disabler').on('click', function () {
   }
 }); // Form disabler End
 // send data
+//
 
 $('.contactSubmit').on('click', function () {
   var data = {
