@@ -3,6 +3,7 @@
 namespace Itwizard\Adminpanel;
 
 use App\Http\Middleware\Localization;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Itwizard\Adminpanel\Console\ControllerCommand;
@@ -18,7 +19,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'./database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'./resources/lang');
         $this->loadViewComponentsAs('admin',[
-            
+
         ]);
 //        $this->publishes([
 //            __DIR__.'./resources/lang' => resource_path('lang'),

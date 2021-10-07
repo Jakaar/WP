@@ -2,23 +2,24 @@
 return [
     [
         'title'=>'Dashboard',
+        'url'=>'cms/dashboard',
         'menus'=> [
             [
-                'url'=>'/cms/analytic',
+                'url'=>'cms/dashboard',
                 'icon'=>'pe-7s-rocket',
                 'name'=>'Analytic',
                 'colorClass'=>'success',
                 'child' => [],
             ],
             [
-                'url'=>'/cms/banner',
+                'url'=>'cms/dashboard/banner',
                 'icon'=>'pe-7s-photo-gallery',
                 'name'=>'Banner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'/cms/user_menu',
+                'url'=>'cms/dashboard/user_menu',
                 'icon'=>'pe-7s-menu',
                 'name'=>'User menu',
                 'colorClass'=>'index',
@@ -29,6 +30,7 @@ return [
     ],
     [
         'title'=>'News',
+        'url'=>'cms/news',
         'menus'=> [
             [
                 'url'=>'#',
@@ -36,7 +38,7 @@ return [
                 'name'=>'News',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'/cms/news',
                         'name'=>'News',
                     ],
                     [
@@ -50,9 +52,10 @@ return [
     ],
     [
         'title'=>'Settings',
+        'url'=>'cms/settings',
         'menus'=> [
             [
-                'url'=>'',
+//                'url'=>'/cms/site_info',
                 'icon'=>'pe-7s-config',
                 'name'=>'Basic settings',
                 'child' => [
@@ -99,6 +102,7 @@ return [
     ],
     [
         'title'=>'Permission manage',
+        'url'=>'cms/permission',
         'menus'=> [
             [
                 'url'=>'/cms/permission',
