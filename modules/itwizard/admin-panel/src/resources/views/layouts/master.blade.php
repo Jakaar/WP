@@ -28,7 +28,7 @@
                                         @foreach(Config::get('Menu') as $menu=>$menus)
                                             <li class="nav-item ml-2">
                                                 <a role="tab" class="nav-link" href="">
-                                                    <span>{{$menus['title']}}</span>
+                                                    <span>{{__($menus['title'])}}</span>
                                                 </a>
                                             </li>
                                         @endforeach
