@@ -111,32 +111,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Super Admin</td>
-                    <td>Admin@admin.com</td>
-                    <td>admin</td>
-                    <td>
-                        <span class="badge bg-success">Super Admin</span>
-                    </td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                          </div>
-                    </td>
-                    <td>
-                        <div class="">
-                            <div class="widget-content-right widget-content-actions">
-                                <button class="border-0 btn-transition btn btn-outline-success">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                                <button class="border-0 btn-transition btn btn-outline-danger">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
+                @foreach($data['users'] as $user)
+                    <tr key="{{$user->id}}">
+                        <td></td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>
+                            <span class="badge bg-success">Super Admin</span>
+                        </td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <div class="">
+                                <div class="widget-content-right widget-content-actions">
+                                    <button class="border-0 btn-transition btn btn-outline-success">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="border-0 btn-transition btn btn-outline-danger">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <tr>

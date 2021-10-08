@@ -1,28 +1,17 @@
 // Datatables
 $(document).ready(() => {
-  $('#UserPermissionTable').DataTable({
-      ajax: '/cms/settings/GetUsers',
-      // "columns" : [
-      //     {"data":"asd"},
-      //     {"data":"asd"},
-      //     {"data":"asd"},
-      //     {"data":"asd"},
-      //     {"data":"asd"},
-      //     {"data":"asd"},
-      //     {"data":"asd"},
-      //     {"data":"asd"}
-      //     ]
-  });
-  //   const table = $('#UserPermissionTable').DataTable({
-  //       ajax: {
-  //           url : "/cms/settings/GetUsers",
-  //           dataSrc: 'responseData'
-  //       },
-  //
-  //   });
-  //
-  //   table.on( 'xhr', function () {
-  //       const json = table.ajax.json();
-  //       console.log(json)
-  //   });
+    // const table = $('#UserPermissionTable').DataTable({});
+    const table = $('#UserPermissionTable').DataTable( {
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        } ],
+        "order": [[ 1, 'asc' ]]
+    });
+    table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 });

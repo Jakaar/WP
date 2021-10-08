@@ -26,7 +26,7 @@
 <div class="main-card mb-3 card">
     <div class="card-body">
         <h5 class="card-title">Table without border</h5>
-        <table class="mb-0 table table-borderless">
+        <table id="UserPermissionTable" class="mb-0 table table-borderless">
             <tbody>
             <tr>
                 <td></td>

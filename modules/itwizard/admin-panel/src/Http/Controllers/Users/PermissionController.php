@@ -13,16 +13,18 @@ class PermissionController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index(){
-
-        return view('Admin::pages.users.permission');
+    public function index()
+    {
+        $data['users'] = DB::table('users')
+            ->get();
+        return view('Admin::pages.users.permission', compact('data'));
     }
     public function GetUsers()
     {
         $data = DB::table('users')
 //            ->select('')
             ->get();
-        return $data;
-//        return response()->json($data, 200);
+//        return $data;
+        return response()->json($data, 200);
     }
 }

@@ -54,8 +54,11 @@
     </div>
 </div>
 <div class="main-card mb-3 card">
+
     <div class="card-body">
-        <table style="width: 100%;"  class="table table-hover table-striped table-bordered">
+        <div class="card-title">Client users</div>
+
+        <table id="UserPermissionTable" style="width: 100%;"  class="table table-hover table-striped table-bordered">
             <thead>
             <tr>
                 <th>Level</th>
@@ -68,7 +71,19 @@
             <tbody>
             <tr>
                 <td>3</td>
-                <td>admin home</td>
+                <td><div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left me-3">
+                                <img width="42" class="rounded-circle" src="images/avatars/5.jpg" alt="">
+                            </div>
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Eliot Huber</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="ms-auto badge rounded-pill bg-warning">43</div>
+                            </div>
+                        </div>
+                    </div></td>
                 <td>admin main page</td>
                 <td>use</td>
                 <td><a class="btn-shadow btn btn-primary"><i class="pe-7s-angle-up btn-icon-wrapper"></i></a>

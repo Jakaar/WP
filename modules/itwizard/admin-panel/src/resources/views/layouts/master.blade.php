@@ -23,7 +23,7 @@
                     <div class="app-main__inner">
                         <div class="row">
                             <div class="col-12 mb-4">
-                                <div class="card">
+                                <div class="card mb-3">
                                     <ul class="body-tabs body-tabs-layout tabs-animated body-tabs nav">
                                         @foreach(Config::get('Menu') as $menu=>$menus)
                                             <li class="nav-item ml-2">
