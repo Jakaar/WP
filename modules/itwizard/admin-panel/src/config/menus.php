@@ -52,15 +52,14 @@ return [
     ],
     [
         'title'=>'Settings',
-        'url'=>'cms/site_info',
+        'url'=>'cms/settings',
         'menus'=> [
             [
-//                'url'=>'/cms/site_info',
                 'icon'=>'pe-7s-config',
                 'name'=>'Basic settings',
                 'child' => [
                     [
-                        'url'=>'/cms/site_info',
+                        'url'=>'cms/settings',
                         'icon'=>'',
                         'name'=>'Site information',
                         'child' => null
@@ -92,7 +91,7 @@ return [
                 'child' => null
             ],
             [
-                'url'=>'seo_list',
+                'url'=>'cms/settings/seo_list',
                 'icon'=>'pe-7s-graph1',
                 'name'=>'SEO management',
                 'child' => null
@@ -105,13 +104,13 @@ return [
         'url'=>'cms/permission',
         'menus'=> [
             [
-                'url'=>'/cms/permission',
+                'url'=>'cms/permission',
                 'icon'=>'pe-7s-key',
                 'name'=>'Permission manage',
                 'child' => null,
             ],
             [
-                'url'=>'/cms/menu_manage',
+                'url'=>'cms/permission/menu_manage',
                 'icon'=>'pe-7s-menu',
                 'name'=>'User management',
                 'child' => null,

@@ -2,6 +2,7 @@
 
 namespace Itwizard\Adminpanel;
 
+use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\Localization;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
@@ -18,7 +19,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'./config/menus.php','Menu');
         $this->loadMigrationsFrom(__DIR__.'./database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'./resources/lang');
-        $this->loadViewComponentsAs('admin',[
+        $this->loadViewComponentsAs('adminComponents',[
 
         ]);
 //        $this->publishes([
@@ -31,6 +32,7 @@ class AdminServiceProvider extends ServiceProvider
                 \Illuminate\View\Middleware\ShareErrorsFromSession::class,
                 \App\Http\Middleware\VerifyCsrfToken::class,
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
+                Authenticate::class,
 //                \App\Http\Middleware\IsAdmin::class
                 Localization::class,
             )

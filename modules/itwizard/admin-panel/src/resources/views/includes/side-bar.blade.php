@@ -46,7 +46,7 @@
                                     <ul class="mm-collapse" style="">
                                         @foreach($mainmenu['child'] as $child)
                                             <li>
-                                                <a href="{{__($child['url'])}}">
+                                                <a href="/{{__($child['url'])}}">
                                                     {{--                                                    <i class="metismenu-icon"></i>--}}
                                                     {{__($child['name'])}}
                                                 </a>
@@ -65,7 +65,6 @@
                         @endforeach
                     @endif
                 @endforeach
-
             </ul>
         </div>
     </div>
