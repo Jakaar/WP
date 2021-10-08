@@ -29,6 +29,26 @@ return [
 
     ],
     [
+        'title'=>'Marketing',
+        'url'=>'cms/marketing',
+        'menus'=> [
+            [
+                'url'=>'cms/marketing',
+                'icon'=>'pe-7s-rocket',
+                'name'=>'Banner',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+            [
+                'url'=>'cms/marketing/popup',
+                'icon'=>'pe-7s-rocket',
+                'name'=>'Popup',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+        ],
+    ],
+    [
         'title'=>'News',
         'url'=>'cms/news',
         'menus'=> [
