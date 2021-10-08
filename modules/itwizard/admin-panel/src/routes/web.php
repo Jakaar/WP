@@ -11,17 +11,19 @@ use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     // Jakaar
-    Route::get('/analytic', [AnalyticController::class, 'index']);
+    Route::get('/dashboard', [AnalyticController::class, 'index']);
     Route::get('/permission', [PermissionController::class, 'index']);
+
+
     Route::get('/GetUsers', [PermissionController::class, 'GetUsers']);
 
     // Zanaa
     Route::get('/seo_list', [SeoController::class,  'index']);
     Route::get('/site_info', [SiteInfoController::class,  'index']);
-    Route::get('/banner', [BannerController::class,  'index']);
+    Route::get('/dashboard/banner', [BannerController::class,  'index']);
     Route::get('/user_menu', [UserMenuController::class,  'index']);
     Route::get('/menu_manage', [MenuManageController::class,  'index']);
 });
 Route::get('/', function (){
-    return redirect('cms/analytic');
+    return redirect('cms/dashboard');
  });
