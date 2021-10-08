@@ -3,7 +3,7 @@ $(document).ready(() => {
     useEasing: true,
     separator: ",",
     decimal: ".",
-    prefix: "$",
+    prefix: '<i class="lnr-user icon-gradient bg-happy-fisher"></i> ',
   };
 
   const optionsCountUp2 = {
@@ -44,10 +44,11 @@ $(document).ready(() => {
   }
 
   $(".count-up-wrapper").each(function () {
+    const number = $(this).html()
     const numAnim = new CountUp(
       $(this)[0],
       0,
-      500,
+      number,
       0,
       8,
       optionsCountUp

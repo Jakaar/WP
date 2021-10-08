@@ -59,23 +59,37 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">Basic</h5>
-                <h3>
-                    <span class="count-up-wrapper"></span>
-                </h3>
+                <h5 class="card-title">Admin's</h5>
+                <div class="text-center">
+                    <h3>
+                        <span class="count-up-wrapper">2</span>
+                    </h3>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">Numbers</h5>
+                <h5 class="card-title">Moderator's</h5>
                 <div class="text-center">
                     <h3>
-                        <span class="count-up-wrapper-4"></span>
+                        <span class="count-up-wrapper">5</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <h5 class="card-title">User's</h5>
+                <div class="text-center">
+                    <h3>
+                        <span class="count-up-wrapper">150</span>
                     </h3>
                 </div>
             </div>
