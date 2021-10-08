@@ -33,7 +33,7 @@ require('./scrollbar');
 require('./toastr');
 require('./treeview');
 require('./form-components/toggle-switch');
-require('./tables');
+require('./customs/tables');
 require('./carousel-slider');
 require('./customs/count-up')
 window.Vue = require('vue');

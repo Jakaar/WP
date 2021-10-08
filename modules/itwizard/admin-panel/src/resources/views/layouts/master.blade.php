@@ -17,12 +17,25 @@
         <div id="sideBarMini" class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
             @include('Admin::includes.header')
             @include('Admin::includes.ui-settings')
-
-
             <div class="app-main">
                 @include('Admin::includes.side-bar')
                 <div class="app-main__outer">
                     <div class="app-main__inner">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <div class="card">
+                                    <ul class="body-tabs body-tabs-layout tabs-animated body-tabs nav">
+                                        @foreach(Config::get('Menu') as $menu=>$menus)
+                                            <li class="nav-item ml-2">
+                                                <a role="tab" class="nav-link" href="">
+                                                    <span>{{$menus['title']}}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                         @yield('content')
                     </div>
                     @include('Admin::includes.footer')
