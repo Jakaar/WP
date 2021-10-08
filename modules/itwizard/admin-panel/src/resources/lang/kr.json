@@ -87,5 +87,12 @@
     "b": "ㅠ",
     "n": "ㅜ",
     "m": "ㅡ",
-    "Dashboard": ""
+    "Permission manage": "권한 관리",
+    "Settings": "설정",
+    "News": "뉴스",
+    "Dashboard": "대시보드",
+    "DASHBOARD": "대시보드",
+    "Analystic": "분석",
+    "Banner": "현수막",
+    "User": "사용자 메뉴"
 }
