@@ -89,17 +89,10 @@
     "m": "ㅡ",
     "Permission manage": "권한 관리",
     "Settings": "설정",
+    "News": "뉴스",
     "Dashboard": "대시보드",
     "DASHBOARD": "대시보드",
-    "Analytic": "분석",
+    "Analystic": "분석",
     "Banner": "현수막",
-    "User menu": "사용자 메뉴",
-    "News": "뉴스",
-    "Basic settings": "기본 설정",
-    "Notice board": "게시판",
-    "Product management": "제품 관리",
-    "Member management": "회원 관리",
-    "API management": "API 관리",
-    "SEO management": "SEO 관리",
-    "User management": "사용자 관리"
+    "User": "사용자 메뉴"
 }
