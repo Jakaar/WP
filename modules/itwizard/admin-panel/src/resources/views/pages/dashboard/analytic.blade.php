@@ -1,12 +1,12 @@
 @extends('Admin::layouts.master')
-@section('title')Analys @endsection
+@section('title'){{__('Analys')}} @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6 col-lg-3">
             <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <div class="widget-title opacity-5 text-uppercase">New accounts</div>
+                        <div class="widget-title opacity-5 text-uppercase">{{__('New accounts')}}</div>
                         <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                             <div class="widget-chart-flex align-items-center">
                                 <div>
@@ -31,7 +31,7 @@
             <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-danger border-danger card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <div class="widget-title opacity-5 text-uppercase">Total Expenses</div>
+                        <div class="widget-title opacity-5 text-uppercase">{{__('Total Expenses')}}</div>
                         <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                             <div class="widget-chart-flex align-items-center">
                                 <div>
@@ -56,7 +56,7 @@
             <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-warning border-warning card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <div class="widget-title opacity-5 text-uppercase">Company Value</div>
+                        <div class="widget-title opacity-5 text-uppercase">{{__('Company Value')}}</div>
                         <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                             <div class="widget-chart-flex align-items-center">
                                 <div>
@@ -78,7 +78,7 @@
             <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-success border-success card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <div class="widget-title opacity-5 text-uppercase">New Employees</div>
+                        <div class="widget-title opacity-5 text-uppercase">{{__('New Employees')}}</div>
                         <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                             <div class="widget-chart-flex align-items-center">
                                 <div>
@@ -103,10 +103,10 @@
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
                     <div class="card-header-title font-size-lg text-capitalize fw-normal">
-                        Traffic Sources
+                        {{__('Traffic Sources')}}
                     </div>
                     <div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn btn-warning">Actions</button>
+                        <button class="btn btn-warning">{{__('Actions')}}</button>
                     </div>
                 </div>
                 <div class="pt-0 card-body">
@@ -117,7 +117,7 @@
         <div class="col-sm-12 col-md-5 col-lg-4">
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-normal">Income</div>
+                    <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Income')}}</div>
                     <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
                         <div class="btn-group">
                             <button type="button" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -127,24 +127,24 @@
                             <div tabindex="-1" role="menu" aria-hidden="true"
                                  class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu dropdown-menu-right">
                                 <h6 tabindex="-1" class="dropdown-header">
-                                    Header
+                                    {{__('Header')}}
                                 </h6>
                                 <button type="button" tabindex="0" class="dropdown-item">
                                     <i class="dropdown-icon lnr-inbox"></i>
-                                    <span>Menus</span>
+                                    <span>{{__('Menus')}}</span>
                                 </button>
                                 <button type="button" tabindex="0" class="dropdown-item">
                                     <i class="dropdown-icon lnr-file-empty"></i>
-                                    <span>Settings</span>
+                                    <span>{{__('Settings')}}</span>
                                 </button>
                                 <button type="button" tabindex="0" class="dropdown-item">
                                     <i class="dropdown-icon lnr-book"></i>
-                                    <span>Actions</span>
+                                    <span>{{__('Actions')}}</span>
                                 </button>
                                 <div tabindex="-1" class="dropdown-divider"></div>
                                 <div class="p-1 text-end">
-                                    <button class="me-2 btn-shadow btn-sm btn btn-link">View Details</button>
-                                    <button class="me-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                    <button class="me-2 btn-shadow btn-sm btn btn-link">{{__('View Details')}}</button>
+                                    <button class="me-2 btn-shadow btn-sm btn btn-primary">{{__('Action')}}</button>
                                 </div>
                             </div>
                         </div>
