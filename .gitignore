@@ -16,5 +16,6 @@ storage/*.key
 Homestead.yaml
 Homestead.json
 /.vagrant
-public/aPanel/js/main.js
+
 public/aPanel/css/admin.css
+public/aPanel/js/main.js

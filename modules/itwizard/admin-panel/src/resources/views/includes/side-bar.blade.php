@@ -56,7 +56,7 @@
                                 </li>
                             @else
                                 <li>
-                                    <a href="{{$mainmenu['url']}}" {{ Request::is($mainmenu['url']) ? ' class="mm-active"' : null }}>
+                                    <a href="/{{$mainmenu['url']}}" {{ Request::is($mainmenu['url']) ? ' class="mm-active"' : null }}>
                                         <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
                                         {{__($mainmenu['name'])}}
                                     </a>

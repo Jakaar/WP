@@ -17,36 +17,28 @@ const Toast = Swal.mixin({
     }
 })
 $(document).ready(function(){
-
-    $.blockUI.defaults = {
-        // timeout: 2000,
-        fadeIn: 200,
-        fadeOut: 400,
-    };
-    $.blockUI({ message: $(".body-block-example-1") });
-
     if(localStorage.getItem('sideBarClass')){
         $('#sideBarMini').addClass(localStorage.getItem('sideBarClass'));
         $('.close-sidebar-btn').addClass('is-active')
     }
-    
+
     // Sidebar Menu
     setTimeout(function () {
         $(".vertical-nav-menu").metisMenu();
       }, 100);
-    
+
       // Search wrapper trigger
-    
+
       $(".search-icon").click(function () {
         $(this).parent().parent().addClass("active");
       });
-    
+
       $(".search-wrapper .btn-close").click(function () {
         $(this).parent().removeClass("active");
       });
-    
+
       // BS5 Popover
-    
+
       var popoverTriggerList1 = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover-custom-content"]'));
       var popoverList = popoverTriggerList1.map(function (popoverTriggerEl1) {
         return new bootstrap.Popover(popoverTriggerEl1,
@@ -61,9 +53,9 @@ $(document).ready(function(){
           },
           });
       });
-    
+
       // Stop Bootstrap 5 Dropdown for closing on click inside
-    
+
       $(".dropdown-menu").on("click", function (event) {
         var events = $._data(document, "events") || {};
         events = events.click || [];
@@ -72,7 +64,7 @@ $(document).ready(function(){
             if ($(event.target).is(events[i].selector)) {
               events[i].handler.call(event.target, event);
             }
-    
+
             $(event.target)
               .parents(events[i].selector)
               .each(function () {
@@ -82,7 +74,7 @@ $(document).ready(function(){
         }
         event.stopPropagation(); //Always stop propagation
       });
-    
+
       var popoverTriggerList2 = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover-custom-bg"]'));
       var popoverList = $('[data-bs-toggle="popover-custom-bg"]').each(function (popoverTriggerEl2) {
         var popClass = $(this).attr('data-bg-class');
@@ -95,14 +87,14 @@ $(document).ready(function(){
             '" role="tooltip"><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
         });
       });
-    
+
       // BS5 Popover
-    
+
       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
       var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl);
       });
-    
+
       $('[data-bs-toggle="popover-custom"]').each(function (i, obj) {
         return new bootstrap.Popover($(this), {
           html: true,
@@ -115,14 +107,14 @@ $(document).ready(function(){
           },
         });
       });
-    
-    
+
+
       // BS5 Tooltips
       var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
-    
+
       var tooltipTriggerList1 = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip-light"]'));
       var tooltipList = tooltipTriggerList1.map(function (tooltipTriggerEl1) {
         return new bootstrap.Tooltip(tooltipTriggerEl1, {
@@ -131,44 +123,44 @@ $(document).ready(function(){
         }
           );
       });
-    
+
       // Drawer
-    
+
       $(".open-right-drawer").click(function () {
         $(this).addClass("is-active");
         $(".app-drawer-wrapper").addClass("drawer-open");
         $(".app-drawer-overlay").removeClass("d-none");
       });
-    
+
       $(".drawer-nav-btn").click(function () {
         $(".app-drawer-wrapper").removeClass("drawer-open");
         $(".app-drawer-overlay").addClass("d-none");
         $(".open-right-drawer").removeClass("is-active");
       });
-    
+
       $(".app-drawer-overlay").click(function () {
         $(this).addClass("d-none");
         $(".app-drawer-wrapper").removeClass("drawer-open");
         $(".open-right-drawer").removeClass("is-active");
       });
-    
+
       $(".mobile-toggle-nav").click(function () {
         $(this).toggleClass("is-active");
         $(".app-container").toggleClass("sidebar-mobile-open");
       });
-    
+
       $(".mobile-toggle-header-nav").click(function () {
         $(this).toggleClass("active");
         $(".app-header__content").toggleClass("header-mobile-open");
       });
-    
+
       $(".mobile-app-menu-btn").click(function () {
         $(".hamburger", this).toggleClass("is-active");
         $(".app-inner-layout").toggleClass("open-mobile-menu");
       });
-    
+
       // Responsive
-    
+
       var resizeClass = function () {
         var win = document.body.clientWidth;
         if (win < 1250) {
@@ -177,11 +169,11 @@ $(document).ready(function(){
           $(".app-container").removeClass("closed-sidebar-mobile");
         }
       };
-    
+
       $(window).on("resize", function () {
         resizeClass();
       });
-    
+
       resizeClass();
 })
 

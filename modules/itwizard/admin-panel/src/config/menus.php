@@ -52,7 +52,7 @@ return [
     ],
     [
         'title'=>'Settings',
-        'url'=>'cms/settings',
+        'url'=>'cms/site_info',
         'menus'=> [
             [
 //                'url'=>'/cms/site_info',
@@ -60,7 +60,7 @@ return [
                 'name'=>'Basic settings',
                 'child' => [
                     [
-                        'url'=>'site_info',
+                        'url'=>'/cms/site_info',
                         'icon'=>'',
                         'name'=>'Site information',
                         'child' => null
