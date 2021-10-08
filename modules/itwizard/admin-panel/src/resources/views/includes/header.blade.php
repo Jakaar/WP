@@ -377,7 +377,7 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="/aPanel/images/1.png" alt="">
+                                    <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar ?? asset('aPanel/imgs/1.png') }}" alt="">
                                     <i class="fa fa-angle-down ms-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true"
@@ -390,7 +390,7 @@
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left me-3">
                                                             <img width="42" class="rounded-circle"
-                                                                src="/aPanel/images/1.png"  alt="">
+                                                                 src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}"  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
                                                             <div class="widget-heading">Alina Mcloughlin</div>
