@@ -167,7 +167,7 @@
                                 </div>
                             </div>
                             <div class="widget-content-left fsize-1">
-                                <div class="text-muted opacity-6">Spendings Target</div>
+                                <div class="text-muted opacity-6">{{__('Spendings Target')}}</div>
                             </div>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
             <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <h6 class="widget-subheading">Income</h6>
+                        <h6 class="widget-subheading">{{__('Income')}}</h6>
                         <div class="widget-chart-flex">
                             <div class="widget-numbers mb-0 w-100">
                                 <div class="widget-chart-flex">
@@ -204,7 +204,7 @@
             <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <h6 class="widget-subheading">Expenses</h6>
+                        <h6 class="widget-subheading">{{__('Expenses')}}</h6>
                         <div class="widget-chart-flex">
                             <div class="widget-numbers mb-0 w-100">
                                 <div class="widget-chart-flex">
@@ -233,7 +233,7 @@
             <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <h6 class="widget-subheading">Spendings</h6>
+                        <h6 class="widget-subheading">{{__('Spendings')}}</h6>
                         <div class="widget-chart-flex">
                             <div class="widget-numbers mb-0 w-100">
                                 <div class="widget-chart-flex">
@@ -265,7 +265,7 @@
             <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
-                        <h6 class="widget-subheading">Totals</h6>
+                        <h6 class="widget-subheading">{{__('Totals')}}</h6>
                         <div class="widget-chart-flex">
                             <div class="widget-numbers mb-0 w-100">
                                 <div class="widget-chart-flex">
@@ -287,9 +287,9 @@
         </div>
     </div>
     <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-        <div class="card-header-title fsize-2 text-capitalize fw-normal">Target Section</div>
+        <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Target Section')}}</div>
         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-            <button class="btn btn-link btn-sm">View Details</button>
+            <button class="btn btn-link btn-sm">{{__('View Details')}}</button>
         </div>
     </div>
     <div class="row">
@@ -310,7 +310,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left fsize-1">
-                            <div class="text-muted opacity-6">Income Target</div>
+                            <div class="text-muted opacity-6">{{__('Income Target')}}</div>
                         </div>
                     </div>
                 </div>
@@ -333,7 +333,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left fsize-1">
-                            <div class="text-muted opacity-6">Expenses Target</div>
+                            <div class="text-muted opacity-6">{{__('Expenses Target')}}</div>
                         </div>
                     </div>
                 </div>
@@ -356,7 +356,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left fsize-1">
-                            <div class="text-muted opacity-6">Spendings Target</div>
+                            <div class="text-muted opacity-6">{{__('Spendings Target')}}</div>
                         </div>
                     </div>
                 </div>
@@ -379,7 +379,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left fsize-1">
-                            <div class="text-muted opacity-6">Totals Target</div>
+                            <div class="text-muted opacity-6">{{__('Totals Target')}}</div>
                         </div>
                     </div>
                 </div>
@@ -390,7 +390,7 @@
         <div class="col-sm-12 col-lg-4">
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-normal">Total Sales</div>
+                    <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Total Sales')}}</div>
                     <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
                         <div class="btn-group dropdown">
                             <button type="button" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -399,23 +399,23 @@
                             </button>
                             <div tabindex="-1" role="menu" aria-hidden="true"
                                  class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
-                                <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                <h6 tabindex="-1" class="dropdown-header">{{__('Header')}}</h6>
                                 <button type="button" tabindex="0" class="dropdown-item">
                                     <i class="dropdown-icon lnr-inbox"></i>
-                                    <span>Menus</span>
+                                    <span>{{__('Menus')}}</span>
                                 </button>
                                 <button type="button" tabindex="0" class="dropdown-item">
                                     <i class="dropdown-icon lnr-file-empty"></i>
-                                    <span>Settings</span>
+                                    <span>{{__('Settings')}}</span>
                                 </button>
                                 <button type="button" tabindex="0" class="dropdown-item">
                                     <i class="dropdown-icon lnr-book"></i>
-                                    <span>Actions</span>
+                                    <span>{{__('Actions')}}</span>
                                 </button>
                                 <div tabindex="-1" class="dropdown-divider"></div>
                                 <div class="p-1 text-end">
-                                    <button class="me-2 btn-shadow btn-sm btn btn-link">View Details</button>
-                                    <button class="me-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                    <button class="me-2 btn-shadow btn-sm btn btn-link">{{__('View Details')}}</button>
+                                    <button class="me-2 btn-shadow btn-sm btn btn-primary">{{__('Action')}}</button>
                                 </div>
                             </div>
                         </div>
@@ -430,25 +430,25 @@
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-car text-primary opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Admin
+                                    {{__('Admin')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-bullhorn text-danger opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Blog
+                                    {{__('Blog')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-bug text-success opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Register
+                                    {{__('Register')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-heart text-warning opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Directory
+                                    {{__('Directory')}}
                                 </button>
                             </div>
                         </div>
@@ -459,9 +459,9 @@
         <div class="col-sm-12 col-lg-4">
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-normal">Daily Sales</div>
+                    <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Daily Sales')}}</div>
                     <div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn-wide btn-outline-2x btn btn-outline-focus btn-sm">View All</button>
+                        <button class="btn-wide btn-outline-2x btn btn-outline-focus btn-sm">{{__('View All')}}</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -473,25 +473,25 @@
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-apartment text-dark opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Overview
+                                    {{__('Overview')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-database text-dark opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Support
+                                    {{__('Support')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-printer text-dark opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Activities
+                                    {{__('Activities')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
                                     <i class="lnr-store text-dark opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Marketing
+                                    {{__('Marketing')}}
                                 </button>
                             </div>
                         </div>
@@ -502,9 +502,9 @@
         <div class="col-sm-12 col-lg-4">
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-normal">Total Expenses</div>
+                    <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Total Expenses')}}</div>
                     <div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn-wide btn-outline-2x btn btn-outline-primary btn-sm">View All</button>
+                        <button class="btn-wide btn-outline-2x btn btn-outline-primary btn-sm">{{__('View All')}}</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -516,25 +516,25 @@
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success">
                                     <i class="lnr-lighter text-success opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Accounts
+                                    {{__('Accounts')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
                                     <i class="lnr-construction text-warning opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Contacts
+                                    {{__('Contacts')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info">
                                     <i class="lnr-bus text-info opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Products
+                                    {{__('Products')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
                                     <i class="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Services
+                                    {{__('Services')}}
                                 </button>
                             </div>
                         </div>
@@ -546,11 +546,11 @@
     <div class="main-card mb-3 card">
         <div class="card-header">
             <div class="card-header-title font-size-lg text-capitalize fw-normal">
-                Company Agents Status
+                {{__('Company Agents Status')}}
             </div>
             <div class="btn-actions-pane-right">
                 <button type="button" class="btn-icon btn-wide btn-outline-2x btn btn-outline-focus btn-sm d-flex">
-                    Actions Menu
+                    {{__('Actions Menu')}}
                     <span class="ps-2 align-middle opacity-7">
                                             <i class="fa fa-angle-right"></i>
                                         </span>
@@ -562,13 +562,13 @@
                 <thead>
                 <tr>
                     <th class="text-center">#</th>
-                    <th class="text-center">Avatar</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Company</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Due Date</th>
-                    <th class="text-center">Target Achievement</th>
-                    <th class="text-center">Actions</th>
+                    <th class="text-center">{{__('Avatar')}}</th>
+                    <th class="text-center">{{__('Name')}}</th>
+                    <th class="text-center">{{__('Company')}}</th>
+                    <th class="text-center">{{__('Status')}}</th>
+                    <th class="text-center">{{__('Due Date')}}</th>
+                    <th class="text-center">{{__('Target Achievement')}}</th>
+                    <th class="text-center">{{__('Actions')}}</th>
                 </tr>
                 </thead>
                 <tbody>
