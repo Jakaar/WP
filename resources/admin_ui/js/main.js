@@ -4,9 +4,9 @@ window.$ = $;
 window.jQuery = $;
 
 import * as bootstrap from './../vendors/bootstrap';
+window.bootstrap = bootstrap;
 import "moment";
 import "metismenu/dist/metisMenu";
-// import "bootstrap4-toggle";
 import "jquery-circle-progress";
 // import "perfect-scrollbar"
 import PerfectScrollbar from 'perfect-scrollbar';
@@ -21,6 +21,8 @@ import "datatables.net-bs4";
 import "datatables.net-responsive";
 import "datatables.net-responsive-bs4";
 import "slick-carousel";
+import  CountUp  from  "./../vendors/countup.js/dist/countUp";
+window.CountUp = CountUp
 
 require('./customs/custom');
 require('./customs/loader');
@@ -33,7 +35,7 @@ require('./treeview');
 require('./form-components/toggle-switch');
 require('./tables');
 require('./carousel-slider');
-
+require('./customs/count-up')
 window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);

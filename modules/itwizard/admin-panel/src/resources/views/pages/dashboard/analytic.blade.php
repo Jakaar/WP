@@ -1,4 +1,5 @@
 @extends('Admin::layouts.master')
+@section('title')Analys @endsection
 @section('content')
     <div class="row">
         <div class="col-md-6 col-lg-3">

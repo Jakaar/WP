@@ -17,6 +17,9 @@ class AdminServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'./config/menus.php','Menu');
         $this->loadMigrationsFrom(__DIR__.'./database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'./resources/lang');
+        $this->loadViewComponentsAs('admin',[
+            
+        ]);
 //        $this->publishes([
 //            __DIR__.'./resources/lang' => resource_path('lang'),
 //        ]);

@@ -47,7 +47,7 @@ $(document).ready(() => {
     const numAnim = new CountUp(
       $(this)[0],
       0,
-      randomNumber,
+      500,
       0,
       8,
       optionsCountUp
