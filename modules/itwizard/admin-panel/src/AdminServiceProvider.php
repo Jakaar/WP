@@ -14,6 +14,7 @@ class AdminServiceProvider extends ServiceProvider
 {
     public function boot(Router $router){
         $this->loadRoutesFrom(__DIR__.'./routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'./routes/api.php');
         $this->loadViewsFrom(__DIR__.'./resources/views','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/app.php','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/menus.php','Menu');
@@ -33,7 +34,6 @@ class AdminServiceProvider extends ServiceProvider
                 \App\Http\Middleware\VerifyCsrfToken::class,
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
                 Authenticate::class,
-//                \App\Http\Middleware\IsAdmin::class
                 Localization::class,
             )
         );

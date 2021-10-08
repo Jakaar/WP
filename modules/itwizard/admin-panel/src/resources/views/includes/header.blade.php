@@ -346,7 +346,7 @@
                     <button type="button" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-focus"></span>
-                            <span class="language-icon opacity-8 flag large US"></span>
+                            <span class="language-icon opacity-8 flag large @if(session()->get('locale') == 'en') US @else KR @endif"></span>
                         </span>
                     </button>
                     <div tabindex="-1" role="menu" aria-hidden="true"
@@ -393,7 +393,7 @@
                                                                  src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}"  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">Alina Mcloughlin</div>
+                                                            <div class="widget-heading">{{auth()->user()->name}}</div>
                                                             <div class="widget-subheading opacity-8">A short profile description</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">

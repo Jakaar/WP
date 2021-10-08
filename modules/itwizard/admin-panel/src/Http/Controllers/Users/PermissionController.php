@@ -22,6 +22,7 @@ class PermissionController extends Controller
         $data = DB::table('users')
 //            ->select('')
             ->get();
-        return response()->json($data, 200);
+        return $data;
+//        return response()->json($data, 200);
     }
 }
