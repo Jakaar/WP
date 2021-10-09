@@ -53,19 +53,16 @@ return [
         'url'=>'cms/news',
         'menus'=> [
             [
-                'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'url'=>'cms/news',
+                'icon'=>'pe-7s-news-paper',
                 'name'=>'News',
-                'child' => [
-                    [
-                        'url'=>'/cms/news',
-                        'name'=>'News',
-                    ],
-                    [
-                        'url'=>'/cms/new',
-                        'name'=>'News Category',
-                    ],
-                ],
+                'child' => [],
+            ],
+            [
+                'url'=>'cms/news/categories',
+                'icon'=>'pe-7s-menu',
+                'name'=>'News Categories',
+                'child' => [],
             ]
         ],
 
@@ -75,6 +72,7 @@ return [
         'url'=>'cms/settings',
         'menus'=> [
             [
+                'url'=>'cms/settings',
                 'icon'=>'pe-7s-config',
                 'name'=>'Basic settings',
                 'child' => [

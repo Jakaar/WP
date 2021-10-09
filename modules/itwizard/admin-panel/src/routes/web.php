@@ -7,6 +7,9 @@ use Itwizard\Adminpanel\Http\Controllers\Dashboard\MenuManageController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\UserMenuController;
+
+use Itwizard\Adminpanel\Http\Controllers\News\NewsController;
+
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
@@ -16,6 +19,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/dashboard', [AnalyticController::class, 'index']);
     Route::get('/dashboard/banner', [BannerController::class,  'index']);
     Route::get('/dashboard/user_menu', [UserMenuController::class,  'index']);
+
+    Route::get('/news', [NewsController::class, 'index']);
+    Route::get('/news/categories', [NewsController::class, 'category']);
 
 
     Route::get('/permission', [PermissionController::class, 'index']);

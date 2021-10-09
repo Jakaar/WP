@@ -14,4 +14,5 @@ $(document).ready(() => {
             cell.innerHTML = i+1;
         } );
     } ).draw();
+    $('#NewsTable').DataTable({})
 });

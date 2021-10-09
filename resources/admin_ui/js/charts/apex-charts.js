@@ -690,21 +690,18 @@ var options3col2 = {
         colors: ['#998787']
     },
     series: [{
-        name: 'Net Profit',
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        name: '이번 주',
+        data: [44, 55, 57, 56]
     }, {
-        name: 'Revenue',
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-        name: 'Free Cash Flow',
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        name: '지난주',
+        data: [76, 85, 101, 98, 87, 105, 157]
     }],
     xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        categories: ['월', '화', '수', '목', '금', '토', '일'],
     },
     yaxis: {
         title: {
-            text: '$ (thousands)'
+            text: '(방문객)'
         }
     },
     fill: {
@@ -714,7 +711,7 @@ var options3col2 = {
     tooltip: {
         y: {
             formatter: function (val) {
-                return "$ " + val + " thousands";
+                return val + " 방문객";
             }
         }
     }
@@ -736,7 +733,7 @@ var options3col3 = {
     },
     plotOptions: {
         bar: {
-            horizontal: false,
+            horizontal: true,
             endingShape: 'rounded',
             columnWidth: '55%',
         },
@@ -750,21 +747,18 @@ var options3col3 = {
         colors: ['transparent']
     },
     series: [{
-        name: 'Net Profit',
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        name: '이번 주',
+        data: [44, 55, 57, 56]
     }, {
-        name: 'Revenue',
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-        name: 'Free Cash Flow',
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        name: '지난주',
+        data: [76, 85, 101, 98, 87, 105, 157]
     }],
     xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        categories: ['월', '화', '수', '목', '금', '토', '일'],
     },
     yaxis: {
         title: {
-            text: '$ (thousands)'
+            text: '(뉴스가 발표되었다)'
         }
     },
     fill: {
@@ -774,7 +768,7 @@ var options3col3 = {
     tooltip: {
         y: {
             formatter: function (val) {
-                return "$ " + val + " thousands";
+                return val + " 개 발행된 뉴스";
             }
         }
     }

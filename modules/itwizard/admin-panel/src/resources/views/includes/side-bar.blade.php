@@ -37,16 +37,16 @@
                         <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                         @foreach($menus['menus'] as $mainmenu)
                             @if($mainmenu['child'])
-                                <li class="">
-                                    <a href="#" aria-expanded="true">
+                                <li class="{{Request::is($mainmenu['url']) ? 'mm-active' : null }}">
+                                    <a href="#" aria-expanded="{{Request::is($mainmenu['url']) ? 'true' : null }}">
                                         <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
                                         {{__($mainmenu['name'])}}
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul class="mm-collapse" style="">
+                                    <ul class="{{Request::is($mainmenu['url']) ? 'mm-collapse mm-show' : null }}" style="">
                                         @foreach($mainmenu['child'] as $child)
                                             <li>
-                                                <a href="/{{__($child['url'])}}">
+                                                <a href="/{{__($child['url'])}}" class="{{Request::is($mainmenu['url']) ? 'mm-active' : null }}">
                                                     {{--                                                    <i class="metismenu-icon"></i>--}}
                                                     {{__($child['name'])}}
                                                 </a>
@@ -56,7 +56,7 @@
                                 </li>
                             @else
                                 <li>
-                                    <a href="/{{$mainmenu['url']}}" {{ Request::is($mainmenu['url']) ? ' class="mm-active"' : null }}>
+                                    <a href="/{{$mainmenu['url']}}" class="{{Request::is($mainmenu['url']) ? 'mm-active' : null }}">
                                         <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
                                         {{__($mainmenu['name'])}}
                                     </a>
