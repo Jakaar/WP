@@ -221,3 +221,42 @@ $('.contactSubmit').on('click', () => {
 //     $(this).closest('tr').attr('key')
 //
 // })
+// site info disabler start
+$('.disabler').on('click', () => {
+    if ($('#siteInfoForm fieldset').attr('disabled') === 'disabled'){
+        $('#siteInfoForm fieldset').removeAttr('disabled');
+        $('#siteInfoSaveBtn').removeClass('invisible');
+    }else {
+        $('#siteInfoForm fieldset').attr('disabled','disabled');
+        $('#siteInfoSaveBtn').addClass('invisible');
+    }
+});
+// site info disabler end
+// site info send data start
+$('.siteInfoSubmit').on('click', () => {
+    const data = {
+        companyName: $('#companyName').val(),
+        siteName: $('#siteName').val(),
+        fax:$('#fax').val(),
+        companyRegister: $('#companyRegister').val(),
+        personalInformation:$('#personalInformation').val(),
+        address:$('#address').val(),
+        phone:$('#phone').val(),
+        email:$('#email').val(),
+        copyright:$("#copyright").val(),
+        logo:$("#logo").val(),
+        terms:$("#SiteInfoeditor1").val(),
+        privacy:$("#SiteInfoeditor2").val(),
+        rejection:$("#SiteInfoeditor3").val()
+    };
+    Axios.post('site_info_save', data).then((resp)=>{
+        $('#siteInfoSaveBtn').addClass('invisible');
+        Toast.fire({
+            icon: 'success',
+            title: 'Successfully save'
+        });
+    }).catch((err)=>{
+        console.log(err);
+    });
+});
+//

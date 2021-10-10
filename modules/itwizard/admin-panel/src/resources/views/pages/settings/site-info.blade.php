@@ -26,11 +26,21 @@
         </div> --}}
     </div>
 </div>
-<div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{ __('Company Information Setting') }}</div>
+<div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border ">
+    <div class=" row">
+        <div class="col-lg-6 col-sm-6">
+    <div class="page-title-heading fsize-2 text-capitalize fw-normal">{{ __('Company Information Setting') }}</div>
+        </div>
+    <div class="col-lg-6 col-sm-6">
+        <div class="d-inline-block float-end">
+            <button id="siteInfoEditBtn" type="button" class="mt-2 btn btn-primary disabler">{{__('Edit')}}</button>
+            <button id="siteInfoSaveBtn" type="button" class="mt-2 btn btn-success siteInfoSubmit invisible">{{__('Save')}}</button>
+        </div>
+        </div>
 </div>
-        <form id="signupForm" class="col-md-12 mx-auto" method="post" action="">
-            <fieldset >
+</div>
+        <form id="siteInfoForm" class="col-md-12 mx-auto" method="post" action="" disabled="disabled">
+            <fieldset disabled>
             <div class="row">
                 <div class="col-md-4 col-lg-6">
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
@@ -38,7 +48,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Company Name</div>
                                 <div>
-                                    <input type="text" class="form-control" id="sitename" name="sitename">
+                                    <input type="text" class="form-control" id="siteName" name="siteName">
                                 </div>
                             </div>
                         </div>
@@ -50,8 +60,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Site Name</div>
                                 <div>
-                                    <input type="text" class="form-control"
-                                           id="companyname" name="companyname" >
+                                    <input type="text" class="form-control" id="companyName" name="companyName" >
                                 </div>
                             </div>
                         </div>
@@ -65,7 +74,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Fax Number</div>
                                 <div>
-                                    <input type="text" class="form-control" id="companyname" name="companyname" >
+                                    <input type="text" class="form-control" id="fax" name="fax" >
                                 </div>
                             </div>
                         </div>
@@ -77,7 +86,7 @@
                                 <div class="widget-chart-content">
                                     <div class="widget-title opacity-5 text-uppercase mb-3">Company Registration Number</div>
                                     <div>
-                                        <input type="text" class="form-control" id="companyname" name="companyname" >
+                                        <input type="text" class="form-control" id="companyRegister" name="companyRegister" >
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +98,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Personal Information Manager</div>
                                 <div>
-                                    <input type="text" class="form-control" id="companyname" name="companyname" >
+                                    <input type="text" class="form-control" id="personalInformation" name="personalInformation" >
                                 </div>
                             </div>
                         </div>
@@ -103,7 +112,7 @@
                                 <div class="widget-chart-content">
                                     <div class="widget-title opacity-5 text-uppercase mb-3">Bussiness Address</div>
                                     <div>
-                                        <input type="text" class="form-control" id="companyname" name="companyname" >
+                                        <input type="text" class="form-control" id="address" name="address" >
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +124,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Phone Number</div>
                                 <div>
-                                    <input type="text" class="form-control" id="companyname" name="companyname" >
+                                    <input type="text" class="form-control" id="phone" name="phone" >
                                 </div>
                             </div>
                         </div>
@@ -129,7 +138,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Representative Email</div>
                                 <div>
-                                    <input type="text" class="form-control" id="companyname" name="companyname" >
+                                    <input type="text" class="form-control" id="email" name="email" >
                                 </div>
                             </div>
                         </div>
@@ -141,24 +150,28 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Copyright</div>
                                 <div>
-                                    <input type="text" class="form-control" id="companyname" name="companyname" >
+                                    <input type="text" class="form-control" id="copyright" name="copyright" >
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                        <div class="row">
-                    <div class="position-relative row mb-5 mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="position-relative mb-5 mt-3">
                         <label for="headerlogo" class="form-label col-sm-2 col-form-label"><strong>Logo file</strong></label>
                         <div class="col-sm-10">
 <!--                            <input name="file" id="exampleFile" type="file" class="">-->
 <!--                                                <small class="form-text text-muted">Click browse to choose logo-->
 <!--                                                </small>-->
 <!--                            <label for="formFilesm" class="form-label">Default file input example</label>-->
-                            <input class="form-control" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" >
+                            <input class="form-control" type="file" id="logo" accept="image/png, image/gif, image/jpeg" >
                         </div>
                     </div>
-                        </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
     </div>
                 <div class="row">
     <div class="col-md-12">
@@ -175,12 +188,12 @@
                 </li>
             </ul>
         </div>
-        <div class="tab-content">
+        <div class="tab-content mb-5">
             <div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
                 <div class="mb-3 mt-3">
 <!--                    <label class="form-label" for="terms"><strong>Terms of Use</strong></label>-->
                     <div id="SiteInfoeditor1" >
-                        <textarea  name="terms" class="form-control mt-3" id="SiteInfoeditor"  rows="6"></textarea>
+                        <textarea  name="terms" class="form-control mt-3" id="terms" name="terms"  rows="6"></textarea>
                     </div>
                 </div>
             </div>
@@ -188,7 +201,7 @@
                 <div class="mb-3 mt-3">
 <!--                    <label class="form-label" for="privacy"><strong>Privacy statement</strong></label>-->
                     <div id="SiteInfoeditor2">
-                        <textarea  class="form-control mt-3"  id="SiteInfoeditor" name="privacy"  rows="6"></textarea>
+                        <textarea  class="form-control mt-3" id="privacy" name="privacy"  rows="6"></textarea>
                     </div>
                 </div>
             </div>
@@ -196,7 +209,7 @@
                 <div class="mb-3 mt-3">
 <!--                    <label class="form-label" for="rejection"><strong>Rejection of unauthorized collection of e-mail addresses</strong></label>-->
                     <div id="SiteInfoeditor3">
-                        <textarea class="form-control mt-3" id="SiteInfoeditor"  name="rejection"  rows="6"></textarea>
+                        <textarea class="form-control mt-3" id="rejection"  name="rejection"  rows="6"></textarea>
                     </div>
                 </div>
             </div>
@@ -204,14 +217,14 @@
     </div>
 </div>
             </fieldset>
-            <div class="mb-3 text-center">
-                <button type="submit" class="ladda-button mb-2 btn btn-primary" name="save" value="save" data-style="expand-left">
-                    <span class="btn-icon-wrapper pe-2 opacity-7">
-                        <i class="pe-7s-diskette icon-gradient bg-heavy-rain"></i>
-                    </span>
-                    Save
-                </button>
-            </div>
+<!--            <div class="mb-3 text-center">-->
+<!--                <button type="submit" class="ladda-button mb-2 btn btn-primary" name="save" value="save" data-style="expand-left">-->
+<!--                    <span class="btn-icon-wrapper pe-2 opacity-7">-->
+<!--                        <i class="pe-7s-diskette icon-gradient bg-heavy-rain"></i>-->
+<!--                    </span>-->
+<!--                    Save-->
+<!--                </button>-->
+<!--            </div>-->
         </form>
-    </div>
+    
 @endsection
