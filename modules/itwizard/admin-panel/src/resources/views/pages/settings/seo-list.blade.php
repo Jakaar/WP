@@ -1,5 +1,31 @@
 @extends('Admin::layouts.master')
 @section('content')
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                {{__('Seo management')}}
+                {{--                    <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>--}}
+            </div>
+        </div>
+        {{--    <div class="page-title-actions">
+            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info">
+                <i class="pe-7s-refresh-2"></i>
+            </button>
+            <div class="d-inline-block dropdown">
+                <button type="button" class="btn-shadow btn btn-success">
+                            <span class="btn-icon-wrapper pe-2 opacity-7">
+                                <i class="pe-7s-plus"></i>
+                            </span>
+                    {{__('Create SEO management')}}
+                </button>
+            </div>
+        </div> --}}
+    </div>
+</div>
 <div class="main-card mb-3 card">
     <div class="card-body">
         <table style="width: 100%;" id="example"  class="table table-hover table-striped table-bordered">
