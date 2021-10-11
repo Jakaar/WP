@@ -7,8 +7,8 @@
                 <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
             </div>
             <div>
-                Permission Manage
-                <div class="page-title-subheading">Give to user Role & Permissions</div>
+                {{__('Permission Manage')}}
+                <div class="page-title-subheading">{{__('Give to user Role & Permissions')}}</div>
             </div>
         </div>
         <div class="page-title-actions">
@@ -16,45 +16,14 @@
                 data-bs-placement="bottom" class="btn-shadow me-3 btn btn-dark">
                 <i class="fa fa-star"></i>
             </button>
-            <div class="d-inline-block dropdown">
-                <button type="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
-                    <span class="btn-icon-wrapper pe-2 opacity-7">
-                        <i class="fa fa-business-time fa-w-20"></i>
-                    </span>
-                    Buttons
-                </button>
-                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-inbox"></i>
-                                <span> Inbox</span>
-                                <div class="ms-auto badge rounded-pill bg-secondary">86</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-book"></i>
-                                <span> Book</span>
-                                <div class="ms-auto badge rounded-pill bg-danger">5</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-picture"></i>
-                                <span> Picture</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a disabled class="nav-link disabled">
-                                <i class="nav-link-icon lnr-file-empty"></i>
-                                <span> File Disabled</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+{{--            <div class="d-inline-block">--}}
+{{--                <button type="button" class="btn-shadow dropdown-toggle btn btn-info">--}}
+{{--                    <span class="btn-icon-wrapper pe-2 opacity-7">--}}
+{{--                        <i class="fa fa-business-time fa-w-20"></i>--}}
+{{--                    </span>--}}
+{{--                    Buttons--}}
+{{--                </button>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>
@@ -62,7 +31,7 @@
     <div class="col-lg-4">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">Admin's</h5>
+                <h5 class="card-title">{{__('Admin')}}</h5>
                 <div class="text-center">
                     <h3>
                         <small><i class="lnr-user icon-gradient bg-grow-early"></i></small>
@@ -75,7 +44,7 @@
     <div class="col-lg-4">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">Moderator's</h5>
+                <h5 class="card-title">{{__('Moderator')}}</h5>
                 <div class="text-center">
                     <h3>
                         <small><i class="lnr-user icon-gradient bg-strong-bliss"></i></small>
@@ -88,7 +57,7 @@
     <div class="col-lg-4">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">User's</h5>
+                <h5 class="card-title">{{__('User')}}</h5>
                 <div class="text-center">
                     <h3>
                         <small><i class="lnr-user icon-gradient bg-happy-fisher"></i></small>
