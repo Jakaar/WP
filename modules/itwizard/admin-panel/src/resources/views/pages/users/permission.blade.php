@@ -79,7 +79,7 @@
                     <th>{{__('User Name')}}</th>
                     <th>{{__('Role')}}</th>
                     <th>{{__('Status')}}</th>
-                    <th>{{__('s')}}</th>
+                    <th>{{__('Action')}}</th>
                 </tr>
             </thead>
             <tbody>
