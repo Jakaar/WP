@@ -30,15 +30,70 @@
             <div class="main-card mb-3 card">
                 <div class="card-header">
 {{--                    <i class="header-icon lnr-laptop-phone icon-gradient bg-plum-plate"></i>--}}
-                    Art
+                    Art <a href="#!"><small class="text-muted"> ( 36 {{__('Photos')}}...)</small></a>
                 </div>
-                <div class="card-body" style="background-image: url({{asset('aPanel/imgs/city2.jpg')}});">
-                    <div class="menu-header-content">
-                        <div class="p-5">
-                            <h5 class="menu-header-title text-white">Settings</h5>
-                            <h6 class="menu-header-subtitle text-white">Manage all of your options</h6>
-                        </div>
+                <div class="card-body menu-header-image" style="background-image: url({{asset('aPanel/imgs/abstract5.jpg')}});
+                    max-height: 300px;
+                    min-height: 200px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    filter: grayscale(80%);
+                    ">
+                </div>
+                <div class="d-block text-end card-footer">
+                    <div class="widget-content-right">
+                        <button class="border-0 btn-transition btn btn-outline-info">
+                            <i class="fa fa-pen"></i>
+                        </button>
+                        <button class="border-0 btn-transition btn btn-outline-danger">
+                            <i class="fa fa-trash-alt"></i>
+                        </button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="main-card mb-3 card">
+                <div class="card-header">
+{{--                    <i class="header-icon lnr-laptop-phone icon-gradient bg-plum-plate"></i>--}}
+                    Technologies <a href="#!"><small class="text-muted"> ( 14 {{__('Photos')}}...)</small></a>
+                </div>
+                <div class="card-body menu-header-image" style="background-image: url({{asset('aPanel/imgs/abstract6.jpg')}});
+                    max-height: 300px;
+                    min-height: 200px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    filter: grayscale(80%);
+                    ">
+                </div>
+                <div class="d-block text-end card-footer">
+                    <div class="widget-content-right">
+                        <button class="border-0 btn-transition btn btn-outline-info">
+                            <i class="fa fa-pen"></i>
+                        </button>
+                        <button class="border-0 btn-transition btn btn-outline-danger">
+                            <i class="fa fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="main-card mb-3 card">
+                <div class="card-header">
+                    {{--                    <i class="header-icon lnr-laptop-phone icon-gradient bg-plum-plate"></i>--}}
+                    Science <a href="#!"><small class="text-muted"> ( 36 {{__('Photos')}}...)</small></a>
+                </div>
+                <div class="card-body menu-header-image" style="background-image: url({{asset('aPanel/imgs/nightcolors.jpg')}});
+                    max-height: 300px;
+                    min-height: 200px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    filter: grayscale(80%);
+                    ">
                 </div>
                 <div class="d-block text-end card-footer">
                     <div class="widget-content-right">

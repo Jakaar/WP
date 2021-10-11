@@ -393,7 +393,7 @@
                                                                  src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}"  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">{{auth()->user()->name}}</div>
+                                                            <div class="widget-heading">{{auth()->user()->lastname}}</div>
                                                             <div class="widget-subheading opacity-8">A short profile description</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">
@@ -467,7 +467,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left  ms-3 header-user-info">
-                            <div class="widget-heading"> {{auth()->user()->name}}</div>
+                            <div class="widget-heading"> {{auth()->user()->lastname}}</div>
                             <div class="widget-subheading"> VP People Manager</div>
                         </div>
                     </div>

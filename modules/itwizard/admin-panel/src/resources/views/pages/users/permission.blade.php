@@ -117,7 +117,7 @@
                 @foreach($data['users'] as $user)
                     <tr key="{{$user->id}}">
                         <td></td>
-                        <td>{{$user->name}}</td>
+                        <td>{{$user->lastname}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->email}}</td>
                         <td>
