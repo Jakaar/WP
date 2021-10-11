@@ -46,7 +46,7 @@
                                 <div class="widget-chart-flex">
                                     <div class="fsize-4">
                                         <small class="opacity-5">+</small>
-                                        Science
+                                        {{__('Science')}}
                                     </div>
                                     <div class="ms-auto">
                                         <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
@@ -79,7 +79,7 @@
                                 <div class="widget-chart-flex">
                                     <div class="fsize-4">
                                         <small class="opacity-5">+</small>
-                                        Technologies
+                                        {{__('Technologies')}}
                                     </div>
                                     <div class="ms-auto">
                                         <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
@@ -112,7 +112,7 @@
                                 <div class="widget-chart-flex">
                                     <div class="fsize-4">
                                         <small class="opacity-5">+</small>
-                                        Art
+                                        {{__('Art')}}
                                     </div>
                                     <div class="ms-auto">
                                         <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
@@ -145,7 +145,7 @@
                                 <div class="widget-chart-flex">
                                     <div class="fsize-4">
                                         <small class="opacity-5">+</small>
-                                        Art
+                                        {{__('Art')}}
                                     </div>
                                     <div class="ms-auto">
                                         <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
@@ -178,7 +178,7 @@
                                 <div class="widget-chart-flex">
                                     <div class="fsize-4">
                                         <small class="opacity-5">+</small>
-                                        Art
+                                        {{__('Art')}}
                                     </div>
                                     <div class="ms-auto">
                                         <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
