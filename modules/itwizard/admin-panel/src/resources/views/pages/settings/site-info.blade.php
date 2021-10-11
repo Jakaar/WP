@@ -84,7 +84,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-success card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Registration Number<')}}/div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Registration Number')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="companyRegister" name="companyRegister" >
                                 </div>
@@ -183,7 +183,7 @@
                     <div class="card-header card-header-tab-animation">
                         <ul class="nav nav-justified">
                             <li class="nav-item">
-                                <a data-bs-toggle="tab" href="#tab-eg115-0" class="active nav-link">{{__('Terms of Us')}}e</a>
+                                <a data-bs-toggle="tab" href="#tab-eg115-0" class="active nav-link">{{__('Terms of Use')}}</a>
                             </li>
                             <li class="nav-item">
                                 <a data-bs-toggle="tab" href="#tab-eg115-1" class="nav-link">{{__('Privacy statement')}}</a>
