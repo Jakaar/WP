@@ -221,3 +221,28 @@ $('.contactSubmit').on('click', () => {
 //     $(this).closest('tr').attr('key')
 //
 // })
+
+// -- Profile image upload -- 
+
+$('#file-upload').change(function() {
+  var files = this.files[0];
+  $('#loading').circleProgress({
+      value: 1,
+      size: 50,
+      lineCap: "round",
+      fill: {
+          color: "#3ac47d"
+      },
+  });
+
+  $('#loading').attr('style','display:flex')
+
+  setInterval(() => {
+      $('#loading').removeAttr('style')
+  }, 2000);
+
+  $("#changeImage").attr("src", URL.createObjectURL(files))
+
+});
+
+// -- Profile image upload  END -- 
