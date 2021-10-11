@@ -5,6 +5,7 @@ namespace Itwizard\Adminpanel\Http\Controllers\Profile;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class MyProfileController extends Controller
 {
@@ -13,7 +14,11 @@ class MyProfileController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-
-        return view('Admin::pages.user.profile');
+        $data['user'] = DB::table('users')
+            ->where('id', auth()->user()->id)
+            ->select('firstname','lastname','email','avatar')
+            ->first();
+//        dd($data);
+        return view('Admin::pages.user.profile', compact('data'));
     }
 }
