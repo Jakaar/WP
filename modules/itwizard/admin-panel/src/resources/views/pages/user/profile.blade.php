@@ -10,11 +10,7 @@
                         <div class="menu-header-content">
                             <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
                                 <div class="avatar-icon">
-                                    @if($data['user']->avatar != null)
-                                    <img src="/storage/{{Auth::user()->avatar}}" alt="Avatar 5">
-                                    @else
-                                    <img src="/aPanel/imgs/1.png" alt="Avatar 5">
-                                    @endif
+                                    <img src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar 5">
                                 </div>
                             </div>
                             <div>
