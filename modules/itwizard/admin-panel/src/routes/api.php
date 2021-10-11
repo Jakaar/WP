@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +16,8 @@ use Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController;
 
 
 Route::group(['prefix'=>'api'], function (){
-    Route::post('/profile/update', [ProfileController::class, 'update']);
+    Route::post('/profile/update', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'update']);
+    Route::post('/settings/siteinfo/update', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\SiteInfoController::class, 'update']);
 });
 
 // middleware('auth:api')
