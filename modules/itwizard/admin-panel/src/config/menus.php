@@ -11,43 +11,36 @@ return [
                 'colorClass'=>'success',
                 'child' => [],
             ],
-            [
-                'url'=>'cms/dashboard/banner',
-                'icon'=>'pe-7s-photo-gallery',
-                'name'=>'Banner',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-menu',
-                'name'=>'User menu',
-                'colorClass'=>'index',
-                'child' => [],
-            ]
+//            [
+//                'url'=>'cms/dashboard/user_menu',
+//                'icon'=>'pe-7s-menu',
+//                'name'=>'User menu',
+//                'colorClass'=>'index',
+//                'child' => [],
+//            ]
         ],
 
-    ],
+    ], //Dashboard menus
     [
         'title'=>'Marketing',
         'url'=>'cms/marketing',
         'menus'=> [
             [
                 'url'=>'cms/marketing',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-ticket',
                 'name'=>'Banner',
                 'colorClass'=>'success',
                 'child' => [],
             ],
             [
                 'url'=>'cms/marketing/popup',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'fa fa-clone',
                 'name'=>'Popup',
                 'colorClass'=>'success',
                 'child' => [],
             ],
         ],
-    ],
+    ], //Marketing menus
     [
         'title'=>'News',
         'url'=>'cms/news',
@@ -66,7 +59,7 @@ return [
             ]
         ],
 
-    ],
+    ], //News menus
     [
         'title'=>'Settings',
         'url'=>'cms/settings',
@@ -116,7 +109,7 @@ return [
             ],
         ],
 
-    ],
+    ], // Setting menus
     [
         'title'=>'Permission manage',
         'url'=>'cms/permission',
@@ -135,5 +128,5 @@ return [
             ]
         ],
 
-    ],
+    ], // Permission manage menus
 ];

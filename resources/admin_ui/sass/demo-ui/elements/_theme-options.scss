@@ -19,6 +19,7 @@ $theme-options-width: 500px;
 
   .btn-open-options {
     @include border-radius(50px);
+      margin-bottom: -70px;
     position: absolute;
     left: -114px;
     bottom: 80px;

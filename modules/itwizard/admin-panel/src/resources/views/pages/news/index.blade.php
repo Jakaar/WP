@@ -49,7 +49,7 @@
 
                                 <div class="row">
                                     <div class="card-header-title font-size-lg text-capitalize fw-normal">
-                                        {{__('Last months news')}}
+                                        {{__('Last news')}}
                                     </div>
                                 </div>
                             </div>
@@ -402,8 +402,9 @@
         </div>
     </div>
     <div class="main-card mb-3 card">
-        <div class="mb-3 card text-white bg-success">
-            <div class="card-header">{{__('All News')}}</div>
+        <div class="card-header">
+            <i class="header-icon lnr-license icon-gradient bg-tempting-azure"></i>
+            {{__('All News')}}
         </div>
         <div class="card-body">
             <table style="width: 100%;" id="NewsTable" class="table table-hover table-striped table-bordered">

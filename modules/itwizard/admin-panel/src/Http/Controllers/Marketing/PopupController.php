@@ -1,12 +1,12 @@
 <?php
 
-namespace Itwizard\Adminpanel\Http\Controllers\Dashboard;
+namespace Itwizard\Adminpanel\Http\Controllers\Marketing;
 
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 
-class BannerController extends Controller
+class PopupController extends Controller
 {
     public function __construct()
     {
@@ -14,6 +14,6 @@ class BannerController extends Controller
     }
     public function index(){
 
-        return view('Admin::pages.dashboard.banner');
+        return view('Admin::pages.marketing.banner');
     }
 }

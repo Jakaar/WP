@@ -143,7 +143,7 @@
     "Due Date": "기한",
     "Target Achievement": "목표 달성",
     "Visitors": "방문객",
-    "Last months news": "지난달 뉴스",
+    "Last news": "최신뉴스",
     "News Statistic": "뉴스 통계",
     "Comments": "코멘트",
     "Date": "데이트",
@@ -152,8 +152,10 @@
     "Category": "범주",
     "Created At": "만든 날짜",
     "Refresh": "새로 고치다",
-    "Create News": "뉴스 만들기",
+    "Create News": "뉴스 등록하기",
+    "Create Category": "카테고리 생성",
     "Published": "게시됨",
     "UnPublished": "게시되지 않은",
     "Disabled": "장애가있는"
+
 }

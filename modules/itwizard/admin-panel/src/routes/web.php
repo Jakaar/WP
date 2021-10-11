@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\AnalyticController;
-use Itwizard\Adminpanel\Http\Controllers\Dashboard\BannerController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\MenuManageController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\UserMenuController;
+
+use Itwizard\Adminpanel\Http\Controllers\Marketing\PopupController;
+use Itwizard\Adminpanel\Http\Controllers\Marketing\BannerController;
 
 use Itwizard\Adminpanel\Http\Controllers\News\NewsController;
 
@@ -17,8 +19,10 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
         return redirect('/cms/dashboard');
     });
     Route::get('/dashboard', [AnalyticController::class, 'index']);
-    Route::get('/dashboard/banner', [BannerController::class,  'index']);
     Route::get('/dashboard/user_menu', [UserMenuController::class,  'index']);
+
+    Route::get('/marketing', [BannerController::class,  'index']);
+    Route::get('/popup', [PopupController::class, 'index']);
 
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/news/categories', [NewsController::class, 'category']);

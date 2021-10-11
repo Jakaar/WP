@@ -20,8 +20,175 @@
                             <span class="btn-icon-wrapper pe-2 opacity-7">
                                 <i class="pe-7s-plus"></i>
                             </span>
-                        {{__('Create News')}}
+                        {{__('Create Category')}}
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-chart-flex">
+                            <div class="widget-numbers mb-0 w-100">
+                                <div class="widget-chart-flex">
+                                    <div class="fsize-4">
+                                        <small class="opacity-5">+</small>
+                                        Science
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
+                                            <span class="text-success ps-2">157 <small>{{__('News')}} ...</small></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-chart-flex">
+                            <div class="widget-numbers mb-0 w-100">
+                                <div class="widget-chart-flex">
+                                    <div class="fsize-4">
+                                        <small class="opacity-5">+</small>
+                                        Technologies
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
+                                            <span class="text-success ps-2">87 <small>{{__('News')}} ...</small></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-chart-flex">
+                            <div class="widget-numbers mb-0 w-100">
+                                <div class="widget-chart-flex">
+                                    <div class="fsize-4">
+                                        <small class="opacity-5">+</small>
+                                        Art
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
+                                            <span class="text-success ps-2">30 <small>{{__('News')}} ...</small></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-chart-flex">
+                            <div class="widget-numbers mb-0 w-100">
+                                <div class="widget-chart-flex">
+                                    <div class="fsize-4">
+                                        <small class="opacity-5">+</small>
+                                        Art
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
+                                            <span class="text-success ps-2">30 <small>{{__('News')}} ...</small></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-chart-flex">
+                            <div class="widget-numbers mb-0 w-100">
+                                <div class="widget-chart-flex">
+                                    <div class="fsize-4">
+                                        <small class="opacity-5">+</small>
+                                        Art
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
+                                            <span class="text-success ps-2">30 <small>{{__('News')}} ...</small></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
