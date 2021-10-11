@@ -161,7 +161,7 @@
                 <div class="col-md-6">
                     <div class="position-relative mb-5 mt-3">
                         <input type="hidden" name="logo" id="logo-photo">
-                        <button type="button" class="btn btn-outline-info" onclick="filemanager.selectFile('logo-photo')">
+                        <button type="button" class="btn btn-outline-info w-100" onclick="filemanager.selectFile('logo-photo')">
                             {{__('Logo Select')}}</button>
                     </div>
                 </div>
