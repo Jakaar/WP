@@ -121,7 +121,7 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->email}}</td>
                         <td>
-                            <span class="badge bg-success">Super Admin</span>
+                            <span class="badge bg-success">{{__('Super Admin')}}</span>
                         </td>
                         <td>
                             <div class="form-check form-switch">
