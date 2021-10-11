@@ -23,8 +23,6 @@ import "datatables.net-responsive-bs4";
 import "slick-carousel";
 import  CountUp  from  "./../vendors/countup.js/dist/countUp";
 window.CountUp = CountUp
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-window.ClassicEditor = ClassicEditor;
 
 require('./customs/custom');
 require('./customs/loader');
@@ -38,6 +36,7 @@ require('./form-components/toggle-switch');
 require('./customs/tables');
 require('./carousel-slider');
 require('./customs/count-up')
+require('./customs/ckeditor')
 window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
