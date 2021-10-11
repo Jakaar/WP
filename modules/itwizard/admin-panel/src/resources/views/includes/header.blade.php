@@ -407,34 +407,22 @@
                                     <div class="scroll-area-xs" style="height: 150px;">
                                         <div class="scrollbar-container ps">
                                             <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item">Activity</li>
+                                                <li class="nav-item-header nav-item">{{__('Account')}}</li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        Chat
-                                                        <div class="ms-auto badge rounded-pill bg-info">8</div>
+                                                    <a href="/cms/myProfile/" class="nav-link">
+                                                        {{__('Profile')}}
+{{--                                                        <div class="ms-auto badge bg-success">New</div>--}}
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Recover Password</a>
-                                                </li>
-                                                <li class="nav-item-header nav-item">
-                                                    My Account
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        Settings
-                                                        <div class="ms-auto badge bg-success">New</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        Messages
-                                                        <div class="ms-auto badge bg-warning">512</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Logs</a>
-                                                </li>
+{{--                                                <li class="nav-item">--}}
+{{--                                                    <a href="javascript:void(0);" class="nav-link">--}}
+{{--                                                        Messages--}}
+{{--                                                        <div class="ms-auto badge bg-warning">512</div>--}}
+{{--                                                    </a>--}}
+{{--                                                </li>--}}
+{{--                                                <li class="nav-item">--}}
+{{--                                                    <a href="javascript:void(0);" class="nav-link">Logs</a>--}}
+{{--                                                </li>--}}
                                             </ul>
                                         </div>
                                     </div>
