@@ -358,13 +358,13 @@
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success">
                                     <i class="lnr-lighter text-success opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Accounts
+                                    {{__('Accounts')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info">
                                     <i class="lnr-bus text-info opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Products
+                                    {{__('Products')}}
                                 </button>
                             </div>
                         </div>
@@ -386,13 +386,13 @@
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
                                     <i class="lnr-construction text-warning opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Contacts
+                                    {{__('Contacts')}}
                                 </button>
                             </div>
                             <div class="p-2 col-sm-6">
                                 <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
                                     <i class="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"></i>
-                                    Services
+                                    {{__('Services')}}
                                 </button>
                             </div>
                         </div>
@@ -422,7 +422,7 @@
                 <tr>
                     <th>테스트 뉴스입니다</th>
                     <td>
-                        <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">Technologies</button>
+                        <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-danger">{{__('Technologies')}}</button>
                     </td>
                     <td class="w-50">
                         <div class="">
@@ -452,7 +452,7 @@
                 <tr>
                     <th>테스트 뉴스입니다</th>
                     <td>
-                        <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">science</button>
+                        <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-success">{{__('science')}}</button>
                     </td>
                     <td class="w-50">
                         <div class="">
@@ -482,7 +482,7 @@
                 <tr>
                     <th>테스트 뉴스입니다</th>
                     <td>
-                        <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-info">Music</button>
+                        <button class="mb-2 me-2 border-0 btn-transition btn btn-shadow btn-outline-info">{{__('Music')}}</button>
                     </td>
                     <td class="w-50">
                         <div class="">

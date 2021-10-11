@@ -46,7 +46,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Company Name</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Name')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="siteName" name="siteName">
                                 </div>
@@ -58,7 +58,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Site Name</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Site Name')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="companyName" name="companyName" >
                                 </div>
@@ -72,7 +72,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-success border-success card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Fax Number</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Fax Number')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="fax" name="fax" >
                                 </div>
@@ -84,7 +84,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-success card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Company Registration Number</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Registration Number<')}}/div>
                                 <div>
                                     <input type="text" class="form-control" id="companyRegister" name="companyRegister" >
                                 </div>
@@ -96,7 +96,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-success card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Personal Information Manager</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Personal Information Manager')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="personalInformation" name="personalInformation" >
                                 </div>
@@ -110,7 +110,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-warning card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Bussiness Address</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Bussiness Address')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="address" name="address" >
                                 </div>
@@ -122,7 +122,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-warning card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Phone Number</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Phone Number')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="phone" name="phone" >
                                 </div>
@@ -136,7 +136,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-danger card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Representative Email</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Representative Email')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="email" name="email" >
                                 </div>
@@ -148,7 +148,7 @@
                     <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-danger card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">Copyright</div>
+                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Copyright')}}</div>
                                 <div>
                                     <input type="text" class="form-control" id="copyright" name="copyright" >
                                 </div>
@@ -183,10 +183,10 @@
                     <div class="card-header card-header-tab-animation">
                         <ul class="nav nav-justified">
                             <li class="nav-item">
-                                <a data-bs-toggle="tab" href="#tab-eg115-0" class="active nav-link">Terms of Use</a>
+                                <a data-bs-toggle="tab" href="#tab-eg115-0" class="active nav-link">{{__('Terms of Us')}}e</a>
                             </li>
                             <li class="nav-item">
-                                <a data-bs-toggle="tab" href="#tab-eg115-1" class="nav-link">Privacy statement</a>
+                                <a data-bs-toggle="tab" href="#tab-eg115-1" class="nav-link">{{__('Privacy statement')}}</a>
                             </li>
                         </ul>
                     </div>
