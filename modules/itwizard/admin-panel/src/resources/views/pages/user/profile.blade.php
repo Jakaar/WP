@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary px-5" name="signup" value="Sign up">Update</button>
+                            <button type="button" class="btn btn-primary px-5" name="update_profile" id="update_profile">Update</button>
                         </div>
                     </form>
                 </div>

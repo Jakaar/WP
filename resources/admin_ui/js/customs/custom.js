@@ -222,6 +222,19 @@ $('.contactSubmit').on('click', () => {
 //
 // })
 
+// -- Update Profile --
+$('#update_profile').click(function(){
+
+  const data = {
+    firstname: $('#firstname').val(),
+    firstname: $('#lastname').val(),
+    
+    
+};
+
+})
+// -- Update profile --
+
 // -- Profile image upload -- 
 
 $('#file-upload').change(function() {
