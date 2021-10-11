@@ -73,13 +73,13 @@
         <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Email</th>
-                    <th>User Name</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>{{__('ID')}}</th>
+                    <th>{{__('User')}}</th>
+                    <th>{{__('Email')}}</th>
+                    <th>{{__('User Name')}}</th>
+                    <th>{{__('Role')}}</th>
+                    <th>{{__('Status')}}</th>
+                    <th>{{__('Action')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -114,13 +114,13 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Email</th>
-                    <th>User Name</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>{{__('ID')}}</th>
+                    <th>{{__('User')}}</th>
+                    <th>{{__('Email')}}</th>
+                    <th>{{__('User Name')}}</th>
+                    <th>{{__('Role')}}</th>
+                    <th>{{__('Status')}}</th>
+                    <th>{{__('Action')}}</th>
                 </tr>
             </tfoot>
         </table>
