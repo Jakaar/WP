@@ -393,7 +393,7 @@
                                                                  src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}"  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">{{auth()->user()->name}}</div>
+                                                            <div class="widget-heading">{{auth()->user()->lastname}}</div>
                                                             <div class="widget-subheading opacity-8">A short profile description</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">
@@ -407,34 +407,22 @@
                                     <div class="scroll-area-xs" style="height: 150px;">
                                         <div class="scrollbar-container ps">
                                             <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item">Activity</li>
+                                                <li class="nav-item-header nav-item">{{__('Account')}}</li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        Chat
-                                                        <div class="ms-auto badge rounded-pill bg-info">8</div>
+                                                    <a href="/cms/myProfile/" class="nav-link">
+                                                        {{__('Profile')}}
+{{--                                                        <div class="ms-auto badge bg-success">New</div>--}}
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Recover Password</a>
-                                                </li>
-                                                <li class="nav-item-header nav-item">
-                                                    My Account
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        Settings
-                                                        <div class="ms-auto badge bg-success">New</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        Messages
-                                                        <div class="ms-auto badge bg-warning">512</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Logs</a>
-                                                </li>
+{{--                                                <li class="nav-item">--}}
+{{--                                                    <a href="javascript:void(0);" class="nav-link">--}}
+{{--                                                        Messages--}}
+{{--                                                        <div class="ms-auto badge bg-warning">512</div>--}}
+{{--                                                    </a>--}}
+{{--                                                </li>--}}
+{{--                                                <li class="nav-item">--}}
+{{--                                                    <a href="javascript:void(0);" class="nav-link">Logs</a>--}}
+{{--                                                </li>--}}
                                             </ul>
                                         </div>
                                     </div>
@@ -467,7 +455,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left  ms-3 header-user-info">
-                            <div class="widget-heading"> {{auth()->user()->name}}</div>
+                            <div class="widget-heading"> {{auth()->user()->lastname}}</div>
                             <div class="widget-subheading"> VP People Manager</div>
                         </div>
                     </div>

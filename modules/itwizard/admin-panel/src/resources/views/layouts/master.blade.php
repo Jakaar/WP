@@ -12,6 +12,7 @@
         <meta name="msapplication-tap-highlight" content="no">
 
         <link rel="stylesheet" href="{{asset('aPanel/css/admin.css')}}">
+        @FilemanagerScript
     </head>
     <body>
         <div id="sideBarMini" class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">

@@ -10,6 +10,7 @@ class ComposerStaticInitbf5e5c0bdf1ce8fca317d864dcac0bde
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'dc112b969fdec9cd832cb285d4923e4f' => __DIR__ . '/..' . '/haruncpi/laravel-simple-filemanager/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -22,6 +23,10 @@ class ComposerStaticInitbf5e5c0bdf1ce8fca317d864dcac0bde
         array (
             'Itwizard\\Adminpanel\\' => 20,
         ),
+        'H' => 
+        array (
+            'Haruncpi\\LaravelSimpleFilemanager\\' => 34,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -33,8 +38,8 @@ class ComposerStaticInitbf5e5c0bdf1ce8fca317d864dcac0bde
     public static $prefixDirsPsr4 = array (
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -43,6 +48,10 @@ class ComposerStaticInitbf5e5c0bdf1ce8fca317d864dcac0bde
         'Itwizard\\Adminpanel\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Haruncpi\\LaravelSimpleFilemanager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/haruncpi/laravel-simple-filemanager/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

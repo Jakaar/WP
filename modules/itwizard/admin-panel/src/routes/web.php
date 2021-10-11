@@ -13,6 +13,7 @@ use Itwizard\Adminpanel\Http\Controllers\Marketing\BannerController;
 
 use Itwizard\Adminpanel\Http\Controllers\News\NewsController;
 
+use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
@@ -38,4 +39,6 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/settings/seo_list', [SeoController::class,  'index']);
 
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
+
+    Route::get('/myProfile', [MyProfileController::class, 'index']);
 });

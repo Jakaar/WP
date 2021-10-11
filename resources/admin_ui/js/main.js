@@ -8,7 +8,7 @@ window.bootstrap = bootstrap;
 import "moment";
 import "metismenu/dist/metisMenu";
 import "jquery-circle-progress";
-// import "perfect-scrollbar"
+import "perfect-scrollbar"
 import PerfectScrollbar from 'perfect-scrollbar';
 window.PerfectScrollbar = PerfectScrollbar;
 import "toastr";
