@@ -60,7 +60,7 @@
             </div>
                 <div class="row">
                 <div class="col-md-4 col-lg-4">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-success card">
+                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-success border-success card">
                         <div class="widget-chat-wrapper-outer">
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">Fax Number</div>
@@ -147,65 +147,62 @@
                         </div>
                     </div>
                 </div>
-                    <div class="position-relative row mb-3">
-                        <label for="headerlogo" class="form-label col-sm-2 col-form-label"><strong>Header logo file</strong></label>
+                        <div class="row">
+                    <div class="position-relative row mb-5 mt-3">
+                        <label for="headerlogo" class="form-label col-sm-2 col-form-label"><strong>Logo file</strong></label>
                         <div class="col-sm-10">
 <!--                            <input name="file" id="exampleFile" type="file" class="">-->
 <!--                                                <small class="form-text text-muted">Click browse to choose logo-->
 <!--                                                </small>-->
-                            <label for="formFilesm" class="form-label">Default file input example</label>
-                            <input class="form-control" type="file" id="formFile">
+<!--                            <label for="formFilesm" class="form-label">Default file input example</label>-->
+                            <input class="form-control" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" >
                         </div>
                     </div>
+                        </div>
     </div>
+                <div class="row">
     <div class="col-md-12">
-        <ul class="tabs-animated-shadow nav-justified tabs-animated nav">
-            <li class="nav-item">
-                <a role="tab" class="nav-link active" id="tab-c1-0"
-                   data-bs-toggle="tab" href="#tab-animated1-0">
-                    <span class="nav-text">Tab 1</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a role="tab" class="nav-link" id="tab-c1-1"
-                   data-bs-toggle="tab"  href="#tab-animated1-1">
-                    <span class="nav-text">Tab 2</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a role="tab" class="nav-link" id="tab-c1-2"
-                   data-bs-toggle="tab" href="#tab-animated1-2">
-                    <span class="nav-text">Tab 3</span>
-                </a>
-            </li>
-        </ul>
+        <div class="card-header card-header-tab-animation">
+            <ul class="nav nav-justified">
+                <li class="nav-item">
+                    <a data-bs-toggle="tab" href="#tab-eg115-0" class="active nav-link">Terms of Use</a>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="tab" href="#tab-eg115-1" class="nav-link">Privacy statement</a>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="tab" href="#tab-eg115-2" class="nav-link">Rejection of unauthorized collection of e-mail addresses</a>
+                </li>
+            </ul>
+        </div>
         <div class="tab-content">
-            <div class="tab-pane active" id="tab-animated1-0" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label" for="terms"><strong>Terms of Use</strong></label>
-                    <div>
-                        <textarea  name="terms" class="form-control" id="editor"  rows="6"></textarea>
+            <div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
+                <div class="mb-3 mt-3">
+<!--                    <label class="form-label" for="terms"><strong>Terms of Use</strong></label>-->
+                    <div id="SiteInfoeditor1" >
+                        <textarea  name="terms" class="form-control mt-3" id="SiteInfoeditor"  rows="6"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="tab-animated1-1" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label" for="privacy"><strong>Privacy statement</strong></label>
-                    <div>
-                        <textarea  class="form-control"  id="editor" name="privacy"  rows="6"></textarea>
+            <div class="tab-pane" id="tab-eg115-1" role="tabpanel">
+                <div class="mb-3 mt-3">
+<!--                    <label class="form-label" for="privacy"><strong>Privacy statement</strong></label>-->
+                    <div id="SiteInfoeditor2">
+                        <textarea  class="form-control mt-3"  id="SiteInfoeditor" name="privacy"  rows="6"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="tab-animated1-2" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label" for="rejection"><strong>Rejection of unauthorized collection of e-mail addresses</strong></label>
-                    <div>
-                        <textarea class="form-control" id="editor"  name="rejection"  rows="6"></textarea>
+            <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
+                <div class="mb-3 mt-3">
+<!--                    <label class="form-label" for="rejection"><strong>Rejection of unauthorized collection of e-mail addresses</strong></label>-->
+                    <div id="SiteInfoeditor3">
+                        <textarea class="form-control mt-3" id="SiteInfoeditor"  name="rejection"  rows="6"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
             </fieldset>
             <div class="mb-3 text-center">
                 <button type="submit" class="ladda-button mb-2 btn btn-primary" name="save" value="save" data-style="expand-left">
