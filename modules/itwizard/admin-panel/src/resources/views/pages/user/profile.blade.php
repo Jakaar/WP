@@ -1,7 +1,7 @@
 @extends('Admin::layouts.master')
 @section('content')
 
-<div class="container">
+<div class="">
     <div class="row justify-content-center">
         <div class="col-lg-3">
             <div class="card-shadow-primary card-border mb-3 card">

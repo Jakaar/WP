@@ -4,7 +4,6 @@ namespace Itwizard\Adminpanel\Http\Controllers\Dashboard;
 
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class SiteInfoController extends Controller
