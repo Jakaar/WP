@@ -217,3 +217,7 @@ $('.contactSubmit').on('click', () => {
     });
 });
 // contact us submit END
+$('.dltUser').on('click', ()=>{
+    $(this).closest('tr').attr('key')
+
+})

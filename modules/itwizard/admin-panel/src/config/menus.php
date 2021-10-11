@@ -20,7 +20,7 @@ return [
 //            ]
         ],
 
-    ], //Dashboard menus
+    ], // Dashboard menus
     [
         'title'=>'Marketing',
         'url'=>'cms/marketing',
@@ -40,7 +40,27 @@ return [
                 'child' => [],
             ],
         ],
-    ], //Marketing menus
+    ], // Marketing menus
+    [
+        'title'=>'Gallery',
+        'url'=>'cms/gallery',
+        'menus'=> [
+            [
+                'url'=>'cms/gallery',
+                'icon'=>'pe-7s-albums',
+                'name'=>'Galleries',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+            [
+                'url'=>'cms/gallery/photos',
+                'icon'=>'pe-7s-photo',
+                'name'=>'Gallery photos',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+        ],
+    ], // Marketing menus
     [
         'title'=>'News',
         'url'=>'cms/news',
@@ -59,7 +79,7 @@ return [
             ]
         ],
 
-    ], //News menus
+    ], // News menus
     [
         'title'=>'Settings',
         'url'=>'cms/settings',
@@ -120,12 +140,12 @@ return [
                 'name'=>'Permission manage',
                 'child' => null,
             ],
-            [
-                'url'=>'cms/permission/menu_manage',
-                'icon'=>'pe-7s-menu',
-                'name'=>'User management',
-                'child' => null,
-            ]
+//            [
+//                'url'=>'cms/permission/menu_manage',
+//                'icon'=>'pe-7s-menu',
+//                'name'=>'User management',
+//                'child' => null,
+//            ]
         ],
 
     ], // Permission manage menus

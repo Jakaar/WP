@@ -7,8 +7,8 @@
                 <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
             </div>
             <div>
-                Data Tables
-                <div class="page-title-subheading">Choose between regular React Bootstrap tables or advanced dynamic ones.</div>
+                Permission Manage
+                <div class="page-title-subheading">Give to user Role & Permissions</div>
             </div>
         </div>
         <div class="page-title-actions">
@@ -65,6 +65,7 @@
                 <h5 class="card-title">Admin's</h5>
                 <div class="text-center">
                     <h3>
+                        <small><i class="lnr-user icon-gradient bg-grow-early"></i></small>
                         <span class="count-up-wrapper">2</span>
                     </h3>
                 </div>
@@ -77,6 +78,7 @@
                 <h5 class="card-title">Moderator's</h5>
                 <div class="text-center">
                     <h3>
+                        <small><i class="lnr-user icon-gradient bg-strong-bliss"></i></small>
                         <span class="count-up-wrapper">5</span>
                     </h3>
                 </div>
@@ -89,6 +91,7 @@
                 <h5 class="card-title">User's</h5>
                 <div class="text-center">
                     <h3>
+                        <small><i class="lnr-user icon-gradient bg-happy-fisher"></i></small>
                         <span class="count-up-wrapper">150</span>
                     </h3>
                 </div>

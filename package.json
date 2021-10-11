@@ -26,6 +26,7 @@
     "dependencies": {
         "@atomaras/bootstrap-multiselect": "^1.0.0",
         "@chenfengyuan/datepicker": "^1.0.10",
+        "@ckeditor/ckeditor5-build-classic": "^30.0.0",
         "@fortawesome/fontawesome-free": "^5.15.1",
         "@fullcalendar/core": "^5.9.0",
         "@fullcalendar/daygrid": "^5.9.0",

@@ -3,7 +3,7 @@ $(document).ready(() => {
     useEasing: true,
     separator: ",",
     decimal: ".",
-    prefix: '<i class="lnr-user icon-gradient bg-happy-fisher"></i> ',
+    // prefix: '<i class="lnr-user icon-gradient bg-happy-fisher"></i> ',
   };
 
   const optionsCountUp2 = {
