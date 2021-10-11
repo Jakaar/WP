@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/user', function () {
-    return ['msg'=>'success'];
+
+Route::group(['prefix'=>'api'], function (){
+    Route::post('/profile/update', [ProfileController::class, 'update']);
 });
+
 // middleware('auth:api')
