@@ -227,19 +227,18 @@ $('#update_profile').click(function(){
 
   const data = {
     firstname: $('#firstname').val(),
-    firstname: $('#lastname').val(),
-    
-    
+
+
 };
 
 })
 // -- Update profile --
 
-// -- Profile image upload -- 
+// -- Profile image upload --
 
 $('#file-upload').change(function() {
-  var files = this.files[0];
-  $('#loading').circleProgress({
+    const files = this.files[0];
+    $('#loading').circleProgress({
       value: 1,
       size: 50,
       lineCap: "round",
@@ -258,4 +257,4 @@ $('#file-upload').change(function() {
 
 });
 
-// -- Profile image upload  END -- 
+// -- Profile image upload  END --
