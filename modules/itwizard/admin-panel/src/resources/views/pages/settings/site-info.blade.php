@@ -33,8 +33,9 @@
             </div>
             <div class="col-lg-6 col-sm-6">
                 <div class="d-inline-block float-end">
-                    <button id="siteInfoEditBtn" type="button" class="mt-2 btn btn-primary disabler">{{__('Edit')}}</button>
                     <button id="siteInfoSaveBtn" type="button" class="mt-2 btn btn-success siteInfoSubmit invisible">{{__('Save')}}</button>
+                    <button id="siteInfoEditBtn" type="button" class="mt-2 btn btn-primary disabler">{{__('Edit')}}</button>
+
                 </div>
             </div>
         </div>

@@ -258,3 +258,16 @@ $('#file-upload').change(function() {
 });
 
 // -- Profile image upload  END --
+// -- Site info page edit Start --
+$('.disabler').on('click', () => {
+    if ($('#siteInfoForm fieldset').attr('disabled') === 'disabled'){
+        $('#siteInfoForm fieldset').removeAttr('disabled');
+        $('#siteInfoSaveBtn').removeClass('invisible');
+        // $('#contactEditBtn').html('Cancel');
+    }else {
+        $('#siteInfoForm fieldset').attr('disabled','disabled');
+        $('#siteInfoSaveBtn').addClass('invisible');
+        // $('#contactEditBtn').html('Edit');
+    }
+});
+// -- Site info page edit End --
