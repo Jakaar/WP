@@ -188,9 +188,6 @@
                             <li class="nav-item">
                                 <a data-bs-toggle="tab" href="#tab-eg115-1" class="nav-link">Privacy statement</a>
                             </li>
-                            <li class="nav-item">
-                                <a data-bs-toggle="tab" href="#tab-eg115-2" class="nav-link">Rejection of unauthorized collection of e-mail addresses</a>
-                            </li>
                         </ul>
                     </div>
                     <div class="tab-content mb-5">
@@ -207,14 +204,6 @@
                                 <!--                    <label class="form-label" for="privacy"><strong>Privacy statement</strong></label>-->
                                 <div id="SiteInfoeditor2">
                                     <textarea  class="form-control mt-3" id="privacy" name="privacy"  rows="6"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
-                            <div class="mb-3 mt-3">
-                                <!--                    <label class="form-label" for="rejection"><strong>Rejection of unauthorized collection of e-mail addresses</strong></label>-->
-                                <div id="SiteInfoeditor3">
-                                    <textarea class="form-control mt-3" id="rejection"  name="rejection"  rows="6"></textarea>
                                 </div>
                             </div>
                         </div>
