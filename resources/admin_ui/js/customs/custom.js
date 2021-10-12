@@ -1,6 +1,7 @@
 import Axios from "axios";
+import { render } from "preact";
 import Swal from "../../vendors/sweetalert2";
-
+import FromData from "form-data"
 
 $(document).on('load', () => {
    console.log()
@@ -224,19 +225,18 @@ $('.contactSubmit').on('click', () => {
 
 // -- Update Profile --
 $('#update_profile').click(function(){
- 
-  const data = {
-    firstname: $('#firstname').val(),
-    lastname: $('#lastname').val(),
-    avatar: $('#file-upload').prop('files'),
-    confirm_password: $('#confirm_password').val(),
-};
+
+  const data = new FormData();
+  data.append('avatar',$('#file-upload').prop('files')[0]);
+  data.append('firstname',$('#firstname').val());
+  data.append('lastname',$('#lastname').val());
+  data.append('confirm_password',$('#confirm_password').val());
 
 const headers = {
   'Content-Type': 'multipart/form-data'
 }
-  Axios.post('/api/profile/update', {headers : headers , data}).then((resp) => {
-    console.log(resp.data.data)
+  Axios.post('/api/profile/update', data, {headers : headers}).then((resp) => {
+   
     Toast.fire({
       icon: 'success',
       title: 'Successfully save'
