@@ -49,7 +49,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Name')}}</div>
                                 <div>
-                                    <input type="text" class="form-control" id="siteName" name="siteName">
+                                    <input type="text" class="form-control" id="companyName" name="companyName">
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             <div class="widget-chart-content">
                                 <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Site Name')}}</div>
                                 <div>
-                                    <input type="text" class="form-control" id="companyName" name="companyName" >
+                                    <input type="text" class="form-control" id="siteName" name="siteName" >
                                 </div>
                             </div>
                         </div>
@@ -194,17 +194,15 @@
                     <div class="tab-content mb-5">
                         <div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
                             <div class="mb-3 mt-3">
-                                <!--                    <label class="form-label" for="terms"><strong>Terms of Use</strong></label>-->
-                                <div id="SiteInfoeditor1" >
-                                    <textarea  name="terms" class="form-control mt-3" id="terms" name="terms"  rows="6"></textarea>
-                                </div>
+                                <label class="form-label" for="terms"><strong>Terms of Use</strong></label>
+                                    <div id="SiteInfoeditor1" name="SiteInfoeditor1" ></div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab-eg115-1" role="tabpanel">
                             <div class="mb-3 mt-3">
                                 <!--                    <label class="form-label" for="privacy"><strong>Privacy statement</strong></label>-->
-                                <div id="SiteInfoeditor2">
-                                    <textarea  class="form-control mt-3" id="privacy" name="privacy"  rows="6"></textarea>
+                                <div id="SiteInfoeditor2" name="SiteInfoeditor2">
+                                     <textarea name="editor2" id="editor2"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -213,4 +211,52 @@
             </div>
         </fieldset>
     </form>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function (){
+        let editor;
+        ClassicEditor.create( document.querySelector( '#SiteInfoeditor1' ) )
+            .then( newEditor => {
+                editor = newEditor;
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        let editor1;
+        ClassicEditor.create( document.querySelector( '#SiteInfoeditor2' ) )
+            .then( newEditor => {
+                editor1 = newEditor;
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+
+        $('.siteInfoSubmit').on('click', function(){
+            const data = {
+                companyName : $('#companyName').val(),
+                siteName: $('#siteName').val(),
+                fax : $('#fax').val(),
+                companyRegister : $('#companyRegister').val(),
+                personalInformation : $('#personalInformation').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                email : $('#email').val(),
+                copyright : $('#copyright').val(),
+                logo : $('#logo-photo').val(),
+                SiteInfoeditor1 : editor.getData(),
+                SiteInfoeditor2 : editor1.getData(),
+            };
+            Axios.post('/api/settings/siteinfo/update', data).then((resp) =>{
+                $('#siteInfoSaveBtn').addClass('invisible');
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Successfully save'
+                });
+            }).catch((err)=>{
+                console.log(err);
+            });
+        });
+    });
+</script>
 @endsection
