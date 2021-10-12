@@ -2,6 +2,24 @@
 @section('content')
 
 <div class="">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="lnr-user icon-gradient bg-ripe-malin"></i>
+                </div>
+                <div>
+                   Profile
+
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <button type="button" data-bs-toggle="tooltip" title="" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                    <i class="pe-7s-refresh-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-lg-3">
             <div class="card-shadow-primary card-border mb-3 card">
@@ -10,7 +28,7 @@
                         <div class="menu-header-content">
                             <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
                                 <div class="avatar-icon">
-                                    <img src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar 5">
+                                    <img src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar">
                                 </div>
                             </div>
                             <div>

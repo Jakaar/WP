@@ -224,13 +224,29 @@ $('.contactSubmit').on('click', () => {
 
 // -- Update Profile --
 $('#update_profile').click(function(){
-
+ 
   const data = {
     firstname: $('#firstname').val(),
-
-
+    lastname: $('#lastname').val(),
+    avatar: $('#file-upload').prop('files'),
+    confirm_password: $('#confirm_password').val(),
 };
 
+const headers = {
+  'Content-Type': 'multipart/form-data'
+}
+  Axios.post('/api/profile/update', {headers : headers , data}).then((resp) => {
+    console.log(resp.data.data)
+    Toast.fire({
+      icon: 'success',
+      title: 'Successfully save'
+    });
+  }).catch((err) => {
+    Toast.fire({
+      icon: 'error',
+      title: err
+    });
+  });
 })
 // -- Update profile --
 
