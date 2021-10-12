@@ -62,6 +62,21 @@ return [
         ],
     ], // Marketing menus
     [
+        'title'=>'Notice Board Management',
+        'url'=>'cms/noticeboard',
+        'menus'=> [
+            [
+                'url'=>'cms/noticeboard',
+                'icon'=>'pe-7s-albums',
+                'name'=>'Notice Board Management',
+                'colorClass'=>'success',
+                'child' => [
+
+                ],
+            ],
+        ],
+    ], // Notice Board Management menus
+    [
         'title'=>'News',
         'url'=>'cms/news',
         'menus'=> [

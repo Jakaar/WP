@@ -40,4 +40,6 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
 
     Route::get('/myProfile', [MyProfileController::class, 'index']);
+
+    Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
 });

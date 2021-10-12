@@ -23,6 +23,10 @@ import "datatables.net-responsive-bs4";
 import "slick-carousel";
 import  CountUp  from  "./../vendors/countup.js/dist/countUp";
 window.CountUp = CountUp
+import Axios from "axios";
+import Swal from "../vendors/sweetalert2";
+window.Swal = Swal;
+window.Axios = Axios;
 
 require('./customs/custom');
 require('./customs/loader');

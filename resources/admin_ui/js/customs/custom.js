@@ -1,6 +1,3 @@
-import Axios from "axios";
-import Swal from "../../vendors/sweetalert2";
-
 
 $(document).on('load', () => {
    console.log()

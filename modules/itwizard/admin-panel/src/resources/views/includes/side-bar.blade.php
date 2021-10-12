@@ -33,7 +33,7 @@
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
                 @foreach(Config::get('Menu') as $menu=>$menus)
-                    @if(Request::is($menus['url'].'*') == $menus['url'])
+{{--                    @if(Request::is($menus['url'].'*') == $menus['url'])--}}
                         <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                         @foreach($menus['menus'] as $mainmenu)
                             @if($mainmenu['child'])
@@ -63,7 +63,7 @@
                                 </li>
                             @endif
                         @endforeach
-                    @endif
+{{--                    @endif--}}
                 @endforeach
             </ul>
         </div>
