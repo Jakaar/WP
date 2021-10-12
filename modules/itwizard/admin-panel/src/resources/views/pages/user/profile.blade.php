@@ -9,7 +9,7 @@
                     <i class="lnr-user icon-gradient bg-ripe-malin"></i>
                 </div>
                 <div>
-                   Profile
+                   {{__('Profile')}}
 
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <div class="menu-header-content">
                             <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
                                 <div class="avatar-icon">
-                                    <img src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar">
+                                    <img src="{{url('/storage/'.$data['user']->avatar) ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar">
                                 </div>
                             </div>
                             <div>
@@ -43,11 +43,11 @@
                 <div class="text-center d-block card-footer">
                     <ul class="nav flex-column a-side">
                         <ul class="nav flex-column">
-                            <li class="nav-item-header nav-item">My Account</li>
+                            <li class="nav-item-header nav-item">{{__('My Account')}}</li>
                             <li class="nav-item">
                                 <a href="javascript:void(0);" class="nav-link active">
                                     <i class="nav-link-icon  pe-7s-user"></i>
-                                    <span>Profile</span>
+                                    <span>{{__('Profile')}}</span>
                                     <div class="ms-auto badge rounded-pill bg-info"></div>
                                 </a>
                             </li>
@@ -55,22 +55,22 @@
                             <li class="nav-item">
                                 <a href="javascript:void(0);" class="nav-link">
                                     <i class="nav-link-icon pe-7s-key"></i>
-                                    <span>Change Password</span>
+                                    <span>{{__('Change Password')}}</span>
                                     <div class="ms-auto badge rounded-pill bg-info"></div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0);" class="nav-link">
                                     <i class="nav-link-icon pe-7s-config"></i>
-                                    <span>Settings</span>
+                                    <span>{{__('Settings')}}</span>
                                     <div class="ms-auto badge bg-success"></div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0);" class="nav-link">
                                     <i class="nav-link-icon pe-7s-coffee"></i>
-                                    <span>Messages</span>
-                                    <div class="ms-auto badge bg-danger">2</div>
+                                    <span>{{__('Messages')}}</span>
+                                    <div class="ms-auto badge bg-danger">0</div>
                                 </a>
                             </li>
                         </ul>
@@ -81,13 +81,13 @@
         <div class="col-lg-9">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title text-center mt-2">Update Profile </h5>
+                    <h5 class="card-title text-center mt-2">{{__('Update Profile')}} </h5>
                     <form id="signupForm" class="col-md-10 mx-auto" method="post" action="">
                         <div class="row justify-content-center d-flex mb-3 rounded">
                             <div class="col-lg-5">
                                 <div class="position-relative">
-                                    <img src="/aPanel/imgs/1.png" alt="Avatar 5" class="w-100 border" id="changeImage">
-                                    <label for="file-upload" class="custom-file-upload">Upload Image</label>
+                                    <img src="{{url('/storage/'.$data['user']->avatar) ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar 5" class="w-100 border" id="changeImage">
+                                    <label for="file-upload" class="custom-file-upload">{{__('Upload Image')}}</label>
                                     <input type="file" id="file-upload" class="image-upload">
                                     <div class="loading" id="loading">
                                     </div>
@@ -96,32 +96,32 @@
                         </div>
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label" for="firstname">First name</label>
+                            <label class="form-label" for="firstname">{{__('First name')}}</label>
                             <div>
-                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name" value="{{$data['user']->firstname}}">
+                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{__('First name')}}" value="{{$data['user']->firstname}}">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="lastname">Last name</label>
+                            <label class="form-label" for="lastname">{{__('Last name')}}</label>
                             <div>
-                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last name" value="{{$data['user']->lastname}}">
+                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{__('Last name')}}" value="{{$data['user']->lastname}}">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="email">Email</label>
+                            <label class="form-label" for="email">{{__('Email')}}</label>
                             <div>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{$data['user']->email}}" readonly>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" value="{{$data['user']->email}}" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="confirm_password">Confirm password</label>
+                            <label class="form-label" for="confirm_password">{{__('Confirm password')}}</label>
                             <div>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="{{__('Confirm password')}}">
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <button type="button" class="btn btn-primary px-5" name="update_profile" id="update_profile">Update</button>
+                            <button type="button" class="btn btn-primary px-5" name="update_profile" id="update_profile">{{__('Update')}}</button>
                         </div>
                     </form>
                 </div>
