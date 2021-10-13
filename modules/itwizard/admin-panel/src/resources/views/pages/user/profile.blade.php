@@ -9,8 +9,8 @@
                     <i class="lnr-user icon-gradient bg-ripe-malin"></i>
                 </div>
                 <div>
-                   {{__('Profile')}}
-
+                    {{__('Profile')}}
+                    <div class="page-title-subheading">{{__('Change Profile Information & Password')}}</div>
                 </div>
             </div>
             <div class="page-title-actions">
@@ -21,109 +21,128 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-3">
-            <div class="card-shadow-primary card-border mb-3 card">
-                <div class="dropdown-menu-header">
-                    <div class="dropdown-menu-header-inner bg-dark">
-                        <div class="menu-header-content">
-                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
-                                <div class="avatar-icon">
-                                    <img src="{{url('/storage/'.$data['user']->avatar) ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar">
-                                </div>
-                            </div>
-                            <div>
-                                <h5 class="menu-header-title">{{$data['user']->firstname}} {{$data['user']->lastname}}</h5>
-                                <h6 class="menu-header-subtitle">Security Officer</h6>
-                            </div>
-                            <div class="menu-header-btn-pane pt-1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center d-block card-footer">
-                    <ul class="nav flex-column a-side">
-                        <ul class="nav flex-column">
-                            <li class="nav-item-header nav-item">{{__('My Account')}}</li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link active">
-                                    <i class="nav-link-icon  pe-7s-user"></i>
-                                    <span>{{__('Profile')}}</span>
-                                    <div class="ms-auto badge rounded-pill bg-info"></div>
-                                </a>
-                            </li>
+        <div class="col-lg-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <ul class="nav tabs-animated" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <li class="nav-item">
+                            <a href="#profile-page" class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#profile-page" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                <i class="nav-link-icon  pe-7s-user"></i>
+                                <span>{{__('Profile')}}</span>
+                                <div class="ms-auto badge rounded-pill bg-info"></div>
+                            </a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link">
-                                    <i class="nav-link-icon pe-7s-key"></i>
-                                    <span>{{__('Change Password')}}</span>
-                                    <div class="ms-auto badge rounded-pill bg-info"></div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link">
-                                    <i class="nav-link-icon pe-7s-config"></i>
-                                    <span>{{__('Settings')}}</span>
-                                    <div class="ms-auto badge bg-success"></div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link">
-                                    <i class="nav-link-icon pe-7s-coffee"></i>
-                                    <span>{{__('Messages')}}</span>
-                                    <div class="ms-auto badge bg-danger">0</div>
-                                </a>
-                            </li>
-                        </ul>
+                        <li class="nav-item">
+                            <a href="#change-password" class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#change-password" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                <i class="nav-link-icon pe-7s-key"></i>
+                                <span>{{__('Change Password')}}</span>
+                                <div class="ms-auto badge rounded-pill bg-info"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#profile-settings" class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#profile-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                <i class="nav-link-icon pe-7s-config"></i>
+                                <span>{{__('Settings')}}</span>
+                                <div class="ms-auto badge bg-success"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#profile-msg" class="nav-link" id="v-pills-msg-tab" data-bs-toggle="pill" data-bs-target="#profile-msg" type="button" role="tab" aria-controls="v-pills-msg" aria-selected="false">
+                                <i class="nav-link-icon pe-7s-coffee"></i>
+                                <span>{{__('Messages')}}</span>
+
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
-            <div class="main-card mb-3 card">
+        <div class="col-lg-12">
+            <div class="main-card mb-3 card border-primary card-btm-border ">
                 <div class="card-body">
-                    <h5 class="card-title text-center mt-2">{{__('Update Profile')}} </h5>
-                    <form id="signupForm" class="col-md-10 mx-auto" method="post" action="">
-                        <div class="row justify-content-center d-flex mb-3 rounded">
-                            <div class="col-lg-5">
-                                <div class="position-relative">
-                                    <img src="{{url('/storage/'.$data['user']->avatar) ?? asset('/aPanel/imgs/1.png')}}" alt="Avatar 5" class="w-100 border" id="changeImage">
-                                    <label for="file-upload" class="custom-file-upload">{{__('Upload Image')}}</label>
-                                    <input type="file" id="file-upload" class="image-upload">
-                                    <div class="loading" id="loading">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="profile-page" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                            <form class="col-md-12 mx-auto" method="post" action="" id="UpdateProfile">
+                                <div class="row justify-content-center d-flex mb-3 rounded">
+                                    <div class="col-lg-3">
+                                        <div class="position-relative">
+                                            <img src="{{ $data['user']->avatar != null ? asset('/storage/'.$data['user']->avatar) : asset('/aPanel/imgs/1.png')}}"" alt=" Avatar 5" class="w-100 border" id="changeImage">
+                                            <label for="file-upload" class="custom-file-upload">{{__('Upload Image')}}</label>
+                                            <input type="file" name="avatar" id="file-upload" class="image-upload">
+                                            <div class="loading" id="loading">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-3">
+                                                <label class="form-label" for="firstname">{{__('First name')}}</label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{__('First name')}}" value="{{$data['user']->firstname}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6  mb-3">
+                                                <label class="form-label" for="lastname">{{__('Last name')}}</label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{__('Last name')}}" value="{{$data['user']->lastname}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label class="form-label" for="email">{{__('Email')}}</label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" value="{{$data['user']->email}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label class="form-label" for="confirm_password">{{__('Confirm password')}}</label>
+                                                <div>
+                                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="{{__('Confirm password')}}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <button type="button" class="btn btn-primary px-5" name="update_profile" id="update_profile">{{__('Update')}}</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                @csrf
+
+                            </form>
                         </div>
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label" for="firstname">{{__('First name')}}</label>
-                            <div>
-                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{__('First name')}}" value="{{$data['user']->firstname}}">
-                            </div>
+                        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            
+                            <form class="col-md-12 mx-auto" id="changePasswordValidation">
+                                <div class="mb-3">
+                                    <label class="form-label" for="current_password"> {{__('Current password')}} </label>
+                                    <input type="password" class="form-control" name="current_password" id="current_password" placeholder="{{__('Current password')}}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="new_password"> {{__('New password')}} </label>
+                                    <input type="password" class="form-control" name="new_password" id="new_password" placeholder="{{__('New password')}}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="new_password_confirm"> {{__('New password confirm')}} </label>
+                                    <input type="password" class="form-control" name="new_password_confirm" id="new_password_confirm" placeholder="{{__('New password confirm')}}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-primary px-5" id="change_password">{{__('Change password')}}</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="lastname">{{__('Last name')}}</label>
-                            <div>
-                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{__('Last name')}}" value="{{$data['user']->lastname}}">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="email">{{__('Email')}}</label>
-                            <div>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" value="{{$data['user']->email}}" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="confirm_password">{{__('Confirm password')}}</label>
-                            <div>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="{{__('Confirm password')}}">
-                            </div>
+                        <div class="tab-pane fade" id="profile-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                            <h5 class="card-title text-center mt-2">{{__('Profile Settings')}} </h5>
                         </div>
 
-                        <div class="mb-3">
-                            <button type="button" class="btn btn-primary px-5" name="update_profile" id="update_profile">{{__('Update')}}</button>
+                        <div class="tab-pane fade" id="profile-msg" role="tabpanel" aria-labelledby="v-pills-msg-tab">
+                            <h5 class="card-title text-center mt-2">{{__('Profile Message')}} </h5>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,12 +150,6 @@
 </div>
 
 <style>
-    .a-side .nav-item .nav-link.active {
-        color: #3f6ad8;
-        background: #e0f3ff;
-        font-weight: bold;
-    }
-
     .custom-file-upload {
         display: inline-block;
         padding: 6px 12px;

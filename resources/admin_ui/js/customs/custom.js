@@ -218,34 +218,185 @@ $('.contactSubmit').on('click', () => {
 //     $(this).closest('tr').attr('key')
 //
 // })
-
+ 
 // -- Update Profile --
-$('#update_profile').click(function(){
 
-  const data = {
-    firstname: $('#firstname').val(),
-    lastname: $('#lastname').val(),
-    avatar: $('#file-upload').prop('files'),
-    confirm_password: $('#confirm_password').val(),
-};
-
-const headers = {
-  'Content-Type': 'multipart/form-data'
-}
-  Axios.post('/api/profile/update', {headers : headers , data}).then((resp) => {
-    console.log(resp.data.data)
-    Toast.fire({
-      icon: 'success',
-      title: 'Successfully save'
-    });
-  }).catch((err) => {
-    Toast.fire({
-      icon: 'error',
-      title: err
-    });
+$(document).ready(function(){
+  $("#UpdateProfile").validate({
+    rules: {
+      firstname: "required",
+      lastname: "required",
+      confirm_password: {
+        required: true,
+        minlength: 6,
+      },
+      email: {
+        required: true,
+        email: true,
+      },
+      avatar: {
+        required: false,
+        extension: "png|jpg|svg",
+    },
+    },
+    messages: {
+      firstname: "Please enter your firstname",
+      lastname: "Please enter your lastname",
+      confirm_password: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 6 characters long",
+      },
+      avatar:{
+        extension: "Please upload only image file",
+      },
+      email: "Please enter a valid email address",
+    },
+    errorElement: "em",
+    errorPlacement: function (error, element) {
+      // Add the `invalid-feedback` class to the error element
+      error.addClass("invalid-feedback");
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    },
   });
 })
+
+
+$('#update_profile').click(function(){
+
+  const data = new FormData();
+  data.append('avatar',$('#file-upload').prop('files')[0]);
+  data.append('firstname',$('#firstname').val());
+  data.append('lastname',$('#lastname').val());
+  data.append('confirm_password',$('#confirm_password').val());
+
+  $("#UpdateProfile").valid();
+  const check =  $("#UpdateProfile").valid();
+  const headers = {
+    'Content-Type': 'multipart/form-data'
+  }
+  if(check == true){
+    Axios.post('/api/profile/update', data, {headers : headers}).then((resp) => {
+
+      Toast.fire({
+        icon: resp.data.msg,
+        title: resp.data.title
+      });
+    }).catch((err) => {
+      Toast.fire({
+        icon: 'error',
+        title: err
+      });
+    });
+  }
+})
 // -- Update profile --
+// -- Refresh tab show --
+
+$(document).ready(function(){
+  const activeTab = window.location.hash;
+  if(activeTab){
+      $('#v-pills-tab a[href="' + activeTab + '"]').tab('show');
+  }
+});
+
+// -- Refresh tab show end --
+
+// -- Change Password --
+
+
+$(document).ready(function(){
+  $("#changePasswordValidation").validate({
+    rules: {
+      current_password: {
+        required: true,
+        minlength: 6,
+      },
+      new_password: {
+        required: true,
+        minlength: 6,
+
+      },
+      new_password_confirm: {
+        required: true,
+        minlength: 6,
+        equalTo: "#new_password",
+      },
+    },
+    messages: {
+      current_password: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 6 characters long",
+      },
+      new_password: {
+        required: "Please enter your new a password",
+        minlength: "Your password must be at least 6 characters long",
+      },
+      new_password_confirm: {
+        required: "Please enter your new a password confirm",
+        minlength: "Your password must be at least 6 characters long",
+        equalTo: "Please enter the same password as above",
+      },
+
+    },
+    errorElement: "em",
+    errorPlacement: function (error, element) {
+      // Add the `invalid-feedback` class to the error element
+      error.addClass("invalid-feedback");
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    },
+  });
+})
+
+$('#change_password').click(function(){
+  const current_password = $('#current_password').val();
+  const new_password = $('#new_password').val();
+  const new_password_confirm = $('#new_password_confirm').val();
+
+  const password = new FormData();
+  password.append('current_password',current_password)
+  password.append('new_password',new_password)
+  password.append('new_password_confirm',new_password_confirm)
+
+  const check =  $("#changePasswordValidation").valid();
+  if(check == true){
+    Axios.post('/api/profile/update', password).then((resp) => {
+      console.log(resp)
+      Toast.fire({
+        icon: resp.data.msg,
+        title: resp.data.title
+      });
+    }).catch((err) => {
+      Toast.fire({
+        icon: 'error',
+        title: err
+      });
+    });
+  }
+
+})
+
+// -- Change Password End --
+
 
 // -- Profile image upload --
 
