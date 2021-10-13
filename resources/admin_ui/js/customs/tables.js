@@ -15,4 +15,5 @@ $(document).ready(() => {
         } );
     } ).draw();
     $('#NewsTable').DataTable({})
+    $('#BulletInBoard').DataTable({});
 });

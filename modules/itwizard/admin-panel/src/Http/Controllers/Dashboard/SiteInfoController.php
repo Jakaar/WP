@@ -16,7 +16,7 @@ class SiteInfoController extends Controller
     public function index(){
 
         $data['site_info'] = DB::table('wpanel_site_info')->first();
-
+//        dd($data);
         return view('Admin::pages.settings.site-info', compact('data'));
     }
 }

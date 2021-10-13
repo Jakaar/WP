@@ -8,7 +8,7 @@ return [
                 'url'=>'cms/dashboard',
                 'icon'=>'pe-7s-rocket',
                 'name'=>'Analytic',
-                'colorClass'=>'success',
+                'colorClass'=>'text-success',
                 'child' => [],
             ],
 //            [
@@ -34,7 +34,7 @@ return [
             ],
             [
                 'url'=>'cms/marketing/popup',
-                'icon'=>'fa fa-clone',
+                'icon'=>'lnr-layers',
                 'name'=>'Popup',
                 'colorClass'=>'success',
                 'child' => [],
@@ -49,7 +49,7 @@ return [
                 'url'=>'cms/gallery',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Galleries',
-                'colorClass'=>'success',
+                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [

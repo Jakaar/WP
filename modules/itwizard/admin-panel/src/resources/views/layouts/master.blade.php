@@ -22,21 +22,21 @@
                 @include('Admin::includes.side-bar')
                 <div class="app-main__outer">
                     <div class="app-main__inner">
-{{--                        <div class="row">--}}
-{{--                            <div class="col-12 mb-4">--}}
-{{--                                <div class="card mb-3">--}}
-{{--                                    <ul class="body-tabs body-tabs-layout tabs-animated body-tabs nav">--}}
-{{--                                        @foreach(Config::get('Menu') as $menu=>$menus)--}}
-{{--                                            <li class="nav-item ml-2">--}}
-{{--                                                <a role="tab" class="nav-link {{Request::is($menus['url'].'*') ? 'active' : null }}" href="/{{$menus['url']}}">--}}
-{{--                                                    <span class="">{{__($menus['title'])}}</span>--}}
-{{--                                                </a>--}}
-{{--                                            </li>--}}
-{{--                                        @endforeach--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <div class="card mb-3">
+                                    <ul class="body-tabs body-tabs-layout tabs-animated body-tabs nav">
+                                        @foreach(Config::get('Menu') as $menu=>$menus)
+                                            <li class="nav-item ml-2">
+                                                <a role="tab" class="nav-link {{Request::is($menus['url'].'*') ? 'active' : null }}" href="/{{$menus['url']}}">
+                                                    <span class="">{{__($menus['title'])}}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                         @yield('content')
                     </div>
                     @include('Admin::includes.footer')

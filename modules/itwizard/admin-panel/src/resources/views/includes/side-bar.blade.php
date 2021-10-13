@@ -33,7 +33,7 @@
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
                 @foreach(Config::get('Menu') as $menu=>$menus)
-{{--                    @if(Request::is($menus['url'].'*') == $menus['url'])--}}
+                    @if(Request::is($menus['url'].'*') == $menus['url'])
                         <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                         @foreach($menus['menus'] as $mainmenu)
                             @if($mainmenu['child'])
@@ -57,13 +57,13 @@
                             @else
                                 <li>
                                     <a href="/{{$mainmenu['url']}}" class="{{Request::is($mainmenu['url']) ? 'mm-active' : null }}">
-                                        <i class="metismenu-icon {{$mainmenu['icon']}}"></i>
+                                        <i class="metismenu-icon {{$mainmenu['icon']}} {{$mainmenu['colorClass'] ?? ''}}"></i>
                                         {{__($mainmenu['name'])}}
                                     </a>
                                 </li>
                             @endif
                         @endforeach
-{{--                    @endif--}}
+                    @endif
                 @endforeach
             </ul>
         </div>
