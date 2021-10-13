@@ -194,7 +194,7 @@
                     <div class="tab-content mb-5">
                         <div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
                             <div class="mb-3 mt-3">
-                                <label class="form-label" for="terms"><strong>Terms of Use</strong></label>
+<!--                                <label class="form-label" for="terms"><strong>Terms of Use</strong></label>-->
                                     <div id="SiteInfoeditor1" name="SiteInfoeditor1" ></div>
                             </div>
                         </div>
