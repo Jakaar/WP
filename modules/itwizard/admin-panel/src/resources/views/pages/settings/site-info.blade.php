@@ -73,10 +73,6 @@
                                 <div>
                                     <input type="text" class="form-control mb-3" id="address" name="address" maxlength="110">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Fax Number')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="fax" name="fax" maxlength="50">
-                                </div>
 
                             </div>
                             <div class="col-md-4 col-lg-6">
