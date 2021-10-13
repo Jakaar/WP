@@ -1,5 +1,10 @@
 @extends('Admin::layouts.master')
 @section('content')
+<style>
+    .ck-editor__editable {
+        min-height: 200px;
+    }
+</style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -42,175 +47,139 @@
     </div>
     <form id="siteInfoForm" class="col-md-12 mx-auto" method="post" action="" disabled="disabled">
         <fieldset disabled>
-            <div class="row">
-                <div class="col-md-4 col-lg-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Name')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="siteName" name="siteName">
+
+            <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6">
+                                <div class="card-title opacity-5 text-uppercase ">{{__('Company Name')}}</div>
+                                <div >
+                                    <input type="text" class="form-control mb-3" id="companyName" name="companyName" maxlength="110">
                                 </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Site Name')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="siteName" name="siteName" maxlength="110">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Fax Number')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="fax" name="fax" maxlength="50">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Personal Information Manager')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="personalInformation" name="personalInformation" maxlength="50">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Bussiness Address')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="address" name="address" maxlength="110">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Fax Number')}}</div>
+                                <div>
+                                    <input type="text" class="form-control" id="fax" name="fax" maxlength="50">
+                                </div>
+
+                            </div>
+                            <div class="col-md-4 col-lg-6">
+                                <div class="card-title opacity-5 text-uppercase">{{__('Company Registration Number')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="companyRegister" name="companyRegister" maxlength="50">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Phone Number')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="phone" name="phone" maxlength="110">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Representative Email')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="email" name="email" maxlength="110">
+                                </div>
+                                <div class="card-title opacity-5 text-uppercase">{{__('Copyright')}}</div>
+                                <div>
+                                    <input type="text" class="form-control mb-3" id="copyright" name="copyright" maxlength="110">
+                                </div>
+                                    <div class="row">
+                                        <div class="text-center card-title opacity-5 text-uppercase my-auto">{{__('Logo')}}</div>
+                                            <div class="text-center">
+                                                <img class="mw-100 " style="max-height: 150px" id="logo-photo-preview" alt="">
+                                                <input type="hidden" name="logo" id="logo-photo">
+                                                <button type="button" class="btn btn-outline-info w-75 mt-2" onclick="filemanager.selectFile('logo-photo')">{{__('Logo Select')}}</button>
+                                            </div>
+
+                                    </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Site Name')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="companyName" name="companyName" >
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3 mt-3">
+                                    <div class="card-title opacity-5 text-uppercase mb-3">Terms of use</div>
+                                    <div id="SiteInfoeditor1" name="SiteInfoeditor1">
+                                        <textarea name="editor1" id="editor1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3 mt-3">
+                                    <div class="card-title opacity-5 text-uppercase mb-3">Privacy statement</div>
+                                    <div id="SiteInfoeditor2" name="SiteInfoeditor2">
+                                        <textarea name="editor2" id="editor2"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-lg-4">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-success border-success card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Fax Number')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="fax" name="fax" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-success card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Company Registration Number')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="companyRegister" name="companyRegister" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-success card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Personal Information Manager')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="personalInformation" name="personalInformation" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-lg-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-warning card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Bussiness Address')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="address" name="address" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-warning card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Phone Number')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="phone" name="phone" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-lg-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-danger card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Representative Email')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="email" name="email" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-danger card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Copyright')}}</div>
-                                <div>
-                                    <input type="text" class="form-control" id="copyright" name="copyright" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="position-relative mb-5 mt-3">
-                        <input type="hidden" name="logo" id="logo-photo">
-                        <button type="button" class="btn btn-outline-info w-100" onclick="filemanager.selectFile('logo-photo')">
-                            {{__('Logo Select')}}</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-danger card">
-                        <div class="widget-chat-wrapper-outer">
-                            <div class="widget-chart-content">
-                                <div class="widget-title opacity-5 text-uppercase mb-3">{{__('Logo')}}</div>
-                                <div>
-                                    <img class="w-100" src="" id="logo-photo-preview" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card-header card-header-tab-animation">
-                        <ul class="nav nav-justified">
-                            <li class="nav-item">
-                                <a data-bs-toggle="tab" href="#tab-eg115-0" class="active nav-link">{{__('Terms of Use')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a data-bs-toggle="tab" href="#tab-eg115-1" class="nav-link">{{__('Privacy statement')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tab-content mb-5">
-                        <div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
-                            <div class="mb-3 mt-3">
-                                <!--                    <label class="form-label" for="terms"><strong>Terms of Use</strong></label>-->
-                                <div id="SiteInfoeditor1" >
-                                    <textarea  name="terms" class="form-control mt-3" id="terms" name="terms"  rows="6"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-eg115-1" role="tabpanel">
-                            <div class="mb-3 mt-3">
-                                <!--                    <label class="form-label" for="privacy"><strong>Privacy statement</strong></label>-->
-                                <div id="SiteInfoeditor2">
-                                    <textarea  class="form-control mt-3" id="privacy" name="privacy"  rows="6"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </fieldset>
     </form>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function (){
+        let editor;
+        ClassicEditor.create( document.querySelector( '#SiteInfoeditor1' ), {
+            placeholder: 'Terms of use'
+        })
+            .then( newEditor => {
+                editor = newEditor;
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        let editor1;
+        ClassicEditor.create( document.querySelector( '#SiteInfoeditor2' ), {
+            placeholder:'Privacy statement'
+        } )
+            .then( newEditor => {
+                editor1 = newEditor;
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    });
+        $('.siteInfoSubmit').on('click', function(){
+            const data = {
+                companyName : $('#companyName').val(),
+                siteName: $('#siteName').val(),
+                fax : $('#fax').val(),
+                companyRegister : $('#companyRegister').val(),
+                personalInformation : $('#personalInformation').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                email : $('#email').val(),
+                copyright : $('#copyright').val(),
+                logo : $('#logo-photo').val(),
+                SiteInfoeditor1 : editor.getData(),
+                SiteInfoeditor2 : editor1.getData(),
+            };
+            Axios.post('/api/settings/siteinfo/update', data).then((resp) =>{
+                $('#siteInfoSaveBtn').addClass('invisible');
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Successfully save'
+                });
+            }).catch((err)=>{
+                console.log(err);
+            });
+        });
+</script>
 @endsection
