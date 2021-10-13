@@ -136,9 +136,7 @@
 <script>
     $(document).ready(function (){
         let editor;
-        ClassicEditor.create( document.querySelector( '#SiteInfoeditor1' ), {
-            placeholder: 'Terms of use'
-        })
+        ClassicEditor.create( document.querySelector( '#SiteInfoeditor1' ) )
             .then( newEditor => {
                 editor = newEditor;
             } )
@@ -146,16 +144,14 @@
                 console.error( error );
             } );
         let editor1;
-        ClassicEditor.create( document.querySelector( '#SiteInfoeditor2' ), {
-            placeholder:'Privacy statement'
-        } )
+        ClassicEditor.create( document.querySelector( '#SiteInfoeditor2' ) )
             .then( newEditor => {
                 editor1 = newEditor;
             } )
             .catch( error => {
                 console.error( error );
             } );
-    });
+
         $('.siteInfoSubmit').on('click', function(){
             const data = {
                 companyName : $('#companyName').val(),
@@ -181,5 +177,6 @@
                 console.log(err);
             });
         });
+    });
 </script>
 @endsection
