@@ -12,8 +12,11 @@ class SiteInfoController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index(){
+
         $data['site_info'] = DB::table('wpanel_site_info')->first();
+
         return view('Admin::pages.settings.site-info', compact('data'));
     }
 }
