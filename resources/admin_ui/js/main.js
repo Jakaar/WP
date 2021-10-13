@@ -34,7 +34,7 @@ import Swal from "../vendors/sweetalert2";
 window.Swal = Swal;
 window.Axios = Axios;
 
-import "./form-components/form-validation";
+import "../vendors/jquery-validation/dist/jquery.validate";
 
 require('./customs/custom');
 require('./customs/loader');
