@@ -98,25 +98,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($data['board_master'] as $board)
-                    <tr>
-                        <td></td>
-                        <td>{{$board->board_name}}</td>
-                        <td>{{$board->board_type}}</td>
-                        <td>{{$board->board_type}}</td>
-                        <td>{{$board->board_type}}</td>
-                        <td>{{$board->board_type}}</td>
-                    </tr>
-                @endforeach
+                    @foreach($data['board_master'] as $board)
+                        <tr>
+                            <td></td>
+                            <td>{{$board->board_name}}</td>
+                            <td>{{$board->board_type}}</td>
+                            <td>{{$board->board_type}}</td>
+                            <td>{{$board->board_type}}</td>
+                            <td>{{$board->board_type}}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>#</th>
+                    <th>{{__('Board Name')}}</th>
+                    <th>{{__('Board Type')}}</th>
+                    <th>{{__('Use Comment')}}</th>
+                    <th>{{__('Created At')}}</th>
+                    <th>{{__('Action')}}</th>
                 </tr>
                 </tfoot>
             </table>
@@ -136,27 +136,141 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="position-relative mb-3">
-                                <h5 class="card-title">{{__('Name')}}</h5>
-                                <input name="" id="BoardName" placeholder="" type="email" class="form-control">
+                    <form id="CrtBrd">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="position-relative mb-3">
+                                    <h5 class="card-title">{{__('Name')}}</h5>
+                                    <input name="" id="BoardName" placeholder="" type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="card-title">{{__('Board Type')}}</h5>
+                                <select id="BoardType" class="multiselect-dropdown form-control">
+                                    <option value="" selected disabled>{{__('Choose')}}</option>
+                                    @foreach($data['board_type'] as $type)
+                                        <option value="{{$type->key}}">{{$type->key}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <h5 class="card-title">{{__('Board Type')}}</h5>
-                            <select id="BoardType" class="multiselect-dropdown form-control">
-                                <option value="" selected disabled>{{__('Choose')}}</option>
-                                @foreach($data['board_type'] as $type)
-                                    <option value="{{$type->key}}">{{$type->key}}</option>
-                                @endforeach
-                            </select>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use Comment')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1">
+                                    <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesComment" name="isComment" value="0">
+                                    <label class="form-check-label" for="yesComment">{{__('No')}}</label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use Comment Reply')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesReply" name="isReply" value="1">
+                                    <label class="form-check-label" for="yesReply">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noReply" name="isReply" value="0">
+                                    <label class="form-check-label" for="noReply">{{__('No')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use Register Button')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesRegister" name="isRegister" value="1">
+                                    <label class="form-check-label" for="yesRegister">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noRegister" name="isRegister" value="0">
+                                    <label class="form-check-label" for="noRegister">{{__('No')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use Rating')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesRating" name="isRating" value="1">
+                                    <label class="form-check-label" for="yesRating">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noRating" name="isRating" value="0">
+                                    <label class="form-check-label" for="noRating">{{__('No')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use File Input')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesFile" name="isFile" value="1">
+                                    <label class="form-check-label" for="yesFile">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noFile" name="isFile" value="0">
+                                    <label class="form-check-label" for="noFile">{{__('No')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use Board')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesBoard" name="isBoard" value="1">
+                                    <label class="form-check-label" for="yesBoard">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noBoard" name="isBoard" value="0">
+                                    <label class="form-check-label" for="noBoard">{{__('No')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-primary">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <h5 class="card-title">{{__('Use Category')}}</h5>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesCategory" name="isCategory" value="1">
+                                    <label class="form-check-label" for="yesCategory">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noCategory" name="isCategory" value="0">
+                                    <label class="form-check-label" for="noCategory">{{__('No')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">{{__('Close')}}</button>
-                    <button type="button" class="btn btn-primary CreateBoard">{{__('Create')}}</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-success CreateBoard">{{__('Create')}}</button>
                 </div>
             </div>
         </div>
@@ -165,6 +279,7 @@
 @section('script')
     <script>
         $(document).ready(function (){
+
             const table = $('#BulletInBoard').DataTable( {
                 retrieve: true,
                 paging: false
@@ -174,16 +289,42 @@
                     cell.innerHTML = i+1;
                 } );
             } ).draw();
+
             $('.CreateModalShow').click(function (){
                 $('#CreateBoardModal').modal('show');
             });
+
             $('.CreateBoard').on('click', function (){
                const data = {
                    board_name: $('#BoardName').val(),
                    board_type: $('#BoardType').val(),
+                   isComment: $('input[name="isComment"]:checked').val(),
+                   isReply: $('input[name="isReply"]:checked').val(),
+                   isRegister: $('input[name="isRegister"]:checked').val(),
+                   isRating: $('input[name="isRating"]:checked').val(),
+                   isFile: $('input[name="isFile"]:checked').val(),
+                   isBoard: $('input[name="isBoard"]:checked').val(),
+                   isCategory: $('input[name="isCategory"]:checked').val()
+
                }
                Axios.post('/api/board/create', data).then((resp) => {
-                   console.log(resp)
+                   $('#CrtBrd')[0].reset();
+                   $('#CreateBoardModal').modal('hide');
+                   const Toast = Swal.mixin({
+                       toast: true,
+                       position: 'mid-center',
+                       showConfirmButton: false,
+                       timer: 3000,
+                       timerProgressBar: true,
+                       didOpen: (toast) => {
+                           toast.addEventListener('mouseenter', Swal.stopTimer)
+                           toast.addEventListener('mouseleave', Swal.resumeTimer)
+                       }
+                   })
+                   Toast.fire({
+                       icon: 'success',
+                       title: resp.data.msg
+                   })
                }).catch((err) => {
                    console.log(err)
                })

@@ -36,6 +36,11 @@ window.Axios = Axios;
 
 import "../vendors/jquery-validation/dist/jquery.validate";
 
+
+
+
+
+
 require('./customs/custom');
 require('./customs/loader');
 require('./charts/apex-charts');
