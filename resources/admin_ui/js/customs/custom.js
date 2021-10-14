@@ -379,7 +379,7 @@ $('#change_password').click(function(){
 
   const check =  $("#changePasswordValidation").valid();
   if(check == true){
-    Axios.post('/api/profile/update', password).then((resp) => {
+    Axios.post('/api/profile/updatePassword', password).then((resp) => {
       console.log(resp)
       Toast.fire({
         icon: 'success',
