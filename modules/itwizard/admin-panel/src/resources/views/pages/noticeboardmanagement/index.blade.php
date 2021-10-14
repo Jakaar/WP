@@ -310,23 +310,15 @@
                Axios.post('/api/board/create', data).then((resp) => {
                    $('#CrtBrd')[0].reset();
                    $('#CreateBoardModal').modal('hide');
-                   const Toast = Swal.mixin({
-                       toast: true,
-                       position: 'mid-center',
-                       showConfirmButton: false,
-                       timer: 3000,
-                       timerProgressBar: true,
-                       didOpen: (toast) => {
-                           toast.addEventListener('mouseenter', Swal.stopTimer)
-                           toast.addEventListener('mouseleave', Swal.resumeTimer)
-                       }
-                   })
                    Toast.fire({
                        icon: 'success',
                        title: resp.data.msg
                    })
                }).catch((err) => {
-                   console.log(err)
+                   Toast.fire({
+                       icon: 'error',
+                       title: err.response.data.msg
+                   })
                })
             });
         });

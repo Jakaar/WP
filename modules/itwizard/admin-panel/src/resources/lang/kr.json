@@ -1,4 +1,4 @@
-{   "title":"제목",
+{
     "Title": "제목",
     "settings": "설정",
     "Choose Language":"언어 선택",
@@ -228,5 +228,24 @@
     "Active": "활성",
     "Inactive": "비활성",
     "Show": "보이기",
-    "Entries": "항목"
+    "Entries": "항목",
+    "filemanager::filemanager.size": "사이즈",
+    "filemanager::filemanager.name": "이름",
+    "filemanager::filemanager.title": "제목",
+    "filemanager::filemanager.type": "타입",
+    "filemanager::filemanager.action": "동작",
+    "filemanager::filemanager.modified": "수정",
+    "filemanager::filemanager.search": "검색",
+    "filemanager::filemanager.upload": "업로드",
+    "filemanager::filemanager.upload-message": "메시지 업로드",
+    "filemanager::filemanager.doc": "문서",
+    "filemanager::filemanager.dimension": "치수",
+    "filemanager::filemanager.created": "게시된 날짜",
+    "filemanager::filemanager.preview": "시사",
+    "filemanager::filemanager.edit": "시사",
+    "filemanager::filemanager.update": "업데이트",
+    "filemanager::filemanager.convert": "전환",
+    "filemanager::filemanager.choose_format": "형식을 선택하세요"
+
+
 }

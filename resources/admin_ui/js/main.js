@@ -35,7 +35,17 @@ window.Swal = Swal;
 window.Axios = Axios;
 
 import "../vendors/jquery-validation/dist/jquery.validate";
-
+window.Toast = Swal.mixin({
+    toast: true,
+    position: 'mid-center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 require('./customs/custom');
 require('./customs/loader');
 require('./charts/apex-charts');

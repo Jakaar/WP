@@ -63,11 +63,11 @@
                             </div>
                             <div class="card-title text-uppercase">{{__('Fax Number')}}</div>
                             <div>
-                                <input type="text" class="form-control mb-3" id="fax" name="fax" maxlength="50" value="{{$data['site_info']->fax}}">
+                                <input type="text" class="form-control mb-3" id="fax" name="fax" maxlength="50" value="{{$data['site_info']->fax ?? ''}}">
                             </div>
                             <div class="card-title text-uppercase">{{__('Personal Information Manager')}}</div>
                             <div>
-                                <input type="text" class="form-control mb-3" id="personalInformation" name="personalInformation" maxlength="50" value="{{$data['site_info']->personal_information_manager}}">
+                                <input type="text" class="form-control mb-3" id="personalInformation" name="personalInformation" maxlength="50" value="{{$data['site_info']->personal_information_manager ?? ''}}">
                             </div>
                             <div class="card-title text-uppercase">{{__('Bussiness Address')}}</div>
                             <div>
