@@ -44,16 +44,14 @@
         <div class="app-header-right">
             <div class="header-dots">
                 <div class="dropdown">
-                    <button type="button" aria-haspopup="true" aria-expanded="false"
-                        data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
+                    <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-danger"></span>
                             <i class="icon text-danger icon-anim-pulse ion-android-notifications"></i>
                             <span class="badge badge-dot badge-dot-sm bg-danger">Notifications</span>
                         </span>
                     </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true"
-                        class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
                         <div class="dropdown-menu-header mb-0">
                             <div class="dropdown-menu-header-inner bg-deep-blue">
                                 <div class="menu-header-image opacity-1" style="background-image: url('images/dropdown-header/city3.jpg');"></div>
@@ -349,8 +347,7 @@
                             <span class="language-icon opacity-8 flag large @if(session()->get('locale') == 'en') US @else KR @endif"></span>
                         </span>
                     </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true"
-                        class="rm-pointers dropdown-menu dropdown-menu-right">
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu dropdown-menu-right">
                         <div class="dropdown-menu-header">
                             <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
                                 <div class="menu-header-image opacity-1" style="background-image: url('/aPanel/images/city2.jpg');"></div>
@@ -380,8 +377,7 @@
                                     <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar ?? asset('aPanel/imgs/1.png') }}" alt="">
                                     <i class="fa fa-angle-down ms-2 opacity-8"></i>
                                 </a>
-                                <div tabindex="-1" role="menu" aria-hidden="true"
-                                    class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
+                                <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
                                     <div class="dropdown-menu-header">
                                         <div class="dropdown-menu-header-inner bg-info">
                                             <div class="menu-header-image opacity-2" style="background-image: url('/aPanel/images/city3.jpg');"></div>
@@ -389,44 +385,49 @@
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left me-3">
-                                                            <img width="42" class="rounded-circle"
-                                                                 src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}"  alt="">
+                                                            <img width="42" class="rounded-circle" src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}" alt="">
                                                         </div>
                                                         <div class="widget-content-left">
                                                             <div class="widget-heading">{{auth()->user()->lastname}}</div>
-                                                            <div class="widget-subheading opacity-8">A short profile description</div>
+                                                            <div class="widget-subheading opacity-8">{{auth()->user()->email}}</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">
-                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</button>
+                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">{{__('Logout')}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="scroll-area-xs" style="height: 150px;">
+                                    <div class="scroll-area-xs">
                                         <div class="scrollbar-container ps">
                                             <ul class="nav flex-column">
                                                 <li class="nav-item-header nav-item">{{__('Account')}}</li>
                                                 <li class="nav-item">
                                                     <a href="/cms/myProfile/" class="nav-link">
                                                         {{__('Profile')}}
-{{--                                                        <div class="ms-auto badge bg-success">New</div>--}}
+
                                                     </a>
                                                 </li>
-{{--                                                <li class="nav-item">--}}
-{{--                                                    <a href="javascript:void(0);" class="nav-link">--}}
-{{--                                                        Messages--}}
-{{--                                                        <div class="ms-auto badge bg-warning">512</div>--}}
-{{--                                                    </a>--}}
-{{--                                                </li>--}}
-{{--                                                <li class="nav-item">--}}
-{{--                                                    <a href="javascript:void(0);" class="nav-link">Logs</a>--}}
-{{--                                                </li>--}}
+                                                <li class="nav-item">
+                                                    <a href="/cms/myProfile/#change-password" class="nav-link">
+                                                        {{__('Change Password')}}
+                                                        
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="/cms/myProfile/#profile-settings" class="nav-link">{{__('Settings')}}</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="/cms/myProfile/#profile-msg" class="nav-link">
+                                                        {{__('Messages')}}
+                                                    <div class="ms-auto badge bg-danger">1</div>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <ul class="nav flex-column">
+                                    <!-- <ul class="nav flex-column">
                                         <li class="nav-item-divider mb-0 nav-item"></li>
                                     </ul>
                                     <div class="grid-menu grid-menu-2col">
@@ -450,12 +451,13 @@
                                         <li class="nav-item-btn text-center nav-item">
                                             <button class="btn-wide btn btn-primary btn-sm"> Open Messages</button>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
                             </div>
                         </div>
                         <div class="widget-content-left  ms-3 header-user-info">
-                            <div class="widget-heading"> {{auth()->user()->lastname}}</div>
+                            <div class="widget-heading"> {{auth()->user()->lastname}}
+                            </div>
                             <div class="widget-subheading"> VP People Manager</div>
                         </div>
                     </div>

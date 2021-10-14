@@ -382,8 +382,8 @@ $('#change_password').click(function(){
     Axios.post('/api/profile/update', password).then((resp) => {
       console.log(resp)
       Toast.fire({
-        icon: resp.data.msg,
-        title: resp.data.title
+        icon: 'success',
+        title: resp.data.msg
       });
     }).catch((err) => {
       Toast.fire({
@@ -423,6 +423,130 @@ $('#file-upload').change(function() {
 
 // -- Profile image upload  END --
 
+// -- Layouts Option Save LocalStorage --
+// ----- Layout Fixed Header ------//
+$('#fixedHeaderLayout').change(function(){
+  var fixed_header = $(this).prop('checked');
+  localStorage.setItem('fixed_header',fixed_header)
+})
+$(document).ready(function(){
+  if(localStorage.getItem('fixed_header') == 'true'){
+    $('#fixedHeaderLayout').attr('checked','true');
+    $('#sideBarMini').addClass('fixed-header');
+  }
+  else{
+    $('#fixedHeaderLayout').removeAttr('checked');
+    $('#sideBarMini').removeClass('fixed-header');
+  }
+})
+// ----- Layout Fixed Header end ------//
+//----- Layout Fixed Sidebar ----- //
+$('#fixedSidebarLayout').change(function(){
+  var fixed_sidebar = $(this).prop('checked');
+  localStorage.setItem('fixed_sidebar',fixed_sidebar)
+})
+$(document).ready(function(){
+  if(localStorage.getItem('fixed_sidebar') == 'true'){
+    $('#fixedSidebarLayout').attr('checked','true');
+    $('#sideBarMini').addClass('fixed-sidebar');
+  }
+  else{
+    $('#fixedSidebarLayout').removeAttr('checked');
+    $('#sideBarMini').removeClass('fixed-sidebar');
+  }
+})
+//----- Layout Fixed Sidebar  end ----- //
+
+//----- Layout Fixed Footer ----- //
+$('#fixedFooterLayout').change(function(){
+  var fixed_footer = $(this).prop('checked');
+  localStorage.setItem('fixed_footer',fixed_footer)
+})
+$(document).ready(function(){
+  if(localStorage.getItem('fixed_footer') == 'true'){
+    $('#fixedFooterLayout').attr('checked','true');
+    $('#sideBarMini').addClass('fixed-footer');
+  }
+  else{
+    $('#fixedFooterLayout').removeAttr('checked');
+    $('#sideBarMini').removeClass('fixed-footer');
+  }
+})
+//----- Layout Fixed Footer  end ----- //
+
+//----- Color switcher header ----
+
+$('#headerColorSwitcher div').click(function(){
+  localStorage.setItem('header-color',$(this).attr('data-class'))
+})
+$('#restoreHeaderColor').click(function(){
+  $('.app-header').attr('class','app-header')
+  $('.app-header').addClass('header-shadow header-text-light')
+  localStorage.removeItem('header-color')
+})
+$(document).ready(function(){
+  $('.app-header').addClass(localStorage.getItem('header-color'))
+  $('#headerColorSwitcher div[data-class="'+localStorage.getItem('header-color')+'"]').addClass('active')
+})
+// ----- Color switcher header end -----
+// ---- Color swticher sidebar ----
+$('#sidebarColorSwitcher div').click(function(){
+  localStorage.setItem('sidebar-color',$(this).attr('data-class'))
+})
+$('#restoreSidebarColor').click(function(){
+  $('.app-sidebar').attr('class','app-sidebar')
+  $('.app-sidebar').addClass('sidebar-shadow sidebar-text-dark')
+  localStorage.removeItem('sidebar-color')
+})
+$(document).ready(function(){
+
+  $('.app-sidebar').addClass(localStorage.getItem('sidebar-color'))
+  $('#sidebarColorSwitcher div[data-class="'+localStorage.getItem('sidebar-color')+'"]').addClass('active')
+})
+// ---- Color switcher sidebar end ---
+
+// ---- Main Content Option ----
+$('#pageSectionTabSwticher button').click(function(){
+  $('#sideBarMini').addClass($(this).attr('data-class'))
+  localStorage.setItem('page-section',$(this).attr('data-class'))
+})
+
+$('#lightColorSwitcher button').click(function(){
+  $('#sideBarMini').addClass($(this).attr('data-class'))
+  localStorage.setItem('light-color',$(this).attr('data-class'))
+})
+
+$('#restoreMainContent').click(function(){
+  $('#pageSectionTabSwticher button').removeClass('active')
+  $('#pageSectionTabSwticher button[data-class="body-tabs-shadow"]').addClass('active')
+  $('#lightColorSwitcher button').removeClass('active')
+  $('#lightColorSwitcher button[data-class="app-theme-white"]').addClass('active')
+  $('#sideBarMini').removeClass(localStorage.getItem('page-section'))
+  $('#sideBarMini').removeClass(localStorage.getItem('light-color'))
+  localStorage.setItem('page-section','body-tabs-shadow')
+  localStorage.setItem('light-color','app-theme-white')
+  $('#sideBarMini').addClass(localStorage.getItem('page-section'))
+  $('#sideBarMini').addClass(localStorage.getItem('light-color'))
+})
+
+$(document).ready(function(){
+  $('#sideBarMini').addClass(localStorage.getItem('page-section'))
+  $('#sideBarMini').addClass(localStorage.getItem('light-color'))
+
+  $('#pageSectionTabSwticher button[data-class="'+localStorage.getItem('page-section')+'"]').addClass('active')
+  $('#lightColorSwitcher button[data-class="'+localStorage.getItem('light-color')+'"]').addClass('active')
+})
+// ---- Main Content Option ----
+// -- Layouts Option Save LocalStorage end --
+// -- User Edit --
+$('.edituser').click(function(){
+  $('#editUserModal').appendTo('body').show();
+
+})
+$('#editProfileChanges').click(function(){
+  
+})
+//--  User Edit End --
 // -- Site info page edit Start --
 $('.disabler').on('click', () => {
     if ($('#siteInfoForm fieldset').attr('disabled') === 'disabled'){

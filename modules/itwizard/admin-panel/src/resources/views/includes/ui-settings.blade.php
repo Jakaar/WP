@@ -5,7 +5,7 @@
     <div class="theme-settings__inner">
         <div class="scrollbar-container">
             <div class="theme-settings__options-wrapper">
-                <h3 class="themeoptions-heading">Layout Options</h3>
+                <h3 class="themeoptions-heading">{{__('Layout Options')}}</h3>
                 <div class="p-3">
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -14,13 +14,13 @@
                                     <div class="widget-content-left me-3">
                                         <div class="switch has-switch switch-container-class" data-class="fixed-header">
                                             <div class="switch-animate switch-on">
-                                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
+                                                <input type="checkbox" data-toggle="toggle" data-onstyle="success" id="fixedHeaderLayout">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">Fixed Header</div>
-                                        <div class="widget-subheading">Makes the header top fixed, always visible!</div>
+                                        <div class="widget-heading"> {{__('Fixed Header')}} </div>
+                                        <div class="widget-subheading">{{ __('Makes the header top fixed, always visible!') }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -31,13 +31,13 @@
                                     <div class="widget-content-left me-3">
                                         <div class="switch has-switch switch-container-class" data-class="fixed-sidebar">
                                             <div class="switch-animate switch-on">
-                                                <input type="checkbox" checked data-toggle="toggle"  data-onstyle="success">
+                                                <input type="checkbox" checked data-toggle="toggle"  data-onstyle="success" id="fixedSidebarLayout">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">Fixed Sidebar</div>
-                                        <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
+                                        <div class="widget-heading">{{__('Fixed Sidebar')}}</div>
+                                        <div class="widget-subheading">{{__('Makes the sidebar left fixed, always visible!')}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -48,13 +48,13 @@
                                     <div class="widget-content-left me-3">
                                         <div class="switch has-switch switch-container-class" data-class="fixed-footer">
                                             <div class="switch-animate switch-off">
-                                                <input type="checkbox" data-toggle="toggle" data-onstyle="success">
+                                                <input type="checkbox" data-toggle="toggle" data-onstyle="success" id="fixedFooterLayout">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">Fixed Footer</div>
-                                        <div class="widget-subheading">Makes the app footer bottom fixed, always visible!</div>
+                                        <div class="widget-heading">{{__('Fixed Footer')}}</div>
+                                        <div class="widget-subheading">{{__('Makes the app footer bottom fixed, always visible!')}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -62,16 +62,16 @@
                     </ul>
                 </div>
                 <h3 class="themeoptions-heading">
-                    <div> Header Options</div>
-                    <button type="button" class="btn-pill btn-shadow btn-wide ms-auto btn btn-focus btn-sm switch-header-cs-class" data-class="">
-                        Restore Default
+                    <div> {{__('Header Options')}}</div>
+                    <button type="button" class="btn-pill btn-shadow btn-wide ms-auto btn btn-focus btn-sm switch-header-cs-class" id="restoreHeaderColor" data-class="">
+                        {{__('Restore Default')}}
                     </button>
                 </h3>
                 <div class="p-3">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <h5 class="pb-2">Choose Color Scheme</h5>
-                            <div class="theme-settings-swatches">
+                            <h5 class="pb-2">{{__('Choose Color Scheme')}}</h5>
+                            <div class="theme-settings-swatches" id="headerColorSwitcher">
                                 <div class="swatch-holder bg-primary switch-header-cs-class" data-class="bg-primary header-text-light"></div>
                                 <div class="swatch-holder bg-secondary switch-header-cs-class" data-class="bg-secondary header-text-light"></div>
                                 <div class="swatch-holder bg-success switch-header-cs-class" data-class="bg-success header-text-light"></div>
@@ -114,16 +114,16 @@
                     </ul>
                 </div>
                 <h3 class="themeoptions-heading">
-                    <div>Sidebar Options</div>
-                    <button type="button" class="btn-pill btn-shadow btn-wide ms-auto btn btn-focus btn-sm switch-sidebar-cs-class" data-class="">
-                        Restore Default
+                    <div>{{__('Sidebar Options')}}</div>
+                    <button type="button" class="btn-pill btn-shadow btn-wide ms-auto btn btn-focus btn-sm switch-sidebar-cs-class" id="restoreSidebarColor" data-class="">
+                        {{__('Restore Default')}}
                     </button>
                 </h3>
                 <div class="p-3">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <h5 class="pb-2">Choose Color Scheme</h5>
-                            <div class="theme-settings-swatches">
+                            <h5 class="pb-2">{{__('Choose Color Scheme')}}</h5>
+                            <div class="theme-settings-swatches" id="sidebarColorSwitcher">
                                 <div class="swatch-holder bg-primary switch-sidebar-cs-class" data-class="bg-primary sidebar-text-light"></div>
                                 <div class="swatch-holder bg-secondary switch-sidebar-cs-class" data-class="bg-secondary sidebar-text-light"></div>
                                 <div class="swatch-holder bg-success switch-sidebar-cs-class" data-class="bg-success sidebar-text-dark"></div>
@@ -166,28 +166,28 @@
                     </ul>
                 </div>
                 <h3 class="themeoptions-heading">
-                    <div>Main Content Options</div>
-                    <button type="button" class="btn-pill btn-shadow btn-wide ms-auto active btn btn-focus btn-sm">Restore Default</button>
+                    <div>{{__('Main Content Options')}}</div>
+                    <button type="button" class="btn-pill btn-shadow btn-wide ms-auto active btn btn-focus btn-sm" id="restoreMainContent">{{__('Restore Default')}}</button>
                 </h3>
                 <div class="p-3">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <h5 class="pb-2">Page Section Tabs</h5>
+                            <h5 class="pb-2">{{__('Page Section Tabs')}}</h5>
                             <div class="theme-settings-swatches">
-                                <div role="group" class="mt-2 btn-group">
-                                    <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="body-tabs-line"> Line</button>
-                                    <button type="button" class="btn-wide btn-shadow btn-primary active btn btn-secondary switch-theme-class" data-class="body-tabs-shadow"> Shadow</button>
+                                <div role="group" class="mt-2 btn-group" id="pageSectionTabSwticher">
+                                    <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="body-tabs-line"> {{__('Line')}}</button>
+                                    <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="body-tabs-shadow"> {{__('Shadow')}}</button>
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <h5 class="pb-2">
-                                Light Color Schemes
+                                {{__('Light Color Schemes')}}
                             </h5>
                             <div class="theme-settings-swatches">
-                                <div role="group" class="mt-2 btn-group">
-                                    <button type="button" class="btn-wide btn-shadow btn-primary active btn btn-secondary switch-theme-class" data-class="app-theme-white"> White Theme</button>
-                                    <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="app-theme-gray"> Gray Theme</button>
+                                <div role="group" class="mt-2 btn-group" id="lightColorSwitcher">
+                                    <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="app-theme-white"> {{__('White Theme')}}</button>
+                                    <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="app-theme-gray"> {{__('Gray Theme')}} </button>
                                 </div>
                             </div>
                         </li>
