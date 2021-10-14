@@ -36,6 +36,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/settings', [SiteInfoController::class,  'index']);
     Route::get('/settings/seo_list', [SeoController::class,  'index']);
+    Route::get('/settings/contactUs', [\Itwizard\Adminpanel\Http\Controllers\ContactUs\ContactUsController::class,  'index']);
 
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
 
