@@ -22,7 +22,8 @@ class SiteInfoSeeder extends Seeder
             'site_copyright' => 'Copyright Here',
             'logo' => null,
             'terms_of_condition' => 'Terms of Condition',
-            'privacy' => 'Site Privacy Here'
+            'privacy' => 'Site Privacy Here',
+            'personal_information_manager' => 'personal manager'
         ]);
     }
 }
