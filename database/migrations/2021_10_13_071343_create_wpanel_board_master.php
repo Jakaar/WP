@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWpanelMasterBoard extends Migration
+class CreateWpanelBoardMaster extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWpanelMasterBoard extends Migration
      */
     public function up()
     {
-        Schema::create('wpanel_master_board', function (Blueprint $table) {
+        Schema::create('wpanel_board_master', function (Blueprint $table) {
             $table->id();
             $table->string('board_name');
             $table->string('board_type');
@@ -28,6 +28,6 @@ class CreateWpanelMasterBoard extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wpanel_master_board');
+        Schema::dropIfExists('wpanel_board_master');
     }
 }
