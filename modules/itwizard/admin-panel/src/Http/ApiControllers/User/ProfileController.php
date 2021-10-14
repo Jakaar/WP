@@ -50,22 +50,17 @@ class ProfileController extends Controller
     {
         try {
             $updated = DB::table('users')->where('id', auth()->user()->id);
-
-            $pw = auth()->user()->password;
-
-            $hashed = $request->current_password;
-
-            if (Hash::check($hashed, $pw)) 
+            if (Hash::check($request->current_password, auth()->user()->password)) 
             {
                 $updated->update([
                     'password' => bcrypt($request->new_password),
                 ]);
+                return response()->json(['msg' => 'success'], 200);
             } 
             else 
             {
-                echo 'password missmatch';
+                return response()->json(['msg'=> __('Mismatch Password')], 422);
             }
-            return response()->json(['msg' => 'success'], 200);
         } catch (\Exception $e) {
             return response()->json(['msg'=> __('error')]);
         }        
