@@ -46,58 +46,58 @@
         </div>
     </div>
     <form id="siteInfoForm" class="col-md-12 mx-auto" method="post" action="" disabled="disabled">
-        <fieldset disabled>
+        <fieldset id="fldst" disabled="disabled">
 
             <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-primary border-primary card">
                 <div class="widget-chat-wrapper-outer">
                     <div class="widget-chart-content">
                         <div class="row">
-                            <div class="col-md-4 col-lg-6">
-                                <div class="card-title opacity-5 text-uppercase ">{{__('Company Name')}}</div>
+                            <div class="col-md-6 col-lg-6">
+                                <div class="card-title text-uppercase ">{{__('Company Name')}}</div>
                                 <div >
                                     <input type="text" class="form-control mb-3" id="companyName" name="companyName" maxlength="110">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Site Name')}}</div>
+                                <div class="card-title text-uppercase">{{__('Site Name')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="siteName" name="siteName" maxlength="110">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Fax Number')}}</div>
+                                <div class="card-title text-uppercase">{{__('Fax Number')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="fax" name="fax" maxlength="50">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Personal Information Manager')}}</div>
+                                <div class="card-title text-uppercase">{{__('Personal Information Manager')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="personalInformation" name="personalInformation" maxlength="50">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Bussiness Address')}}</div>
+                                <div class="card-title text-uppercase">{{__('Bussiness Address')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="address" name="address" maxlength="110">
                                 </div>
 
                             </div>
-                            <div class="col-md-4 col-lg-6">
-                                <div class="card-title opacity-5 text-uppercase">{{__('Company Registration Number')}}</div>
+                            <div class="col-md-6 col-lg-6">
+                                <div class="card-title text-uppercase">{{__('Company Registration Number')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="companyRegister" name="companyRegister" maxlength="50">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Phone Number')}}</div>
+                                <div class="card-title text-uppercase">{{__('Phone Number')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="phone" name="phone" maxlength="110">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Representative Email')}}</div>
+                                <div class="card-title text-uppercase">{{__('Representative Email')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="email" name="email" maxlength="110">
                                 </div>
-                                <div class="card-title opacity-5 text-uppercase">{{__('Copyright')}}</div>
+                                <div class="card-title text-uppercase">{{__('Copyright')}}</div>
                                 <div>
                                     <input type="text" class="form-control mb-3" id="copyright" name="copyright" maxlength="110">
                                 </div>
                                     <div class="row">
-                                        <div class="text-center card-title opacity-5 text-uppercase my-auto">{{__('Logo')}}</div>
+                                        <div class="text-center card-title text-uppercase my-auto">{{__('Logo')}}</div>
                                             <div class="text-center">
-                                                <img class="mw-100 " style="max-height: 150px" id="logo-photo-preview" alt="">
+                                                <img class="mw-100 " style="max-height: 150px; min-width: 250px;" id="logo-photo-preview" alt="">
                                                 <input type="hidden" name="logo" id="logo-photo">
-                                                <button type="button" class="btn btn-outline-info w-75 mt-2" onclick="filemanager.selectFile('logo-photo')">{{__('Logo Select')}}</button>
+                                                <button type="button" class="btn btn-outline-info w-100" onclick="filemanager.selectFile('logo-photo')">{{__('Logo Select')}}</button>
                                             </div>
 
                                     </div>
@@ -106,7 +106,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-3 mt-3">
-                                    <div class="card-title opacity-5 text-uppercase mb-3">Terms of use</div>
+                                    <div class="card-title text-uppercase mb-3">Terms of use</div>
                                     <div id="SiteInfoeditor1" name="SiteInfoeditor1">
                                         <textarea name="editor1" id="editor1"></textarea>
                                     </div>
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3 mt-3">
-                                    <div class="card-title opacity-5 text-uppercase mb-3">Privacy statement</div>
+                                    <div class="card-title text-uppercase mb-3">Privacy statement</div>
                                     <div id="SiteInfoeditor2" name="SiteInfoeditor2">
                                         <textarea name="editor2" id="editor2"></textarea>
                                     </div>
@@ -165,10 +165,22 @@
             };
             Axios.post('/api/settings/siteinfo/update', data).then((resp) =>{
                 $('#siteInfoSaveBtn').addClass('invisible');
+                    $('#fldst').attr('disabled','disabled');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
                 Toast.fire({
                     icon: 'success',
-                    title: 'Successfully save'
-                });
+                    title: resp.data.msg
+                })
             }).catch((err)=>{
                 console.log(err);
             });

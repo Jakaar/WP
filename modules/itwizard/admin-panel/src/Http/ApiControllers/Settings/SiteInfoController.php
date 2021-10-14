@@ -10,6 +10,6 @@ class SiteInfoController extends Controller
     public function update(Request $request)
     {
 
-        return response()->json(['msg'=>'success', 'data'=>$request->all()], 200);
+        return response()->json(['msg'=>__('success')], 200);
     }
 }
