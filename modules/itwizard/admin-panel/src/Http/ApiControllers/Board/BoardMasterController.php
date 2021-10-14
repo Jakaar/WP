@@ -13,6 +13,6 @@ class BoardMasterController extends Controller
     }
     public function create(Request $request)
     {
-        return response()->json(['msg'=>__('Board Successfully Created')], 200);
+        dd($request->board_type);
     }
 }

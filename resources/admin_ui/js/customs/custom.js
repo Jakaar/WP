@@ -2,6 +2,17 @@
 $(document).on('load', () => {
    console.log()
 });
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 $(document).ready(function(){
     if(localStorage.getItem('sideBarClass')){
         $('#sideBarMini').addClass(localStorage.getItem('sideBarClass'));
@@ -207,7 +218,7 @@ $('.contactSubmit').on('click', () => {
 //     $(this).closest('tr').attr('key')
 //
 // })
-
+ 
 // -- Update Profile --
 
 $(document).ready(function(){

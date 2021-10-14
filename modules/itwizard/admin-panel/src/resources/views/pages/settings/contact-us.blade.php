@@ -1,4 +1,4 @@
-@extends('Admin::layouts.master')
+@extends('Admin_UI.layouts.master')
 @section('content')
 <section>
     <div class="tab-content">

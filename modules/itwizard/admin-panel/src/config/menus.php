@@ -21,46 +21,46 @@ return [
         ],
 
     ], // Dashboard menus
-//    [
-//        'title'=>'Marketing',
-//        'url'=>'cms/marketing',
-//        'menus'=> [
-//            [
-//                'url'=>'cms/marketing',
-//                'icon'=>'pe-7s-ticket',
-//                'name'=>'Banner',
-//                'colorClass'=>'success',
-//                'child' => [],
-//            ],
-//            [
-//                'url'=>'cms/marketing/popup',
-//                'icon'=>'lnr-layers',
-//                'name'=>'Popup',
-//                'colorClass'=>'success',
-//                'child' => [],
-//            ],
-//        ],
-//    ], // Marketing menus
-//    [
-//        'title'=>'Gallery',
-//        'url'=>'cms/gallery',
-//        'menus'=> [
-//            [
-//                'url'=>'cms/gallery',
-//                'icon'=>'pe-7s-albums',
-//                'name'=>'Galleries',
-//                'colorClass'=>'text-success',
-//                'child' => [],
-//            ],
-//            [
-//                'url'=>'cms/gallery/photos',
-//                'icon'=>'pe-7s-photo',
-//                'name'=>'Gallery photos',
-//                'colorClass'=>'success',
-//                'child' => [],
-//            ],
-//        ],
-//    ], // Gallery menus
+    [
+        'title'=>'Marketing',
+        'url'=>'cms/marketing',
+        'menus'=> [
+            [
+                'url'=>'cms/marketing',
+                'icon'=>'pe-7s-ticket',
+                'name'=>'Banner',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+            [
+                'url'=>'cms/marketing/popup',
+                'icon'=>'lnr-layers',
+                'name'=>'Popup',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+        ],
+    ], // Marketing menus
+    [
+        'title'=>'Gallery',
+        'url'=>'cms/gallery',
+        'menus'=> [
+            [
+                'url'=>'cms/gallery',
+                'icon'=>'pe-7s-albums',
+                'name'=>'Galleries',
+                'colorClass'=>'text-success',
+                'child' => [],
+            ],
+            [
+                'url'=>'cms/gallery/photos',
+                'icon'=>'pe-7s-photo',
+                'name'=>'Gallery photos',
+                'colorClass'=>'success',
+                'child' => [],
+            ],
+        ],
+    ], // Marketing menus
     [
         'title'=>'Notice Board Management',
         'url'=>'cms/noticeboard',
@@ -76,25 +76,25 @@ return [
             ],
         ],
     ], // Notice Board Management menus
-//    [
-//        'title'=>'News',
-//        'url'=>'cms/news',
-//        'menus'=> [
-//            [
-//                'url'=>'cms/news',
-//                'icon'=>'pe-7s-news-paper',
-//                'name'=>'News',
-//                'child' => [],
-//            ],
-//            [
-//                'url'=>'cms/news/categories',
-//                'icon'=>'pe-7s-menu',
-//                'name'=>'News Categories',
-//                'child' => [],
-//            ]
-//        ],
-//
-//    ], // News menus
+    [
+        'title'=>'News',
+        'url'=>'cms/news',
+        'menus'=> [
+            [
+                'url'=>'cms/news',
+                'icon'=>'pe-7s-news-paper',
+                'name'=>'News',
+                'child' => [],
+            ],
+            [
+                'url'=>'cms/news/categories',
+                'icon'=>'pe-7s-menu',
+                'name'=>'News Categories',
+                'child' => [],
+            ]
+        ],
+
+    ], // News menus
     [
         'title'=>'Settings',
         'url'=>'cms/settings',

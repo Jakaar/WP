@@ -17,13 +17,6 @@ class CreateWpanelBoardMaster extends Migration
             $table->id();
             $table->string('board_name');
             $table->string('board_type');
-            $table->integer('isComment')->default(0);
-            $table->integer('isCommentReply')->default(0);
-            $table->integer('isRegister')->default(0);
-            $table->integer('isRating')->default(0);
-            $table->integer('isFile')->default(0);
-            $table->integer('isBoard')->default(0);
-            $table->integer('isCategory')->default(0);
             $table->timestamps();
         });
     }
