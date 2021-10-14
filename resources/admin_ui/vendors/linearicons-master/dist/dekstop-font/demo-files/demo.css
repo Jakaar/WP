@@ -151,12 +151,12 @@ p {
 }
 @font-face {
 	font-family: 'Linearicons-Free';
-	src:url('../Linearicons-Free.eot?7y0ygv');
-	src:url('../Linearicons-Free.eot?#iefix7y0ygv') format('embedded-opentype'),
-		url('../Linearicons-Free.woff2?7y0ygv') format('woff2'),
-		url('../Linearicons-Free.woff?7y0ygv') format('woff'),
-		url('../Linearicons-Free.ttf?7y0ygv') format('truetype'),
-		url('../Linearicons-Free.svg?7y0ygv#Linearicons-Free') format('svg');
+	/*src:url('../Linearicons-Free.eot?7y0ygv');*/
+	/*src:url('../Linearicons-Free.eot?#iefix7y0ygv') format('embedded-opentype'),*/
+	/*	url('../Linearicons-Free.woff2?7y0ygv') format('woff2'),*/
+	/*	url('../Linearicons-Free.woff?7y0ygv') format('woff'),*/
+	/*	url('../Linearicons-Free.ttf?7y0ygv') format('truetype'),*/
+	/*	url('../Linearicons-Free.svg?7y0ygv#Linearicons-Free') format('svg');*/
 	font-weight: normal;
 	font-style: normal;
 }
@@ -169,7 +169,7 @@ p {
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-	
+
 	/* Enable Ligatures ================ */
 	letter-spacing: 0;
 	-webkit-font-feature-settings: "liga";
@@ -757,7 +757,7 @@ p {
 .lnr-uni35:before {
 	content: "\35";
 }
-.lnr-uni36<div><br></div>:before {
+.lnr-uni36:before {
 	content: "\36";
 }
 .lnr-uni37:before {
