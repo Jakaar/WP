@@ -1,6 +1,10 @@
 <div class="app-header header-shadow">
     <div class="app-header__logo">
-        <div class="logo-src"></div>
+        <div class="logo-src">
+            <a href="/cms">
+                <img class="logo-src" src="{{$logo['logo']->logo ?? ''}}" alt="">
+            </a>
+        </div>
         <div class="header__pane ms-auto">
             <div>
                 <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -412,7 +416,7 @@
                                                 <li class="nav-item">
                                                     <a href="/cms/myProfile/#change-password" class="nav-link">
                                                         {{__('Change Password')}}
-                                                        
+
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
