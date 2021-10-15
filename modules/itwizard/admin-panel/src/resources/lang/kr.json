@@ -245,7 +245,11 @@
     "filemanager::filemanager.edit": "시사",
     "filemanager::filemanager.update": "업데이트",
     "filemanager::filemanager.convert": "전환",
-    "filemanager::filemanager.choose_format": "형식을 선택하세요"
+    "filemanager::filemanager.choose_format": "형식을 선택하세요",
+    "Yes": "예",
+    "No": "아니요",
+    "Choose": "--- 선택 ---",
+    "Close": "닫기"
 
 
 }
