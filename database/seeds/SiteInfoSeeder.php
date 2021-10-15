@@ -15,7 +15,7 @@ class SiteInfoSeeder extends Seeder
             'company_name' => 'Your Company Name',
             'site_name' => 'Your Site Name',
             'fax' => 'Your fax here',
-            'company_register_number' => 'Your Company Fax',
+            'company_register_number' => 'Your company register number',
             'phone_number' => 'Your phone',
             'address' => 'Your official address',
             'email' => 'You Company email',
