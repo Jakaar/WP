@@ -251,7 +251,7 @@
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
     "Profile": "프로필",
-    "Messages": "메시지",    
+    "Messages": "메시지",
     "Update": "업데이트",
     "Update Profile": "업데이트 프로필",
     "Upload Image": "업로드 이미지",
@@ -292,5 +292,6 @@
     "Use Category": "카테고리 사용",
     "Yes": "네",
     "No": "아니오",
-    "Close": "닫기"   
+    "Close": "닫기",
+    "Choose": "--- 선택 ---"
 }
