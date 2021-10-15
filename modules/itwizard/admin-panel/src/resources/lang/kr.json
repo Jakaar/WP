@@ -284,5 +284,13 @@
     "Profile Settings": "프로필 설정",
     "Profile Message": "프로필 메시지",
     "Change Profile Information & Password": "프로필 정보 및 비밀번호 변경",
-    "Use Comment Reply": "댓글 답장하기 사용"
+    "Use Comment Reply": "댓글에 답장 사용",
+    "Use Register Button": "등록 버튼 사용",
+    "Use Rating": "등급 사용",
+    "Use File Input": "파일 입력 사용",
+    "Use Board": "보드 사용",
+    "Use Category": "카테고리 사용",
+    "Yes": "네",
+    "No": "아니오",
+    "Close": "닫기"   
 }
