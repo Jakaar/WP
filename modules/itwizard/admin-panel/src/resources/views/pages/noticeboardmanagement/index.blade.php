@@ -161,7 +161,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1">
+                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1" checked>
                                     <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -177,7 +177,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesReply" name="isReply" value="1">
+                                    <input class="form-check-input" type="radio" id="yesReply" name="isReply" value="1" checked>
                                     <label class="form-check-label" for="yesReply">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -197,7 +197,7 @@
                                     <label class="form-check-label" for="yesRegister">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noRegister" name="isRegister" value="0">
+                                    <input class="form-check-input" type="radio" id="noRegister" name="isRegister" value="0" checked>
                                     <label class="form-check-label" for="noRegister">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesRating" name="isRating" value="1">
+                                    <input class="form-check-input" type="radio" id="yesRating" name="isRating" value="1" checked>
                                     <label class="form-check-label" for="yesRating">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -229,7 +229,7 @@
                                     <label class="form-check-label" for="yesFile">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noFile" name="isFile" value="0">
+                                    <input class="form-check-input" type="radio" id="noFile" name="isFile" value="0" checked>
                                     <label class="form-check-label" for="noFile">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -245,7 +245,7 @@
                                     <label class="form-check-label" for="yesBoard">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noBoard" name="isBoard" value="0">
+                                    <input class="form-check-input" type="radio" id="noBoard" name="isBoard" value="0" checked>
                                     <label class="form-check-label" for="noBoard">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@
                                     <label class="form-check-label" for="yesCategory">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noCategory" name="isCategory" value="0">
+                                    <input class="form-check-input" type="radio" id="noCategory" name="isCategory" value="0" checked>
                                     <label class="form-check-label" for="noCategory">{{__('No')}}</label>
                                 </div>
                             </div>

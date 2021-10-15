@@ -13,3 +13,6 @@ Route::get('lang/{locale}', function ($lang) {
     // }
     return redirect()->back();
 });
+Route::get('/user/{slug}', function ($slug){
+    return view('home', compact('slug'));
+});
