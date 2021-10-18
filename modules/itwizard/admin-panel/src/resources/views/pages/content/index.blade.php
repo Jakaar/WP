@@ -20,14 +20,14 @@
                       <span class="btn-icon-wrapper pe-2 opacity-7">
                       <i class="pe-7s-plus"></i>
                       </span>
-                        {{__('Create')}}
+                        {{__('Quickly Create')}}
                     </button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">{{__('Menu Details')}}</h5>
@@ -35,11 +35,49 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">{{__('Menu Details')}}</h5>
+                    <h5 class="card-title">{{__('Menu Using')}}</h5>
                     <canvas id="chart-horiz-bar"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">{{__('Last 10 News')}}</h5>
+                    <table id="noControlledTable" style="width: 100%;" class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <td>{{__('Board Name')}}</td>
+                            <td>{{__('Title')}}</td>
+                            <td>{{__('Created At')}}</td>
+                            <td>{{__('Creator')}}</td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">{{__('Top 10 Viewed pages')}}</h5>
+                    <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <td>{{__('Menu Name')}}</td>
+                            <td>{{__('Title')}}</td>
+                            <td>{{__('Created At')}}</td>
+                            <td>{{__('Views')}}</td>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>

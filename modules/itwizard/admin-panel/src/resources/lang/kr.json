@@ -251,7 +251,7 @@
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
     "Profile": "프로필",
-    "Messages": "메시지",    
+    "Messages": "메시지",
     "Update": "업데이트",
     "Update Profile": "업데이트 프로필",
     "Upload Image": "업로드 이미지",
@@ -293,5 +293,8 @@
     "Yes": "네",
     "No": "아니오",
     "Close": "닫기",
-    "Create Board": "보드 생성"
+    "Create Board": "보드 생성",
+    "Top 10 Viewed pages": "가장 많이 본 페이지 10개",
+    "Last 10 News": "지난 10가지 뉴스",
+    "Quickly Create": "빠르게 생성"
 }

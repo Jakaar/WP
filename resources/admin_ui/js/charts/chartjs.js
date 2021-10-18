@@ -100,7 +100,7 @@ var barChartData = {
   datasets: [
     {
       label: "Page",
-      backgroundColor: chartColors.red,
+      backgroundColor: color(chartColors.red).alpha(0.7).rgbString(),
       data: [
         randomScalingFactor(),
         randomScalingFactor(),
@@ -113,7 +113,7 @@ var barChartData = {
     },
     {
       label: "Board",
-      backgroundColor: chartColors.blue,
+      backgroundColor: color(chartColors.blue).alpha(0.7).rgbString(),
       data: [
         randomScalingFactor(),
         randomScalingFactor(),
@@ -126,7 +126,7 @@ var barChartData = {
     },
     {
       label: "Program",
-      backgroundColor: chartColors.green,
+      backgroundColor: color(chartColors.green).alpha(0.7).rgbString(),
       data: [
         randomScalingFactor(),
         randomScalingFactor(),
@@ -139,7 +139,7 @@ var barChartData = {
     },
       {
           label: "Link",
-          backgroundColor: chartColors.yellow,
+          backgroundColor: color(chartColors.yellow).alpha(0.7).rgbString(),
           data: [
               randomScalingFactor(),
               randomScalingFactor(),
@@ -152,7 +152,7 @@ var barChartData = {
       },
       {
           label: "Submenu",
-          backgroundColor: chartColors.purple,
+          backgroundColor: color(chartColors.purple).alpha(0.7).rgbString(),
           data: [
               randomScalingFactor(),
               randomScalingFactor(),
@@ -447,9 +447,9 @@ var horizontalBarChartData = {
   datasets: [
     {
       label: "Unused",
-      backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+      backgroundColor: color(chartColors.red).alpha(0.7).rgbString(),
       borderColor: chartColors.red,
-      borderWidth: 1,
+      borderWidth: 0,
       data: [
         randomScalingFactor(),
         randomScalingFactor(),
@@ -462,8 +462,9 @@ var horizontalBarChartData = {
     },
     {
       label: "Used",
-      backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+      backgroundColor: color(chartColors.blue).alpha(0.7).rgbString(),
       borderColor: chartColors.blue,
+      borderWidth: 0,
       data: [
         randomScalingFactor(),
         randomScalingFactor(),

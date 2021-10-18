@@ -16,4 +16,20 @@ $(document).ready(() => {
     } ).draw();
     $('#NewsTable').DataTable({})
     $('#BulletInBoard').DataTable({});
+    $('#noControlledTable').DataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "searching": false
+    });
+    $('#noControlledTable1').DataTable({
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "searching": false
+    });
 });
