@@ -77,13 +77,31 @@ return [
         ],
     ], // Notice Board Management menus
     [
-        'title'=>'Content Management',
+        'title'=>'Menu Management',
         'url'=>'cms/cM',
         'menus'=> [
             [
                 'url'=>'cms/cM',
                 'icon'=>'pe-7s-albums',
-                'name'=>'Content Management',
+                'name'=>'Content & Menu',
+                'colorClass'=>'success',
+                'child' => [
+
+                ],
+            ],
+            [
+                'url'=>'cms/menus',
+                'icon'=>'pe-7s-menu',
+                'name'=>'Menu Manage',
+                'colorClass'=>'info',
+                'child' => [
+
+                ],
+            ],
+            [
+                'url'=>'cms/contents',
+                'icon'=>'pe-7s-folder',
+                'name'=>'Content Manage',
                 'colorClass'=>'success',
                 'child' => [
 

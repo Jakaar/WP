@@ -96,10 +96,10 @@ var configPie = {
 };
 
 var barChartData = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  labels: ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"],
   datasets: [
     {
-      label: "Dataset 1",
+      label: "Page",
       backgroundColor: chartColors.red,
       data: [
         randomScalingFactor(),
@@ -112,7 +112,7 @@ var barChartData = {
       ],
     },
     {
-      label: "Dataset 2",
+      label: "Board",
       backgroundColor: chartColors.blue,
       data: [
         randomScalingFactor(),
@@ -125,7 +125,7 @@ var barChartData = {
       ],
     },
     {
-      label: "Dataset 3",
+      label: "Program",
       backgroundColor: chartColors.green,
       data: [
         randomScalingFactor(),
@@ -137,6 +137,32 @@ var barChartData = {
         randomScalingFactor(),
       ],
     },
+      {
+          label: "Link",
+          backgroundColor: chartColors.yellow,
+          data: [
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+          ],
+      },
+      {
+          label: "Submenu",
+          backgroundColor: chartColors.purple,
+          data: [
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+          ],
+      },
   ],
 };
 
@@ -417,10 +443,10 @@ var configLine = {
 };
 
 var horizontalBarChartData = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  labels: ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"],
   datasets: [
     {
-      label: "Dataset 1",
+      label: "Unused",
       backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
       borderColor: chartColors.red,
       borderWidth: 1,
@@ -435,7 +461,7 @@ var horizontalBarChartData = {
       ],
     },
     {
-      label: "Dataset 2",
+      label: "Used",
       backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
       borderColor: chartColors.blue,
       data: [

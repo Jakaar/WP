@@ -7,7 +7,7 @@
                     <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                    {{__('Content Manage (All)')}}
+                    {{__('Content & Menu')}}
                     {{--                    <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>--}}
                 </div>
             </div>
@@ -27,15 +27,27 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-
+        <div class="col-md-4">
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">{{__('Menu Details')}}</h5>
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">{{__('Menu Details')}}</h5>
+                    <canvas id="chart-horiz-bar"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 @section('script')
     <script>
         $(document).ready(function () {
-
             const sendGetRequest = async (asd) => {
                 try {
                     const resp = await Axios.post('/api/cM');

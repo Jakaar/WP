@@ -22,7 +22,7 @@ import 'datatables.net';
 import "datatables.net-bs4";
 import "datatables.net-responsive";
 import "datatables.net-responsive-bs4";
-
+import "../vendors/chart.js/dist/Chart.min"
 import "../vendors/@chenfengyuan/datepicker"
 import "../vendors/daterangepicker"
 
@@ -59,6 +59,7 @@ require('./customs/tables');
 require('./carousel-slider');
 require('./customs/count-up')
 require('./customs/ckeditor')
+require('./charts/chartjs')
 // require('./form-components/datepicker')
 // window.Vue = require('vue');
 
