@@ -284,11 +284,11 @@
                 retrieve: true,
                 paging: false
             });
-            table.on( 'order.dt search.dt', function () {
+            table.on('order.dt search.dt', function () {
                 table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                     cell.innerHTML = i+1;
                 } );
-            } ).draw();
+            }).draw();
 
             $('.CreateModalShow').click(function (){
                 $('#CreateBoardModal').modal('show');
@@ -308,8 +308,8 @@
 
                }
                Axios.post('/api/board/create', data).then((resp) => {
-                   $('#CrtBrd')[0].reset();
-                   $('#CreateBoardModal').modal('hide');
+                   // $('#CrtBrd')[0].reset();
+                   // $('#CreateBoardModal').modal('hide');
                    Toast.fire({
                        icon: 'success',
                        title: resp.data.msg
