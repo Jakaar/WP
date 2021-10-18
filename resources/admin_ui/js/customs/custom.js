@@ -177,7 +177,7 @@ $(document).ready(function(){
 // contact us submit START
 
 // Form disabler Start
-$('.disabler').on('click', () => {
+$('.disabler_contactus').on('click', () => {
     if ($('#ContactUsForm fieldset').attr('disabled') === 'disabled'){
         $('#ContactUsForm fieldset').removeAttr('disabled');
         $('#contactSaveBtn').removeClass('invisible');
@@ -218,7 +218,7 @@ $('.contactSubmit').on('click', () => {
 //     $(this).closest('tr').attr('key')
 //
 // })
- 
+
 // -- Update Profile --
 
 $(document).ready(function(){
@@ -310,7 +310,7 @@ $(document).ready(function(){
 });
 
 // -- Refresh tab show end --
-// -- Refresh page 
+// -- Refresh page
 $('.refresh-page').click(function(){
   window.location.reload();
 })
