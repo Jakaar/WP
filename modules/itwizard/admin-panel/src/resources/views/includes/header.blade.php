@@ -378,7 +378,7 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar ?? asset('aPanel/imgs/1.png') }}" alt="">
+                                    <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}" alt="">
                                     <i class="fa fa-angle-down ms-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
@@ -389,14 +389,17 @@
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left me-3">
-                                                            <img width="42" class="rounded-circle" src="{{auth()->user()->avatar ?? asset('/aPanel/imgs/1.png')}}" alt="">
+                                                            <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}" alt="">
                                                         </div>
                                                         <div class="widget-content-left">
                                                             <div class="widget-heading">{{auth()->user()->lastname}}</div>
                                                             <div class="widget-subheading opacity-8">{{auth()->user()->email}}</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">
-                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">{{__('Logout')}}</button>
+                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">{{__('Logout')}}</button>
+                                                            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                                {{ csrf_field() }}
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -425,7 +428,7 @@
                                                 <li class="nav-item">
                                                     <a href="/cms/myProfile/#profile-msg" class="nav-link">
                                                         {{__('Messages')}}
-                                                    <div class="ms-auto badge bg-danger">1</div>
+                                                        <div class="ms-auto badge bg-danger">1</div>
                                                     </a>
                                                 </li>
                                             </ul>
