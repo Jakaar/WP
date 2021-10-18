@@ -310,7 +310,11 @@ $(document).ready(function(){
 });
 
 // -- Refresh tab show end --
-
+// -- Refresh page 
+$('.refresh-page').click(function(){
+  window.location.reload();
+})
+// -- Refresh page end
 // -- Change Password --
 
 
@@ -538,15 +542,7 @@ $(document).ready(function(){
 })
 // ---- Main Content Option ----
 // -- Layouts Option Save LocalStorage end --
-// -- User Edit --
-$('.edituser').click(function(){
-  $('#editUserModal').appendTo('body').show();
 
-})
-$('#editProfileChanges').click(function(){
-  
-})
-//--  User Edit End --
 // -- Site info page edit Start --
 $('.disabler').on('click', () => {
     if ($('#siteInfoForm fieldset').attr('disabled') === 'disabled'){

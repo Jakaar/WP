@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                <button type="button" data-bs-toggle="tooltip" title="" class="btn-shadow me-3 btn btn-info refresh-page" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
             </div>
@@ -68,7 +68,7 @@
                                 <div class="row justify-content-center d-flex mb-3 rounded">
                                     <div class="col-lg-3">
                                         <div class="position-relative">
-                                            <img src="{{ $data['user']->avatar != null ? asset('/storage/'.$data['user']->avatar) : asset('/aPanel/imgs/1.png')}}"" alt=" Avatar 5" class="w-100 border" id="changeImage">
+                                            <img src="{{ $data['user']->avatar != null ? asset('/storage/'.$data['user']->avatar) : asset('/aPanel/imgs/1.png')}}" alt=" Avatar 5" class="w-100 border" id="changeImage">
                                             <label for="file-upload" class="custom-file-upload">{{__('Upload Image')}}</label>
                                             <input type="file" name="avatar" id="file-upload" class="image-upload">
                                             <div class="loading" id="loading">

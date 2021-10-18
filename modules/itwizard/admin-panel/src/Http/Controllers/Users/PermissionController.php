@@ -27,4 +27,10 @@ class PermissionController extends Controller
 //        return $data;
         return response()->json($data, 200);
     }
+
+    public function Members(){
+        $data['users'] = DB::table('users')
+            ->get();
+        return view('Admin::pages.settings.users', compact('data'));
+    }
 }

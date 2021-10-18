@@ -26,6 +26,10 @@ Route::group(['prefix'=>'api'], function (){
 
     Route::post('/news/category/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\News\CategoryController::class,'delete']);
 
+    Route::post('/member/update',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'update']);
+    Route::post('/single/user/data',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'singleUserData']);
+    Route::post('/user/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'delete']);
+    
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
 });
 
