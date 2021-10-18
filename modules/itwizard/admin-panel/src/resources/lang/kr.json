@@ -151,7 +151,7 @@
     "All News": "모든 뉴스",
     "Category": "범주",
     "Created At": "게시된 날짜",
-    "Refresh": "새로 고치기",
+    "Refresh": "새로 고침",
     "Create News": "뉴스 게시하기",
     "Create Category": "카테고리 생성",
     "Published": "게시됨",
@@ -251,7 +251,7 @@
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
     "Profile": "프로필",
-    "Messages": "메시지",
+    "Messages": "메시지",    
     "Update": "업데이트",
     "Update Profile": "업데이트 프로필",
     "Upload Image": "업로드 이미지",
@@ -293,5 +293,5 @@
     "Yes": "네",
     "No": "아니오",
     "Close": "닫기",
-    "Choose": "--- 선택 ---"
+    "Create Board": "보드 생성"
 }
