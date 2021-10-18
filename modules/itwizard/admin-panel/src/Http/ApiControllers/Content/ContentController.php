@@ -17,4 +17,8 @@ class ContentController extends Controller
     {
         return response()->json(['msg'=>'successs'], 200);
     }
+    public function MenuGetData(): \Illuminate\Http\JsonResponse
+    {
+        return response()->json(['msg'=>'success'], 200);
+    }
 }

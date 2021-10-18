@@ -17,4 +17,8 @@ class ContentController extends Controller
     {
         return view('Admin::pages.content.index');
     }
+    public function menus(){
+        $data['menus'] = DB::table('wpanel_menu_client_main')->get();
+        return view('Admin::pages.content.menu', compact('data'));
+    }
 }

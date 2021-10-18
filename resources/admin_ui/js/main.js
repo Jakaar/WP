@@ -14,7 +14,7 @@ import "perfect-scrollbar"
 import PerfectScrollbar from 'perfect-scrollbar';
 window.PerfectScrollbar = PerfectScrollbar;
 import "toastr";
-import "jquery.fancytree";
+// import "jquery.fancytree";
 import ApexCharts from 'apexcharts';
 window.ApexCharts = ApexCharts;
 import "bootstrap-table";

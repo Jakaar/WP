@@ -15,7 +15,9 @@ class CreateWpanelMenuClient extends Migration
     {
         Schema::create('wpanel_menu_client_main', function (Blueprint $table) {
             $table->id();
-            $table->string('menu_title');
+            $table->string('title');
+            $table->string('url');
+            $table->string('menus');
             $table->integer('isEnabled');
         });
     }

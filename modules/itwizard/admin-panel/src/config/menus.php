@@ -77,7 +77,7 @@ return [
         ],
     ], // Notice Board Management menus
     [
-        'title'=>'Menu Management',
+        'title'=>'Content & Menu',
         'url'=>'cms/cM',
         'menus'=> [
             [
@@ -90,7 +90,7 @@ return [
                 ],
             ],
             [
-                'url'=>'cms/menus',
+                'url'=>'cms/cM/menus',
                 'icon'=>'pe-7s-menu',
                 'name'=>'Menu Manage',
                 'colorClass'=>'info',
