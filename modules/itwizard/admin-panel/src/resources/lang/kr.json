@@ -246,7 +246,7 @@
     "filemanager::filemanager.update": "업데이트",
     "filemanager::filemanager.convert": "전환",
     "filemanager::filemanager.choose_format": "형식을 선택하세요",
-    "First name": "이름",
+    "First name": "명",
     "Last name": "성",
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
