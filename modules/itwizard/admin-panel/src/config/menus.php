@@ -76,6 +76,21 @@ return [
             ],
         ],
     ], // Notice Board Management menus
+    [
+        'title'=>'Content Management',
+        'url'=>'cms/cM',
+        'menus'=> [
+            [
+                'url'=>'cms/cM',
+                'icon'=>'pe-7s-albums',
+                'name'=>'Content Management',
+                'colorClass'=>'success',
+                'child' => [
+
+                ],
+            ],
+        ],
+    ], // Menu management menus
 //    [
 //        'title'=>'News',
 //        'url'=>'cms/news',
