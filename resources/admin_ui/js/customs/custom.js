@@ -191,28 +191,28 @@ $('.disabler_contactus').on('click', () => {
 // Form disabler End
 // send data
 //
-$('.contactSubmit').on('click', () => {
-    const data = {
-        title: $('#title').val(),
-        email: $('#email').val(),
-        phone:$('#phone').val(),
-        short_content: $('#short_content').val(),
-        address:$('#address').val(),
-        facebook:$('#facebook').val(),
-        youtube:$('#youtube').val(),
-        twitter:$('#twitter').val(),
-        linkedin:$("#linkedin").val()
-    };
-    Axios.post('contact_us_save', data).then((resp)=>{
-        $('#contactSaveBtn').addClass('invisible');
-        Toast.fire({
-            icon: 'success',
-            title: 'Successfully save'
-        });
-    }).catch((err)=>{
-        console.log(err);
-    });
-});
+// $('.contactSubmit').on('click', () => {
+//     const data = {
+//         title: $('#title').val(),
+//         email: $('#email').val(),
+//         phone:$('#phone').val(),
+//         short_content: $('#short_content').val(),
+//         address:$('#address').val(),
+//         facebook:$('#facebook').val(),
+//         youtube:$('#youtube').val(),
+//         twitter:$('#twitter').val(),
+//         linkedin:$("#linkedin").val()
+//     };
+//     Axios.post('contact_us_save', data).then((resp)=>{
+//         $('#contactSaveBtn').addClass('invisible');
+//         Toast.fire({
+//             icon: 'success',
+//             title: 'Successfully save'
+//         });
+//     }).catch((err)=>{
+//         console.log(err);
+//     });
+// });
 // contact us submit END
 // $('.dltUser').on('click', ()=>{
 //     $(this).closest('tr').attr('key')

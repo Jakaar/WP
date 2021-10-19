@@ -14,8 +14,15 @@
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">{{__('Contact us')}}</h5>
-
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6 col-sm-6">
+                            <h5 class="card-title">{{__('Contact us')}}</h5>
+                        </div>
+                        <div class="col-md-6 col-xs-6 col-sm-6" style="text-align: end">
+                            <button id="contactSaveBtn" type="button" class="mt-2 btn btn-success contactSubmit invisible">{{__('Save')}}</button>
+                            <button id="contactEditBtn" type="button" class="mt-2 btn btn-primary disabler_contactus">{{__('Edit')}}</button>
+                        </div>
+                    </div>
                     <form id="ContactUsForm" method="post" action="">
                         <fieldset disabled="disabled" id="contactus_fieldset">
                             <div class="row">
@@ -54,9 +61,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
-                                    <div id="map"></div>
-                                </div>
-                                <div class="col-md-6 col-lg-6">
                                     <div class="row mt-3">
                                         <h5 class="card-title">{{__('Social accounts')}}</h5>
                                         <div class="col-md-6">
@@ -85,11 +89,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="mapouter">
+                                        <div class="gmap_canvas">
+                                            <iframe width="437" height="462" id="gmap_canvas" src="https://maps.google.com/maps?q=seoul&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                            <a href="https://www.whatismyip-address.com"></a><br><style>.mapouter{position:relative;text-align:right;height:400px;width:100%px;}</style>
+                                            <a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:400px;width:100%px;}</style>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </fieldset>
-                        <button id="contactEditBtn" type="button" class="mt-2 btn btn-primary disabler_contactus">{{__('Edit')}}</button>
-                        <button id="contactSaveBtn" type="button" class="mt-2 btn btn-success contactSubmit invisible">{{__('Save')}}</button>
                     </form>
                 </div>
             </div>
@@ -97,10 +108,6 @@
 </section>
 @endsection
 @section('script')
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDmWNOohQOT6TngTaQk4WlHCvog-ICxCE&callback=initMap&v=weekly"
-    async
-></script>
 <script>
     $(document).ready(function() {
         let editor;
@@ -145,30 +152,6 @@
                 console.log(err);
             });
         });
-        let marker;
-
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 13,
-                center: { lat: 59.325, lng: 18.07 },
-            });
-
-            marker = new google.maps.Marker({
-                map,
-                draggable: true,
-                animation: google.maps.Animation.DROP,
-                position: { lat: 59.327, lng: 18.067 },
-            });
-            marker.addListener("click", toggleBounce);
-        }
-
-        function toggleBounce() {
-            if (marker.getAnimation() !== null) {
-                marker.setAnimation(null);
-            } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-        }
     });
 </script>
 @endsection
