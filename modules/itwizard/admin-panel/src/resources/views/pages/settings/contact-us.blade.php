@@ -12,8 +12,8 @@
 <section>
     <div class="tab-content">
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-            <div class="main-card mb-3 card">
-                <div class="card-body">
+            <div class="main-card mb-3  card-btm-border card-shadow-primary border-primary card">
+                <div class="card-body ">
                     <div class="row">
                         <div class="col-md-6 col-xs-6 col-sm-6">
                             <h5 class="card-title">{{__('Contact us')}}</h5>
