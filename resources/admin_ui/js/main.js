@@ -1,4 +1,5 @@
 // // Imports
+window.Vue = require('vue');
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
@@ -53,22 +54,12 @@ require('./circle-progress')
 require('./demo');
 require('./scrollbar');
 require('./toastr');
-require('./treeview');
+// require('./treeview');
 require('./form-components/toggle-switch');
 require('./customs/tables');
 require('./carousel-slider');
 require('./customs/count-up')
 require('./customs/ckeditor')
 require('./charts/chartjs')
-// require('./form-components/datepicker')
-// window.Vue = require('vue');
+require('./customs/vue')
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-//
-const app = new Vue({
-    el: '#app',
-});
-
-
-
-// // Stylesheets

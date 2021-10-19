@@ -10,15 +10,13 @@ class ContentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('auth');
-
     }
     public function show(Request $request): \Illuminate\Http\JsonResponse
     {
-        return response()->json(['msg'=>'successs'], 200);
+        return response()->json(['msg'=>__('success')], 200);
     }
     public function MenuGetData(): \Illuminate\Http\JsonResponse
     {
-        return response()->json(['msg'=>'success'], 200);
+        return response()->json(['msg'=>__('error'), 'data'=> DB::table('wpanel_menu_client_main')->get()], 200);
     }
 }

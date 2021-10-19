@@ -8,7 +8,7 @@
                 </div>
                 <div>
                     {{__('Content & Menu')}}
-                    {{--                    <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>--}}
+{{--                                        <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>--}}
                 </div>
             </div>
             <div class="page-title-actions">
@@ -26,33 +26,27 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card-title">Menus</div>
-            <div class="main-card mb-3 p-2 card">
-                <div class="scrollbar-sidebar">
-                    <div class="app-sidebar__inner">
-                        <div id="menu"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-8 col-lg-9">
-            <div class="card-title">{{__('Content')}}</div>
-            <div class="main-card mb-3 card">
-                <div class="card-body">
-
-                </div>
-            </div>
-        </div>
+    <div id="Vue">
+        <menu-manage></menu-manage>
     </div>
-@endsection
-@section('script')
-    <script>
-        $(document).ready(function (){
-            Axios.post('/api/MenuGetData').then((resp) => {
-                console.log(resp)
-            })
-        })
-    </script>
+{{--    <div class="row">--}}
+{{--        <div class="col-sm-6 col-md-4 col-lg-3">--}}
+{{--            <div class="card-title">Menus</div>--}}
+{{--            <div class="main-card mb-3 p-2 card">--}}
+{{--                <div class="scrollbar-sidebar">--}}
+{{--                    <div class="app-sidebar__inner">--}}
+{{--                        <div id="app"></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-sm-6 col-md-8 col-lg-9">--}}
+{{--            <div class="card-title">{{__('Content')}}</div>--}}
+{{--            <div class="main-card mb-3 card">--}}
+{{--                <div class="card-body">--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection
