@@ -1,5 +1,5 @@
 // // Imports
-window.Vue = require('vue');
+// window.Vue = require('vue');
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
@@ -11,10 +11,10 @@ import moment from "moment";
 window.moment = moment;
 import "metismenu/dist/metisMenu";
 import "jquery-circle-progress";
-import "perfect-scrollbar"
+// import "perfect-scrollbar"
 import PerfectScrollbar from 'perfect-scrollbar';
 window.PerfectScrollbar = PerfectScrollbar;
-import "toastr";
+// import "toastr";
 // import "jquery.fancytree";
 import ApexCharts from 'apexcharts';
 window.ApexCharts = ApexCharts;
@@ -53,7 +53,7 @@ require('./charts/apex-charts');
 require('./circle-progress')
 require('./demo');
 require('./scrollbar');
-require('./toastr');
+// require('./toastr');
 // require('./treeview');
 require('./form-components/toggle-switch');
 require('./customs/tables');
@@ -61,5 +61,5 @@ require('./carousel-slider');
 require('./customs/count-up')
 require('./customs/ckeditor')
 require('./charts/chartjs')
-require('./customs/vue')
+// require('./customs/vue')
 

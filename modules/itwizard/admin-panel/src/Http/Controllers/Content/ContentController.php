@@ -3,6 +3,7 @@
 namespace Itwizard\Adminpanel\Http\Controllers\Content;
 
 
+use App\Category;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,9 @@ class ContentController extends Controller
         return view('Admin::pages.content.index');
     }
     public function menus(){
-        $data['menus'] = DB::table('wpanel_menu_client_main')->get();
-        return view('Admin::pages.content.menu', compact('data'));
+        $categories = Category::whereNull('category_id')
+            ->with('childrenCategories')
+            ->get();
+        return view('Admin::pages.content.menu', compact('categories'));
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <h1>{{info}}</h1>
+    <h1>{{ $t("hello") }}</h1>
 </template>
 
 <script>
@@ -16,7 +16,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>
