@@ -144,7 +144,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/contactUs',
+                        'url'=>'cms/settings/contactUs',
                         'icon'=>'',
                         'name'=>'Contact Us',
                         'child' => null
