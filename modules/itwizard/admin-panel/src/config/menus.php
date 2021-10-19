@@ -143,6 +143,12 @@ return [
                         'name'=>'Site information',
                         'child' => null
                     ],
+                    [
+                        'url'=>'cms/contactUs',
+                        'icon'=>'',
+                        'name'=>'Contact Us',
+                        'child' => null
+                    ],
                 ]
             ],
             [
