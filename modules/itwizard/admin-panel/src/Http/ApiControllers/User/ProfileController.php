@@ -37,9 +37,9 @@ class ProfileController extends Controller
                     ]);
                 }
             } else {
-                return response()->json(['msg'=>'password missmatch'],200);
+                return response()->json(['icon' => 'error', 'msg'=>'password missmatch'],200);
             }
-            return response()->json(['msg' => 'success', 'data' => $request->all()], 200);
+            return response()->json(['icon' => 'success', 'msg' => 'success', 'data' => $request->all()], 200);
         } catch (\Exception $e) {
             return 'catch';
         }
@@ -55,14 +55,14 @@ class ProfileController extends Controller
                 $updated->update([
                     'password' => bcrypt($request->new_password),
                 ]);
-                return response()->json(['msg' => 'success'], 200);
+                return response()->json(['icon' => 'success', 'msg' => 'success'], 200);
             } 
             else 
             {
-                return response()->json(['msg'=> __('Mismatch Password')], 422);
+                return response()->json(['icon' => 'error', 'msg'=> __('Mismatch Password')], 422);
             }
         } catch (\Exception $e) {
-            return response()->json(['msg'=> __('error')]);
+            return response()->json(['icon' => 'error', 'msg'=> __('error')]);
         }        
     }
     

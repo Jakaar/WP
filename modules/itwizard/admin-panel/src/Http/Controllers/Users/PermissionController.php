@@ -17,6 +17,9 @@ class PermissionController extends Controller
     {
         $data['users'] = DB::table('users')
             ->get();
+        $data['roles'] = \App\Models\Role::get();
+        $data['permission'] = \App\Models\Permission::get();
+       
         return view('Admin::pages.users.permission', compact('data'));
     }
     public function GetUsers()
@@ -29,8 +32,17 @@ class PermissionController extends Controller
     }
 
     public function Members(){
-        $data['users'] = DB::table('users')
+        $data['users'] = \App\User::with('roles')->orderby('id','DESC')
             ->get();
+            $data['roles'] = \App\Models\Role::get();
         return view('Admin::pages.settings.users', compact('data'));
+    }
+
+    public function group_email(){
+        return view('Admin::pages.users.group_email');
+    }
+
+    public function email_settings(){
+        return view('Admin::pages.users.email_settings');
     }
 }

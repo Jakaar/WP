@@ -29,6 +29,17 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/member/update',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'update']);
     Route::post('/single/user/data',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'singleUserData']);
     Route::post('/user/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'delete']);
+    
+    Route::post('/member/create',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'create']);
+    Route::post('/permission/create',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'create']);
+
+    Route::post('/member/role/update',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'roleUpdate']);
+    Route::post('/member/role/remove',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'roleRemove']);
+    Route::post('/role/single',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'roleSingle']);
+
+
+    Route::post('/permission/update',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'permissionUpdate']);
+    Route::post('/permission/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'permissionDelete']);
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
     Route::post('/GetContentData/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);
