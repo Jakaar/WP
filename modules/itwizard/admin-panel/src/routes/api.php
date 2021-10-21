@@ -31,7 +31,8 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/user/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'delete']);
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
-    Route::post('/MenuGetData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'MenuGetData']);
+    Route::post('/GetContentData/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);
+    Route::post('/DeleteMenu/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class,'DeleteMenu']);
 });
 
 // middleware('auth:api')
