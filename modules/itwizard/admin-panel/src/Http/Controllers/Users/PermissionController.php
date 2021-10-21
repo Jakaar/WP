@@ -17,9 +17,9 @@ class PermissionController extends Controller
     {
         $data['users'] = DB::table('users')
             ->get();
-        $data['roles'] = \App\Models\Role::get();
-        $data['permission'] = \App\Models\Permission::get();
-       
+//        $data['roles'] = \App\Models\Role::get();
+//        $data['permission'] = \App\Models\Permission::get();
+
         return view('Admin::pages.users.permission', compact('data'));
     }
     public function GetUsers()

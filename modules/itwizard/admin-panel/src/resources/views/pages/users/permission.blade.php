@@ -127,7 +127,7 @@
                 $('input:checkbox[name=c_permission]:checked').each(function(){
                     permission.push($(this).val())
                 })
-                
+
                 permission = Object.assign({permission});
                 data = $.extend({}, data, permission)
 
@@ -190,7 +190,7 @@
                             Swal.fire('{{__("Changes are not saved")}}', '', 'info')
                         }
                         })
-                    
+
                 })
         })
     </script>
@@ -205,7 +205,7 @@
                 }
 
                 Axios.post('/api/role/single', data).then((resp) => {
-                    
+
                     $('#u_id').val(resp.data.data.id)
                     $('#u_display_name').val(resp.data.data.display_name)
                     $('#u_role_name').val(resp.data.data.name)
@@ -218,10 +218,10 @@
                     $('input:checkbox[name=permission]').each(function(){
                         let checkbox = $(this)
                         $.each(resp.data.data.permissions, function(i, item){
-                            
+
                           if(item.id == checkbox.val()){
                                 checkbox.prop('checked',true);
-                            }  
+                            }
                         })
                     })
 
@@ -245,7 +245,7 @@
                 $('input:checkbox[name=permission]:checked').each(function(){
                     permission.push($(this).val())
                 })
-                
+
                 permission = Object.assign({permission});
                 data = $.extend({}, data, permission)
 

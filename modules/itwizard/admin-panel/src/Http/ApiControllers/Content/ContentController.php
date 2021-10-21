@@ -16,9 +16,24 @@ class ContentController extends Controller
     {
         return response()->json(['msg'=>__('success')], 200);
     }
-    public function MenuGetData()
+
+    /**
+     * @throws \Throwable
+     */
+    public function GetContentData($id)
     {
-        return response()->json(['msg'=>__('error'), 'data'=> $data], 200);
+        $data = DB::table('wpanel_board_data')
+            ->where('category_id', $id)
+            ->leftJoin('wpanel_board_master','boar')
+            ->get();
+//        return response()
+//            ->json([
+//                'msg'=>__('success'),
+//                'data' => view(
+//                    'Admin::pages.content.'.$html,
+//                    compact('data'))
+//                    ->render()], 200);
+//        return response()->json(['html'=>]);
     }
 
 }

@@ -1,1 +1,1 @@
-@extends('Admin_UI.layouts.master')
+@extends('layouts.app')

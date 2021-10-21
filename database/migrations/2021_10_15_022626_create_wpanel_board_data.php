@@ -16,7 +16,10 @@ class CreateWpanelBoardData extends Migration
         Schema::create('wpanel_board_data', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('master_board_id');
+            $table->unsignedBigInteger('board_master_id')->nullable();
+//            $table->foreign('board_master_id')->references('id')->on('wpanel_board_master');
+            $table->unsignedBigInteger('category_id')->nullable();
+//            $table->foreign('category_id')->references('id')->on('categories');
             $table->json('content');
             $table->timestamps();
         });

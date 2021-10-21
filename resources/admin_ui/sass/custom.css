@@ -1,3 +1,8 @@
 .active-class {
     background: #16ffa930;
 }
+.navBtns
+{
+    width: 25px;
+    padding: 2px !important;
+}
