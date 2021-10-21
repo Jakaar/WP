@@ -1,29 +1,8 @@
 <?php
 return [
     [
-        'title'=>'Dashboard',
-        'url'=>'cms/dashboard',
-        'menus'=> [
-            [
-                'url'=>'cms/dashboard',
-                'icon'=>'pe-7s-rocket',
-                'name'=>'Analytic',
-                'colorClass'=>'text-success',
-                'child' => [],
-            ],
-//            [
-//                'url'=>'cms/dashboard/user_menu',
-//                'icon'=>'pe-7s-menu',
-//                'name'=>'User menu',
-//                'colorClass'=>'index',
-//                'child' => [],
-//            ]
-        ],
-
-    ], // Dashboard menus
-    [
-        'title'=>'Setting the environment',
-        'url'=>'cms/setting_environment/index',
+        'title'=>'Preferences',
+        'url'=>'cms/preferences/index',
         'menus'=> [
             [
                 'url'=>'/#',
@@ -151,27 +130,27 @@ return [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-ticket',
-                'name'=>'Point management',
+                'name'=>'Point Manage',
                 'colorClass'=>'success',
                 'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Point management',
-                        'child' => null
-                    ],
+//                    [
+//                        'url'=>'#',
+//                        'icon'=>'',
+//                        'name'=>'Point Manage',
+//                        'child' => null
+//                    ],
                 ],
             ],
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-link',
-                'name'=>'SEO management',
+                'name'=>'SEO Manage',
                 'colorClass'=>'success',
                 'child' => [
                     [
                         'url'=>'cms/settings',
                         'icon'=>'',
-                        'name'=>'SEO management',
+                        'name'=>'SEO Manage',
                         'child' => null
                     ],
                 ],
@@ -179,7 +158,7 @@ return [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-unlock',
-                'name'=>'Menu permission management',
+                'name'=>'Menu Permission Manage',
                 'colorClass'=>'success',
                 'child' => [
                     [
@@ -199,6 +178,27 @@ return [
 
         ],
     ], //Setting the environment menu
+    [
+        'title'=>'Dashboard',
+        'url'=>'cms/dashboard',
+        'menus'=> [
+            [
+                'url'=>'cms/dashboard',
+                'icon'=>'pe-7s-rocket',
+                'name'=>'Analytic',
+                'colorClass'=>'text-success',
+                'child' => [],
+            ],
+//            [
+//                'url'=>'cms/dashboard/user_menu',
+//                'icon'=>'pe-7s-menu',
+//                'name'=>'User menu',
+//                'colorClass'=>'index',
+//                'child' => [],
+//            ]
+        ],
+
+    ], // Dashboard menus
     [
         'title'=>'Basic setting',
         'url'=>'cms/basic_setting/index',
@@ -757,46 +757,6 @@ return [
             ],
         ],
     ], // Manage discount coupons
-//    [
-//        'title'=>'Marketing',
-//        'url'=>'cms/marketing',
-//        'menus'=> [
-//            [
-//                'url'=>'cms/marketing',
-//                'icon'=>'pe-7s-ticket',
-//                'name'=>'Banner',
-//                'colorClass'=>'success',
-//                'child' => [],
-//            ],
-//            [
-//                'url'=>'cms/marketing/popup',
-//                'icon'=>'lnr-layers',
-//                'name'=>'Popup',
-//                'colorClass'=>'success',
-//                'child' => [],
-//            ],
-//        ],
-//    ], // Marketing menus
-//    [
-//        'title'=>'Gallery',
-//        'url'=>'cms/gallery',
-//        'menus'=> [
-//            [
-//                'url'=>'cms/gallery',
-//                'icon'=>'pe-7s-albums',
-//                'name'=>'Galleries',
-//                'colorClass'=>'text-success',
-//                'child' => [],
-//            ],
-//            [
-//                'url'=>'cms/gallery/photos',
-//                'icon'=>'pe-7s-photo',
-//                'name'=>'Gallery photos',
-//                'colorClass'=>'success',
-//                'child' => [],
-//            ],
-//        ],
-//    ], // Gallery menus
     [
         'title'=>'Notice Board management',
         'url'=>'cms/noticeboard',
@@ -844,25 +804,6 @@ return [
             ],
         ],
     ], // Menu management menus
-//    [
-//        'title'=>'News',
-//        'url'=>'cms/news',
-//        'menus'=> [
-//            [
-//                'url'=>'cms/news',
-//                'icon'=>'pe-7s-news-paper',
-//                'name'=>'News',
-//                'child' => [],
-//            ],
-//            [
-//                'url'=>'cms/news/categories',
-//                'icon'=>'pe-7s-menu',
-//                'name'=>'News Categories',
-//                'child' => [],
-//            ]
-//        ],
-//
-//    ], // News menus
     [
         'title'=>'Settings',
         'url'=>'cms/settings',
@@ -960,7 +901,7 @@ return [
                 'child' => null,
             ],
 
-            
+
 //            [
 //                'url'=>'cms/permission/menu_manage',
 //                'icon'=>'pe-7s-menu',
