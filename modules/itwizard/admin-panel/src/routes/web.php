@@ -38,4 +38,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
     Route::get('/cM/menus', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
+    Route::get('/{slug}/{view}', function ($slug, $view){
+       return view('Admin::pages.'.$slug.'.'.$view);
+    });
 });
