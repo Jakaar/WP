@@ -27,7 +27,7 @@ return [
         'menus'=> [
             [
                 'url'=>'/#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-config',
                 'name'=>'Basic setting',
                 'colorClass'=>'success',
                 'child' => [
@@ -77,7 +77,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-display2',
                 'name'=>'Notice board',
                 'colorClass'=>'success',
                 'child' => [
@@ -97,7 +97,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-box1',
                 'name'=>'Product management',
                 'colorClass'=>'success',
                 'child' => [
@@ -117,7 +117,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-users',
                 'name'=>'Member management',
                 'colorClass'=>'success',
                 'child' => [
@@ -137,7 +137,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-share',
                 'name'=>'API management',
                 'colorClass'=>'success',
                 'child' => [
@@ -151,7 +151,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-ticket',
                 'name'=>'Point management',
                 'colorClass'=>'success',
                 'child' => [
@@ -165,7 +165,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-link',
                 'name'=>'SEO management',
                 'colorClass'=>'success',
                 'child' => [
@@ -179,7 +179,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-unlock',
                 'name'=>'Menu permission management',
                 'colorClass'=>'success',
                 'child' => [
@@ -206,9 +206,8 @@ return [
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-info',
                 'name'=>'Site information',
-                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [
