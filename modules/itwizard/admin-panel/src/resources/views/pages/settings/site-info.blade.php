@@ -82,7 +82,7 @@
                             </div>
                             <div class="card-title text-uppercase">{{__('Phone Number')}}</div>
                             <div>
-                                <input type="text" class="form-control mb-3" id="phone" name="phone" maxlength="110" value="{{$data['site_info']->phone_number}}">
+                                <input type="tel" data-inputmask="'mask': '[9-]AAA-999'" im-insert="true" class="form-control mb-3 input-mask-trigger" id="phone" name="phone" maxlength="50" value="{{$data['site_info']->phone_number}}">
                             </div>
                             <div class="card-title text-uppercase">{{__('Representative Email')}}</div>
                             <div>

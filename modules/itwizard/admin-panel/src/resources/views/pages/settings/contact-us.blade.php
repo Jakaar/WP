@@ -29,24 +29,24 @@
                                 <div class="col-md-4">
                                     <div class="position-relative mb-3">
                                         <label class="form-label" for="title">{{__('Title')}}</label>
-                                        <input type="text" id="title" name="title" placeholder="{{__('Enter title')}}" value="{{ $data['contact_us']->title ?? '' }}" class="form-control">
+                                        <input type="text" id="title" name="title" placeholder="{{__('Enter title')}}" value="{{ $data['contact_us']->title ?? '' }}" class="form-control" maxlength="70">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="position-relative mb-3">
                                         <label for="email" class="form-label">{{__('Email')}}</label>
-                                        <input name="email" id="email" placeholder="{{__('Enter email')}}" type="email" value="{{ $data['contact_us']->email ?? '' }}" class="form-control" required>
+                                        <input name="email" id="email" placeholder="{{__('Enter email')}}" type="email" value="{{ $data['contact_us']->email ?? '' }}" class="form-control" maxlength="70">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="position-relative mb-3">
                                         <label for="phone" class="form-label">{{__('Phone')}}</label>
-                                        <input id="phone" name="phone" placeholder="{{__('Phone number')}}" value="{{ $data['contact_us']->phone ?? '' }}" type="text" class="form-control">
+                                        <input id="phone" name="phone" placeholder="{{__('Phone number')}}" data-inputmask="'mask': '9999 9999 9999 9999'" value="{{ $data['contact_us']->phone ?? '' }}" type="text" class="form-control" maxlength="70">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <label for="short_content" class="form-label">{{__('Short content')}}</label>
-                                    <div class="position-relative mb-3" id="ContactUsEditor1">
+                                    <div class="position-relative mb-3" id="ContactUsEditor1" name="ContactUsEditor1">
                                         {!!$data['contact_us']->short_content ?? ''!!}
                                     </div>
                                 </div>
@@ -54,10 +54,12 @@
                                     <div class="position-relative mb-3">
                                         <label for="phone" class="form-label">{{__('Address')}}</label>
                                         <textarea id="address"
+                                                  maxlength="250"
                                                   name="address"
                                                   class="form-control"
                                                   placeholder="{{__('Only write the official address')}}"
-                                                  rows="6">{{ $data['contact_us']->address ?? '' }}</textarea>
+                                                  rows="6"
+                                                  required  >{{ $data['contact_us']->address ?? '' }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
@@ -66,25 +68,25 @@
                                         <div class="col-md-6">
                                             <div class="position-relative mb-3">
                                                 <label for="facebook" class="form-label">{{__('Facebook')}}</label>
-                                                <input id="facebook" name="facebook" value="{{ $data['contact_us']->facebook ?? '' }}" placeholder="{{__('Facebook account')}}" type="text" class="form-control">
+                                                <input id="facebook" name="facebook" value="{{ $data['contact_us']->facebook ?? '' }}" placeholder="{{__('Facebook account')}}" type="text" class="form-control" maxlength="70">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative mb-3">
                                                 <label for="youtube" class="form-label">{{__('Youtube')}}</label>
-                                                <input id="youtube" name="youtube" value="{{ $data['contact_us']->youtube ?? '' }}" placeholder="{{__('Youtube account')}}" type="text" class="form-control">
+                                                <input id="youtube" name="youtube" value="{{ $data['contact_us']->youtube ?? '' }}" placeholder="{{__('Youtube account')}}" type="text" class="form-control" maxlength="70">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative mb-3">
                                                 <label for="twitter" class="form-label">{{__('Twitter')}}</label>
-                                                <input id="twitter" name="twitter" value="{{ $data['contact_us']->twitter ?? '' }}" placeholder="{{__('Twitter account')}}" type="text" class="form-control">
+                                                <input id="twitter" name="twitter" value="{{ $data['contact_us']->twitter ?? '' }}" placeholder="{{__('Twitter account')}}" type="text" class="form-control" maxlength="70">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative mb-3">
                                                 <label for="linkedin" class="form-label">{{__('Linked in')}}</label>
-                                                <input id="linkedin" name="linkedin" placeholder=" {{__('Linked in account')}}" value="{{ $data['contact_us']->linkedin ?? ''}}" type="text" class="form-control">
+                                                <input id="linkedin" name="linkedin" placeholder=" {{__('Linked in account')}}" value="{{ $data['contact_us']->linkedin ?? ''}}" type="text" class="form-control" maxlength="70">
                                             </div>
                                         </div>
                                     </div>
