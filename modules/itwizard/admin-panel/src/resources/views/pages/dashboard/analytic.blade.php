@@ -13,8 +13,8 @@
                                                         <span class="opacity-10 text-success pe-2">
                                                             <i class="fa fa-angle-up"></i>
                                                         </span>
-                                    234
-                                    <small class="opacity-5 ps-1">%</small>
+                                    {!! $data['users_count'] !!}
+                                    <small class="opacity-5 ps-1">명</small>
                                 </div>
                                 <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
                                     <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
@@ -768,4 +768,60 @@
             </button>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    // analytic new account
+    $(".circle-progress-gradient-alt-sm")
+        .circleProgress({
+            value:  {!! $data['users_count'] !!},
+            size: 46,
+            lineCap: "round",
+            fill: { gradient: ["#007bff", "#16aaff"] },
+        })
+        .on("circle-animation-progress", function (event, progress, stepValue) {
+            $(this)
+                .find("small")
+                .html("<span>" + stepValue.toFixed(0) + "<span>");
+        });
+    // combined charts
+    var options777 = {
+        chart: {
+            height: 397,
+            type: 'line',
+            toolbar: {
+                show: false,
+            }
+        },
+        series: [{
+            name: 'Website Blog',
+            type: 'column',
+            data: [40, 5, 14, 71, 27, 13, 1, 52, 52, 20, 57, 60]
+        }, {
+            name: 'Social Media',
+            type: 'line',
+            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+        }],
+        stroke: {
+            width: [0, 4]
+        },
+        // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+        xaxis: {
+            type: 'datetime'
+        },
+        yaxis: [{
+            title: {
+                text: 'Website Blog',
+            },
+
+        }, {
+            opposite: true,
+            title: {
+                text: 'Social Media'
+            }
+        }]
+
+    };
+</script>
 @endsection
