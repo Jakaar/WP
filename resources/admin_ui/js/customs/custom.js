@@ -556,3 +556,223 @@ $('.disabler').on('click', () => {
     }
 });
 // -- Site info page edit End --
+// -- Site info page validator Start --
+$(document).ready(function(){
+    $("#siteInfoForm").validate({
+        rules: {
+            companyName: {
+                required: true,
+                minlength : 3,
+                maxlength : 110,
+            },
+            companyRegister: {
+                required:true,
+                minlength: 10,
+                maxlength: 13,
+                number : true
+            },
+            siteName :{
+                required : true,
+                minlength : 3,
+                maxlength : 110,
+            },
+            phone :{
+                required : true,
+
+            },
+            fax: {
+                required: true,
+                minlength: 6,
+                maxlength: 50,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            personalInformation : {
+                required: true,
+                minlegth: 6,
+                maxlength: 50
+            },
+            copyright : {
+                required:true,
+            },
+            address: {
+                required:true,
+                minlength:6,
+                maxlength:110
+            },
+            SiteInfoeditor1: {
+                required: true,
+                maxlength:250,
+            },
+            SiteInfoeditor2:{
+                required:true,
+                maxlength:250,
+            }
+        },
+        messages: {
+            companyName: {
+                required : "Please enter your company name",
+                minlength : "Your company name too short",
+                maxlength : "Your company name must less than 110 characters long"
+            },
+            companyRegister: {
+                required: "Please enter your company register",
+                minlength: "Your register must be at least 10 characters long",
+                maxlength: "Your register must less than 13 characters long",
+            },
+            siteName: {
+                required: "Please enter your site name",
+                minlength: "Your site name too short",
+                maxlength: "Your site name must less than 110 characters long"
+            },
+            fax: {
+                required: "Please enter your fax number",
+                minlength: "Your fax must be at least 6 characters long",
+            },
+            email: "Please enter a valid email address",
+            personalInformation:{
+                required: "Please enter your personal information",
+                minlegth: "Your personal information too short",
+                maxlength: "Your company name must less than 50 characters long",
+            },
+            copyright : "Please enter a copyright",
+            address : {
+                required: "Please enter official address",
+                minlength: "Your register must be at least 6 characters long",
+                maxlength: "Your register must less than 110 characters long"
+            },
+            SiteInfoeditor1:{
+                required: "You must enter terms of use",
+                maxlength: "Your Terms of use must less than 250 characters long"
+            },
+            SiteInfoeditor2:{
+                required: "You must enter privacy statement",
+                maxlength: "Your privacy statement must less than 250 characters long",
+             }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.addClass("invalid-feedback");
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        },
+    });
+})
+// -- Site info page validator End --
+// -- Contact us page valitaor Start --
+$(document).ready(function(){
+    $("#ContactUsForm").validate({
+        rules: {
+            title: {
+                required: true,
+                maxlength: 90,
+            },
+            email: {
+                required: true,
+                email: true,
+                maxlength: 90,
+            },
+            phone: {
+                required: true,
+                minlength: 6,
+                maxlength: 90,
+            },
+            ContactUsEditor1: {
+                required:true,
+                minlength:20,
+                maxlength:250
+            },
+            address:{
+                required:true,
+                minlength:6,
+                maxlength:250
+            },
+            facebook:{
+                minlength:6,
+                maxlength:70
+            },
+            youtube:{
+                minlength:6,
+                maxlength:70
+            },
+            twitter:{
+                minlength:6,
+                maxlength:70
+            },
+            linkedin:{
+                minlength:6,
+                maxlength:70
+            }
+        },
+        messages: {
+            title: {
+                required: "Please enter you contact us title",
+                maxlength: "Your title must less than 70 characters long",
+            },
+            email: {
+                required: "Please enter your contact us email",
+                maxlength: "Your email must less than 70 characters long",
+            },
+            phone: {
+                required: "Please enter your phone number",
+                minlength: "Your phone must be at least 6 characters long",
+            },
+            ContactUsEditor1: {
+                required: "Please enter short content",
+                minlength: "Your short content must be at least 20 characters long",
+                maxlength: "Your short content must less than 250 characters long"
+            },
+            address:{
+                required: "Please enter address",
+                minlength: "Your address must be at least 6 characters long",
+                maxlength: "Your address must less than 250 characters long"
+            },
+            facebook:{
+                minlength: "Your facebook must be at least 6 characters long",
+                maxlength: "Your facebook must less than 50 characters long"
+            },
+            youtube:{
+                minlength: "Your youtube must be at least 6 characters long",
+                maxlength: "Your youtube must less than 50 characters long"
+            },
+            twitter:{
+                minlength: "Your twitter must be at least 6 characters long",
+                maxlength: "Your twitter must less than 50 characters long"
+            },
+            linkedin:{
+                minlength: "Your linked in must be at least 6 characters long",
+                maxlength: "Your linked in must less than 50 characters long"
+            }
+
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.addClass("invalid-feedback");
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        },
+    });
+})
+// -- Contact us page valitaor End --
