@@ -288,8 +288,8 @@ $('#update_profile').click(function(){
     Axios.post('/api/profile/update', data, {headers : headers}).then((resp) => {
 
       Toast.fire({
-        icon: resp.data.msg,
-        title: resp.data.title
+        icon: resp.data.icon,
+        title: resp.data.msg
       });
     }).catch((err) => {
       Toast.fire({
@@ -386,7 +386,7 @@ $('#change_password').click(function(){
     Axios.post('/api/profile/updatePassword', password).then((resp) => {
       console.log(resp)
       Toast.fire({
-        icon: 'success',
+        icon: resp.data.icon,
         title: resp.data.msg
       });
     }).catch((err) => {
@@ -404,8 +404,10 @@ $('#change_password').click(function(){
 
 // -- Profile image upload --
 
-$('#file-upload').change(function() {
-    const files = this.files[0];
+$(document).ready(function(){
+  $('#file-upload').change(function() {
+    let files = this.files[0];
+
     $('#loading').circleProgress({
       value: 1,
       size: 50,
@@ -424,6 +426,7 @@ $('#file-upload').change(function() {
   $("#changeImage").attr("src", URL.createObjectURL(files))
 
 });
+})
 
 // -- Profile image upload  END --
 

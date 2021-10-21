@@ -185,15 +185,47 @@ return [
 
     ], // Setting menus
     [
-        'title'=>'Permission manage',
+        'title'=>'Members & Permission manage',
         'url'=>'cms/permission',
         'menus'=> [
+            [
+                'url'=>'cms/settings/members',
+                'icon'=>'pe-7s-users',
+                'name'=>'Member manage',
+                'child' => null,
+            ],
             [
                 'url'=>'cms/permission',
                 'icon'=>'pe-7s-key',
                 'name'=>'Permission manage',
                 'child' => null,
             ],
+            [
+                'url'=>'cms/permission/group_email',
+                'icon'=>'pe-7s-mail',
+                'name'=>'Send a mail',
+                'child' => null,
+            ],
+            [
+                'url'=>'cms/permission/secessionist                ',
+                'icon'=>'pe-7s-plug',
+                'name'=>'Secessionist',
+                'child' => null,
+            ],
+            [
+                'url'=>'cms/permission/settings',
+                'icon'=>'pe-7s-unlock',
+                'name'=>'Permission settings',
+                'child' => null,
+            ],
+            [
+                'url'=>'cms/permission/email_settings',
+                'icon'=>'pe-7s-settings',
+                'name'=>'Mail settings',
+                'child' => null,
+            ],
+
+            
 //            [
 //                'url'=>'cms/permission/menu_manage',
 //                'icon'=>'pe-7s-menu',
