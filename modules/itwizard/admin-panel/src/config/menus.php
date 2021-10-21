@@ -2,7 +2,7 @@
 return [
     [
         'title'=>'Preferences',
-        'url'=>'cms/preferences/index',
+        'url'=>'cms/preferences',
         'menus'=> [
             [
                 'url'=>'/#',
@@ -10,43 +10,43 @@ return [
                 'name'=>'Basic setting',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences',
                         'icon'=>'',
                         'name'=>'Basic setting',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/log_analysis',
                         'icon'=>'',
                         'name'=>'Log analysis',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/popup_manage',
                         'icon'=>'',
-                        'name'=>'Pop up manage',
+                        'name'=>'Popup manage',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/form_mail',
                         'icon'=>'',
                         'name'=>'Form mail',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/banner_manage',
                         'icon'=>'',
                         'name'=>'Banner manage',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/page_manage',
                         'icon'=>'',
                         'name'=>'Page manage',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/page_access',
                         'icon'=>'',
                         'name'=>'Page access rights',
                         'child' => null
@@ -60,13 +60,13 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/notice_board',
                         'icon'=>'',
                         'name'=>'Notice board',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/main_post',
                         'icon'=>'',
                         'name'=>'Main post',
                         'child' => null
@@ -80,15 +80,15 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/product_list',
                         'icon'=>'',
                         'name'=>'Product list',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/main_picks',
                         'icon'=>'',
-                        'name'=>'Main & Picks',
+                        'name'=>'Main & Featured Products',
                         'child' => null
                     ],
                 ],
@@ -100,15 +100,15 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/',
                         'icon'=>'',
-                        'name'=>'Sign up settings',
+                        'name'=>'Member Register',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Sns settings',
+                        'name'=>'SNS settings',
                         'child' => null
                     ],
                 ],
@@ -189,19 +189,19 @@ return [
                 'colorClass'=>'text-success',
                 'child' => [],
             ],
-//            [
-//                'url'=>'cms/dashboard/user_menu',
-//                'icon'=>'pe-7s-menu',
-//                'name'=>'User menu',
-//                'colorClass'=>'index',
-//                'child' => [],
-//            ]
+            [
+                'url'=>'cms/dashboard/user_menu',
+                'icon'=>'pe-7s-menu',
+                'name'=>'User menu',
+                'colorClass'=>'index',
+                'child' => [],
+            ]
         ],
 
     ], // Dashboard menus
     [
         'title'=>'Basic setting',
-        'url'=>'cms/basic_setting/index',
+        'url'=>'cms/basic_setting',
         'menus'=> [
             [
                 'url'=>'#',
@@ -264,7 +264,7 @@ return [
     ], // Basic settings
     [
         'title'=>'Member management',
-        'url'=>'cms/member_management/index',
+        'url'=>'cms/member_management',
         'menus'=> [
             [
                 'url'=>'#',
@@ -340,7 +340,7 @@ return [
     ], // Member Management
     [
         'title'=>'Manage pages',
-        'url'=>'cms/manage_pages/index',
+        'url'=>'cms/manage_pages',
         'menus'=> [
             [
                 'url'=>'#',
@@ -470,10 +470,10 @@ return [
     ], // Manage pages
     [
         'title'=>'Board Management',
-        'url'=>'cms/board_management/index',
+        'url'=>'cms/board_management',
         'menus'=> [
             [
-                'url'=>'cms/board_management/index',
+                'url'=>'cms/board_management',
                 'icon'=>'pe-7s-airplay',
                 'name'=>'Board management',
                 'child' => [
@@ -549,7 +549,7 @@ return [
     ], // Board management
     [
         'title'=>'Suppliers',
-        'url'=>'cms/suppliers/index',
+        'url'=>'cms/suppliers',
         'menus'=> [
             [
                 'url'=>'#',
@@ -582,7 +582,7 @@ return [
     ], // Suppliers
     [
         'title'=>'Banner management',
-        'url'=>'cms/banner_management/index',
+        'url'=>'cms/banner_management',
         'menus'=> [
             [
                 'url'=>'#',
@@ -651,7 +651,7 @@ return [
     ], // banner management
     [
         'title'=>'Manage statistics',
-        'url'=>'cms/manage_statistics/index',
+        'url'=>'cms/manage_statistics',
         'menus'=> [
             [
                 'url'=>'#',
@@ -663,7 +663,7 @@ return [
     ], // Manage statistics
     [
         'title'=>'Product management',
-        'url'=>'cms/product_management/index',
+        'url'=>'cms/product_management',
         'menus'=> [
             [
                 'url'=>'#',
@@ -688,7 +688,7 @@ return [
     ], // Product management
     [
         'title'=>'User menu',
-        'url'=>'cms/user_menu/index',
+        'url'=>'cms/user_menu',
         'menus'=> [
             [
                 'url'=>'#',
@@ -707,7 +707,7 @@ return [
     ], // User menu
     [
         'title'=>'Menu management',
-        'url'=>'cms/manage_menus/index',
+        'url'=>'cms/manage_menus',
         'menus'=> [
             [
                 'url'=>'#',
@@ -726,7 +726,7 @@ return [
     ], // Manage menus
     [
         'title'=>'Register business ads',
-        'url'=>'cms/business_ads/index',
+        'url'=>'cms/business_ads',
         'menus'=> [
             [
                 'url'=>'#',
@@ -740,7 +740,7 @@ return [
     ], // Register business ads
     [
         'title'=>'Manage discount coupons',
-        'url'=>'cms/manage_discount/index',
+        'url'=>'cms/manage_discount',
         'menus'=> [
             [
                 'url'=>'#',

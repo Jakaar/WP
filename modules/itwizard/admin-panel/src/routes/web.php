@@ -41,4 +41,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/{slug}/{view}', function ($slug, $view){
        return view('Admin::pages.'.$slug.'.'.$view);
     });
+    Route::get('/{slug}', function ($slug){
+        return view('Admin::pages.'.$slug.'.index');
+    });
 });
