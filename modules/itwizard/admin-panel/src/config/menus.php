@@ -29,7 +29,6 @@ return [
                 'url'=>'/#',
                 'icon'=>'pe-7s-config',
                 'name'=>'Basic setting',
-                'colorClass'=>'success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -212,51 +211,45 @@ return [
             ],
             [
                'url'=>'#',
-               'icon'=>'pe-7s-menu',
+               'icon'=>'pe-7s-user',
                'name'=>'Administrator settings',
                'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-exapnd2',
                 'name'=>'Manage pop-ups',
-                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-display2',
                 'name'=>'MainBanner management',
-                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-door-lock',
                 'name'=>'User security settings',
-                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-portfolio',
                 'name'=>'Subscription Terms and Privacy Policy',
-                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-lock',
                 'name'=>'Administrator security settings',
-                'colorClass'=>'text-success',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-pen',
                 'name'=>'Fixed code',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -270,14 +263,13 @@ return [
 
     ], // Basic settings
     [
-        'title'=>'Member Management',
+        'title'=>'Member management',
         'url'=>'cms/member_management/index',
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-user',
                 'name'=>'Admin Home',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -295,7 +287,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-users',
                 'name'=>'Member Management',
                 'colorClass'=>'index',
                 'child' => [
@@ -354,7 +346,6 @@ return [
                 'url'=>'#',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Manage pages',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -366,7 +357,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-upload',
                 'name'=>'(No group)',
                 'colorClass'=>'index',
                 'child' => [
@@ -398,7 +389,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-plugin',
                 'name'=>'Add-on Service',
                 'colorClass'=>'index',
                 'child' => [
@@ -418,7 +409,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-global',
                 'name'=>'Mobile apps/web creation',
                 'colorClass'=>'index',
                 'child' => [
@@ -444,7 +435,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-bookmarks',
                 'name'=>'About us',
                 'colorClass'=>'index',
                 'child' => [
@@ -483,9 +474,8 @@ return [
         'menus'=> [
             [
                 'url'=>'cms/board_management/index',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-airplay',
                 'name'=>'Board management',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -515,7 +505,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-check',
                 'name'=>'Easy consultation',
                 'colorClass'=>'index',
                 'child' => [
@@ -529,14 +519,14 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-photo-gallery',
                 'name'=>'List of bulletin boards',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-upload',
                 'name'=>'(No group)',
                 'colorClass'=>'index',
                 'child' => [
@@ -563,9 +553,8 @@ return [
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-mail',
                 'name'=>'Formmail management',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -583,7 +572,7 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-mail-open-file',
                 'name'=>'List of formmails',
                 'colorClass'=>'index',
                 'child' => [],
@@ -599,7 +588,6 @@ return [
                 'url'=>'#',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Banner management',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -611,49 +599,49 @@ return [
             ],
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-note2',
                 'name'=>'Banner list',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-display1',
                 'name'=>'mainBanner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-albums',
-                'name'=>'Stacked',
+                'icon'=>'pe-7s-angle-up-circle',
+                'name'=>'Vertically',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-angle-right-circle',
                 'name'=>'Horizontal',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-back-2',
                 'name'=>'leftBanner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-back-2',
                 'name'=>'left',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-next-2',
                 'name'=>'right',
                 'colorClass'=>'index',
                 'child' => [],
@@ -667,9 +655,8 @@ return [
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-graph2',
                 'name'=>'Product management',
-                'colorClass'=>'text-success',
                 'child' => [],
             ]
         ],
@@ -682,7 +669,6 @@ return [
                 'url'=>'#',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Product management',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -706,9 +692,8 @@ return [
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-menu',
                 'name'=>'Menu list',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -721,14 +706,13 @@ return [
         ],
     ], // User menu
     [
-        'title'=>'Manage menus',
+        'title'=>'Menu management',
         'url'=>'cms/manage_menus/index',
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-menu',
                 'name'=>'Manage menus',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -746,9 +730,8 @@ return [
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-rocket',
+                'icon'=>'pe-7s-key',
                 'name'=>'User security settings',
-                'colorClass'=>'text-success',
                 'child' => [
 
                 ],
@@ -761,9 +744,8 @@ return [
         'menus'=> [
             [
                 'url'=>'#',
-                'icon'=>'pe-7s-albums',
+                'icon'=>'pe-7s-ribbon',
                 'name'=>'Manage discount coupons',
-                'colorClass'=>'text-success',
                 'child' => [
                     [
                         'url'=>'#',
@@ -816,14 +798,13 @@ return [
 //        ],
 //    ], // Gallery menus
     [
-        'title'=>'Notice Board Management',
+        'title'=>'Notice Board management',
         'url'=>'cms/noticeboard',
         'menus'=> [
             [
                 'url'=>'cms/noticeboard',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Notice Board Management',
-                'colorClass'=>'success',
                 'child' => [
 
                 ],
