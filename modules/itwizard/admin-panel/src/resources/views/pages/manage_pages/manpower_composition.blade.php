@@ -5,6 +5,9 @@
         .ck-editor__editable {
             min-height: 200px;
         }
+        .ck-editor__editable {
+            max-height: 400px;
+        }
     </style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
