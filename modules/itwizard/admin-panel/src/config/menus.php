@@ -197,7 +197,7 @@ return [
         'url'=>'cms/basic_setting',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/settings',
                 'icon'=>'pe-7s-info',
                 'name'=>'Site information',
                 'child' => [],
