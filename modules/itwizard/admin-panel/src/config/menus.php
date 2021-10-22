@@ -222,19 +222,19 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/userSecurity',
                 'icon'=>'pe-7s-door-lock',
                 'name'=>'User security settings',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/subscription',
                 'icon'=>'pe-7s-portfolio',
                 'name'=>'Subscription Terms and Privacy Policy',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/administratorSecurity',
                 'icon'=>'pe-7s-lock',
                 'name'=>'Administrator security settings',
                 'child' => [],
@@ -658,13 +658,13 @@ return [
                 'name'=>'Product management',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/product_management/productManage',
                         'icon'=>'',
                         'name'=>'Product management',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/product_management/manageCategory',
                         'icon'=>'',
                         'name'=>'Manage categories',
                         'child' => null
