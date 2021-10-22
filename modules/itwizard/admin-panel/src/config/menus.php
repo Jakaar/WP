@@ -1,7 +1,7 @@
 <?php
 return [
     [
-        'title'=>'Control Panel',
+        'title'=>'Control Panel (Only Super Admin)',
         'url'=>'cms/preferences',
         'menus'=> [
             [
@@ -193,7 +193,7 @@ return [
 
     ], // Dashboard menus
     [
-        'title'=>'Basic setting',
+        'title'=>'Basic Settings',
         'url'=>'cms/basic_setting',
         'menus'=> [
             [
@@ -256,7 +256,7 @@ return [
 
     ], // Basic settings
     [
-        'title'=>'Member management',
+        'title'=>'Member Manage',
         'url'=>'cms/member_management',
         'menus'=> [
             [
@@ -326,7 +326,7 @@ return [
 
     ], // Member Management
     [
-        'title'=>'Manage pages',
+        'title'=>'Page Manage',
         'url'=>'cms/manage_pages',
         'menus'=> [
             [
@@ -456,7 +456,7 @@ return [
 
     ], // Manage pages
     [
-        'title'=>'Board Management',
+        'title'=>'Board Manage',
         'url'=>'cms/board_management',
         'menus'=> [
             [
@@ -533,26 +533,26 @@ return [
             ]
         ],
 
-    ], // Board management
+    ], // Board manage
     [
-        'title'=>'Suppliers',
+        'title'=>'Form Mail Manage',
         'url'=>'cms/suppliers',
         'menus'=> [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-mail',
-                'name'=>'Formmail management',
+                'name'=>'Form Mail Manage',
                 'child' => [
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Formmail manager',
+                        'name'=>'Form Mail Manager',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Create a form mail',
+                        'name'=>'Create a Form Mail',
                         'child' => null
                     ],
                 ],
@@ -560,15 +560,15 @@ return [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-mail-open-file',
-                'name'=>'List of formmails',
+                'name'=>'List of Form Mails',
                 'colorClass'=>'index',
                 'child' => [],
             ]
         ],
 
-    ], // Suppliers
+    ], // Form Mail Manage
     [
-        'title'=>'Banner management',
+        'title'=>'Banner Manage',
         'url'=>'cms/banner_management',
         'menus'=> [
             [
@@ -635,21 +635,9 @@ return [
             ]
         ],
 
-    ], // banner management
+    ], // Banner Manage
     [
-        'title'=>'Manage statistics',
-        'url'=>'cms/manage_statistics',
-        'menus'=> [
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-graph2',
-                'name'=>'Product management',
-                'child' => [],
-            ]
-        ],
-    ], // Manage statistics
-    [
-        'title'=>'Product management',
+        'title'=>'Product Manage',
         'url'=>'cms/product_management',
         'menus'=> [
             [
@@ -674,228 +662,222 @@ return [
         ],
     ], // Product management
     [
-        'title'=>'User menu',
+        'title'=>'Client Menu Manage',
         'url'=>'cms/user_menu',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/user_menu',
                 'icon'=>'pe-7s-menu',
                 'name'=>'Menu list',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Menu list',
-                        'child' => null
-                    ],
-                ],
+                'child' => [],
             ],
         ],
     ], // User menu
-    [
-        'title'=>'Menu management',
-        'url'=>'cms/manage_menus',
-        'menus'=> [
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-menu',
-                'name'=>'Manage menus',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Manage menus',
-                        'child' => null
-                    ],
-                ],
-            ],
-        ],
-    ], // Manage menus
-    [
-        'title'=>'Register business ads',
-        'url'=>'cms/business_ads',
-        'menus'=> [
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-key',
-                'name'=>'User security settings',
-                'child' => [
-
-                ],
-            ],
-        ],
-    ], // Register business ads
-    [
-        'title'=>'Manage discount coupons',
-        'url'=>'cms/manage_discount',
-        'menus'=> [
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-ribbon',
-                'name'=>'Manage discount coupons',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Manage discount coupons',
-                        'child' => null
-                    ],
-                ],
-            ],
-        ],
-    ], // Manage discount coupons
-    [
-        'title'=>'Notice Board management',
-        'url'=>'cms/noticeboard',
-        'menus'=> [
-            [
-                'url'=>'cms/noticeboard',
-                'icon'=>'pe-7s-albums',
-                'name'=>'Notice Board Management',
-                'child' => [
-
-                ],
-            ],
-        ],
-    ], // Notice Board Management menus
-    [
-        'title'=>'Content & Menu',
-        'url'=>'cms/cM',
-        'menus'=> [
-            [
-                'url'=>'cms/cM',
-                'icon'=>'pe-7s-albums',
-                'name'=>'Content & Menu',
-                'colorClass'=>'success',
-                'child' => [
-
-                ],
-            ],
-            [
-                'url'=>'cms/cM/menus',
-                'icon'=>'pe-7s-menu',
-                'name'=>'Menu Manage',
-                'colorClass'=>'info',
-                'child' => [
-
-                ],
-            ],
-            [
-                'url'=>'cms/contents',
-                'icon'=>'pe-7s-folder',
-                'name'=>'Content Manage',
-                'colorClass'=>'success',
-                'child' => [
-
-                ],
-            ],
-        ],
-    ], // Menu management menus
-    [
-        'title'=>'Settings',
-        'url'=>'cms/settings',
-        'menus'=> [
-            [
-                'url'=>'cms/settings',
-                'icon'=>'pe-7s-config',
-                'name'=>'Basic settings',
-                'child' => [
-                    [
-                        'url'=>'cms/settings',
-                        'icon'=>'',
-                        'name'=>'Site information',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/settings/contactUs',
-                        'icon'=>'',
-                        'name'=>'Contact Us',
-                        'child' => null
-                    ],
-                ]
-            ],
-            [
-                'url'=>'',
-                'icon'=>'pe-7s-display1',
-                'name'=>'Notice board',
-                'child' => null
-            ],
-            [
-                'url'=>'',
-                'icon'=>'pe-7s-box1',
-                'name'=>'Product management',
-                'child' => null
-            ],
-            [
-                'url'=>'',
-                'icon'=>'pe-7s-id',
-                'name'=>'Member management',
-                'child' => null
-            ],
-            [
-                'url'=>'',
-                'icon'=>'pe-7s-link',
-                'name'=>'API management',
-                'child' => null
-            ],
-            [
-                'url'=>'cms/settings/seo_list',
-                'icon'=>'pe-7s-graph1',
-                'name'=>'SEO management',
-                'child' => null
-            ],
-        ],
-
-    ], // Setting menus
-    [
-        'title'=>'Members & Permission manage',
-        'url'=>'cms/permission',
-        'menus'=> [
-            [
-                'url'=>'cms/settings/members',
-                'icon'=>'pe-7s-users',
-                'name'=>'Member manage',
-                'child' => null,
-            ],
-            [
-                'url'=>'cms/permission',
-                'icon'=>'pe-7s-key',
-                'name'=>'Permission manage',
-                'child' => null,
-            ],
-            [
-                'url'=>'cms/permission/group_email',
-                'icon'=>'pe-7s-mail',
-                'name'=>'Send a mail',
-                'child' => null,
-            ],
-            [
-                'url'=>'cms/permission/secessionist                ',
-                'icon'=>'pe-7s-plug',
-                'name'=>'Secessionist',
-                'child' => null,
-            ],
-            [
-                'url'=>'cms/permission/settings',
-                'icon'=>'pe-7s-unlock',
-                'name'=>'Permission settings',
-                'child' => null,
-            ],
-            [
-                'url'=>'cms/permission/email_settings',
-                'icon'=>'pe-7s-settings',
-                'name'=>'Mail settings',
-                'child' => null,
-            ],
-
-
+//    [
+//        'title'=>'Menu management',
+//        'url'=>'cms/manage_menus',
+//        'menus'=> [
 //            [
-//                'url'=>'cms/permission/menu_manage',
+//                'url'=>'#',
 //                'icon'=>'pe-7s-menu',
-//                'name'=>'User management',
-//                'child' => null,
-//            ]
-        ],
+//                'name'=>'Manage menus',
+//                'child' => [
+//                    [
+//                        'url'=>'#',
+//                        'icon'=>'',
+//                        'name'=>'Manage menus',
+//                        'child' => null
+//                    ],
+//                ],
+//            ],
+//        ],
+//    ], // Manage menus
 
-    ], // Permission manage menus
+//    [
+//        'title'=>'Register business ads',
+//        'url'=>'cms/business_ads',
+//        'menus'=> [
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-key',
+//                'name'=>'User security settings',
+//                'child' => [
+//
+//                ],
+//            ],
+//        ],
+//    ], // Register business ads
+//    [
+//        'title'=>'Manage discount coupons',
+//        'url'=>'cms/manage_discount',
+//        'menus'=> [
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-ribbon',
+//                'name'=>'Manage discount coupons',
+//                'child' => [
+//                    [
+//                        'url'=>'#',
+//                        'icon'=>'',
+//                        'name'=>'Manage discount coupons',
+//                        'child' => null
+//                    ],
+//                ],
+//            ],
+//        ],
+//    ], // Manage discount coupons
+//    [
+//        'title'=>'Notice Board management',
+//        'url'=>'cms/noticeboard',
+//        'menus'=> [
+//            [
+//                'url'=>'cms/noticeboard',
+//                'icon'=>'pe-7s-albums',
+//                'name'=>'Notice Board Management',
+//                'child' => [
+//
+//                ],
+//            ],
+//        ],
+//    ], // Notice Board Management menus
+//    [
+//        'title'=>'Content & Menu',
+//        'url'=>'cms/cM',
+//        'menus'=> [
+//            [
+//                'url'=>'cms/cM',
+//                'icon'=>'pe-7s-albums',
+//                'name'=>'Content & Menu',
+//                'colorClass'=>'success',
+//                'child' => [
+//
+//                ],
+//            ],
+//            [
+//                'url'=>'cms/cM/menus',
+//                'icon'=>'pe-7s-menu',
+//                'name'=>'Menu Manage',
+//                'colorClass'=>'info',
+//                'child' => [
+//
+//                ],
+//            ],
+//            [
+//                'url'=>'cms/contents',
+//                'icon'=>'pe-7s-folder',
+//                'name'=>'Content Manage',
+//                'colorClass'=>'success',
+//                'child' => [
+//
+//                ],
+//            ],
+//        ],
+//    ], // Menu management menus
+//    [
+//        'title'=>'Settings',
+//        'url'=>'cms/settings',
+//        'menus'=> [
+//            [
+//                'url'=>'cms/settings',
+//                'icon'=>'pe-7s-config',
+//                'name'=>'Basic settings',
+//                'child' => [
+//                    [
+//                        'url'=>'cms/settings',
+//                        'icon'=>'',
+//                        'name'=>'Site information',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/settings/contactUs',
+//                        'icon'=>'',
+//                        'name'=>'Contact Us',
+//                        'child' => null
+//                    ],
+//                ]
+//            ],
+//            [
+//                'url'=>'',
+//                'icon'=>'pe-7s-display1',
+//                'name'=>'Notice board',
+//                'child' => null
+//            ],
+//            [
+//                'url'=>'',
+//                'icon'=>'pe-7s-box1',
+//                'name'=>'Product management',
+//                'child' => null
+//            ],
+//            [
+//                'url'=>'',
+//                'icon'=>'pe-7s-id',
+//                'name'=>'Member management',
+//                'child' => null
+//            ],
+//            [
+//                'url'=>'',
+//                'icon'=>'pe-7s-link',
+//                'name'=>'API management',
+//                'child' => null
+//            ],
+//            [
+//                'url'=>'cms/settings/seo_list',
+//                'icon'=>'pe-7s-graph1',
+//                'name'=>'SEO management',
+//                'child' => null
+//            ],
+//        ],
+//
+//    ], // Setting menus
+//    [
+//        'title'=>'Members & Permission manage',
+//        'url'=>'cms/permission',
+//        'menus'=> [
+//            [
+//                'url'=>'cms/settings/members',
+//                'icon'=>'pe-7s-users',
+//                'name'=>'Member manage',
+//                'child' => null,
+//            ],
+//            [
+//                'url'=>'cms/permission',
+//                'icon'=>'pe-7s-key',
+//                'name'=>'Permission manage',
+//                'child' => null,
+//            ],
+//            [
+//                'url'=>'cms/permission/group_email',
+//                'icon'=>'pe-7s-mail',
+//                'name'=>'Send a mail',
+//                'child' => null,
+//            ],
+//            [
+//                'url'=>'cms/permission/secessionist                ',
+//                'icon'=>'pe-7s-plug',
+//                'name'=>'Secessionist',
+//                'child' => null,
+//            ],
+//            [
+//                'url'=>'cms/permission/settings',
+//                'icon'=>'pe-7s-unlock',
+//                'name'=>'Permission settings',
+//                'child' => null,
+//            ],
+//            [
+//                'url'=>'cms/permission/email_settings',
+//                'icon'=>'pe-7s-settings',
+//                'name'=>'Mail settings',
+//                'child' => null,
+//            ],
+//
+//
+////            [
+////                'url'=>'cms/permission/menu_manage',
+////                'icon'=>'pe-7s-menu',
+////                'name'=>'User management',
+////                'child' => null,
+////            ]
+//        ],
+//
+//    ], // Permission manage menus
 ];
