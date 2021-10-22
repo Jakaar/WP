@@ -10,7 +10,7 @@
                                 <i class="pe-7s-unlock icon-gradient bg-mixed-hopes"></i>
                             </div>
                             <div>
-                                Permission settings
+                                {{__('Permission Settings')}}
                                 <div class="page-title-subheading">  </div>
                             </div>
                         </div>

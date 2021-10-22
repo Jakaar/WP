@@ -120,7 +120,7 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/api',
                         'icon'=>'',
                         'name'=>'API',
                         'child' => null
@@ -197,7 +197,7 @@ return [
         'url'=>'cms/basic_setting',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/settings',
                 'icon'=>'pe-7s-info',
                 'name'=>'Site information',
                 'child' => [],
@@ -222,19 +222,19 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/userSecurity',
                 'icon'=>'pe-7s-door-lock',
                 'name'=>'User security settings',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/subscription',
                 'icon'=>'pe-7s-portfolio',
                 'name'=>'Subscription Terms and Privacy Policy',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/administratorSecurity',
                 'icon'=>'pe-7s-lock',
                 'name'=>'Administrator security settings',
                 'child' => [],
@@ -265,13 +265,13 @@ return [
                 'name'=>'Admin Home',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/index',
                         'icon'=>'',
                         'name'=>'Admin Home',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/administrator_settings',
                         'icon'=>'',
                         'name'=>'Administrator settings',
                         'child' => null
@@ -285,45 +285,39 @@ return [
                 'colorClass'=>'index',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/users',
                         'icon'=>'',
                         'name'=>'Member Management',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/permission',
                         'icon'=>'',
                         'name'=>'Manage your membership',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/secessionist',
                         'icon'=>'',
                         'name'=>'Secessionist',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/group_email',
                         'icon'=>'',
                         'name'=>'Send a group email',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/email_settings',
                         'icon'=>'',
                         'name'=>'Email settings',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/member_management/settings',
                         'icon'=>'',
-                        'name'=>'Manage direct messages',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Manage members',
+                        'name'=>'Permession settings',
                         'child' => null
                     ],
                 ],
@@ -619,13 +613,13 @@ return [
                 'name'=>'Product management',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/product_management/productManage',
                         'icon'=>'',
                         'name'=>'Product management',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/product_management/manageCategory',
                         'icon'=>'',
                         'name'=>'Manage categories',
                         'child' => null

@@ -32,4 +32,5 @@ $(document).ready(() => {
         "bAutoWidth": false,
         "searching": false
     });
+    $('#BasicTable').DataTable({});
 });
