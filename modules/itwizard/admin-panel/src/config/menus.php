@@ -1,18 +1,18 @@
 <?php
 return [
     [
-        'title'=>'Preferences',
+        'title'=>'Control Panel',
         'url'=>'cms/preferences',
         'menus'=> [
             [
                 'url'=>'/#',
                 'icon'=>'pe-7s-config',
-                'name'=>'Basic setting',
+                'name'=>'Configuration',
                 'child' => [
                     [
                         'url'=>'cms/preferences',
                         'icon'=>'',
-                        'name'=>'Basic setting',
+                        'name'=>'Basic Information',
                         'child' => null
                     ],
                     [
@@ -177,7 +177,7 @@ return [
             ],
 
         ],
-    ], //Setting the environment menu
+    ], // Control Panel
     [
         'title'=>'Dashboard',
         'url'=>'cms/dashboard',
@@ -187,13 +187,6 @@ return [
                 'icon'=>'pe-7s-rocket',
                 'name'=>'Analytic',
                 'colorClass'=>'text-success',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/dashboard/user_menu',
-                'icon'=>'pe-7s-menu',
-                'name'=>'User menu',
-                'colorClass'=>'index',
                 'child' => [],
             ]
         ],
