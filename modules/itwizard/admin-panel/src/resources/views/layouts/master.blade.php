@@ -505,7 +505,6 @@
             // })
         </script>
         @yield('script')
-
         @yield('modal')
     </body>
 </html>

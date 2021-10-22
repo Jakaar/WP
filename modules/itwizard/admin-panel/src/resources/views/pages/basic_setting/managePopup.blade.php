@@ -25,7 +25,7 @@
                 <button type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
-                   <div class="d-inline-block dropdown" onclick="window.location.href='/cms/basic_setting/addManagePopup'">
+                   <div class="d-inline-block dropdown ModalShow">
                       <button type="button" class="search-icon btn-shadow btn btn-success CreateModalShow">
                       <span class="btn-icon-wrapper pe-2 opacity-7">
                       <i class="pe-7s-plus"></i>
@@ -39,108 +39,103 @@
     </div>
     <div class="main-card mb-3 card">
         <div class="card-body">
-            <table style="width: 100%;" id="example"  class="table table-hover table-striped table-bordered">
+            <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>{{__('Number')}}</th>
-                    <th>{{__('Title')}}</th>
-                    <th>{{__('Notice Period')}}</th>
-                    <th>{{__('Registration Date')}}</th>
-                    <th>{{__('Edit/Delete')}}</th>
+                    <th>#</th>
+                    <td>{{__('Menu Name')}}</td>
+                    <td>{{__('Title')}}</td>
+                    <td>{{__('Created At')}}</td>
+                    <td>{{__('Views')}}</td>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Home Solution</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary" onclick="window.location.href='/cms/basic_setting/editManagePopup'">
-                            <i class="pe-7s-pen btn-icon-wrapper"></i>
-                        </button>
-                        <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                            <i class="pe-7s-trash btn-icon-wrapper"></i>
-                        </button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Login Page</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary" onclick="window.location.href='/cms/basic_setting/editManagePopup'">
-                            <i class="pe-7s-pen btn-icon-wrapper"></i>
-                        </button>
-                        <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                            <i class="pe-7s-trash btn-icon-wrapper"></i>
-                        </button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Board Management</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary" onclick="window.location.href='/cms/basic_setting/editManagePopup'">
-                            <i class="pe-7s-pen btn-icon-wrapper"></i>
-                        </button>
-                        <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                            <i class="pe-7s-trash btn-icon-wrapper"></i>
-                        </button></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Consult</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary" onclick="window.location.href='/cms/basic_setting/editManagePopup'">
-                            <i class="pe-7s-pen btn-icon-wrapper"></i>
-                        </button>
-                        <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                            <i class="pe-7s-trash btn-icon-wrapper"></i>
-                        </button></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>test,test,test</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td>2018-11-21 PM 06:28</td>
-                    <td><button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary" onclick="window.location.href='/cms/basic_setting/editManagePopup'">
-                            <i class="pe-7s-pen btn-icon-wrapper"></i>
-                        </button>
-                        <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                            <i class="pe-7s-trash btn-icon-wrapper"></i>
-                        </button></td>
-                </tr>
-
-                </tfoot>
             </table>
-            <nav>
-                <ul class="pagination mb-5">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="javascript:void(0)">«</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="javascript:void(0)">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">4</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">5</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">»</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 
 
 </section>
+@endsection
+@section('script')
+    <script>
+        $('.ModalShow').click(function (){
+            $('#EditRoleModal').modal('show')
+        })
+    </script>
+@endsection
+@section('modal')
+    <div class="modal fade" id="EditRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Edit role')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="create_new_role" class="row">
+                        <input type="hidden" id="u_id">
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{__('Role name')}} </label>
+                            <input type="text" class="form-control" placeholder="{{__('Role name')}}" name="u_role_name"
+                                   id="u_role_name">
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{__('Display Name')}} </label>
+                            <input type="text" class="form-control" placeholder="{{__('Display Name')}}" name="u_display_name"
+                                   id="u_display_name">
+                        </div>
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label"> {{__('Description')}} </label>
+                            <textarea name="description" id="u_description" cols="30" rows="10" placeholder="{{__('Description')}}"
+                                      class="form-control"></textarea>
+                        </div>
+                        <h6 class="card-title">  {{__('Permissions')}} </h6>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Create role --}}
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Create new role')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="create_new_role" class="row">
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{__('Role name')}} </label>
+                            <input type="text" class="form-control" placeholder="{{__('Role name')}}" name="role_name"
+                                   id="role_name">
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{__('Display Name')}} </label>
+                            <input type="text" class="form-control" placeholder="{{__('Display Name')}}" name="display_name"
+                                   id="display_name">
+                        </div>
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label"> {{__('Description')}} </label>
+                            <textarea name="description" id="description" cols="30" rows="10" placeholder="{{__('Description')}}"
+                                      class="form-control"></textarea>
+                        </div>
+                        <h6 class="card-title mb-3"> {{__('Permissions')}} </h6>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-success" id="create_role">{{__('Create role')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
