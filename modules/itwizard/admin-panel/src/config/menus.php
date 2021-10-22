@@ -341,7 +341,7 @@ return [
                 'name'=>'Manage pages',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/manage_pages/manage_pages',
                         'icon'=>'',
                         'name'=>'Manage pages',
                         'child' => null
@@ -353,75 +353,42 @@ return [
                 'icon'=>'pe-7s-upload',
                 'name'=>'(No group)',
                 'colorClass'=>'index',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Quote Guide',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Contact us',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Directions',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Test',
-                        'child' => null
-                    ],
-                ],
-            ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-plugin',
-                'name'=>'Add-on Service',
-                'colorClass'=>'index',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Search for online ads',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Sms service',
-                        'child' => null
-                    ],
-                ],
+                'child' => [],
             ],
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-global',
-                'name'=>'Mobile apps/web creation',
+                'name'=>'Mongolia Manpower Outsourcing',
                 'colorClass'=>'index',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/manage_pages/key_skills',
                         'icon'=>'',
-                        'name'=>'Create a web/app',
+                        'name'=>'Key Skills',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/manage_pages/personal_outsource',
                         'icon'=>'',
-                        'name'=>'Develop custom apps',
+                        'name'=>'Personnel Outsourcing System',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/manage_pages/manpower_composition',
                         'icon'=>'',
-                        'name'=>'Text page',
+                        'name'=>'Manpower Composition And Operation Plan',
+                        'child' => null
+                    ],
+                    [
+                        'url'=>'cms/manage_pages/business_introduction',
+                        'icon'=>'',
+                        'name'=>'Business Introduction',
+                        'child' => null
+                    ],
+                    [
+                        'url'=>'cms/manage_pages/staff_introduction',
+                        'icon'=>'',
+                        'name'=>'Staff Introduction',
                         'child' => null
                     ],
                 ],
@@ -433,27 +400,15 @@ return [
                 'colorClass'=>'index',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/manage_pages/about_us',
                         'icon'=>'',
-                        'name'=>'Company overview',
+                        'name'=>'About Us',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/manage_pages/location',
                         'icon'=>'',
-                        'name'=>'Company history',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Business area',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Suppliers',
+                        'name'=>'Location',
                         'child' => null
                     ],
                 ],
