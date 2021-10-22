@@ -36,7 +36,7 @@
                                     <th> {{__('Action')}} </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -44,7 +44,7 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                 </div>

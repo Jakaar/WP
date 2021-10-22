@@ -10,7 +10,7 @@
                             <i class="pe-7s-graph3 icon-gradient bg-mixed-hopes"></i>
                         </div>
                         <div>
-                            {{ __('Log Analysis') }}
+                            {{ __('Pop-up management') }}
                             <div class="page-title-subheading"></div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="float-start">
-                        <div class="card-title"> {{ __('Log Analysis') }} </div>
+                        <div class="card-title"> {{__('Pop-up management generation code')}} </div>
                     </div>
                     <div class="float-end">
                         <button class="btn mb-3 btn-secondary"> {{__('Copy generation code')}} </button>
@@ -42,40 +42,28 @@
                 <div class="card-body">
                     <div class="card-title"> {{__('Application example')}} </div>
 
-                    <div class=" p-3 border-left-kant">
-                        Code should be added near the top of the &lt;head/&gt; tag and before any other scripts or CSS tags
+                    <div class="bg-light p-3 mb-3">
+                        <code id="code2"> </code>
                     </div>
                     <div class="p-3 border-left-kant">
-                        <div class="card-title"> Checklist </div>
+                        <div class="card-title"> {{__('Checklist')}} </div>
                         <ul>
                             <li>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">This is a function that analyzes the visitors of
-                                        the website.</font>
+                                    <font style="vertical-align: inherit;">This is the function to manage the pop-up of the
+                                        homepage.</font>
                                 </font>
                             </li>
                             <li>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">This is the part that prepares information that
-                                        is easy to lose and uses it for later site management.</font>
+                                    <font style="vertical-align: inherit;">Insert the above popup creation code into the
+                                        first page of the website (main.jsp).</font>
                                 </font>
                             </li>
                             <li>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">Insert the above log analysis code into the first
-                                        line of the website's first page (index.htm, index.html, index.jsp).</font>
-                                </font>
-                            </li>
-                            <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">The analysis details can be checked in Connection
-                                        Statistics &gt; Visitor Analysis, Connection Path Analysis.</font>
-                                </font>
-                            </li>
-                            <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">For a framed site, insert it at the top of the
-                                        frame page.</font>
+                                    <font style="vertical-align: inherit;">Pop-up contents can be written in Basic Settings
+                                        &gt; Pop-up Management.</font>
                                 </font>
                             </li>
                         </ul>
@@ -103,5 +91,6 @@
 @section('script')
     <script>
         $('#code').text(' <jsp:include page="/module/connect" flush="true" />')
+        $('#code2').text('<body><jsp:include page="/module/popup" flush="true" /></body>')
     </script>
 @stop

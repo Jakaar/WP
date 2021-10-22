@@ -10,7 +10,7 @@
                             <i class="pe-7s-graph3 icon-gradient bg-mixed-hopes"></i>
                         </div>
                         <div>
-                            {{ __('Banner Management') }}
+                            {{ __('Form Mail') }}
                             <div class="page-title-subheading"></div>
                         </div>
                     </div>
@@ -27,7 +27,8 @@
                 <div class="card-body">
                     <div class="float-start">
                         <div class="card-title">
-                            {{ __('Banner management generation code') }} </div>
+                            {{ __('Form mail management generation code
+                            ') }} </div>
                     </div>
                     <div class="float-end">
                         <button class="btn mb-3 btn-secondary"> {{ __('Copy generation code') }} </button>
@@ -51,34 +52,35 @@
                         <ul>
                             <li>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">Provides the ability to manage the main image or
-                                        banner of the homepage by the administrator.</font>
+                                    <font style="vertical-align: inherit;">It provides a convenient function that allows you
+                                        to freely create form mail regardless of form.</font>
                                 </font>
                             </li>
                             <li>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">If you want to edit/delete a specific image on
-                                        the site or add an image, use banner management.</font>
-                                </font>
-                            </li>
-                            <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">You can add/modify/delete banners in the banner
-                                        management menu.</font>
+                                    <font style="vertical-align: inherit;">skin location : /</font>
                                 </font>
                             </li>
                             <li>
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">Change the </font>
-                                    <font style="vertical-align: inherit;">banner management </font>
+                                    <font style="vertical-align: inherit;">form mail management </font>
                                 </font><b>
                                     <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">[banner number]</font>
+                                        <font style="vertical-align: inherit;">[form mail number]</font>
                                     </font>
                                 </b>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;"> name to the number in the banner list below.
-                                    </font>
+                                    <font style="vertical-align: inherit;"> name to the </font><b>
+                                        <font style="vertical-align: inherit;">number</font>
+                                    </b>
+                                    <font style="vertical-align: inherit;"> in the form mail list below.</font>
+                                </font>
+                            </li>
+                            <li>
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">The contents of the created form mail can be
+                                        checked in the Admin &gt; Form Mail Management menu.</font>
                                 </font>
                             </li>
                         </ul>
@@ -89,50 +91,78 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        Number of banners: 1
-
+                        Total number of form mails: 3
                     </div>
                     <table class="table table-bordered text-center">
 
-                        <thead >
+                        <thead>
                             <tr>
-                                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">number</font></font></th>
-                                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">master code</font></font></th>
-                                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">group name</font></font></th>
-                                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">banner form</font></font></th>
-                                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Whether or not to use</font></font></th>
-                                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">function</font></font></th>
+                                <th>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">number</font>
+                                    </font>
+                                </th>
+                                <th>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">form mail name</font>
+                                    </font>
+                                </th>
+                                <th>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">function</font>
+                                    </font>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>2</td>
-                                <td>mainBanner</td>
+                                <td>6</td>
                                 <td>
                                     <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">mainBanner</font>
+                                        <font style="vertical-align: inherit;">Development Quote Inquiry</font>
                                     </font>
                                 </td>
                                 <td>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">Vertical</font>
-                                    </font>
-                                </td>
-                                <td>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">used</font>
-                                    </font>
-                                </td>
-                                <td>
-                                    <span id="spanCode_2" class="d-none">
-                                        &lt;jsp:include page="/module/banner" flush="true"&gt;
-                                        &lt;jsp:param name="bseq" value="2" /&gt;
+                                    <span id="spanCode_6" class="d-none">
+                                        &lt;jsp:include page="/module/form" flush="true"&gt;
+                                        &lt;jsp:param name="fseq" value="6" /&gt;
                                         &lt;/jsp:include&gt;
                                     </span>
                                     <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
                                 </td>
                             </tr>
-                          
+                            <tr>
+                                <td>7</td>
+                                <td>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">Personnel Outsourcing Inquiries</font>
+                                    </font>
+                                </td>
+                                <td>
+                                    <span id="spanCode_7" class="d-none">
+                                        &lt;jsp:include page="/module/form" flush="true"&gt;
+                                        &lt;jsp:param name="fseq" value="7" /&gt;
+                                        &lt;/jsp:include&gt;
+                                    </span>
+                                    <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">Project outsourcing inquiry</font>
+                                    </font>
+                                </td>
+                                <td>
+                                    <span id="spanCode_8" class="d-none">
+                                        &lt;jsp:include page="/module/form" flush="true"&gt;
+                                        &lt;jsp:param name="fseq" value="8" /&gt;
+                                        &lt;/jsp:include&gt;
+                                    </span>
+                                    <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -158,7 +188,7 @@
 @section('script')
     <script>
         $('#code').text(
-            '<jsp:include page="/module/banner" flush="true"><jsp:param name="bseq" value="[배너번호]" /></jsp:include>')
+            ' <jsp:include page="/module/form" flush="true"><jsp:param name="fseq" value="[폼메일번호]" /></jsp:include>')
         $('#code2').text('<body><jsp:include page="/module/popup" flush="true" /></body>')
     </script>
 @stop
