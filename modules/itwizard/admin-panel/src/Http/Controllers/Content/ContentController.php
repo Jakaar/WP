@@ -22,6 +22,7 @@ class ContentController extends Controller
         $categories = Category::whereNull('category_id')
             ->with('childrenCategories')
             ->get();
-        return view('Admin::pages.content.menu', compact('categories'));
+//        dd($categories);
+        return view('Admin::pages.user_menu.menu', compact('categories'));
     }
 }

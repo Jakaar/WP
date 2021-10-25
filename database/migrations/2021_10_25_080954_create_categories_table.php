@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWpanelClientMenu extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateWpanelClientMenu extends Migration
      */
     public function up()
     {
-        Schema::create('wpanel_client_menu', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('wpanel_client_menu')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('menu_url');
             $table->integer('isEnabled');
             $table->integer('target');
@@ -32,6 +32,6 @@ class CreateWpanelClientMenu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wpanel_client_menu');
+        Schema::dropIfExists('categories');
     }
 }

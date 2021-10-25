@@ -42,8 +42,8 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/permission/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'permissionDelete']);
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
-    Route::post('/GetContentData/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);
-    Route::post('/DeleteMenu/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class,'DeleteMenu']);
+    Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);
+//    Route::post('/DeleteMenu/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class,'DeleteMenu']);
 
     Route::post('/managepage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'singlePage']);
 });

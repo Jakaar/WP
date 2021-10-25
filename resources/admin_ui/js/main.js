@@ -61,5 +61,5 @@ require('./carousel-slider');
 require('./customs/count-up')
 require('./customs/ckeditor')
 require('./charts/chartjs')
-require('./customs/jquery-sortable-lists')
+require('./customs/tree.jquery')
 
