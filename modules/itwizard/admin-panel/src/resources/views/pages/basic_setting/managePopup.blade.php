@@ -38,7 +38,9 @@
         </div>
     </div>
     <div class="main-card mb-3 card">
+        
         <div class="card-body">
+            <h5 class="card-title">{{__('Manage Popups')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
@@ -56,11 +58,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -70,11 +72,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -84,11 +86,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -98,11 +100,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -112,11 +114,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -126,11 +128,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -140,11 +142,11 @@
                         <td>2021-07-26~2021-07-27</td>
                         <td>2021-07-26</td>
                         <td>
-                            <button type="button" class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-primary ModalShowEdit" data-bs-toggle="modal" data-bs-target="#myModal">
-                                <i class="pe-7s-pen btn-icon-wrapper"></i>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
                             </button>
-                            <button class="btn-sm mb-2 me-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"></i>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
                             </button>
                         </td>
                     </tr>

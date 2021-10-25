@@ -162,7 +162,7 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'cms/settings',
+                        'url'=>'cms/preferences/menu_management',
                         'icon'=>'',
                         'name'=>'Menu management',
                         'child' => null
@@ -525,7 +525,7 @@ return [
                 'name'=>'Banner management',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/banner_management/banner_management',
                         'icon'=>'',
                         'name'=>'Banner management',
                         'child' => null
@@ -533,49 +533,49 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/banner_management/banner_list',
                 'icon'=>'pe-7s-note2',
                 'name'=>'Banner list',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/main_banner',
                 'icon'=>'pe-7s-display1',
                 'name'=>'mainBanner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/vertical_banner',
                 'icon'=>'pe-7s-angle-up-circle',
                 'name'=>'Vertically',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/horizontal_banner',
                 'icon'=>'pe-7s-angle-right-circle',
                 'name'=>'Horizontal',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/left_banner',
                 'icon'=>'pe-7s-back-2',
                 'name'=>'leftBanner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/left',
                 'icon'=>'pe-7s-back-2',
                 'name'=>'left',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/right',
                 'icon'=>'pe-7s-next-2',
                 'name'=>'right',
                 'colorClass'=>'index',
