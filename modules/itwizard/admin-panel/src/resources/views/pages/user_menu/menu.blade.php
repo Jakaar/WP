@@ -27,25 +27,33 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="col-md-6">
             <div class="card-title">Menus</div>
             <div class="main-card mb-3 p-2 card">
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
-                        <ul class="vertical-nav-menu metismenu">
+                        <ul class="vertical-nav-menu">
                             @foreach($categories as $category)
                                 @if(count($category->childrenCategories) > 0)
                                     <li class="">
                                         <a href="#" aria-expanded="false">
-{{--                                            <i class="metismenu-icon pe-7s-plugin"></i>--}}
-                                            {{$category->name}}
+                                            <i class="metismenu-icon pe-7s-less"></i>
+                                                {{$category->name}}
                                             <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                            <button key="{{$category->id}}" class="btn btn-success navBtns CreateSubMenu"><i class="pe-7s-plus"></i></button>
-                                            <button key="{{$category->id}}" class="btn btn-danger navBtns DeleteMenu"><i class="pe-7s-trash"></i></button>
+                                            <span class="">
+                                                <button key="{{$category->id}}" class="btn btn-outline-success float-end navBtns ModalShow">
+                                                    <i class="pe-7s-plus"></i>
+                                                </button>
+                                            </span>
+                                            <span class="">
+                                                <button key="{{$category->id}}" class="btn btn-outline-danger float-end navBtns DeleteMenu">
+                                                    <i class="pe-7s-trash"></i>
+                                                </button>
+                                            </span>
                                         </a>
                                         <ul class="mm-collapse" style="height: 7.04px;">
                                             @foreach ($category->childrenCategories as $childCategory)
-                                                @include('Admin::pages.content.child_category', ['child_category' => $childCategory])
+                                                @include('Admin::pages.user_menu.child_category', ['child_category' => $childCategory])
                                             @endforeach
                                         </ul>
                                     </li>
@@ -54,8 +62,16 @@
                                         <a href="#" class="GetContent" key="{{$category->id}}">
                                             {{ $category->name }}
                                         </a>
-                                        <button key="{{$category->id}}" class="btn btn-success navBtns CreateSubMenu"><i class="pe-7s-plus"></i></button>
-                                        <button key="{{$category->id}}" class="btn btn-danger navBtns DeleteMenu"><i class="pe-7s-trash"></i></button>
+                                        <span class="">
+                                            <button key="{{$category->id}}" class="btn btn-outline-success float-end navBtns ModalShow">
+                                                <i class="pe-7s-plus"></i>
+                                            </button>
+                                        </span>
+                                        <span class="">
+                                            <button key="{{$category->id}}" class="btn btn-outline-danger float-end navBtns DeleteMenu">
+                                                <i class="pe-7s-trash"></i>
+                                            </button>
+                                        </span>
                                     </li>
                                 @endif
                             @endforeach
@@ -64,8 +80,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-8 col-lg-9">
-            <div class="card-title">{{__('Content')}}</div>
+        <div class="col-md-6">
+            <div class="card-title">{{__('Details')}}</div>
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <div id="ContentData">
@@ -77,7 +93,7 @@
     </div>
 @endsection
 @section('modal')
-    <div id="CreateMenuMoad" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="mb-3 card">
@@ -135,7 +151,7 @@
     <script>
         $(document).ready(function (){
             $('.ModalShow').click(function (){
-                $('#CreateMenuMoad').modal('show');
+                $('#CreateMenuModal').attr('key',$(this).attr('key')).modal('show');
             });
             $('.GetContent').on('click', function (){
                Axios.post('/api/GetContentData/'+$(this).attr('key')).then((resp) => {

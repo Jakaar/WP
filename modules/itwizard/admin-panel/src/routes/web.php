@@ -7,6 +7,10 @@ use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 
+
+Route::get('/', function (){
+    return redirect('/cms/dashboard');
+});
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
@@ -25,7 +29,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/permission', [PermissionController::class, 'index']);
 //    Route::get('/permission/menu_manage', [MenuManageController::class,  'index']);
 
-    Route::get('/settings', [SiteInfoController::class,  'index']);
+    Route::get('/basic_setting', [SiteInfoController::class,  'index']);
     Route::get('/settings/seo_list', [SeoController::class,  'index']);
     Route::get('/settings/contactUs', [\Itwizard\Adminpanel\Http\Controllers\ContactUs\ContactUsController::class,  'index']);
 
@@ -37,7 +41,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/settings/members', [PermissionController::class, 'Members']);
 
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
-    Route::get('/cM/menus', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
+    Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
     Route::get('/{slug}/{view}', function ($slug, $view){
        return view('Admin::pages.'.$slug.'.'.$view);
     });

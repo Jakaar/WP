@@ -20,12 +20,9 @@ class ContentController extends Controller
     /**
      * @throws \Throwable
      */
-    public function GetContentData($id)
+    public function GetContentData(Request $request)
     {
-        $data = DB::table('wpanel_board_data')
-            ->where('category_id', $id)
-            ->leftJoin('wpanel_board_master','boar')
-            ->get();
+        dd($request->all());
 //        return response()
 //            ->json([
 //                'msg'=>__('success'),

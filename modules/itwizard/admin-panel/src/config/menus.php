@@ -106,7 +106,7 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'cms/preferences/',
+                        'url'=>'cms/preferences/member_register',
                         'icon'=>'',
                         'name'=>'Member Register',
                         'child' => null
@@ -168,13 +168,13 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'cms/settings',
+                        'url'=>'cms/preferences/menu_management',
                         'icon'=>'',
                         'name'=>'Menu management',
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/settings',
+                        'url'=>'cms/preferences/permission_manage',
                         'icon'=>'',
                         'name'=>'Permission management',
                         'child' => null
@@ -203,60 +203,53 @@ return [
         'url'=>'cms/basic_setting',
         'menus'=> [
             [
-                'url'=>'cms/settings',
+                'url'=>'cms/basic_setting',
                 'icon'=>'pe-7s-info',
                 'name'=>'Site information',
                 'child' => [],
             ],
             [
-               'url'=>'#',
-               'icon'=>'pe-7s-user',
-               'name'=>'Administrator settings',
-               'colorClass'=>'index',
+                'url'=>'#',
+                'icon'=>'pe-7s-user',
+                'name'=>'Administrator settings',
+                'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/managePopup',
                 'icon'=>'pe-7s-exapnd2',
-                'name'=>'Manage pop-ups',
+                'name'=>'Manage Pop-ups',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/main_banner_management',
                 'icon'=>'pe-7s-display2',
-                'name'=>'MainBanner management',
+                'name'=>'Main Banner Manage',
                 'child' => [],
             ],
             [
                 'url'=>'cms/basic_setting/userSecurity',
                 'icon'=>'pe-7s-door-lock',
-                'name'=>'User security settings',
+                'name'=>'User Security',
                 'child' => [],
             ],
-            [
-                'url'=>'cms/basic_setting/subscription',
-                'icon'=>'pe-7s-portfolio',
-                'name'=>'Subscription Terms and Privacy Policy',
-                'child' => [],
-            ],
+//            [
+//                'url'=>'cms/basic_setting/subscription',
+//                'icon'=>'pe-7s-portfolio',
+//                'name'=>'Subscription Terms and Privacy Policy',
+//                'child' => [],
+//            ],
             [
                 'url'=>'cms/basic_setting/administratorSecurity',
                 'icon'=>'pe-7s-lock',
-                'name'=>'Administrator security settings',
+                'name'=>'Administrator security',
                 'child' => [],
             ],
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-pen',
                 'name'=>'Fixed code',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Fixed code',
-                        'child' => null
-                    ],
-                ],
+                'child' => null
             ],
         ],
 
@@ -333,20 +326,13 @@ return [
     ], // Member Management
     [
         'title'=>'Page Manage',
-        'url'=>'cms/manage_pages',
+        'url'=>'cms/manage_pages/manage_pages',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/manage_pages/manage_pages',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Manage pages',
-                'child' => [
-                    [
-                        'url'=>'cms/manage_pages/manage_pages',
-                        'icon'=>'',
-                        'name'=>'Manage pages',
-                        'child' => null
-                    ],
-                ],
+                'child' => null
             ],
             [
                 'url'=>'#',
@@ -355,67 +341,67 @@ return [
                 'colorClass'=>'index',
                 'child' => [],
             ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-global',
-                'name'=>'Mongolia Manpower Outsourcing',
-                'colorClass'=>'index',
-                'child' => [
-                    [
-                        'url'=>'cms/manage_pages/key_skills',
-                        'icon'=>'',
-                        'name'=>'Key Skills',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/personal_outsource',
-                        'icon'=>'',
-                        'name'=>'Personnel Outsourcing System',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/manpower_composition',
-                        'icon'=>'',
-                        'name'=>'Manpower Composition And Operation Plan',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/business_introduction',
-                        'icon'=>'',
-                        'name'=>'Business Introduction',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/staff_introduction',
-                        'icon'=>'',
-                        'name'=>'Staff Introduction',
-                        'child' => null
-                    ],
-                ],
-            ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-bookmarks',
-                'name'=>'About us',
-                'colorClass'=>'index',
-                'child' => [
-                    [
-                        'url'=>'cms/manage_pages/about_us',
-                        'icon'=>'',
-                        'name'=>'About Us',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/location',
-                        'icon'=>'',
-                        'name'=>'Location',
-                        'child' => null
-                    ],
-                ],
-            ]
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-global',
+//                'name'=>'Mongolia Manpower Outsourcing',
+//                'colorClass'=>'index',
+//                'child' => [
+//                    [
+//                        'url'=>'cms/manage_pages/key_skills',
+//                        'icon'=>'',
+//                        'name'=>'Key Skills',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/personal_outsource',
+//                        'icon'=>'',
+//                        'name'=>'Personnel Outsourcing System',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/manpower_composition',
+//                        'icon'=>'',
+//                        'name'=>'Manpower Composition And Operation Plan',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/business_introduction',
+//                        'icon'=>'',
+//                        'name'=>'Business Introduction',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/staff_introduction',
+//                        'icon'=>'',
+//                        'name'=>'Staff Introduction',
+//                        'child' => null
+//                    ],
+//                ],
+//            ],
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-bookmarks',
+//                'name'=>'About us',
+//                'colorClass'=>'index',
+//                'child' => [
+//                    [
+//                        'url'=>'cms/manage_pages/about_us',
+//                        'icon'=>'',
+//                        'name'=>'About Us',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/location',
+//                        'icon'=>'',
+//                        'name'=>'Location',
+//                        'child' => null
+//                    ],
+//                ],
+//            ]
         ],
 
-    ], // Manage pages
+    ], // Page Manage
     [
         'title'=>'Board Manage',
         'url'=>'cms/noticeboard',
@@ -538,7 +524,7 @@ return [
                 'name'=>'Banner management',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/banner_management/banner_management',
                         'icon'=>'',
                         'name'=>'Banner management',
                         'child' => null
@@ -546,49 +532,49 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/banner_management/banner_list',
                 'icon'=>'pe-7s-note2',
                 'name'=>'Banner list',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/main_banner',
                 'icon'=>'pe-7s-display1',
                 'name'=>'mainBanner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/vertical_banner',
                 'icon'=>'pe-7s-angle-up-circle',
                 'name'=>'Vertically',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/horizontal_banner',
                 'icon'=>'pe-7s-angle-right-circle',
                 'name'=>'Horizontal',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/left_banner',
                 'icon'=>'pe-7s-back-2',
                 'name'=>'leftBanner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/left',
                 'icon'=>'pe-7s-back-2',
                 'name'=>'left',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'cms/dashboard/user_menu',
+                'url'=>'cms/banner_management/right',
                 'icon'=>'pe-7s-next-2',
                 'name'=>'right',
                 'colorClass'=>'index',
