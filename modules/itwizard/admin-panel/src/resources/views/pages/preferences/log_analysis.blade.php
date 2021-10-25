@@ -1,8 +1,5 @@
 @extends('Admin::layouts.master')
 @section('content')
-    <div class="app-main__inner p-0">
-        <div class="app-inner-layout">
-
             <div class="app-page-title">
                 <div class="page-title-wrapper">
                     <div class="page-title-heading">
@@ -49,56 +46,39 @@
                         <div class="card-title"> Checklist </div>
                         <ul>
                             <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">This is a function that analyzes the visitors of
-                                        the website.</font>
-                                </font>
+                                <span style="vertical-align: inherit;">
+                                    <span style="vertical-align: inherit;">This is a function that analyzes the visitors of
+                                        the website.</span>
+                                </span>
                             </li>
                             <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">This is the part that prepares information that
-                                        is easy to lose and uses it for later site management.</font>
-                                </font>
+                                <span style="vertical-align: inherit;">
+                                    <span style="vertical-align: inherit;">This is the part that prepares information that
+                                        is easy to lose and uses it for later site management.</span>
+                                </span>
                             </li>
                             <li>
-                                <font style="vertical-align: inherit;">
+                                <span style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">Insert the above log analysis code into the first
                                         line of the website's first page (index.htm, index.html, index.jsp).</font>
-                                </font>
+                                </span>
                             </li>
                             <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">The analysis details can be checked in Connection
-                                        Statistics &gt; Visitor Analysis, Connection Path Analysis.</font>
-                                </font>
+                                <span style="vertical-align: inherit;">
+                                    <span style="vertical-align: inherit;">The analysis details can be checked in Connection
+                                        Statistics &gt; Visitor Analysis, Connection Path Analysis.</span>
+                                </span>
                             </li>
                             <li>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">For a framed site, insert it at the top of the
-                                        frame page.</font>
-                                </font>
+                                <span style="vertical-align: inherit;">
+                                    <span style="vertical-align: inherit;">For a framed site, insert it at the top of the
+                                        frame page.</span>
+                                </span>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <style>
-        .border-left-kant {
-            padding: 1.25rem;
-            margin-bottom: 1.25rem;
-            border: 1px solid #eee;
-            border-left-width: .25rem;
-            border-radius: .25rem;
-            border-left-color: #e92626;
-            background-color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-    </style>
 @endsection
 @section('script')
     <script>
