@@ -25,7 +25,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/permission', [PermissionController::class, 'index']);
 //    Route::get('/permission/menu_manage', [MenuManageController::class,  'index']);
 
-    Route::get('/basic_settings', [SiteInfoController::class,  'index']);
+    Route::get('/basic_setting', [SiteInfoController::class,  'index']);
     Route::get('/settings/seo_list', [SeoController::class,  'index']);
     Route::get('/settings/contactUs', [\Itwizard\Adminpanel\Http\Controllers\ContactUs\ContactUsController::class,  'index']);
 
