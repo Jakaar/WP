@@ -14,47 +14,46 @@
             <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
+            <button class="btn-shadow me-3 btn btn-info">
+                <i>Save</i>
+            </button>
         </div>
     </div>
 </div>
 
-<section>
-    <div class="mb-3 card card-body">
-        <h5 class="card-title">Enable Google reCAPTCHA</h5>
-        <div class="card-shadow-danger border mb-3 card card-body border-danger">
-            <h4 class="card-title ">Checklist<h4>
-                    <ul class="fs-6">
-                        <li>You can set whether to use reCAPTCHA, which is used for user login.</li>
-                        <li>If you do not use this feature, you may become very vulnerable to abnormal requests such as hacking and infinite login attempts. It is recommended to use the function.</li>
-                    </ul>
-        </div>
-        <div class="main-card mb-3 card">
-            <div class="card-body">
-                <h5 class="card-title">User Login</h5>
-                <form class="">
-                    <fieldset class="position-relative mb-3">
-                        <div class="position-relative form-check">
-                            <label class="form-label form-check-label">
-                                <input name="radio1" type="radio" class="form-check-input">
-                                Use
-                            </label>
-                        </div>
-                        <div class="position-relative form-check">
-                            <label class="form-label form-check-label">
-                                <input name="radio1" type="radio" class="form-check-input">
-                                Not Used
-                            </label>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-        <button class="mb-2 me-2 btn-icon btn btn-primary">
-            <i>Save</i>
-        </button>
+<div class="card mb-3">
+    <h5 class="card-header">Enable Google reCAPTCHA</h5>
+
+    <div class="card-body position-relative">
+
+        <ul class="todo-list-wrapper list-group list-group-flush">
+            <div class="todo-indicator bg-info"></div>
+
+            <li class="list-group-item">You can set whether to use reCAPTCHA, which is used for user login.</li>
+            <li class="list-group-item">If you do not use this feature, you may become very vulnerable to abnormal requests such as hacking and infinite login attempts. It is recommended to use the function.</li>
+        </ul>
     </div>
-</section>
-
-
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">User Login</h5>
+        <form class="">
+            <fieldset class="position-relative mb-3">
+                <div class="position-relative form-check">
+                    <label class="form-label form-check-label">
+                        <input name="radio1" type="radio" class="form-check-input">
+                        Use
+                    </label>
+                </div>
+                <div class="position-relative form-check">
+                    <label class="form-label form-check-label">
+                        <input name="radio1" type="radio" class="form-check-input">
+                        Not Used
+                    </label>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
 
 @endsection

@@ -14,62 +14,54 @@
             <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
-            <button type="button" class="btn me-2 mb-2 btn-primary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
+            <button type="button" class="btn-shadow me-3 btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
                 {{__('Category Registration')}}
             </button>
         </div>
     </div>
 </div>
-<section>
-    <div class="tab-content">
-        <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-            <div class="main-card mb-3  card-btm-border card-shadow-primary border-primary card">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <table style="width: 100%;" id="BulletInBoards" class="table table-hover table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>{{__('LEVEL')}}</th>
-                                            <th>{{__('CATEGORY NAME')}}</th>
-                                            <th>{{__('REGISTERED PRODUCT')}}</th>
-                                            <th>{{__('EXPLANATION')}}</th>
-                                            <th>{{__('STATE')}}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>SMS</td>
-                                            <td>0</td>
-                                            <td>TEXT SOLUTION</td>
-                                            <td>USE</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>SMS</td>
-                                            <td>0</td>
-                                            <td>TEST SOLUTION</td>
-                                            <td>USE</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>SMS</td>
-                                            <td>0</td>
-                                            <td>SOLUTION</td>
-                                            <td>USE</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="card-body">
+    <div class="row">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <table style="width: 100%;" id="BulletInBoards" class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>{{__('LEVEL')}}</th>
+                            <th>{{__('CATEGORY NAME')}}</th>
+                            <th>{{__('REGISTERED PRODUCT')}}</th>
+                            <th>{{__('EXPLANATION')}}</th>
+                            <th>{{__('STATE')}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>SMS</td>
+                            <td>0</td>
+                            <td>TEXT SOLUTION</td>
+                            <td>USE</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>SMS</td>
+                            <td>0</td>
+                            <td>TEST SOLUTION</td>
+                            <td>USE</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>SMS</td>
+                            <td>0</td>
+                            <td>SOLUTION</td>
+                            <td>USE</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</section>
+</div>
 
 @endsection
 @section('script')

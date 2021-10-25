@@ -51,6 +51,12 @@ return [
                         'name'=>'Page access rights',
                         'child' => null
                     ],
+                    [
+                        'url'=>'cms/preferences/seo_manage',
+                        'icon'=>'',
+                        'name'=>'SEO Manage',
+                        'child' => null
+                    ],
                 ],
             ],
             [
@@ -148,7 +154,7 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'cms/settings',
+                        'url'=>'cms/preferences/seo_manage',
                         'icon'=>'',
                         'name'=>'SEO Manage',
                         'child' => null
