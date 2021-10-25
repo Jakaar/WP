@@ -197,42 +197,42 @@ return [
         'url'=>'cms/basic_setting',
         'menus'=> [
             [
-                'url'=>'cms/settings',
+                'url'=>'cms/basic_setting',
                 'icon'=>'pe-7s-info',
                 'name'=>'Site information',
                 'child' => [],
             ],
             [
-               'url'=>'#',
-               'icon'=>'pe-7s-user',
-               'name'=>'Administrator settings',
-               'colorClass'=>'index',
+                'url'=>'#',
+                'icon'=>'pe-7s-user',
+                'name'=>'Administrator settings',
+                'colorClass'=>'index',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/managePopup',
                 'icon'=>'pe-7s-exapnd2',
-                'name'=>'Manage pop-ups',
+                'name'=>'Manage Pop-ups',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/main_banner_management',
                 'icon'=>'pe-7s-display2',
-                'name'=>'MainBanner management',
+                'name'=>'Main Banner Manage',
                 'child' => [],
             ],
             [
                 'url'=>'cms/basic_setting/userSecurity',
                 'icon'=>'pe-7s-door-lock',
-                'name'=>'User security settings',
+                'name'=>'User Security',
                 'child' => [],
             ],
-            [
-                'url'=>'cms/basic_setting/subscription',
-                'icon'=>'pe-7s-portfolio',
-                'name'=>'Subscription Terms and Privacy Policy',
-                'child' => [],
-            ],
+//            [
+//                'url'=>'cms/basic_setting/subscription',
+//                'icon'=>'pe-7s-portfolio',
+//                'name'=>'Subscription Terms and Privacy Policy',
+//                'child' => [],
+//            ],
             [
                 'url'=>'cms/basic_setting/administratorSecurity',
                 'icon'=>'pe-7s-lock',
@@ -327,20 +327,13 @@ return [
     ], // Member Management
     [
         'title'=>'Page Manage',
-        'url'=>'cms/manage_pages',
+        'url'=>'cms/manage_pages/manage_pages',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/manage_pages/manage_pages',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Manage pages',
-                'child' => [
-                    [
-                        'url'=>'cms/manage_pages/manage_pages',
-                        'icon'=>'',
-                        'name'=>'Manage pages',
-                        'child' => null
-                    ],
-                ],
+                'child' => null
             ],
             [
                 'url'=>'#',
@@ -412,35 +405,35 @@ return [
     ], // Manage pages
     [
         'title'=>'Board Manage',
-        'url'=>'cms/board_management',
+        'url'=>'cms/noticeboard',
         'menus'=> [
             [
-                'url'=>'cms/board_management',
+                'url'=>'cms/noticeboard',
                 'icon'=>'pe-7s-airplay',
                 'name'=>'Board management',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/noticeboard',
                         'icon'=>'',
-                        'name'=>'Board management',
+                        'name'=>'Board Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Comment integration management',
+                        'name'=>'Comment Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Post integration management',
+                        'name'=>'Post Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Bulletin board statistics',
+                        'name'=>'Board Statistic',
                         'child' => null
                     ],
                 ],

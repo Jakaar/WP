@@ -1,4 +1,5 @@
 @extends('Admin::layouts.master')
+
 @section('content')
 
     <div class="app-main__inner p-0">
@@ -326,5 +327,4 @@
             </div>
         </div>
     </div>
-
 @endsection
