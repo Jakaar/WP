@@ -27,10 +27,6 @@
             </div>
         </div>
     </div>
-
-    {{--    Header
-            Selection section--}}
-
     <div class="main-card mb-3 card">
         <div class="card-body">
             <div class="container-fluid">
@@ -38,21 +34,14 @@
                     <div class="col-md-2 text-center col-form-label"> {{__('Ad Classification')}}</div>
                     <div class="col-md-2 text-center col-form-label">
                         <div class="d-flex align-items-center">
-                            <div class='custom-control custom-radio custom-control-inline  form-check-inline'><input type='radio'
-                                                                                                                     class='custom-control-input'
-                                                                                                                     id=''
-                                                                                                                     name=''
-                                                                                                                     value=''
-                                                                                                                     title='{{__('Premium')}}'/>
-                                <label
-                                    class='custom-control-label' for=''>{{__('Premium')}}</label></div>
-                            <div class='custom-control custom-radio custom-control-inline  form-check-inline'><input type='radio'
-                                                                                                                     class='custom-control-input'
-                                                                                                                     id=''
-                                                                                                                     name='type'
-                                                                                                                     value=''
-                                                                                                                     title='{{__('Hot')}}'
-                                                                                                                     class="form-control-input"/>
+                            <div class='custom-control custom-radio custom-control-inline  form-check-inline'>
+                                <input type='radio' class='custom-control-input' id='' name='' value=''
+                                       title='{{__('Premium')}}'/>
+                                <label class='custom-control-label' for=''>{{__('Premium')}}</label>
+                            </div>
+                            <div class='custom-control custom-radio custom-control-inline  form-check-inline'>
+                                <input type='radio' class='custom-control-input' id='' name='type' value=''
+                                       title='{{__('Hot')}}' class="form-control-input"/>
                                 <label class='custom-control-label' for=''>{{__('Hot')}}</label></div>
                         </div>
                     </div>
@@ -87,12 +76,6 @@
             </div>
         </div>
     </div>
-    {{--
-
-                Body section
-                showing the table under here
-    --}}
-
 
     <div class="card">
         <div class="card-header">
@@ -126,23 +109,10 @@
                 </div>
             </div>
         </div>
-
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <colgroup>
-                        <col width="5%">
-                        <col width="7%">
-                        <col width="7%">
-                        <col width="7%">
-                        <col width="7%">
-                        <col width="10%">
-                        <col width="7%">
-                        <col width="7%">
-                        <col width="*">
-                        <col width="10%">
-                    </colgroup>
-                    <thead class="table-info">
+                    <thead >
                     <tr>
                         <th>{{__('Number')}}</th>
                         <th>{{__('Ad Classification')}}</th>

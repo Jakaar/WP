@@ -1,223 +1,63 @@
 @extends('Admin::layouts.master')
 @section('content')
-    <style type="text/css">
-
-        /*
-
-github.com style (c) Vasily Polovnyov <vast@whiteants.net>
-
-*/
-
-        /*
-            customized css
-        */
-        @import url('//fonts.googleapis.com/css?family=Roboto+Mono');
-
-        pre.custom {
-            margin: 0 0 0px 0;
-        }
-
-        pre.custom code {
-            font-family: 'Roboto Mono';
-            font-size: 12px;
-            overflow-y: auto;
-            overflow-x: auto;
-            padding: 0 0 15px 25px;
-            line-height: 1.7em;
-        }
-
-
-        /*
-            customized css
-        */
-        .tago-callout {
-            padding: 1.25rem;
-            margin-bottom: 1.25rem;
-            border: 1px solid #eee;
-            border-left-width: .25rem;
-            border-radius: .25rem;
-            border-left-color: #e92626;
-            background-color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .tago-callout p:last-child {
-            margin-bottom: 0;
-        }
-
-        .callout-warning {
-            border-left-color: #e92626;
-
-        }
-
-        .callout-warning ul li {
-            font-size: .9375rem;
-        }
-
-
-        .hljs {
-            display: block;
-            overflow-x: auto;
-            padding: 0.5em;
-            color: #333;
-            background: #f8f8f8;
-        }
-
-        .hljs-comment,
-        .hljs-quote {
-            color: #998;
-            font-style: italic;
-        }
-
-        .hljs-keyword,
-        .hljs-selector-tag,
-        .hljs-subst {
-            color: #333;
-            font-weight: bold;
-        }
-
-        .hljs-number,
-        .hljs-literal,
-        .hljs-variable,
-        .hljs-template-variable,
-        .hljs-tag .hljs-attr {
-            color: #008080;
-        }
-
-        .hljs-string,
-        .hljs-doctag {
-            color: #d14;
-        }
-
-        .hljs-title,
-        .hljs-section,
-        .hljs-selector-id {
-            color: #900;
-            font-weight: bold;
-        }
-
-        .hljs-subst {
-            font-weight: normal;
-        }
-
-        .hljs-type,
-        .hljs-class .hljs-title {
-            color: #458;
-            font-weight: bold;
-        }
-
-        .hljs-tag,
-        .hljs-name,
-        .hljs-attribute {
-            color: #000080;
-            font-weight: normal;
-        }
-
-        .hljs-regexp,
-        .hljs-link {
-            color: #009926;
-        }
-
-        .hljs-symbol,
-        .hljs-bullet {
-            color: #990073;
-        }
-
-        .hljs-built_in,
-        .hljs-builtin-name {
-            color: #0086b3;
-        }
-
-        .hljs-meta {
-            color: #999;
-            font-weight: bold;
-        }
-
-        .hljs-deletion {
-            background: #fdd;
-        }
-
-        .hljs-addition {
-            background: #dfd;
-        }
-
-        .hljs-emphasis {
-            font-style: italic;
-        }
-
-        .hljs-strong {
-            font-weight: bold;
-        }
-
-        .card {
-            margin-bottom: 30px;
-            border: 0;
-            box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
-        }
-
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            border: 1px solid rgba(0, 0, 0, .05);
-            border-radius: .375rem;
-            background-color: #fff;
-            padding: 1.875rem;
-            padding-bottom: 0;
-            background-clip: border-box;
-        }
-    </style>
-
-
-
-    {{--    Header section
-            notice board code heseg
-    --}}
-    <div class="card">
-        <div class="card-header border-0 d-flex container-fluid">
-            <label class="mb-0 card-title col">{{__("Main Notice Board Creation Code")}}</label>
-            <button type="button" onclick=""
-                    class="btn btn-light btn-sm ml-auto col-1">생성코드복사
-            </button>
-        </div>
-        <div class="container-fluid">
-                <pre class="custom">
-                   <code id="codeSample" class="html hljs xml">
-<span class="hljs-tag">&lt;<span class="hljs-name">jsp:include</span> <span class="hljs-attr">page</span>=<span
-        class="hljs-string">"/module/rb"</span> <span class="hljs-attr">flush</span>=<span
-        class="hljs-string">"true"</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">jsp:param</span> <span class="hljs-attr">name</span>=<span
-            class="hljs-string">"rbseq"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"[메인게시물번호]"</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">jsp:include</span>&gt;</span>
-</code>
-                </pre>
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="font-icon-wrapper font-icon-lg">
+                    <i class="pe-7s-help1 icon-gradient bg-night-fade"></i>
+                </div>
+                <div>
+                    {{ __('Main Notice Board') }}
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                        class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                    <i class="pe-7s-refresh-2"></i>
+                </button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <i class="fa fa-plus"></i>{{__('Create Main Notice Board')}}
+                </button>
+            </div>
         </div>
     </div>
-
-    {{--
-            Information section
-            !!!! check points
-
-            --}}
-    <div class="tago-callout callout-warning">
-        <h4 class="check_tit">체크사항</h4>
-        <ul class="ml10">
-            <li>최근 게시물을 가져올 수 있습니다.</li>
-            <li>출력하고자 하는 위치에 예제 코드와 같은 블럭을 추가합니다.</li>
-            <li>rbseq <b>[메인게시물번호]</b>는 아래 메인게시물 목록의 순번으로 변경합니다.</li>
-            <!-- <li>- bcseq <b>[카테고리번호]</b>를 추가하면 해당 카테고리의 게시물만 가져옵니다. 카테고리를 구분하지 않으려면 value를 빈 값으로 넣거나, 파라미터 라인을 삭제하면 됩니다.</li> -->
-        </ul>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="float-start">
+                <div class="card-title"> {{__('Main Notice Board Creation Code')}} </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="bg-light p-2">
+                <code id="code">
+                        <span>&lt;jsp:include page="/module/rb" flush="true"&gt;<br>
+                            	&nbsp;&nbsp;&nbsp;&lt;jsp:param name="rbseq" value="[메인게시물번호]" /&gt;<br>
+                        &lt;/jsp:include&gt;
+                        </span>
+                </code>
+            </div>
+        </div>
     </div>
-
-    {{--
-
-                Body section
-                showing the table under here
-    --}}
-
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="">
+                <div class="card-title">{{__('Check Points')}}</div>
+                <ul class="todo-list-wrapper list-group list-group-flush ">
+                    <li class="list-group-item">
+                        <div class="todo-indicator bg-warning"></div>
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left me-2">
+                                    * 최근 게시물을 가져올 수 있습니다.<br>
+                                    * 출력하고자 하는 위치에 예제 코드와 같은 블럭을 추가합니다.<br>
+                                    * rbseq <b>[메인게시물번호]</b>는 아래 메인게시물 목록의 순번으로 변경합니다.
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header">
             <div class="container-fluid">
@@ -225,11 +65,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     <div class="col-sm-6">
                         <label class="card-title"> {{__('Main Notice Board Number')}} : 11</label>
                     </div>
-
                 </div>
             </div>
         </div>
-
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="NewsTable">
@@ -254,16 +92,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                         <td>20</td>
                         <td>선택안함</td>
                         <td>
-										<span id="spanCode_7" class="d-none">
-&lt;jsp:include page="/module/rb.do" flush="true"&gt;
-	&lt;jsp:param name="rbseq" value="7" /&gt;
-&lt;/jsp:include&gt;
-										</span>
                             <a href="" class="btn btn-sm btn-light">{{__('Creation Code Copy')}}</a>
-                            <a href=""
-                               class="btn btn-sm btn-primary">{{__('Preview')}}</a>
-                            <a href=""
-                               class="btn btn-sm btn-primary">{{__('Change')}}</a>
+                            <a href="" class="btn btn-sm btn-primary">{{__('Preview')}}</a>
+                            <a href="" class="btn btn-sm btn-primary">{{__('Change')}}</a>
                             <a href="" class="btn btn-sm btn-danger">{{__('Delete')}}</a>
                         </td>
                     </tr>
@@ -297,6 +128,167 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+@endsection
+
+@section("modal")
+
+    <div class="modal fade bd-example-modal-lg" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="dialog">
+            <div class="modal-content">
+                <!--                            <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                </div>-->
+                <div class="modal-body">
+                    <form id="" action="" method="post">
+                        <input type="hidden" name="">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"><span class="text-danger">*</span>게시판코드</label>
+                            <div class="col-sm-4">
+                                <select class="form-control " id="boardCode" name="boardCode">
+                                    <option value="">= 게시판 선택 =</option>
+                                    <option value="formList">formlist</option>
+                                    <option value="portfolio">portfolio</option>
+                                    <option value="staff">staff</option>
+                                    <option value="GallMong">갤러리</option>
+                                    <option value="notice">공지사항</option>
+                                    <option value="video">몽골 법인 ITwizard TV 유튜브</option>
+                                    <option value="answerBoard">묻고답하기</option>
+                                    <option value="business">사업실적</option>
+                                    <option value="gallery">실적갤러리</option>
+                                    <option value="certificate">인증현황</option>
+                                    <option value="faqMong">자주 묻는 질문</option>
+                                </select>
+                            </div>
+                            <label class=""><span class="text-danger">*</span>게시판 카테고리 </label>
+                            <div class="">
+                                <select name="" class="form-control">
+                                    <option value="0">= 선택안함 =</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class=""><span class="text-danger">*</span>연결 페이지</label>
+                            <div class="">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">http://192.168.0.147</span>
+                                    </div>
+                                    <select class="form-control " id="linkUrl" name="linkUrl">
+                                        <option value="0">= 선택 =</option>
+                                        <option value="030600">자주 묻는 질문</option>
+                                        <option value="030100">공지사항</option>
+                                        <option value="060100">회사 유튜브</option>
+                                        <option value="030200">묻고 답하기</option>
+                                        <option value="021000">갤러리</option>
+                                        <option value="050104">SMS Enterprise Reseller</option>
+                                        <option value="010100">웹사이트</option>
+                                        <option value="010200">모바일 및 앱</option>
+                                    </select>
+                                </div>
+                                <small class="form-text text-danger">※ 연결 페이지를 빈 값으로 설정하면 링크가 적용되지 않습니다.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"><span class="text-danger">*</span>제목 글자 수</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="subjectCharCount" class="onlyNumber form-control" maxlength="2"
+                                       value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label"><span class="text-danger">*</span>노출 게시물 수 </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="articleCount" class="onlyNumber form-control" maxlength="2"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"><span class="text-danger">*</span>기본 예제 적용</label>
+                            <div class="col-sm-10">
+                                <div class="d-flex align-items-center h-100">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="rdoExample1" name="rdoExample"
+                                               class="custom-control-input"
+                                               value="save" disabled="">
+                                        <label class="custom-control-label" for="rdoExample1">원래대로</label>
+                                    </div>
+                                    <div class="custom-control custom-radio ml-4">
+                                        <input type="radio" id="rdoExample2" name="rdoExample"
+                                               class="custom-control-input "
+                                               value="default">
+                                        <label class="custom-control-label" for="rdoExample2">기본형</label>
+                                    </div>
+                                    <div class="custom-control custom-radio ml-4">
+                                        <input type="radio" id="rdoExample3" name="rdoExample"
+                                               class="custom-control-input"
+                                               value="image">
+                                        <label class="custom-control-label" for="rdoExample3">이미지</label>
+                                    </div>
+                                    <div class="custom-control custom-radio ml-4">
+                                        <input type="radio" id="rdoExample4" name="rdoExample"
+                                               class="custom-control-input"
+                                               value="thumb">
+                                        <label class="custom-control-label" for="rdoExample4">썸네일</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"><span class="text-danger ">*</span>코딩 시작</label>
+                            <div class="col-sm-10">
+                                <textarea name="codingStart" cols="120" rows="1" class="coding form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"><span class="text-danger ">*</span>코딩 반복</label>
+                            <div class="col-sm-10">
+                                <textarea name="codingLoop" cols="120" rows="10" class="coding form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"><span class="text-danger ">*</span>코딩 종료</label>
+                            <div class="col-sm-10">
+                                <textarea name="codingEnd" cols="120" rows="1" class="coding form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="tago-callout callout-warning">
+                                    <h4 class="check_tit">체크사항</h4>
+                                    <ul class="ml10">
+                                        <li>- 메인게시물이 반복되는 부분은 [코딩 반복] 영역에 입력합니다.</li>
+                                        <li>- CSS 스타일이 별도로 필요할 경우 [코딩 시작] 부분에 class로 적용합니다.</li>
+                                        <li>- 주의 : 미리보기의 경우 CSS 차이로 스타일이 정상적으로 나오지 않을 수 있습니다.</li>
+                                        <li>- #{SUBJECT} : 제목, #{DATE} : 날짜(SNS타입), #{LINK} : 링크([연결 페이지]에 입력한 URL로 구성),
+                                            #{NEW} : 새 글 아이콘
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-2">
+                                <a onclick="" class="btn btn-primary btn-block btn-lg"
+                                   style="cursor: pointer;">저장</a>
+                            </div>
+                            <div class="col-6 col-sm-2">
+                                <a onclick=""
+                                   class="btn btn-dark btn-block btn-lg" style="cursor: pointer;">취소</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
