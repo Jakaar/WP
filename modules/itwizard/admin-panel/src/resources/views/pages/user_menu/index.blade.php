@@ -59,7 +59,8 @@
                                                         <i class="pe-7s-expand1"></i>
                                                     </button> --}}
                                                     <input type="checkbox" checked id="checkbox-1" class="ms-4">
-                                                    <label for="checkbox-1" class="m-3">Page{{ $i }}</label>
+                                                    <label for="checkbox-1"
+                                                        class="m-3">Page{{ $i }}</label>
                                                 </div>
                                                 <div class="widget-content-right">
                                                     <button class="btn-outline-primary btn"> {{ __('Edit') }}
@@ -82,7 +83,9 @@
                                                                 </button> --}}
                                                                 <input type="checkbox" checked id="checkbox-1"
                                                                     class="ms-4">
-                                                                <label for="checkbox-1" class="m-3">Pagechild{{ $j }} </label>
+                                                                <label for="checkbox-1"
+                                                                    class="m-3">Pagechild{{ $j }}
+                                                                </label>
                                                             </div>
                                                             <div class="widget-content-right">
                                                                 <button class="btn-outline-primary btn">
@@ -169,7 +172,7 @@
 
         function SetSortOrder() {
             $("#sortableMain li").each(function(index, value) {
-                if($(this).parent('.sortable').length != 0) {
+                if ($(this).parent('.sortable').length != 0) {
                     // alert($(this).parent().find('li:first').html());
                 }
                 $(this).data("order", index);

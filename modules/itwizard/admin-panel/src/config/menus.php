@@ -100,7 +100,7 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'cms/preferences/',
+                        'url'=>'cms/preferences/member_register',
                         'icon'=>'',
                         'name'=>'Member Register',
                         'child' => null
@@ -168,7 +168,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/settings',
+                        'url'=>'cms/preferences/permission_manage',
                         'icon'=>'',
                         'name'=>'Permission management',
                         'child' => null
