@@ -11,7 +11,7 @@ class MainController extends Controller
     {
         $data['board_type'] = DB::table('wpanel_board_type')->get();
         $data['board_master'] = DB::table('wpanel_board_master')->get();
-        return view('Admin::pages.noticeboardmanagement.index', compact('data'));
+        return view('Admin::pages.noticeboard.index', compact('data'));
     }
 
 }
