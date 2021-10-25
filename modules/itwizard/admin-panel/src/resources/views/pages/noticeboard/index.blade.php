@@ -103,9 +103,12 @@
                             <td></td>
                             <td>{{$board->board_name}}</td>
                             <td>{{$board->board_type}}</td>
+                            <td>{{$board->isComment}}</td>
                             <td>{{$board->board_type}}</td>
-                            <td>{{$board->board_type}}</td>
-                            <td>{{$board->board_type}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary">{{__('Edit')}}</button>
+                                <button class="btn btn-sm btn-outline-danger">{{__('Delete')}}</button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -308,8 +311,8 @@
 
                }
                Axios.post('/api/board/create', data).then((resp) => {
-                   // $('#CrtBrd')[0].reset();
-                   // $('#CreateBoardModal').modal('hide');
+                   $('#CrtBrd')[0].reset();
+                   $('#CreateBoardModal').modal('hide');
                    Toast.fire({
                        icon: 'success',
                        title: resp.data.msg

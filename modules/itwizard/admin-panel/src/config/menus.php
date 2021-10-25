@@ -412,35 +412,35 @@ return [
     ], // Manage pages
     [
         'title'=>'Board Manage',
-        'url'=>'cms/board_management',
+        'url'=>'cms/noticeboard',
         'menus'=> [
             [
-                'url'=>'cms/board_management',
+                'url'=>'cms/noticeboard',
                 'icon'=>'pe-7s-airplay',
                 'name'=>'Board management',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/noticeboard',
                         'icon'=>'',
-                        'name'=>'Board management',
+                        'name'=>'Board Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Comment integration management',
+                        'name'=>'Comment Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Post integration management',
+                        'name'=>'Post Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Bulletin board statistics',
+                        'name'=>'Board Statistic',
                         'child' => null
                     ],
                 ],
