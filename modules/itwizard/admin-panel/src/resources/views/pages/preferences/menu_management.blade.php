@@ -18,7 +18,7 @@
                     <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                   {{__('Main Banner')}}
+                   {{__('Menu Management')}}
                 </div>
             </div>
             <div class="page-title-actions">
@@ -39,28 +39,25 @@
     <div class="main-card mb-3 card">
         
         <div class="card-body">
-            <h5 class="card-title">{{__('Main Banner')}}</h5>
+            <h5 class="card-title">{{__('Menu Management')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <td>{{__('Group Name')}}</td>
-                        <td>{{__('Code')}}</td>
-                        <td>{{__('Image')}}</td>
-                        <td>{{__('Form')}}</td>
-                        <td>{{__('Number Of Line-Wrapped Banners')}}</td>
-                        <td>{{__('Wheter Or Not To Use')}}</td>
+                        <td>{{__('Level')}}</td>
+                        <td>{{__('Menu Name')}}</td>
+                        <td>{{__('Explanation')}}</td>
+                        <td>{{__('State')}}</td>
                         <td>{{__('Edit/Delete')}}</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>MainBanner</td>
+                        <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                        <td>세로</td>
-                        <td>1</td>
+                  
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -73,11 +70,10 @@
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>MainBanner</td>
+                        <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                        <td>세로</td>
-                        <td>1</td>
+                   
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -90,11 +86,10 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>MainBanner</td>
+                        <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                        <td>세로</td>
-                        <td>1</td>
+                  
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -107,11 +102,10 @@
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>MainBanner</td>
+                        <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                        <td>세로</td>
-                        <td>1</td>
+                   
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -124,10 +118,9 @@
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>MainBanner</td>
-                        <td>Main</td>
                         <td>2</td>
-                        <td>세로</td>
+                        <td>  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;  Main</td>
+                     
                         <td>1</td>
                         <td>사용함</td>
                         <td>
@@ -141,10 +134,41 @@
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td>MainBanner</td>
-                        <td>Main</td>
-                        <td>2</td>
-                        <td>세로</td>
+                        <td>3</td>
+                        <td> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; Main</td>
+                      
+                        <td>1</td>
+                        <td>사용함</td>
+                        <td>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
+                            </button>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>3</td>
+                        <td> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; Main</td>
+                      
+                        <td>1</td>
+                        <td>사용함</td>
+                        <td>
+                            <button class="btn-outline-primary btn ModalShowEdit">
+                                {{ ('Edit') }}
+                            </button>
+                            <button class="btn-outline-danger btn-link btn">
+                                {{ ('Delete') }}
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>3</td>
+                        <td> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; Main</td>
+                      
                         <td>1</td>
                         <td>사용함</td>
                         <td>
@@ -180,71 +204,56 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Add Main Banner')}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Add New Menu')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="#" id="create_new_role" class="row">
                         <input type="hidden" id="u_id">
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Code (English)')}} </label>
+                            <label class="form-label"> {{__('Top Menu')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
-                                <option>Image</option>
-                                <option>Html</option>
-                            </select>
-                        </div>
-                
-                        <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use*')}}</label>
-
-                                <div class="position-relative">
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            {{__('Used')}}
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            {{__('Not used')}}
-                                        </label>
-                                    </div>
-
-
-                                </div>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Banner Group')}}</label>
-                            <select name="select" id="exampleSelect" class="form-select form-control">
-                                <option>{{__('Main Banner')}}</option>
-                                <option>{{__('Vertical')}}</option>
-                                <option>{{__('Horizontal')}}</option>
-                                <option>{{__('Left Banner')}}</option>
-                                <option>{{__('Left')}}</option>
-                                <option>{{__('Right')}}</option>
+                                <option>{{__('Preferences')}}</option>
+                                <option>{{__('Basic Setting')}}</option>
+                                <option>{{__('Member Management')}}</option>
+                                <option>{{__('Page Management')}}</option>
                             </select>
                         </div>
                         <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Priority')}}</label>
+                            <label class="form-label"> {{__('Menu Name')}} </label>
+                            <input type="text" class="form-control" placeholder="{{__('Menu Name')}}" name="name" id="name">
+                        </div>
+                        
+                        <div class="mb-3 col-lg-6">
+                            <label for="exampleCity" class="form-label">{{__('Status Classification')}}</label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
-                                <option>{{__('1')}}</option>
-                                <option>{{__('2')}}</option>
-                                <option>{{__('3')}}</option>
-                                <option>{{__('4')}}</option>
-                                <option>{{__('5')}}</option>
-                                <option>{{__('6')}}</option>
+                                <option>{{__('Use')}}</option>
+                                <option>{{__('Unset')}}</option>
+                                <option>{{__('Delete')}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label for="exampleCity" class="form-label">{{__('Menu Window')}}</label>
+                            <select name="select" id="exampleSelect" class="form-select form-control">
+                                <option>{{__('Current Window')}}</option>
+                                <option>{{__('New Window')}}</option>
                             </select>
                         </div>
                        
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Link Address')}} </label>
-                            <input type="text" class="form-control" placeholder="{{__('Link Address')}}" name="banner_spacing" id="banner_spacing">
+                        <div class="mb-3 col-lg-12">
+                            <label for="exampleCity" class="form-label">{{__('Menu Type')}}</label>
+                            <select name="select" id="exampleSelect" class="form-select form-control">
+                                <option>{{__('Select')}}</option>
+                                <option>{{__('Board')}}</option>
+                                <option>{{__('Page')}}</option>
+                                <option>{{__('Direct Link')}}</option>
+                                <option>{{__('Form')}}</option>
+                                <option>{{__('Product')}}</option>
+                            </select>
                         </div>
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('File')}} </label>
-                            <input type="file" name="file" class="form-control" />
+                        <div class="mb-3 col-lg-12">
+                            <label for="exampleCity" class="form-label">{{__('Explanation')}}</label>
+                            <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
         
                     </form>
@@ -264,71 +273,56 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="EditRoleModal">{{__('Edit Main Banner')}}</h5>
+                    <h5 class="modal-title" id="EditRoleModal">{{__('Edit Menu')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="#" id="create_new_role" class="row">
                         <input type="hidden" id="u_id">
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Code (English)')}} </label>
+                            <label class="form-label"> {{__('Top Menu')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
-                                <option>Image</option>
-                                <option>Html</option>
-                            </select>
-                        </div>
-                
-                        <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use*')}}</label>
-
-                                <div class="position-relative">
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            {{__('Used')}}
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            {{__('Not used')}}
-                                        </label>
-                                    </div>
-
-
-                                </div>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Banner Group')}}</label>
-                            <select name="select" id="exampleSelect" class="form-select form-control">
-                                <option>{{__('Main Banner')}}</option>
-                                <option>{{__('Vertical')}}</option>
-                                <option>{{__('Horizontal')}}</option>
-                                <option>{{__('Left Banner')}}</option>
-                                <option>{{__('Left')}}</option>
-                                <option>{{__('Right')}}</option>
+                                <option>{{__('Preferences')}}</option>
+                                <option>{{__('Basic Setting')}}</option>
+                                <option>{{__('Member Management')}}</option>
+                                <option>{{__('Page Management')}}</option>
                             </select>
                         </div>
                         <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Priority')}}</label>
+                            <label class="form-label"> {{__('Menu Name')}} </label>
+                            <input type="text" class="form-control" placeholder="{{__('Menu Name')}}" name="name" id="name">
+                        </div>
+                        
+                        <div class="mb-3 col-lg-6">
+                            <label for="exampleCity" class="form-label">{{__('Status Classification')}}</label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
-                                <option>{{__('1')}}</option>
-                                <option>{{__('2')}}</option>
-                                <option>{{__('3')}}</option>
-                                <option>{{__('4')}}</option>
-                                <option>{{__('5')}}</option>
-                                <option>{{__('6')}}</option>
+                                <option>{{__('Use')}}</option>
+                                <option>{{__('Unset')}}</option>
+                                <option>{{__('Delete')}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label for="exampleCity" class="form-label">{{__('Menu Window')}}</label>
+                            <select name="select" id="exampleSelect" class="form-select form-control">
+                                <option>{{__('Current Window')}}</option>
+                                <option>{{__('New Window')}}</option>
                             </select>
                         </div>
                        
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Link Address')}} </label>
-                            <input type="text" class="form-control" placeholder="{{__('Link Address')}}" name="banner_spacing" id="banner_spacing">
+                        <div class="mb-3 col-lg-12">
+                            <label for="exampleCity" class="form-label">{{__('Menu Type')}}</label>
+                            <select name="select" id="exampleSelect" class="form-select form-control">
+                                <option>{{__('Select')}}</option>
+                                <option>{{__('Board')}}</option>
+                                <option>{{__('Page')}}</option>
+                                <option>{{__('Direct Link')}}</option>
+                                <option>{{__('Form')}}</option>
+                                <option>{{__('Product')}}</option>
+                            </select>
                         </div>
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('File')}} </label>
-                            <input type="file" name="file" class="form-control" />
+                        <div class="mb-3 col-lg-12">
+                            <label for="exampleCity" class="form-label">{{__('Explanation')}}</label>
+                            <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
         
                     </form>
