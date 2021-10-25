@@ -210,13 +210,13 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/managePopup',
                 'icon'=>'pe-7s-exapnd2',
                 'name'=>'Manage pop-ups',
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/main_banner_management',
                 'icon'=>'pe-7s-display2',
                 'name'=>'MainBanner management',
                 'child' => [],
