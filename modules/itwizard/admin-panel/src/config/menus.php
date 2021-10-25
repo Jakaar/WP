@@ -194,10 +194,10 @@ return [
     ], // Dashboard menus
     [
         'title'=>'Basic Settings',
-        'url'=>'cms/basic_setting',
+        'url'=>'cms/basic_settings',
         'menus'=> [
             [
-                'url'=>'cms/settings',
+                'url'=>'cms/basic_settings',
                 'icon'=>'pe-7s-info',
                 'name'=>'Site information',
                 'child' => [],
