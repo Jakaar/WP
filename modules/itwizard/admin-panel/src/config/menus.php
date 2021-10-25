@@ -100,7 +100,7 @@ return [
                 'colorClass'=>'success',
                 'child' => [
                     [
-                        'url'=>'cms/preferences/',
+                        'url'=>'cms/preferences/member_register',
                         'icon'=>'',
                         'name'=>'Member Register',
                         'child' => null
@@ -168,7 +168,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/settings',
+                        'url'=>'cms/preferences/permission_manage',
                         'icon'=>'',
                         'name'=>'Permission management',
                         'child' => null
@@ -236,21 +236,14 @@ return [
             [
                 'url'=>'cms/basic_setting/administratorSecurity',
                 'icon'=>'pe-7s-lock',
-                'name'=>'Administrator security settings',
+                'name'=>'Administrator security',
                 'child' => [],
             ],
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-pen',
                 'name'=>'Fixed code',
-                'child' => [
-                    [
-                        'url'=>'#',
-                        'icon'=>'',
-                        'name'=>'Fixed code',
-                        'child' => null
-                    ],
-                ],
+                'child' => null
             ],
         ],
 
@@ -342,67 +335,67 @@ return [
                 'colorClass'=>'index',
                 'child' => [],
             ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-global',
-                'name'=>'Mongolia Manpower Outsourcing',
-                'colorClass'=>'index',
-                'child' => [
-                    [
-                        'url'=>'cms/manage_pages/key_skills',
-                        'icon'=>'',
-                        'name'=>'Key Skills',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/personal_outsource',
-                        'icon'=>'',
-                        'name'=>'Personnel Outsourcing System',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/manpower_composition',
-                        'icon'=>'',
-                        'name'=>'Manpower Composition And Operation Plan',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/business_introduction',
-                        'icon'=>'',
-                        'name'=>'Business Introduction',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/staff_introduction',
-                        'icon'=>'',
-                        'name'=>'Staff Introduction',
-                        'child' => null
-                    ],
-                ],
-            ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-bookmarks',
-                'name'=>'About us',
-                'colorClass'=>'index',
-                'child' => [
-                    [
-                        'url'=>'cms/manage_pages/about_us',
-                        'icon'=>'',
-                        'name'=>'About Us',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/manage_pages/location',
-                        'icon'=>'',
-                        'name'=>'Location',
-                        'child' => null
-                    ],
-                ],
-            ]
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-global',
+//                'name'=>'Mongolia Manpower Outsourcing',
+//                'colorClass'=>'index',
+//                'child' => [
+//                    [
+//                        'url'=>'cms/manage_pages/key_skills',
+//                        'icon'=>'',
+//                        'name'=>'Key Skills',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/personal_outsource',
+//                        'icon'=>'',
+//                        'name'=>'Personnel Outsourcing System',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/manpower_composition',
+//                        'icon'=>'',
+//                        'name'=>'Manpower Composition And Operation Plan',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/business_introduction',
+//                        'icon'=>'',
+//                        'name'=>'Business Introduction',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/staff_introduction',
+//                        'icon'=>'',
+//                        'name'=>'Staff Introduction',
+//                        'child' => null
+//                    ],
+//                ],
+//            ],
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-bookmarks',
+//                'name'=>'About us',
+//                'colorClass'=>'index',
+//                'child' => [
+//                    [
+//                        'url'=>'cms/manage_pages/about_us',
+//                        'icon'=>'',
+//                        'name'=>'About Us',
+//                        'child' => null
+//                    ],
+//                    [
+//                        'url'=>'cms/manage_pages/location',
+//                        'icon'=>'',
+//                        'name'=>'Location',
+//                        'child' => null
+//                    ],
+//                ],
+//            ]
         ],
 
-    ], // Manage pages
+    ], // Page Manage
     [
         'title'=>'Board Manage',
         'url'=>'cms/noticeboard',

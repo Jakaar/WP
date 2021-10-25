@@ -7,6 +7,10 @@ use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 
+
+Route::get('/', function (){
+    return redirect('/cms/dashboard');
+});
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');

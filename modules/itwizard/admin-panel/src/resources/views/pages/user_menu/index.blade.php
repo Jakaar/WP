@@ -17,128 +17,90 @@
                         </div>
                     </div>
                     <div class="page-title-actions">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
-                                class="fa fa-plus"></i> Create new Menu </button>
+
                         <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                             class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                             <i class="pe-7s-refresh-2"></i>
                         </button>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
+                                class="fa fa-plus"></i> Create new Menu </button>
                     </div>
                 </div>
             </div>
-
             <div class="card mb-2">
                 <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item fw-bold">
-                            <div class="widget-content">
+                    <ul class="list-group sortable" id="sortableMain">
+                        <li class="list-group-item fw-bold" data-order="0" id="5">
+                            <div class="widget-content d-flex">
                                 <div class="widget-content-wrapper">
                                     <div class="widget-content-left">
-                                        <button class="btn btn-secondary btn-sm">
+                                        {{-- <button class="btn btn-outline-secondary btn-sm">
                                             <i class="pe-7s-expand1"></i>
-                                        </button>
+                                        </button> --}}
                                         <input type="checkbox" checked id="checkbox-1" class="ms-4"> <label
                                             for="checkbox-1" class="m-3">Home Page</label>
                                     </div>
                                     <div class="widget-content-right">
-                                        <button class="btn btn-info btn-sm"> <i class="fa fa-edit"></i> </button>
-                                        <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </button>
+                                        <button class="btn-outline-primary btn" onclick="alert('gg')"> {{ __('Edit') }}
+                                        </button>
+                                        <button class="btn-outline-danger btn-link btn"> {{ __('Delete') }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <ul class="list-group ms-4">
-                                @for ($i = 1; $i < 4; $i++)
-                                    <li class="list-group-item">
-                                        <div class="widget-content">
+                            <ul class="list-group ms-4 sortable">
+                                @for ($i = 1; $i < 2; $i++)
+                                    <li class="list-group-item fw-bold" data-order="{{ $i }}"
+                                        id="{{ $i }}">
+                                        <div class="widget-content d-flex">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left">
-                                                    <button class="btn btn-secondary btn-sm">
+                                                    {{-- <button class="btn btn-outline-secondary btn-sm">
                                                         <i class="pe-7s-expand1"></i>
-                                                    </button>
+                                                    </button> --}}
                                                     <input type="checkbox" checked id="checkbox-1" class="ms-4">
-                                                    <label for="checkbox-1" class="m-3">Page {{ $i }}
-                                                    </label>
+                                                    <label for="checkbox-1"
+                                                        class="m-3">Page{{ $i }}</label>
                                                 </div>
                                                 <div class="widget-content-right">
-                                                    <button class="btn btn-info btn-sm"> <i class="fa fa-edit"></i>
+                                                    <button class="btn-outline-primary btn"> {{ __('Edit') }}
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
+                                                    <button class="btn-outline-danger btn-link btn">
+                                                        {{ __('Delete') }}
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul class="list-group ms-4">
-                                            @for ($i = 1; $i < 4; $i++)
-                                                <li class="list-group-item">
-                                                    <div class="widget-content">
+                                        <ul class="list-group ms-4 sortable">
+                                            @for ($j = 1; $j < 2; $j++)
+                                                <li class="list-group-item fw-bold" data-parent="{{ $i }}"
+                                                    data-order="{{ $j }}" id="{{ $j }}">
+                                                    <div class="widget-content d-flex">
                                                         <div class="widget-content-wrapper">
                                                             <div class="widget-content-left">
-                                                                <button class="btn btn-secondary btn-sm">
+                                                                {{-- <button class="btn btn-outline-secondary btn-sm">
                                                                     <i class="pe-7s-expand1"></i>
-                                                                </button>
+                                                                </button> --}}
                                                                 <input type="checkbox" checked id="checkbox-1"
                                                                     class="ms-4">
-                                                                <label for="checkbox-1" class="m-3">Page child
-                                                                    {{ $i }} </label>
+                                                                <label for="checkbox-1"
+                                                                    class="m-3">Pagechild{{ $j }}
+                                                                </label>
                                                             </div>
                                                             <div class="widget-content-right">
-                                                                <button class="btn btn-info btn-sm"> <i
-                                                                        class="fa fa-edit"></i>
+                                                                <button class="btn-outline-primary btn">
+                                                                    {{ __('Edit') }}
                                                                 </button>
-                                                                <button class="btn btn-danger btn-sm"> <i
-                                                                        class="fa fa-trash"></i>
+                                                                <button class="btn-outline-danger btn-link btn">
+                                                                    {{ __('Delete') }}
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </li>
                                             @endfor
+
                                         </ul>
-                                    </li>
-                                @endfor
-                            </ul>
-                        </li>
-                        <li class="list-group-item fw-bold">
-                            <div class="widget-content">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                        <button class="btn btn-secondary btn-sm">
-                                            <i class="pe-7s-expand1"></i>
-                                        </button>
-                                        <input type="checkbox" checked id="checkbox-1" class="ms-4">
-                                        <label for="checkbox-1" class="m-3">Page {{ $i }} </label>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <button class="btn btn-info btn-sm"> <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul class="list-group ms-4">
-                                @for ($i = 1; $i < 3; $i++)
-                                    <li class="list-group-item">
-                                        <div class="widget-content">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left">
-                                                    <button class="btn btn-secondary btn-sm">
-                                                        <i class="pe-7s-expand1"></i>
-                                                    </button>
-                                                    <input type="checkbox" checked id="checkbox-1" class="ms-4">
-                                                    <label for="checkbox-1" class="m-3">Page {{ $i }}
-                                                    </label>
-                                                </div>
-                                                <div class="widget-content-right">
-                                                    <button class="btn btn-info btn-sm"> <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </li>
                                 @endfor
                             </ul>
@@ -154,8 +116,122 @@
             padding: 5px;
         }
 
+        ul li {
+            cursor: move;
+        }
+
     </style>
 @endsection
+
+@section('script')
+    <script src="/js/jquery-sortable-lists.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    {{-- <script>
+        $('.sortable').sortable({
+            dropOnEmpty: true,
+            items: "> li",
+            tolerance: "pointer",
+            containment: "document",
+            connectWith: '.sortable ',
+            stop: function() {
+                console.log(SetSortOrder())
+            }
+        });
+
+ 
+
+        function PopulateSortItems() {
+            sortedItems.length = 0;
+
+            $(".sortable li").each(function(index, value) {
+                let item = {};
+                item.id = $(this).attr("id");
+                item.order = $(this).data("order");
+                item.parent = $(this).data("parent")
+                sortedItems.push(item);
+            });
+
+            return sortedItems
+        }
+    </script> --}}
+    <script>
+        function PopulateSortItems() {
+            sortedItems.length = 0;
+
+            $("#sortableMain li").each(function(index, value) {
+                let item = {};
+                item.id = $(this).attr("id");
+                item.order = $(this).data("order");
+                item.name = $(this).find('label').html()
+                sortedItems.push(item);
+            });
+
+            return sortedItems
+        }
+
+        function SetSortOrder() {
+            $("#sortableMain li").each(function(index, value) {
+                if ($(this).parent('.sortable').length != 0) {
+                    // alert($(this).parent().find('li:first').html());
+                }
+                $(this).data("order", index);
+            });
+        }
+        var sortedItems = [];
+        var options = {
+            placeholderCss: {
+                'background-color': '#ff8'
+            },
+            hintCss: {
+                'background-color': '#bbf'
+            },
+
+            onChange: function(cEl) {
+
+            },
+            complete: function(cEl) {
+                SetSortOrder();
+                var items = PopulateSortItems();
+                console.log(items)
+            },
+            isAllowed: function(cEl, hint, target) {
+                // Be carefull if you test some ul/ol elements here.
+                // Sometimes ul/ols are dynamically generated and so they have not some attributes as natural ul/ols.
+                // Be careful also if the hint is not visible. It has only display none so it is at the previouse place where it was before(excluding first moves before showing).
+                if (target.data('module') === 'c' && cEl.data('module') !== 'c') {
+                    hint.css('background-color', '#ff9999');
+                    return false;
+                } else {
+                    hint.css('background-color', '#99ff99');
+                    return true;
+                }
+            },
+            opener: {
+                active: true,
+                as: 'html', // if as is not set plugin uses background image
+                close: '<i class="fa fa-minus c3"></i>', // or 'fa-minus c3',  // or './imgs/Remove2.png',
+                open: '<i class="fa fa-plus"></i>', // or 'fa-plus',  // or'./imgs/Add2.png',
+                openerClass: "btn btn-outline-secondary",
+            },
+
+            ignoreClass: 'clickable btn'
+        };
+
+        SetSortOrder();
+        $('#sortableMain').sortableLists(options);
+
+        $(document).ready(function() {
+            $('#create_menu').click(function() {
+                $('#sortableMain').prepend(
+                    '<li class="list-group-item"> <div class="widget-content d-flex"><div class="widget-content-wrapper"> <div class="widget-content-left"><input type="checkbox" checked id="checkbox-1" class="ms-4"><label for="checkbox-1" class="m-3">New Page </label></div> <div class="widget-content-right"> <button class="btn-outline-primary btn"> {{ __('Edit') }} </button> <button class="btn-outline-danger btn-link btn"> {{ __('Delete') }} </button> </div> </div> </div> </li>'
+                )
+                $('#staticBackdrop').modal('hide')
+            })
+        })
+    </script>
+@endsection
+
 @section('modal')
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -204,39 +280,39 @@
                                 <select name="" id="" class="form-control">
 
                                     <option value="">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">= select =</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">= select =</span>
+                                        </span>
                                     </option>
                                     <option value="007001">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">board</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">board</span>
+                                        </span>
                                     </option>
                                     <option value="007002">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">page</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">page</span>
+                                        </span>
                                     </option>
                                     <option value="007003">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">direct link</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">direct link</span>
+                                        </span>
                                     </option>
                                     <option value="007004">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">form</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">form</span>
+                                        </span>
                                     </option>
                                     <option value="007005">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">product</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">product</span>
+                                        </span>
                                     </option>
                                     <option value="007006">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">form list</font>
-                                        </font>
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">form list</span>
+                                        </span>
                                     </option>
                                 </select>
                             </div>
@@ -248,8 +324,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create menu</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="create_menu">Create menu</button>
                 </div>
             </div>
         </div>

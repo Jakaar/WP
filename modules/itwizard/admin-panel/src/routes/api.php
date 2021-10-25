@@ -29,7 +29,7 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/member/update',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'update']);
     Route::post('/single/user/data',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'singleUserData']);
     Route::post('/user/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'delete']);
-    
+
     Route::post('/member/create',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'create']);
     Route::post('/permission/create',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'create']);
 
@@ -44,6 +44,8 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
     Route::post('/GetContentData/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);
     Route::post('/DeleteMenu/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class,'DeleteMenu']);
+
+    Route::post('/managepage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'singlePage']);
 });
 
 // middleware('auth:api')
