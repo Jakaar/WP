@@ -85,9 +85,7 @@
             <div class="card-title">{{__('Details')}}</div>
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <div id="ContentData">
-
-                    </div>
+                    <div id="ContentData"></div>
                 </div>
             </div>
         </div>
@@ -190,6 +188,9 @@
                                 'Your file has been deleted.',
                                 'success'
                             )
+                            setTimeout(function (){
+                                location.reload()
+                            },2000);
                         });
                     }
                 })
