@@ -419,9 +419,10 @@
     "Point manage": "포인트 관리",
     "Withdrawal member": "탈퇴 회원",
     "Manage pages": "페이지 관리",
-    "Create new Menu": "매뉴생성",
-    "Yes Delete It!": "메인게시물",
-    "Are you sure?": "확실하세요?",
-    "Cancel": "취소",
-    "Create Main Menu": "메인 메뉴 생성"
+    "Banner Management": "배너 관리",
+    "Log Analysis": "로그 분석",
+    "Copy generation code": "생성 코드 복사",
+    "Pop-up management": "팝업 관리",
+    "Pop-up management generation code": "팝업 관리 생성 코드"
+
 }

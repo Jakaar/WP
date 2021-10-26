@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             <div class="float-start">
                 <div class="card-title">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             {{-- <div class="card-title"> {{__('Application example')}} </div> --}}
 
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card card-btm-border border-primary mb-3">
         <div class="card-body">
             <div class="card-title">
                 Number of banners: 1
