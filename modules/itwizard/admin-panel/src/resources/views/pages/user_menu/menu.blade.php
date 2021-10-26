@@ -113,27 +113,27 @@
                                     <input name="" id="BoardName" placeholder="" type="email" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <h5 class="card-title">{{__('Board Type')}}</h5>
-                                <select id="BoardType" class="multiselect-dropdown form-control">
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
+{{--                            <div class="col-md-6">--}}
+{{--                                <h5 class="card-title">{{__('Board Type')}}</h5>--}}
+{{--                                <select id="BoardType" class="multiselect-dropdown form-control">--}}
+{{--                                    <option value="" selected disabled>{{__('Choose')}}</option>--}}
 
-                                </select>
-                            </div>
+{{--                                </select>--}}
+{{--                            </div>--}}
                         </div>
                         <hr class="text-primary">
                         <div class="row mt-2">
                             <div class="col-6">
-                                <h5 class="card-title">{{__('Use Comment')}}</h5>
+                                <h5 class="card-title">{{__('Window')}}</h5>
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1" checked>
-                                    <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
+                                    <input class="form-check-input" type="radio" id="blank" name="target" value="1" >
+                                    <label class="form-check-label" for="blank">{{__('Current Tab')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesComment" name="isComment" value="0">
-                                    <label class="form-check-label" for="yesComment">{{__('No')}}</label>
+                                    <input class="form-check-input" type="radio" id="current" name="target" value="0" checked>
+                                    <label class="form-check-label" for="current">{{__('New Tab')}}</label>
                                 </div>
                             </div>
                         </div>
@@ -159,14 +159,12 @@
                    $('#ContentData').html(resp.data.data)
                })
             });
-            $('.CreateSubMenu').on('click', function (){
-                console.log($(this).attr('key'))
-            })
             $('.DeleteMenu').on('click', function (){
                 Axios.post('/api/DeleteMenu/'+$(this).attr('key')).then((resp)=>{
                     alert('deleted')
                 })
             })
+
         });
     </script>
 @endsection

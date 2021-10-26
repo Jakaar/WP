@@ -22,8 +22,14 @@ class MenuController extends Controller
      */
     public function DeleteMenu($id)
     {
-        DB::table('categories')->where('id', $id)->delete();
+        DB::table('categories')->where('id', $id)->update([
+            'isEnabled' => 0
+        ]);
         return response()->json(200,200);
+    }
+    public function CreateMenu(Request $request)
+    {
+        return response()->json(['msg'=>__('success')] , 200);
     }
 
 }
