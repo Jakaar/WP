@@ -146,7 +146,7 @@
                             <div class="col">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="">http://192.168.0.147</span>
+                                        <span class="input-group-text" id="">{{env('APP_URL')}}</span>
                                     </div>
                                     <select class="form-control" id="" name="">
                                         <option value="">= 선택 =</option>
@@ -248,7 +248,7 @@
                     <div class="text-center w-100">
                         <button class="btn btn-primary">{{__('Save')}}</button>
                         <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{__('Cancel')}}</button>
+                                data-bs-dismiss="modal">{{__('Cancel')}}</button>
                     </div>
                 </div>
             </div>
