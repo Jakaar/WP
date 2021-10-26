@@ -13,20 +13,19 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
-                        class="fa fa-plus"></i> Create new member </a>
+
                 <button type="button" data-bs-toggle="tooltip" title="{{ __('Refresh') }}" data-bs-placement="bottom"
                     class="btn-shadow me-3 btn btn-info refresh-page">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
-
+                <button href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
+                        class="fa fa-plus"></i> Create new member </button>
             </div>
         </div>
     </div>
     <div class="row">
-
         <div class="col-lg-4">
-            <div class="main-card mb-3 card">
+            <div class="main-card mb-3 card card-btm-border border-primary">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('Total User') }}</h5>
                     <div class="text-center">
@@ -40,7 +39,7 @@
         </div>
         {{-- @foreach ($data['roles'] as $roles)
             <div class="col-lg-4">
-                <div class="main-card mb-3 card">
+                <div class="main-card mb-3 card card-btm-border border-primary">
                     <div class="card-body">
                         <h5 class="card-title">{{$roles->display_name}}</h5>
                         <div class="text-center">
@@ -54,7 +53,7 @@
             </div>
         @endforeach --}}
     </div>
-    <div class="main-card mb-3 card">
+    <div class="main-card mb-3 card card-btm-border border-primary">
         <div class="card-body">
             <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
                 <thead>
@@ -126,16 +125,16 @@
                     @endforeach
                 </tbody> --}}
                 <!-- <tfoot>
-                            <tr>
-                                <th>{{ __('ID') }}</th>
-                                <th>{{ __('User') }}</th>
-                                <th>{{ __('Email') }}</th>
-                                <th>{{ __('User Name') }}</th>
-                                <th>{{ __('Role') }}</th>
-                                <th>{{ __('Status') }}</th>
-                                <th>{{ __('Action') }}</th>
-                            </tr>
-                        </tfoot> -->
+                                    <tr>
+                                        <th>{{ __('ID') }}</th>
+                                        <th>{{ __('User') }}</th>
+                                        <th>{{ __('Email') }}</th>
+                                        <th>{{ __('User Name') }}</th>
+                                        <th>{{ __('Role') }}</th>
+                                        <th>{{ __('Status') }}</th>
+                                        <th>{{ __('Action') }}</th>
+                                    </tr>
+                                </tfoot> -->
             </table>
         </div>
 
@@ -186,12 +185,12 @@
                 <div class="modal-body">
                     <form class="row" id="create_user_form">
                         <!-- <div class="col-lg-4">
-                                    <div class="w-100 border" style="height:200px;">
-                                        <img src="" alt="" id="logo-photo-preview">
-                                    </div>
-                                    <input type="file" class="d-none" name="avatar" id="c-avatar">
-                                    <button type="button" class=" btn btn-secondary btn-block w-100" onclick="filemanager.selectFile('avatar')"> {{ __('Upload image') }} </button>
-                                </div> -->
+                                            <div class="w-100 border" style="height:200px;">
+                                                <img src="" alt="" id="logo-photo-preview">
+                                            </div>
+                                            <input type="file" class="d-none" name="avatar" id="c-avatar">
+                                            <button type="button" class=" btn btn-secondary btn-block w-100" onclick="filemanager.selectFile('avatar')"> {{ __('Upload image') }} </button>
+                                        </div> -->
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
@@ -566,13 +565,12 @@
                     icon: resp.data.icon,
                     title: resp.data.msg
                 });
-                if(resp.data.icon == 'error'){
-                    
-                }
-                else{
+                if (resp.data.icon == 'error') {
+
+                } else {
                     window.location.reload()
                 }
-                
+
 
             }).catch((err) => {
                 Toast.fire({

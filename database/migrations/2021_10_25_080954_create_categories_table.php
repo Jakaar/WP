@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->string('menu_url');
             $table->integer('isEnabled');
             $table->integer('target');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

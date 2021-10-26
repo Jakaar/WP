@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-header">
             <div class="text-right">
                 It is automatically executed when you enter the information of Naver Log, Google Analytics, Identity
@@ -167,11 +167,31 @@
                 </div>
                 <div class="divider"></div>
                 <div class="col-lg-12 text-center">
-                    <button type="button" class="btn btn-primary" onclick="alert('Save Changed')"> Save Changes </button>
-                    <button type="button" class="btn btn-secondary"> Close </button>
+                    <button type="button" class="btn btn-primary px-5" id="edit"> Edit </button>
+                    <button type="button" class="btn btn-success d-none px-5" id="save"> Save Changes </button>
+                    <button type="button" class="btn btn-secondary px-5"> Close </button>
                 </div>
 
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('input').attr('disabled', true)
+            $('#edit').click(function() {
+                $(this).addClass('d-none')
+                $('#save').removeClass('d-none')
+                $('input').removeAttr('disabled')
+            })
+            $('#save').click(function() {
+                $(this).addClass('d-none')
+                $('#save').addClass('d-none')
+                $('#edit').removeClass('d-none')
+                $('input').attr('disabled', true)
+                alert('success')
+            })
+        })
+    </script>
 @endsection
