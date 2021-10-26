@@ -256,7 +256,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
                 </div>
             </div>
@@ -346,7 +346,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success" id="create_role">{{__('Save')}}</button>
                 </div>
             </div>

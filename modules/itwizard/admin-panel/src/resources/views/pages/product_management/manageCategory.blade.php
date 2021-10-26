@@ -14,15 +14,20 @@
             <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
-            <button type="button" class="btn-shadow me-3 btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
-                {{__('Category Registration')}}
-            </button>
+            <div class="d-inline-block dropdown">
+                <button type="button" class="search-icon btn-shadow btn btn-success CreateModalShow" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
+                    <span class="btn-icon-wrapper pe-2 opacity-7">
+                        <i class="pe-7s-plus"></i>
+                    </span>
+                    {{__('Category Registration')}}
+                </button>
+            </div>
         </div>
     </div>
 </div>
 <div class="card-body">
     <div class="row">
-        <div class="main-card mb-3 card">
+        <div class="main-card mb-3 card card-btm-border border-primary card">
             <div class="card-body">
                 <table style="width: 100%;" id="BulletInBoards" class="table table-hover table-striped table-bordered">
                     <thead>
@@ -79,7 +84,9 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Menu Registration</h3>
+                <div class="card-header-title font-size-lg text-capitalize fw-normal">
+                    {{__('Menu Registration')}}
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -104,8 +111,8 @@
                 <textarea name="text" id="exampleText" class="form-control"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success CreateBoard">Save</button>
             </div>
         </div>
     </div>

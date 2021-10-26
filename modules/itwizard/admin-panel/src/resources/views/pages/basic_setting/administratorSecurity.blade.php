@@ -45,8 +45,8 @@
                         <td>Use secure connection</td>
                         <td>User Detail</td>
                         <td rowspan="2">
-                            <button class="mb-2 me-2 btn-icon btn btn-primary">
-                                <i>Save</i>
+                            <button class="btn btn-success CreateBoard">
+                                Save
                             </button>
                         </td>
                     </tr>
@@ -58,7 +58,7 @@
                         <td>Allowed IP</td>
                         <td><input name="email" class="form-control text-lowercase"></td>
                         <td>
-                            <button class="mb-2 me-2 btn-icon btn btn-primary">
+                            <button class="btn btn-success CreateBoard">
                                 <i>IP address storage</i>
                             </button>
                         </td>

@@ -2,7 +2,6 @@
 @section('content')
 <div class="app-main__inner p-0">
     <div class="app-inner-layout">
-
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
@@ -22,13 +21,14 @@
             </div>
         </div>
 
-        <div class="card mb-3">
+        <div class="card mb-3 card-btm-border border-primary card">
+
             <div class="card-body">
                 <div class="float-start">
                     <div class="card-title"> {{__('Product List Creation Code')}} </div>
                 </div>
                 <div class="float-end">
-                    <button class="btn mb-3 btn-secondary"> {{__('Copy generation code')}} </button>
+                    <button class="btn btn-outline-secondary" id="generatorClick"> {{__('Copy generation code')}} </button>
                 </div>
                 <div class="clearfix"></div>
                 <div class="bg-light p-3">
@@ -37,17 +37,17 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-btm-border border-primary card">
             <div class="card-body">
                 <div class="card-title"> {{__('Checklist')}} </div>
                 <ul ul class="todo-list-wrapper list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="todo-indicator bg-info">
                         </div>
-                        <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">-Add the same block as the example code at the location where you want to print the bulletin board.
-                            </font>
-                        </font>
+                        <ul>
+                            <li> Add the same block as the example code at the location where you want to print the bulletin board.</li>
+                            <li> Add the same block as the example code at the location where you want to print the bulletin board.</li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -71,6 +71,17 @@
 @endsection
 @section('script')
 <script>
-    $('#code').text('<jsp:include page="/module/prd" flush="true"></jsp:include>')
+    $('#code').text('@ include footer ')
+</script>
+<script>
+    $(document).ready(function() {
+        $("#generatorClick").click(function() {
+            Swal.fire({
+                title: "클립보드에 복사됨!",
+                icon: "success",
+                buttonS: true,
+            })
+        })
+    });
 </script>
 @stop

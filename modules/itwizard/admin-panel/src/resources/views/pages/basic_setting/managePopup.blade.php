@@ -9,6 +9,9 @@
         width:  100%;
         height: 100%;
     }
+    .daterangepicker {
+        z-index: 10000;
+    }
 </style>
 <section>
     <div class="app-page-title">
@@ -37,9 +40,11 @@
 
         </div>
     </div>
+    
     <div class="main-card mb-3 card">
         
         <div class="card-body">
+            
             <h5 class="card-title">{{__('Manage Popups')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
                 <thead>
@@ -158,19 +163,8 @@
 
 </section>
 @endsection
-@section('script')
-    <script>
-        $('.ModalShow').click(function (){
-            $('#AddRoleModal').modal('show')
-        })
-        $('.ModalShowEdit').click(function (){
-            $('#EditRoleModal').modal('show')
-        })
-    </script>
-@endsection
 @section('modal')
-    <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -184,24 +178,17 @@
                             <label class="form-label"> {{__('Title')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Title')}}" name="title" id="title">
                         </div>
-                        <div class="mb-3 col-lg-6">
+             
+                        <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Posting Period')}} </label>
-                            <div class="input-group">
-                                <div class="input-group-text datepicker-trigger" id="datetimepicker1">
-                                    <i class="fa fa-calendar-alt"></i>
-                                </div>
-                                <input type="text" class="form-control" data-toggle="datepicker-icon" placeholder="{{__('Start Date')}}">
-                            </div>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> &nbsp; </label>
                             <div class="input-group">
                                 <div class="input-group-text datepicker-trigger">
                                     <i class="fa fa-calendar-alt"></i>
                                 </div>
-                                <input type="text" class="form-control" data-toggle="datepicker-icon" placeholder="{{__('End Date')}}">
+                                <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" placeholder="{{__('Date range')}}">
                             </div>
                         </div>
+                        
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Popup')}}</label>
 
@@ -250,12 +237,14 @@
                         </div>
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Pop-up Content')}} </label>
-                            <textarea name="description" id="editor" cols="30" rows="10" placeholder="{{__('Pop-up Content')}}" class="form-control"></textarea>
+                            <div id="SiteInfoeditor1" name="SiteInfoeditor1">
+                               
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
                 </div>
             </div>
@@ -279,24 +268,16 @@
                             <label class="form-label"> {{__('Title')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Title')}}" name="title" id="title">
                         </div>
-                        <div class="mb-3 col-lg-6">
+                        <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Posting Period')}} </label>
                             <div class="input-group">
-                                <div class="input-group-text datepicker-trigger" id="datetimepicker1">
+                                <div class="input-group-text datepicker-trigger" >
                                     <i class="fa fa-calendar-alt"></i>
                                 </div>
-                                <input type="text" class="form-control" data-toggle="datepicker-icon">
+                                <input type="text" class="form-control" name="daterange" data-toggle="datepicker-icon">
                             </div>
                         </div>
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> &nbsp; </label>
-                            <div class="input-group">
-                                <div class="input-group-text datepicker-trigger">
-                                    <i class="fa fa-calendar-alt"></i>
-                                </div>
-                                <input type="text" class="form-control" data-toggle="datepicker-icon">
-                            </div>
-                        </div>
+                        
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Popup')}}</label>
 
@@ -345,15 +326,81 @@
                         </div>
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Pop-up Content')}} </label>
-                            <textarea name="description" id="editor" cols="30" rows="10" placeholder="{{__('Pop-up Content')}}" class="form-control"></textarea>
+                            <div id="SiteInfoeditor2" name="SiteInfoeditor2">
+                               
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success" id="create_role">{{__('Save')}}</button>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.ModalShow').click(function (){
+            $('#AddRoleModal').modal('show')
+        }),
+        $('.ModalShowEdit').click(function (){
+            $('#EditRoleModal').modal('show')
+        }),
+        
+        $(document).ready(function(){
+            $('input[name="daterange"]').daterangepicker({
+                startDate: moment().startOf("month"),
+                endDate: moment().startOf("day").add(32, "day"),
+                locale: {
+                    format: "M/DD hh:mm",
+                    applyLabel: "적용",
+                    cancelLabel:"취소",
+                    daysOfWeek: [
+                        "일",
+                        "월",
+                        "화",
+                        "수",
+                        "목",
+                        "금",
+                        "토"
+                    ],
+                    monthNames: [
+                        "1 /",
+                        "2 /",
+                        "3 /",
+                        "4 /",
+                        "5 /",
+                        "6 /",
+                        "7 /",
+                        "8 /",
+                        "9 /",
+                        "10 /",
+                        "11 /",
+                        "12 /"
+                    ]
+                },
+            });
+        }),
+        
+        $(document).ready(function() {
+        let editor;
+        ClassicEditor.create(document.querySelector('#SiteInfoeditor1'))
+            .then(newEditor => {
+                editor = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        let editor1;
+        ClassicEditor.create(document.querySelector('#SiteInfoeditor2'))
+            .then(newEditor => {
+                editor1 = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
+    </script>
 @endsection

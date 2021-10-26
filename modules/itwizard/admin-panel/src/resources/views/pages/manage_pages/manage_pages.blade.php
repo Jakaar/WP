@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info">
+            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
             <div class="d-inline-block dropdown">
@@ -35,7 +35,7 @@
     </div>
 </div>
 <div class="main-card mb-3 card mt-4">
-    <div class="card-body">
+    <div class="card-body card-btm-border card-shadow-primary border-primary">
         <table style="width: 100%;" id="BulletInBoard" class="table table-hover table-striped table-bordered">
             <thead>
             <tr>
@@ -69,12 +69,11 @@
         </table>
     </div>
 </div>
-
 @endsection
-
 @section('modal')
-    <div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 1300px;">
+
+<div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Create Page') }}</h5>
@@ -91,11 +90,12 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 <select name="select" id="GroupManage" class="form-select form-control">
-                                    <option>Solution</option>
-                                    <option>Mongolia manpower outsourcing</option>
-                                    <option>Portfolio</option>
-                                    <option>Service center</option>
-                                    <option>About us</option>
+                                    <option value="">Please choose an option</option>
+                                    <option value="Solution">Solution</option>
+                                    <option value="Mongolia manpower outsourcing">Mongolia manpower outsourcing</option>
+                                    <option value="Portfolio">Portfolio</option>
+                                    <option value="Service center">Service center</option>
+                                    <option value="About us">About us</option>
                                 </select>
                                 <div class="input-group-text">
                                     <span class="">{{ __('Group Management') }}</span>
@@ -106,11 +106,12 @@
                                     <span class="">{{ __('Priority') }}</span>
                                 </div>
                                 <select name="select" id="Priority" class="form-select form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <option value="">Please choose an option</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>
                             </div>
                         </div>
@@ -127,12 +128,12 @@
                             <div class="position-relative p-2 mt-2">
                                 <label for="exampleSelect" class="form-label">{{ __('Page Code') }}</label>
                             </div>
-                            <div class="position-relative p-2 mt-2">
+                            <div class="position-relative p-2 mt-5">
                                 <label for="exampleSelect" class="form-label">{{ __('Page Content') }}</label>
                             </div>
                         </div>
                         <div class="col-md-10">
-                            <input value="" maxlength="110" id="PageName" placeholder="with ABC a placeholder" class="form-control text-lowercase" />
+                            <input value="" maxlength="110" id="PageName" name="PageName" placeholder="with ABC a placeholder" class="form-control text-lowercase" />
                             <div class="jsp-connection p-3">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Connection" value="Use" />
@@ -147,10 +148,10 @@
                                 <div class="input-group-text">
                                     <span class="">{{ config('app.url') }}</span>
                                 </div>
-                                <input value="" maxlength="110" id="PageUrl" placeholder="with ABC a placeholder" class="form-control text-lowercase" />
+                                <input value="" maxlength="110" id="PageUrl" name="PageUrl" placeholder="with ABC a placeholder" class="form-control text-lowercase" />
                             </div>
                             <div class="input-group mt-3 mb-3">
-                                <input value="" maxlength="110" placeholder="with ABC a placeholder" id="PageCode" class="form-control text-lowercase" />
+                                <input value="" maxlength="110" placeholder="with ABC a placeholder" id="PageCode" name="PageCode" class="form-control text-lowercase" />
                             </div>
                             <div class="position-relative mb-3" id="CreatePage" name="PageContent"></div>
                         </div>
@@ -169,9 +170,9 @@
     </div>
 </div>
 <!--create page management-->
-    @foreach($data as $key=>$page)
-        <div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 1300px;">
+@foreach($data as $key=>$page)
+<div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Create Page') }}</h5>
@@ -249,9 +250,9 @@
                                 <input value="{{$page->page_url}}" maxlength="110" id="PageUrl" placeholder="with ABC a placeholder" class="form-control text-lowercase" />
                             </div>
                             <div class="input-group mt-3 mb-3">
-                                <input value="" maxlength="110" placeholder="with ABC a placeholder" id="PageCode" class="form-control text-lowercase" />
+                                <input value="{{$page->page_code}}" maxlength="110" placeholder="with ABC a placeholder" id="PageCode" class="form-control text-lowercase" />
                             </div>
-                            <div class="position-relative mb-3" id="EditPage" name="EditPage">
+                            <div class="position-relative mb-3 w-100" id="EditPage" name="EditPage">
                                 {{$page->page_content}}
                             </div>
 
@@ -271,10 +272,9 @@
         </div>
     </div>
 </div>
-    @endforeach
+@endforeach
 <!--edit page management-->
-@endsection
-@section('script')
+@endsection @section('script')
 <script>
     $(document).ready(function () {
         let editor5;
@@ -303,6 +303,7 @@
                 PageUrl: $("#PageUrl").val(),
                 PageCode: $("#PageCode").val(),
                 PageContent: editor5.getData(),
+                isEnable: 1,
             };
             console.log(data);
             Axios.post("/api/managepage/create", data)
@@ -333,7 +334,6 @@
 <script>
     $(document).ready(function() {
 
-
         $('.DeleteMenu').on('click', function () {
             Swal.fire({
                 title: '{{__('Are you sure?')}}',
@@ -347,15 +347,19 @@
                 if (result.isConfirmed) {
                     Axios.post('/api/managepage/delete/' + $(this).attr('key')).then((resp) => {
                         Swal.fire(
-                            '{{__('Deleted!')}}',
-                            '{{__('Your file has been deleted.')}}',
+                            'Deleted',
+                            'Your file has been deleted.',
                             'success'
-                        );
+                        )
                         $(this).closest('tr').fadeOut();
                     });
                 }
             })
         });
     })
+//   -- Reload page --
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 </script>
 @endsection

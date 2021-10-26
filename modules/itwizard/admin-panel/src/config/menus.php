@@ -112,7 +112,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/sns',
                         'icon'=>'',
                         'name'=>'SNS settings',
                         'child' => null
@@ -134,7 +134,7 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/preferences/point',
                 'icon'=>'pe-7s-ticket',
                 'name'=>'Point manage',
                 'colorClass'=>'success',
@@ -246,7 +246,7 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/fixed_code',
                 'icon'=>'pe-7s-pen',
                 'name'=>'Fixed code',
                 'child' => null
@@ -296,7 +296,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/member_management/Withdrawal member',
+                        'url'=>'cms/member_management/secessionist',
                         'icon'=>'',
                         'name'=>'Withdrawal member',
                         'child' => null
