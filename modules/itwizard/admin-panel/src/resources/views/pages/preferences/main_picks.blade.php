@@ -195,7 +195,7 @@
                                     {{__('Connection Page')}}
                                 </label>
                                 <div class="col-lg-6 mb-3 input-group mb-3">
-                                    <span class="input-group-text px-2">http://192.168.0.147</span>
+                                    <span class="input-group-text px-2">{{env('APP_URL')}}</span>
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
@@ -321,7 +321,6 @@
 </div>
 @endsection
 
-
 @section('script')
 <script>
     $('#BulletInBoards').DataTable({});
@@ -344,4 +343,4 @@
         })
     });
 </script>
-@stop
+@endsection
