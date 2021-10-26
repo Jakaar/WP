@@ -165,6 +165,7 @@
                 </div>
             </div>
         </div>
+    </div>
     @endsection
     @section('modal')
         <div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
