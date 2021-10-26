@@ -69,9 +69,11 @@
         </table>
     </div>
 </div>
-@endsection @section('modal')
 
-<div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+@endsection
+
+@section('modal')
+    <div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 1300px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -167,8 +169,8 @@
     </div>
 </div>
 <!--create page management-->
-@foreach($data as $key=>$page)
-<div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    @foreach($data as $key=>$page)
+        <div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 1300px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -269,9 +271,10 @@
         </div>
     </div>
 </div>
-@endforeach
+    @endforeach
 <!--edit page management-->
-@endsection @section('script')
+@endsection
+@section('script')
 <script>
     $(document).ready(function () {
         let editor5;
@@ -329,6 +332,7 @@
 <!--delete script-->
 <script>
     $(document).ready(function() {
+
 
         $('.DeleteMenu').on('click', function () {
             Swal.fire({

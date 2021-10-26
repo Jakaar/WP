@@ -227,12 +227,12 @@
     @section('script')
         <script>
             $(document).ready(function() {
-                
+
                 $('#ContentData input, #ContentData select, #ContentData textarea').attr('disabled', 'true')
                 $('.vertical-nav-menu li a').click(function() {
                     $('#ContentData').removeClass('d-none')
                     const id = $(this).data('key');
-                   
+
                     const data = {
                         id: id,
                     }
@@ -265,7 +265,7 @@
                             return attr == 'disabled' ? null : ''
                         })
                 })
-                
+
 
                 //validate update menu
                 $("#updateMenu").validate({
@@ -294,7 +294,7 @@
                         $(element).addClass("is-valid").removeClass("is-invalid");
                     },
                 });
-               
+
 
                 // update menu
                 $('#save_menu').click(function() {
@@ -336,12 +336,12 @@
             })
         </script>
         <script>
-            $(document).ready(function() {
-                $('.ModalShow').click(function() {
-                    $('#CreateMenuModal').attr('key', $(this).attr('key')).modal('show');
+            $(document).ready(function (){
+                $('.ModalShow').click(function (){
+                    $('#CreateMenuModal').attr('key',$(this).attr('key')).modal('show');
                     localStorage.setItem('MenuParentId', $(this).attr('key'));
                 });
-                $('.CreateMenu').on('click', function() {
+                $('.CreateMenu').on('click', function () {
                     const data = {
                         MenuName: $('#BoardName').val(),
                         OpenType: $("input[name='target']:checked").val(),
@@ -354,20 +354,20 @@
                         });
 
                         $('#CreateMenuModal').modal('hide').removeAttr('key');
-                        setTimeout(function() {
+                        setTimeout(function (){
                             location.reload()
-                        }, 2000);
+                        },2000);
                     });
                 });
-                $('.DeleteMenu').on('click', function() {
+                $('.DeleteMenu').on('click', function () {
                     Swal.fire({
-                        title: '{{ __('Are you sure?') }}',
+                        title: '{{__('Are you sure?')}}',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        cancelButtonText: '{{ __('Cancel') }}',
-                        confirmButtonText: '{{ __('Yes Delete It!') }}'
+                        cancelButtonText: '{{__('Cancel')}}',
+                        confirmButtonText: '{{__('Yes Delete It!')}}'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Axios.post('/api/DeleteMenu/' + $(this).attr('key')).then((resp) => {
@@ -376,6 +376,9 @@
                                     'Your file has been deleted.',
                                     'success'
                                 )
+                                setTimeout(function (){
+                                    location.reload()
+                                },2000);
                             });
                         }
                     })
