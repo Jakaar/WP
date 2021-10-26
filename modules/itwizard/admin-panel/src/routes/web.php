@@ -6,6 +6,8 @@ use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
+use Itwizard\Adminpanel\Http\Controllers\Page\PageManageController;
+
 
 
 Route::get('/', function (){
@@ -34,6 +36,8 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/settings/contactUs', [\Itwizard\Adminpanel\Http\Controllers\ContactUs\ContactUsController::class,  'index']);
 
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
+
+    Route::get('/manage_pages/manage_pages', [PageManageController::class, 'index']);
 
     Route::get('/myProfile', [MyProfileController::class, 'index']);
 
