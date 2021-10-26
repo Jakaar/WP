@@ -296,7 +296,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/member_management/Withdrawal member',
+                        'url'=>'cms/member_management/secessionist',
                         'icon'=>'',
                         'name'=>'Withdrawal member',
                         'child' => null
