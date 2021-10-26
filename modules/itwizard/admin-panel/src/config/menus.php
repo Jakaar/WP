@@ -296,7 +296,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/member_management/Withdrawal member',
+                        'url'=>'cms/member_management/secessionist',
                         'icon'=>'',
                         'name'=>'Withdrawal member',
                         'child' => null
@@ -491,13 +491,13 @@ return [
                 'name'=>'Form Mail Manage',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/suppliers',
                         'icon'=>'',
-                        'name'=>'Form Mail Manage',
+                        'name'=>'Form Mail Manager',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/suppliers/create_form_mail',
                         'icon'=>'',
                         'name'=>'Create a Form Mail',
                         'child' => null

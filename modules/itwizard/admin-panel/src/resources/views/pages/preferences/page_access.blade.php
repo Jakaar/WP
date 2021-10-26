@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             <div class="float-start">
                 <div class="card-title"> {{ __('Page acess right generation code') }} </div>
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card card-btm-border border-primary mb-3">
         <div class="card-body">
 
             {{-- <div class="bg-light p-3 mb-3">

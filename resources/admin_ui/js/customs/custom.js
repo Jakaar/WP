@@ -779,3 +779,55 @@ $(document).ready(function(){
     });
 })
 // -- Contact us page valitaor End --
+// -- Manage page Start --
+$(document).ready(function(){
+    $("#create_page_form").validate({
+        rules:{
+                PageName: {
+                    required:true,
+                    minlength:3,
+                    maxlength:110
+            },
+                PageUrl:{
+                    required:true,
+                    maxlength:110
+            },
+                PageCode:{
+                    required:true,
+                    maxlength:110
+            },
+        },
+        messages:{
+                    PageName: {
+                        required:"Please enter your page name",
+                        minlength:"Your Page name must be at least 3 characters long",
+                        maxlength:"Your Page name must less than 110 characters long "
+                    },
+                    PageUrl: {
+                        required:"Please enter your page url",
+                        maxlength:"Your Page url must less than 110 characters long "
+                    },
+                    PageCode:{
+                        required:"Please enter your page code",
+                        maxlength:"Your Page code must less than 110 characters long"
+                    }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.addClass("invalid-feedback");
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        },
+        });
+    })
+// -- Manage page End --

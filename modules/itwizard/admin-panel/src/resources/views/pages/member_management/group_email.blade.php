@@ -2,7 +2,7 @@
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
-            <div class="app-inner-layout__header bg-heavy-rain">
+            
                 <div class="app-page-title">
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
@@ -22,9 +22,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="app-inner-layout__wrapper">
-                <div class="app-inner-layout__content card">
+            
+            <div class="app-inner-layout__wrapper mb-3 card-btm-border border-primary">
+                <div class="app-inner-layout__content card ">
                     <div>
                         <div class="app-inner-layout__top-pane">
                             <div class="pane-left">
