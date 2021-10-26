@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="card-title">Menus</div>
@@ -97,7 +98,7 @@
                                 <div class="card-title m-0" id="menu_label"></div>
                             </div>
                             <div class="widget-content-right">
-                                <button class=" btn btn-success d-none" id="save_menu"> {{ __('Save Changes') }}
+                                <button class=" btn btn-success d-none" id="save_menu"> {{ __('Save') }}
                                 </button>
                                 <button class=" btn btn-primary" id="edit_menu"> {{ __('Edit') }} </button>
                             </div>

@@ -22,7 +22,8 @@ class PageContentController extends Controller
             'connection' => $request->Connection,
             'page_url' => $request->PageUrl,
             'page_code' => $request->PageCode,
-            'page_content' => $request->PageContent
+            'page_content' => $request->PageContent,
+            'isEnable' => $request->isEnable,
         ])   ;
         return response()->json(['msg'=>'success'], 200);
     }

@@ -1,5 +1,5 @@
-﻿// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-// window.ClassicEditor = ClassicEditor;
+﻿import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+window.ClassicEditor = ClassicEditor;
 // import FroalaEditor from 'froala-editor'
 // import 'froala-editor/js/plugins/align.min'
 // import 'froala-editor/js/plugins/code_view.min'
