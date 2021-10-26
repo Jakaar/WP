@@ -112,7 +112,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/preferences/sns',
                         'icon'=>'',
                         'name'=>'SNS settings',
                         'child' => null
@@ -134,7 +134,7 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/preferences/point',
                 'icon'=>'pe-7s-ticket',
                 'name'=>'Point manage',
                 'colorClass'=>'success',
