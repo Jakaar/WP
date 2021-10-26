@@ -47,7 +47,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($data as $key=>$page)
+                @foreach($data as $key => $page)
                     <tr>
                         <td>{{$page->id}}</td>
                         <td>{{$page->menu_group}}</td>
