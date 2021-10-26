@@ -40,4 +40,23 @@ class MenuController extends Controller
         return response()->json(['msg'=>__('success')] , 200);
     }
 
+    public function updateMenu(Request $request){
+        DB::table('categories')->where('id',$request->id)->update([
+            'name' => $request->name,
+            'menu_url' => $request->menu_url,
+            'target' => $request->target,
+            'isEnabled' => $request->use,
+            'category_id' => $request->category_id,
+            'description' => $request->description,
+        ]);
+
+        return response()->json(['msg'=>__('success')] , 200);
+    
+    }
+
+    public function getMenu(Request $request){
+       $data = DB::table('categories')->where('id',$request->id)->first();
+        return response()->json(['msg' => __('sucess'),'data' => $data],200);
+    }
+
 }

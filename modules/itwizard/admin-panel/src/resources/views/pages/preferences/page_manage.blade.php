@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             <div class="float-start">
                 <div class="card-title">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             {{-- <div class="card-title"> {{__('Application example')}} </div> --}}
 
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             <div class="card-title">
                 Total number of pages: 7
@@ -138,7 +138,7 @@
                                 &lt;jsp:param name="pseq" value="56" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -157,7 +157,7 @@
                                 &lt;jsp:param name="pseq" value="57" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -176,7 +176,7 @@
                                 &lt;jsp:param name="pseq" value="58" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -195,7 +195,7 @@
                                 &lt;jsp:param name="pseq" value="60" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -214,7 +214,7 @@
                                 &lt;jsp:param name="pseq" value="65" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -232,7 +232,7 @@
                                 &lt;jsp:param name="pseq" value="66" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -250,7 +250,7 @@
                                 &lt;jsp:param name="pseq" value="67" /&gt;
                                 &lt;/jsp:include&gt;
                             </span>
-                            <button class="btn btn-secondary"> {{ __('Copy generation code') }} </button>
+                            <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
 
                         </td>
                     </tr>
@@ -262,8 +262,7 @@
 @endsection
 @section('script')
     <script>
-        $('#code').text(
-            '<jsp:include page="/module/banner" flush="true"><jsp:param name="bseq" value="[배너번호]" /></jsp:include>')
+        $('#code').text('@ include("page_manage")')
         $('#code2').text('<body><jsp:include page="/module/popup" flush="true" /></body>')
     </script>
 @stop

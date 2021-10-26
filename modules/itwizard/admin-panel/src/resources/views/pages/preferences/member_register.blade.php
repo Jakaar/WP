@@ -21,9 +21,9 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
-            <div class="card-title"> {{__('Checklist')}} <span class="text-info">({{__('You can complete all member-related pages just by inserting the generation code.')}})</span></div>
+            <div class="card-title"> {{__('Checklist')}} <span class="text-primary">({{__('You can complete all member-related pages just by inserting the generation code.')}})</span></div>
             <div>
                 <ul class="todo-list-wrapper list-group list-group-flush">
                     <li class="list-group-item">
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="card mb-3">
+    <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             <div class="row">
                 <div class="mb-3 col-lg-6">
