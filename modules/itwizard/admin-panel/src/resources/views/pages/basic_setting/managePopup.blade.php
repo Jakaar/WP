@@ -59,10 +59,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -73,10 +73,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -87,10 +87,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -101,10 +101,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -115,10 +115,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -129,10 +129,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -143,10 +143,10 @@
                         <td>2021-07-26</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>

@@ -38,7 +38,7 @@
                         <td>{{__('Image')}}</td>
                         <td>{{__('Form')}}</td>
                         <td>{{__('Number Of Line-Wrapped Banners')}}</td>
-                        <td>{{__('Wheter Or Not To Use')}}</td>
+                        <td>{{__('Is Used')}}</td>
                         <td>{{__('Edit/Delete')}}</td>
                     </tr>
                 </thead>

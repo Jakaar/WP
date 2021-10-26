@@ -45,10 +45,10 @@
                     <td>2021/10/25</td>
                     <td>
                         <button class="btn-outline-primary btn">
-                            {{ ('Edit') }}
+                            {{__('Edit') }}
                         </button>
                         <button class="btn-outline-danger btn-link btn">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>
@@ -61,10 +61,10 @@
                     <td>2021/10/24</td>
                     <td>
                         <button class="btn-outline-primary btn">
-                            {{ ('Edit') }}
+                            {{__('Edit') }}
                         </button>
                         <button class="btn-outline-danger btn-link btn">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>
@@ -77,10 +77,10 @@
                     <td>2021/10/25</td>
                     <td>
                         <button class="btn-outline-primary btn">
-                            {{ ('Edit') }}
+                            {{__('Edit') }}
                         </button>
                         <button class="btn-outline-danger btn-link btn">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>
