@@ -20,6 +20,7 @@ class ContentController extends Controller
     }
     public function menus(){
         $categories = Category::whereNull('category_id')
+            ->where('isEnabled', 1)
             ->with('childrenCategories')
             ->get();
 //        dd($categories);

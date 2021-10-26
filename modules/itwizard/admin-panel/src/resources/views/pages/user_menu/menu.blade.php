@@ -20,7 +20,7 @@
                       <span class="btn-icon-wrapper pe-2 opacity-7">
                       <i class="pe-7s-plus"></i>
                       </span>
-                        {{__('Menu Create')}}
+                        {{__('Create Main Menu')}}
                     </button>
                 </div>
             </div>
@@ -60,18 +60,19 @@
                                 @else
                                     <li>
                                         <a href="#" class="GetContent" key="{{$category->id}}">
+                                            <i class="metismenu-icon pe-7s-less"></i>
                                             {{ $category->name }}
-                                        </a>
-                                        <span class="">
+                                            <span class="">
                                             <button key="{{$category->id}}" class="btn btn-outline-success float-end navBtns ModalShow">
                                                 <i class="pe-7s-plus"></i>
                                             </button>
-                                        </span>
-                                        <span class="">
+                                            </span>
+                                            <span class="">
                                             <button key="{{$category->id}}" class="btn btn-outline-danger float-end navBtns DeleteMenu">
                                                 <i class="pe-7s-trash"></i>
                                             </button>
                                         </span>
+                                        </a>
                                     </li>
                                 @endif
                             @endforeach
@@ -113,27 +114,27 @@
                                     <input name="" id="BoardName" placeholder="" type="email" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <h5 class="card-title">{{__('Board Type')}}</h5>
-                                <select id="BoardType" class="multiselect-dropdown form-control">
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
+{{--                            <div class="col-md-6">--}}
+{{--                                <h5 class="card-title">{{__('Board Type')}}</h5>--}}
+{{--                                <select id="BoardType" class="multiselect-dropdown form-control">--}}
+{{--                                    <option value="" selected disabled>{{__('Choose')}}</option>--}}
 
-                                </select>
-                            </div>
+{{--                                </select>--}}
+{{--                            </div>--}}
                         </div>
                         <hr class="text-primary">
                         <div class="row mt-2">
                             <div class="col-6">
-                                <h5 class="card-title">{{__('Use Comment')}}</h5>
+                                <h5 class="card-title">{{__('Window')}}</h5>
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1" checked>
-                                    <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
+                                    <input class="form-check-input" type="radio" id="blank" name="target" value="1" >
+                                    <label class="form-check-label" for="blank">{{__('Current Tab')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesComment" name="isComment" value="0">
-                                    <label class="form-check-label" for="yesComment">{{__('No')}}</label>
+                                    <input class="form-check-input" type="radio" id="current" name="target" value="0" checked>
+                                    <label class="form-check-label" for="current">{{__('New Tab')}}</label>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +142,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
-                    <button type="button" class="btn btn-success CreateBoard">{{__('Create')}}</button>
+                    <button type="button" class="btn btn-success CreateMenu">{{__('Create')}}</button>
                 </div>
             </div>
         </div>
@@ -152,21 +153,47 @@
         $(document).ready(function (){
             $('.ModalShow').click(function (){
                 $('#CreateMenuModal').attr('key',$(this).attr('key')).modal('show');
+                localStorage.setItem('MenuParentId', $(this).attr('key'));
             });
-            $('.GetContent').on('click', function (){
-               Axios.post('/api/GetContentData/'+$(this).attr('key')).then((resp) => {
-                   console.log(resp.data.data)
-                   $('#ContentData').html(resp.data.data)
-               })
+            $('.CreateMenu').on('click', function () {
+                const data = {
+                    MenuName: $('#BoardName').val(),
+                    OpenType: $("input[name='target']:checked").val(),
+                    parent_id: $('#CreateMenuModal').attr('key')
+                };
+                Axios.post('/api/CreateMenu', data).then((resp) => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: resp.data.msg
+                    });
+
+                    $('#CreateMenuModal').modal('hide').removeAttr('key');
+                    setTimeout(function (){
+                        location.reload()
+                    },2000);
+                });
             });
-            $('.CreateSubMenu').on('click', function (){
-                console.log($(this).attr('key'))
-            })
-            $('.DeleteMenu').on('click', function (){
-                Axios.post('/api/DeleteMenu/'+$(this).attr('key')).then((resp)=>{
-                    alert('deleted')
+            $('.DeleteMenu').on('click', function () {
+                Swal.fire({
+                    title: '{{__('Are you sure?')}}',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: '{{__('Cancel')}}',
+                    confirmButtonText: '{{__('Yes Delete It!')}}'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Axios.post('/api/DeleteMenu/' + $(this).attr('key')).then((resp) => {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        });
+                    }
                 })
-            })
+            });
         });
     </script>
 @endsection
