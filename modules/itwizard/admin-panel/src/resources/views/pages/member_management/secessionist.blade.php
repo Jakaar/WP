@@ -24,7 +24,7 @@
                 </div>
            
             
-                <div class="main-card card">
+                <div class="main-card card card-btm-border border-primary mb-3">
                     <div class="card-body">
                         <table style="width: 100%;" id="new_table" class="table table-hover table-striped table-bordered">
                             <thead>

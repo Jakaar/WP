@@ -24,17 +24,17 @@
             </div>
 
 
-            <div class="main-card card">
+            <div class="main-card card card-btm-border border-primary">
                 <div class="card-body">
                     <table style="width: 100%;" id="new_table" class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th> ID </th>
-                                <th> Name</th>
-                                <th> Display name</th>
-                                <th>Description</th>
-                                <th>Linked Menu</th>
-                                <th>Action</th>
+                                <th> {{__('ID')}} </th>
+                                <th> {{__('Name')}} </th>
+                                <th> {{__('Display name')}} </th>
+                                <th> {{__('Description')}} </th>
+                                <th> {{__('Linked Menu')}} </th>
+                                <th> {{__('Action')}} </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,11 +47,13 @@
                                     <td>cms/permission/{{ $i }}</td>
                                     <td>
                                         <div class="widget-content-right widget-content-actions">
-                                            <button class="border-0 btn-transition btn btn-outline-primary" data-id="1"
-                                                data-bs-toggle="modal" data-bs-target="#editUserModal">
-                                                <i class="fa fa-edit"></i>
+                                            <button class="btn-outline-primary btn" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop">
+                                                {{ 'Edit' }}
                                             </button>
-
+                                            <button class="btn-outline-danger btn-link btn">
+                                                {{ 'Delete' }}
+                                            </button>
                                             {{-- <button class="border-0 btn-transition btn btn-outline-primary role-switcher" data-id="1">
                                                 <i class="fa fa-lock"> </i>
                                             </button> --}}
@@ -75,4 +77,50 @@
     <script>
         $('#new_table').DataTable({})
     </script>
+@endsection
+@section('modal')
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit Permission Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="create_new_role" class="row">
+                        <input type="hidden" id="u_id">
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{ __('Role name') }} </label>
+                            <input type="text" class="form-control" placeholder="{{ __('Role name') }}" name="u_role_name"
+                                id="u_role_name">
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{ __('Display Name') }} </label>
+                            <input type="text" class="form-control" placeholder="{{ __('Display Name') }}"
+                                name="u_display_name" id="u_display_name">
+                        </div>
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label"> {{ __('Description') }} </label>
+                            <textarea name="description" id="u_description" cols="30" rows="10"
+                                placeholder="{{ __('Description') }}" class="form-control"></textarea>
+                        </div>
+                        <h6 class="card-title"> {{ __('Permissions') }} </h6>
+                        {{-- @foreach ($data['permission'] as $permission)
+                            <div class="mb-3 col-lg-3 text-center ">
+                                <label class="form-label form-check-label" for="input{{$permission->id}}">
+                                    <input type="checkbox" class="form-check-input" name="permission" id="input{{$permission->id}}" value="{{$permission->id}}">
+                                    {{ $permission->display_name }}
+                                </label>
+                            </div>
+                        @endforeach --}}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-primary">{{ __('Save Changes') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

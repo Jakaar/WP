@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Language" content="en">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>wPanel | @yield('title')</title>
+        <title>wPanel | {{ env('ORG_NAME') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 {{--        <meta name="description" content="This is an example dashboard created using build-in elements and components.">--}}
         <!-- Disable tap highlight on IE -->
@@ -308,7 +308,7 @@
                                             </div>
                                             <div class="widget-content-left me-3">
                                                 <div class="widget-content-left">
-                                                    <img width="42" class="rounded" src="assets/images/avatars/1.jpg" alt="" />
+<!--                                                    <img width="42" class="rounded" src="assets/images/avatars/1.jpg" alt="" />-->
                                                 </div>
                                             </div>
                                             <div class="widget-content-left">
@@ -399,53 +399,53 @@
                                         <div class="vertical-timeline-element-content bounce-in">
                                             <h4 class="timeline-title">
                                                 Something not important
-                                                <div class="avatar-wrapper mt-2 avatar-wrapper-overlap">
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/1.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/2.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/3.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/4.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/5.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/6.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/7.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm">
-                                                        <div class="avatar-icon">
-                                                            <img src="images/avatars/8.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="avatar-icon-wrapper avatar-icon-sm avatar-icon-add">
-                                                        <div class="avatar-icon">
-                                                            <i>+</i>
-                                                        </div>
-                                                    </div>
-                                                </div>
+<!--                                                <div class="avatar-wrapper mt-2 avatar-wrapper-overlap">-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/1.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/2.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/3.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/4.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/5.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/6.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/7.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <img src="images/avatars/8.jpg" alt="">-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="avatar-icon-wrapper avatar-icon-sm avatar-icon-add">-->
+<!--                                                        <div class="avatar-icon">-->
+<!--                                                            <i>+</i>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
                                             </h4>
                                             <span class="vertical-timeline-element-date"></span>
                                         </div>
@@ -497,7 +497,7 @@
         <script>
             // $(document).ready(function(){
             //     $.blockUI.defaults = {
-            //         // timeout: 2000,
+            //          timeout: 2000,
             //         fadeIn: 200,
             //         fadeOut: 400,
             //     };

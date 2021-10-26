@@ -136,7 +136,7 @@ return [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-ticket',
-                'name'=>'Point Manage',
+                'name'=>'Point manage',
                 'colorClass'=>'success',
                 'child' => [
 //                    [
@@ -292,13 +292,13 @@ return [
                     [
                         'url'=>'cms/member_management/permission',
                         'icon'=>'',
-                        'name'=>'Manage your membership',
+                        'name'=>'Member rating management',
                         'child' => null
                     ],
                     [
                         'url'=>'cms/member_management/secessionist',
                         'icon'=>'',
-                        'name'=>'Secessionist',
+                        'name'=>'Withdrawal member',
                         'child' => null
                     ],
                     [
@@ -316,7 +316,7 @@ return [
                     [
                         'url'=>'cms/member_management/settings',
                         'icon'=>'',
-                        'name'=>'Permession settings',
+                        'name'=>'Permission settings',
                         'child' => null
                     ],
                 ],
@@ -403,36 +403,36 @@ return [
 
     ], // Page Manage
     [
-        'title'=>'Board Manage',
+        'title'=>'Notice board management',
         'url'=>'cms/noticeboard',
         'menus'=> [
             [
                 'url'=>'cms/noticeboard',
                 'icon'=>'pe-7s-airplay',
-                'name'=>'Board management',
+                'name'=>'Notice board management',
                 'child' => [
                     [
                         'url'=>'cms/noticeboard',
                         'icon'=>'',
-                        'name'=>'Board Manage',
+                        'name'=>'Notice board management',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Comment Manage',
+                        'name'=>'Integrated comment management',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Post Manage',
+                        'name'=>'Integrated management of posts',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Board Statistic',
+                        'name'=>'Board Statistics',
                         'child' => null
                     ],
                 ],
@@ -440,13 +440,13 @@ return [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-check',
-                'name'=>'Easy consultation',
+                'name'=>'Simple counseling',
                 'colorClass'=>'index',
                 'child' => [
                     [
                         'url'=>'cms/settings',
                         'icon'=>'',
-                        'name'=>'Easy consultation',
+                        'name'=>'Simple counseling',
                         'child' => null
                     ],
                 ],
@@ -454,7 +454,7 @@ return [
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-photo-gallery',
-                'name'=>'List of bulletin boards',
+                'name'=>'List of notice board',
                 'colorClass'=>'index',
                 'child' => [],
             ],
@@ -473,7 +473,7 @@ return [
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'General publishing board',
+                        'name'=>'General notice board',
                         'child' => null
                     ],
                 ],
@@ -491,13 +491,13 @@ return [
                 'name'=>'Form Mail Manage',
                 'child' => [
                     [
-                        'url'=>'#',
+                        'url'=>'cms/suppliers',
                         'icon'=>'',
                         'name'=>'Form Mail Manager',
                         'child' => null
                     ],
                     [
-                        'url'=>'#',
+                        'url'=>'cms/suppliers/create_form_mail',
                         'icon'=>'',
                         'name'=>'Create a Form Mail',
                         'child' => null
@@ -541,7 +541,7 @@ return [
             [
                 'url'=>'cms/banner_management/main_banner',
                 'icon'=>'pe-7s-display1',
-                'name'=>'mainBanner',
+                'name'=>'Main banner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
@@ -562,21 +562,21 @@ return [
             [
                 'url'=>'cms/banner_management/left_banner',
                 'icon'=>'pe-7s-back-2',
-                'name'=>'leftBanner',
+                'name'=>'Left banner',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/banner_management/left',
                 'icon'=>'pe-7s-back-2',
-                'name'=>'left',
+                'name'=>'Left',
                 'colorClass'=>'index',
                 'child' => [],
             ],
             [
                 'url'=>'cms/banner_management/right',
                 'icon'=>'pe-7s-next-2',
-                'name'=>'right',
+                'name'=>'Right',
                 'colorClass'=>'index',
                 'child' => [],
             ]
@@ -609,7 +609,7 @@ return [
         ],
     ], // Product management
     [
-        'title'=>'Client Menu Manage',
+        'title'=>'User menu',
         'url'=>'cms/user_menu',
         'menus'=> [
             [

@@ -24,7 +24,7 @@
 
             </div>
 
-            <div class="main-card card">
+            <div class="main-card card card-btm-border border-primary">
                 <div class="card-body">
                     <form action="">
                         <div class="row">
