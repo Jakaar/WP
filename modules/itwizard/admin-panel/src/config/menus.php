@@ -246,7 +246,7 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/fixed_code',
                 'icon'=>'pe-7s-pen',
                 'name'=>'Fixed code',
                 'child' => null
