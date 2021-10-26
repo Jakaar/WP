@@ -23,7 +23,7 @@ class MenuController extends Controller
     public function DeleteMenu($id)
     {
         DB::table('categories')->where('id', $id)->update([
-            'isEnabled' => 1
+            'isEnabled' => 0
         ]);
         return response()->json(200,200);
     }

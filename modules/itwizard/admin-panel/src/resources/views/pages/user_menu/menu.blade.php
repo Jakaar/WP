@@ -190,6 +190,9 @@
                                 'Your file has been deleted.',
                                 'success'
                             )
+                            setTimeout(function (){
+                                location.reload()
+                            },2000);
                         });
                     }
                 })
