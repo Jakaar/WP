@@ -10,7 +10,7 @@
                                 <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
                             </div>
                             <div>
-                                Send a mail
+                                {{__('Send a mail')}}
                                 <div class="page-title-subheading"></div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                         </span>
                                     </button>
                                 </div>
-                                <h4 class="mb-0">Inbox</h4>
+                                <h4 class="mb-0">{{__('Inbox')}}</h4>
 
                             </div>
                             <div class="pane-right">
@@ -98,21 +98,21 @@
                     <ul class="nav flex-column">
                         <li class="pt-4 ps-3 pe-3 pb-3 nav-item">
                             <div class="d-grid">
-                                <button class="btn-pill btn-shadow btn btn-primary">Write New Email</button>
+                                <button class="btn-pill btn-shadow btn btn-primary">{{__('Write New Email')}}</button>
                             </div>
                         </li>
-                        <li class="nav-item-header nav-item">My Account</li>
+                        <li class="nav-item-header nav-item">{{__('My Account')}}</li>
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon pe-7s-chat"></i>
-                                <span>Inbox</span>
+                                <span>{{__('Inbox')}}</span>
                                 <div class="ms-auto badge rounded-pill bg-info">8</div>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon pe-7s-wallet"></i>
-                                <span>Sent Items</span>
+                                <span>{{__('Sent Items')}}</span>
                             </a>
                         </li>
                        
@@ -120,7 +120,7 @@
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon pe-7s-box2"></i>
-                                <span>Trash</span>
+                                <span>{{__('Trash')}}</span>
                             </a>
                         </li>
                     </ul>

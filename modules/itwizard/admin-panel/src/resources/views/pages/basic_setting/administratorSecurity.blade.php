@@ -42,24 +42,24 @@
             <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
                 <tbody>
                     <tr>
-                        <td>Use secure connection</td>
-                        <td>User Detail</td>
+                        <td>{{__('Use secure connection')}}</td>
+                        <td>{{__('User Detail')}}</td>
                         <td rowspan="2">
                             <button class="btn btn-success CreateBoard">
-                                Save
+                                {{__('Save')}}
                             </button>
                         </td>
                     </tr>
                     <tr>
-                        <td>Use text authentication</td>
-                        <td>Subscription Detail</td>
+                        <td>{{__('Use text authentication')}}</td>
+                        <td>{{__('Subscription Detail')}}</td>
                     </tr>
                     <tr>
-                        <td>Allowed IP</td>
+                        <td>{{__('Allowed IP')}}</td>
                         <td><input name="email" class="form-control text-lowercase"></td>
                         <td>
                             <button class="btn btn-success CreateBoard">
-                                <i>IP address storage</i>
+                                <i>{{__('IP address storage')}}</i>
                             </button>
                         </td>
                     </tr>
@@ -70,12 +70,12 @@
             <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
                 <tbody>
                     <tr>
-                        <td>NO</td>
-                        <td>ALLOWED IP</td>
-                        <td>REGISTRANT</td>
-                        <td>REGISTRATION DATE</td>
-                        <td>LAST ACCESS DATE</td>
-                        <td>EDIT/DELETE</td>
+                        <td>{{__('NO')}}</td>
+                        <td>{{__('ALLOWED IP')}} </td>
+                        <td>{{__('REGISTRANT')}}</td>
+                        <td>{{__('REGISTRATION DATE')}}</td>
+                        <td>{{__('LAST ACCESS DATE')}}</td>
+                        <td>{{__('EDIT/DELETE')}}</td>
                     </tr>
                     <tr>
                         <td>1</td>
@@ -85,10 +85,10 @@
                         <td></td>
                         <td>
                             <button class="btn-outline-primary btn">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -100,10 +100,10 @@
                         <td></td>
                         <td>
                             <button class="btn-outline-primary btn">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>

@@ -56,10 +56,10 @@
                             <td></td>
                             <td>
                                 <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
-                                    {{ ('Edit') }}
+                                    {{__('Edit') }}
                                 </button>
                                 <button class="btn-outline-danger btn-link btn">
-                                    {{ ('Delete') }}
+                                    {{__('Delete') }}
                                 </button>
                             </td>
                         </tr>
@@ -73,10 +73,10 @@
                             <td></td>
                             <td>
                                 <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
-                                    {{ ('Edit') }}
+                                    {{__('Edit') }}
                                 </button>
                                 <button class="btn-outline-danger btn-link btn">
-                                    {{ ('Delete') }}
+                                    {{__('Delete') }}
                                 </button>
                             </td>
                         </tr>
@@ -90,10 +90,10 @@
                             <td></td>
                             <td>
                                 <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
-                                    {{ ('Edit') }}
+                                    {{__('Edit') }}
                                 </button>
                                 <button class="btn-outline-danger btn-link btn">
-                                    {{ ('Delete') }}
+                                    {{__('Delete') }}
                                 </button>
                             </td>
                         </tr>
@@ -155,7 +155,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="headerList">
                                 <input type="text" class="form-control" name="contentList">
-                                <button class="btn btn-primary">addition</button>
+                                <button class="btn btn-primary">{{__('addition')}}</button>
                             </div>
                             <small class="form-text text-muted">(ex) Country of origin Korea, price 10000</small>
                         </div>
@@ -166,26 +166,26 @@
                                 <input type="text" class="form-control" name="contentList" placeholder="eigenvalues">
                                 <input type="text" class="form-control" name="headerList" placeholder="Prize">
                                 <input type="text" class="form-control" name="contentList" placeholder="1">
-                                <button class="btn btn-primary">addition</button>
+                                <button class="btn btn-primary">{{__('addition')}}</button>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label>{{__('Product Information')}}</label>
                             <div class="input-group">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon3">List</span>
+                                    <span class="input-group-text" id="basic-addon3">{{__('List')}}</span>
                                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="150">
-                                    <span class="input-group-text px-2" id="basic-addon3">Reduction</span>
+                                    <span class="input-group-text px-2" id="basic-addon3">{{__('Reduction')}}</span>
                                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="50">
-                                    <span class="input-group-text px-2" id="basic-addon3">Detail</span>
+                                    <span class="input-group-text px-2" id="basic-addon3">{{__('Detail')}}</span>
                                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="350">
-                                    <span class="input-group-text px-2" id="basic-addon3">Enlargement</span>
+                                    <span class="input-group-text px-2" id="basic-addon3">{{__('Enlargement')}}</span>
                                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="650">
                                     <small class="form-text text-muted">If you register the original image only during new registration, the rest of the image will be created automatically. (except for specified files) [GIF, JPG, PNG]</small>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-success CreateBoard">Add Image</button>
+                                <button class="btn btn-success CreateBoard">{{__('Add Image')}} </button>
                             </div>
                             <div>
                                 <table id="prdImgAdd" class="table table-bordered">
@@ -233,8 +233,8 @@
                         <div class="mb-3">
                             <label>{{__('Related Products')}}</label>
                             <div class="col-lg-5">
-                                <button class="btn-outline-primary btn">Enrollment</button>
-                                <button class="btn-outline-danger btn-link btn">Delete</button>
+                                <button class="btn-outline-primary btn">{{__('Enrollment')}}</button>
+                                <button class="btn-outline-danger btn-link btn">{{__('Delete')}}</button>
                             </div>
                         </div>
                         <div class="mb-3">

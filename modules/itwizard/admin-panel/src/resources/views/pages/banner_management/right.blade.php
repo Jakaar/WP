@@ -18,7 +18,7 @@
                     <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                   {{__('Right')}}
+                   {{__('Right Banner')}}
                 </div>
             </div>
             <div class="page-title-actions">
@@ -39,7 +39,7 @@
     <div class="main-card mb-3 card">
         
         <div class="card-body">
-            <h5 class="card-title">{{__('Add Right')}}</h5>
+            <h5 class="card-title">{{__('Add Right Banner')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
@@ -49,7 +49,7 @@
                         <td>{{__('Image')}}</td>
                         <td>{{__('Form')}}</td>
                         <td>{{__('Number Of Line-Wrapped Banners')}}</td>
-                        <td>{{__('Wheter Or Not To Use')}}</td>
+                        <td>{{__('Is Used')}}</td>
                         <td>{{__('Edit/Delete')}}</td>
                     </tr>
                 </thead>
@@ -64,10 +64,10 @@
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
-                                {{ ('Edit') }}
+                                {{__('Edit') }}
                             </button>
                             <button class="btn-outline-danger btn-link btn">
-                                {{ ('Delete') }}
+                                {{__('Delete') }}
                             </button>
                         </td>
                     </tr>
@@ -96,21 +96,21 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Add Right')}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Add Right Banner')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="#" id="create_new_role" class="row">
                         <input type="hidden" id="u_id">
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Design Method)')}} </label>
+                            <label class="form-label"> {{__('Design Method')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
                                 <option>Image</option>
                                 <option>Html</option>
                             </select>
                         </div>
                         <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use')}}</label>
+                            <label for="exampleCity" class="form-label">{{__('Is Used')}}</label>
 
                                 <div class="position-relative">
 
@@ -132,7 +132,7 @@
                         </div>
                 
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Banner Group)')}} </label>
+                            <label class="form-label"> {{__('Banner Group')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
                                 <option>{{__('Main Banner')}}</option>
                                 <option selected>{{__('Vertical')}}</option>
@@ -146,7 +146,7 @@
                         
                        
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Priority)')}} </label>
+                            <label class="form-label"> {{__('Priority')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
                                 <option selected>{{__('1')}}</option>
                                 <option>{{__('2')}}</option>
@@ -189,14 +189,14 @@
                     <form action="#" id="create_new_role" class="row">
                         <input type="hidden" id="u_id">
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Design Method)')}} </label>
+                            <label class="form-label"> {{__('Design Method')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
                                 <option>Image</option>
                                 <option>Html</option>
                             </select>
                         </div>
                         <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use')}}</label>
+                            <label for="exampleCity" class="form-label">{{__('Is Used')}}</label>
 
                                 <div class="position-relative">
 
@@ -218,7 +218,7 @@
                         </div>
                 
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Banner Group)')}} </label>
+                            <label class="form-label"> {{__('Banner Group')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
                                 <option>{{__('Main Banner')}}</option>
                                 <option selected>{{__('Vertical')}}</option>
@@ -232,7 +232,7 @@
                         
                        
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{__('Priority)')}} </label>
+                            <label class="form-label"> {{__('Priority')}} </label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
                                 <option selected>{{__('1')}}</option>
                                 <option>{{__('2')}}</option>

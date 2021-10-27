@@ -10,7 +10,7 @@
                             <i class="pe-7s-mail-open icon-gradient bg-mixed-hopes"></i>
                         </div>
                         <div>
-                            Email Settings
+                            {{__('Email Settings')}}
                             <div class="page-title-subheading"></div>
                         </div>
                     </div>
@@ -29,32 +29,32 @@
                     <form action="">
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <label for="" class="card-title"> Email Signture </label>
+                                <label for="" class="card-title"> {{__('Email Signture')}} </label>
                                 <div class="clearfix"></div>
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="email_signture" id="s_use"
                                         value="option1" checked>
-                                    <label class="form-check-label" for="s_use">use</label>
+                                    <label class="form-check-label" for="s_use">{{__('Use')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="email_signture" id="s_not_use"
                                         value="option2">
-                                    <label class="form-check-label" for="s_not_use">not use</label>
+                                    <label class="form-check-label" for="s_not_use">{{__('Not Used')}}</label>
                                 </div>
-                                <div id="SiteInfoeditor1" name="SiteInfoeditor1">Create your Signture</div>
+                                <div id="SiteInfoeditor1" name="SiteInfoeditor1">{{__('Create your Signature')}}</div>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="" class="card-title"> Email Suggestion </label>
+                                <label for="" class="card-title"> {{__('Email Suggestion')}} </label>
                                 <div class="clearfix"></div>
                                 <div class="form-check form-check-inline mb-2">
                                     <input class="form-check-input" type="radio" name="show Email" id="inlineRadio1"
                                         value="option1">
-                                    <label class="form-check-label form-label" for="inlineRadio1">Enable</label>
+                                    <label class="form-check-label form-label" for="inlineRadio1">{{__('Enable')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="show Email" id="inlineRadio2"
                                         value="option2" checked>
-                                    <label class="form-check-label form-label" for="inlineRadio2">Disable</label>
+                                    <label class="form-check-label form-label" for="inlineRadio2">{{__('Disable')}}</label>
                                 </div>
                                 <div class="w-100 border border-info text-muted p-4">
                                     <ul>
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <button class=" btn btn-primary "> Save changes </button>
+                                <button class=" btn btn-primary ">{{__('Save changes')}} </button>
                             </div>
                         </div>
                     </form>
