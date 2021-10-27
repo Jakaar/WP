@@ -111,8 +111,8 @@
                 <textarea name="text" id="exampleText" class="form-control"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success CreateBoard">Save</button>
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
+                <button type="button" class="btn btn-success CreateBoard">{{__('Save')}}</button>
             </div>
         </div>
     </div>

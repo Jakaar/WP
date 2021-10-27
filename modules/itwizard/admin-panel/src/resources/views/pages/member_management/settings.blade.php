@@ -24,7 +24,7 @@
             </div>
 
 
-            <div class="main-card card card-btm-border border-primary">
+            <div class="main-card card card-btm-border border-primary mb-4">
                 <div class="card-body">
                     <table style="width: 100%;" id="new_table" class="table table-hover table-striped table-bordered">
                         <thead>
@@ -49,10 +49,10 @@
                                         <div class="widget-content-right widget-content-actions">
                                             <button class="btn-outline-primary btn" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop">
-                                                {{ 'Edit' }}
+                                                {{__('Edit')}}
                                             </button>
                                             <button class="btn-outline-danger btn-link btn">
-                                                {{ 'Delete' }}
+                                                {{__('Delete')}}
                                             </button>
                                             {{-- <button class="border-0 btn-transition btn btn-outline-primary role-switcher" data-id="1">
                                                 <i class="fa fa-lock"> </i>

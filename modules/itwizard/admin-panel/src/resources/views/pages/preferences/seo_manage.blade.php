@@ -30,7 +30,7 @@
                     <th>{{__('TITLE')}}</th>
                     <th>{{__('PAGE ADDRESS')}}</th>
                     <th>{{__('PAGE TITLE')}}</th>
-                    <th>{{__('WHETHER OR NOT TO USE')}}</th>
+                    <th>{{__('Is Used')}}</th>
                     <th>{{__('REGISTRATION DATE')}}</th>
                     <th>{{__('EDIT/DELETE')}}</th>
                 </tr>

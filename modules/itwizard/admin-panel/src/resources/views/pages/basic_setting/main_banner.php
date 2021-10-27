@@ -49,7 +49,7 @@
                         <td>{{__('Image')}}</td>
                         <td>{{__('Form')}}</td>
                         <td>{{__('Number Of Line-Wrapped Banners')}}</td>
-                        <td>{{__('Wheter Or Not To Use')}}</td>
+                        <td>{{__('Is Used')}}</td>
                         <td>{{__('Edit/Delete')}}</td>
                     </tr>
                 </thead>
@@ -217,7 +217,7 @@
                                 </div>
                         </div>
                         <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use')}}</label>
+                            <label for="exampleCity" class="form-label">{{__('Is Used')}}</label>
 
                                 <div class="position-relative">
 
@@ -307,7 +307,7 @@
                                 </div>
                         </div>
                         <div class="mb-3 col-lg-6">
-                            <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use')}}</label>
+                            <label for="exampleCity" class="form-label">{{__('Is Used')}}</label>
 
                                 <div class="position-relative">
 

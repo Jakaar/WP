@@ -47,14 +47,14 @@
                             <div class="position-relative mb-3">
                                 <label for="exampleEmail11" class="form-label">{{__('Design Method')}}</label>
                                 <select name="select" id="exampleSelect" class="form-select form-control">
-                                    <option>Image</option>
-                                    <option>Html</option>
+                                    <option>{{__('Image')}}</option>
+                                    <option>{{__('Html')}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative mb-3">
-                                <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use')}}*</label>
+                                <label for="exampleCity" class="form-label">{{__('Is Used')}}*</label>
                                 <div class="position-relative">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
