@@ -7,6 +7,8 @@ $(document).ready(() => {
       slidesToShow: 1,
       slidesToScroll: 1,
         arrows: false,
+        infinite: true,
+        speed: 500,
     });
 
     $(".slick-slider-3").slick({
