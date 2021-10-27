@@ -11,7 +11,17 @@
         <meta name="description" content="This is an example dashboard created using build-in elements and components.">
         <!-- Disable tap highlight on IE -->
         <meta name="msapplication-tap-highlight" content="no">
+        <style>
+            body {
+                -ms-overflow-style: none; /* for Internet Explorer, Edge */
+                scrollbar-width: none; /* for Firefox */
+                overflow-y: scroll;
 
+            }
+            body::-webkit-scrollbar {
+                display: none; /* for Chrome, Safari, and Opera */
+            }
+        </style>
         <link rel="stylesheet" href="{{asset('aPanel/css/admin.css')}}">
     </head>
     <body>
@@ -64,8 +74,8 @@
                                         <div class="">
                                             <div class="col-md-6">
                                                 <div class="position-relative mb-3">
-                                                    <label for="exampleEmail" class="form-label">{{__('Email')}}</label>
-                                                    <input name="email" id="email"
+                                                    <label for="email" class="form-label">{{__('Email')}}</label>
+                                                    <input name="email" id="email" value="{{ old('email') }}"
                                                         placeholder="{{__('Email here')}}" type="email" class="form-control">
 
                                                 </div>
@@ -81,24 +91,24 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="position-relative mb-3">
-                                                    <label for="examplePassword" class="form-label">{{__('Password')}}</label>
+                                                    <label for="password" class="form-label">{{__('Password')}}</label>
                                                     <input name="password" id="password"
                                                         placeholder="{{__('Password here')}}" type="password" class="form-control">
                                                 </div>
 
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
+                                                        <strong>{{ __($message) }}</strong>
                                                     </span>
                                                     <div class="alert alert-danger fade show" role="alert">
-                                                        {{ $message }}
+                                                        {{ __($message)}}
                                                     </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="position-relative form-check mb-3">
-                                            <input name="remember" id="exampleCheck" type="checkbox" class="form-check-input">
-                                            <label for="exampleCheck" class="form-label form-check-label">{{__('Keep me logged in')}}</label>
+                                            <input name="remember" id="remember" type="checkbox" class="form-check-input">
+                                            <label for="remember" class="form-label form-check-label">{{__('Keep me logged in')}}</label>
                                         </div>
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
