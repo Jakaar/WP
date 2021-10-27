@@ -179,7 +179,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="create_page_form" class="col-md-12 mx-auto" method="post" action="">
+                <form id="edit_page_form" class="col-md-12 mx-auto" method="post" action="">
                     <div class="row">
 
                         <div class="col-md-2">
