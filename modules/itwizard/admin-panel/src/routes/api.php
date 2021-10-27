@@ -50,5 +50,3 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/managepage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'singlePage']);
     Route::post('/managepage/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'DeletePage']);
 });
-
-// middleware('auth:api')

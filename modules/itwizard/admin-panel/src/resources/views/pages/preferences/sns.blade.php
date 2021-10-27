@@ -92,11 +92,11 @@
                             <div class="col-lg-11 mb-3">
                                     <input id="hideInput4" type="text" class="form-control">
                             </div>
-                        
+
                         <div class="col-lg-12 mb-3">
                         <div class="col-lg-12 mb-3">
-                            <button class="btn btn-success CreateBoard">{{__('save')}} </button>   
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">{{__('cancel')}}</button>      
+                            <button class="btn btn-success CreateBoard">{{__('save')}} </button>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">{{__('cancel')}}</button>
                         </div>
                         </div>
 
@@ -106,20 +106,20 @@
 
         </div>
     </div>
-    
+
 @endsection
 @section('script')
 <script>
-        var x1;
-        var x2;
-        var x3;
-        var x4;
-        function hideFunction1() {
-           
-          if ( x1== 1) {
+    let x1;
+    let x2;
+    let x3;
+    let x4;
+
+    function hideFunction1() {
+
+          if ( x1 == 1) {
                 document.getElementById("hideInput1").style.display = "inline";
-                return x1=0;
-               
+                return x1 = 0;
              } else {
                 document.getElementById("hideInput1").style.display = "none";
                 return x1=1;
@@ -133,7 +133,7 @@
              } else {
                 document.getElementById("hideInput2").style.display = "none";
                 return x2=1;
-                
+
             }
         }
 
@@ -141,9 +141,9 @@
           if ( x3== 1) {
                  document.getElementById("hideInput3").style.display = "inline";
                 return x3=0;
-               
+
              } else {
-               
+
                 document.getElementById("hideInput3").style.display = "none";
                 return x3=1;
             }
@@ -153,9 +153,9 @@
           if ( x4== 1) {
                document.getElementById("hideInput4").style.display = "inline";
                 return x4=0;
-               
+
              } else {
-               
+
                 document.getElementById("hideInput4").style.display = "none";
                 return x4=1;
             }
