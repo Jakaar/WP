@@ -3,9 +3,10 @@
 $(document).ready(() => {
   setTimeout(function () {
     $(".slick-slider").slick({
-      dots: true,
+      // dots: true,
       slidesToShow: 1,
       slidesToScroll: 1,
+        arrows: false,
     });
 
     $(".slick-slider-3").slick({
