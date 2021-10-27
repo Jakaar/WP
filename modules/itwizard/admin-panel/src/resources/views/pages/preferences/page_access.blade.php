@@ -24,7 +24,7 @@
     <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
             <div class="float-start">
-                <div class="card-title"> {{ __('Page acess right generation code') }} </div>
+                <div class="card-title"> {{ __('Page access right generation code') }} </div>
             </div>
             <div class="float-end">
                 <button class="btn mb-3 btn-outline-secondary"> {{ __('Copy generation code') }} </button>

@@ -35,7 +35,7 @@
     </div>
 </div>
 <div class="main-card mb-3 card mt-4">
-    <div class="card-body">
+    <div class="card-body card-btm-border card-shadow-primary border-primary">
         <table style="width: 100%;" id="BulletInBoard" class="table table-hover table-striped table-bordered">
             <thead>
             <tr>
@@ -73,7 +73,7 @@
 @section('modal')
 
 <div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 1300px;">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Create Page') }}</h5>
@@ -172,14 +172,14 @@
 <!--create page management-->
 @foreach($data as $key=>$page)
 <div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="max-width: 1300px;">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Create Page') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="create_page_form" class="col-md-12 mx-auto" method="post" action="">
+                <form id="edit_page_form" class="col-md-12 mx-auto" method="post" action="">
                     <div class="row">
 
                         <div class="col-md-2">

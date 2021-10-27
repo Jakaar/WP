@@ -24,8 +24,7 @@
         <div class="card-body">
             <div class="float-start">
                 <div class="card-title">
-                    {{ __('Form mail management generation code
-                            ') }} </div>
+                    {{ __('Form mail management generation code') }} </div>
             </div>
             <div class="float-end">
                 <button class="btn mb-3 btn-outline-secondary"> {{ __('Copy generation code') }} </button>

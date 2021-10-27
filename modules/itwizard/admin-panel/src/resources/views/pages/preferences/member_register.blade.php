@@ -69,14 +69,14 @@
         <div class="card-body">
             <div class="row">
                 <div class="mb-3 col-lg-6">
-                    <label for="" class="form-label fw-bold"> Join the membership </label>
+                    <label for="" class="form-label fw-bold"> {{__('Join the membership')}} </label>
                     <div class="input-group">
                         <input type="text" class="form-control disabled" value="@ include('layout.membership')">
                         <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
                     </div>
                 </div>
                 <div class="mb-3 col-lg-6">
-                    <label for="" class="form-label fw-bold"> {{ __('login page') }} </label>
+                    <label for="" class="form-label fw-bold"> {{ __('Login page') }} </label>
                     <div class="input-group">
                         <input type="text" class="form-control disabled" value="@ include('pages.auth.login')">
                         <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>
@@ -123,7 +123,7 @@
                 </div>
 
                 <div class="mb-3 col-lg-6">
-                    <label for="" class="form-label fw-bold"> {{ __('Login Box') }} </label>
+                    <label for="" class="form-label fw-bold"> {{ __('Login box') }} </label>
                     <div class="input-group">
                         <input type="text" class="form-control disabled" value="@ include('pages.auth.loginbox')">
                         <button class="btn btn-outline-secondary"> {{ __('Copy generation code') }} </button>

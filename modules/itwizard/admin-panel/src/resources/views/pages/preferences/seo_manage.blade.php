@@ -15,14 +15,9 @@
             <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
-            <div class="d-inline-block dropdown">
-                <button type="button" class="search-icon btn-shadow btn btn-success CreateModalShow" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
-                    <span class="btn-icon-wrapper pe-2 opacity-7">
-                        <i class="pe-7s-plus"></i>
-                    </span>
-                    {{__('Title Registration')}}
-                </button>
-            </div>
+            <button type="button" class="btn-shadow me-3 btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
+                {{__('Title Registration')}}
+            </button>
         </div>
     </div>
 </div>
@@ -49,11 +44,11 @@
                     <td>Use</td>
                     <td>2021/10/25</td>
                     <td>
-                        <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
-                            {{ ('Edit') }}
+                        <button class="btn-outline-primary btn">
+                            {{__('Edit') }}
                         </button>
                         <button class="btn-outline-danger btn-link btn">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>
@@ -65,11 +60,11 @@
                     <td>Not Use</td>
                     <td>2021/10/24</td>
                     <td>
-                        <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
-                            {{ ('Edit') }}
+                        <button class="btn-outline-primary btn">
+                            {{__('Edit') }}
                         </button>
                         <button class="btn-outline-danger btn-link btn">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>
@@ -81,11 +76,11 @@
                     <td>Use</td>
                     <td>2021/10/25</td>
                     <td>
-                        <button class="btn-outline-primary btn " data-bs-toggle="modal" data-bs-target="#EditPostModal">
-                            {{ ('Edit') }}
+                        <button class="btn-outline-primary btn">
+                            {{__('Edit') }}
                         </button>
                         <button class="btn-outline-danger btn-link btn">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>
@@ -111,7 +106,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">{{__('SEO Management')}}</h3>
+                <h3 class="modal-title" id="exampleModalLongTitle">SEO Management</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -122,7 +117,7 @@
                         <div class="form-group row">
                             <div class="col-md-2 col-form-label mb-3">
                                 <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Name')}}</span>
+                                    <span style="vertical-align: inherit;">{{__('Page Name')}}</span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -130,7 +125,7 @@
                             </div>
                             <div class="col-md-2 col-form-label mb-3">
                                 <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Address')}}</span>
+                                    <span style="vertical-align: inherit;">{{__('Page Address')}}</span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -141,7 +136,7 @@
                         <div class="form-group row">
                             <div class="col-md-2 col-form-label mb-3">
                                 <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Title')}}</span>
+                                    <span style="vertical-align: inherit;">{{__('Page Title')}}</span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -149,7 +144,7 @@
                             </div>
                             <div class="col-md-2 col-form-label mb-3">
                                 <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Keywords')}}</span>
+                                    <span style="vertical-align: inherit;">{{__('Page Keywords')}}</span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -160,7 +155,7 @@
                         <div class="form-group row">
                             <div class="col-md-2 col-form-label mb-3">
                                 <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Subject')}}</span>
+                                    <span style="vertical-align: inherit;">{{__('Page Subject')}}</span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -168,7 +163,7 @@
                             </div>
                             <div class="col-md-2 col-form-label mb-3">
                                 <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Description')}}</span>
+                                    <span style="vertical-align: inherit;">{{__('Page Description')}}</span>
                                 </span>
                             </div>
                             <div class="col-md-4">
@@ -178,91 +173,25 @@
                     </form>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
-                    <button type="button" class="btn btn-success CreateBoard">{{__('Save')}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Edit Seo --}}
-
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="EditPostModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">{{__(('Edit SEO Management'))}}</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <form id="" action="" method="">
-                        <input type="hidden" name="useFlag" value="u">
-                        <div class="form-group row">
-                            <div class="col-md-2 col-form-label mb-3">
-                                <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Name')}}</span>
-                                </span>
+                <div class="card-footer">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-6 col-sm-2">
+                                <a onclick="javascript:doSubmit();" class="btn btn-primary btn-block btn-lg" style="cursor: pointer;">
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">Save</span>
+                                    </span>
+                                </a>
                             </div>
-                            <div class="col-md-4">
-                                <input type="text" name="pageName" class="form-control " value="" maxlength="200">
-                            </div>
-                            <div class="col-md-2 col-form-label mb-3">
-                                <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Address')}}</span>
-                                </span>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="pageLink" class="form-control " value="" maxlength="200">
+                            <div class="col-6 col-sm-2">
+                                <a onclick="javascript:$.Nav('go', './seo_list');" class="btn btn-dark btn-block btn-lg" style="cursor: pointer;">
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">cancel</span>
+                                    </span>
+                                </a>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 col-form-label mb-3">
-                                <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Title')}}</span>
-                                </span>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="metaTitle" class="form-control " value="" maxlength="1000">
-                            </div>
-                            <div class="col-md-2 col-form-label mb-3">
-                                <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Keywords')}}</span>
-                                </span>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="metaKeywords" class="form-control " value="" maxlength="1000">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 col-form-label mb-3">
-                                <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Subject')}}</span>
-                                </span>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="metaSubject" class="form-control " value="" maxlength="1000">
-                            </div>
-                            <div class="col-md-2 col-form-label mb-3">
-                                <span style="vertical-align: inherit;">
-                                    <span style="vertical-align: inherit;" class="fw-bold">{{__('Page Description')}}</span>
-                                </span>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="metaDescription" class="form-control " value="" maxlength="1000">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
-                    <button type="button" class="btn btn-success CreateBoard">{{__('Save')}}</button>
+                    </div>
                 </div>
             </div>
         </div>
