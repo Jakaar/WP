@@ -163,8 +163,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                <button type="button" class="btn btn-primary createPageSubmit">{{ __('Save') }}</button>
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                <button type="button" class="btn btn-success createPageSubmit">{{ __('Save') }}</button>
             </div>
         </div>
     </div>
@@ -175,7 +175,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Create Page') }}</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Edit Page') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -252,22 +252,18 @@
                             <div class="input-group mt-3 mb-3">
                                 <input value="{{$page->page_code}}" maxlength="110" placeholder="with ABC a placeholder" id="PageCode" class="form-control text-lowercase" />
                             </div>
-                            <div class="position-relative mb-3 w-100" id="EditPage" name="EditPage">
+                            <div class="position-relative mb-3 w-100 editable" id="EditPage" name="EditPage" key="{{$page->id}}">
                                 {{$page->page_content}}
                             </div>
 
                         </div>
-                        <!--                    <div class="col-md-12 text-center mt-3">-->
-                        <!--                        <button class="btn-wide mb-2 me-2 btn btn-outline-primary btn-lg">Save</button>-->
-                        <!--                        <button class="btn-wide mb-2 me-2 btn btn-outline-dark btn-lg">List</button>-->
-                        <!--                    </div>-->
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                <button type="button" class="btn btn-primary createPageSubmit">{{ __('Save') }}</button>
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                <button type="button" class="btn btn-success createPageSubmit">{{ __('Save') }}</button>
             </div>
         </div>
     </div>
@@ -282,17 +278,7 @@
             .then((newEditor) => {
                 editor5 = newEditor;
             })
-            .catch((error) => {
-                console.error(error);
-            });
-        let editor6;
-        ClassicEditor.create(document.querySelector("#EditPage"))
-            .then((newEditor) => {
-                editor6 = newEditor;
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+
 
         $(".createPageSubmit").on("click", function () {
             const data = {
