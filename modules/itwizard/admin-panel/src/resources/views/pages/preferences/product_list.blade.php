@@ -24,16 +24,15 @@
         <div class="card mb-3 card-btm-border border-primary card">
 
             <div class="card-body">
-                <div class="float-start">
-                    <div class="card-title"> {{__('Product List Creation Code')}} </div>
-                </div>
-                <div class="float-end">
-                    <button class="btn btn-outline-secondary" id="generatorClick"> {{__('Copy generation code')}} </button>
-                </div>
-                <div class="clearfix"></div>
-                <div class="bg-light p-3">
-                    <code id="code"> </code>
-                </div>
+                <div class="card-title"> {{__('Product List Creation Code')}} </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="myInput" value="Text to copy!">
+                    <div class="input-group-text">
+                        <button onclick="Copycode()" type="button" data-clipboard-target="myInput" class="btn btn-primary clipboard-trigger">
+                            <i class="fa fa-copy"></i>
+                        </button>
+                    </div>
+                </div>                
             </div>
         </div>
 
@@ -72,6 +71,14 @@
 @section('script')
 <script>
     $('#code').text('@ include footer ')
+</script>
+<script>
+    function Copycode() {
+    var copyText = document.getElementById('myInput')
+    copyText.select();
+    document.execCommand('copy')
+    console.log('Copied Text')
+  }
 </script>
 <script>
     $(document).ready(function() {
