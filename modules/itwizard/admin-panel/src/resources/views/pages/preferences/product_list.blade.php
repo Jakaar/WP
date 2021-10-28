@@ -28,7 +28,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="myInput" value="Text to copy!">
                     <div class="input-group-text">
-                        <button onclick="Copycode()" type="button" data-clipboard-target="myInput" class="btn btn-primary clipboard-trigger">
+                        <button onclick="Copycode()" id="my-button" type="button" data-clipboard-target="myInput" class="btn btn-primary clipboard-trigger">
                             <i class="fa fa-copy"></i>
                         </button>
                     </div>
@@ -78,7 +78,18 @@
     copyText.select();
     document.execCommand('copy')
     console.log('Copied Text')
-  }
+  }  
+</script>
+<script>
+    $('#my-button').click(function(){
+        Swal.fire({
+                    icon: 'success',
+                    title : 'Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+    })
+        
 </script>
 <script>
     $(document).ready(function() {

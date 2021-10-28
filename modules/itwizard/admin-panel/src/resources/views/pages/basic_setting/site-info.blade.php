@@ -106,7 +106,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="mb-3 mt-3">
-                                <div class="card-title text-uppercase mb-3">Terms of use</div>
+                                <div class="card-title text-uppercase mb-3">Terms of Service</div>
                                 <div id="SiteInfoeditor1" name="SiteInfoeditor1">
                                     {!!$data['site_info']->terms_of_condition!!}
                                 </div>
@@ -114,7 +114,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3 mt-3">
-                                <div class="card-title text-uppercase mb-3">Privacy statement</div>
+                                <div class="card-title text-uppercase mb-3">Privacy Policy</div>
                                 <div id="SiteInfoeditor2" name="SiteInfoeditor2">
                                     {!!$data['site_info']->privacy!!}
                                 </div>
