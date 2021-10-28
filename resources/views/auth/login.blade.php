@@ -76,15 +76,11 @@
                                                 <div class="position-relative mb-3">
                                                     <label for="email" class="form-label">{{__('Email')}}</label>
                                                     <input name="email" id="email" value="{{ old('email') }}"
-                                                        placeholder="{{__('Email here')}}" type="email" class="form-control">
-
+                                                           placeholder="{{__('Email here')}}" type="email" class="form-control @error('email') is-invalid @enderror">
                                                 </div>
                                                 @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    <div class="alert alert-danger fade show" role="alert">
-                                                        {{ __('Email is required') }}
+                                                    <div class="card p-2 mb-2 alert-danger fade show" role="alert">
+                                                        <b>{{ __('Authentication Failed') }}</b>
                                                     </div>
                                                 @enderror
 
@@ -93,15 +89,11 @@
                                                 <div class="position-relative mb-3">
                                                     <label for="password" class="form-label">{{__('Password')}}</label>
                                                     <input name="password" id="password"
-                                                        placeholder="{{__('Password here')}}" type="password" class="form-control">
+                                                        placeholder="{{__('Password here')}}" type="password" class="form-control @error('password') is-invalid @enderror">
                                                 </div>
-
                                                 @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ __($message) }}</strong>
-                                                    </span>
-                                                    <div class="alert alert-danger fade show" role="alert">
-                                                        {{ __($message)}}
+                                                    <div class="card p-2 mb-2 alert-danger fade show" role="alert">
+                                                        <b>{{ __($message)}}</b>
                                                     </div>
                                                 @enderror
                                             </div>
