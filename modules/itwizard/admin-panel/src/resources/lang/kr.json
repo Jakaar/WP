@@ -457,6 +457,8 @@
     "Membership/My Page": "회원 자격/나의 페이지",
     "Login Image": "로그인 이미지",
     "Logout Image": "로그아웃 이미지",
+    "Logout": "로그아웃",
+    "Admin name": "관리자 이름",
     "Signup Image": "가입 이미지",
     "My Page Image": "나의 페이지 이미지",
     "top menu": "상위 메뉴",
@@ -615,13 +617,4 @@
     "Parent Category": "부모 카테고리",
     "Classification of use": "사용구분",
     "Category name": "카테고리 이름"
-
-
-
-
-
-
-
-
-   
 }
