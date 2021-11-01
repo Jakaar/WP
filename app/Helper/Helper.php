@@ -8,10 +8,15 @@ class Helper
     {
 
     }
-
     public function translateText($word)
     {
-        dd('from helper');
+        $this->locale = Session::get('locale');
+
+        if(!$word)
+            return $word;
+
+        $word = is_string($word) ? json_decode($word, true) : $word;
+        return $word[$this->locale] ?? null;
     }
 
 }

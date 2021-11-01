@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@inject('translate','App\Helper\Helper')
+@inject('t','App\Helper\Helper')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -43,7 +43,9 @@
                                     <li class="">
                                         <a href="#" aria-expanded="false" data-key="{{ $category->id }}">
                                             <i class="metismenu-icon pe-7s-less"></i>
-                                            {{ $category->name }}
+
+                                            {{ $t->translateText($category->name) }}
+
                                             <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                             <span class="">
                                                 <button key="{{ $category->id }}"
@@ -60,8 +62,7 @@
                                         </a>
                                         <ul class="mm-collapse" style="height: 7.04px;">
                                             @foreach ($category->childrenCategories as $childCategory)
-                                                @include('Admin::pages.user_menu.child_category', ['child_category' =>
-                                                $childCategory])
+                                                @include('Admin::pages.user_menu.child_category', ['child_category' => $childCategory])
                                             @endforeach
                                         </ul>
                                     </li>
@@ -69,7 +70,7 @@
                                     <li>
                                         <a href="#" class="GetContent" data-key="{{ $category->id }}">
                                             <i class="metismenu-icon pe-7s-less"></i>
-                                            {{ $category->name }}
+                                            {{ $t->translateText($category->name) }}
                                             <span class="">
                                                 <button key="{{ $category->id }}"
                                                     class="btn btn-outline-success float-end navBtns ModalShow">

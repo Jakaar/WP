@@ -2,6 +2,7 @@
 namespace Itwizard\Adminpanel\Http\ApiControllers\Content;
 
 use App\Category;
+use App\Helper\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +52,8 @@ class MenuController extends Controller
 
     public function getMenu(Request $request){
        $data = DB::table('categories')->where('id',$request->id)->first();
-        return response()->json(['msg' => __('sucess'),'data' => $data],200);
+       $data->name = (new \App\Helper\Helper)->translateText($data->name);
+        return response()->json(['msg' => __('success'),'data' => $data],200);
     }
 
 }
