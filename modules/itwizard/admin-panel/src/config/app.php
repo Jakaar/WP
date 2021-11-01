@@ -1,4 +1,6 @@
 <?php
 return [
-    'key' => 'this is test config',
+    'aliases' => [
+        'TT' => \Adminpanel\Helpers\TranslateHelper\TranslateHelper::class,
+    ],
 ];

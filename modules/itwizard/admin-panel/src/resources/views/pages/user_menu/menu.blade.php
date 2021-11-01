@@ -30,7 +30,6 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card-title">Menus</div>
             <div class="main-card mb-3 p-2 card">
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">

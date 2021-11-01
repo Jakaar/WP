@@ -13,6 +13,8 @@ Route::get('lang/{locale}', function ($lang) {
     // }
     return redirect()->back();
 });
+
+
 Route::any('/{slug}', function (){
     return view('welcome');
 });
