@@ -397,24 +397,24 @@ return [
             [
                 'url'=>'cms/noticeboard',
                 'icon'=>'pe-7s-airplay',
-                'name'=>'Notice board management',
+                'name'=>'Notice Board Manage',
                 'child' => [
                     [
                         'url'=>'cms/noticeboard',
                         'icon'=>'',
-                        'name'=>'Notice board management',
+                        'name'=>'Notice Board Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Integrated comment management',
+                        'name'=>'Comment Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Integrated management of posts',
+                        'name'=>'Post Manage',
                         'child' => null
                     ],
                     [
