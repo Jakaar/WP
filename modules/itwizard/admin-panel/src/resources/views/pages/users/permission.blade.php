@@ -72,7 +72,7 @@
                                             </div> -->
     <div class="main-card mb-3 card">
         <div class="card-body">
-            <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
+            <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped ">
                 <thead>
                     <tr>
                         <th>{{ __('ID') }}</th>
@@ -95,12 +95,12 @@
                             <td>
                                 <div class="">
                                     <div class="widget-content-right widget-content-actions">
-                                        <button class="border-0 btn-transition btn btn-outline-primary edit-roles"
+                                        <button class=" btn-transition btn btn-outline-primary edit-roles"
                                             data-bs-toggle="modal" data-bs-target="#EditRoleModal" data-id="{{$role->id}}">
-                                            <i class="fa fa-edit"></i>
+                                            {{__("Edit")}}
                                         </button>
-                                        <button class="border-0 btn-transition btn btn-outline-danger delete-role" data-id="{{$role->id}}">
-                                            <i class="fa fa-trash-alt"></i>
+                                        <button class="btn-transition btn btn-outline-danger delete-role" data-id="{{$role->id}}">
+                                            {{__("Delete")}}
                                         </button>
                                     </div>
                                 </div>

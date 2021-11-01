@@ -14,10 +14,10 @@ use Itwizard\Adminpanel\Console\ProcessCommand;
 class AdminServiceProvider extends ServiceProvider
 {
     public function boot(Router $router){
-        $data['logo'] = DB::table('wpanel_site_info')
-            ->select('logo')
-            ->first();
-        view()->share('logo', $data);
+        // $data['logo'] = DB::table('wpanel_site_info')
+        //     ->select('logo')
+        //     ->first();
+        // view()->share('logo', $data);
 //        dd(view()->share('logo', $data));
 //        dd($data['logo']->logo);
         $this->loadRoutesFrom(__DIR__.'./routes/web.php');
@@ -25,6 +25,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'./resources/views','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/app.php','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/menus.php','Menu');
+        $this->mergeConfigFrom(__DIR__.'./config/settings.php','setting');
         $this->loadMigrationsFrom(__DIR__.'./database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'./resources/lang');
         $this->loadViewComponentsAs('adminComponents',[
