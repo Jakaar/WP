@@ -3,7 +3,7 @@
         <li class="" >
             <a href="#" aria-expanded="true" data-key="{{$child_category->id}}">
                 <i class="metismenu-icon pe-7s-plugin"></i>
-                {{ $child_category->name }}
+                {{ $t->translateText($child_category->name) }}
                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                 <span class="">
                     <button key="{{$childCategory->id}}" class="btn btn-outline-success float-end navBtns ModalShow ModalShow">
@@ -25,8 +25,8 @@
     @else
         <li>
             <a href="#" aria-expanded="true"  data-key="{{$child_category->id}}">
-                <i class="metismenu-icon"></i>
-                {{ $child_category->name }}
+{{--                <i class="metismenu-icon"></i>--}}
+                {{ $t->translateText($child_category->name) }}
                 <span class="">
                     <button key="{{$child_category->id}}" class="btn btn-outline-success float-end navBtns ModalShow">
                         <i class="pe-7s-plus"></i>

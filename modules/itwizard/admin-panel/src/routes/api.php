@@ -17,6 +17,9 @@ use Itwizard\Adminpanel\Http\ApiControllers\Preferences\PreferencesController;
 
 
 Route::group(['prefix'=>'api'], function (){
+    Route::get('/availableLanguages', function (){
+       return response()->json(['data'=> DB::table('wpanel_available_language')->get()], 200);
+    });
     Route::post('/board/create', [BoardMasterController::class, 'create']);
 
     Route::post('/profile/update', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'update']);

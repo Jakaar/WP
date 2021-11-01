@@ -62,4 +62,3 @@ require('./customs/count-up')
 require('./customs/ckeditor')
 require('./charts/chartjs')
 require('./customs/tree.jquery')
-

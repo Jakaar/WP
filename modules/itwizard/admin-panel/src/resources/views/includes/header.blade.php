@@ -367,7 +367,12 @@
 
                         <a href="/lang/kr" type="button" tabindex="0" class="dropdown-item">
                             <span class="me-3 opacity-8 flag large KR"></span>
-                            Korea
+                            한국어
+                        </a>
+
+                        <a href="/lang/mn" type="button" tabindex="0" class="dropdown-item">
+                            <span class="me-3 opacity-8 flag large MN"></span>
+                            Монгол
                         </a>
                     </div>
                 </div>

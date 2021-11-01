@@ -203,7 +203,7 @@
                                 <div class="col-md-6">
                                     <div class="position-relative mb-3">
                                         <h5 class="card-title">{{ __('Name') }}</h5>
-                                        <input name="" id="BoardName" placeholder="" type="email" class="form-control">
+                                        <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="email" class="form-control">
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-6"> --}}
@@ -230,7 +230,6 @@
                             </div>
                         </div>
                     </div>
-                    </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
@@ -316,8 +315,8 @@
                 $('#save_menu').click(function() {
                     let m_check = $('#updateMenu').valid();
 
-                    if (m_check == true) {
-                        data = {
+                    if (m_check === true) {
+                        const data = {
                             id: $("#m_id").val(),
                             name: $('#m_name').val(),
                             menu_url: $('#m_menu_url').val(),
@@ -326,12 +325,11 @@
                             use: $('input[name=use]').val(),
                             target: $('input[name=target]').val(),
                         }
-
                         Axios.post('/api/menu/update', data).then((resp) => {
                             $('#save_menu').toggleClass('d-none')
                             $('#ContentData input, #ContentData select, #ContentData textarea').attr(
                                 'disabled',
-                                function(index, attr) {
+                                function (index, attr) {
                                     return attr == 'disabled' ? null : ''
                                 })
                             Toast.fire({
@@ -358,8 +356,17 @@
                     localStorage.setItem('MenuParentId', $(this).attr('key'));
                 });
                 $('.CreateMenu').on('click', function () {
+                    const langs = {!! $data['langs'] !!};
+                    let dataJ = {}
+
+                    $.each(langs, function (i, v){
+                        const inp = $('#BoardName'+v.country_code).val()
+                        const code = v.country_code
+                        dataJ[code] = inp
+                    });
+                        // console.log(JSON.stringify(data))
                     const data = {
-                        MenuName: $('#BoardName').val(),
+                        MenuName: JSON.stringify(dataJ),
                         OpenType: $("input[name='target']:checked").val(),
                         parent_id: $('#CreateMenuModal').attr('key')
                     };
