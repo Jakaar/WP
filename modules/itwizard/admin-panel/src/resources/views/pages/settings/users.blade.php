@@ -13,11 +13,12 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
-                        class="fa fa-plus"></i> Create new member </a>
                 <button type="button" data-bs-toggle="tooltip" title="{{ __('Refresh') }}" data-bs-placement="bottom"
                     class="btn-shadow me-3 btn btn-info refresh-page">
                     <i class="pe-7s-refresh-2"></i>
+                </button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <i class="fa fa-plus"></i> Create new member
                 </button>
 
             </div>
@@ -42,11 +43,11 @@
             <div class="col-lg-4">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <h5 class="card-title">{{$roles->display_name}}</h5>
+                        <h5 class="card-title">{{ $roles->display_name }}</h5>
                         <div class="text-center">
                             <h3>
                                 <small><i class="lnr-user icon-gradient bg-happy-fisher"></i></small>
-                                <span class="count-up-wrapper"> {{$roles->users->count()}} </span>
+                                <span class="count-up-wrapper"> {{ $roles->users->count() }} </span>
                             </h3>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
             </div>
         @endforeach
     </div>
-    <div class="main-card mb-3 card">
+    <div class=" mb-3 card card-btm-border border-primary">
         <div class="card-body">
             <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
                 <thead>
@@ -76,7 +77,7 @@
                             <td>{{ $user->firstname }}</td>
                             <td>{{ $user->lastname }}</td>
                             <td>{{ $user->email }}</td>
-                            <td class="text-center">
+                            <td class="">
                                 <div class="mb-3 badgeroles">
                                     @foreach ($user->roles as $role)
                                         <span class="badge bg-success">{{ $role->display_name }} <a
@@ -101,24 +102,25 @@
                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                 </div>
                             </td>
-                            <td>
+                            <td class="">
                                 <div class="">
                                     <div class="widget-content-right widget-content-actions">
-                                        <button class="border-0 btn-transition btn btn-outline-success edituser"
+                                        <button class=" btn-transition btn btn-outline-primary edituser"
                                             data-id="{{ $user->id }}" data-bs-toggle="modal"
                                             data-bs-target="#editUserModal">
-                                            <i class="fa fa-edit"></i>
+                                            {{ __('Edit') }}
                                         </button>
 
-                                        <button class="border-0 btn-transition btn btn-outline-primary role-switcher"
+                                        <button class=" btn-transition btn btn-outline-danger delete_user"
                                             data-id="{{ $user->id }}">
-                                            <i class="fa fa-lock"> </i>
+                                            {{ __('Delete') }}
                                         </button>
 
-                                        <button class="border-0 btn-transition btn btn-outline-danger delete_user"
+                                        <button class=" btn-transition btn btn-outline-secondary role-switcher"
                                             data-id="{{ $user->id }}">
-                                            <i class="fa fa-trash-alt"></i>
+                                            {{ __('Change Role') }}
                                         </button>
+
                                     </div>
                                 </div>
                             </td>
@@ -126,16 +128,16 @@
                     @endforeach
                 </tbody>
                 <!-- <tfoot>
-                            <tr>
-                                <th>{{ __('ID') }}</th>
-                                <th>{{ __('User') }}</th>
-                                <th>{{ __('Email') }}</th>
-                                <th>{{ __('User Name') }}</th>
-                                <th>{{ __('Role') }}</th>
-                                <th>{{ __('Status') }}</th>
-                                <th>{{ __('Action') }}</th>
-                            </tr>
-                        </tfoot> -->
+                                                <tr>
+                                                    <th>{{ __('ID') }}</th>
+                                                    <th>{{ __('User') }}</th>
+                                                    <th>{{ __('Email') }}</th>
+                                                    <th>{{ __('User Name') }}</th>
+                                                    <th>{{ __('Role') }}</th>
+                                                    <th>{{ __('Status') }}</th>
+                                                    <th>{{ __('Action') }}</th>
+                                                </tr>
+                                            </tfoot> -->
             </table>
         </div>
 
@@ -186,12 +188,12 @@
                 <div class="modal-body">
                     <form class="row" id="create_user_form">
                         <!-- <div class="col-lg-4">
-                                    <div class="w-100 border" style="height:200px;">
-                                        <img src="" alt="" id="logo-photo-preview">
-                                    </div>
-                                    <input type="file" class="d-none" name="avatar" id="c-avatar">
-                                    <button type="button" class=" btn btn-secondary btn-block w-100" onclick="filemanager.selectFile('avatar')"> {{ __('Upload image') }} </button>
-                                </div> -->
+                                                        <div class="w-100 border" style="height:200px;">
+                                                            <img src="" alt="" id="logo-photo-preview">
+                                                        </div>
+                                                        <input type="file" class="d-none" name="avatar" id="c-avatar">
+                                                        <button type="button" class=" btn btn-secondary btn-block w-100" onclick="filemanager.selectFile('avatar')"> {{ __('Upload image') }} </button>
+                                                    </div> -->
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
@@ -274,7 +276,7 @@
                                     <input type="password" class="form-control" placeholder="{{ __('Password') }} "
                                         name="password" id="password">
                                     <small class="form-text text-muted">
-                                        Leave empty to keep the same
+                                        {{ __('Leave empty to keep the same') }}
                                     </small>
                                 </div>
                             </div>
@@ -566,13 +568,12 @@
                     icon: resp.data.icon,
                     title: resp.data.msg
                 });
-                if(resp.data.icon == 'error'){
-                    
-                }
-                else{
+                if (resp.data.icon == 'error') {
+
+                } else {
                     window.location.reload()
                 }
-                
+
 
             }).catch((err) => {
                 Toast.fire({

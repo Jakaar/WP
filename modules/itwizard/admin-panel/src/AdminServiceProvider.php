@@ -1,8 +1,10 @@
 <?php
 
 namespace Itwizard\Adminpanel;
+
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\Localization;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -12,15 +14,26 @@ use Itwizard\Adminpanel\Console\ProcessCommand;
 class AdminServiceProvider extends ServiceProvider
 {
     public function boot(Router $router){
-        view()->share('data', $this->GetDatas());
+        // $data['logo'] = DB::table('wpanel_site_info')
+        //     ->select('logo')
+        //     ->first();
+        // view()->share('logo', $data);
+//        dd(view()->share('logo', $data));
+//        dd($data['logo']->logo);
         $this->loadRoutesFrom(__DIR__.'./routes/web.php');
         $this->loadRoutesFrom(__DIR__.'./routes/api.php');
         $this->loadViewsFrom(__DIR__.'./resources/views','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/app.php','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/menus.php','Menu');
+        $this->mergeConfigFrom(__DIR__.'./config/settings.php','setting');
         $this->loadMigrationsFrom(__DIR__.'./database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'./resources/lang');
-        $this->loadViewComponentsAs('adminComponents',[]);
+        $this->loadViewComponentsAs('adminComponents',[
+
+        ]);
+//        $this->publishes([
+//            __DIR__.'./resources/lang' => resource_path('lang'),
+//        ]);
         $router->middlewareGroup('auth', array(
                 \App\Http\Middleware\EncryptCookies::class,
                 \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -32,6 +45,8 @@ class AdminServiceProvider extends ServiceProvider
                 Localization::class,
             )
         );
+//        dd($data);
+//        return $data;
     }
     public function register()
     {
@@ -39,13 +54,5 @@ class AdminServiceProvider extends ServiceProvider
             ProcessCommand::class,
             ControllerCommand::class,
         ]);
-    }
-    public function GetDatas()
-    {
-        $data['langs'] = DB::table('wpanel_available_language')->get();
-        $data['logo'] = DB::table('wpanel_site_info')
-            ->select('logo')
-            ->first();
-        return $data;
     }
 }

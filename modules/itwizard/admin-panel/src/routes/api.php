@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Itwizard\Adminpanel\Http\ApiControllers\Board\BoardMasterController;
-
+use Itwizard\Adminpanel\Http\ApiControllers\Preferences\PreferencesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,9 +37,15 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/member/role/remove',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'roleRemove']);
     Route::post('/role/single',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'roleSingle']);
 
-
+    Route::post('/permission/get',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'getPermission']);
+    Route::post('/permission/settings/update',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'permissionSettingsUpdate']);
+    Route::post('/permission/settings/create',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'permissionSettingsCreate']);
     Route::post('/permission/update',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'permissionUpdate']);
     Route::post('/permission/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'permissionDelete']);
+
+    Route::post('/preferences/create',[PreferencesController::class, 'create']);
+    Route::post('/preferences/update',[PreferencesController::class, 'update']);
+    Route::post('/preferences/delete',[PreferencesController::class, 'delete']);
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);

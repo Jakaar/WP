@@ -17,6 +17,8 @@
                     class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
+                <button type="button" class="btn btn-primary px-5" id="edit"><i class="fa fa-cog"></i> Edit </button>
+                <button type="button" class="btn btn-success d-none px-5" id="save"> <i class="fa fa-save"></i> Save Changes </button>
             </div>
         </div>
     </div>
@@ -167,9 +169,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="col-lg-12 text-center">
-                    <button type="button" class="btn btn-primary px-5" id="edit"> Edit </button>
-                    <button type="button" class="btn btn-success d-none px-5" id="save"> Save Changes </button>
-                    <button type="button" class="btn btn-secondary px-5"> Close </button>
+                   
                 </div>
 
             </form>
