@@ -41,16 +41,10 @@
                         <div class="col-sm-12 col-md-3">
                             <h5 class="card-title">{{__('Board Type')}}</h5>
                             <select class="multiselect-dropdown form-control">
-                                <optgroup label="Alaskan/Hawaiian Time Zone">
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                                </optgroup>
-                                <optgroup label="Pacific Time Zone">
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                </optgroup>
+                                <option value="" selected disabled>{{__('Choose')}}</option>
+                                @foreach($data['board_type'] as $type)
+                                <option value="{{$type->key}}">{{$type->key}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-sm-12 col-md-3">

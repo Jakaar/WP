@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
              SiteInfoSeeder::class,
              ContactUsSeeder::class,
              UserMenuSeeder::class,
+             NoticeBoardSeeder::class
          ]);
     }
 }
