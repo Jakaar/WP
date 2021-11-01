@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="main-card mb-3 card mt-4">
-        <div class="card-body">
+        <div class="card-body card-btm-border card-shadow-primary border-primary">
             <table style="width: 100%;" id="BulletInBoard" class="table table-hover table-striped table-bordered">
                 <thead>
                 <tr>
