@@ -35,7 +35,7 @@
                 <th>Title</th>
                 <th>Page address</th>
                 <th>Page title</th>
-                <th>Whether or not to use</th>
+                <th>Is Used</th>
                 <th>Registration date</th>
                 <th>Edit/Delete</th>
             </tr>

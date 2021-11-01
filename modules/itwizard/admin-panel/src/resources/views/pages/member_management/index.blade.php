@@ -23,7 +23,7 @@
 
     <div class=" card mb-3 card-btm-border border-primary">
         <div class="card-body">
-            <div class="card-title mb-3"> {{ __('Todays subscription status (individual)') }} </div>
+            <div class="card-title mb-3"> {{ __("Today's subscription status (individual)") }} </div>
             <table style="width: 100%;" id="new_table" class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
@@ -76,7 +76,7 @@
     <div class="card mb-3 card-btm-border border-primary">
         <div class="card-body">
 
-            <div class="card-title mb-3"> {{ __("Today's Discount Coupon Usage Status ") }} </div>
+            <div class="card-title mb-3"> {{ __("Today's Discount Coupon Usage Status") }} </div>
             <table style="width: 100%;" id="new_table_3" class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>

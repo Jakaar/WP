@@ -3,9 +3,12 @@
 $(document).ready(() => {
   setTimeout(function () {
     $(".slick-slider").slick({
-      dots: true,
+      // dots: true,
       slidesToShow: 1,
       slidesToScroll: 1,
+        arrows: false,
+        infinite: true,
+        speed: 500,
     });
 
     $(".slick-slider-3").slick({

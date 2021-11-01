@@ -10,7 +10,7 @@
                                 <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
                             </div>
                             <div>
-                                Send a mail
+                                {{__('Send a mail')}}
                                 <div class="page-title-subheading"></div>
                             </div>
                         </div>

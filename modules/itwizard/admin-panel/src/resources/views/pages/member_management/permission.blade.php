@@ -19,7 +19,7 @@
                 </button>
 
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <i class="fa fa-plus"></i> Create new role </button>
+                    <i class="fa fa-plus"></i> {{__('Create new role')}} </button>
 
                 {{-- <div class="d-inline-block">
                            <button type="button" class="btn-shadow dropdown-toggle btn btn-info">

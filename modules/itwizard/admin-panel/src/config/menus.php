@@ -120,17 +120,11 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/preferences/api',
                 'icon'=>'pe-7s-share',
                 'name'=>'API management',
                 'colorClass'=>'success',
                 'child' => [
-                    [
-                        'url'=>'cms/preferences/api',
-                        'icon'=>'',
-                        'name'=>'API',
-                        'child' => null
-                    ],
                 ],
             ],
             [
@@ -148,17 +142,11 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/preferences/seo_manage',
                 'icon'=>'pe-7s-link',
                 'name'=>'SEO Manage',
                 'colorClass'=>'success',
                 'child' => [
-                    [
-                        'url'=>'cms/preferences/seo_manage',
-                        'icon'=>'',
-                        'name'=>'SEO Manage',
-                        'child' => null
-                    ],
                 ],
             ],
             [
@@ -409,24 +397,24 @@ return [
             [
                 'url'=>'cms/noticeboard',
                 'icon'=>'pe-7s-airplay',
-                'name'=>'Notice board management',
+                'name'=>'Notice Board Manage',
                 'child' => [
                     [
                         'url'=>'cms/noticeboard',
                         'icon'=>'',
-                        'name'=>'Notice board management',
+                        'name'=>'Notice Board Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Integrated comment management',
+                        'name'=>'Comment Manage',
                         'child' => null
                     ],
                     [
                         'url'=>'#',
                         'icon'=>'',
-                        'name'=>'Integrated management of posts',
+                        'name'=>'Post Manage',
                         'child' => null
                     ],
                     [
@@ -438,17 +426,11 @@ return [
                 ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/settings',
                 'icon'=>'pe-7s-check',
                 'name'=>'Simple counseling',
                 'colorClass'=>'index',
                 'child' => [
-                    [
-                        'url'=>'cms/settings',
-                        'icon'=>'',
-                        'name'=>'Simple counseling',
-                        'child' => null
-                    ],
                 ],
             ],
             [

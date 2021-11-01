@@ -1,4 +1,5 @@
 @extends('Admin::layouts.master')
+@inject('t','App\Helper\Helper')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -30,7 +31,9 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card-title">Menus</div>
+            @php
+            @endphp
+            <div class="card-title">{{ __('Menu')}}</div>
             <div class="main-card mb-3 p-2 card">
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
@@ -40,7 +43,9 @@
                                     <li class="">
                                         <a href="#" aria-expanded="false" data-key="{{ $category->id }}">
                                             <i class="metismenu-icon pe-7s-less"></i>
-                                            {{ $category->name }}
+
+                                            {{ $t->translateText($category->name) }}
+
                                             <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                             <span class="">
                                                 <button key="{{ $category->id }}"
@@ -57,8 +62,7 @@
                                         </a>
                                         <ul class="mm-collapse" style="height: 7.04px;">
                                             @foreach ($category->childrenCategories as $childCategory)
-                                                @include('Admin::pages.user_menu.child_category', ['child_category' =>
-                                                $childCategory])
+                                                @include('Admin::pages.user_menu.child_category', ['child_category' => $childCategory])
                                             @endforeach
                                         </ul>
                                     </li>
@@ -66,7 +70,7 @@
                                     <li>
                                         <a href="#" class="GetContent" data-key="{{ $category->id }}">
                                             <i class="metismenu-icon pe-7s-less"></i>
-                                            {{ $category->name }}
+                                            {{ $t->translateText($category->name) }}
                                             <span class="">
                                                 <button key="{{ $category->id }}"
                                                     class="btn btn-outline-success float-end navBtns ModalShow">
@@ -169,19 +173,30 @@
     </div>
     @endsection
     @section('modal')
-        <div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="mb-3 card">
-                        <div class="card-header-tab card-header">
-                            <div class="card-header-title font-size-lg text-capitalize fw-normal">
-                                {{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i> --}}
-                                {{ __('Create Board') }}
-                            </div>
-                        </div>
+<div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class=" card">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize fw-normal">
+                        {{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i> --}}
+                        {{ __('Create Board') }}
                     </div>
-                    <div class="modal-body">
+                </div>
+            </div>
+            <div class="modal-body">
+                <ul class="nav tabs-animated">
+                    @foreach($data['langs'] as $key=>$lang)
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
+                            <span class="nav-text">{{$lang->country}}</span>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+                <div class="tab-content mt-3">
+                    @foreach($data['langs'] as $key=>$lang)
+                    <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
                         <form id="CrtBrd">
                             <div class="row">
                                 <div class="col-md-6">
@@ -191,40 +206,38 @@
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-6"> --}}
-                                {{-- <h5 class="card-title">{{__('Board Type')}}</h5> --}}
-                                {{-- <select id="BoardType" class="multiselect-dropdown form-control"> --}}
-                                {{-- <option value="" selected disabled>{{__('Choose')}}</option> --}}
-
-                                {{-- </select> --}}
-                                {{-- </div> --}}
+                                    {{-- <h5 class="card-title">{{__('Board Type')}}</h5> --}} {{-- <select id="BoardType" class="multiselect-dropdown form-control"> --}}
+                                        {{-- <option value="" selected disabled>{{__('Choose')}}</option> --}} {{-- </select> --}}
+                                    {{-- </div> --}}
                             </div>
-                            <hr class="text-primary">
-                            <div class="row mt-2">
-                                <div class="col-6">
-                                    <h5 class="card-title">{{ __('Window') }}</h5>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="blank" name="target" value="1">
-                                        <label class="form-check-label" for="blank">{{ __('Current Tab') }}</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="current" name="target" value="0"
-                                            checked>
-                                        <label class="form-check-label" for="current">{{ __('New Tab') }}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-info"
-                            data-bs-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="button" class="btn btn-success CreateMenu">{{ __('Create') }}</button>
-                    </div>
+                    @endforeach
                 </div>
+                    <hr class="text-primary">
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <h5 class="card-title">{{ __('Window') }}</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="blank" name="target" value="1">
+                                <label class="form-check-label" for="blank">{{ __('Current Tab') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="current" name="target" value="0" checked>
+                                <label class="form-check-label" for="current">{{ __('New Tab') }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                <button type="button" class="btn btn-success CreateMenu">{{ __('Create') }}</button>
             </div>
         </div>
+    </div>
+</div>
     @endsection
     @section('script')
         <script>

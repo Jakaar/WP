@@ -19,7 +19,7 @@
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                 <button href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
-                        class="fa fa-plus"></i> Create new member </button>
+                        class="fa fa-plus"></i> {{__('Create new member')}} </button>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
                     <tr>
                         <th>{{ __('ID') }}</th>
                         <th>{{ __('Firstname') }}</th>
-                        <th>{{ __('lastname') }}</th>
+                        <th>{{ __('Lastname') }}</th>
                         <th>{{ __('Email') }}</th>
                         <th>{{ __('Roles') }}</th>
                         <th>{{ __('Status') }}</th>

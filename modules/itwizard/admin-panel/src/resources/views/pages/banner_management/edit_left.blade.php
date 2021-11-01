@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative mb-3">
-                                <label for="exampleCity" class="form-label">{{__('Whether Or Not To Use')}}*</label>
+                                <label for="exampleCity" class="form-label">{{__('Is Used')}}*</label>
                                 <div class="position-relative">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
