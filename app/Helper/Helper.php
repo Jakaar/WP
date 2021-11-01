@@ -1,16 +1,17 @@
 <?php
-namespace Adminpanel\Helpers;
+namespace App\Helper;
 
 use Illuminate\Support\Facades\Session;
-class TranslateHelper
+class Helper
 {
     public function __construct()
     {
 
     }
+
     public function translateText($word)
     {
-        return $word;
+        dd('from helper');
     }
 
 }

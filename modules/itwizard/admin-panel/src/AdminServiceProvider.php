@@ -1,7 +1,6 @@
 <?php
 
 namespace Itwizard\Adminpanel;
-
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\Localization;
 use Illuminate\Routing\Router;
