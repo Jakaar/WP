@@ -28,7 +28,7 @@
     "Already have an account?": "이미 계정이 있습니까?",
     "Sign in": "로그인",
     "Create Account": "가입하기",
-
+    
     "Enter title": "제목을 입력해 주세요",
     "Enter email": "이메일 주소를 입력해 주세요",
     "Phone": "전화",
@@ -457,6 +457,8 @@
     "Membership/My Page": "회원 자격/나의 페이지",
     "Login Image": "로그인 이미지",
     "Logout Image": "로그아웃 이미지",
+    "Logout": "로그아웃",
+    "Admin name": "관리자 이름",
     "Signup Image": "가입 이미지",
     "My Page Image": "나의 페이지 이미지",
     "top menu": "상위 메뉴",
@@ -543,7 +545,7 @@
     "Sent Items": "보낸 항목",
     "Trash": "휴지통",
     "Email Settings": "이메일 설정",
-    "Email Signature": "이메일 서명",
+    "Email Signture": "이메일 서명",
     "Create your Signature": "새 서명 작성",
     "Email Suggestion": "이메일 제안",
     "Enable": "이네이블",
@@ -614,8 +616,5 @@
     "Menu Registration": "메뉴 등록",
     "Parent Category": "부모 카테고리",
     "Classification of use": "사용구분",
-    "Category name": "카테고리 이름",
-    "Authentication Failed": "로그인이 실패했습니다.",
-    "validation.required": "비밀번호가 입력되지 않았습니다."
-
+    "Category name": "카테고리 이름"
 }
