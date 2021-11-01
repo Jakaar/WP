@@ -1,5 +1,7 @@
 @extends('Admin::layouts.master')
+
 @inject('t','App\Helper\Helper')
+
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -187,17 +189,16 @@
             <div class="modal-body">
                 <ul class="nav tabs-animated">
                     @foreach($data['langs'] as $key=>$lang)
-                    <li class="nav-item">
-                        <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
-                            <span class="nav-text">{{$lang->country}}</span>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
+                                <span class="nav-text">{{$lang->country}}</span>
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
                 <div class="tab-content mt-3">
                     @foreach($data['langs'] as $key=>$lang)
-                    <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
-                        <form id="CrtBrd">
+                        <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="position-relative mb-3">
@@ -210,7 +211,7 @@
                                         {{-- <option value="" selected disabled>{{__('Choose')}}</option> --}} {{-- </select> --}}
                                     {{-- </div> --}}
                             </div>
-                    </div>
+                        </div>
                     @endforeach
                 </div>
                     <hr class="text-primary">
