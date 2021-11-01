@@ -2,7 +2,7 @@
     <div class="app-header__logo">
         <div class="logo-src">
             <a href="/cms">
-                <img class="logo-src" src="{{$logo['logo']->logo ?? ''}}" alt="">
+                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">
             </a>
         </div>
         <div class="header__pane ms-auto">
