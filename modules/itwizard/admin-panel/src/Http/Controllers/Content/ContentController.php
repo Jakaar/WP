@@ -23,7 +23,8 @@ class ContentController extends Controller
             ->where('isEnabled', 1)
             ->with('childrenCategories')
             ->get();
+        $data['langs'] = DB::table('wpanel_available_language')->get();
 //        dd($categories);
-        return view('Admin::pages.user_menu.menu', compact('categories'));
+        return view('Admin::pages.user_menu.menu', compact('categories','data'));
     }
 }
