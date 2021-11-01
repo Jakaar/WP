@@ -56,26 +56,32 @@
                         </div>
                         <div class="h-100 d-flex justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9 card p-5 card-btm-border card-shadow-primary border-info">
-                                <div class="img-fluid" style="width: 250px;">
-                                    <img src="{{asset('aPanel/imgs/wpanel_colored.png')}}" class="img-fluid" alt="Logo">
-                                    <hr>
-                                </div>
-                                <div class="rm-pointers" style="align-self: self-end;">
-                                    @if(session()->get('locale') == 'kr')
-                                    <a href="/lang/en" type="button">
-                                        <span class="icon-wrapper icon-wrapper-alt">
-                                            <span class="icon-wrapper-bg "></span>
-                                            <span class="language-icon opacity-8 flag large  US "></span>
-                                        </span>
-                                    </a>
-                                    @else
-                                    <a href="/lang/kr" type="button">
-                                        <span class="icon-wrapper icon-wrapper-alt">
-                                            <span class="icon-wrapper-bg "></span>
-                                            <span class="language-icon opacity-8 flag large  KR "></span>
-                                        </span>
-                                    </a>
-                                    @endif
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                    <div class="img-fluid" style="width: 250px;">
+                                         <img src="{{asset('aPanel/imgs/wpanel_colored.png')}}" class="img-fluid" alt="Logo">
+                                        <hr>
+                                    </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="rm-pointers">
+                                            @if(session()->get('locale') == 'kr')
+                                        <a href="/lang/en" type="button" class="float-right" style="float:right">
+                                            <span class="icon-wrapper icon-wrapper-alt">
+                                                <span class="icon-wrapper-bg "></span>
+                                                <span class="language-icon opacity-8 flag large  US "></span>
+                                            </span>
+                                        </a>
+                                            @else
+                                         <a href="/lang/kr" type="button" class="float-right" style="float:right">
+                                            <span class="icon-wrapper icon-wrapper-alt">
+                                                <span class="icon-wrapper-bg "></span>
+                                                <span class="language-icon opacity-8 flag large  KR "></span>
+                                            </span>
+                                         </a>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                                 <h4 class="mb-0">
                                     <span class="d-block">{{ __('Welcome back') }}, </span>
