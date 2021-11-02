@@ -14,12 +14,12 @@ class PageManageController extends Controller
 
     public function index()
     {
-        $data = DB::table('wpanel_page_manage')
+        $datas = DB::table('wpanel_page_manage')
             ->where('isEnable', 1)
             ->get();
 //      return $data;
 //        return response()->json($data, 200);
-        return view('Admin::pages.manage_pages.manage_pages')->with('data',$data);
+        return view('Admin::pages.manage_pages.manage_pages',compact('datas'));
 
     }
 }
