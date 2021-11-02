@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
+            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
             <button class="btn btn-success CreateBoard">
@@ -56,4 +56,11 @@
     </div>
 </div>
 
+@endsection
+@section('script')
+<script>
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
+</script>
 @endsection

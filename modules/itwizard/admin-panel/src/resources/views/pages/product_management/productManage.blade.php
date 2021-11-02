@@ -12,7 +12,7 @@
         </div>
         <div class="page-title-actions">
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info">
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                 <div class="d-inline-block dropdown">
@@ -112,6 +112,9 @@
     $('#allselect').click(function() {
         $('input:checkbox').not(this).prop('checked', this.checked);
     })
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 </script>
 
 @endsection

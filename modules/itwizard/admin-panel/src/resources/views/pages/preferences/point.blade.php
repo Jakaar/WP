@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="page-title-actions">
-                        <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                        <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                             class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                             <i class="pe-7s-refresh-2"></i>
                         </button>
@@ -33,13 +33,13 @@
                 </div>
                 <div class="card-body">
                     <form action=""  class="row">
-                       
+
                         <div class="col-lg-12 mb-3">
                             <h4><label for="" class="form-label fw-bold"> {{__('Basic deposit payment')}} </label></h4>
                             <div class="clearfix"></div>
                         </div>
-                     
-                       
+
+
                         <div class="col-lg-12 mb-3">
                             <label for="" class="form-label fw-bold"> {{__('Member sign-up points')}}</label>
 
@@ -68,13 +68,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-12 mb-3">
                             <h4><label for="" class="form-label fw-bold"> {{__('Payment of purchase points')}} </label></h4>
                             <div class="clearfix"></div>
                         </div>
-                       
-                      
+
+
                         <div class="col-lg-12 mb-3">
                              <label for="" class="form-label fw-bold">   {{__('Purchase Point Policy')}}</label>
                              <div class="clearfix"></div>
@@ -87,13 +87,13 @@
                                    {{__(' No deposit payment')}}
                                 </label>
                             </div>
-                            
+
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                {{__('Payment of points set in membership level')}}
                                 </label>
-                            </div>                           
+                            </div>
                         </div>
 
                         <div class="col-lg-9 mb-3">
@@ -105,12 +105,12 @@
                                     <span class="input-group-text">{{__('of payment')}}</span>
 
                                     <input id="disabledInput1" type="number"  class="form-control" aria-label="Amount (to the nearest dollar)" disabled >
-                                   
+
                                     <div class="input-group-append">
                                         <span class="input-group-text">{{__('% Payments')}}</span>
                                     </div>
                             </div>
-                            
+
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">
                                   <input id="saleDisabled" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" >
@@ -172,14 +172,14 @@
 
 
                         <div class="col-lg-12 mb-3">
-                            <button class="btn btn-success CreateBoard">{{__('save')}} </button>   
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">{{__('cancel')}}</button>      
+                            <button class="btn btn-success CreateBoard">{{__('save')}} </button>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">{{__('cancel')}}</button>
                         </div>
 
 
-                        
+
                     </form>
-                    
+
                 </div>
             </div>
 
@@ -189,14 +189,16 @@
 
 @section('script')
 <script>
-
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 
 $(document).on('click', '#paymentDisabled', function() {
     $('#disabledInput1').removeAttr('disabled');
     $('#disabledInput2').attr('disabled','disabled');
     $('#disabledInput3').attr('disabled','disabled');
-    $('#disabledInput2').val(''); 
-    $('#disabledInput3').val(''); 
+    $('#disabledInput2').val('');
+    $('#disabledInput3').val('');
 
 })
 
@@ -204,16 +206,16 @@ $(document).on('click', '#saleDisabled', function() {
     $('#disabledInput2').removeAttr('disabled');
     $('#disabledInput1').attr('disabled','disabled');
     $('#disabledInput3').attr('disabled','disabled');
-    $('#disabledInput1').val(''); 
-    $('#disabledInput3').val(''); 
+    $('#disabledInput1').val('');
+    $('#disabledInput3').val('');
 });
 
 $(document).on('click', '#perDisabled', function() {
     $('#disabledInput3').removeAttr('disabled');
     $('#disabledInput2').attr('disabled','disabled');
     $('#disabledInput1').attr('disabled','disabled');
-    $('#disabledInput2').val(''); 
-    $('#disabledInput1').val(''); 
+    $('#disabledInput2').val('');
+    $('#disabledInput1').val('');
 
 });
 
