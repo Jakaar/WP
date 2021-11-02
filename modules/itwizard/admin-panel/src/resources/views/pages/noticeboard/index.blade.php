@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info">
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                    <div class="d-inline-block dropdown">
@@ -265,7 +265,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success CreateBoard">{{__('Create')}}</button>
                 </div>
@@ -352,6 +352,9 @@
                     ]
                 },
             });
+        });
+        $('#reload_page').click(function () {
+            location.reload(true);
         });
     </script>
 @endsection

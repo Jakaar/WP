@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                     class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card card-btm-border card-shadow-primary border-primary">
         <div class="card-body">
             <table class="table table-striped table-hover" id="BasicTable">
                 <thead>
@@ -52,7 +52,9 @@
 @endsection
 @section('script')
     <script>
-
+        $('#reload_page').click(function () {
+            location.reload(true);
+        });
     </script>
 @endsection
 @section('modal')
@@ -102,7 +104,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-primary">{{__('Save Changes')}}</button>
                 </div>

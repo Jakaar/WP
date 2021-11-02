@@ -59,7 +59,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                     <div class="img-fluid" style="width: 250px;">
-                                         <img src="{{asset('aPanel/imgs/wpanel_colored.png')}}" class="img-fluid" alt="Logo">
+                                         <img src="{{asset('aPanel/imgs/logo.png')}}" class="img-fluid" alt="Logo">
                                         <hr>
                                     </div>
                                     </div>

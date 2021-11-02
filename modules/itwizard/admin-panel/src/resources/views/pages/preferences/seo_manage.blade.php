@@ -12,7 +12,7 @@
         </div>
         <div class="page-title-actions">
 
-            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
+            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
             <button type="button" class="btn-shadow me-3 btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="card">
-    <div class="card-body">
+    <div class="card-body card-btm-border card-shadow-primary border-primary">
         <table style="width: 100%;" id="BulletInBoards" class="table table-hover table-striped table-bordered">
             <thead>
                 <tr>
@@ -96,6 +96,9 @@
     $('#allselect').click(function() {
         $('input:checkbox').not(this).prop('checked', this.checked);
     })
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 </script>
 @endsection
 @endsection
@@ -110,7 +113,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
-            <div class="card">
+            <div class="card card-btm-border card-shadow-success border-success">
                 <div class="card-body">
                     <form id="" action="" method="">
                         <input type="hidden" name="useFlag" value="u">

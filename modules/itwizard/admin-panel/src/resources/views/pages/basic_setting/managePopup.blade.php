@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                    <div class="d-inline-block dropdown ModalShow">
@@ -40,11 +40,11 @@
 
         </div>
     </div>
-    
-    <div class="main-card mb-3 card">
-        
+
+    <div class="main-card mb-3 card card-btm-border card-shadow-primary border-primary">
+
         <div class="card-body">
-            
+
             <h5 class="card-title">{{__('Manage Popups')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
                 <thead>
@@ -178,7 +178,7 @@
                             <label class="form-label"> {{__('Title')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Title')}}" name="title" id="title">
                         </div>
-             
+
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Posting Period')}} </label>
                             <div class="input-group">
@@ -188,7 +188,7 @@
                                 <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" placeholder="{{__('Date range')}}">
                             </div>
                         </div>
-                        
+
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Popup')}}</label>
 
@@ -238,12 +238,12 @@
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Pop-up Content')}} </label>
                             <div id="SiteInfoeditor1" name="SiteInfoeditor1">
-                               
+
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
                 </div>
@@ -277,7 +277,7 @@
                                 <input type="text" class="form-control" name="daterange" data-toggle="datepicker-icon">
                             </div>
                         </div>
-                        
+
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Popup')}}</label>
 
@@ -327,12 +327,12 @@
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{__('Pop-up Content')}} </label>
                             <div id="SiteInfoeditor2" name="SiteInfoeditor2">
-                               
+
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success" id="create_role">{{__('Save')}}</button>
                 </div>
@@ -342,13 +342,16 @@
 @endsection
 @section('script')
     <script>
+        $('#reload_page').click(function () {
+            location.reload(true);
+        });
         $('.ModalShow').click(function (){
             $('#AddRoleModal').modal('show')
         }),
         $('.ModalShowEdit').click(function (){
             $('#EditRoleModal').modal('show')
         }),
-        
+
         $(document).ready(function(){
             $('input[name="daterange"]').daterangepicker({
                 startDate: moment().startOf("month"),
@@ -383,7 +386,7 @@
                 },
             });
         }),
-        
+
         $(document).ready(function() {
         let editor;
         ClassicEditor.create(document.querySelector('#SiteInfoeditor1'))
