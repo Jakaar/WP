@@ -32,16 +32,17 @@
 
         <div class="card mb-3 card-btm-border border-primary card">
             <div class="card-body">
-                <div class="float-start">
+                <div class="card-body">
                     <div class="card-title"> {{__('Main Product creation code')}} </div>
-                </div>
-                <div class="float-end">
-                    <button class="btn btn-outline-secondary" data-type="success" class="btn btn-success btn-show-swal" id="generatorClick"> {{__('Copy generation code')}} </button>
-                </div>
-                <div class="clearfix"></div>
-                <div class="bg-light p-3">
-                    <code id="code"> </code>
-                </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="myInput1" value="Text to copy!">
+                        <div class="input-group-text">
+                            <button onclick="Copycode1()" data-title="Secondary" data-toggle="popover-main-product" data-bs-toggle="text-ligth bg-secondary" data-bs-content="Copied!" id="my-button" type="button" data-clipboard-target="myInput1" class="btn btn-outline-secondary clipboard-trigger">
+                                <i class="fa fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>                
+                   </div>
             </div>
         </div>
 
@@ -60,7 +61,7 @@
                 </ul>
             </div>
         </div>
-        <div class="card card-btm-border border-primary card mt-3">
+        <div class="card mb-3 card-btm-border border-primary card mt-3">
             <div class="card-body">
                 <div class="main-card mb-3">
                     <table style="width: 100%;" id="BulletInBoards" class="table table-hover table-striped table-bordered">
@@ -82,10 +83,8 @@
                                 <td>10</td>
                                 <td>10</td>
                                 <td>
-                                    <button class="btn btn-outline-secondary">
-                                        {{ ('Copy generation code') }}
-                                    </button>
-                                    <button class="btn-outline-primary btn">
+                                    
+                                    <button class="btn-outline-info btn">
                                         {{ ('Preview') }}
                                     </button>
                                     <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
@@ -93,6 +92,9 @@
                                     </button>
                                     <button class="btn-outline-danger btn-link btn">
                                         {{ ('Delete') }}
+                                    </button>
+                                    <button id="" type="button" data-clipboard-target="" class="btn btn-outline-secondary clipboard-trigger">
+                                        <i class="fa fa-copy"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -103,10 +105,8 @@
                                 <td>12</td>
                                 <td>15</td>
                                 <td>
-                                    <button class="btn btn-outline-secondary">
-                                        {{ ('Copy generation code') }}
-                                    </button>
-                                    <button class="btn-outline-primary btn">
+                                   
+                                    <button class="btn-outline-info btn">
                                         {{ ('Preview') }}
                                     </button>
                                     <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
@@ -114,6 +114,9 @@
                                     </button>
                                     <button class="btn-outline-danger btn-link btn">
                                         {{ ('Delete') }}
+                                    </button>
+                                    <button id="" type="button" data-clipboard-target="" class="btn btn-outline-secondary clipboard-trigger">
+                                        <i class="fa fa-copy"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -124,10 +127,8 @@
                                 <td>4</td>
                                 <td>8</td>
                                 <td>
-                                    <button class="btn btn-outline-secondary">
-                                        {{ ('Copy generation code') }}
-                                    </button>
-                                    <button class="btn-outline-primary btn">
+                                    
+                                    <button class="btn-outline-info btn">
                                         {{ ('Preview') }}
                                     </button>
                                     <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditPostModal">
@@ -135,6 +136,9 @@
                                     </button>
                                     <button class="btn-outline-danger btn-link btn">
                                         {{ ('Delete') }}
+                                    </button>
+                                    <button id="" type="button" data-clipboard-target="" class="btn btn-outline-secondary clipboard-trigger">
+                                        <i class="fa fa-copy"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -331,16 +335,34 @@
 <script>
     $('#code').text('@ include("header")')
 </script>
-
 <script>
-    $(document).ready(function() {
-        $("#generatorClick").click(function() {
-            Swal.fire({
-                title:"클립보드에 복사됨!",
-                icon:"success",
-                buttonS: true,
-            })
-        })
+    $('#code').text('@ include footer ')
+</script>
+<script>
+    function Copycode1() {
+    var copyText = document.getElementById('myInput1')
+    copyText.select();
+    document.execCommand('copy')
+    console.log('Copied Text')
+  } 
+</script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover-main-product"]').popover({
+        placement: 'top',
+        delay: {
+            "show": 300,
+            "hide": 100
+        }
     });
+
+    $('[data-toggle="popover-main-product"]').click(function () {
+
+        setTimeout(function () {
+            $('.popover').fadeOut('slow');
+        }, 2000);
+
+    });
+    })
 </script>
 @endsection
