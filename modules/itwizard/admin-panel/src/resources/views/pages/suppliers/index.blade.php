@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                     class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
@@ -135,18 +135,18 @@
                                     <tr>
                                         <th> {{ __('Inquiries') }} </th>
                                         <td> <textarea name="" id="" cols="30" rows="10" disabled class="form-control">링인터랙티브 이상덕이사입니다.
-                                                    저희 회사는 교육분야 SI/SM을 주로 하는 회사인데, 고객사 중에 자체 개발을 해서 개발인력 파견만 요청하는 회사가 있습니다.  
-                                                    
+                                                    저희 회사는 교육분야 SI/SM을 주로 하는 회사인데, 고객사 중에 자체 개발을 해서 개발인력 파견만 요청하는 회사가 있습니다.
+
                                                     가산동에 있고, 개발자 정직원 40여명과 프리랜서 개발자 20여명이 함께 근무중입니다. 7,8개월 기간의 새로운 프로젝트가 생겨서 15명 정도 프리랜서를 충원해야 하는 상황인데 국내에 ASP.NET 웹 개발자가 별로 없어서 문의 드립니다. 책을 활용한 온라인 교육 서비스이고, MVC 패턴의 ASP.NET, MS-SQL로 개발해야 합니다.
-                                                    
+
                                                     1. 몽골 현지에서만 프로젝트를 진행하시나요? 한국에 상주 가능한 인력은 없나요?
-                                                    
+
                                                     2. 몽골에서만 진행 가능하다면, 업무진행에 어려움은 없을까요? 기획과 디자인, 퍼블은 한국에서 진행하고 있고 개발만 담당하면 되는데, 보안문제나 다른 어려움은 없을까요?
-                                                    
+
                                                     3. 한국에 개발자를 파견할 수도 있다면, 비자문제나 저희가 준비해야 할것들이 어떤 것이 있을까요?
-                                                    
+
                                                     몽골 개발자들과 일해본 적이 없어서 가능성을 확인하고자 문의드립니다.
-                                                    
+
                                                     010-5319-4484, sdlee@ringi.co.kr 로 연락주시면 됩니다. </textarea></td>
                                     </tr>
                                     <tr>
@@ -185,5 +185,8 @@
 
                 });
         })
+        $('#reload_page').click(function () {
+            location.reload(true);
+        });
     </script>
 @endsection

@@ -20,6 +20,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'./resources/views','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/app.php','Admin');
         $this->mergeConfigFrom(__DIR__.'./config/menus.php','Menu');
+        $this->mergeConfigFrom(__DIR__.'./config/settings.php','setting');
         $this->loadMigrationsFrom(__DIR__.'./database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'./resources/lang');
         $this->loadViewComponentsAs('adminComponents',[]);

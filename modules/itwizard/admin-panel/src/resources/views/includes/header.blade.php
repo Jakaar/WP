@@ -480,7 +480,7 @@
                         <div class="widget-content-left  ms-3 header-user-info">
                             <div class="widget-heading"> {{auth()->user()->lastname}}
                             </div>
-                            <div class="widget-subheading"> VP People Manager</div>
+                            <div class="widget-subheading">{{ auth()->user()->email}}</div>
                         </div>
                     </div>
                 </div>

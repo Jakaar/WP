@@ -22,10 +22,10 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
-               
+
                 <button type="button" class="search-icon btn-shadow btn btn-success ModalShow">
                 <span class="btn-icon-wrapper pe-2 opacity-7">
                 <i class="pe-7s-plus"></i>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="main-card mb-3 card">
-        
+
         <div class="card-body">
             <h5 class="card-title">{{__('Menu Management')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
@@ -57,7 +57,7 @@
                         <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                  
+
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -73,7 +73,7 @@
                         <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                   
+
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -89,7 +89,7 @@
                         <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                  
+
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -105,7 +105,7 @@
                         <td>1</td>
                         <td>Main</td>
                         <td>2</td>
-                   
+
                         <td>사용함</td>
                         <td>
                             <button class="btn-outline-primary btn ModalShowEdit">
@@ -120,7 +120,7 @@
                         <td>5</td>
                         <td>2</td>
                         <td>  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;  Main</td>
-                     
+
                         <td>1</td>
                         <td>사용함</td>
                         <td>
@@ -136,7 +136,7 @@
                         <td>6</td>
                         <td>3</td>
                         <td> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; Main</td>
-                      
+
                         <td>1</td>
                         <td>사용함</td>
                         <td>
@@ -152,7 +152,7 @@
                         <td>7</td>
                         <td>3</td>
                         <td> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; Main</td>
-                      
+
                         <td>1</td>
                         <td>사용함</td>
                         <td>
@@ -168,7 +168,7 @@
                         <td>8</td>
                         <td>3</td>
                         <td> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; Main</td>
-                      
+
                         <td>1</td>
                         <td>사용함</td>
                         <td>
@@ -196,6 +196,9 @@
         $('.ModalShowEdit').click(function (){
             $('#EditRoleModal').modal('show')
         })
+        $('#reload_page').click(function () {
+            location.reload(true);
+        });
     </script>
 @endsection
 @section('modal')
@@ -223,7 +226,7 @@
                             <label class="form-label"> {{__('Menu Name')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Menu Name')}}" name="name" id="name">
                         </div>
-                        
+
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Status Classification')}}</label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
@@ -239,7 +242,7 @@
                                 <option>{{__('New Window')}}</option>
                             </select>
                         </div>
-                       
+
                         <div class="mb-3 col-lg-12">
                             <label for="exampleCity" class="form-label">{{__('Menu Type')}}</label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
@@ -255,10 +258,10 @@
                             <label for="exampleCity" class="form-label">{{__('Explanation')}}</label>
                             <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
-        
+
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
                 </div>
@@ -292,7 +295,7 @@
                             <label class="form-label"> {{__('Menu Name')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Menu Name')}}" name="name" id="name">
                         </div>
-                        
+
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Status Classification')}}</label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
@@ -308,7 +311,7 @@
                                 <option>{{__('New Window')}}</option>
                             </select>
                         </div>
-                       
+
                         <div class="mb-3 col-lg-12">
                             <label for="exampleCity" class="form-label">{{__('Menu Type')}}</label>
                             <select name="select" id="exampleSelect" class="form-select form-control">
@@ -324,10 +327,10 @@
                             <label for="exampleCity" class="form-label">{{__('Explanation')}}</label>
                             <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
-        
+
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success" id="create_role">{{__('Save')}}</button>
                 </div>

@@ -22,10 +22,10 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="Refresh" class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
-               
+
                 <button type="button" class="search-icon btn-shadow btn btn-success ModalShow">
                 <span class="btn-icon-wrapper pe-2 opacity-7">
                 <i class="pe-7s-plus"></i>
@@ -36,8 +36,8 @@
 
         </div>
     </div>
-    <div class="main-card mb-3 card">
-        
+    <div class="main-card mb-3 card card-btm-border card-shadow-primary border-primary">
+
         <div class="card-body">
             <h5 class="card-title">{{__('Main Banner Management')}}</h5>
             <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
@@ -166,6 +166,9 @@
 @endsection
 @section('script')
     <script>
+        $('#reload_page').click(function () {
+            location.reload(true);
+        });
         $('.ModalShow').click(function (){
             $('#AddRoleModal').modal('show')
         })
@@ -194,7 +197,7 @@
                             <label class="form-label"> {{__('Group Name')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Group Name')}}" name="group_name" id="group_name">
                         </div>
-                
+
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Banner Form')}}</label>
 
@@ -237,7 +240,7 @@
 
                                 </div>
                         </div>
-                       
+
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{__('Banner Spacing')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Banner Spacing')}}" name="banner_spacing" id="banner_spacing">
@@ -252,10 +255,10 @@
                                 <option>5</option>
                             </select>
                         </div>
-        
+
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
                 </div>
@@ -284,7 +287,7 @@
                             <label class="form-label"> {{__('Group Name')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Group Name')}}" name="group_name" id="group_name">
                         </div>
-                
+
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{__('Banner Form')}}</label>
 
@@ -327,7 +330,7 @@
 
                                 </div>
                         </div>
-                       
+
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{__('Banner Spacing')}} </label>
                             <input type="text" class="form-control" placeholder="{{__('Banner Spacing')}}" name="banner_spacing" id="banner_spacing">
@@ -342,10 +345,10 @@
                                 <option>5</option>
                             </select>
                         </div>
-        
+
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success" id="create_role">{{__('Save')}}</button>
                 </div>

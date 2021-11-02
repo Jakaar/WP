@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="page-title-actions">
-                    <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                    <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                         <i class="pe-7s-refresh-2"></i>
                     </button>
                 </div>
@@ -32,7 +32,7 @@
                         <i class="fa fa-copy"></i>
                        </button>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
         <div class="card mb-3 card-btm-border border-primary card">
@@ -70,6 +70,9 @@
 @section('script')
 <script>
     $('#code').text('@ include footer ')
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 </script>
 <script>
     function Copycode() {
@@ -77,7 +80,7 @@
     copyText.select();
     document.execCommand('copy')
     console.log('Copied Text')
-  }  
+  }
 </script>
 
 {{-- <script>
@@ -89,7 +92,7 @@
 //                     timer: 1500
 //                 })
 //     }) --}}
-        
+
 
 <script>
     $(document).ready(function(){
@@ -111,5 +114,5 @@
     })
 </script>
 
-  
+
 @stop
