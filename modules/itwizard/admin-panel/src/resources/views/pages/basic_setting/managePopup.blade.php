@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="main-card mb-3 card">
+    <div class="main-card mb-3 card card-btm-border card-shadow-primary border-primary">
 
         <div class="card-body">
 
@@ -243,7 +243,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success update-role">{{__('Save Changes')}}</button>
                 </div>
@@ -332,7 +332,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-success" id="create_role">{{__('Save')}}</button>
                 </div>

@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body card-btm-border card-shadow-success border-success">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="input-group mb-3 ">
@@ -274,7 +274,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body card-btm-border card-shadow-success border-success">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="input-group mb-3 ">

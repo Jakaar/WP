@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="card">
-    <div class="card-body">
+    <div class="card-body card-btm-border card-shadow-primary border-primary">
         <table style="width: 100%;" id="BulletInBoards" class="table table-hover table-striped table-bordered">
             <thead>
                 <tr>
@@ -113,7 +113,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
-            <div class="card">
+            <div class="card card-btm-border card-shadow-success border-success">
                 <div class="card-body">
                     <form id="" action="" method="">
                         <input type="hidden" name="useFlag" value="u">

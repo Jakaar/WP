@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="card mb-3">
+<div class="card mb-3 card-btm-border card-shadow-primary border-primary">
     <h5 class="card-header">Enable Google reCAPTCHA</h5>
 
     <div class="card-body position-relative">
@@ -34,7 +34,7 @@
         </ul>
     </div>
 </div>
-<div class="card">
+<div class="card card-btm-border card-shadow-primary border-primary">
     <div class="card-body">
         <h5 class="card-title">User Login</h5>
         <form class="">

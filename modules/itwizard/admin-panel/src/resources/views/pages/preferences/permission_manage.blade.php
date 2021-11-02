@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card card-btm-border card-shadow-primary border-primary">
         <div class="card-body">
             <table class="table table-striped table-hover" id="BasicTable">
                 <thead>
@@ -104,7 +104,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                     <button type="button" class="btn btn-primary">{{__('Save Changes')}}</button>
                 </div>

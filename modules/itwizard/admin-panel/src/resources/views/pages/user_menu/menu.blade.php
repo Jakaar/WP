@@ -107,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body card-btm-border border-primary">
                     <div id="ContentData" class="d-none">
                         <form action="" class="row" id="updateMenu">
                             <div class="mb-3 col-6">

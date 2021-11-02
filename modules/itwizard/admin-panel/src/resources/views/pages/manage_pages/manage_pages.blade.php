@@ -74,7 +74,7 @@
 @section('modal')
 <div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+        <div class="modal-content ">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">{{ __('Create Page') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -180,7 +180,7 @@
                 </div>
 
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer card-btm-border card-shadow-success border-success">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 <button type="button" class="btn btn-success createPageSubmit">{{ __('Save') }}</button>
             </div>
