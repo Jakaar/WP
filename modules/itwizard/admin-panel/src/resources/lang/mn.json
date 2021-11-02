@@ -205,8 +205,8 @@
     "Site information": "Сайтын мэдээлэл",
     "success": "Амжилттай",
     "error": "Алдаа гарлаа",
-    "Notice Board Management": "Мэдээллийн самбарын удирдлага",
-    "Popup": "Popup",
+    "Notice Board Management": "Мэдээллийн самбар",
+    "Popup": "Попап",
     "Gallery photos": "Зургийн цомог",
     "Bulletin Board Manage": "Bulletin Board Manage",
     "Create": "Үүсгэх",
@@ -350,7 +350,7 @@
     "Writing": "Бичиж байна",
     "Reply": "Хариулах",
     "Function": "Функц",
-    "Notice Board Number": "Notice Board Number",
+    "Notice Board Number": "Мэдээллийн самбарын дугаар",
     "Main Notice Board Creation Code": "Main Notice Board Creation Code",
     "Main Notice Board Number": "Main Notice Board Number",
     "Number of letters": "Үсгийн тоо",
@@ -414,7 +414,7 @@
     "User's Menu": "Хэрэглэгчийн цэс",
     "Integrated comment management": "Сэтгэгдлийн нэгдсэн удирдлага",
     "Integrated management of posts": "Нийтлэлийн нэгдсэн удирдлага",
-    "Notice board management": "Notice board management",
+    "Notice board management": "Мэдээллийн самбар",
     "List of notice board": "List of notice board",
     "General notice board": "General notice board",
     "Notice board": "Notice board",
@@ -616,5 +616,6 @@
     "Menu Registration": "Цэс бүртгэл",
     "Parent Category": "Parent Category",
     "Classification of use": "Ашиглаж буй ангилал",
-    "Category name": "Ангилалын нэр"
+    "Category name": "Ангилалын нэр",
+    "Notice Board Manage": "Мэдээллийн самбар"
 }
