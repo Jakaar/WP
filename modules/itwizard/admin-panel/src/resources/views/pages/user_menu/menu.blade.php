@@ -204,7 +204,7 @@
                                             <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
                                                 <div class="position-relative mb-3">
                                                     <h5 class="card-title">{{ __('Name') }}</h5>
-                                                    <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="email" class="form-control">
+                                                    <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="text" class="form-control requires-validation">
                                                 </div>
                                             </div>
                                         @endforeach
@@ -350,61 +350,80 @@
         </script>
         <script>
             $(document).ready(function (){
+                (function () {
+                    'use strict'
+                    const forms = document.querySelectorAll('.requires-validation')
+                    Array.from(forms)
+                        .forEach(function (form) {
+
+                            form.addEventListener('submit', function (event) {
+                                if (!form.checkValidity()) {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                }
+                                form.classList.add('was-validated')
+                            }, false)
+                        })
+                })()
                 $('.ModalShow').click(function (){
                     $('#CreateMenuModal').attr('key',$(this).attr('key')).modal('show');
                     localStorage.setItem('MenuParentId', $(this).attr('key'));
                 });
-                $('.CreateMenu').on('click', function () {
-                    const langs = {!! $data['langs'] !!};
-                    let dataJ = {}
-                    $.each(langs, function (i, v){
-                        const inp = $('#BoardName'+v.country_code).val()
-                        $('#creatForm').validate({
-                            rules: {
-                                inp: "required",
-                            },
-                            messages: {
-                                inp: "Please enter menu name",
-                            },
-                            errorElement: "c",
-                            errorPlacement: function(error, element) {
-                                // Add the `invalid-feedback` class to the error element
-                                error.addClass("invalid-feedback");
-                                if (element.prop("type") === "checkbox") {
-                                    error.insertAfter(element.next("label"));
-                                } else {
-                                    error.insertAfter(element);
-                                }
-                            },
-                            highlight: function(element, errorClass, validClass) {
-                                $(element).addClass("is-invalid").removeClass("is-valid");
-                            },
-                            unhighlight: function(element, errorClass, validClass) {
-                                $(element).addClass("is-valid").removeClass("is-invalid");
-                            },
-                        });
-                        const code = v.country_code
-                        dataJ[code] = inp
-                    });
-                        // console.log(JSON.stringify(data))
-                    const data = {
-                        MenuName: JSON.stringify(dataJ),
-                        OpenType: $("input[name='target']:checked").val(),
-                        parent_id: $('#CreateMenuModal').attr('key'),
-                        board_id: $('#JoinedBoard').val(),
-                    };
-                    // Axios.post('/api/CreateMenu', data).then((resp) => {
-                    //     Toast.fire({
-                    //         icon: 'success',
-                    //         title: resp.data.msg
-                    //     });
-                    //
-                    //     $('#CreateMenuModal').modal('hide').removeAttr('key');
-                    //     setTimeout(function (){
-                    //         location.reload()
-                    //     },2000);
-                    // });
-                });
+                {{--$('.CreateMenu').on('click', function () {--}}
+                {{--    const langs = {!! $data['langs'] !!};--}}
+                {{--    let dataJ = {}--}}
+                {{--    $.each(langs, function (i, v){--}}
+                {{--        const inp = $('#BoardName'+v.country_code).val()--}}
+                {{--        const id = '#BoardName'+v.country_code;--}}
+                {{--        $('#creatForm').validate({--}}
+                {{--            rules: {--}}
+                {{--                id: "required",--}}
+                {{--            },--}}
+                {{--            messages: {--}}
+                {{--                id: "Please enter menu name",--}}
+                {{--            },--}}
+                {{--            errorElement: "em",--}}
+                {{--            errorPlacement: function(error, element) {--}}
+                {{--                // Add the `invalid-feedback` class to the error element--}}
+                {{--                error.addClass("invalid-feedback");--}}
+                {{--                if (element.prop("type") === "checkbox") {--}}
+                {{--                    error.insertAfter(element.next("label"));--}}
+                {{--                } else {--}}
+                {{--                    error.insertAfter(element);--}}
+                {{--                }--}}
+                {{--            },--}}
+                {{--            highlight: function(element, errorClass, validClass) {--}}
+                {{--                $(element).addClass("is-invalid").removeClass("is-valid");--}}
+                {{--            },--}}
+                {{--            unhighlight: function(element, errorClass, validClass) {--}}
+                {{--                $(element).addClass("is-valid").removeClass("is-invalid");--}}
+                {{--            },--}}
+                {{--        });--}}
+                {{--        const code = v.country_code--}}
+                {{--        dataJ[code] = inp--}}
+                {{--    });--}}
+                {{--    if ($('#creatForm').valid()) {--}}
+                {{--        alert('valid')--}}
+                {{--    }--}}
+                {{--        // console.log(JSON.stringify(data))--}}
+                {{--    const data = {--}}
+                {{--        MenuName: JSON.stringify(dataJ),--}}
+                {{--        OpenType: $("input[name='target']:checked").val(),--}}
+                {{--        parent_id: $('#CreateMenuModal').attr('key'),--}}
+                {{--        board_id: $('#JoinedBoard').val(),--}}
+                {{--    };--}}
+                {{--    // Axios.post('/api/CreateMenu', data).then((resp) => {--}}
+                {{--    //     Toast.fire({--}}
+                {{--    //         icon: 'success',--}}
+                {{--    //         title: resp.data.msg--}}
+                {{--    //     });--}}
+                {{--    //--}}
+                {{--    //     $('#CreateMenuModal').modal('hide').removeAttr('key');--}}
+                {{--    //     setTimeout(function (){--}}
+                {{--    //         location.reload()--}}
+                {{--    //     },2000);--}}
+                {{--    // });--}}
+                {{--});--}}
                 $('.DeleteMenu').on('click', function () {
                     Swal.fire({
                         title: '{{__('Are you sure?')}}',
