@@ -1,4 +1,5 @@
-@extends('Admin::layouts.master') @section('content')
+@extends('Admin::layouts.master')
+@section('content')
 <style>
     .ck-editor__editable {
         min-height: 200px;
@@ -47,7 +48,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($data as $key => $page)
+                @foreach($datas as $key => $page)
                     <tr>
                         <td>{{$page->id}}</td>
                         <td>{{$page->menu_group}}</td>
@@ -71,7 +72,6 @@
 </div>
 @endsection
 @section('modal')
-
 <div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -80,6 +80,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <ul class="nav tabs-animated">
+                    @foreach($data['langs'] as $key=>$lang)
+                        <li class="nav-item">
+                            <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
+                                <span class="nav-text">{{$lang->country}}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="tab-content mt-3">
+                    @foreach($data['langs'] as $key=>$lang)
+                    <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
+                        <div class="row">
                 <form id="create_page_form" class="col-md-12 mx-auto" method="post" action="">
                     <div class="row">
                         <div class="col-md-2">
@@ -161,6 +174,11 @@
                         <!--                    </div>-->
                     </div>
                 </form>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
@@ -170,8 +188,8 @@
     </div>
 </div>
 <!--create page management-->
-@foreach($data as $key=>$page)
-<div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+@foreach($datas as $key=>$page)
+    <div class="modal fade page-edit-{{$page->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -270,7 +288,8 @@
 </div>
 @endforeach
 <!--edit page management-->
-@endsection @section('script')
+@endsection
+@section('script')
 <script>
     $(document).ready(function () {
         let editor5;
