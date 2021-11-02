@@ -171,86 +171,93 @@
     </div>
     @endsection
     @section('modal')
-<div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class=" card">
-                <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-normal">
-                        {{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i> --}}
-                        {{ __('Create Board') }}
+        <div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class=" card">
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title font-size-lg text-capitalize fw-normal">
+                                {{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i> --}}
+                                {{ __('Create Board') }}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <ul class="nav tabs-animated">
-                    @foreach($data['langs'] as $key=>$lang)
-                        <li class="nav-item">
-                            <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
-                                <span class="nav-text">{{$lang->country}}</span>
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-                <div class="tab-content mt-3">
-                    @foreach($data['langs'] as $key=>$lang)
-                        <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
+                    <div class="modal-body">
+                        <form id="creatForm">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="position-relative mb-3">
-                                        <h5 class="card-title">{{ __('Name') }}</h5>
-                                        <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="email" class="form-control">
+                                <div class="col-12">
+                                    <ul class="nav tabs-animated">
+                                        @foreach($data['langs'] as $key=>$lang)
+                                            <li class="nav-item">
+                                                <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
+                                                    <span class="nav-text">{{$lang->country}}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="tab-content mt-3">
+                                        @foreach($data['langs'] as $key=>$lang)
+                                            <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
+                                                <div class="position-relative mb-3">
+                                                    <h5 class="card-title">{{ __('Name') }}</h5>
+                                                    <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="email" class="form-control">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6"> --}}
-                                    {{-- <h5 class="card-title">{{__('Board Type')}}</h5> --}} {{-- <select id="BoardType" class="multiselect-dropdown form-control"> --}}
-                                        {{-- <option value="" selected disabled>{{__('Choose')}}</option> --}} {{-- </select> --}}
-                                    {{-- </div> --}}
+                                <div class="col-6">
+                                    <h5 class="card-title mt-3">{{__('Board Name')}}</h5>
+                                    <select id="JoinedBoard" class="multiselect-dropdown form-control">
+                                        <option value="" selected disabled>{{__('Choose')}}</option>
+                                        @foreach($main['board'] as $board)
+                                            <option value="{{$board->id}}">{{$board->board_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-                    <hr class="text-primary">
-                    <div class="row mt-2">
-                        <div class="col-6">
-                            <h5 class="card-title">{{ __('Window') }}</h5>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="blank" name="target" value="1">
-                                <label class="form-check-label" for="blank">{{ __('Current Tab') }}</label>
+                            <hr class="text-primary">
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <h5 class="card-title">{{ __('Window') }}</h5>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="blank" name="target" value="1">
+                                        <label class="form-check-label" for="blank">{{ __('Current Tab') }}</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="current" name="target" value="0" checked>
+                                        <label class="form-check-label" for="current">{{ __('New Tab') }}</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="current" name="target" value="0" checked>
-                                <label class="form-check-label" for="current">{{ __('New Tab') }}</label>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                <button type="button" class="btn btn-success CreateMenu">{{ __('Create') }}</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="button" class="btn btn-success CreateMenu">{{ __('Create') }}</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     @endsection
     @section('script')
         <script>
             $(document).ready(function() {
-
                 $('#ContentData input, #ContentData select, #ContentData textarea').attr('disabled', 'true')
                 $('.vertical-nav-menu li a').click(function() {
                     $('#ContentData').removeClass('d-none')
                     const id = $(this).data('key');
-
                     const data = {
                         id: id,
                     }
                     Axios.post('/api/get/menu', data).then((resp) => {
-
                         $('#menu_label').text(resp.data.data.name)
-
                         $('input[name=target]').prop('checked', false);
                         $('input[name=use]').prop('checked', false);
                         $('#m_id').val(resp.data.data.id);
@@ -273,11 +280,9 @@
                     $('#save_menu').toggleClass('d-none')
                     $('#ContentData input, #ContentData select, #ContentData textarea').attr('disabled',
                         function(index, attr) {
-                            return attr == 'disabled' ? null : ''
+                            return attr === 'disabled' ? null : ''
                         })
                 })
-
-
                 //validate update menu
                 $("#updateMenu").validate({
                     rules: {
@@ -305,8 +310,6 @@
                         $(element).addClass("is-valid").removeClass("is-invalid");
                     },
                 });
-
-
                 // update menu
                 $('#save_menu').click(function() {
                     let m_check = $('#updateMenu').valid();
@@ -354,9 +357,32 @@
                 $('.CreateMenu').on('click', function () {
                     const langs = {!! $data['langs'] !!};
                     let dataJ = {}
-
                     $.each(langs, function (i, v){
                         const inp = $('#BoardName'+v.country_code).val()
+                        $('#creatForm').validate({
+                            rules: {
+                                inp: "required",
+                            },
+                            messages: {
+                                inp: "Please enter menu name",
+                            },
+                            errorElement: "c",
+                            errorPlacement: function(error, element) {
+                                // Add the `invalid-feedback` class to the error element
+                                error.addClass("invalid-feedback");
+                                if (element.prop("type") === "checkbox") {
+                                    error.insertAfter(element.next("label"));
+                                } else {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            highlight: function(element, errorClass, validClass) {
+                                $(element).addClass("is-invalid").removeClass("is-valid");
+                            },
+                            unhighlight: function(element, errorClass, validClass) {
+                                $(element).addClass("is-valid").removeClass("is-invalid");
+                            },
+                        });
                         const code = v.country_code
                         dataJ[code] = inp
                     });
@@ -364,19 +390,20 @@
                     const data = {
                         MenuName: JSON.stringify(dataJ),
                         OpenType: $("input[name='target']:checked").val(),
-                        parent_id: $('#CreateMenuModal').attr('key')
+                        parent_id: $('#CreateMenuModal').attr('key'),
+                        board_id: $('#JoinedBoard').val(),
                     };
-                    Axios.post('/api/CreateMenu', data).then((resp) => {
-                        Toast.fire({
-                            icon: 'success',
-                            title: resp.data.msg
-                        });
-
-                        $('#CreateMenuModal').modal('hide').removeAttr('key');
-                        setTimeout(function (){
-                            location.reload()
-                        },2000);
-                    });
+                    // Axios.post('/api/CreateMenu', data).then((resp) => {
+                    //     Toast.fire({
+                    //         icon: 'success',
+                    //         title: resp.data.msg
+                    //     });
+                    //
+                    //     $('#CreateMenuModal').modal('hide').removeAttr('key');
+                    //     setTimeout(function (){
+                    //         location.reload()
+                    //     },2000);
+                    // });
                 });
                 $('.DeleteMenu').on('click', function () {
                     Swal.fire({

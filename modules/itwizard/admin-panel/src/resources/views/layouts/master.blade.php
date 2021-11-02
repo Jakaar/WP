@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Language" content="en">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>wPanel | {{ env('ORG_NAME') }}</title>
+        <title>{{ __(env('APP_NAME')) }} | {{ __(env('ORG_NAME')) }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 {{--        <meta name="description" content="This is an example dashboard created using build-in elements and components.">--}}
         <!-- Disable tap highlight on IE -->
@@ -15,7 +15,6 @@
                 -ms-overflow-style: none; /* for Internet Explorer, Edge */
                 scrollbar-width: none; /* for Firefox */
                 overflow-y: scroll;
-
             }
             body::-webkit-scrollbar {
                 display: none; /* for Chrome, Safari, and Opera */
