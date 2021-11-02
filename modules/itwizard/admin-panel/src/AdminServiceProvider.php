@@ -32,8 +32,7 @@ class AdminServiceProvider extends ServiceProvider
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
                 Authenticate::class,
                 Localization::class,
-            )
-        );
+            ));
     }
     public function register()
     {

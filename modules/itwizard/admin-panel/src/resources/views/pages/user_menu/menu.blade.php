@@ -1,7 +1,5 @@
 @extends('Admin::layouts.master')
-
 @inject('t','App\Helper\Helper')
-
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -33,8 +31,6 @@
 
     <div class="row">
         <div class="col-md-6">
-            @php
-            @endphp
             <div class="card-title">{{ __('Menu')}}</div>
             <div class="main-card mb-3 p-2 card">
                 <div class="scrollbar-sidebar">
