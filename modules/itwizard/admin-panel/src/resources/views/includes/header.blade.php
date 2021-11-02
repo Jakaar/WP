@@ -348,7 +348,16 @@
                     <button type="button" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-focus"></span>
-                            <span class="language-icon opacity-8 flag large @if(session()->get('locale') == 'en') US @else KR @endif"></span>
+                            <span class="language-icon opacity-8 flag large
+                                @if(session()->get('locale') == 'en')
+                                    US
+                                @elseif(session()->get('locale') == 'mn')
+                                    MN
+                                @elseif(session()->get('locale') == 'kr')
+                                    KR
+                                @endif">
+
+                            </span>
                         </span>
                     </button>
                     <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu dropdown-menu-right">

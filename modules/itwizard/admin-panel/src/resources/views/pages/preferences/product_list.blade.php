@@ -28,15 +28,14 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="myInput" value="Text to copy!">
                     <div class="input-group-text">
-                        <button onclick="Copycode()" id="my-button" type="button" data-clipboard-target="myInput" class="btn btn-primary clipboard-trigger">
-                            <i class="fa fa-copy"></i>
-                        </button>
+                         <button onclick="Copycode()" data-title="Secondary" data-toggle="popover-product-list" data-bs-toggle="text-ligth bg-secondary" data-bs-content="Copied!" id="my-button" type="button" data-clipboard-target="myInput" class="btn btn-outline-secondary clipboard-trigger">
+                        <i class="fa fa-copy"></i>
+                       </button>
                     </div>
                 </div>                
             </div>
         </div>
-
-        <div class="card card-btm-border border-primary card">
+        <div class="card mb-3 card-btm-border border-primary card">
             <div class="card-body">
                 <div class="card-title"> {{__('Checklist')}} </div>
                 <ul ul class="todo-list-wrapper list-group list-group-flush">
@@ -51,7 +50,6 @@
                 </ul>
             </div>
         </div>
-    </div>
 </div>
 
 <style>
@@ -67,6 +65,7 @@
         z-index: 1;
     }
 </style>
+
 @endsection
 @section('script')
 <script>
@@ -80,26 +79,37 @@
     console.log('Copied Text')
   }  
 </script>
-<script>
-    $('#my-button').click(function(){
-        Swal.fire({
-                    icon: 'success',
-                    title : 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-    })
+
+{{-- <script>
+//     $('#my-button').click(function(){
+//         Swal.fire({
+//                     icon: 'success',
+//                     title : 'Success',
+//                     showConfirmButton: false,
+//                     timer: 1500
+//                 })
+//     }) --}}
         
-</script>
+
 <script>
-    $(document).ready(function() {
-        $("#generatorClick").click(function() {
-            Swal.fire({
-                title: "클립보드에 복사됨!",
-                icon: "success",
-                buttonS: true,
-            })
-        })
+    $(document).ready(function(){
+        $('[data-toggle="popover-product-list"]').popover({
+        placement: 'top',
+        delay: {
+            "show": 300,
+            "hide": 100
+        }
     });
+
+    $('[data-toggle="popover-product-list"]').click(function () {
+
+        setTimeout(function () {
+            $('.popover').fadeOut('slow');
+        }, 2000);
+
+    });
+    })
 </script>
+
+  
 @stop
