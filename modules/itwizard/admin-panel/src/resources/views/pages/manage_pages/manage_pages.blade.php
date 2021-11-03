@@ -166,7 +166,7 @@
                             <div class="input-group mt-3 mb-3">
                                 <input value="" maxlength="110" placeholder="with ABC a placeholder" id="PageCode" name="PageCode" class="form-control text-lowercase" />
                             </div>
-                            <div class="position-relative mb-3" id="CreatePage" name="PageContent"></div>
+                            <div class="position-relative mb-3" id="CreatePage{{$lang->id}}" name="PageContent"></div>
                         </div>
                         <!--                    <div class="col-md-12 text-center mt-3">-->
                         <!--                        <button class="btn-wide mb-2 me-2 btn btn-outline-primary btn-lg">Save</button>-->
@@ -293,7 +293,17 @@
 <script>
     $(document).ready(function () {
         let editor5;
-        ClassicEditor.create(document.querySelector("#CreatePage"))
+        ClassicEditor.create(document.querySelector("#CreatePage1"))
+            .then((newEditor) => {
+                editor5 = newEditor;
+            })
+        let editor6;
+        ClassicEditor.create(document.querySelector("#CreatePage2"))
+            .then((newEditor) => {
+                editor5 = newEditor;
+            })
+        let editor7;
+        ClassicEditor.create(document.querySelector("#CreatePage3"))
             .then((newEditor) => {
                 editor5 = newEditor;
             })
