@@ -123,12 +123,10 @@
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 960px;">
         <div class="modal-content">
-            <div class="mb-3 card">
-                <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-bold">
+                <div class="modal-header bg-white shadow shadow-sm">
+                    <h5 class="modal-title card-title">
                         {{__('Add Product')}}
-                    </div>
-                </div>
+                    </h5>
             </div>
             <div class="modal-body card-btm-border card-shadow-success border-success">
                 <div class="row justify-content-center">
@@ -267,12 +265,10 @@
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="EditPostModal">
     <div class="modal-dialog modal-lg" style="max-width: 960px;">
         <div class="modal-content">
-            <div class="mb-3 card">
-                <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize fw-normal">
+                <div class="modal-header bg-white shadow shadow-sm">
+                    <h5 class="modal-title card-title">
                         {{__('Edit Product')}}
-                    </div>
-                </div>
+                    </h5>
             </div>
             <div class="modal-body card-btm-border card-shadow-success border-success">
                 <div class="row justify-content-center">

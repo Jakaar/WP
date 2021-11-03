@@ -93,8 +93,8 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
+                <div class="modal-header bg-white shadow shadow-sm">
+                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -164,9 +164,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> {{ __('Close') }} </button>
-                    <button type="button" class="btn btn-primary"> {{ __('Confirm') }} </button>
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
+                    <button type="button" class="btn btn-success"> {{ __('Confirm') }} </button>
                 </div>
             </div>
         </div>
