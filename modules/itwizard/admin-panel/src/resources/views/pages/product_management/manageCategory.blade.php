@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
+            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
             <div class="d-inline-block dropdown">
@@ -76,6 +76,9 @@
     $('#allselect').click(function() {
         $('input:checkbox').not(this).prop('checked', this.checked);
     })
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 </script>
 @endsection
 
@@ -110,7 +113,7 @@
                 <label for="exampleText" class="form-label">{{__('Explanation')}}</label>
                 <textarea name="text" id="exampleText" class="form-control"></textarea>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer card-btm-border card-shadow-success border-success">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success CreateBoard">{{__('Save')}}</button>
             </div>

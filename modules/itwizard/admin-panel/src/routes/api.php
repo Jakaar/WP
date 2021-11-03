@@ -54,6 +54,7 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/preferences/create',[PreferencesController::class, 'create']);
     Route::post('/preferences/update',[PreferencesController::class, 'update']);
     Route::post('/preferences/delete',[PreferencesController::class, 'delete']);
+    Route::post('/preferences/change',[PreferencesController::class, 'change']);
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class,'GetContentData']);

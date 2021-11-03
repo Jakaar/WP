@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                     class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
@@ -96,5 +96,8 @@
 @section('script')
     <script>
         $('#code').text('@ include("log")')
+        $('#reload_page').click(function () {
+            location.reload(true);
+        });
     </script>
 @stop

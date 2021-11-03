@@ -18,7 +18,7 @@ class PreferencesController extends Controller
         $group = DB::table('wpanel_settings')->select('group')->groupBy('group')->get();
 
         return view('Admin::pages.preferences.index',[
-            'data' => $data,
+            'model' => $data,
             'group' => $group,
         ]);
 

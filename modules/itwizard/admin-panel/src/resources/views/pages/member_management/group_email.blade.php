@@ -2,7 +2,7 @@
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
-            
+
                 <div class="app-page-title">
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
@@ -15,14 +15,14 @@
                             </div>
                         </div>
                         <div class="page-title-actions">
-                            <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
                                 class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                                 <i class="pe-7s-refresh-2"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-            
+
             <div class="app-inner-layout__wrapper mb-3 card-btm-border border-primary">
                 <div class="app-inner-layout__content card ">
                     <div>
@@ -90,7 +90,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                                 <span>{{__('Sent Items')}}</span>
                             </a>
                         </li>
-                       
+
                         <li class="nav-item-divider nav-item"></li>
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link">
@@ -129,4 +129,11 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+<script>
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
+</script>
 @endsection

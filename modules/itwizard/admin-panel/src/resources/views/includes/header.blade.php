@@ -2,7 +2,8 @@
     <div class="app-header__logo">
         <div class="logo-src">
             <a href="/cms">
-                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">
+<!--                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">-->
+                <img class="logo-src" src="/aPanel/imgs/logo.png" alt="">
             </a>
         </div>
         <div class="header__pane ms-auto">
@@ -348,7 +349,16 @@
                     <button type="button" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-focus"></span>
-                            <span class="language-icon opacity-8 flag large @if(session()->get('locale') == 'en') US @else KR @endif"></span>
+                            <span class="language-icon opacity-8 flag large
+                                @if(session()->get('locale') == 'en')
+                                    US
+                                @elseif(session()->get('locale') == 'mn')
+                                    MN
+                                @elseif(session()->get('locale') == 'kr')
+                                    KR
+                                @endif">
+
+                            </span>
                         </span>
                     </button>
                     <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu dropdown-menu-right">
@@ -470,7 +480,7 @@
                         <div class="widget-content-left  ms-3 header-user-info">
                             <div class="widget-heading"> {{auth()->user()->lastname}}
                             </div>
-                            <div class="widget-subheading"> VP People Manager</div>
+                            <div class="widget-subheading">{{ auth()->user()->email}}</div>
                         </div>
                     </div>
                 </div>

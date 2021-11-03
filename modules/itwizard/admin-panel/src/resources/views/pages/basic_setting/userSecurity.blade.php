@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
+            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
             <button class="btn btn-success CreateBoard">
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="card mb-3">
+<div class="card mb-3 card-btm-border card-shadow-primary border-primary">
     <h5 class="card-header">Enable Google reCAPTCHA</h5>
 
     <div class="card-body position-relative">
@@ -34,7 +34,7 @@
         </ul>
     </div>
 </div>
-<div class="card">
+<div class="card card-btm-border card-shadow-primary border-primary">
     <div class="card-body">
         <h5 class="card-title">User Login</h5>
         <form class="">
@@ -56,4 +56,11 @@
     </div>
 </div>
 
+@endsection
+@section('script')
+<script>
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
+</script>
 @endsection

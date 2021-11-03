@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="page-title-actions">
-                    <button type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                    <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                         <i class="pe-7s-refresh-2"></i>
                     </button>
                 </div>
@@ -41,7 +41,7 @@
                                 <i class="fa fa-copy"></i>
                             </button>
                         </div>
-                    </div>                
+                    </div>
                    </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
                                 <td>10</td>
                                 <td>10</td>
                                 <td>
-                                    
+
                                     <button class="btn-outline-info btn">
                                         {{ ('Preview') }}
                                     </button>
@@ -105,7 +105,7 @@
                                 <td>12</td>
                                 <td>15</td>
                                 <td>
-                                   
+
                                     <button class="btn-outline-info btn">
                                         {{ ('Preview') }}
                                     </button>
@@ -127,7 +127,7 @@
                                 <td>4</td>
                                 <td>8</td>
                                 <td>
-                                    
+
                                     <button class="btn-outline-info btn">
                                         {{ ('Preview') }}
                                     </button>
@@ -344,7 +344,7 @@
     copyText.select();
     document.execCommand('copy')
     console.log('Copied Text')
-  } 
+  }
 </script>
 <script>
     $(document).ready(function(){
@@ -364,5 +364,8 @@
 
     });
     })
+    $('#reload_page').click(function () {
+        location.reload(true);
+    });
 </script>
 @endsection

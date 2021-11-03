@@ -16,7 +16,8 @@ class PreferencesController extends Controller
             'key' => $request->key,
             'type' => $request->type,
             'order' => 1,
-            'group' => $request->group,            
+            'group' => $request->group,
+            'details' => $request->details,       
         ]);
         \Artisan::call("config:cache");
         return response()->json(['msg' => 'success', 'data' => $request->all()],200);
@@ -32,6 +33,13 @@ class PreferencesController extends Controller
         \Artisan::call("config:cache");
         return response()->json(['msg' => 'success'],200);
         
+    }
+
+    public function change(Request $request){
+        DB::table('wpanel_settings')->where('id',$request->id)->update([
+            'group' => $request->group,
+        ]);
+        return response()->json(['msg' => 'success'],200);
     }
 
     public function delete(Request $request){
