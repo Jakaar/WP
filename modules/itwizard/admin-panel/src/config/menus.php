@@ -498,7 +498,7 @@ return [
     ], // Form Mail Manage
     [
         'title'=>'Banner Manage',
-        'url'=>'cms/banner_management',
+        'url'=>'cms/banner',
         'menus'=> [
             [
                 'url'=>'#',
@@ -506,62 +506,15 @@ return [
                 'name'=>'Banner management',
                 'child' => [
                     [
-                        'url'=>'cms/banner_management/banner_management',
+                        'url'=>'cms/banner',
                         'icon'=>'',
                         'name'=>'Banner management',
                         'child' => null
                     ],
                 ],
             ],
-            [
-                'url'=>'cms/banner_management/banner_list',
-                'icon'=>'pe-7s-note2',
-                'name'=>'Banner list',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/banner_management/main_banner',
-                'icon'=>'pe-7s-display1',
-                'name'=>'Main banner',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/banner_management/vertical_banner',
-                'icon'=>'pe-7s-angle-up-circle',
-                'name'=>'Vertically',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/banner_management/horizontal_banner',
-                'icon'=>'pe-7s-angle-right-circle',
-                'name'=>'Horizontal',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/banner_management/left_banner',
-                'icon'=>'pe-7s-back-2',
-                'name'=>'Left banner',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/banner_management/left',
-                'icon'=>'pe-7s-back-2',
-                'name'=>'Left',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
-            [
-                'url'=>'cms/banner_management/right',
-                'icon'=>'pe-7s-next-2',
-                'name'=>'Right',
-                'colorClass'=>'index',
-                'child' => [],
-            ]
+        
+          
         ],
 
     ], // Banner Manage
