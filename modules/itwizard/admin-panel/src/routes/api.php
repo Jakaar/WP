@@ -33,6 +33,11 @@ Route::group(['prefix'=>'api'], function (){
     Route::post('/single/user/data',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'singleUserData']);
     Route::post('/user/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'delete']);
 
+    Route::post('/addbanner',[\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class,'addbanner']);
+    Route::post('/DeleteBanner/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class,'DeleteBanner']);
+    Route::get('/editbanner/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class,'editbanner']);
+    Route::post('/updatebanner', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class,'updateBanner']);
+
     Route::post('/member/create',[\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class,'create']);
     Route::post('/permission/create',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'create']);
 
