@@ -26,14 +26,34 @@ class MenuController extends Controller
     }
     public function CreateMenu(Request $request)
     {
-        DB::table('categories')->insert([
-            'category_id'=>$request->parent_id,
-            'name'=>$request->MenuName,
-            'target'=>$request->OpenType,
-            'isEnabled'=> 1,
-            'menu_url'=> asset('')
-        ]);
-        return response()->json(['msg'=>__('success')] , 200);
+        try {
+            if ($request->parent_id) {
+                $getId = DB::table('categories')->insertGetId([
+                    'category_id' => $request->parent_id,
+                    'name' => $request->MenuName,
+                    'target' => $request->OpenType,
+                    'board_master_id'=>$request->board_id,
+                    'isEnabled' => 1,
+                    'menu_url' => asset('')
+                ]);
+                return response()->json(['msg' => __('success'),'details'=>'Sub menu created, id is:'.$getId], 200);
+            }
+            else {
+                $getId = DB::table('categories')->insertGetId([
+                    'category_id'=> null,
+                    'name'=>$request->MenuName,
+                    'target'=>$request->OpenType,
+                    'board_master_id'=>$request->board_id,
+                    'isEnabled'=> 1,
+                    'menu_url'=> asset('')
+                ]);
+                return response()->json(['msg' => __('success'),'details'=>'Main menu created, id is:'.$getId], 200);
+            }
+        }
+        catch (\Exception $exception)
+        {
+            return response()->json(['error_code'=>'CreateMenu Function not working'], 500);
+        }
     }
 
     public function updateMenu(Request $request){

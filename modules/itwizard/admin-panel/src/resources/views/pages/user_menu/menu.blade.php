@@ -183,14 +183,14 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form id="creatForm">
+                        <form id="createForm">
                             <div class="row">
                                 <div class="col-12">
                                     <ul class="nav tabs-animated">
                                         @foreach($data['langs'] as $key=>$lang)
                                             <li class="nav-item">
                                                 <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#tab-animated1-{{$lang->id}}">
-                                                    <span class="nav-text">{{$lang->country}}</span>
+                                                    <span class="nav-text"><b>{{$lang->country}}</b></span>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -204,7 +204,10 @@
                                             <div class="tab-pane fade @if($key === 0) active show @endif" id="tab-animated1-{{$lang->id}}" role="tabpanel">
                                                 <div class="position-relative mb-3">
                                                     <h5 class="card-title">{{ __('Name') }}</h5>
-                                                    <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="text" class="form-control requires-validation">
+                                                    <input name="" id="BoardName{{$lang->country_code}}" placeholder="" type="text" class="form-control"
+                                                           data-parent-id="tab-c1-{{$lang->id}}"
+                                                           data-msg-required="{{__('This Field is Required')}}"
+                                                           required>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -212,7 +215,7 @@
                                 </div>
                                 <div class="col-6">
                                     <h5 class="card-title mt-3">{{__('Board Name')}}</h5>
-                                    <select id="JoinedBoard" class="multiselect-dropdown form-control">
+                                    <select id="JoinedBoard" class="multiselect-dropdown form-control" required>
                                         <option value="" selected disabled>{{__('Choose')}}</option>
                                         @foreach($main['board'] as $board)
                                             <option value="{{$board->id}}">{{$board->board_name}}</option>
@@ -252,11 +255,7 @@
                 $('#ContentData input, #ContentData select, #ContentData textarea').attr('disabled', 'true')
                 $('.vertical-nav-menu li a').click(function() {
                     $('#ContentData').removeClass('d-none')
-                    const id = $(this).data('key');
-                    const data = {
-                        id: id,
-                    }
-                    Axios.post('/api/get/menu', data).then((resp) => {
+                    Axios.post('/api/get/menu', {id:$(this).data('key')}).then((resp) => {
                         $('#menu_label').text(resp.data.data.name)
                         $('input[name=target]').prop('checked', false);
                         $('input[name=use]').prop('checked', false);
@@ -313,7 +312,6 @@
                 // update menu
                 $('#save_menu').click(function() {
                     let m_check = $('#updateMenu').valid();
-
                     if (m_check === true) {
                         const data = {
                             id: $("#m_id").val(),
@@ -350,55 +348,70 @@
         </script>
         <script>
             $(document).ready(function (){
-                (function () {
-                    'use strict'
-                    const forms = document.querySelectorAll('.requires-validation')
-                    Array.from(forms)
-                        .forEach(function (form) {
-
-                            form.addEventListener('submit', function (event) {
-                                if (!form.checkValidity()) {
-                                    event.preventDefault()
-                                    event.stopPropagation()
-                                }
-                                form.classList.add('was-validated')
-                            }, false)
-                        })
-                })()
                 $('.ModalShow').click(function (){
                     $('#CreateMenuModal').attr('key',$(this).attr('key')).modal('show');
                     localStorage.setItem('MenuParentId', $(this).attr('key'));
                 });
+                $('#createForm').validate({
+                    errorPlacement: function(error, element) {
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        if (element.prop("type") === "checkbox") {
+                            // error.insertAfter(element.next("label"));
+                        } else {
+                            // error.insertAfter(element);
+                        }
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass("is-invalid").removeClass("is-valid");
+                        const parantId = $(element).attr('data-parent-id');
+                        $('#'+parantId).addClass("text-danger").removeClass("text-success");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        const parantId = $(element).attr('data-parent-id');
+                        $('#'+parantId).addClass("text-success").removeClass("text-danger");
+                        $(element).addClass("is-valid").removeClass("is-invalid");
+
+                    },
+                });
+
+
+                $('.CreateMenu').on('click',function (){
+                    if($('#createForm').valid())
+                    {
+                            const langs = {!! $data['langs'] !!};
+                            let dataJ = {}
+                            $.each(langs, function (i, v){
+                                const inp = $('#BoardName'+v.country_code).val()
+                                const id = '#BoardName'+v.country_code;
+                                const code = v.country_code
+                                dataJ[code] = inp
+                            });
+                            const data = {
+                                MenuName: JSON.stringify(dataJ),
+                                OpenType: $("input[name='target']:checked").val(),
+                                parent_id: $('#CreateMenuModal').attr('key'),
+                                board_id: $('#JoinedBoard').val(),
+                            };
+                            Axios.post('/api/CreateMenu', data).then((resp) => {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: resp.data.msg
+                                });
+                                $('#CreateMenuModal').modal('hide').removeAttr('key');
+                                setTimeout(function (){
+                                    location.reload()
+                                },1500);
+                            });
+
+                    }
+                })
                 {{--$('.CreateMenu').on('click', function () {--}}
                 {{--    const langs = {!! $data['langs'] !!};--}}
                 {{--    let dataJ = {}--}}
                 {{--    $.each(langs, function (i, v){--}}
                 {{--        const inp = $('#BoardName'+v.country_code).val()--}}
                 {{--        const id = '#BoardName'+v.country_code;--}}
-                {{--        $('#creatForm').validate({--}}
-                {{--            rules: {--}}
-                {{--                id: "required",--}}
-                {{--            },--}}
-                {{--            messages: {--}}
-                {{--                id: "Please enter menu name",--}}
-                {{--            },--}}
-                {{--            errorElement: "em",--}}
-                {{--            errorPlacement: function(error, element) {--}}
-                {{--                // Add the `invalid-feedback` class to the error element--}}
-                {{--                error.addClass("invalid-feedback");--}}
-                {{--                if (element.prop("type") === "checkbox") {--}}
-                {{--                    error.insertAfter(element.next("label"));--}}
-                {{--                } else {--}}
-                {{--                    error.insertAfter(element);--}}
-                {{--                }--}}
-                {{--            },--}}
-                {{--            highlight: function(element, errorClass, validClass) {--}}
-                {{--                $(element).addClass("is-invalid").removeClass("is-valid");--}}
-                {{--            },--}}
-                {{--            unhighlight: function(element, errorClass, validClass) {--}}
-                {{--                $(element).addClass("is-valid").removeClass("is-invalid");--}}
-                {{--            },--}}
-                {{--        });--}}
                 {{--        const code = v.country_code--}}
                 {{--        dataJ[code] = inp--}}
                 {{--    });--}}
