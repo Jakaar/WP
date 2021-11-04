@@ -207,7 +207,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Add New Menu')}}</h5>
+                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{__('Add New Menu')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -276,7 +276,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="EditRoleModal">{{__('Edit Menu')}}</h5>
+                    <h5 class="modal-title card-title" id="EditRoleModal">{{__('Edit Menu')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

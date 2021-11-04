@@ -173,7 +173,7 @@
 
                         <div class="col-lg-12 mb-3">
                             <button class="btn btn-success CreateBoard">{{__('save')}} </button>
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">{{__('cancel')}}</button>
+                            <button class="btn btn-outline-info"  data-bs-dismiss="modal">{{__('cancel')}}</button>
                         </div>
 
 

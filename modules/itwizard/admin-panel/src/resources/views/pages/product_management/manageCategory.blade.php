@@ -86,10 +86,10 @@
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="card-header-title font-size-lg text-capitalize fw-normal">
+            <div class="modal-header bg-white shadow shadow-sm">
+                <h5 class="modal-title card-title">
                     {{__('Menu Registration')}}
-                </div>
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>

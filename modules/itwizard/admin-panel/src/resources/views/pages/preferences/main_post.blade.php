@@ -106,8 +106,8 @@
          aria-labelledby="myLargeModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-lg" role="dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{__('Main post')}}</h5>
+                <div class="modal-header bg-white shadow shadow-sm">
+                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{__('Main post')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -246,8 +246,8 @@
                         </ul>
                     </div>
                     <div class="text-center w-100">
-                        <button class="btn btn-primary">{{__('Save')}}</button>
-                        <button type="button" class="btn btn-secondary"
+                        <button class="btn btn-success">{{__('Save')}}</button>
+                        <button type="button" class="btn btn-outline-info"
                                 data-bs-dismiss="modal">{{__('Cancel')}}</button>
                     </div>
                 </div>

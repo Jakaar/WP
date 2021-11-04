@@ -174,13 +174,11 @@
         <div id="CreateMenuModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class=" card">
-                        <div class="card-header-tab card-header">
-                            <div class="card-header-title font-size-lg text-capitalize fw-normal">
+                        <div class="modal-header bg-white shadow shadow-sm">
+                            <h5 class="modal-title card-title">
                                 {{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i> --}}
                                 {{ __('Create Board') }}
-                            </div>
-                        </div>
+                            </h5>
                     </div>
                     <div class="modal-body">
                         <form id="createForm">

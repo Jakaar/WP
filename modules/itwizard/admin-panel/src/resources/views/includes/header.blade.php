@@ -399,7 +399,7 @@
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
                                     <div class="dropdown-menu-header">
                                         <div class="dropdown-menu-header-inner bg-info">
-                                            <div class="menu-header-image opacity-2" style="background-image: url('/aPanel/images/city3.jpg');"></div>
+                                            <div class="menu-header-image opacity-2" style="background-image: url('/aPanel/imgs/city3.jpg');"></div>
                                             <div class="menu-header-content text-start">
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">

@@ -15,7 +15,7 @@
             <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                 <i class="pe-7s-refresh-2"></i>
             </button>
-            <button type="button" class="btn-shadow me-3 btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
+            <button type="button" class="btn-shadow me-3 btn btn-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">
                 {{__('Title Registration')}}
             </button>
         </div>
@@ -108,8 +108,8 @@
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">SEO Management</h3>
+            <div class="modal-header bg-white shadow shadow-sm">
+                <h3 class="modal-title card-title" id="exampleModalLongTitle">SEO Management</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -175,26 +175,13 @@
                         </div>
                     </form>
                 </div>
-
-                <div class="card-footer">
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-6 col-sm-2">
-                                <a onclick="javascript:doSubmit();" class="btn btn-primary btn-block btn-lg" style="cursor: pointer;">
-                                    <span style="vertical-align: inherit;">
-                                        <span style="vertical-align: inherit;">Save</span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="col-6 col-sm-2">
-                                <a onclick="javascript:$.Nav('go', './seo_list');" class="btn btn-dark btn-block btn-lg" style="cursor: pointer;">
-                                    <span style="vertical-align: inherit;">
-                                        <span style="vertical-align: inherit;">cancel</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                                <button onclick="javascript:doSubmit();" class="btn btn-success " style="cursor: pointer;">
+                                    Save
+                                </button>
+                                <button onclick="javascript:$.Nav('go', './seo_list');" class="btn btn-outline-info" style="cursor: pointer;" data-bs-dismiss="modal">
+                                    cancel
+                                </button>
                 </div>
             </div>
         </div>
