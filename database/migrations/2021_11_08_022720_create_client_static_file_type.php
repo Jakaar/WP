@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStaticFileType extends Migration
+class CreateClientStaticFileType extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,7 @@ class CreateStaticFileType extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *
@@ -27,6 +28,6 @@ class CreateStaticFileType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('static_file_type');
+        Schema::dropIfExists('client_static_file_type');
     }
 }
