@@ -16,7 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function ($table) {
             $table->increments('id');
             $table->integer('reporting_to')->nullable();
-            $table->string('name', 100)->nullable();
+            $table->string('firstname', 100)->nullable();
+            $table->string('lastname', 100)->nullable();
             $table->string('email', 100)->nullable();
             $table->string('password', 100)->nullable();
             $table->string('api_token', 60)->nullable();
@@ -33,7 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('district', 100)->nullable();
             $table->string('state', 100)->nullable();
             $table->integer('country')->nullable();
-            $table->string('photo', 500)->nullable();
+            $table->string('avatar', 500)->nullable();
             $table->string('web', 100)->nullable();
             $table->longText('urls')->nullable();
             $table->enum('status', ['New','Active','Suspended','Locked'])->nullable();
