@@ -5,35 +5,25 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class PermissionMiddleware
+class PermissionMiddleware extends GuardMiddleware
 {
-    /**
-     * Handle an incoming request.
+     /**
+     * Handle incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Closure $next
+     * @param  string  $permissions
+     * @param  string|null  $team
+     * @param  string|null  $options
      * @return mixed
      */
-
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $permissions, $team = null, $options = '')
     {
-        if (Auth::user()) {
-            $user = \App\User::where('id', Auth::user()->id)->first();
-
-            foreach ($user->allPermissions() as $per) {
-                if ($per->url == $request->path()) {
-                    return $next($request);
-                }
-            }
-        }
-        else{
-            return redirect('/');
+        if (!$this->authorization('permissions', $permissions, $team, $options)) {
+            return $this->unauthorized();
         }
 
-
-        
-
-        // return $next($request);
-
+        return $next($request);
     }
+
 }

@@ -27,4 +27,7 @@ class ContentController extends Controller
 //        dd($categories);
         return view('Admin::pages.user_menu.menu', compact('categories','main'));
     }
+    public function PageManageShow(){
+        return view('Admin::pages.manage_pages.manage_pages');
+    }
 }

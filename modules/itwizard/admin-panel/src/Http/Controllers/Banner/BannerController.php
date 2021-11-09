@@ -15,12 +15,9 @@ class BannerController extends Controller
     }
     public function index()
     {
-        $mainbanners=DB::table('banners')->where('slug','main-banner')->where('active','!=','deleted')->get();
-        $verticalbanners=DB::table('banners')->where('slug','vertical-banner')->where('active','!=','deleted')->get();
-        $horizontalbanners=DB::table('banners')->where('slug','horizontal-banner')->where('active','!=','deleted')->get();
-        $leftbanners=DB::table('banners')->where('slug','left-banner')->where('active','!=','deleted')->get();
-        $rightbanners=DB::table('banners')->where('slug','right-banner')->where('active','!=','deleted')->get();
-        return view('Admin::pages.banner_management.test',compact('mainbanners','verticalbanners','horizontalbanners','leftbanners','rightbanners'));
+        $groups=DB::table('wpanel_banners')->select('group_name')->groupBy('group_name')->where('isEnabled','!=','deleted')->get();
+        $banners=DB::table('wpanel_banners')->where('isEnabled','!=','deleted')->get();
+        return view('Admin::pages.banner_management.index',compact('groups','banners'));
     }
 
 }

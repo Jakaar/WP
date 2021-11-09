@@ -15,8 +15,9 @@ class PreferencesController extends Controller
     public function index()
     {
         $data = DB::table('wpanel_settings')->orderby('order','ASC')->get()->groupBy('group');
-        $group = DB::table('wpanel_settings')->select('group')->groupBy('group')->get();
+        $group = DB::table('wpanel_settings')->select('group')->orderby('group','ASC')->groupBy('group')->get();
 
+        
         return view('Admin::pages.preferences.index',[
             'model' => $data,
             'group' => $group,
