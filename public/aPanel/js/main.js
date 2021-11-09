@@ -22148,8716 +22148,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
 
 /***/ }),
 
-/***/ "./node_modules/jquery.fancytree/dist/modules/jquery.fancytree.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/jquery.fancytree/dist/modules/jquery.fancytree.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jquery.fancytree.js
- * Tree view control with support for lazy loading and much more.
- * https://github.com/mar10/fancytree/
- *
- * Copyright (c) 2008-2021, Martin Wendt (https://wwWendt.de)
- * Released under the MIT license
- * https://github.com/mar10/fancytree/wiki/LicenseInfo
- *
- * @version 2.38.0
- * @date 2021-02-09T20:03:49Z
- */
-
-/** Core Fancytree module.
- */
-
-// UMD wrapper for the Fancytree core module
-(function(factory) {
-	if (true) {
-		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! ./jquery.fancytree.ui-deps */ "./node_modules/jquery.fancytree/dist/modules/jquery.fancytree.ui-deps.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-})(function($) {
-	"use strict";
-
-	// prevent duplicate loading
-	if ($.ui && $.ui.fancytree) {
-		$.ui.fancytree.warn("Fancytree: ignored duplicate include");
-		return;
-	}
-
-	/******************************************************************************
-	 * Private functions and variables
-	 */
-
-	var i,
-		attr,
-		FT = null, // initialized below
-		TEST_IMG = new RegExp(/\.|\//), // strings are considered image urls if they contain '.' or '/'
-		REX_HTML = /[&<>"'/]/g, // Escape those characters
-		REX_TOOLTIP = /[<>"'/]/g, // Don't escape `&` in tooltips
-		RECURSIVE_REQUEST_ERROR = "$recursive_request",
-		INVALID_REQUEST_TARGET_ERROR = "$request_target_invalid",
-		ENTITY_MAP = {
-			"&": "&amp;",
-			"<": "&lt;",
-			">": "&gt;",
-			'"': "&quot;",
-			"'": "&#39;",
-			"/": "&#x2F;",
-		},
-		IGNORE_KEYCODES = { 16: true, 17: true, 18: true },
-		SPECIAL_KEYCODES = {
-			8: "backspace",
-			9: "tab",
-			10: "return",
-			13: "return",
-			// 16: null, 17: null, 18: null,  // ignore shift, ctrl, alt
-			19: "pause",
-			20: "capslock",
-			27: "esc",
-			32: "space",
-			33: "pageup",
-			34: "pagedown",
-			35: "end",
-			36: "home",
-			37: "left",
-			38: "up",
-			39: "right",
-			40: "down",
-			45: "insert",
-			46: "del",
-			59: ";",
-			61: "=",
-			// 91: null, 93: null,  // ignore left and right meta
-			96: "0",
-			97: "1",
-			98: "2",
-			99: "3",
-			100: "4",
-			101: "5",
-			102: "6",
-			103: "7",
-			104: "8",
-			105: "9",
-			106: "*",
-			107: "+",
-			109: "-",
-			110: ".",
-			111: "/",
-			112: "f1",
-			113: "f2",
-			114: "f3",
-			115: "f4",
-			116: "f5",
-			117: "f6",
-			118: "f7",
-			119: "f8",
-			120: "f9",
-			121: "f10",
-			122: "f11",
-			123: "f12",
-			144: "numlock",
-			145: "scroll",
-			173: "-",
-			186: ";",
-			187: "=",
-			188: ",",
-			189: "-",
-			190: ".",
-			191: "/",
-			192: "`",
-			219: "[",
-			220: "\\",
-			221: "]",
-			222: "'",
-		},
-		MODIFIERS = {
-			16: "shift",
-			17: "ctrl",
-			18: "alt",
-			91: "meta",
-			93: "meta",
-		},
-		MOUSE_BUTTONS = { 0: "", 1: "left", 2: "middle", 3: "right" },
-		// Boolean attributes that can be set with equivalent class names in the LI tags
-		// Note: v2.23: checkbox and hideCheckbox are *not* in this list
-		CLASS_ATTRS = "active expanded focus folder lazy radiogroup selected unselectable unselectableIgnore".split(
-			" "
-		),
-		CLASS_ATTR_MAP = {},
-		// Top-level Fancytree attributes, that can be set by dict
-		TREE_ATTRS = "columns types".split(" "),
-		// TREE_ATTR_MAP = {},
-		// Top-level FancytreeNode attributes, that can be set by dict
-		NODE_ATTRS = "checkbox expanded extraClasses folder icon iconTooltip key lazy partsel radiogroup refKey selected statusNodeType title tooltip type unselectable unselectableIgnore unselectableStatus".split(
-			" "
-		),
-		NODE_ATTR_MAP = {},
-		// Mapping of lowercase -> real name (because HTML5 data-... attribute only supports lowercase)
-		NODE_ATTR_LOWERCASE_MAP = {},
-		// Attribute names that should NOT be added to node.data
-		NONE_NODE_DATA_MAP = {
-			active: true,
-			children: true,
-			data: true,
-			focus: true,
-		};
-
-	for (i = 0; i < CLASS_ATTRS.length; i++) {
-		CLASS_ATTR_MAP[CLASS_ATTRS[i]] = true;
-	}
-	for (i = 0; i < NODE_ATTRS.length; i++) {
-		attr = NODE_ATTRS[i];
-		NODE_ATTR_MAP[attr] = true;
-		if (attr !== attr.toLowerCase()) {
-			NODE_ATTR_LOWERCASE_MAP[attr.toLowerCase()] = attr;
-		}
-	}
-	// for(i=0; i<TREE_ATTRS.length; i++) {
-	// 	TREE_ATTR_MAP[TREE_ATTRS[i]] = true;
-	// }
-
-	function _assert(cond, msg) {
-		// TODO: see qunit.js extractStacktrace()
-		if (!cond) {
-			msg = msg ? ": " + msg : "";
-			msg = "Fancytree assertion failed" + msg;
-
-			// consoleApply("assert", [!!cond, msg]);
-
-			// #1041: Raised exceptions may not be visible in the browser
-			// console if inside promise chains, so we also print directly:
-			$.ui.fancytree.error(msg);
-
-			// Throw exception:
-			$.error(msg);
-		}
-	}
-
-	_assert($.ui, "Fancytree requires jQuery UI (http://jqueryui.com)");
-
-	function consoleApply(method, args) {
-		var i,
-			s,
-			fn = window.console ? window.console[method] : null;
-
-		if (fn) {
-			try {
-				fn.apply(window.console, args);
-			} catch (e) {
-				// IE 8?
-				s = "";
-				for (i = 0; i < args.length; i++) {
-					s += args[i];
-				}
-				fn(s);
-			}
-		}
-	}
-
-	/* support: IE8 Polyfil for Date.now() */
-	if (!Date.now) {
-		Date.now = function now() {
-			return new Date().getTime();
-		};
-	}
-
-	/*Return true if x is a FancytreeNode.*/
-	function _isNode(x) {
-		return !!(x.tree && x.statusNodeType !== undefined);
-	}
-
-	/** Return true if dotted version string is equal or higher than requested version.
-	 *
-	 * See http://jsfiddle.net/mar10/FjSAN/
-	 */
-	function isVersionAtLeast(dottedVersion, major, minor, patch) {
-		var i,
-			v,
-			t,
-			verParts = $.map($.trim(dottedVersion).split("."), function(e) {
-				return parseInt(e, 10);
-			}),
-			testParts = $.map(
-				Array.prototype.slice.call(arguments, 1),
-				function(e) {
-					return parseInt(e, 10);
-				}
-			);
-
-		for (i = 0; i < testParts.length; i++) {
-			v = verParts[i] || 0;
-			t = testParts[i] || 0;
-			if (v !== t) {
-				return v > t;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Deep-merge a list of objects (but replace array-type options).
-	 *
-	 * jQuery's $.extend(true, ...) method does a deep merge, that also merges Arrays.
-	 * This variant is used to merge extension defaults with user options, and should
-	 * merge objects, but override arrays (for example the `triggerStart: [...]` option
-	 * of ext-edit). Also `null` values are copied over and not skipped.
-	 *
-	 * See issue #876
-	 *
-	 * Example:
-	 * _simpleDeepMerge({}, o1, o2);
-	 */
-	function _simpleDeepMerge() {
-		var options,
-			name,
-			src,
-			copy,
-			clone,
-			target = arguments[0] || {},
-			i = 1,
-			length = arguments.length;
-
-		// Handle case when target is a string or something (possible in deep copy)
-		if (typeof target !== "object" && !$.isFunction(target)) {
-			target = {};
-		}
-		if (i === length) {
-			throw Error("need at least two args");
-		}
-		for (; i < length; i++) {
-			// Only deal with non-null/undefined values
-			if ((options = arguments[i]) != null) {
-				// Extend the base object
-				for (name in options) {
-					if (options.hasOwnProperty(name)) {
-						src = target[name];
-						copy = options[name];
-						// Prevent never-ending loop
-						if (target === copy) {
-							continue;
-						}
-						// Recurse if we're merging plain objects
-						// (NOTE: unlike $.extend, we don't merge arrays, but replace them)
-						if (copy && $.isPlainObject(copy)) {
-							clone = src && $.isPlainObject(src) ? src : {};
-							// Never move original objects, clone them
-							target[name] = _simpleDeepMerge(clone, copy);
-							// Don't bring in undefined values
-						} else if (copy !== undefined) {
-							target[name] = copy;
-						}
-					}
-				}
-			}
-		}
-		// Return the modified object
-		return target;
-	}
-
-	/** Return a wrapper that calls sub.methodName() and exposes
-	 *  this             : tree
-	 *  this._local      : tree.ext.EXTNAME
-	 *  this._super      : base.methodName.call()
-	 *  this._superApply : base.methodName.apply()
-	 */
-	function _makeVirtualFunction(methodName, tree, base, extension, extName) {
-		// $.ui.fancytree.debug("_makeVirtualFunction", methodName, tree, base, extension, extName);
-		// if(rexTestSuper && !rexTestSuper.test(func)){
-		//     // extension.methodName() doesn't call _super(), so no wrapper required
-		//     return func;
-		// }
-		// Use an immediate function as closure
-		var proxy = (function() {
-			var prevFunc = tree[methodName], // org. tree method or prev. proxy
-				baseFunc = extension[methodName], //
-				_local = tree.ext[extName],
-				_super = function() {
-					return prevFunc.apply(tree, arguments);
-				},
-				_superApply = function(args) {
-					return prevFunc.apply(tree, args);
-				};
-
-			// Return the wrapper function
-			return function() {
-				var prevLocal = tree._local,
-					prevSuper = tree._super,
-					prevSuperApply = tree._superApply;
-
-				try {
-					tree._local = _local;
-					tree._super = _super;
-					tree._superApply = _superApply;
-					return baseFunc.apply(tree, arguments);
-				} finally {
-					tree._local = prevLocal;
-					tree._super = prevSuper;
-					tree._superApply = prevSuperApply;
-				}
-			};
-		})(); // end of Immediate Function
-		return proxy;
-	}
-
-	/**
-	 * Subclass `base` by creating proxy functions
-	 */
-	function _subclassObject(tree, base, extension, extName) {
-		// $.ui.fancytree.debug("_subclassObject", tree, base, extension, extName);
-		for (var attrName in extension) {
-			if (typeof extension[attrName] === "function") {
-				if (typeof tree[attrName] === "function") {
-					// override existing method
-					tree[attrName] = _makeVirtualFunction(
-						attrName,
-						tree,
-						base,
-						extension,
-						extName
-					);
-				} else if (attrName.charAt(0) === "_") {
-					// Create private methods in tree.ext.EXTENSION namespace
-					tree.ext[extName][attrName] = _makeVirtualFunction(
-						attrName,
-						tree,
-						base,
-						extension,
-						extName
-					);
-				} else {
-					$.error(
-						"Could not override tree." +
-							attrName +
-							". Use prefix '_' to create tree." +
-							extName +
-							"._" +
-							attrName
-					);
-				}
-			} else {
-				// Create member variables in tree.ext.EXTENSION namespace
-				if (attrName !== "options") {
-					tree.ext[extName][attrName] = extension[attrName];
-				}
-			}
-		}
-	}
-
-	function _getResolvedPromise(context, argArray) {
-		if (context === undefined) {
-			return $.Deferred(function() {
-				this.resolve();
-			}).promise();
-		}
-		return $.Deferred(function() {
-			this.resolveWith(context, argArray);
-		}).promise();
-	}
-
-	function _getRejectedPromise(context, argArray) {
-		if (context === undefined) {
-			return $.Deferred(function() {
-				this.reject();
-			}).promise();
-		}
-		return $.Deferred(function() {
-			this.rejectWith(context, argArray);
-		}).promise();
-	}
-
-	function _makeResolveFunc(deferred, context) {
-		return function() {
-			deferred.resolveWith(context);
-		};
-	}
-
-	function _getElementDataAsDict($el) {
-		// Evaluate 'data-NAME' attributes with special treatment for 'data-json'.
-		var d = $.extend({}, $el.data()),
-			json = d.json;
-
-		delete d.fancytree; // added to container by widget factory (old jQuery UI)
-		delete d.uiFancytree; // added to container by widget factory
-
-		if (json) {
-			delete d.json;
-			// <li data-json='...'> is already returned as object (http://api.jquery.com/data/#data-html5)
-			d = $.extend(d, json);
-		}
-		return d;
-	}
-
-	function _escapeTooltip(s) {
-		return ("" + s).replace(REX_TOOLTIP, function(s) {
-			return ENTITY_MAP[s];
-		});
-	}
-
-	// TODO: use currying
-	function _makeNodeTitleMatcher(s) {
-		s = s.toLowerCase();
-		return function(node) {
-			return node.title.toLowerCase().indexOf(s) >= 0;
-		};
-	}
-
-	function _makeNodeTitleStartMatcher(s) {
-		var reMatch = new RegExp("^" + s, "i");
-		return function(node) {
-			return reMatch.test(node.title);
-		};
-	}
-
-	/******************************************************************************
-	 * FancytreeNode
-	 */
-
-	/**
-	 * Creates a new FancytreeNode
-	 *
-	 * @class FancytreeNode
-	 * @classdesc A FancytreeNode represents the hierarchical data model and operations.
-	 *
-	 * @param {FancytreeNode} parent
-	 * @param {NodeData} obj
-	 *
-	 * @property {Fancytree} tree The tree instance
-	 * @property {FancytreeNode} parent The parent node
-	 * @property {string} key Node id (must be unique inside the tree)
-	 * @property {string} title Display name (may contain HTML)
-	 * @property {object} data Contains all extra data that was passed on node creation
-	 * @property {FancytreeNode[] | null | undefined} children Array of child nodes.<br>
-	 *     For lazy nodes, null or undefined means 'not yet loaded'. Use an empty array
-	 *     to define a node that has no children.
-	 * @property {boolean} expanded Use isExpanded(), setExpanded() to access this property.
-	 * @property {string} extraClasses Additional CSS classes, added to the node's `<span>`.<br>
-	 *     Note: use `node.add/remove/toggleClass()` to modify.
-	 * @property {boolean} folder Folder nodes have different default icons and click behavior.<br>
-	 *     Note: Also non-folders may have children.
-	 * @property {string} statusNodeType null for standard nodes. Otherwise type of special system node: 'error', 'loading', 'nodata', or 'paging'.
-	 * @property {boolean} lazy True if this node is loaded on demand, i.e. on first expansion.
-	 * @property {boolean} selected Use isSelected(), setSelected() to access this property.
-	 * @property {string} tooltip Alternative description used as hover popup
-	 * @property {string} iconTooltip Description used as hover popup for icon. @since 2.27
-	 * @property {string} type Node type, used with tree.types map. @since 2.27
-	 */
-	function FancytreeNode(parent, obj) {
-		var i, l, name, cl;
-
-		this.parent = parent;
-		this.tree = parent.tree;
-		this.ul = null;
-		this.li = null; // <li id='key' ftnode=this> tag
-		this.statusNodeType = null; // if this is a temp. node to display the status of its parent
-		this._isLoading = false; // if this node itself is loading
-		this._error = null; // {message: '...'} if a load error occurred
-		this.data = {};
-
-		// TODO: merge this code with node.toDict()
-		// copy attributes from obj object
-		for (i = 0, l = NODE_ATTRS.length; i < l; i++) {
-			name = NODE_ATTRS[i];
-			this[name] = obj[name];
-		}
-		// unselectableIgnore and unselectableStatus imply unselectable
-		if (
-			this.unselectableIgnore != null ||
-			this.unselectableStatus != null
-		) {
-			this.unselectable = true;
-		}
-		if (obj.hideCheckbox) {
-			$.error(
-				"'hideCheckbox' node option was removed in v2.23.0: use 'checkbox: false'"
-			);
-		}
-		// node.data += obj.data
-		if (obj.data) {
-			$.extend(this.data, obj.data);
-		}
-		// Copy all other attributes to this.data.NAME
-		for (name in obj) {
-			if (
-				!NODE_ATTR_MAP[name] &&
-				(this.tree.options.copyFunctionsToData ||
-					!$.isFunction(obj[name])) &&
-				!NONE_NODE_DATA_MAP[name]
-			) {
-				// node.data.NAME = obj.NAME
-				this.data[name] = obj[name];
-			}
-		}
-
-		// Fix missing key
-		if (this.key == null) {
-			// test for null OR undefined
-			if (this.tree.options.defaultKey) {
-				this.key = "" + this.tree.options.defaultKey(this);
-				_assert(this.key, "defaultKey() must return a unique key");
-			} else {
-				this.key = "_" + FT._nextNodeKey++;
-			}
-		} else {
-			this.key = "" + this.key; // Convert to string (#217)
-		}
-
-		// Fix tree.activeNode
-		// TODO: not elegant: we use obj.active as marker to set tree.activeNode
-		// when loading from a dictionary.
-		if (obj.active) {
-			_assert(
-				this.tree.activeNode === null,
-				"only one active node allowed"
-			);
-			this.tree.activeNode = this;
-		}
-		if (obj.selected) {
-			// #186
-			this.tree.lastSelectedNode = this;
-		}
-		// TODO: handle obj.focus = true
-
-		// Create child nodes
-		cl = obj.children;
-		if (cl) {
-			if (cl.length) {
-				this._setChildren(cl);
-			} else {
-				// if an empty array was passed for a lazy node, keep it, in order to mark it 'loaded'
-				this.children = this.lazy ? [] : null;
-			}
-		} else {
-			this.children = null;
-		}
-		// Add to key/ref map (except for root node)
-		//	if( parent ) {
-		this.tree._callHook("treeRegisterNode", this.tree, true, this);
-		//	}
-	}
-
-	FancytreeNode.prototype = /** @lends FancytreeNode# */ {
-		/* Return the direct child FancytreeNode with a given key, index. */
-		_findDirectChild: function(ptr) {
-			var i,
-				l,
-				cl = this.children;
-
-			if (cl) {
-				if (typeof ptr === "string") {
-					for (i = 0, l = cl.length; i < l; i++) {
-						if (cl[i].key === ptr) {
-							return cl[i];
-						}
-					}
-				} else if (typeof ptr === "number") {
-					return this.children[ptr];
-				} else if (ptr.parent === this) {
-					return ptr;
-				}
-			}
-			return null;
-		},
-		// TODO: activate()
-		// TODO: activateSilently()
-		/* Internal helper called in recursive addChildren sequence.*/
-		_setChildren: function(children) {
-			_assert(
-				children && (!this.children || this.children.length === 0),
-				"only init supported"
-			);
-			this.children = [];
-			for (var i = 0, l = children.length; i < l; i++) {
-				this.children.push(new FancytreeNode(this, children[i]));
-			}
-			this.tree._callHook(
-				"treeStructureChanged",
-				this.tree,
-				"setChildren"
-			);
-		},
-		/**
-		 * Append (or insert) a list of child nodes.
-		 *
-		 * @param {NodeData[]} children array of child node definitions (also single child accepted)
-		 * @param {FancytreeNode | string | Integer} [insertBefore] child node (or key or index of such).
-		 *     If omitted, the new children are appended.
-		 * @returns {FancytreeNode} first child added
-		 *
-		 * @see FancytreeNode#applyPatch
-		 */
-		addChildren: function(children, insertBefore) {
-			var i,
-				l,
-				pos,
-				origFirstChild = this.getFirstChild(),
-				origLastChild = this.getLastChild(),
-				firstNode = null,
-				nodeList = [];
-
-			if ($.isPlainObject(children)) {
-				children = [children];
-			}
-			if (!this.children) {
-				this.children = [];
-			}
-			for (i = 0, l = children.length; i < l; i++) {
-				nodeList.push(new FancytreeNode(this, children[i]));
-			}
-			firstNode = nodeList[0];
-			if (insertBefore == null) {
-				this.children = this.children.concat(nodeList);
-			} else {
-				// Returns null if insertBefore is not a direct child:
-				insertBefore = this._findDirectChild(insertBefore);
-				pos = $.inArray(insertBefore, this.children);
-				_assert(pos >= 0, "insertBefore must be an existing child");
-				// insert nodeList after children[pos]
-				this.children.splice.apply(
-					this.children,
-					[pos, 0].concat(nodeList)
-				);
-			}
-			if (origFirstChild && !insertBefore) {
-				// #708: Fast path -- don't render every child of root, just the new ones!
-				// #723, #729: but only if it's appended to an existing child list
-				for (i = 0, l = nodeList.length; i < l; i++) {
-					nodeList[i].render(); // New nodes were never rendered before
-				}
-				// Adjust classes where status may have changed
-				// Has a first child
-				if (origFirstChild !== this.getFirstChild()) {
-					// Different first child -- recompute classes
-					origFirstChild.renderStatus();
-				}
-				if (origLastChild !== this.getLastChild()) {
-					// Different last child -- recompute classes
-					origLastChild.renderStatus();
-				}
-			} else if (!this.parent || this.parent.ul || this.tr) {
-				// render if the parent was rendered (or this is a root node)
-				this.render();
-			}
-			if (this.tree.options.selectMode === 3) {
-				this.fixSelection3FromEndNodes();
-			}
-			this.triggerModifyChild(
-				"add",
-				nodeList.length === 1 ? nodeList[0] : null
-			);
-			return firstNode;
-		},
-		/**
-		 * Add class to node's span tag and to .extraClasses.
-		 *
-		 * @param {string} className class name
-		 *
-		 * @since 2.17
-		 */
-		addClass: function(className) {
-			return this.toggleClass(className, true);
-		},
-		/**
-		 * Append or prepend a node, or append a child node.
-		 *
-		 * This a convenience function that calls addChildren()
-		 *
-		 * @param {NodeData} node node definition
-		 * @param {string} [mode=child] 'before', 'after', 'firstChild', or 'child' ('over' is a synonym for 'child')
-		 * @returns {FancytreeNode} new node
-		 */
-		addNode: function(node, mode) {
-			if (mode === undefined || mode === "over") {
-				mode = "child";
-			}
-			switch (mode) {
-				case "after":
-					return this.getParent().addChildren(
-						node,
-						this.getNextSibling()
-					);
-				case "before":
-					return this.getParent().addChildren(node, this);
-				case "firstChild":
-					// Insert before the first child if any
-					var insertBefore = this.children ? this.children[0] : null;
-					return this.addChildren(node, insertBefore);
-				case "child":
-				case "over":
-					return this.addChildren(node);
-			}
-			_assert(false, "Invalid mode: " + mode);
-		},
-		/**Add child status nodes that indicate 'More...', etc.
-		 *
-		 * This also maintains the node's `partload` property.
-		 * @param {boolean|object} node optional node definition. Pass `false` to remove all paging nodes.
-		 * @param {string} [mode='child'] 'child'|firstChild'
-		 * @since 2.15
-		 */
-		addPagingNode: function(node, mode) {
-			var i, n;
-
-			mode = mode || "child";
-			if (node === false) {
-				for (i = this.children.length - 1; i >= 0; i--) {
-					n = this.children[i];
-					if (n.statusNodeType === "paging") {
-						this.removeChild(n);
-					}
-				}
-				this.partload = false;
-				return;
-			}
-			node = $.extend(
-				{
-					title: this.tree.options.strings.moreData,
-					statusNodeType: "paging",
-					icon: false,
-				},
-				node
-			);
-			this.partload = true;
-			return this.addNode(node, mode);
-		},
-		/**
-		 * Append new node after this.
-		 *
-		 * This a convenience function that calls addNode(node, 'after')
-		 *
-		 * @param {NodeData} node node definition
-		 * @returns {FancytreeNode} new node
-		 */
-		appendSibling: function(node) {
-			return this.addNode(node, "after");
-		},
-		/**
-		 * (experimental) Apply a modification (or navigation) operation.
-		 *
-		 * @param {string} cmd
-		 * @param {object} [opts]
-		 * @see Fancytree#applyCommand
-		 * @since 2.32
-		 */
-		applyCommand: function(cmd, opts) {
-			return this.tree.applyCommand(cmd, this, opts);
-		},
-		/**
-		 * Modify existing child nodes.
-		 *
-		 * @param {NodePatch} patch
-		 * @returns {$.Promise}
-		 * @see FancytreeNode#addChildren
-		 */
-		applyPatch: function(patch) {
-			// patch [key, null] means 'remove'
-			if (patch === null) {
-				this.remove();
-				return _getResolvedPromise(this);
-			}
-			// TODO: make sure that root node is not collapsed or modified
-			// copy (most) attributes to node.ATTR or node.data.ATTR
-			var name,
-				promise,
-				v,
-				IGNORE_MAP = { children: true, expanded: true, parent: true }; // TODO: should be global
-
-			for (name in patch) {
-				if (patch.hasOwnProperty(name)) {
-					v = patch[name];
-					if (!IGNORE_MAP[name] && !$.isFunction(v)) {
-						if (NODE_ATTR_MAP[name]) {
-							this[name] = v;
-						} else {
-							this.data[name] = v;
-						}
-					}
-				}
-			}
-			// Remove and/or create children
-			if (patch.hasOwnProperty("children")) {
-				this.removeChildren();
-				if (patch.children) {
-					// only if not null and not empty list
-					// TODO: addChildren instead?
-					this._setChildren(patch.children);
-				}
-				// TODO: how can we APPEND or INSERT child nodes?
-			}
-			if (this.isVisible()) {
-				this.renderTitle();
-				this.renderStatus();
-			}
-			// Expand collapse (final step, since this may be async)
-			if (patch.hasOwnProperty("expanded")) {
-				promise = this.setExpanded(patch.expanded);
-			} else {
-				promise = _getResolvedPromise(this);
-			}
-			return promise;
-		},
-		/** Collapse all sibling nodes.
-		 * @returns {$.Promise}
-		 */
-		collapseSiblings: function() {
-			return this.tree._callHook("nodeCollapseSiblings", this);
-		},
-		/** Copy this node as sibling or child of `node`.
-		 *
-		 * @param {FancytreeNode} node source node
-		 * @param {string} [mode=child] 'before' | 'after' | 'child'
-		 * @param {Function} [map] callback function(NodeData, FancytreeNode) that could modify the new node
-		 * @returns {FancytreeNode} new
-		 */
-		copyTo: function(node, mode, map) {
-			return node.addNode(this.toDict(true, map), mode);
-		},
-		/** Count direct and indirect children.
-		 *
-		 * @param {boolean} [deep=true] pass 'false' to only count direct children
-		 * @returns {int} number of child nodes
-		 */
-		countChildren: function(deep) {
-			var cl = this.children,
-				i,
-				l,
-				n;
-			if (!cl) {
-				return 0;
-			}
-			n = cl.length;
-			if (deep !== false) {
-				for (i = 0, l = n; i < l; i++) {
-					n += cl[i].countChildren();
-				}
-			}
-			return n;
-		},
-		// TODO: deactivate()
-		/** Write to browser console if debugLevel >= 4 (prepending node info)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		debug: function(msg) {
-			if (this.tree.options.debugLevel >= 4) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("log", arguments);
-			}
-		},
-		/** Deprecated.
-		 * @deprecated since 2014-02-16. Use resetLazy() instead.
-		 */
-		discard: function() {
-			this.warn(
-				"FancytreeNode.discard() is deprecated since 2014-02-16. Use .resetLazy() instead."
-			);
-			return this.resetLazy();
-		},
-		/** Remove DOM elements for all descendents. May be called on .collapse event
-		 * to keep the DOM small.
-		 * @param {boolean} [includeSelf=false]
-		 */
-		discardMarkup: function(includeSelf) {
-			var fn = includeSelf ? "nodeRemoveMarkup" : "nodeRemoveChildMarkup";
-			this.tree._callHook(fn, this);
-		},
-		/** Write error to browser console if debugLevel >= 1 (prepending tree info)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		error: function(msg) {
-			if (this.tree.options.debugLevel >= 1) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("error", arguments);
-			}
-		},
-		/**Find all nodes that match condition (excluding self).
-		 *
-		 * @param {string | function(node)} match title string to search for, or a
-		 *     callback function that returns `true` if a node is matched.
-		 * @returns {FancytreeNode[]} array of nodes (may be empty)
-		 */
-		findAll: function(match) {
-			match = $.isFunction(match) ? match : _makeNodeTitleMatcher(match);
-			var res = [];
-			this.visit(function(n) {
-				if (match(n)) {
-					res.push(n);
-				}
-			});
-			return res;
-		},
-		/**Find first node that matches condition (excluding self).
-		 *
-		 * @param {string | function(node)} match title string to search for, or a
-		 *     callback function that returns `true` if a node is matched.
-		 * @returns {FancytreeNode} matching node or null
-		 * @see FancytreeNode#findAll
-		 */
-		findFirst: function(match) {
-			match = $.isFunction(match) ? match : _makeNodeTitleMatcher(match);
-			var res = null;
-			this.visit(function(n) {
-				if (match(n)) {
-					res = n;
-					return false;
-				}
-			});
-			return res;
-		},
-		/** Find a node relative to self.
-		 *
-		 * @param {number|string} where The keyCode that would normally trigger this move,
-		 *		or a keyword ('down', 'first', 'last', 'left', 'parent', 'right', 'up').
-		 * @returns {FancytreeNode}
-		 * @since v2.31
-		 */
-		findRelatedNode: function(where, includeHidden) {
-			return this.tree.findRelatedNode(this, where, includeHidden);
-		},
-		/* Apply selection state (internal use only) */
-		_changeSelectStatusAttrs: function(state) {
-			var changed = false,
-				opts = this.tree.options,
-				unselectable = FT.evalOption(
-					"unselectable",
-					this,
-					this,
-					opts,
-					false
-				),
-				unselectableStatus = FT.evalOption(
-					"unselectableStatus",
-					this,
-					this,
-					opts,
-					undefined
-				);
-
-			if (unselectable && unselectableStatus != null) {
-				state = unselectableStatus;
-			}
-			switch (state) {
-				case false:
-					changed = this.selected || this.partsel;
-					this.selected = false;
-					this.partsel = false;
-					break;
-				case true:
-					changed = !this.selected || !this.partsel;
-					this.selected = true;
-					this.partsel = true;
-					break;
-				case undefined:
-					changed = this.selected || !this.partsel;
-					this.selected = false;
-					this.partsel = true;
-					break;
-				default:
-					_assert(false, "invalid state: " + state);
-			}
-			// this.debug("fixSelection3AfterLoad() _changeSelectStatusAttrs()", state, changed);
-			if (changed) {
-				this.renderStatus();
-			}
-			return changed;
-		},
-		/**
-		 * Fix selection status, after this node was (de)selected in multi-hier mode.
-		 * This includes (de)selecting all children.
-		 */
-		fixSelection3AfterClick: function(callOpts) {
-			var flag = this.isSelected();
-
-			// this.debug("fixSelection3AfterClick()");
-
-			this.visit(function(node) {
-				node._changeSelectStatusAttrs(flag);
-				if (node.radiogroup) {
-					// #931: don't (de)select this branch
-					return "skip";
-				}
-			});
-			this.fixSelection3FromEndNodes(callOpts);
-		},
-		/**
-		 * Fix selection status for multi-hier mode.
-		 * Only end-nodes are considered to update the descendants branch and parents.
-		 * Should be called after this node has loaded new children or after
-		 * children have been modified using the API.
-		 */
-		fixSelection3FromEndNodes: function(callOpts) {
-			var opts = this.tree.options;
-
-			// this.debug("fixSelection3FromEndNodes()");
-			_assert(opts.selectMode === 3, "expected selectMode 3");
-
-			// Visit all end nodes and adjust their parent's `selected` and `partsel`
-			// attributes. Return selection state true, false, or undefined.
-			function _walk(node) {
-				var i,
-					l,
-					child,
-					s,
-					state,
-					allSelected,
-					someSelected,
-					unselIgnore,
-					unselState,
-					children = node.children;
-
-				if (children && children.length) {
-					// check all children recursively
-					allSelected = true;
-					someSelected = false;
-
-					for (i = 0, l = children.length; i < l; i++) {
-						child = children[i];
-						// the selection state of a node is not relevant; we need the end-nodes
-						s = _walk(child);
-						// if( !child.unselectableIgnore ) {
-						unselIgnore = FT.evalOption(
-							"unselectableIgnore",
-							child,
-							child,
-							opts,
-							false
-						);
-						if (!unselIgnore) {
-							if (s !== false) {
-								someSelected = true;
-							}
-							if (s !== true) {
-								allSelected = false;
-							}
-						}
-					}
-					// eslint-disable-next-line no-nested-ternary
-					state = allSelected
-						? true
-						: someSelected
-						? undefined
-						: false;
-				} else {
-					// This is an end-node: simply report the status
-					unselState = FT.evalOption(
-						"unselectableStatus",
-						node,
-						node,
-						opts,
-						undefined
-					);
-					state = unselState == null ? !!node.selected : !!unselState;
-				}
-				// #939: Keep a `partsel` flag that was explicitly set on a lazy node
-				if (
-					node.partsel &&
-					!node.selected &&
-					node.lazy &&
-					node.children == null
-				) {
-					state = undefined;
-				}
-				node._changeSelectStatusAttrs(state);
-				return state;
-			}
-			_walk(this);
-
-			// Update parent's state
-			this.visitParents(function(node) {
-				var i,
-					l,
-					child,
-					state,
-					unselIgnore,
-					unselState,
-					children = node.children,
-					allSelected = true,
-					someSelected = false;
-
-				for (i = 0, l = children.length; i < l; i++) {
-					child = children[i];
-					unselIgnore = FT.evalOption(
-						"unselectableIgnore",
-						child,
-						child,
-						opts,
-						false
-					);
-					if (!unselIgnore) {
-						unselState = FT.evalOption(
-							"unselectableStatus",
-							child,
-							child,
-							opts,
-							undefined
-						);
-						state =
-							unselState == null
-								? !!child.selected
-								: !!unselState;
-						// When fixing the parents, we trust the sibling status (i.e.
-						// we don't recurse)
-						if (state || child.partsel) {
-							someSelected = true;
-						}
-						if (!state) {
-							allSelected = false;
-						}
-					}
-				}
-				// eslint-disable-next-line no-nested-ternary
-				state = allSelected ? true : someSelected ? undefined : false;
-				node._changeSelectStatusAttrs(state);
-			});
-		},
-		// TODO: focus()
-		/**
-		 * Update node data. If dict contains 'children', then also replace
-		 * the hole sub tree.
-		 * @param {NodeData} dict
-		 *
-		 * @see FancytreeNode#addChildren
-		 * @see FancytreeNode#applyPatch
-		 */
-		fromDict: function(dict) {
-			// copy all other attributes to this.data.xxx
-			for (var name in dict) {
-				if (NODE_ATTR_MAP[name]) {
-					// node.NAME = dict.NAME
-					this[name] = dict[name];
-				} else if (name === "data") {
-					// node.data += dict.data
-					$.extend(this.data, dict.data);
-				} else if (
-					!$.isFunction(dict[name]) &&
-					!NONE_NODE_DATA_MAP[name]
-				) {
-					// node.data.NAME = dict.NAME
-					this.data[name] = dict[name];
-				}
-			}
-			if (dict.children) {
-				// recursively set children and render
-				this.removeChildren();
-				this.addChildren(dict.children);
-			}
-			this.renderTitle();
-			/*
-			var children = dict.children;
-			if(children === undefined){
-				this.data = $.extend(this.data, dict);
-				this.render();
-				return;
-			}
-			dict = $.extend({}, dict);
-			dict.children = undefined;
-			this.data = $.extend(this.data, dict);
-			this.removeChildren();
-			this.addChild(children);
-			*/
-		},
-		/** Return the list of child nodes (undefined for unexpanded lazy nodes).
-		 * @returns {FancytreeNode[] | undefined}
-		 */
-		getChildren: function() {
-			if (this.hasChildren() === undefined) {
-				// TODO: only required for lazy nodes?
-				return undefined; // Lazy node: unloaded, currently loading, or load error
-			}
-			return this.children;
-		},
-		/** Return the first child node or null.
-		 * @returns {FancytreeNode | null}
-		 */
-		getFirstChild: function() {
-			return this.children ? this.children[0] : null;
-		},
-		/** Return the 0-based child index.
-		 * @returns {int}
-		 */
-		getIndex: function() {
-			// return this.parent.children.indexOf(this);
-			return $.inArray(this, this.parent.children); // indexOf doesn't work in IE7
-		},
-		/** Return the hierarchical child index (1-based, e.g. '3.2.4').
-		 * @param {string} [separator="."]
-		 * @param {int} [digits=1]
-		 * @returns {string}
-		 */
-		getIndexHier: function(separator, digits) {
-			separator = separator || ".";
-			var s,
-				res = [];
-			$.each(this.getParentList(false, true), function(i, o) {
-				s = "" + (o.getIndex() + 1);
-				if (digits) {
-					// prepend leading zeroes
-					s = ("0000000" + s).substr(-digits);
-				}
-				res.push(s);
-			});
-			return res.join(separator);
-		},
-		/** Return the parent keys separated by options.keyPathSeparator, e.g. "/id_1/id_17/id_32".
-		 *
-		 * (Unlike `node.getPath()`, this method prepends a "/" and inverts the first argument.)
-		 *
-		 * @see FancytreeNode#getPath
-		 * @param {boolean} [excludeSelf=false]
-		 * @returns {string}
-		 */
-		getKeyPath: function(excludeSelf) {
-			var sep = this.tree.options.keyPathSeparator;
-
-			return sep + this.getPath(!excludeSelf, "key", sep);
-		},
-		/** Return the last child of this node or null.
-		 * @returns {FancytreeNode | null}
-		 */
-		getLastChild: function() {
-			return this.children
-				? this.children[this.children.length - 1]
-				: null;
-		},
-		/** Return node depth. 0: System root node, 1: visible top-level node, 2: first sub-level, ... .
-		 * @returns {int}
-		 */
-		getLevel: function() {
-			var level = 0,
-				dtn = this.parent;
-			while (dtn) {
-				level++;
-				dtn = dtn.parent;
-			}
-			return level;
-		},
-		/** Return the successor node (under the same parent) or null.
-		 * @returns {FancytreeNode | null}
-		 */
-		getNextSibling: function() {
-			// TODO: use indexOf, if available: (not in IE6)
-			if (this.parent) {
-				var i,
-					l,
-					ac = this.parent.children;
-
-				for (i = 0, l = ac.length - 1; i < l; i++) {
-					// up to length-2, so next(last) = null
-					if (ac[i] === this) {
-						return ac[i + 1];
-					}
-				}
-			}
-			return null;
-		},
-		/** Return the parent node (null for the system root node).
-		 * @returns {FancytreeNode | null}
-		 */
-		getParent: function() {
-			// TODO: return null for top-level nodes?
-			return this.parent;
-		},
-		/** Return an array of all parent nodes (top-down).
-		 * @param {boolean} [includeRoot=false] Include the invisible system root node.
-		 * @param {boolean} [includeSelf=false] Include the node itself.
-		 * @returns {FancytreeNode[]}
-		 */
-		getParentList: function(includeRoot, includeSelf) {
-			var l = [],
-				dtn = includeSelf ? this : this.parent;
-			while (dtn) {
-				if (includeRoot || dtn.parent) {
-					l.unshift(dtn);
-				}
-				dtn = dtn.parent;
-			}
-			return l;
-		},
-		/** Return a string representing the hierachical node path, e.g. "a/b/c".
-		 * @param {boolean} [includeSelf=true]
-		 * @param {string | function} [part="title"] node property name or callback
-		 * @param {string} [separator="/"]
-		 * @returns {string}
-		 * @since v2.31
-		 */
-		getPath: function(includeSelf, part, separator) {
-			includeSelf = includeSelf !== false;
-			part = part || "title";
-			separator = separator || "/";
-
-			var val,
-				path = [],
-				isFunc = $.isFunction(part);
-
-			this.visitParents(function(n) {
-				if (n.parent) {
-					val = isFunc ? part(n) : n[part];
-					path.unshift(val);
-				}
-			}, includeSelf);
-			return path.join(separator);
-		},
-		/** Return the predecessor node (under the same parent) or null.
-		 * @returns {FancytreeNode | null}
-		 */
-		getPrevSibling: function() {
-			if (this.parent) {
-				var i,
-					l,
-					ac = this.parent.children;
-
-				for (i = 1, l = ac.length; i < l; i++) {
-					// start with 1, so prev(first) = null
-					if (ac[i] === this) {
-						return ac[i - 1];
-					}
-				}
-			}
-			return null;
-		},
-		/**
-		 * Return an array of selected descendant nodes.
-		 * @param {boolean} [stopOnParents=false] only return the topmost selected
-		 *     node (useful with selectMode 3)
-		 * @returns {FancytreeNode[]}
-		 */
-		getSelectedNodes: function(stopOnParents) {
-			var nodeList = [];
-			this.visit(function(node) {
-				if (node.selected) {
-					nodeList.push(node);
-					if (stopOnParents === true) {
-						return "skip"; // stop processing this branch
-					}
-				}
-			});
-			return nodeList;
-		},
-		/** Return true if node has children. Return undefined if not sure, i.e. the node is lazy and not yet loaded).
-		 * @returns {boolean | undefined}
-		 */
-		hasChildren: function() {
-			if (this.lazy) {
-				if (this.children == null) {
-					// null or undefined: Not yet loaded
-					return undefined;
-				} else if (this.children.length === 0) {
-					// Loaded, but response was empty
-					return false;
-				} else if (
-					this.children.length === 1 &&
-					this.children[0].isStatusNode()
-				) {
-					// Currently loading or load error
-					return undefined;
-				}
-				return true;
-			}
-			return !!(this.children && this.children.length);
-		},
-		/**
-		 * Return true if node has `className` defined in .extraClasses.
-		 *
-		 * @param {string} className class name (separate multiple classes by space)
-		 * @returns {boolean}
-		 *
-		 * @since 2.32
-		 */
-		hasClass: function(className) {
-			return (
-				(" " + (this.extraClasses || "") + " ").indexOf(
-					" " + className + " "
-				) >= 0
-			);
-		},
-		/** Return true if node has keyboard focus.
-		 * @returns {boolean}
-		 */
-		hasFocus: function() {
-			return this.tree.hasFocus() && this.tree.focusNode === this;
-		},
-		/** Write to browser console if debugLevel >= 3 (prepending node info)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		info: function(msg) {
-			if (this.tree.options.debugLevel >= 3) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("info", arguments);
-			}
-		},
-		/** Return true if node is active (see also FancytreeNode#isSelected).
-		 * @returns {boolean}
-		 */
-		isActive: function() {
-			return this.tree.activeNode === this;
-		},
-		/** Return true if node is vertically below `otherNode`, i.e. rendered in a subsequent row.
-		 * @param {FancytreeNode} otherNode
-		 * @returns {boolean}
-		 * @since 2.28
-		 */
-		isBelowOf: function(otherNode) {
-			return this.getIndexHier(".", 5) > otherNode.getIndexHier(".", 5);
-		},
-		/** Return true if node is a direct child of otherNode.
-		 * @param {FancytreeNode} otherNode
-		 * @returns {boolean}
-		 */
-		isChildOf: function(otherNode) {
-			return this.parent && this.parent === otherNode;
-		},
-		/** Return true, if node is a direct or indirect sub node of otherNode.
-		 * @param {FancytreeNode} otherNode
-		 * @returns {boolean}
-		 */
-		isDescendantOf: function(otherNode) {
-			if (!otherNode || otherNode.tree !== this.tree) {
-				return false;
-			}
-			var p = this.parent;
-			while (p) {
-				if (p === otherNode) {
-					return true;
-				}
-				if (p === p.parent) {
-					$.error("Recursive parent link: " + p);
-				}
-				p = p.parent;
-			}
-			return false;
-		},
-		/** Return true if node is expanded.
-		 * @returns {boolean}
-		 */
-		isExpanded: function() {
-			return !!this.expanded;
-		},
-		/** Return true if node is the first node of its parent's children.
-		 * @returns {boolean}
-		 */
-		isFirstSibling: function() {
-			var p = this.parent;
-			return !p || p.children[0] === this;
-		},
-		/** Return true if node is a folder, i.e. has the node.folder attribute set.
-		 * @returns {boolean}
-		 */
-		isFolder: function() {
-			return !!this.folder;
-		},
-		/** Return true if node is the last node of its parent's children.
-		 * @returns {boolean}
-		 */
-		isLastSibling: function() {
-			var p = this.parent;
-			return !p || p.children[p.children.length - 1] === this;
-		},
-		/** Return true if node is lazy (even if data was already loaded)
-		 * @returns {boolean}
-		 */
-		isLazy: function() {
-			return !!this.lazy;
-		},
-		/** Return true if node is lazy and loaded. For non-lazy nodes always return true.
-		 * @returns {boolean}
-		 */
-		isLoaded: function() {
-			return !this.lazy || this.hasChildren() !== undefined; // Also checks if the only child is a status node
-		},
-		/** Return true if children are currently beeing loaded, i.e. a Ajax request is pending.
-		 * @returns {boolean}
-		 */
-		isLoading: function() {
-			return !!this._isLoading;
-		},
-		/*
-		 * @deprecated since v2.4.0:  Use isRootNode() instead
-		 */
-		isRoot: function() {
-			return this.isRootNode();
-		},
-		/** Return true if node is partially selected (tri-state).
-		 * @returns {boolean}
-		 * @since 2.23
-		 */
-		isPartsel: function() {
-			return !this.selected && !!this.partsel;
-		},
-		/** (experimental) Return true if this is partially loaded.
-		 * @returns {boolean}
-		 * @since 2.15
-		 */
-		isPartload: function() {
-			return !!this.partload;
-		},
-		/** Return true if this is the (invisible) system root node.
-		 * @returns {boolean}
-		 * @since 2.4
-		 */
-		isRootNode: function() {
-			return this.tree.rootNode === this;
-		},
-		/** Return true if node is selected, i.e. has a checkmark set (see also FancytreeNode#isActive).
-		 * @returns {boolean}
-		 */
-		isSelected: function() {
-			return !!this.selected;
-		},
-		/** Return true if this node is a temporarily generated system node like
-		 * 'loading', 'paging', or 'error' (node.statusNodeType contains the type).
-		 * @returns {boolean}
-		 */
-		isStatusNode: function() {
-			return !!this.statusNodeType;
-		},
-		/** Return true if this node is a status node of type 'paging'.
-		 * @returns {boolean}
-		 * @since 2.15
-		 */
-		isPagingNode: function() {
-			return this.statusNodeType === "paging";
-		},
-		/** Return true if this a top level node, i.e. a direct child of the (invisible) system root node.
-		 * @returns {boolean}
-		 * @since 2.4
-		 */
-		isTopLevel: function() {
-			return this.tree.rootNode === this.parent;
-		},
-		/** Return true if node is lazy and not yet loaded. For non-lazy nodes always return false.
-		 * @returns {boolean}
-		 */
-		isUndefined: function() {
-			return this.hasChildren() === undefined; // also checks if the only child is a status node
-		},
-		/** Return true if all parent nodes are expanded. Note: this does not check
-		 * whether the node is scrolled into the visible part of the screen.
-		 * @returns {boolean}
-		 */
-		isVisible: function() {
-			var i,
-				l,
-				n,
-				hasFilter = this.tree.enableFilter,
-				parents = this.getParentList(false, false);
-
-			// TODO: check $(n.span).is(":visible")
-			// i.e. return false for nodes (but not parents) that are hidden
-			// by a filter
-			if (hasFilter && !this.match && !this.subMatchCount) {
-				// this.debug( "isVisible: HIDDEN (" + hasFilter + ", " + this.match + ", " + this.match + ")" );
-				return false;
-			}
-
-			for (i = 0, l = parents.length; i < l; i++) {
-				n = parents[i];
-
-				if (!n.expanded) {
-					// this.debug("isVisible: HIDDEN (parent collapsed)");
-					return false;
-				}
-				// if (hasFilter && !n.match && !n.subMatchCount) {
-				// 	this.debug("isVisible: HIDDEN (" + hasFilter + ", " + this.match + ", " + this.match + ")");
-				// 	return false;
-				// }
-			}
-			// this.debug("isVisible: VISIBLE");
-			return true;
-		},
-		/** Deprecated.
-		 * @deprecated since 2014-02-16: use load() instead.
-		 */
-		lazyLoad: function(discard) {
-			$.error(
-				"FancytreeNode.lazyLoad() is deprecated since 2014-02-16. Use .load() instead."
-			);
-		},
-		/**
-		 * Load all children of a lazy node if neccessary. The <i>expanded</i> state is maintained.
-		 * @param {boolean} [forceReload=false] Pass true to discard any existing nodes before. Otherwise this method does nothing if the node was already loaded.
-		 * @returns {$.Promise}
-		 */
-		load: function(forceReload) {
-			var res,
-				source,
-				self = this,
-				wasExpanded = this.isExpanded();
-
-			_assert(this.isLazy(), "load() requires a lazy node");
-			// _assert( forceReload || this.isUndefined(), "Pass forceReload=true to re-load a lazy node" );
-			if (!forceReload && !this.isUndefined()) {
-				return _getResolvedPromise(this);
-			}
-			if (this.isLoaded()) {
-				this.resetLazy(); // also collapses
-			}
-			// This method is also called by setExpanded() and loadKeyPath(), so we
-			// have to avoid recursion.
-			source = this.tree._triggerNodeEvent("lazyLoad", this);
-			if (source === false) {
-				// #69
-				return _getResolvedPromise(this);
-			}
-			_assert(
-				typeof source !== "boolean",
-				"lazyLoad event must return source in data.result"
-			);
-			res = this.tree._callHook("nodeLoadChildren", this, source);
-			if (wasExpanded) {
-				this.expanded = true;
-				res.always(function() {
-					self.render();
-				});
-			} else {
-				res.always(function() {
-					self.renderStatus(); // fix expander icon to 'loaded'
-				});
-			}
-			return res;
-		},
-		/** Expand all parents and optionally scroll into visible area as neccessary.
-		 * Promise is resolved, when lazy loading and animations are done.
-		 * @param {object} [opts] passed to `setExpanded()`.
-		 *     Defaults to {noAnimation: false, noEvents: false, scrollIntoView: true}
-		 * @returns {$.Promise}
-		 */
-		makeVisible: function(opts) {
-			var i,
-				self = this,
-				deferreds = [],
-				dfd = new $.Deferred(),
-				parents = this.getParentList(false, false),
-				len = parents.length,
-				effects = !(opts && opts.noAnimation === true),
-				scroll = !(opts && opts.scrollIntoView === false);
-
-			// Expand bottom-up, so only the top node is animated
-			for (i = len - 1; i >= 0; i--) {
-				// self.debug("pushexpand" + parents[i]);
-				deferreds.push(parents[i].setExpanded(true, opts));
-			}
-			$.when.apply($, deferreds).done(function() {
-				// All expands have finished
-				// self.debug("expand DONE", scroll);
-				if (scroll) {
-					self.scrollIntoView(effects).done(function() {
-						// self.debug("scroll DONE");
-						dfd.resolve();
-					});
-				} else {
-					dfd.resolve();
-				}
-			});
-			return dfd.promise();
-		},
-		/** Move this node to targetNode.
-		 *  @param {FancytreeNode} targetNode
-		 *  @param {string} mode <pre>
-		 *      'child': append this node as last child of targetNode.
-		 *               This is the default. To be compatble with the D'n'd
-		 *               hitMode, we also accept 'over'.
-		 *      'firstChild': add this node as first child of targetNode.
-		 *      'before': add this node as sibling before targetNode.
-		 *      'after': add this node as sibling after targetNode.</pre>
-		 *  @param {function} [map] optional callback(FancytreeNode) to allow modifcations
-		 */
-		moveTo: function(targetNode, mode, map) {
-			if (mode === undefined || mode === "over") {
-				mode = "child";
-			} else if (mode === "firstChild") {
-				if (targetNode.children && targetNode.children.length) {
-					mode = "before";
-					targetNode = targetNode.children[0];
-				} else {
-					mode = "child";
-				}
-			}
-			var pos,
-				tree = this.tree,
-				prevParent = this.parent,
-				targetParent =
-					mode === "child" ? targetNode : targetNode.parent;
-
-			if (this === targetNode) {
-				return;
-			} else if (!this.parent) {
-				$.error("Cannot move system root");
-			} else if (targetParent.isDescendantOf(this)) {
-				$.error("Cannot move a node to its own descendant");
-			}
-			if (targetParent !== prevParent) {
-				prevParent.triggerModifyChild("remove", this);
-			}
-			// Unlink this node from current parent
-			if (this.parent.children.length === 1) {
-				if (this.parent === targetParent) {
-					return; // #258
-				}
-				this.parent.children = this.parent.lazy ? [] : null;
-				this.parent.expanded = false;
-			} else {
-				pos = $.inArray(this, this.parent.children);
-				_assert(pos >= 0, "invalid source parent");
-				this.parent.children.splice(pos, 1);
-			}
-			// Remove from source DOM parent
-			// if(this.parent.ul){
-			// 	this.parent.ul.removeChild(this.li);
-			// }
-
-			// Insert this node to target parent's child list
-			this.parent = targetParent;
-			if (targetParent.hasChildren()) {
-				switch (mode) {
-					case "child":
-						// Append to existing target children
-						targetParent.children.push(this);
-						break;
-					case "before":
-						// Insert this node before target node
-						pos = $.inArray(targetNode, targetParent.children);
-						_assert(pos >= 0, "invalid target parent");
-						targetParent.children.splice(pos, 0, this);
-						break;
-					case "after":
-						// Insert this node after target node
-						pos = $.inArray(targetNode, targetParent.children);
-						_assert(pos >= 0, "invalid target parent");
-						targetParent.children.splice(pos + 1, 0, this);
-						break;
-					default:
-						$.error("Invalid mode " + mode);
-				}
-			} else {
-				targetParent.children = [this];
-			}
-			// Parent has no <ul> tag yet:
-			// if( !targetParent.ul ) {
-			// 	// This is the parent's first child: create UL tag
-			// 	// (Hidden, because it will be
-			// 	targetParent.ul = document.createElement("ul");
-			// 	targetParent.ul.style.display = "none";
-			// 	targetParent.li.appendChild(targetParent.ul);
-			// }
-			// // Issue 319: Add to target DOM parent (only if node was already rendered(expanded))
-			// if(this.li){
-			// 	targetParent.ul.appendChild(this.li);
-			// }
-
-			// Let caller modify the nodes
-			if (map) {
-				targetNode.visit(map, true);
-			}
-			if (targetParent === prevParent) {
-				targetParent.triggerModifyChild("move", this);
-			} else {
-				// prevParent.triggerModifyChild("remove", this);
-				targetParent.triggerModifyChild("add", this);
-			}
-			// Handle cross-tree moves
-			if (tree !== targetNode.tree) {
-				// Fix node.tree for all source nodes
-				// 	_assert(false, "Cross-tree move is not yet implemented.");
-				this.warn("Cross-tree moveTo is experimental!");
-				this.visit(function(n) {
-					// TODO: fix selection state and activation, ...
-					n.tree = targetNode.tree;
-				}, true);
-			}
-
-			// A collaposed node won't re-render children, so we have to remove it manually
-			// if( !targetParent.expanded ){
-			//   prevParent.ul.removeChild(this.li);
-			// }
-			tree._callHook("treeStructureChanged", tree, "moveTo");
-
-			// Update HTML markup
-			if (!prevParent.isDescendantOf(targetParent)) {
-				prevParent.render();
-			}
-			if (
-				!targetParent.isDescendantOf(prevParent) &&
-				targetParent !== prevParent
-			) {
-				targetParent.render();
-			}
-			// TODO: fix selection state
-			// TODO: fix active state
-
-			/*
-			var tree = this.tree;
-			var opts = tree.options;
-			var pers = tree.persistence;
-
-			// Always expand, if it's below minExpandLevel
-			// tree.logDebug ("%s._addChildNode(%o), l=%o", this, ftnode, ftnode.getLevel());
-			if ( opts.minExpandLevel >= ftnode.getLevel() ) {
-				// tree.logDebug ("Force expand for %o", ftnode);
-				this.bExpanded = true;
-			}
-
-			// In multi-hier mode, update the parents selection state
-			// DT issue #82: only if not initializing, because the children may not exist yet
-			// if( !ftnode.data.isStatusNode() && opts.selectMode==3 && !isInitializing )
-			// 	ftnode._fixSelectionState();
-
-			// In multi-hier mode, update the parents selection state
-			if( ftnode.bSelected && opts.selectMode==3 ) {
-				var p = this;
-				while( p ) {
-					if( !p.hasSubSel )
-						p._setSubSel(true);
-					p = p.parent;
-				}
-			}
-			// render this node and the new child
-			if ( tree.bEnableUpdate )
-				this.render();
-			return ftnode;
-			*/
-		},
-		/** Set focus relative to this node and optionally activate.
-		 *
-		 * 'left' collapses the node if it is expanded, or move to the parent
-		 * otherwise.
-		 * 'right' expands the node if it is collapsed, or move to the first
-		 * child otherwise.
-		 *
-		 * @param {string|number} where 'down', 'first', 'last', 'left', 'parent', 'right', or 'up'.
-		 *   (Alternatively the keyCode that would normally trigger this move,
-		 *   e.g. `$.ui.keyCode.LEFT` = 'left'.
-		 * @param {boolean} [activate=true]
-		 * @returns {$.Promise}
-		 */
-		navigate: function(where, activate) {
-			var node,
-				KC = $.ui.keyCode;
-
-			// Handle optional expand/collapse action for LEFT/RIGHT
-			switch (where) {
-				case "left":
-				case KC.LEFT:
-					if (this.expanded) {
-						return this.setExpanded(false);
-					}
-					break;
-				case "right":
-				case KC.RIGHT:
-					if (!this.expanded && (this.children || this.lazy)) {
-						return this.setExpanded();
-					}
-					break;
-			}
-			// Otherwise activate or focus the related node
-			node = this.findRelatedNode(where);
-			if (node) {
-				// setFocus/setActive will scroll later (if autoScroll is specified)
-				try {
-					node.makeVisible({ scrollIntoView: false });
-				} catch (e) {} // #272
-				if (activate === false) {
-					node.setFocus();
-					return _getResolvedPromise();
-				}
-				return node.setActive();
-			}
-			this.warn("Could not find related node '" + where + "'.");
-			return _getResolvedPromise();
-		},
-		/**
-		 * Remove this node (not allowed for system root).
-		 */
-		remove: function() {
-			return this.parent.removeChild(this);
-		},
-		/**
-		 * Remove childNode from list of direct children.
-		 * @param {FancytreeNode} childNode
-		 */
-		removeChild: function(childNode) {
-			return this.tree._callHook("nodeRemoveChild", this, childNode);
-		},
-		/**
-		 * Remove all child nodes and descendents. This converts the node into a leaf.<br>
-		 * If this was a lazy node, it is still considered 'loaded'; call node.resetLazy()
-		 * in order to trigger lazyLoad on next expand.
-		 */
-		removeChildren: function() {
-			return this.tree._callHook("nodeRemoveChildren", this);
-		},
-		/**
-		 * Remove class from node's span tag and .extraClasses.
-		 *
-		 * @param {string} className class name
-		 *
-		 * @since 2.17
-		 */
-		removeClass: function(className) {
-			return this.toggleClass(className, false);
-		},
-		/**
-		 * This method renders and updates all HTML markup that is required
-		 * to display this node in its current state.<br>
-		 * Note:
-		 * <ul>
-		 * <li>It should only be neccessary to call this method after the node object
-		 *     was modified by direct access to its properties, because the common
-		 *     API methods (node.setTitle(), moveTo(), addChildren(), remove(), ...)
-		 *     already handle this.
-		 * <li> {@link FancytreeNode#renderTitle} and {@link FancytreeNode#renderStatus}
-		 *     are implied. If changes are more local, calling only renderTitle() or
-		 *     renderStatus() may be sufficient and faster.
-		 * </ul>
-		 *
-		 * @param {boolean} [force=false] re-render, even if html markup was already created
-		 * @param {boolean} [deep=false] also render all descendants, even if parent is collapsed
-		 */
-		render: function(force, deep) {
-			return this.tree._callHook("nodeRender", this, force, deep);
-		},
-		/** Create HTML markup for the node's outer `<span>` (expander, checkbox, icon, and title).
-		 * Implies {@link FancytreeNode#renderStatus}.
-		 * @see Fancytree_Hooks#nodeRenderTitle
-		 */
-		renderTitle: function() {
-			return this.tree._callHook("nodeRenderTitle", this);
-		},
-		/** Update element's CSS classes according to node state.
-		 * @see Fancytree_Hooks#nodeRenderStatus
-		 */
-		renderStatus: function() {
-			return this.tree._callHook("nodeRenderStatus", this);
-		},
-		/**
-		 * (experimental) Replace this node with `source`.
-		 * (Currently only available for paging nodes.)
-		 * @param {NodeData[]} source List of child node definitions
-		 * @since 2.15
-		 */
-		replaceWith: function(source) {
-			var res,
-				parent = this.parent,
-				pos = $.inArray(this, parent.children),
-				self = this;
-
-			_assert(
-				this.isPagingNode(),
-				"replaceWith() currently requires a paging status node"
-			);
-
-			res = this.tree._callHook("nodeLoadChildren", this, source);
-			res.done(function(data) {
-				// New nodes are currently children of `this`.
-				var children = self.children;
-				// Prepend newly loaded child nodes to `this`
-				// Move new children after self
-				for (i = 0; i < children.length; i++) {
-					children[i].parent = parent;
-				}
-				parent.children.splice.apply(
-					parent.children,
-					[pos + 1, 0].concat(children)
-				);
-
-				// Remove self
-				self.children = null;
-				self.remove();
-				// Redraw new nodes
-				parent.render();
-				// TODO: set node.partload = false if this was tha last paging node?
-				// parent.addPagingNode(false);
-			}).fail(function() {
-				self.setExpanded();
-			});
-			return res;
-			// $.error("Not implemented: replaceWith()");
-		},
-		/**
-		 * Remove all children, collapse, and set the lazy-flag, so that the lazyLoad
-		 * event is triggered on next expand.
-		 */
-		resetLazy: function() {
-			this.removeChildren();
-			this.expanded = false;
-			this.lazy = true;
-			this.children = undefined;
-			this.renderStatus();
-		},
-		/** Schedule activity for delayed execution (cancel any pending request).
-		 *  scheduleAction('cancel') will only cancel a pending request (if any).
-		 * @param {string} mode
-		 * @param {number} ms
-		 */
-		scheduleAction: function(mode, ms) {
-			if (this.tree.timer) {
-				clearTimeout(this.tree.timer);
-				this.tree.debug("clearTimeout(%o)", this.tree.timer);
-			}
-			this.tree.timer = null;
-			var self = this; // required for closures
-			switch (mode) {
-				case "cancel":
-					// Simply made sure that timer was cleared
-					break;
-				case "expand":
-					this.tree.timer = setTimeout(function() {
-						self.tree.debug("setTimeout: trigger expand");
-						self.setExpanded(true);
-					}, ms);
-					break;
-				case "activate":
-					this.tree.timer = setTimeout(function() {
-						self.tree.debug("setTimeout: trigger activate");
-						self.setActive(true);
-					}, ms);
-					break;
-				default:
-					$.error("Invalid mode " + mode);
-			}
-			// this.tree.debug("setTimeout(%s, %s): %s", mode, ms, this.tree.timer);
-		},
-		/**
-		 *
-		 * @param {boolean | PlainObject} [effects=false] animation options.
-		 * @param {object} [options=null] {topNode: null, effects: ..., parent: ...} this node will remain visible in
-		 *     any case, even if `this` is outside the scroll pane.
-		 * @returns {$.Promise}
-		 */
-		scrollIntoView: function(effects, options) {
-			if (options !== undefined && _isNode(options)) {
-				throw Error(
-					"scrollIntoView() with 'topNode' option is deprecated since 2014-05-08. Use 'options.topNode' instead."
-				);
-			}
-			// The scroll parent is typically the plain tree's <UL> container.
-			// For ext-table, we choose the nearest parent that has `position: relative`
-			// and `overflow` set.
-			// (This default can be overridden by the local or global `scrollParent` option.)
-			var opts = $.extend(
-					{
-						effects:
-							effects === true
-								? { duration: 200, queue: false }
-								: effects,
-						scrollOfs: this.tree.options.scrollOfs,
-						scrollParent: this.tree.options.scrollParent,
-						topNode: null,
-					},
-					options
-				),
-				$scrollParent = opts.scrollParent,
-				$container = this.tree.$container,
-				overflowY = $container.css("overflow-y");
-
-			if (!$scrollParent) {
-				if (this.tree.tbody) {
-					$scrollParent = $container.scrollParent();
-				} else if (overflowY === "scroll" || overflowY === "auto") {
-					$scrollParent = $container;
-				} else {
-					// #922 plain tree in a non-fixed-sized UL scrolls inside its parent
-					$scrollParent = $container.scrollParent();
-				}
-			} else if (!$scrollParent.jquery) {
-				// Make sure we have a jQuery object
-				$scrollParent = $($scrollParent);
-			}
-			if (
-				$scrollParent[0] === document ||
-				$scrollParent[0] === document.body
-			) {
-				// `document` may be returned by $().scrollParent(), if nothing is found,
-				// but would not work: (see #894)
-				this.debug(
-					"scrollIntoView(): normalizing scrollParent to 'window':",
-					$scrollParent[0]
-				);
-				$scrollParent = $(window);
-			}
-			// eslint-disable-next-line one-var
-			var topNodeY,
-				nodeY,
-				horzScrollbarHeight,
-				containerOffsetTop,
-				dfd = new $.Deferred(),
-				self = this,
-				nodeHeight = $(this.span).height(),
-				topOfs = opts.scrollOfs.top || 0,
-				bottomOfs = opts.scrollOfs.bottom || 0,
-				containerHeight = $scrollParent.height(),
-				scrollTop = $scrollParent.scrollTop(),
-				$animateTarget = $scrollParent,
-				isParentWindow = $scrollParent[0] === window,
-				topNode = opts.topNode || null,
-				newScrollTop = null;
-
-			// this.debug("scrollIntoView(), scrollTop=" + scrollTop, opts.scrollOfs);
-			// _assert($(this.span).is(":visible"), "scrollIntoView node is invisible"); // otherwise we cannot calc offsets
-			if (this.isRootNode() || !this.isVisible()) {
-				// We cannot calc offsets for hidden elements
-				this.info("scrollIntoView(): node is invisible.");
-				return _getResolvedPromise();
-			}
-			if (isParentWindow) {
-				nodeY = $(this.span).offset().top;
-				topNodeY =
-					topNode && topNode.span ? $(topNode.span).offset().top : 0;
-				$animateTarget = $("html,body");
-			} else {
-				_assert(
-					$scrollParent[0] !== document &&
-						$scrollParent[0] !== document.body,
-					"scrollParent should be a simple element or `window`, not document or body."
-				);
-
-				containerOffsetTop = $scrollParent.offset().top;
-				nodeY =
-					$(this.span).offset().top - containerOffsetTop + scrollTop; // relative to scroll parent
-				topNodeY = topNode
-					? $(topNode.span).offset().top -
-					  containerOffsetTop +
-					  scrollTop
-					: 0;
-				horzScrollbarHeight = Math.max(
-					0,
-					$scrollParent.innerHeight() - $scrollParent[0].clientHeight
-				);
-				containerHeight -= horzScrollbarHeight;
-			}
-
-			// this.debug("    scrollIntoView(), nodeY=" + nodeY + ", containerHeight=" + containerHeight);
-			if (nodeY < scrollTop + topOfs) {
-				// Node is above visible container area
-				newScrollTop = nodeY - topOfs;
-				// this.debug("    scrollIntoView(), UPPER newScrollTop=" + newScrollTop);
-			} else if (
-				nodeY + nodeHeight >
-				scrollTop + containerHeight - bottomOfs
-			) {
-				newScrollTop = nodeY + nodeHeight - containerHeight + bottomOfs;
-				// this.debug("    scrollIntoView(), LOWER newScrollTop=" + newScrollTop);
-				// If a topNode was passed, make sure that it is never scrolled
-				// outside the upper border
-				if (topNode) {
-					_assert(
-						topNode.isRootNode() || topNode.isVisible(),
-						"topNode must be visible"
-					);
-					if (topNodeY < newScrollTop) {
-						newScrollTop = topNodeY - topOfs;
-						// this.debug("    scrollIntoView(), TOP newScrollTop=" + newScrollTop);
-					}
-				}
-			}
-
-			if (newScrollTop === null) {
-				dfd.resolveWith(this);
-			} else {
-				// this.debug("    scrollIntoView(), SET newScrollTop=" + newScrollTop);
-				if (opts.effects) {
-					opts.effects.complete = function() {
-						dfd.resolveWith(self);
-					};
-					$animateTarget.stop(true).animate(
-						{
-							scrollTop: newScrollTop,
-						},
-						opts.effects
-					);
-				} else {
-					$animateTarget[0].scrollTop = newScrollTop;
-					dfd.resolveWith(this);
-				}
-			}
-			return dfd.promise();
-		},
-
-		/**Activate this node.
-		 *
-		 * The `cell` option requires the ext-table and ext-ariagrid extensions.
-		 *
-		 * @param {boolean} [flag=true] pass false to deactivate
-		 * @param {object} [opts] additional options. Defaults to {noEvents: false, noFocus: false, cell: null}
-		 * @returns {$.Promise}
-		 */
-		setActive: function(flag, opts) {
-			return this.tree._callHook("nodeSetActive", this, flag, opts);
-		},
-		/**Expand or collapse this node. Promise is resolved, when lazy loading and animations are done.
-		 * @param {boolean} [flag=true] pass false to collapse
-		 * @param {object} [opts] additional options. Defaults to {noAnimation: false, noEvents: false}
-		 * @returns {$.Promise}
-		 */
-		setExpanded: function(flag, opts) {
-			return this.tree._callHook("nodeSetExpanded", this, flag, opts);
-		},
-		/**Set keyboard focus to this node.
-		 * @param {boolean} [flag=true] pass false to blur
-		 * @see Fancytree#setFocus
-		 */
-		setFocus: function(flag) {
-			return this.tree._callHook("nodeSetFocus", this, flag);
-		},
-		/**Select this node, i.e. check the checkbox.
-		 * @param {boolean} [flag=true] pass false to deselect
-		 * @param {object} [opts] additional options. Defaults to {noEvents: false, p
-		 *     propagateDown: null, propagateUp: null, callback: null }
-		 */
-		setSelected: function(flag, opts) {
-			return this.tree._callHook("nodeSetSelected", this, flag, opts);
-		},
-		/**Mark a lazy node as 'error', 'loading', 'nodata', or 'ok'.
-		 * @param {string} status 'error'|'loading'|'nodata'|'ok'
-		 * @param {string} [message]
-		 * @param {string} [details]
-		 */
-		setStatus: function(status, message, details) {
-			return this.tree._callHook(
-				"nodeSetStatus",
-				this,
-				status,
-				message,
-				details
-			);
-		},
-		/**Rename this node.
-		 * @param {string} title
-		 */
-		setTitle: function(title) {
-			this.title = title;
-			this.renderTitle();
-			this.triggerModify("rename");
-		},
-		/**Sort child list by title.
-		 * @param {function} [cmp] custom compare function(a, b) that returns -1, 0, or 1 (defaults to sort by title).
-		 * @param {boolean} [deep=false] pass true to sort all descendant nodes
-		 */
-		sortChildren: function(cmp, deep) {
-			var i,
-				l,
-				cl = this.children;
-
-			if (!cl) {
-				return;
-			}
-			cmp =
-				cmp ||
-				function(a, b) {
-					var x = a.title.toLowerCase(),
-						y = b.title.toLowerCase();
-
-					// eslint-disable-next-line no-nested-ternary
-					return x === y ? 0 : x > y ? 1 : -1;
-				};
-			cl.sort(cmp);
-			if (deep) {
-				for (i = 0, l = cl.length; i < l; i++) {
-					if (cl[i].children) {
-						cl[i].sortChildren(cmp, "$norender$");
-					}
-				}
-			}
-			if (deep !== "$norender$") {
-				this.render();
-			}
-			this.triggerModifyChild("sort");
-		},
-		/** Convert node (or whole branch) into a plain object.
-		 *
-		 * The result is compatible with node.addChildren().
-		 *
-		 * @param {boolean} [recursive=false] include child nodes
-		 * @param {function} [callback] callback(dict, node) is called for every node, in order to allow modifications.
-		 *     Return `false` to ignore this node or `"skip"` to include this node without its children.
-		 * @returns {NodeData}
-		 */
-		toDict: function(recursive, callback) {
-			var i,
-				l,
-				node,
-				res,
-				dict = {},
-				self = this;
-
-			$.each(NODE_ATTRS, function(i, a) {
-				if (self[a] || self[a] === false) {
-					dict[a] = self[a];
-				}
-			});
-			if (!$.isEmptyObject(this.data)) {
-				dict.data = $.extend({}, this.data);
-				if ($.isEmptyObject(dict.data)) {
-					delete dict.data;
-				}
-			}
-			if (callback) {
-				res = callback(dict, self);
-				if (res === false) {
-					return false; // Don't include this node nor its children
-				}
-				if (res === "skip") {
-					recursive = false; // Include this node, but not the children
-				}
-			}
-			if (recursive) {
-				if ($.isArray(this.children)) {
-					dict.children = [];
-					for (i = 0, l = this.children.length; i < l; i++) {
-						node = this.children[i];
-						if (!node.isStatusNode()) {
-							res = node.toDict(true, callback);
-							if (res !== false) {
-								dict.children.push(res);
-							}
-						}
-					}
-				}
-			}
-			return dict;
-		},
-		/**
-		 * Set, clear, or toggle class of node's span tag and .extraClasses.
-		 *
-		 * @param {string} className class name (separate multiple classes by space)
-		 * @param {boolean} [flag] true/false to add/remove class. If omitted, class is toggled.
-		 * @returns {boolean} true if a class was added
-		 *
-		 * @since 2.17
-		 */
-		toggleClass: function(value, flag) {
-			var className,
-				hasClass,
-				rnotwhite = /\S+/g,
-				classNames = value.match(rnotwhite) || [],
-				i = 0,
-				wasAdded = false,
-				statusElem = this[this.tree.statusClassPropName],
-				curClasses = " " + (this.extraClasses || "") + " ";
-
-			// this.info("toggleClass('" + value + "', " + flag + ")", curClasses);
-			// Modify DOM element directly if it already exists
-			if (statusElem) {
-				$(statusElem).toggleClass(value, flag);
-			}
-			// Modify node.extraClasses to make this change persistent
-			// Toggle if flag was not passed
-			while ((className = classNames[i++])) {
-				hasClass = curClasses.indexOf(" " + className + " ") >= 0;
-				flag = flag === undefined ? !hasClass : !!flag;
-				if (flag) {
-					if (!hasClass) {
-						curClasses += className + " ";
-						wasAdded = true;
-					}
-				} else {
-					while (curClasses.indexOf(" " + className + " ") > -1) {
-						curClasses = curClasses.replace(
-							" " + className + " ",
-							" "
-						);
-					}
-				}
-			}
-			this.extraClasses = $.trim(curClasses);
-			// this.info("-> toggleClass('" + value + "', " + flag + "): '" + this.extraClasses + "'");
-			return wasAdded;
-		},
-		/** Flip expanded status. */
-		toggleExpanded: function() {
-			return this.tree._callHook("nodeToggleExpanded", this);
-		},
-		/** Flip selection status. */
-		toggleSelected: function() {
-			return this.tree._callHook("nodeToggleSelected", this);
-		},
-		toString: function() {
-			return "FancytreeNode@" + this.key + "[title='" + this.title + "']";
-			// return "<FancytreeNode(#" + this.key + ", '" + this.title + "')>";
-		},
-		/**
-		 * Trigger `modifyChild` event on a parent to signal that a child was modified.
-		 * @param {string} operation Type of change: 'add', 'remove', 'rename', 'move', 'data', ...
-		 * @param {FancytreeNode} [childNode]
-		 * @param {object} [extra]
-		 */
-		triggerModifyChild: function(operation, childNode, extra) {
-			var data,
-				modifyChild = this.tree.options.modifyChild;
-
-			if (modifyChild) {
-				if (childNode && childNode.parent !== this) {
-					$.error(
-						"childNode " + childNode + " is not a child of " + this
-					);
-				}
-				data = {
-					node: this,
-					tree: this.tree,
-					operation: operation,
-					childNode: childNode || null,
-				};
-				if (extra) {
-					$.extend(data, extra);
-				}
-				modifyChild({ type: "modifyChild" }, data);
-			}
-		},
-		/**
-		 * Trigger `modifyChild` event on node.parent(!).
-		 * @param {string} operation Type of change: 'add', 'remove', 'rename', 'move', 'data', ...
-		 * @param {object} [extra]
-		 */
-		triggerModify: function(operation, extra) {
-			this.parent.triggerModifyChild(operation, this, extra);
-		},
-		/** Call fn(node) for all child nodes in hierarchical order (depth-first).<br>
-		 * Stop iteration, if fn() returns false. Skip current branch, if fn() returns "skip".<br>
-		 * Return false if iteration was stopped.
-		 *
-		 * @param {function} fn the callback function.
-		 *     Return false to stop iteration, return "skip" to skip this node and
-		 *     its children only.
-		 * @param {boolean} [includeSelf=false]
-		 * @returns {boolean}
-		 */
-		visit: function(fn, includeSelf) {
-			var i,
-				l,
-				res = true,
-				children = this.children;
-
-			if (includeSelf === true) {
-				res = fn(this);
-				if (res === false || res === "skip") {
-					return res;
-				}
-			}
-			if (children) {
-				for (i = 0, l = children.length; i < l; i++) {
-					res = children[i].visit(fn, true);
-					if (res === false) {
-						break;
-					}
-				}
-			}
-			return res;
-		},
-		/** Call fn(node) for all child nodes and recursively load lazy children.<br>
-		 * <b>Note:</b> If you need this method, you probably should consider to review
-		 * your architecture! Recursivley loading nodes is a perfect way for lazy
-		 * programmers to flood the server with requests ;-)
-		 *
-		 * @param {function} [fn] optional callback function.
-		 *     Return false to stop iteration, return "skip" to skip this node and
-		 *     its children only.
-		 * @param {boolean} [includeSelf=false]
-		 * @returns {$.Promise}
-		 * @since 2.4
-		 */
-		visitAndLoad: function(fn, includeSelf, _recursion) {
-			var dfd,
-				res,
-				loaders,
-				node = this;
-
-			// node.debug("visitAndLoad");
-			if (fn && includeSelf === true) {
-				res = fn(node);
-				if (res === false || res === "skip") {
-					return _recursion ? res : _getResolvedPromise();
-				}
-			}
-			if (!node.children && !node.lazy) {
-				return _getResolvedPromise();
-			}
-			dfd = new $.Deferred();
-			loaders = [];
-			// node.debug("load()...");
-			node.load().done(function() {
-				// node.debug("load()... done.");
-				for (var i = 0, l = node.children.length; i < l; i++) {
-					res = node.children[i].visitAndLoad(fn, true, true);
-					if (res === false) {
-						dfd.reject();
-						break;
-					} else if (res !== "skip") {
-						loaders.push(res); // Add promise to the list
-					}
-				}
-				$.when.apply(this, loaders).then(function() {
-					dfd.resolve();
-				});
-			});
-			return dfd.promise();
-		},
-		/** Call fn(node) for all parent nodes, bottom-up, including invisible system root.<br>
-		 * Stop iteration, if fn() returns false.<br>
-		 * Return false if iteration was stopped.
-		 *
-		 * @param {function} fn the callback function.
-		 *     Return false to stop iteration, return "skip" to skip this node and children only.
-		 * @param {boolean} [includeSelf=false]
-		 * @returns {boolean}
-		 */
-		visitParents: function(fn, includeSelf) {
-			// Visit parent nodes (bottom up)
-			if (includeSelf && fn(this) === false) {
-				return false;
-			}
-			var p = this.parent;
-			while (p) {
-				if (fn(p) === false) {
-					return false;
-				}
-				p = p.parent;
-			}
-			return true;
-		},
-		/** Call fn(node) for all sibling nodes.<br>
-		 * Stop iteration, if fn() returns false.<br>
-		 * Return false if iteration was stopped.
-		 *
-		 * @param {function} fn the callback function.
-		 *     Return false to stop iteration.
-		 * @param {boolean} [includeSelf=false]
-		 * @returns {boolean}
-		 */
-		visitSiblings: function(fn, includeSelf) {
-			var i,
-				l,
-				n,
-				ac = this.parent.children;
-
-			for (i = 0, l = ac.length; i < l; i++) {
-				n = ac[i];
-				if (includeSelf || n !== this) {
-					if (fn(n) === false) {
-						return false;
-					}
-				}
-			}
-			return true;
-		},
-		/** Write warning to browser console if debugLevel >= 2 (prepending node info)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		warn: function(msg) {
-			if (this.tree.options.debugLevel >= 2) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("warn", arguments);
-			}
-		},
-	};
-
-	/******************************************************************************
-	 * Fancytree
-	 */
-	/**
-	 * Construct a new tree object.
-	 *
-	 * @class Fancytree
-	 * @classdesc The controller behind a fancytree.
-	 * This class also contains 'hook methods': see {@link Fancytree_Hooks}.
-	 *
-	 * @param {Widget} widget
-	 *
-	 * @property {string} _id Automatically generated unique tree instance ID, e.g. "1".
-	 * @property {string} _ns Automatically generated unique tree namespace, e.g. ".fancytree-1".
-	 * @property {FancytreeNode} activeNode Currently active node or null.
-	 * @property {string} ariaPropName Property name of FancytreeNode that contains the element which will receive the aria attributes.
-	 *     Typically "li", but "tr" for table extension.
-	 * @property {jQueryObject} $container Outer `<ul>` element (or `<table>` element for ext-table).
-	 * @property {jQueryObject} $div A jQuery object containing the element used to instantiate the tree widget (`widget.element`)
-	 * @property {object|array} columns Recommended place to store shared column meta data. @since 2.27
-	 * @property {object} data Metadata, i.e. properties that may be passed to `source` in addition to a children array.
-	 * @property {object} ext Hash of all active plugin instances.
-	 * @property {FancytreeNode} focusNode Currently focused node or null.
-	 * @property {FancytreeNode} lastSelectedNode Used to implement selectMode 1 (single select)
-	 * @property {string} nodeContainerAttrName Property name of FancytreeNode that contains the outer element of single nodes.
-	 *     Typically "li", but "tr" for table extension.
-	 * @property {FancytreeOptions} options Current options, i.e. default options + options passed to constructor.
-	 * @property {FancytreeNode} rootNode Invisible system root node.
-	 * @property {string} statusClassPropName Property name of FancytreeNode that contains the element which will receive the status classes.
-	 *     Typically "span", but "tr" for table extension.
-	 * @property {object} types Map for shared type specific meta data, used with node.type attribute. @since 2.27
-	 * @property {object} viewport See ext-vieport. @since v2.31
-	 * @property {object} widget Base widget instance.
-	 */
-	function Fancytree(widget) {
-		this.widget = widget;
-		this.$div = widget.element;
-		this.options = widget.options;
-		if (this.options) {
-			if (this.options.lazyload !== undefined) {
-				$.error(
-					"The 'lazyload' event is deprecated since 2014-02-25. Use 'lazyLoad' (with uppercase L) instead."
-				);
-			}
-			if (this.options.loaderror !== undefined) {
-				$.error(
-					"The 'loaderror' event was renamed since 2014-07-03. Use 'loadError' (with uppercase E) instead."
-				);
-			}
-			if (this.options.fx !== undefined) {
-				$.error(
-					"The 'fx' option was replaced by 'toggleEffect' since 2014-11-30."
-				);
-			}
-			if (this.options.removeNode !== undefined) {
-				$.error(
-					"The 'removeNode' event was replaced by 'modifyChild' since 2.20 (2016-09-10)."
-				);
-			}
-		}
-		this.ext = {}; // Active extension instances
-		this.types = {};
-		this.columns = {};
-		// allow to init tree.data.foo from <div data-foo=''>
-		this.data = _getElementDataAsDict(this.$div);
-		// TODO: use widget.uuid instead?
-		this._id = "" + (this.options.treeId || $.ui.fancytree._nextId++);
-		// TODO: use widget.eventNamespace instead?
-		this._ns = ".fancytree-" + this._id; // append for namespaced events
-		this.activeNode = null;
-		this.focusNode = null;
-		this._hasFocus = null;
-		this._tempCache = {};
-		this._lastMousedownNode = null;
-		this._enableUpdate = true;
-		this.lastSelectedNode = null;
-		this.systemFocusElement = null;
-		this.lastQuicksearchTerm = "";
-		this.lastQuicksearchTime = 0;
-		this.viewport = null; // ext-grid
-
-		this.statusClassPropName = "span";
-		this.ariaPropName = "li";
-		this.nodeContainerAttrName = "li";
-
-		// Remove previous markup if any
-		this.$div.find(">ul.fancytree-container").remove();
-
-		// Create a node without parent.
-		var fakeParent = { tree: this },
-			$ul;
-		this.rootNode = new FancytreeNode(fakeParent, {
-			title: "root",
-			key: "root_" + this._id,
-			children: null,
-			expanded: true,
-		});
-		this.rootNode.parent = null;
-
-		// Create root markup
-		$ul = $("<ul>", {
-			id: "ft-id-" + this._id,
-			class: "ui-fancytree fancytree-container fancytree-plain",
-		}).appendTo(this.$div);
-		this.$container = $ul;
-		this.rootNode.ul = $ul[0];
-
-		if (this.options.debugLevel == null) {
-			this.options.debugLevel = FT.debugLevel;
-		}
-		// // Add container to the TAB chain
-		// // See http://www.w3.org/TR/wai-aria-practices/#focus_activedescendant
-		// // #577: Allow to set tabindex to "0", "-1" and ""
-		// this.$container.attr("tabindex", this.options.tabindex);
-
-		// if( this.options.rtl ) {
-		// 	this.$container.attr("DIR", "RTL").addClass("fancytree-rtl");
-		// // }else{
-		// //	this.$container.attr("DIR", null).removeClass("fancytree-rtl");
-		// }
-		// if(this.options.aria){
-		// 	this.$container.attr("role", "tree");
-		// 	if( this.options.selectMode !== 1 ) {
-		// 		this.$container.attr("aria-multiselectable", true);
-		// 	}
-		// }
-	}
-
-	Fancytree.prototype = /** @lends Fancytree# */ {
-		/* Return a context object that can be re-used for _callHook().
-		 * @param {Fancytree | FancytreeNode | EventData} obj
-		 * @param {Event} originalEvent
-		 * @param {Object} extra
-		 * @returns {EventData}
-		 */
-		_makeHookContext: function(obj, originalEvent, extra) {
-			var ctx, tree;
-			if (obj.node !== undefined) {
-				// obj is already a context object
-				if (originalEvent && obj.originalEvent !== originalEvent) {
-					$.error("invalid args");
-				}
-				ctx = obj;
-			} else if (obj.tree) {
-				// obj is a FancytreeNode
-				tree = obj.tree;
-				ctx = {
-					node: obj,
-					tree: tree,
-					widget: tree.widget,
-					options: tree.widget.options,
-					originalEvent: originalEvent,
-					typeInfo: tree.types[obj.type] || {},
-				};
-			} else if (obj.widget) {
-				// obj is a Fancytree
-				ctx = {
-					node: null,
-					tree: obj,
-					widget: obj.widget,
-					options: obj.widget.options,
-					originalEvent: originalEvent,
-				};
-			} else {
-				$.error("invalid args");
-			}
-			if (extra) {
-				$.extend(ctx, extra);
-			}
-			return ctx;
-		},
-		/* Trigger a hook function: funcName(ctx, [...]).
-		 *
-		 * @param {string} funcName
-		 * @param {Fancytree|FancytreeNode|EventData} contextObject
-		 * @param {any}  [_extraArgs] optional additional arguments
-		 * @returns {any}
-		 */
-		_callHook: function(funcName, contextObject, _extraArgs) {
-			var ctx = this._makeHookContext(contextObject),
-				fn = this[funcName],
-				args = Array.prototype.slice.call(arguments, 2);
-			if (!$.isFunction(fn)) {
-				$.error("_callHook('" + funcName + "') is not a function");
-			}
-			args.unshift(ctx);
-			// this.debug("_hook", funcName, ctx.node && ctx.node.toString() || ctx.tree.toString(), args);
-			return fn.apply(this, args);
-		},
-		_setExpiringValue: function(key, value, ms) {
-			this._tempCache[key] = {
-				value: value,
-				expire: Date.now() + (+ms || 50),
-			};
-		},
-		_getExpiringValue: function(key) {
-			var entry = this._tempCache[key];
-			if (entry && entry.expire > Date.now()) {
-				return entry.value;
-			}
-			delete this._tempCache[key];
-			return null;
-		},
-		/* Check if this tree has extension `name` enabled.
-		 *
-		 * @param {string} name name of the required extension
-		 */
-		_usesExtension: function(name) {
-			return $.inArray(name, this.options.extensions) >= 0;
-		},
-		/* Check if current extensions dependencies are met and throw an error if not.
-		 *
-		 * This method may be called inside the `treeInit` hook for custom extensions.
-		 *
-		 * @param {string} name name of the required extension
-		 * @param {boolean} [required=true] pass `false` if the extension is optional, but we want to check for order if it is present
-		 * @param {boolean} [before] `true` if `name` must be included before this, `false` otherwise (use `null` if order doesn't matter)
-		 * @param {string} [message] optional error message (defaults to a descriptve error message)
-		 */
-		_requireExtension: function(name, required, before, message) {
-			if (before != null) {
-				before = !!before;
-			}
-			var thisName = this._local.name,
-				extList = this.options.extensions,
-				isBefore =
-					$.inArray(name, extList) < $.inArray(thisName, extList),
-				isMissing = required && this.ext[name] == null,
-				badOrder = !isMissing && before != null && before !== isBefore;
-
-			_assert(
-				thisName && thisName !== name,
-				"invalid or same name '" + thisName + "' (require yourself?)"
-			);
-
-			if (isMissing || badOrder) {
-				if (!message) {
-					if (isMissing || required) {
-						message =
-							"'" +
-							thisName +
-							"' extension requires '" +
-							name +
-							"'";
-						if (badOrder) {
-							message +=
-								" to be registered " +
-								(before ? "before" : "after") +
-								" itself";
-						}
-					} else {
-						message =
-							"If used together, `" +
-							name +
-							"` must be registered " +
-							(before ? "before" : "after") +
-							" `" +
-							thisName +
-							"`";
-					}
-				}
-				$.error(message);
-				return false;
-			}
-			return true;
-		},
-		/** Activate node with a given key and fire focus and activate events.
-		 *
-		 * A previously activated node will be deactivated.
-		 * If activeVisible option is set, all parents will be expanded as necessary.
-		 * Pass key = false, to deactivate the current node only.
-		 * @param {string} key
-		 * @param {object} [opts] additional options. Defaults to {noEvents: false, noFocus: false}
-		 * @returns {FancytreeNode} activated node (null, if not found)
-		 */
-		activateKey: function(key, opts) {
-			var node = this.getNodeByKey(key);
-			if (node) {
-				node.setActive(true, opts);
-			} else if (this.activeNode) {
-				this.activeNode.setActive(false, opts);
-			}
-			return node;
-		},
-		/** (experimental) Add child status nodes that indicate 'More...', ....
-		 * @param {boolean|object} node optional node definition. Pass `false` to remove all paging nodes.
-		 * @param {string} [mode='append'] 'child'|firstChild'
-		 * @since 2.15
-		 */
-		addPagingNode: function(node, mode) {
-			return this.rootNode.addPagingNode(node, mode);
-		},
-		/**
-		 * (experimental) Apply a modification (or navigation) operation.
-		 *
-		 * Valid commands:
-		 *   - 'moveUp', 'moveDown'
-		 *   - 'indent', 'outdent'
-		 *   - 'remove'
-		 *   - 'edit', 'addChild', 'addSibling': (reqires ext-edit extension)
-		 *   - 'cut', 'copy', 'paste': (use an internal singleton 'clipboard')
-		 *   - 'down', 'first', 'last', 'left', 'parent', 'right', 'up': navigate
-		 *
-		 * @param {string} cmd
-		 * @param {FancytreeNode} [node=active_node]
-		 * @param {object} [opts] Currently unused
-		 *
-		 * @since 2.32
-		 */
-		applyCommand: function(cmd, node, opts_) {
-			var // clipboard,
-				refNode;
-			// opts = $.extend(
-			// 	{ setActive: true, clipboard: CLIPBOARD },
-			// 	opts_
-			// );
-
-			node = node || this.getActiveNode();
-			// clipboard = opts.clipboard;
-
-			switch (cmd) {
-				// Sorting and indentation:
-				case "moveUp":
-					refNode = node.getPrevSibling();
-					if (refNode) {
-						node.moveTo(refNode, "before");
-						node.setActive();
-					}
-					break;
-				case "moveDown":
-					refNode = node.getNextSibling();
-					if (refNode) {
-						node.moveTo(refNode, "after");
-						node.setActive();
-					}
-					break;
-				case "indent":
-					refNode = node.getPrevSibling();
-					if (refNode) {
-						node.moveTo(refNode, "child");
-						refNode.setExpanded();
-						node.setActive();
-					}
-					break;
-				case "outdent":
-					if (!node.isTopLevel()) {
-						node.moveTo(node.getParent(), "after");
-						node.setActive();
-					}
-					break;
-				// Remove:
-				case "remove":
-					refNode = node.getPrevSibling() || node.getParent();
-					node.remove();
-					if (refNode) {
-						refNode.setActive();
-					}
-					break;
-				// Add, edit (requires ext-edit):
-				case "addChild":
-					node.editCreateNode("child", "");
-					break;
-				case "addSibling":
-					node.editCreateNode("after", "");
-					break;
-				case "rename":
-					node.editStart();
-					break;
-				// Simple clipboard simulation:
-				// case "cut":
-				// 	clipboard = { mode: cmd, data: node };
-				// 	break;
-				// case "copy":
-				// 	clipboard = {
-				// 		mode: cmd,
-				// 		data: node.toDict(function(d, n) {
-				// 			delete d.key;
-				// 		}),
-				// 	};
-				// 	break;
-				// case "clear":
-				// 	clipboard = null;
-				// 	break;
-				// case "paste":
-				// 	if (clipboard.mode === "cut") {
-				// 		// refNode = node.getPrevSibling();
-				// 		clipboard.data.moveTo(node, "child");
-				// 		clipboard.data.setActive();
-				// 	} else if (clipboard.mode === "copy") {
-				// 		node.addChildren(clipboard.data).setActive();
-				// 	}
-				// 	break;
-				// Navigation commands:
-				case "down":
-				case "first":
-				case "last":
-				case "left":
-				case "parent":
-				case "right":
-				case "up":
-					return node.navigate(cmd);
-				default:
-					$.error("Unhandled command: '" + cmd + "'");
-			}
-		},
-		/** (experimental) Modify existing data model.
-		 *
-		 * @param {Array} patchList array of [key, NodePatch] arrays
-		 * @returns {$.Promise} resolved, when all patches have been applied
-		 * @see TreePatch
-		 */
-		applyPatch: function(patchList) {
-			var dfd,
-				i,
-				p2,
-				key,
-				patch,
-				node,
-				patchCount = patchList.length,
-				deferredList = [];
-
-			for (i = 0; i < patchCount; i++) {
-				p2 = patchList[i];
-				_assert(
-					p2.length === 2,
-					"patchList must be an array of length-2-arrays"
-				);
-				key = p2[0];
-				patch = p2[1];
-				node = key === null ? this.rootNode : this.getNodeByKey(key);
-				if (node) {
-					dfd = new $.Deferred();
-					deferredList.push(dfd);
-					node.applyPatch(patch).always(_makeResolveFunc(dfd, node));
-				} else {
-					this.warn("could not find node with key '" + key + "'");
-				}
-			}
-			// Return a promise that is resolved, when ALL patches were applied
-			return $.when.apply($, deferredList).promise();
-		},
-		/* TODO: implement in dnd extension
-		cancelDrag: function() {
-				var dd = $.ui.ddmanager.current;
-				if(dd){
-					dd.cancel();
-				}
-			},
-		*/
-		/** Remove all nodes.
-		 * @since 2.14
-		 */
-		clear: function(source) {
-			this._callHook("treeClear", this);
-		},
-		/** Return the number of nodes.
-		 * @returns {integer}
-		 */
-		count: function() {
-			return this.rootNode.countChildren();
-		},
-		/** Write to browser console if debugLevel >= 4 (prepending tree name)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		debug: function(msg) {
-			if (this.options.debugLevel >= 4) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("log", arguments);
-			}
-		},
-		/** Destroy this widget, restore previous markup and cleanup resources.
-		 *
-		 * @since 2.34
-		 */
-		destroy: function() {
-			this.widget.destroy();
-		},
-		/** Enable (or disable) the tree control.
-		 *
-		 * @param {boolean} [flag=true] pass false to disable
-		 * @since 2.30
-		 */
-		enable: function(flag) {
-			if (flag === false) {
-				this.widget.disable();
-			} else {
-				this.widget.enable();
-			}
-		},
-		/** Temporarily suppress rendering to improve performance on bulk-updates.
-		 *
-		 * @param {boolean} flag
-		 * @returns {boolean} previous status
-		 * @since 2.19
-		 */
-		enableUpdate: function(flag) {
-			flag = flag !== false;
-			if (!!this._enableUpdate === !!flag) {
-				return flag;
-			}
-			this._enableUpdate = flag;
-			if (flag) {
-				this.debug("enableUpdate(true): redraw "); //, this._dirtyRoots);
-				this._callHook("treeStructureChanged", this, "enableUpdate");
-				this.render();
-			} else {
-				// 	this._dirtyRoots = null;
-				this.debug("enableUpdate(false)...");
-			}
-			return !flag; // return previous value
-		},
-		/** Write error to browser console if debugLevel >= 1 (prepending tree info)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		error: function(msg) {
-			if (this.options.debugLevel >= 1) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("error", arguments);
-			}
-		},
-		/** Expand (or collapse) all parent nodes.
-		 *
-		 * This convenience method uses `tree.visit()` and `tree.setExpanded()`
-		 * internally.
-		 *
-		 * @param {boolean} [flag=true] pass false to collapse
-		 * @param {object} [opts] passed to setExpanded()
-		 * @since 2.30
-		 */
-		expandAll: function(flag, opts) {
-			var prev = this.enableUpdate(false);
-
-			flag = flag !== false;
-			this.visit(function(node) {
-				if (
-					node.hasChildren() !== false &&
-					node.isExpanded() !== flag
-				) {
-					node.setExpanded(flag, opts);
-				}
-			});
-			this.enableUpdate(prev);
-		},
-		/**Find all nodes that matches condition.
-		 *
-		 * @param {string | function(node)} match title string to search for, or a
-		 *     callback function that returns `true` if a node is matched.
-		 * @returns {FancytreeNode[]} array of nodes (may be empty)
-		 * @see FancytreeNode#findAll
-		 * @since 2.12
-		 */
-		findAll: function(match) {
-			return this.rootNode.findAll(match);
-		},
-		/**Find first node that matches condition.
-		 *
-		 * @param {string | function(node)} match title string to search for, or a
-		 *     callback function that returns `true` if a node is matched.
-		 * @returns {FancytreeNode} matching node or null
-		 * @see FancytreeNode#findFirst
-		 * @since 2.12
-		 */
-		findFirst: function(match) {
-			return this.rootNode.findFirst(match);
-		},
-		/** Find the next visible node that starts with `match`, starting at `startNode`
-		 * and wrap-around at the end.
-		 *
-		 * @param {string|function} match
-		 * @param {FancytreeNode} [startNode] defaults to first node
-		 * @returns {FancytreeNode} matching node or null
-		 */
-		findNextNode: function(match, startNode) {
-			//, visibleOnly) {
-			var res = null,
-				firstNode = this.getFirstChild();
-
-			match =
-				typeof match === "string"
-					? _makeNodeTitleStartMatcher(match)
-					: match;
-			startNode = startNode || firstNode;
-
-			function _checkNode(n) {
-				// console.log("_check " + n)
-				if (match(n)) {
-					res = n;
-				}
-				if (res || n === startNode) {
-					return false;
-				}
-			}
-			this.visitRows(_checkNode, {
-				start: startNode,
-				includeSelf: false,
-			});
-			// Wrap around search
-			if (!res && startNode !== firstNode) {
-				this.visitRows(_checkNode, {
-					start: firstNode,
-					includeSelf: true,
-				});
-			}
-			return res;
-		},
-		/** Find a node relative to another node.
-		 *
-		 * @param {FancytreeNode} node
-		 * @param {string|number} where 'down', 'first', 'last', 'left', 'parent', 'right', or 'up'.
-		 *   (Alternatively the keyCode that would normally trigger this move,
-		 *   e.g. `$.ui.keyCode.LEFT` = 'left'.
-		 * @param {boolean} [includeHidden=false] Not yet implemented
-		 * @returns {FancytreeNode|null}
-		 * @since v2.31
-		 */
-		findRelatedNode: function(node, where, includeHidden) {
-			var res = null,
-				KC = $.ui.keyCode;
-
-			switch (where) {
-				case "parent":
-				case KC.BACKSPACE:
-					if (node.parent && node.parent.parent) {
-						res = node.parent;
-					}
-					break;
-				case "first":
-				case KC.HOME:
-					// First visible node
-					this.visit(function(n) {
-						if (n.isVisible()) {
-							res = n;
-							return false;
-						}
-					});
-					break;
-				case "last":
-				case KC.END:
-					this.visit(function(n) {
-						// last visible node
-						if (n.isVisible()) {
-							res = n;
-						}
-					});
-					break;
-				case "left":
-				case KC.LEFT:
-					if (node.expanded) {
-						node.setExpanded(false);
-					} else if (node.parent && node.parent.parent) {
-						res = node.parent;
-					}
-					break;
-				case "right":
-				case KC.RIGHT:
-					if (!node.expanded && (node.children || node.lazy)) {
-						node.setExpanded();
-						res = node;
-					} else if (node.children && node.children.length) {
-						res = node.children[0];
-					}
-					break;
-				case "up":
-				case KC.UP:
-					this.visitRows(
-						function(n) {
-							res = n;
-							return false;
-						},
-						{ start: node, reverse: true, includeSelf: false }
-					);
-					break;
-				case "down":
-				case KC.DOWN:
-					this.visitRows(
-						function(n) {
-							res = n;
-							return false;
-						},
-						{ start: node, includeSelf: false }
-					);
-					break;
-				default:
-					this.tree.warn("Unknown relation '" + where + "'.");
-			}
-			return res;
-		},
-		// TODO: fromDict
-		/**
-		 * Generate INPUT elements that can be submitted with html forms.
-		 *
-		 * In selectMode 3 only the topmost selected nodes are considered, unless
-		 * `opts.stopOnParents: false` is passed.
-		 *
-		 * @example
-		 * // Generate input elements for active and selected nodes
-		 * tree.generateFormElements();
-		 * // Generate input elements selected nodes, using a custom `name` attribute
-		 * tree.generateFormElements("cust_sel", false);
-		 * // Generate input elements using a custom filter
-		 * tree.generateFormElements(true, true, { filter: function(node) {
-		 *     return node.isSelected() && node.data.yes;
-		 * }});
-		 *
-		 * @param {boolean | string} [selected=true] Pass false to disable, pass a string to override the field name (default: 'ft_ID[]')
-		 * @param {boolean | string} [active=true] Pass false to disable, pass a string to override the field name (default: 'ft_ID_active')
-		 * @param {object} [opts] default { filter: null, stopOnParents: true }
-		 */
-		generateFormElements: function(selected, active, opts) {
-			opts = opts || {};
-
-			var nodeList,
-				selectedName =
-					typeof selected === "string"
-						? selected
-						: "ft_" + this._id + "[]",
-				activeName =
-					typeof active === "string"
-						? active
-						: "ft_" + this._id + "_active",
-				id = "fancytree_result_" + this._id,
-				$result = $("#" + id),
-				stopOnParents =
-					this.options.selectMode === 3 &&
-					opts.stopOnParents !== false;
-
-			if ($result.length) {
-				$result.empty();
-			} else {
-				$result = $("<div>", {
-					id: id,
-				})
-					.hide()
-					.insertAfter(this.$container);
-			}
-			if (active !== false && this.activeNode) {
-				$result.append(
-					$("<input>", {
-						type: "radio",
-						name: activeName,
-						value: this.activeNode.key,
-						checked: true,
-					})
-				);
-			}
-			function _appender(node) {
-				$result.append(
-					$("<input>", {
-						type: "checkbox",
-						name: selectedName,
-						value: node.key,
-						checked: true,
-					})
-				);
-			}
-			if (opts.filter) {
-				this.visit(function(node) {
-					var res = opts.filter(node);
-					if (res === "skip") {
-						return res;
-					}
-					if (res !== false) {
-						_appender(node);
-					}
-				});
-			} else if (selected !== false) {
-				nodeList = this.getSelectedNodes(stopOnParents);
-				$.each(nodeList, function(idx, node) {
-					_appender(node);
-				});
-			}
-		},
-		/**
-		 * Return the currently active node or null.
-		 * @returns {FancytreeNode}
-		 */
-		getActiveNode: function() {
-			return this.activeNode;
-		},
-		/** Return the first top level node if any (not the invisible root node).
-		 * @returns {FancytreeNode | null}
-		 */
-		getFirstChild: function() {
-			return this.rootNode.getFirstChild();
-		},
-		/**
-		 * Return node that has keyboard focus or null.
-		 * @returns {FancytreeNode}
-		 */
-		getFocusNode: function() {
-			return this.focusNode;
-		},
-		/**
-		 * Return current option value.
-		 * (Note: this is the preferred variant of `$().fancytree("option", "KEY")`)
-		 *
-		 * @param {string} name option name (may contain '.')
-		 * @returns {any}
-		 */
-		getOption: function(optionName) {
-			return this.widget.option(optionName);
-		},
-		/**
-		 * Return node with a given key or null if not found.
-		 *
-		 * @param {string} key
-		 * @param {FancytreeNode} [searchRoot] only search below this node
-		 * @returns {FancytreeNode | null}
-		 */
-		getNodeByKey: function(key, searchRoot) {
-			// Search the DOM by element ID (assuming this is faster than traversing all nodes).
-			var el, match;
-			// TODO: use tree.keyMap if available
-			// TODO: check opts.generateIds === true
-			if (!searchRoot) {
-				el = document.getElementById(this.options.idPrefix + key);
-				if (el) {
-					return el.ftnode ? el.ftnode : null;
-				}
-			}
-			// Not found in the DOM, but still may be in an unrendered part of tree
-			searchRoot = searchRoot || this.rootNode;
-			match = null;
-			key = "" + key; // Convert to string (#1005)
-			searchRoot.visit(function(node) {
-				if (node.key === key) {
-					match = node;
-					return false; // Stop iteration
-				}
-			}, true);
-			return match;
-		},
-		/** Return the invisible system root node.
-		 * @returns {FancytreeNode}
-		 */
-		getRootNode: function() {
-			return this.rootNode;
-		},
-		/**
-		 * Return an array of selected nodes.
-		 *
-		 * Note: you cannot send this result via Ajax directly. Instead the
-		 * node object need to be converted to plain objects, for example
-		 * by using `$.map()` and `node.toDict()`.
-		 * @param {boolean} [stopOnParents=false] only return the topmost selected
-		 *     node (useful with selectMode 3)
-		 * @returns {FancytreeNode[]}
-		 */
-		getSelectedNodes: function(stopOnParents) {
-			return this.rootNode.getSelectedNodes(stopOnParents);
-		},
-		/** Return true if the tree control has keyboard focus
-		 * @returns {boolean}
-		 */
-		hasFocus: function() {
-			// var ae = document.activeElement,
-			// 	hasFocus = !!(
-			// 		ae && $(ae).closest(".fancytree-container").length
-			// 	);
-
-			// if (hasFocus !== !!this._hasFocus) {
-			// 	this.warn(
-			// 		"hasFocus(): fix inconsistent container state, now: " +
-			// 			hasFocus
-			// 	);
-			// 	this._hasFocus = hasFocus;
-			// 	this.$container.toggleClass("fancytree-treefocus", hasFocus);
-			// }
-			// return hasFocus;
-			return !!this._hasFocus;
-		},
-		/** Write to browser console if debugLevel >= 3 (prepending tree name)
-		 * @param {*} msg string or object or array of such
-		 */
-		info: function(msg) {
-			if (this.options.debugLevel >= 3) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("info", arguments);
-			}
-		},
-		/** Return true if any node is currently beeing loaded, i.e. a Ajax request is pending.
-		 * @returns {boolean}
-		 * @since 2.32
-		 */
-		isLoading: function() {
-			var res = false;
-
-			this.rootNode.visit(function(n) {
-				// also visit rootNode
-				if (n._isLoading || n._requestId) {
-					res = true;
-					return false;
-				}
-			}, true);
-			return res;
-		},
-		/*
-		TODO: isInitializing: function() {
-			return ( this.phase=="init" || this.phase=="postInit" );
-		},
-		TODO: isReloading: function() {
-			return ( this.phase=="init" || this.phase=="postInit" ) && this.options.persist && this.persistence.cookiesFound;
-		},
-		TODO: isUserEvent: function() {
-			return ( this.phase=="userEvent" );
-		},
-		*/
-
-		/**
-		 * Make sure that a node with a given ID is loaded, by traversing - and
-		 * loading - its parents. This method is meant for lazy hierarchies.
-		 * A callback is executed for every node as we go.
-		 * @example
-		 * // Resolve using node.key:
-		 * tree.loadKeyPath("/_3/_23/_26/_27", function(node, status){
-		 *   if(status === "loaded") {
-		 *     console.log("loaded intermediate node " + node);
-		 *   }else if(status === "ok") {
-		 *     node.activate();
-		 *   }
-		 * });
-		 * // Use deferred promise:
-		 * tree.loadKeyPath("/_3/_23/_26/_27").progress(function(data){
-		 *   if(data.status === "loaded") {
-		 *     console.log("loaded intermediate node " + data.node);
-		 *   }else if(data.status === "ok") {
-		 *     node.activate();
-		 *   }
-		 * }).done(function(){
-		 *    ...
-		 * });
-		 * // Custom path segment resolver:
-		 * tree.loadKeyPath("/321/431/21/2", {
-		 *   matchKey: function(node, key){
-		 *     return node.data.refKey === key;
-		 *   },
-		 *   callback: function(node, status){
-		 *     if(status === "loaded") {
-		 *       console.log("loaded intermediate node " + node);
-		 *     }else if(status === "ok") {
-		 *       node.activate();
-		 *     }
-		 *   }
-		 * });
-		 * @param {string | string[]} keyPathList one or more key paths (e.g. '/3/2_1/7')
-		 * @param {function | object} optsOrCallback callback(node, status) is called for every visited node ('loading', 'loaded', 'ok', 'error').
-		 *     Pass an object to define custom key matchers for the path segments: {callback: function, matchKey: function}.
-		 * @returns {$.Promise}
-		 */
-		loadKeyPath: function(keyPathList, optsOrCallback) {
-			var callback,
-				i,
-				path,
-				self = this,
-				dfd = new $.Deferred(),
-				parent = this.getRootNode(),
-				sep = this.options.keyPathSeparator,
-				pathSegList = [],
-				opts = $.extend({}, optsOrCallback);
-
-			// Prepare options
-			if (typeof optsOrCallback === "function") {
-				callback = optsOrCallback;
-			} else if (optsOrCallback && optsOrCallback.callback) {
-				callback = optsOrCallback.callback;
-			}
-			opts.callback = function(ctx, node, status) {
-				if (callback) {
-					callback.call(ctx, node, status);
-				}
-				dfd.notifyWith(ctx, [{ node: node, status: status }]);
-			};
-			if (opts.matchKey == null) {
-				opts.matchKey = function(node, key) {
-					return node.key === key;
-				};
-			}
-			// Convert array of path strings to array of segment arrays
-			if (!$.isArray(keyPathList)) {
-				keyPathList = [keyPathList];
-			}
-			for (i = 0; i < keyPathList.length; i++) {
-				path = keyPathList[i];
-				// strip leading slash
-				if (path.charAt(0) === sep) {
-					path = path.substr(1);
-				}
-				// segListMap[path] = { parent: parent, segList: path.split(sep) };
-				pathSegList.push(path.split(sep));
-				// targetList.push({ parent: parent, segList: path.split(sep)/* , path: path*/});
-			}
-			// The timeout forces async behavior always (even if nodes are all loaded)
-			// This way a potential progress() event will fire.
-			setTimeout(function() {
-				self._loadKeyPathImpl(dfd, opts, parent, pathSegList).done(
-					function() {
-						dfd.resolve();
-					}
-				);
-			}, 0);
-			return dfd.promise();
-		},
-		/*
-		 * Resolve a list of paths, relative to one parent node.
-		 */
-		_loadKeyPathImpl: function(dfd, opts, parent, pathSegList) {
-			var deferredList,
-				i,
-				key,
-				node,
-				nodeKey,
-				remain,
-				remainMap,
-				tmpParent,
-				segList,
-				subDfd,
-				self = this;
-
-			function __findChild(parent, key) {
-				// console.log("__findChild", key, parent);
-				var i,
-					l,
-					cl = parent.children;
-
-				if (cl) {
-					for (i = 0, l = cl.length; i < l; i++) {
-						if (opts.matchKey(cl[i], key)) {
-							return cl[i];
-						}
-					}
-				}
-				return null;
-			}
-
-			// console.log("_loadKeyPathImpl, parent=", parent, ", pathSegList=", pathSegList);
-
-			// Pass 1:
-			// Handle all path segments for nodes that are already loaded.
-			// Collect distinct top-most lazy nodes in a map.
-			// Note that we can use node.key to de-dupe entries, even if a custom matcher would
-			// look for other node attributes.
-			// map[node.key] => {node: node, pathList: [list of remaining rest-paths]}
-			remainMap = {};
-
-			for (i = 0; i < pathSegList.length; i++) {
-				segList = pathSegList[i];
-				// target = targetList[i];
-
-				// Traverse and pop path segments (i.e. keys), until we hit a lazy, unloaded node
-				tmpParent = parent;
-				while (segList.length) {
-					key = segList.shift();
-					node = __findChild(tmpParent, key);
-					if (!node) {
-						this.warn(
-							"loadKeyPath: key not found: " +
-								key +
-								" (parent: " +
-								tmpParent +
-								")"
-						);
-						opts.callback(this, key, "error");
-						break;
-					} else if (segList.length === 0) {
-						opts.callback(this, node, "ok");
-						break;
-					} else if (!node.lazy || node.hasChildren() !== undefined) {
-						opts.callback(this, node, "loaded");
-						tmpParent = node;
-					} else {
-						opts.callback(this, node, "loaded");
-						key = node.key; //target.segList.join(sep);
-						if (remainMap[key]) {
-							remainMap[key].pathSegList.push(segList);
-						} else {
-							remainMap[key] = {
-								parent: node,
-								pathSegList: [segList],
-							};
-						}
-						break;
-					}
-				}
-			}
-			// console.log("_loadKeyPathImpl AFTER pass 1, remainMap=", remainMap);
-
-			// Now load all lazy nodes and continue iteration for remaining paths
-			deferredList = [];
-
-			// Avoid jshint warning 'Don't make functions within a loop.':
-			function __lazyload(dfd, parent, pathSegList) {
-				// console.log("__lazyload", parent, "pathSegList=", pathSegList);
-				opts.callback(self, parent, "loading");
-				parent
-					.load()
-					.done(function() {
-						self._loadKeyPathImpl
-							.call(self, dfd, opts, parent, pathSegList)
-							.always(_makeResolveFunc(dfd, self));
-					})
-					.fail(function(errMsg) {
-						self.warn("loadKeyPath: error loading lazy " + parent);
-						opts.callback(self, node, "error");
-						dfd.rejectWith(self);
-					});
-			}
-			// remainMap contains parent nodes, each with a list of relative sub-paths.
-			// We start loading all of them now, and pass the the list to each loader.
-			for (nodeKey in remainMap) {
-				if (remainMap.hasOwnProperty(nodeKey)) {
-					remain = remainMap[nodeKey];
-					// console.log("for(): remain=", remain, "remainMap=", remainMap);
-					// key = remain.segList.shift();
-					// node = __findChild(remain.parent, key);
-					// if (node == null) {  // #576
-					// 	// Issue #576, refactored for v2.27:
-					// 	// The root cause was, that sometimes the wrong parent was used here
-					// 	// to find the next segment.
-					// 	// Falling back to getNodeByKey() was a hack that no longer works if a custom
-					// 	// matcher is used, because we cannot assume that a single segment-key is unique
-					// 	// throughout the tree.
-					// 	self.error("loadKeyPath: error loading child by key '" + key + "' (parent: " + target.parent + ")", target);
-					// 	// 	node = self.getNodeByKey(key);
-					// 	continue;
-					// }
-					subDfd = new $.Deferred();
-					deferredList.push(subDfd);
-					__lazyload(subDfd, remain.parent, remain.pathSegList);
-				}
-			}
-			// Return a promise that is resolved, when ALL paths were loaded
-			return $.when.apply($, deferredList).promise();
-		},
-		/** Re-fire beforeActivate, activate, and (optional) focus events.
-		 * Calling this method in the `init` event, will activate the node that
-		 * was marked 'active' in the source data, and optionally set the keyboard
-		 * focus.
-		 * @param [setFocus=false]
-		 */
-		reactivate: function(setFocus) {
-			var res,
-				node = this.activeNode;
-
-			if (!node) {
-				return _getResolvedPromise();
-			}
-			this.activeNode = null; // Force re-activating
-			res = node.setActive(true, { noFocus: true });
-			if (setFocus) {
-				node.setFocus();
-			}
-			return res;
-		},
-		/** Reload tree from source and return a promise.
-		 * @param [source] optional new source (defaults to initial source data)
-		 * @returns {$.Promise}
-		 */
-		reload: function(source) {
-			this._callHook("treeClear", this);
-			return this._callHook("treeLoad", this, source);
-		},
-		/**Render tree (i.e. create DOM elements for all top-level nodes).
-		 * @param {boolean} [force=false] create DOM elemnts, even if parent is collapsed
-		 * @param {boolean} [deep=false]
-		 */
-		render: function(force, deep) {
-			return this.rootNode.render(force, deep);
-		},
-		/**(De)select all nodes.
-		 * @param {boolean} [flag=true]
-		 * @since 2.28
-		 */
-		selectAll: function(flag) {
-			this.visit(function(node) {
-				node.setSelected(flag);
-			});
-		},
-		// TODO: selectKey: function(key, select)
-		// TODO: serializeArray: function(stopOnParents)
-		/**
-		 * @param {boolean} [flag=true]
-		 */
-		setFocus: function(flag) {
-			return this._callHook("treeSetFocus", this, flag);
-		},
-		/**
-		 * Set current option value.
-		 * (Note: this is the preferred variant of `$().fancytree("option", "KEY", VALUE)`)
-		 * @param {string} name option name (may contain '.')
-		 * @param {any} new value
-		 */
-		setOption: function(optionName, value) {
-			return this.widget.option(optionName, value);
-		},
-		/**
-		 * Call console.time() when in debug mode (verbose >= 4).
-		 *
-		 * @param {string} label
-		 */
-		debugTime: function(label) {
-			if (this.options.debugLevel >= 4) {
-				window.console.time(this + " - " + label);
-			}
-		},
-		/**
-		 * Call console.timeEnd() when in debug mode (verbose >= 4).
-		 *
-		 * @param {string} label
-		 */
-		debugTimeEnd: function(label) {
-			if (this.options.debugLevel >= 4) {
-				window.console.timeEnd(this + " - " + label);
-			}
-		},
-		/**
-		 * Return all nodes as nested list of {@link NodeData}.
-		 *
-		 * @param {boolean} [includeRoot=false] Returns the hidden system root node (and its children)
-		 * @param {function} [callback] callback(dict, node) is called for every node, in order to allow modifications.
-		 *     Return `false` to ignore this node or "skip" to include this node without its children.
-		 * @returns {Array | object}
-		 * @see FancytreeNode#toDict
-		 */
-		toDict: function(includeRoot, callback) {
-			var res = this.rootNode.toDict(true, callback);
-			return includeRoot ? res : res.children;
-		},
-		/* Implicitly called for string conversions.
-		 * @returns {string}
-		 */
-		toString: function() {
-			return "Fancytree@" + this._id;
-			// return "<Fancytree(#" + this._id + ")>";
-		},
-		/* _trigger a widget event with additional node ctx.
-		 * @see EventData
-		 */
-		_triggerNodeEvent: function(type, node, originalEvent, extra) {
-			// this.debug("_trigger(" + type + "): '" + ctx.node.title + "'", ctx);
-			var ctx = this._makeHookContext(node, originalEvent, extra),
-				res = this.widget._trigger(type, originalEvent, ctx);
-			if (res !== false && ctx.result !== undefined) {
-				return ctx.result;
-			}
-			return res;
-		},
-		/* _trigger a widget event with additional tree data. */
-		_triggerTreeEvent: function(type, originalEvent, extra) {
-			// this.debug("_trigger(" + type + ")", ctx);
-			var ctx = this._makeHookContext(this, originalEvent, extra),
-				res = this.widget._trigger(type, originalEvent, ctx);
-
-			if (res !== false && ctx.result !== undefined) {
-				return ctx.result;
-			}
-			return res;
-		},
-		/** Call fn(node) for all nodes in hierarchical order (depth-first).
-		 *
-		 * @param {function} fn the callback function.
-		 *     Return false to stop iteration, return "skip" to skip this node and children only.
-		 * @returns {boolean} false, if the iterator was stopped.
-		 */
-		visit: function(fn) {
-			return this.rootNode.visit(fn, false);
-		},
-		/** Call fn(node) for all nodes in vertical order, top down (or bottom up).<br>
-		 * Stop iteration, if fn() returns false.<br>
-		 * Return false if iteration was stopped.
-		 *
-		 * @param {function} fn the callback function.
-		 *     Return false to stop iteration, return "skip" to skip this node and children only.
-		 * @param {object} [options]
-		 *     Defaults:
-		 *     {start: First top node, reverse: false, includeSelf: true, includeHidden: false}
-		 * @returns {boolean} false if iteration was cancelled
-		 * @since 2.28
-		 */
-		visitRows: function(fn, opts) {
-			if (!this.rootNode.hasChildren()) {
-				return false;
-			}
-			if (opts && opts.reverse) {
-				delete opts.reverse;
-				return this._visitRowsUp(fn, opts);
-			}
-			opts = opts || {};
-
-			var i,
-				nextIdx,
-				parent,
-				res,
-				siblings,
-				siblingOfs = 0,
-				skipFirstNode = opts.includeSelf === false,
-				includeHidden = !!opts.includeHidden,
-				checkFilter = !includeHidden && this.enableFilter,
-				node = opts.start || this.rootNode.children[0];
-
-			parent = node.parent;
-			while (parent) {
-				// visit siblings
-				siblings = parent.children;
-				nextIdx = siblings.indexOf(node) + siblingOfs;
-				_assert(
-					nextIdx >= 0,
-					"Could not find " +
-						node +
-						" in parent's children: " +
-						parent
-				);
-
-				for (i = nextIdx; i < siblings.length; i++) {
-					node = siblings[i];
-					if (checkFilter && !node.match && !node.subMatchCount) {
-						continue;
-					}
-					if (!skipFirstNode && fn(node) === false) {
-						return false;
-					}
-					skipFirstNode = false;
-					// Dive into node's child nodes
-					if (
-						node.children &&
-						node.children.length &&
-						(includeHidden || node.expanded)
-					) {
-						// Disable warning: Functions declared within loops referencing an outer
-						// scoped variable may lead to confusing semantics:
-						/*jshint -W083 */
-						res = node.visit(function(n) {
-							if (checkFilter && !n.match && !n.subMatchCount) {
-								return "skip";
-							}
-							if (fn(n) === false) {
-								return false;
-							}
-							if (!includeHidden && n.children && !n.expanded) {
-								return "skip";
-							}
-						}, false);
-						/*jshint +W083 */
-						if (res === false) {
-							return false;
-						}
-					}
-				}
-				// Visit parent nodes (bottom up)
-				node = parent;
-				parent = parent.parent;
-				siblingOfs = 1; //
-			}
-			return true;
-		},
-		/* Call fn(node) for all nodes in vertical order, bottom up.
-		 */
-		_visitRowsUp: function(fn, opts) {
-			var children,
-				idx,
-				parent,
-				includeHidden = !!opts.includeHidden,
-				node = opts.start || this.rootNode.children[0];
-
-			while (true) {
-				parent = node.parent;
-				children = parent.children;
-
-				if (children[0] === node) {
-					// If this is already the first sibling, goto parent
-					node = parent;
-					if (!node.parent) {
-						break; // first node of the tree
-					}
-					children = parent.children;
-				} else {
-					// Otherwise, goto prev. sibling
-					idx = children.indexOf(node);
-					node = children[idx - 1];
-					// If the prev. sibling has children, follow down to last descendant
-					while (
-						// See: https://github.com/eslint/eslint/issues/11302
-						// eslint-disable-next-line no-unmodified-loop-condition
-						(includeHidden || node.expanded) &&
-						node.children &&
-						node.children.length
-					) {
-						children = node.children;
-						parent = node;
-						node = children[children.length - 1];
-					}
-				}
-				// Skip invisible
-				if (!includeHidden && !node.isVisible()) {
-					continue;
-				}
-				if (fn(node) === false) {
-					return false;
-				}
-			}
-		},
-		/** Write warning to browser console if debugLevel >= 2 (prepending tree info)
-		 *
-		 * @param {*} msg string or object or array of such
-		 */
-		warn: function(msg) {
-			if (this.options.debugLevel >= 2) {
-				Array.prototype.unshift.call(arguments, this.toString());
-				consoleApply("warn", arguments);
-			}
-		},
-	};
-
-	/**
-	 * These additional methods of the {@link Fancytree} class are 'hook functions'
-	 * that can be used and overloaded by extensions.
-	 *
-	 * @see [writing extensions](https://github.com/mar10/fancytree/wiki/TutorialExtensions)
-	 * @mixin Fancytree_Hooks
-	 */
-	$.extend(
-		Fancytree.prototype,
-		/** @lends Fancytree_Hooks# */
-		{
-			/** Default handling for mouse click events.
-			 *
-			 * @param {EventData} ctx
-			 */
-			nodeClick: function(ctx) {
-				var activate,
-					expand,
-					// event = ctx.originalEvent,
-					targetType = ctx.targetType,
-					node = ctx.node;
-
-				// this.debug("ftnode.onClick(" + event.type + "): ftnode:" + this + ", button:" + event.button + ", which: " + event.which, ctx);
-				// TODO: use switch
-				// TODO: make sure clicks on embedded <input> doesn't steal focus (see table sample)
-				if (targetType === "expander") {
-					if (node.isLoading()) {
-						// #495: we probably got a click event while a lazy load is pending.
-						// The 'expanded' state is not yet set, so 'toggle' would expand
-						// and trigger lazyLoad again.
-						// It would be better to allow to collapse/expand the status node
-						// while loading (instead of ignoring), but that would require some
-						// more work.
-						node.debug("Got 2nd click while loading: ignored");
-						return;
-					}
-					// Clicking the expander icon always expands/collapses
-					this._callHook("nodeToggleExpanded", ctx);
-				} else if (targetType === "checkbox") {
-					// Clicking the checkbox always (de)selects
-					this._callHook("nodeToggleSelected", ctx);
-					if (ctx.options.focusOnSelect) {
-						// #358
-						this._callHook("nodeSetFocus", ctx, true);
-					}
-				} else {
-					// Honor `clickFolderMode` for
-					expand = false;
-					activate = true;
-					if (node.folder) {
-						switch (ctx.options.clickFolderMode) {
-							case 2: // expand only
-								expand = true;
-								activate = false;
-								break;
-							case 3: // expand and activate
-								activate = true;
-								expand = true; //!node.isExpanded();
-								break;
-							// else 1 or 4: just activate
-						}
-					}
-					if (activate) {
-						this.nodeSetFocus(ctx);
-						this._callHook("nodeSetActive", ctx, true);
-					}
-					if (expand) {
-						if (!activate) {
-							// this._callHook("nodeSetFocus", ctx);
-						}
-						// this._callHook("nodeSetExpanded", ctx, true);
-						this._callHook("nodeToggleExpanded", ctx);
-					}
-				}
-				// Make sure that clicks stop, otherwise <a href='#'> jumps to the top
-				// if(event.target.localName === "a" && event.target.className === "fancytree-title"){
-				// 	event.preventDefault();
-				// }
-				// TODO: return promise?
-			},
-			/** Collapse all other  children of same parent.
-			 *
-			 * @param {EventData} ctx
-			 * @param {object} callOpts
-			 */
-			nodeCollapseSiblings: function(ctx, callOpts) {
-				// TODO: return promise?
-				var ac,
-					i,
-					l,
-					node = ctx.node;
-
-				if (node.parent) {
-					ac = node.parent.children;
-					for (i = 0, l = ac.length; i < l; i++) {
-						if (ac[i] !== node && ac[i].expanded) {
-							this._callHook(
-								"nodeSetExpanded",
-								ac[i],
-								false,
-								callOpts
-							);
-						}
-					}
-				}
-			},
-			/** Default handling for mouse douleclick events.
-			 * @param {EventData} ctx
-			 */
-			nodeDblclick: function(ctx) {
-				// TODO: return promise?
-				if (
-					ctx.targetType === "title" &&
-					ctx.options.clickFolderMode === 4
-				) {
-					// this.nodeSetFocus(ctx);
-					// this._callHook("nodeSetActive", ctx, true);
-					this._callHook("nodeToggleExpanded", ctx);
-				}
-				// TODO: prevent text selection on dblclicks
-				if (ctx.targetType === "title") {
-					ctx.originalEvent.preventDefault();
-				}
-			},
-			/** Default handling for mouse keydown events.
-			 *
-			 * NOTE: this may be called with node == null if tree (but no node) has focus.
-			 * @param {EventData} ctx
-			 */
-			nodeKeydown: function(ctx) {
-				// TODO: return promise?
-				var matchNode,
-					stamp,
-					_res,
-					focusNode,
-					event = ctx.originalEvent,
-					node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					which = event.which,
-					// #909: Use event.key, to get unicode characters.
-					// We can't use `/\w/.test(key)`, because that would
-					// only detect plain ascii alpha-numerics. But we still need
-					// to ignore modifier-only, whitespace, cursor-keys, etc.
-					key = event.key || String.fromCharCode(which),
-					specialModifiers = !!(
-						event.altKey ||
-						event.ctrlKey ||
-						event.metaKey
-					),
-					isAlnum =
-						!MODIFIERS[which] &&
-						!SPECIAL_KEYCODES[which] &&
-						!specialModifiers,
-					$target = $(event.target),
-					handled = true,
-					activate = !(event.ctrlKey || !opts.autoActivate);
-
-				// (node || FT).debug("ftnode.nodeKeydown(" + event.type + "): ftnode:" + this + ", charCode:" + event.charCode + ", keyCode: " + event.keyCode + ", which: " + event.which);
-				// FT.debug( "eventToString(): " + FT.eventToString(event) + ", key='" + key + "', isAlnum: " + isAlnum );
-
-				// Set focus to active (or first node) if no other node has the focus yet
-				if (!node) {
-					focusNode = this.getActiveNode() || this.getFirstChild();
-					if (focusNode) {
-						focusNode.setFocus();
-						node = ctx.node = this.focusNode;
-						node.debug("Keydown force focus on active node");
-					}
-				}
-
-				if (
-					opts.quicksearch &&
-					isAlnum &&
-					!$target.is(":input:enabled")
-				) {
-					// Allow to search for longer streaks if typed in quickly
-					stamp = Date.now();
-					if (stamp - tree.lastQuicksearchTime > 500) {
-						tree.lastQuicksearchTerm = "";
-					}
-					tree.lastQuicksearchTime = stamp;
-					tree.lastQuicksearchTerm += key;
-					// tree.debug("quicksearch find", tree.lastQuicksearchTerm);
-					matchNode = tree.findNextNode(
-						tree.lastQuicksearchTerm,
-						tree.getActiveNode()
-					);
-					if (matchNode) {
-						matchNode.setActive();
-					}
-					event.preventDefault();
-					return;
-				}
-				switch (FT.eventToString(event)) {
-					case "+":
-					case "=": // 187: '+' @ Chrome, Safari
-						tree.nodeSetExpanded(ctx, true);
-						break;
-					case "-":
-						tree.nodeSetExpanded(ctx, false);
-						break;
-					case "space":
-						if (node.isPagingNode()) {
-							tree._triggerNodeEvent("clickPaging", ctx, event);
-						} else if (
-							FT.evalOption("checkbox", node, node, opts, false)
-						) {
-							// #768
-							tree.nodeToggleSelected(ctx);
-						} else {
-							tree.nodeSetActive(ctx, true);
-						}
-						break;
-					case "return":
-						tree.nodeSetActive(ctx, true);
-						break;
-					case "home":
-					case "end":
-					case "backspace":
-					case "left":
-					case "right":
-					case "up":
-					case "down":
-						_res = node.navigate(event.which, activate);
-						break;
-					default:
-						handled = false;
-				}
-				if (handled) {
-					event.preventDefault();
-				}
-			},
-
-			// /** Default handling for mouse keypress events. */
-			// nodeKeypress: function(ctx) {
-			//     var event = ctx.originalEvent;
-			// },
-
-			// /** Trigger lazyLoad event (async). */
-			// nodeLazyLoad: function(ctx) {
-			//     var node = ctx.node;
-			//     if(this._triggerNodeEvent())
-			// },
-			/** Load child nodes (async).
-			 *
-			 * @param {EventData} ctx
-			 * @param {object[]|object|string|$.Promise|function} source
-			 * @returns {$.Promise} The deferred will be resolved as soon as the (ajax)
-			 *     data was rendered.
-			 */
-			nodeLoadChildren: function(ctx, source) {
-				var ajax,
-					delay,
-					ajaxDfd = null,
-					resultDfd,
-					isAsync = true,
-					tree = ctx.tree,
-					node = ctx.node,
-					nodePrevParent = node.parent,
-					tag = "nodeLoadChildren",
-					requestId = Date.now();
-
-				// `source` is a callback: use the returned result instead:
-				if ($.isFunction(source)) {
-					source = source.call(tree, { type: "source" }, ctx);
-					_assert(
-						!$.isFunction(source),
-						"source callback must not return another function"
-					);
-				}
-				// `source` is already a promise:
-				if ($.isFunction(source.then)) {
-					// _assert($.isFunction(source.always), "Expected jQuery?");
-					ajaxDfd = source;
-				} else if (source.url) {
-					// `source` is an Ajax options object
-					ajax = $.extend({}, ctx.options.ajax, source);
-					if (ajax.debugDelay) {
-						// Simulate a slow server
-						delay = ajax.debugDelay;
-						delete ajax.debugDelay; // remove debug option
-						if ($.isArray(delay)) {
-							// random delay range [min..max]
-							delay =
-								delay[0] +
-								Math.random() * (delay[1] - delay[0]);
-						}
-						node.warn(
-							"nodeLoadChildren waiting debugDelay " +
-								Math.round(delay) +
-								" ms ..."
-						);
-						ajaxDfd = $.Deferred(function(ajaxDfd) {
-							setTimeout(function() {
-								$.ajax(ajax)
-									.done(function() {
-										ajaxDfd.resolveWith(this, arguments);
-									})
-									.fail(function() {
-										ajaxDfd.rejectWith(this, arguments);
-									});
-							}, delay);
-						});
-					} else {
-						ajaxDfd = $.ajax(ajax);
-					}
-				} else if ($.isPlainObject(source) || $.isArray(source)) {
-					// `source` is already a constant dict or list, but we convert
-					// to a thenable for unified processing.
-					// 2020-01-03: refactored.
-					// `ajaxDfd = $.when(source)` would do the trick, but the returned
-					// promise will resolve async, which broke some tests and
-					// would probably also break current implementations out there.
-					// So we mock-up a thenable that resolves synchronously:
-					ajaxDfd = {
-						then: function(resolve, reject) {
-							resolve(source, null, null);
-						},
-					};
-					isAsync = false;
-				} else {
-					$.error("Invalid source type: " + source);
-				}
-
-				// Check for overlapping requests
-				if (node._requestId) {
-					node.warn(
-						"Recursive load request #" +
-							requestId +
-							" while #" +
-							node._requestId +
-							" is pending."
-					);
-					node._requestId = requestId;
-					// 	node.debug("Send load request #" + requestId);
-				}
-
-				if (isAsync) {
-					tree.debugTime(tag);
-					tree.nodeSetStatus(ctx, "loading");
-				}
-
-				// The async Ajax request has now started...
-				// Defer the deferred:
-				// we want to be able to reject invalid responses, even if
-				// the raw HTTP Ajax XHR resolved as Ok.
-				// We use the ajaxDfd.then() syntax here, which is compatible with
-				// jQuery and ECMA6.
-				// However resultDfd is a jQuery deferred, which is currently the
-				// expected result type of nodeLoadChildren()
-				resultDfd = new $.Deferred();
-				ajaxDfd.then(
-					function(data, textStatus, jqXHR) {
-						// ajaxDfd was resolved, but we reject or resolve resultDfd
-						// depending on the response data
-						var errorObj, res;
-
-						if (
-							(source.dataType === "json" ||
-								source.dataType === "jsonp") &&
-							typeof data === "string"
-						) {
-							$.error(
-								"Ajax request returned a string (did you get the JSON dataType wrong?)."
-							);
-						}
-						if (node._requestId && node._requestId > requestId) {
-							// The expected request time stamp is later than `requestId`
-							// (which was kept as as closure variable to this handler function)
-							// node.warn("Ignored load response for obsolete request #" + requestId + " (expected #" + node._requestId + ")");
-							resultDfd.rejectWith(this, [
-								RECURSIVE_REQUEST_ERROR,
-							]);
-							return;
-							// } else {
-							// 	node.debug("Response returned for load request #" + requestId);
-						}
-						if (node.parent === null && nodePrevParent !== null) {
-							resultDfd.rejectWith(this, [
-								INVALID_REQUEST_TARGET_ERROR,
-							]);
-							return;
-						}
-						// Allow to adjust the received response data in the `postProcess` event.
-						if (ctx.options.postProcess) {
-							// The handler may either
-							//   - modify `ctx.response` in-place (and leave `ctx.result` undefined)
-							//     => res = undefined
-							//   - return a replacement in `ctx.result`
-							//     => res = <new data>
-							//   If res contains an `error` property, an error status is displayed
-							try {
-								res = tree._triggerNodeEvent(
-									"postProcess",
-									ctx,
-									ctx.originalEvent,
-									{
-										response: data,
-										error: null,
-										dataType: source.dataType,
-									}
-								);
-								if (res.error) {
-									tree.warn(
-										"postProcess returned error:",
-										res
-									);
-								}
-							} catch (e) {
-								res = {
-									error: e,
-									message: "" + e,
-									details: "postProcess failed",
-								};
-							}
-							if (res.error) {
-								// Either postProcess failed with an exception, or the returned
-								// result object has an 'error' property attached:
-								errorObj = $.isPlainObject(res.error)
-									? res.error
-									: { message: res.error };
-								errorObj = tree._makeHookContext(
-									node,
-									null,
-									errorObj
-								);
-								resultDfd.rejectWith(this, [errorObj]);
-								return;
-							}
-							if (
-								$.isArray(res) ||
-								($.isPlainObject(res) &&
-									$.isArray(res.children))
-							) {
-								// Use `ctx.result` if valid
-								// (otherwise use existing data, which may have been modified in-place)
-								data = res;
-							}
-						} else if (
-							data &&
-							data.hasOwnProperty("d") &&
-							ctx.options.enableAspx
-						) {
-							// Process ASPX WebMethod JSON object inside "d" property
-							// (only if no postProcess event was defined)
-							if (ctx.options.enableAspx === 42) {
-								tree.warn(
-									"The default for enableAspx will change to `false` in the fututure. " +
-										"Pass `enableAspx: true` or implement postProcess to silence this warning."
-								);
-							}
-							data =
-								typeof data.d === "string"
-									? $.parseJSON(data.d)
-									: data.d;
-						}
-						resultDfd.resolveWith(this, [data]);
-					},
-					function(jqXHR, textStatus, errorThrown) {
-						// ajaxDfd was rejected, so we reject resultDfd as well
-						var errorObj = tree._makeHookContext(node, null, {
-							error: jqXHR,
-							args: Array.prototype.slice.call(arguments),
-							message: errorThrown,
-							details: jqXHR.status + ": " + errorThrown,
-						});
-						resultDfd.rejectWith(this, [errorObj]);
-					}
-				);
-
-				// The async Ajax request has now started.
-				// resultDfd will be resolved/rejected after the response arrived,
-				// was postProcessed, and checked.
-				// Now we implement the UI update and add the data to the tree.
-				// We also return this promise to the caller.
-				resultDfd
-					.done(function(data) {
-						tree.nodeSetStatus(ctx, "ok");
-						var children, metaData, noDataRes;
-
-						if ($.isPlainObject(data)) {
-							// We got {foo: 'abc', children: [...]}
-							// Copy extra properties to tree.data.foo
-							_assert(
-								node.isRootNode(),
-								"source may only be an object for root nodes (expecting an array of child objects otherwise)"
-							);
-							_assert(
-								$.isArray(data.children),
-								"if an object is passed as source, it must contain a 'children' array (all other properties are added to 'tree.data')"
-							);
-							metaData = data;
-							children = data.children;
-							delete metaData.children;
-							// Copy some attributes to tree.data
-							$.each(TREE_ATTRS, function(i, attr) {
-								if (metaData[attr] !== undefined) {
-									tree[attr] = metaData[attr];
-									delete metaData[attr];
-								}
-							});
-							// Copy all other attributes to tree.data.NAME
-							$.extend(tree.data, metaData);
-						} else {
-							children = data;
-						}
-						_assert(
-							$.isArray(children),
-							"expected array of children"
-						);
-						node._setChildren(children);
-
-						if (tree.options.nodata && children.length === 0) {
-							if ($.isFunction(tree.options.nodata)) {
-								noDataRes = tree.options.nodata.call(
-									tree,
-									{ type: "nodata" },
-									ctx
-								);
-							} else if (
-								tree.options.nodata === true &&
-								node.isRootNode()
-							) {
-								noDataRes = tree.options.strings.noData;
-							} else if (
-								typeof tree.options.nodata === "string" &&
-								node.isRootNode()
-							) {
-								noDataRes = tree.options.nodata;
-							}
-							if (noDataRes) {
-								node.setStatus("nodata", noDataRes);
-							}
-						}
-						// trigger fancytreeloadchildren
-						tree._triggerNodeEvent("loadChildren", node);
-					})
-					.fail(function(error) {
-						var ctxErr;
-
-						if (error === RECURSIVE_REQUEST_ERROR) {
-							node.warn(
-								"Ignored response for obsolete load request #" +
-									requestId +
-									" (expected #" +
-									node._requestId +
-									")"
-							);
-							return;
-						} else if (error === INVALID_REQUEST_TARGET_ERROR) {
-							node.warn(
-								"Lazy parent node was removed while loading: discarding response."
-							);
-							return;
-						} else if (error.node && error.error && error.message) {
-							// error is already a context object
-							ctxErr = error;
-						} else {
-							ctxErr = tree._makeHookContext(node, null, {
-								error: error, // it can be jqXHR or any custom error
-								args: Array.prototype.slice.call(arguments),
-								message: error
-									? error.message || error.toString()
-									: "",
-							});
-							if (ctxErr.message === "[object Object]") {
-								ctxErr.message = "";
-							}
-						}
-						node.warn(
-							"Load children failed (" + ctxErr.message + ")",
-							ctxErr
-						);
-						if (
-							tree._triggerNodeEvent(
-								"loadError",
-								ctxErr,
-								null
-							) !== false
-						) {
-							tree.nodeSetStatus(
-								ctx,
-								"error",
-								ctxErr.message,
-								ctxErr.details
-							);
-						}
-					})
-					.always(function() {
-						node._requestId = null;
-						if (isAsync) {
-							tree.debugTimeEnd(tag);
-						}
-					});
-
-				return resultDfd.promise();
-			},
-			/** [Not Implemented]  */
-			nodeLoadKeyPath: function(ctx, keyPathList) {
-				// TODO: implement and improve
-				// http://code.google.com/p/dynatree/issues/detail?id=222
-			},
-			/**
-			 * Remove a single direct child of ctx.node.
-			 * @param {EventData} ctx
-			 * @param {FancytreeNode} childNode dircect child of ctx.node
-			 */
-			nodeRemoveChild: function(ctx, childNode) {
-				var idx,
-					node = ctx.node,
-					// opts = ctx.options,
-					subCtx = $.extend({}, ctx, { node: childNode }),
-					children = node.children;
-
-				// FT.debug("nodeRemoveChild()", node.toString(), childNode.toString());
-
-				if (children.length === 1) {
-					_assert(childNode === children[0], "invalid single child");
-					return this.nodeRemoveChildren(ctx);
-				}
-				if (
-					this.activeNode &&
-					(childNode === this.activeNode ||
-						this.activeNode.isDescendantOf(childNode))
-				) {
-					this.activeNode.setActive(false); // TODO: don't fire events
-				}
-				if (
-					this.focusNode &&
-					(childNode === this.focusNode ||
-						this.focusNode.isDescendantOf(childNode))
-				) {
-					this.focusNode = null;
-				}
-				// TODO: persist must take care to clear select and expand cookies
-				this.nodeRemoveMarkup(subCtx);
-				this.nodeRemoveChildren(subCtx);
-				idx = $.inArray(childNode, children);
-				_assert(idx >= 0, "invalid child");
-				// Notify listeners
-				node.triggerModifyChild("remove", childNode);
-				// Unlink to support GC
-				childNode.visit(function(n) {
-					n.parent = null;
-				}, true);
-				this._callHook("treeRegisterNode", this, false, childNode);
-				// remove from child list
-				children.splice(idx, 1);
-			},
-			/**Remove HTML markup for all descendents of ctx.node.
-			 * @param {EventData} ctx
-			 */
-			nodeRemoveChildMarkup: function(ctx) {
-				var node = ctx.node;
-
-				// FT.debug("nodeRemoveChildMarkup()", node.toString());
-				// TODO: Unlink attr.ftnode to support GC
-				if (node.ul) {
-					if (node.isRootNode()) {
-						$(node.ul).empty();
-					} else {
-						$(node.ul).remove();
-						node.ul = null;
-					}
-					node.visit(function(n) {
-						n.li = n.ul = null;
-					});
-				}
-			},
-			/**Remove all descendants of ctx.node.
-			 * @param {EventData} ctx
-			 */
-			nodeRemoveChildren: function(ctx) {
-				var //subCtx,
-					tree = ctx.tree,
-					node = ctx.node,
-					children = node.children;
-				// opts = ctx.options;
-
-				// FT.debug("nodeRemoveChildren()", node.toString());
-				if (!children) {
-					return;
-				}
-				if (this.activeNode && this.activeNode.isDescendantOf(node)) {
-					this.activeNode.setActive(false); // TODO: don't fire events
-				}
-				if (this.focusNode && this.focusNode.isDescendantOf(node)) {
-					this.focusNode = null;
-				}
-				// TODO: persist must take care to clear select and expand cookies
-				this.nodeRemoveChildMarkup(ctx);
-				// Unlink children to support GC
-				// TODO: also delete this.children (not possible using visit())
-				// subCtx = $.extend({}, ctx);
-				node.triggerModifyChild("remove", null);
-				node.visit(function(n) {
-					n.parent = null;
-					tree._callHook("treeRegisterNode", tree, false, n);
-				});
-				if (node.lazy) {
-					// 'undefined' would be interpreted as 'not yet loaded' for lazy nodes
-					node.children = [];
-				} else {
-					node.children = null;
-				}
-				if (!node.isRootNode()) {
-					node.expanded = false; // #449, #459
-				}
-				this.nodeRenderStatus(ctx);
-			},
-			/**Remove HTML markup for ctx.node and all its descendents.
-			 * @param {EventData} ctx
-			 */
-			nodeRemoveMarkup: function(ctx) {
-				var node = ctx.node;
-				// FT.debug("nodeRemoveMarkup()", node.toString());
-				// TODO: Unlink attr.ftnode to support GC
-				if (node.li) {
-					$(node.li).remove();
-					node.li = null;
-				}
-				this.nodeRemoveChildMarkup(ctx);
-			},
-			/**
-			 * Create `<li><span>..</span> .. </li>` tags for this node.
-			 *
-			 * This method takes care that all HTML markup is created that is required
-			 * to display this node in its current state.
-			 *
-			 * Call this method to create new nodes, or after the strucuture
-			 * was changed (e.g. after moving this node or adding/removing children)
-			 * nodeRenderTitle() and nodeRenderStatus() are implied.
-			 *
-			 * ```html
-			 * <li id='KEY' ftnode=NODE>
-			 *     <span class='fancytree-node fancytree-expanded fancytree-has-children fancytree-lastsib fancytree-exp-el fancytree-ico-e'>
-			 *         <span class="fancytree-expander"></span>
-			 *         <span class="fancytree-checkbox"></span> // only present in checkbox mode
-			 *         <span class="fancytree-icon"></span>
-			 *         <a href="#" class="fancytree-title"> Node 1 </a>
-			 *     </span>
-			 *     <ul> // only present if node has children
-			 *         <li id='KEY' ftnode=NODE> child1 ... </li>
-			 *         <li id='KEY' ftnode=NODE> child2 ... </li>
-			 *     </ul>
-			 * </li>
-			 * ```
-			 *
-			 * @param {EventData} ctx
-			 * @param {boolean} [force=false] re-render, even if html markup was already created
-			 * @param {boolean} [deep=false] also render all descendants, even if parent is collapsed
-			 * @param {boolean} [collapsed=false] force root node to be collapsed, so we can apply animated expand later
-			 */
-			nodeRender: function(ctx, force, deep, collapsed, _recursive) {
-				/* This method must take care of all cases where the current data mode
-				 * (i.e. node hierarchy) does not match the current markup.
-				 *
-				 * - node was not yet rendered:
-				 *   create markup
-				 * - node was rendered: exit fast
-				 * - children have been added
-				 * - children have been removed
-				 */
-				var childLI,
-					childNode1,
-					childNode2,
-					i,
-					l,
-					next,
-					subCtx,
-					node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					aria = opts.aria,
-					firstTime = false,
-					parent = node.parent,
-					isRootNode = !parent,
-					children = node.children,
-					successorLi = null;
-				// FT.debug("nodeRender(" + !!force + ", " + !!deep + ")", node.toString());
-
-				if (tree._enableUpdate === false) {
-					// tree.debug("no render", tree._enableUpdate);
-					return;
-				}
-				if (!isRootNode && !parent.ul) {
-					// Calling node.collapse on a deep, unrendered node
-					return;
-				}
-				_assert(isRootNode || parent.ul, "parent UL must exist");
-
-				// Render the node
-				if (!isRootNode) {
-					// Discard markup on force-mode, or if it is not linked to parent <ul>
-					if (
-						node.li &&
-						(force || node.li.parentNode !== node.parent.ul)
-					) {
-						if (node.li.parentNode === node.parent.ul) {
-							// #486: store following node, so we can insert the new markup there later
-							successorLi = node.li.nextSibling;
-						} else {
-							// May happen, when a top-level node was dropped over another
-							this.debug(
-								"Unlinking " +
-									node +
-									" (must be child of " +
-									node.parent +
-									")"
-							);
-						}
-						//	            this.debug("nodeRemoveMarkup...");
-						this.nodeRemoveMarkup(ctx);
-					}
-					// Create <li><span /> </li>
-					// node.debug("render...");
-					if (node.li) {
-						// this.nodeRenderTitle(ctx);
-						this.nodeRenderStatus(ctx);
-					} else {
-						// node.debug("render... really");
-						firstTime = true;
-						node.li = document.createElement("li");
-						node.li.ftnode = node;
-
-						if (node.key && opts.generateIds) {
-							node.li.id = opts.idPrefix + node.key;
-						}
-						node.span = document.createElement("span");
-						node.span.className = "fancytree-node";
-						if (aria && !node.tr) {
-							$(node.li).attr("role", "treeitem");
-						}
-						node.li.appendChild(node.span);
-
-						// Create inner HTML for the <span> (expander, checkbox, icon, and title)
-						this.nodeRenderTitle(ctx);
-
-						// Allow tweaking and binding, after node was created for the first time
-						if (opts.createNode) {
-							opts.createNode.call(
-								tree,
-								{ type: "createNode" },
-								ctx
-							);
-						}
-					}
-					// Allow tweaking after node state was rendered
-					if (opts.renderNode) {
-						opts.renderNode.call(tree, { type: "renderNode" }, ctx);
-					}
-				}
-
-				// Visit child nodes
-				if (children) {
-					if (isRootNode || node.expanded || deep === true) {
-						// Create a UL to hold the children
-						if (!node.ul) {
-							node.ul = document.createElement("ul");
-							if (
-								(collapsed === true && !_recursive) ||
-								!node.expanded
-							) {
-								// hide top UL, so we can use an animation to show it later
-								node.ul.style.display = "none";
-							}
-							if (aria) {
-								$(node.ul).attr("role", "group");
-							}
-							if (node.li) {
-								// issue #67
-								node.li.appendChild(node.ul);
-							} else {
-								node.tree.$div.append(node.ul);
-							}
-						}
-						// Add child markup
-						for (i = 0, l = children.length; i < l; i++) {
-							subCtx = $.extend({}, ctx, { node: children[i] });
-							this.nodeRender(subCtx, force, deep, false, true);
-						}
-						// Remove <li> if nodes have moved to another parent
-						childLI = node.ul.firstChild;
-						while (childLI) {
-							childNode2 = childLI.ftnode;
-							if (childNode2 && childNode2.parent !== node) {
-								node.debug(
-									"_fixParent: remove missing " + childNode2,
-									childLI
-								);
-								next = childLI.nextSibling;
-								childLI.parentNode.removeChild(childLI);
-								childLI = next;
-							} else {
-								childLI = childLI.nextSibling;
-							}
-						}
-						// Make sure, that <li> order matches node.children order.
-						childLI = node.ul.firstChild;
-						for (i = 0, l = children.length - 1; i < l; i++) {
-							childNode1 = children[i];
-							childNode2 = childLI.ftnode;
-							if (childNode1 === childNode2) {
-								childLI = childLI.nextSibling;
-							} else {
-								// node.debug("_fixOrder: mismatch at index " + i + ": " + childNode1 + " != " + childNode2);
-								node.ul.insertBefore(
-									childNode1.li,
-									childNode2.li
-								);
-							}
-						}
-					}
-				} else {
-					// No children: remove markup if any
-					if (node.ul) {
-						// alert("remove child markup for " + node);
-						this.warn("remove child markup for " + node);
-						this.nodeRemoveChildMarkup(ctx);
-					}
-				}
-				if (!isRootNode) {
-					// Update element classes according to node state
-					// this.nodeRenderStatus(ctx);
-					// Finally add the whole structure to the DOM, so the browser can render
-					if (firstTime) {
-						// #486: successorLi is set, if we re-rendered (i.e. discarded)
-						// existing markup, which  we want to insert at the same position.
-						// (null is equivalent to append)
-						// 		parent.ul.appendChild(node.li);
-						parent.ul.insertBefore(node.li, successorLi);
-					}
-				}
-			},
-			/** Create HTML inside the node's outer `<span>` (i.e. expander, checkbox,
-			 * icon, and title).
-			 *
-			 * nodeRenderStatus() is implied.
-			 * @param {EventData} ctx
-			 * @param {string} [title] optinal new title
-			 */
-			nodeRenderTitle: function(ctx, title) {
-				// set node connector images, links and text
-				var checkbox,
-					className,
-					icon,
-					nodeTitle,
-					role,
-					tabindex,
-					tooltip,
-					iconTooltip,
-					node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					aria = opts.aria,
-					level = node.getLevel(),
-					ares = [];
-
-				if (title !== undefined) {
-					node.title = title;
-				}
-				if (!node.span || tree._enableUpdate === false) {
-					// Silently bail out if node was not rendered yet, assuming
-					// node.render() will be called as the node becomes visible
-					return;
-				}
-				// Connector (expanded, expandable or simple)
-				role =
-					aria && node.hasChildren() !== false
-						? " role='button'"
-						: "";
-				if (level < opts.minExpandLevel) {
-					if (!node.lazy) {
-						node.expanded = true;
-					}
-					if (level > 1) {
-						ares.push(
-							"<span " +
-								role +
-								" class='fancytree-expander fancytree-expander-fixed'></span>"
-						);
-					}
-					// .. else (i.e. for root level) skip expander/connector alltogether
-				} else {
-					ares.push(
-						"<span " + role + " class='fancytree-expander'></span>"
-					);
-				}
-				// Checkbox mode
-				checkbox = FT.evalOption("checkbox", node, node, opts, false);
-
-				if (checkbox && !node.isStatusNode()) {
-					role = aria ? " role='checkbox'" : "";
-					className = "fancytree-checkbox";
-					if (
-						checkbox === "radio" ||
-						(node.parent && node.parent.radiogroup)
-					) {
-						className += " fancytree-radio";
-					}
-					ares.push(
-						"<span " + role + " class='" + className + "'></span>"
-					);
-				}
-				// Folder or doctype icon
-				if (node.data.iconClass !== undefined) {
-					// 2015-11-16
-					// Handle / warn about backward compatibility
-					if (node.icon) {
-						$.error(
-							"'iconClass' node option is deprecated since v2.14.0: use 'icon' only instead"
-						);
-					} else {
-						node.warn(
-							"'iconClass' node option is deprecated since v2.14.0: use 'icon' instead"
-						);
-						node.icon = node.data.iconClass;
-					}
-				}
-				// If opts.icon is a callback and returns something other than undefined, use that
-				// else if node.icon is a boolean or string, use that
-				// else if opts.icon is a boolean or string, use that
-				// else show standard icon (which may be different for folders or documents)
-				icon = FT.evalOption("icon", node, node, opts, true);
-				// if( typeof icon !== "boolean" ) {
-				// 	// icon is defined, but not true/false: must be a string
-				// 	icon = "" + icon;
-				// }
-				if (icon !== false) {
-					role = aria ? " role='presentation'" : "";
-
-					iconTooltip = FT.evalOption(
-						"iconTooltip",
-						node,
-						node,
-						opts,
-						null
-					);
-					iconTooltip = iconTooltip
-						? " title='" + _escapeTooltip(iconTooltip) + "'"
-						: "";
-
-					if (typeof icon === "string") {
-						if (TEST_IMG.test(icon)) {
-							// node.icon is an image url. Prepend imagePath
-							icon =
-								icon.charAt(0) === "/"
-									? icon
-									: (opts.imagePath || "") + icon;
-							ares.push(
-								"<img src='" +
-									icon +
-									"' class='fancytree-icon'" +
-									iconTooltip +
-									" alt='' />"
-							);
-						} else {
-							ares.push(
-								"<span " +
-									role +
-									" class='fancytree-custom-icon " +
-									icon +
-									"'" +
-									iconTooltip +
-									"></span>"
-							);
-						}
-					} else if (icon.text) {
-						ares.push(
-							"<span " +
-								role +
-								" class='fancytree-custom-icon " +
-								(icon.addClass || "") +
-								"'" +
-								iconTooltip +
-								">" +
-								FT.escapeHtml(icon.text) +
-								"</span>"
-						);
-					} else if (icon.html) {
-						ares.push(
-							"<span " +
-								role +
-								" class='fancytree-custom-icon " +
-								(icon.addClass || "") +
-								"'" +
-								iconTooltip +
-								">" +
-								icon.html +
-								"</span>"
-						);
-					} else {
-						// standard icon: theme css will take care of this
-						ares.push(
-							"<span " +
-								role +
-								" class='fancytree-icon'" +
-								iconTooltip +
-								"></span>"
-						);
-					}
-				}
-				// Node title
-				nodeTitle = "";
-				if (opts.renderTitle) {
-					nodeTitle =
-						opts.renderTitle.call(
-							tree,
-							{ type: "renderTitle" },
-							ctx
-						) || "";
-				}
-				if (!nodeTitle) {
-					tooltip = FT.evalOption("tooltip", node, node, opts, null);
-					if (tooltip === true) {
-						tooltip = node.title;
-					}
-					// if( node.tooltip ) {
-					// 	tooltip = node.tooltip;
-					// } else if ( opts.tooltip ) {
-					// 	tooltip = opts.tooltip === true ? node.title : opts.tooltip.call(tree, node);
-					// }
-					tooltip = tooltip
-						? " title='" + _escapeTooltip(tooltip) + "'"
-						: "";
-					tabindex = opts.titlesTabbable ? " tabindex='0'" : "";
-
-					nodeTitle =
-						"<span class='fancytree-title'" +
-						tooltip +
-						tabindex +
-						">" +
-						(opts.escapeTitles
-							? FT.escapeHtml(node.title)
-							: node.title) +
-						"</span>";
-				}
-				ares.push(nodeTitle);
-				// Note: this will trigger focusout, if node had the focus
-				//$(node.span).html(ares.join("")); // it will cleanup the jQuery data currently associated with SPAN (if any), but it executes more slowly
-				node.span.innerHTML = ares.join("");
-				// Update CSS classes
-				this.nodeRenderStatus(ctx);
-				if (opts.enhanceTitle) {
-					ctx.$title = $(">span.fancytree-title", node.span);
-					nodeTitle =
-						opts.enhanceTitle.call(
-							tree,
-							{ type: "enhanceTitle" },
-							ctx
-						) || "";
-				}
-			},
-			/** Update element classes according to node state.
-			 * @param {EventData} ctx
-			 */
-			nodeRenderStatus: function(ctx) {
-				// Set classes for current status
-				var $ariaElem,
-					node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					// 	nodeContainer = node[tree.nodeContainerAttrName],
-					hasChildren = node.hasChildren(),
-					isLastSib = node.isLastSibling(),
-					aria = opts.aria,
-					cn = opts._classNames,
-					cnList = [],
-					statusElem = node[tree.statusClassPropName];
-
-				if (!statusElem || tree._enableUpdate === false) {
-					// if this function is called for an unrendered node, ignore it (will be updated on nect render anyway)
-					return;
-				}
-				if (aria) {
-					$ariaElem = $(node.tr || node.li);
-				}
-				// Build a list of class names that we will add to the node <span>
-				cnList.push(cn.node);
-				if (tree.activeNode === node) {
-					cnList.push(cn.active);
-					// 		$(">span.fancytree-title", statusElem).attr("tabindex", "0");
-					// 		tree.$container.removeAttr("tabindex");
-					// }else{
-					// 		$(">span.fancytree-title", statusElem).removeAttr("tabindex");
-					// 		tree.$container.attr("tabindex", "0");
-				}
-				if (tree.focusNode === node) {
-					cnList.push(cn.focused);
-				}
-				if (node.expanded) {
-					cnList.push(cn.expanded);
-				}
-				if (aria) {
-					if (hasChildren === false) {
-						$ariaElem.removeAttr("aria-expanded");
-					} else {
-						$ariaElem.attr("aria-expanded", Boolean(node.expanded));
-					}
-				}
-				if (node.folder) {
-					cnList.push(cn.folder);
-				}
-				if (hasChildren !== false) {
-					cnList.push(cn.hasChildren);
-				}
-				// TODO: required?
-				if (isLastSib) {
-					cnList.push(cn.lastsib);
-				}
-				if (node.lazy && node.children == null) {
-					cnList.push(cn.lazy);
-				}
-				if (node.partload) {
-					cnList.push(cn.partload);
-				}
-				if (node.partsel) {
-					cnList.push(cn.partsel);
-				}
-				if (FT.evalOption("unselectable", node, node, opts, false)) {
-					cnList.push(cn.unselectable);
-				}
-				if (node._isLoading) {
-					cnList.push(cn.loading);
-				}
-				if (node._error) {
-					cnList.push(cn.error);
-				}
-				if (node.statusNodeType) {
-					cnList.push(cn.statusNodePrefix + node.statusNodeType);
-				}
-				if (node.selected) {
-					cnList.push(cn.selected);
-					if (aria) {
-						$ariaElem.attr("aria-selected", true);
-					}
-				} else if (aria) {
-					$ariaElem.attr("aria-selected", false);
-				}
-				if (node.extraClasses) {
-					cnList.push(node.extraClasses);
-				}
-				// IE6 doesn't correctly evaluate multiple class names,
-				// so we create combined class names that can be used in the CSS
-				if (hasChildren === false) {
-					cnList.push(
-						cn.combinedExpanderPrefix + "n" + (isLastSib ? "l" : "")
-					);
-				} else {
-					cnList.push(
-						cn.combinedExpanderPrefix +
-							(node.expanded ? "e" : "c") +
-							(node.lazy && node.children == null ? "d" : "") +
-							(isLastSib ? "l" : "")
-					);
-				}
-				cnList.push(
-					cn.combinedIconPrefix +
-						(node.expanded ? "e" : "c") +
-						(node.folder ? "f" : "")
-				);
-				// node.span.className = cnList.join(" ");
-				statusElem.className = cnList.join(" ");
-
-				// TODO: we should not set this in the <span> tag also, if we set it here:
-				// Maybe most (all) of the classes should be set in LI instead of SPAN?
-				if (node.li) {
-					// #719: we have to consider that there may be already other classes:
-					$(node.li).toggleClass(cn.lastsib, isLastSib);
-				}
-			},
-			/** Activate node.
-			 * flag defaults to true.
-			 * If flag is true, the node is activated (must be a synchronous operation)
-			 * If flag is false, the node is deactivated (must be a synchronous operation)
-			 * @param {EventData} ctx
-			 * @param {boolean} [flag=true]
-			 * @param {object} [opts] additional options. Defaults to {noEvents: false, noFocus: false}
-			 * @returns {$.Promise}
-			 */
-			nodeSetActive: function(ctx, flag, callOpts) {
-				// Handle user click / [space] / [enter], according to clickFolderMode.
-				callOpts = callOpts || {};
-				var subCtx,
-					node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					noEvents = callOpts.noEvents === true,
-					noFocus = callOpts.noFocus === true,
-					scroll = callOpts.scrollIntoView !== false,
-					isActive = node === tree.activeNode;
-
-				// flag defaults to true
-				flag = flag !== false;
-				// node.debug("nodeSetActive", flag);
-
-				if (isActive === flag) {
-					// Nothing to do
-					return _getResolvedPromise(node);
-				}
-				// #1042: don't scroll between mousedown/-up when clicking an embedded link
-				if (
-					scroll &&
-					ctx.originalEvent &&
-					$(ctx.originalEvent.target).is("a,:checkbox")
-				) {
-					node.info("Not scrolling while clicking an embedded link.");
-					scroll = false;
-				}
-				if (
-					flag &&
-					!noEvents &&
-					this._triggerNodeEvent(
-						"beforeActivate",
-						node,
-						ctx.originalEvent
-					) === false
-				) {
-					// Callback returned false
-					return _getRejectedPromise(node, ["rejected"]);
-				}
-				if (flag) {
-					if (tree.activeNode) {
-						_assert(
-							tree.activeNode !== node,
-							"node was active (inconsistency)"
-						);
-						subCtx = $.extend({}, ctx, { node: tree.activeNode });
-						tree.nodeSetActive(subCtx, false);
-						_assert(
-							tree.activeNode === null,
-							"deactivate was out of sync?"
-						);
-					}
-
-					if (opts.activeVisible) {
-						// If no focus is set (noFocus: true) and there is no focused node, this node is made visible.
-						// scroll = noFocus && tree.focusNode == null;
-						// #863: scroll by default (unless `scrollIntoView: false` was passed)
-						node.makeVisible({ scrollIntoView: scroll });
-					}
-					tree.activeNode = node;
-					tree.nodeRenderStatus(ctx);
-					if (!noFocus) {
-						tree.nodeSetFocus(ctx);
-					}
-					if (!noEvents) {
-						tree._triggerNodeEvent(
-							"activate",
-							node,
-							ctx.originalEvent
-						);
-					}
-				} else {
-					_assert(
-						tree.activeNode === node,
-						"node was not active (inconsistency)"
-					);
-					tree.activeNode = null;
-					this.nodeRenderStatus(ctx);
-					if (!noEvents) {
-						ctx.tree._triggerNodeEvent(
-							"deactivate",
-							node,
-							ctx.originalEvent
-						);
-					}
-				}
-				return _getResolvedPromise(node);
-			},
-			/** Expand or collapse node, return Deferred.promise.
-			 *
-			 * @param {EventData} ctx
-			 * @param {boolean} [flag=true]
-			 * @param {object} [opts] additional options. Defaults to `{noAnimation: false, noEvents: false}`
-			 * @returns {$.Promise} The deferred will be resolved as soon as the (lazy)
-			 *     data was retrieved, rendered, and the expand animation finished.
-			 */
-			nodeSetExpanded: function(ctx, flag, callOpts) {
-				callOpts = callOpts || {};
-				var _afterLoad,
-					dfd,
-					i,
-					l,
-					parents,
-					prevAC,
-					node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					noAnimation = callOpts.noAnimation === true,
-					noEvents = callOpts.noEvents === true;
-
-				// flag defaults to true
-				flag = flag !== false;
-
-				// node.debug("nodeSetExpanded(" + flag + ")");
-
-				if ($(node.li).hasClass(opts._classNames.animating)) {
-					node.warn(
-						"setExpanded(" + flag + ") while animating: ignored."
-					);
-					return _getRejectedPromise(node, ["recursion"]);
-				}
-
-				if ((node.expanded && flag) || (!node.expanded && !flag)) {
-					// Nothing to do
-					// node.debug("nodeSetExpanded(" + flag + "): nothing to do");
-					return _getResolvedPromise(node);
-				} else if (flag && !node.lazy && !node.hasChildren()) {
-					// Prevent expanding of empty nodes
-					// return _getRejectedPromise(node, ["empty"]);
-					return _getResolvedPromise(node);
-				} else if (!flag && node.getLevel() < opts.minExpandLevel) {
-					// Prevent collapsing locked levels
-					return _getRejectedPromise(node, ["locked"]);
-				} else if (
-					!noEvents &&
-					this._triggerNodeEvent(
-						"beforeExpand",
-						node,
-						ctx.originalEvent
-					) === false
-				) {
-					// Callback returned false
-					return _getRejectedPromise(node, ["rejected"]);
-				}
-				// If this node inside a collpased node, no animation and scrolling is needed
-				if (!noAnimation && !node.isVisible()) {
-					noAnimation = callOpts.noAnimation = true;
-				}
-
-				dfd = new $.Deferred();
-
-				// Auto-collapse mode: collapse all siblings
-				if (flag && !node.expanded && opts.autoCollapse) {
-					parents = node.getParentList(false, true);
-					prevAC = opts.autoCollapse;
-					try {
-						opts.autoCollapse = false;
-						for (i = 0, l = parents.length; i < l; i++) {
-							// TODO: should return promise?
-							this._callHook(
-								"nodeCollapseSiblings",
-								parents[i],
-								callOpts
-							);
-						}
-					} finally {
-						opts.autoCollapse = prevAC;
-					}
-				}
-				// Trigger expand/collapse after expanding
-				dfd.done(function() {
-					var lastChild = node.getLastChild();
-
-					if (
-						flag &&
-						opts.autoScroll &&
-						!noAnimation &&
-						lastChild &&
-						tree._enableUpdate
-					) {
-						// Scroll down to last child, but keep current node visible
-						lastChild
-							.scrollIntoView(true, { topNode: node })
-							.always(function() {
-								if (!noEvents) {
-									ctx.tree._triggerNodeEvent(
-										flag ? "expand" : "collapse",
-										ctx
-									);
-								}
-							});
-					} else {
-						if (!noEvents) {
-							ctx.tree._triggerNodeEvent(
-								flag ? "expand" : "collapse",
-								ctx
-							);
-						}
-					}
-				});
-				// vvv Code below is executed after loading finished:
-				_afterLoad = function(callback) {
-					var cn = opts._classNames,
-						isVisible,
-						isExpanded,
-						effect = opts.toggleEffect;
-
-					node.expanded = flag;
-					tree._callHook(
-						"treeStructureChanged",
-						ctx,
-						flag ? "expand" : "collapse"
-					);
-					// Create required markup, but make sure the top UL is hidden, so we
-					// can animate later
-					tree._callHook("nodeRender", ctx, false, false, true);
-
-					// Hide children, if node is collapsed
-					if (node.ul) {
-						isVisible = node.ul.style.display !== "none";
-						isExpanded = !!node.expanded;
-						if (isVisible === isExpanded) {
-							node.warn(
-								"nodeSetExpanded: UL.style.display already set"
-							);
-						} else if (!effect || noAnimation) {
-							node.ul.style.display =
-								node.expanded || !parent ? "" : "none";
-						} else {
-							// The UI toggle() effect works with the ext-wide extension,
-							// while jQuery.animate() has problems when the title span
-							// has position: absolute.
-							// Since jQuery UI 1.12, the blind effect requires the parent
-							// element to have 'position: relative'.
-							// See #716, #717
-							$(node.li).addClass(cn.animating); // #717
-
-							if ($.isFunction($(node.ul)[effect.effect])) {
-								// tree.debug( "use jquery." + effect.effect + " method" );
-								$(node.ul)[effect.effect]({
-									duration: effect.duration,
-									always: function() {
-										// node.debug("fancytree-animating end: " + node.li.className);
-										$(this).removeClass(cn.animating); // #716
-										$(node.li).removeClass(cn.animating); // #717
-										callback();
-									},
-								});
-							} else {
-								// The UI toggle() effect works with the ext-wide extension,
-								// while jQuery.animate() has problems when the title span
-								// has positon: absolute.
-								// Since jQuery UI 1.12, the blind effect requires the parent
-								// element to have 'position: relative'.
-								// See #716, #717
-								// tree.debug("use specified effect (" + effect.effect + ") with the jqueryui.toggle method");
-
-								// try to stop an animation that might be already in progress
-								$(node.ul).stop(true, true); //< does not work after resetLazy has been called for a node whose animation wasn't complete and effect was "blind"
-
-								// dirty fix to remove a defunct animation (effect: "blind") after resetLazy has been called
-								$(node.ul)
-									.parent()
-									.find(".ui-effects-placeholder")
-									.remove();
-
-								$(node.ul).toggle(
-									effect.effect,
-									effect.options,
-									effect.duration,
-									function() {
-										// node.debug("fancytree-animating end: " + node.li.className);
-										$(this).removeClass(cn.animating); // #716
-										$(node.li).removeClass(cn.animating); // #717
-										callback();
-									}
-								);
-							}
-							return;
-						}
-					}
-					callback();
-				};
-				// ^^^ Code above is executed after loading finshed.
-
-				// Load lazy nodes, if any. Then continue with _afterLoad()
-				if (flag && node.lazy && node.hasChildren() === undefined) {
-					// node.debug("nodeSetExpanded: load start...");
-					node.load()
-						.done(function() {
-							// node.debug("nodeSetExpanded: load done");
-							if (dfd.notifyWith) {
-								// requires jQuery 1.6+
-								dfd.notifyWith(node, ["loaded"]);
-							}
-							_afterLoad(function() {
-								dfd.resolveWith(node);
-							});
-						})
-						.fail(function(errMsg) {
-							_afterLoad(function() {
-								dfd.rejectWith(node, [
-									"load failed (" + errMsg + ")",
-								]);
-							});
-						});
-					/*
-					var source = tree._triggerNodeEvent("lazyLoad", node, ctx.originalEvent);
-					_assert(typeof source !== "boolean", "lazyLoad event must return source in data.result");
-					node.debug("nodeSetExpanded: load start...");
-					this._callHook("nodeLoadChildren", ctx, source).done(function(){
-						node.debug("nodeSetExpanded: load done");
-						if(dfd.notifyWith){ // requires jQuery 1.6+
-							dfd.notifyWith(node, ["loaded"]);
-						}
-						_afterLoad.call(tree);
-					}).fail(function(errMsg){
-						dfd.rejectWith(node, ["load failed (" + errMsg + ")"]);
-					});
-					*/
-				} else {
-					_afterLoad(function() {
-						dfd.resolveWith(node);
-					});
-				}
-				// node.debug("nodeSetExpanded: returns");
-				return dfd.promise();
-			},
-			/** Focus or blur this node.
-			 * @param {EventData} ctx
-			 * @param {boolean} [flag=true]
-			 */
-			nodeSetFocus: function(ctx, flag) {
-				// ctx.node.debug("nodeSetFocus(" + flag + ")");
-				var ctx2,
-					tree = ctx.tree,
-					node = ctx.node,
-					opts = tree.options,
-					// et = ctx.originalEvent && ctx.originalEvent.type,
-					isInput = ctx.originalEvent
-						? $(ctx.originalEvent.target).is(":input")
-						: false;
-
-				flag = flag !== false;
-
-				// (node || tree).debug("nodeSetFocus(" + flag + "), event: " + et + ", isInput: "+ isInput);
-				// Blur previous node if any
-				if (tree.focusNode) {
-					if (tree.focusNode === node && flag) {
-						// node.debug("nodeSetFocus(" + flag + "): nothing to do");
-						return;
-					}
-					ctx2 = $.extend({}, ctx, { node: tree.focusNode });
-					tree.focusNode = null;
-					this._triggerNodeEvent("blur", ctx2);
-					this._callHook("nodeRenderStatus", ctx2);
-				}
-				// Set focus to container and node
-				if (flag) {
-					if (!this.hasFocus()) {
-						node.debug("nodeSetFocus: forcing container focus");
-						this._callHook("treeSetFocus", ctx, true, {
-							calledByNode: true,
-						});
-					}
-					node.makeVisible({ scrollIntoView: false });
-					tree.focusNode = node;
-					if (opts.titlesTabbable) {
-						if (!isInput) {
-							// #621
-							$(node.span)
-								.find(".fancytree-title")
-								.focus();
-						}
-					}
-					if (opts.aria) {
-						// Set active descendant to node's span ID (create one, if needed)
-						$(tree.$container).attr(
-							"aria-activedescendant",
-							$(node.tr || node.li)
-								.uniqueId()
-								.attr("id")
-						);
-						// "ftal_" + opts.idPrefix + node.key);
-					}
-					// $(node.span).find(".fancytree-title").focus();
-					this._triggerNodeEvent("focus", ctx);
-
-					// determine if we have focus on or inside tree container
-					var hasFancytreeFocus =
-						document.activeElement === tree.$container.get(0) ||
-						$(document.activeElement, tree.$container).length >= 1;
-
-					if (!hasFancytreeFocus) {
-						// We cannot set KB focus to a node, so use the tree container
-						// #563, #570: IE scrolls on every call to .focus(), if the container
-						// is partially outside the viewport. So do it only, when absolutely
-						// necessary.
-						$(tree.$container).focus();
-					}
-
-					// if( opts.autoActivate ){
-					// 	tree.nodeSetActive(ctx, true);
-					// }
-					if (opts.autoScroll) {
-						node.scrollIntoView();
-					}
-					this._callHook("nodeRenderStatus", ctx);
-				}
-			},
-			/** (De)Select node, return new status (sync).
-			 *
-			 * @param {EventData} ctx
-			 * @param {boolean} [flag=true]
-			 * @param {object} [opts] additional options. Defaults to {noEvents: false,
-			 *     propagateDown: null, propagateUp: null,
-			 *     callback: null,
-			 *     }
-			 * @returns {boolean} previous status
-			 */
-			nodeSetSelected: function(ctx, flag, callOpts) {
-				callOpts = callOpts || {};
-				var node = ctx.node,
-					tree = ctx.tree,
-					opts = ctx.options,
-					noEvents = callOpts.noEvents === true,
-					parent = node.parent;
-
-				// flag defaults to true
-				flag = flag !== false;
-
-				// node.debug("nodeSetSelected(" + flag + ")", ctx);
-
-				// Cannot (de)select unselectable nodes directly (only by propagation or
-				// by setting the `.selected` property)
-				if (FT.evalOption("unselectable", node, node, opts, false)) {
-					return;
-				}
-
-				// Remember the user's intent, in case down -> up propagation prevents
-				// applying it to node.selected
-				node._lastSelectIntent = flag; // Confusing use of '!'
-
-				// Nothing to do?
-				if (!!node.selected === flag) {
-					if (opts.selectMode === 3 && node.partsel && !flag) {
-						// If propagation prevented selecting this node last time, we still
-						// want to allow to apply setSelected(false) now
-					} else {
-						return flag;
-					}
-				}
-
-				if (
-					!noEvents &&
-					this._triggerNodeEvent(
-						"beforeSelect",
-						node,
-						ctx.originalEvent
-					) === false
-				) {
-					return !!node.selected;
-				}
-				if (flag && opts.selectMode === 1) {
-					// single selection mode (we don't uncheck all tree nodes, for performance reasons)
-					if (tree.lastSelectedNode) {
-						tree.lastSelectedNode.setSelected(false);
-					}
-					node.selected = flag;
-				} else if (
-					opts.selectMode === 3 &&
-					parent &&
-					!parent.radiogroup &&
-					!node.radiogroup
-				) {
-					// multi-hierarchical selection mode
-					node.selected = flag;
-					node.fixSelection3AfterClick(callOpts);
-				} else if (parent && parent.radiogroup) {
-					node.visitSiblings(function(n) {
-						n._changeSelectStatusAttrs(flag && n === node);
-					}, true);
-				} else {
-					// default: selectMode: 2, multi selection mode
-					node.selected = flag;
-				}
-				this.nodeRenderStatus(ctx);
-				tree.lastSelectedNode = flag ? node : null;
-				if (!noEvents) {
-					tree._triggerNodeEvent("select", ctx);
-				}
-			},
-			/** Show node status (ok, loading, error, nodata) using styles and a dummy child node.
-			 *
-			 * @param {EventData} ctx
-			 * @param status
-			 * @param message
-			 * @param details
-			 * @since 2.3
-			 */
-			nodeSetStatus: function(ctx, status, message, details) {
-				var node = ctx.node,
-					tree = ctx.tree;
-
-				function _clearStatusNode() {
-					// Remove dedicated dummy node, if any
-					var firstChild = node.children ? node.children[0] : null;
-					if (firstChild && firstChild.isStatusNode()) {
-						try {
-							// I've seen exceptions here with loadKeyPath...
-							if (node.ul) {
-								node.ul.removeChild(firstChild.li);
-								firstChild.li = null; // avoid leaks (DT issue 215)
-							}
-						} catch (e) {}
-						if (node.children.length === 1) {
-							node.children = [];
-						} else {
-							node.children.shift();
-						}
-						tree._callHook(
-							"treeStructureChanged",
-							ctx,
-							"clearStatusNode"
-						);
-					}
-				}
-				function _setStatusNode(data, type) {
-					// Create/modify the dedicated dummy node for 'loading...' or
-					// 'error!' status. (only called for direct child of the invisible
-					// system root)
-					var firstChild = node.children ? node.children[0] : null;
-					if (firstChild && firstChild.isStatusNode()) {
-						$.extend(firstChild, data);
-						firstChild.statusNodeType = type;
-						tree._callHook("nodeRenderTitle", firstChild);
-					} else {
-						node._setChildren([data]);
-						tree._callHook(
-							"treeStructureChanged",
-							ctx,
-							"setStatusNode"
-						);
-						node.children[0].statusNodeType = type;
-						tree.render();
-					}
-					return node.children[0];
-				}
-
-				switch (status) {
-					case "ok":
-						_clearStatusNode();
-						node._isLoading = false;
-						node._error = null;
-						node.renderStatus();
-						break;
-					case "loading":
-						if (!node.parent) {
-							_setStatusNode(
-								{
-									title:
-										tree.options.strings.loading +
-										(message ? " (" + message + ")" : ""),
-									// icon: true,  // needed for 'loding' icon
-									checkbox: false,
-									tooltip: details,
-								},
-								status
-							);
-						}
-						node._isLoading = true;
-						node._error = null;
-						node.renderStatus();
-						break;
-					case "error":
-						_setStatusNode(
-							{
-								title:
-									tree.options.strings.loadError +
-									(message ? " (" + message + ")" : ""),
-								// icon: false,
-								checkbox: false,
-								tooltip: details,
-							},
-							status
-						);
-						node._isLoading = false;
-						node._error = { message: message, details: details };
-						node.renderStatus();
-						break;
-					case "nodata":
-						_setStatusNode(
-							{
-								title: message || tree.options.strings.noData,
-								// icon: false,
-								checkbox: false,
-								tooltip: details,
-							},
-							status
-						);
-						node._isLoading = false;
-						node._error = null;
-						node.renderStatus();
-						break;
-					default:
-						$.error("invalid node status " + status);
-				}
-			},
-			/**
-			 *
-			 * @param {EventData} ctx
-			 */
-			nodeToggleExpanded: function(ctx) {
-				return this.nodeSetExpanded(ctx, !ctx.node.expanded);
-			},
-			/**
-			 * @param {EventData} ctx
-			 */
-			nodeToggleSelected: function(ctx) {
-				var node = ctx.node,
-					flag = !node.selected;
-
-				// In selectMode: 3 this node may be unselected+partsel, even if
-				// setSelected(true) was called before, due to `unselectable` children.
-				// In this case, we now toggle as `setSelected(false)`
-				if (
-					node.partsel &&
-					!node.selected &&
-					node._lastSelectIntent === true
-				) {
-					flag = false;
-					node.selected = true; // so it is not considered 'nothing to do'
-				}
-				node._lastSelectIntent = flag;
-				return this.nodeSetSelected(ctx, flag);
-			},
-			/** Remove all nodes.
-			 * @param {EventData} ctx
-			 */
-			treeClear: function(ctx) {
-				var tree = ctx.tree;
-				tree.activeNode = null;
-				tree.focusNode = null;
-				tree.$div.find(">ul.fancytree-container").empty();
-				// TODO: call destructors and remove reference loops
-				tree.rootNode.children = null;
-				tree._callHook("treeStructureChanged", ctx, "clear");
-			},
-			/** Widget was created (called only once, even it re-initialized).
-			 * @param {EventData} ctx
-			 */
-			treeCreate: function(ctx) {},
-			/** Widget was destroyed.
-			 * @param {EventData} ctx
-			 */
-			treeDestroy: function(ctx) {
-				this.$div.find(">ul.fancytree-container").remove();
-				if (this.$source) {
-					this.$source.removeClass("fancytree-helper-hidden");
-				}
-			},
-			/** Widget was (re-)initialized.
-			 * @param {EventData} ctx
-			 */
-			treeInit: function(ctx) {
-				var tree = ctx.tree,
-					opts = tree.options;
-
-				//this.debug("Fancytree.treeInit()");
-				// Add container to the TAB chain
-				// See http://www.w3.org/TR/wai-aria-practices/#focus_activedescendant
-				// #577: Allow to set tabindex to "0", "-1" and ""
-				tree.$container.attr("tabindex", opts.tabindex);
-
-				// Copy some attributes to tree.data
-				$.each(TREE_ATTRS, function(i, attr) {
-					if (opts[attr] !== undefined) {
-						tree.info("Move option " + attr + " to tree");
-						tree[attr] = opts[attr];
-						delete opts[attr];
-					}
-				});
-
-				if (opts.checkboxAutoHide) {
-					tree.$container.addClass("fancytree-checkbox-auto-hide");
-				}
-				if (opts.rtl) {
-					tree.$container
-						.attr("DIR", "RTL")
-						.addClass("fancytree-rtl");
-				} else {
-					tree.$container
-						.removeAttr("DIR")
-						.removeClass("fancytree-rtl");
-				}
-				if (opts.aria) {
-					tree.$container.attr("role", "tree");
-					if (opts.selectMode !== 1) {
-						tree.$container.attr("aria-multiselectable", true);
-					}
-				}
-				this.treeLoad(ctx);
-			},
-			/** Parse Fancytree from source, as configured in the options.
-			 * @param {EventData} ctx
-			 * @param {object} [source] optional new source (use last data otherwise)
-			 */
-			treeLoad: function(ctx, source) {
-				var metaData,
-					type,
-					$ul,
-					tree = ctx.tree,
-					$container = ctx.widget.element,
-					dfd,
-					// calling context for root node
-					rootCtx = $.extend({}, ctx, { node: this.rootNode });
-
-				if (tree.rootNode.children) {
-					this.treeClear(ctx);
-				}
-				source = source || this.options.source;
-
-				if (!source) {
-					type = $container.data("type") || "html";
-					switch (type) {
-						case "html":
-							// There should be an embedded `<ul>` with initial nodes,
-							// but another `<ul class='fancytree-container'>` is appended
-							// to the tree's <div> on startup anyway.
-							$ul = $container
-								.find(">ul")
-								.not(".fancytree-container")
-								.first();
-
-							if ($ul.length) {
-								$ul.addClass(
-									"ui-fancytree-source fancytree-helper-hidden"
-								);
-								source = $.ui.fancytree.parseHtml($ul);
-								// allow to init tree.data.foo from <ul data-foo=''>
-								this.data = $.extend(
-									this.data,
-									_getElementDataAsDict($ul)
-								);
-							} else {
-								FT.warn(
-									"No `source` option was passed and container does not contain `<ul>`: assuming `source: []`."
-								);
-								source = [];
-							}
-							break;
-						case "json":
-							source = $.parseJSON($container.text());
-							// $container already contains the <ul>, but we remove the plain (json) text
-							// $container.empty();
-							$container
-								.contents()
-								.filter(function() {
-									return this.nodeType === 3;
-								})
-								.remove();
-							if ($.isPlainObject(source)) {
-								// We got {foo: 'abc', children: [...]}
-								_assert(
-									$.isArray(source.children),
-									"if an object is passed as source, it must contain a 'children' array (all other properties are added to 'tree.data')"
-								);
-								metaData = source;
-								source = source.children;
-								delete metaData.children;
-								// Copy some attributes to tree.data
-								$.each(TREE_ATTRS, function(i, attr) {
-									if (metaData[attr] !== undefined) {
-										tree[attr] = metaData[attr];
-										delete metaData[attr];
-									}
-								});
-								// Copy extra properties to tree.data.foo
-								$.extend(tree.data, metaData);
-							}
-							break;
-						default:
-							$.error("Invalid data-type: " + type);
-					}
-				} else if (typeof source === "string") {
-					// TODO: source is an element ID
-					$.error("Not implemented");
-				}
-
-				// preInit is fired when the widget markup is created, but nodes
-				// not yet loaded
-				tree._triggerTreeEvent("preInit", null);
-
-				// Trigger fancytreeinit after nodes have been loaded
-				dfd = this.nodeLoadChildren(rootCtx, source)
-					.done(function() {
-						tree._callHook(
-							"treeStructureChanged",
-							ctx,
-							"loadChildren"
-						);
-						tree.render();
-						if (ctx.options.selectMode === 3) {
-							tree.rootNode.fixSelection3FromEndNodes();
-						}
-						if (tree.activeNode && tree.options.activeVisible) {
-							tree.activeNode.makeVisible();
-						}
-						tree._triggerTreeEvent("init", null, { status: true });
-					})
-					.fail(function() {
-						tree.render();
-						tree._triggerTreeEvent("init", null, { status: false });
-					});
-				return dfd;
-			},
-			/** Node was inserted into or removed from the tree.
-			 * @param {EventData} ctx
-			 * @param {boolean} add
-			 * @param {FancytreeNode} node
-			 */
-			treeRegisterNode: function(ctx, add, node) {
-				ctx.tree._callHook(
-					"treeStructureChanged",
-					ctx,
-					add ? "addNode" : "removeNode"
-				);
-			},
-			/** Widget got focus.
-			 * @param {EventData} ctx
-			 * @param {boolean} [flag=true]
-			 */
-			treeSetFocus: function(ctx, flag, callOpts) {
-				var targetNode;
-
-				flag = flag !== false;
-
-				// this.debug("treeSetFocus(" + flag + "), callOpts: ", callOpts, this.hasFocus());
-				// this.debug("    focusNode: " + this.focusNode);
-				// this.debug("    activeNode: " + this.activeNode);
-				if (flag !== this.hasFocus()) {
-					this._hasFocus = flag;
-					if (!flag && this.focusNode) {
-						// Node also looses focus if widget blurs
-						this.focusNode.setFocus(false);
-					} else if (flag && (!callOpts || !callOpts.calledByNode)) {
-						$(this.$container).focus();
-					}
-					this.$container.toggleClass("fancytree-treefocus", flag);
-					this._triggerTreeEvent(flag ? "focusTree" : "blurTree");
-					if (flag && !this.activeNode) {
-						// #712: Use last mousedowned node ('click' event fires after focusin)
-						targetNode =
-							this._lastMousedownNode || this.getFirstChild();
-						if (targetNode) {
-							targetNode.setFocus();
-						}
-					}
-				}
-			},
-			/** Widget option was set using `$().fancytree("option", "KEY", VALUE)`.
-			 *
-			 * Note: `key` may reference a nested option, e.g. 'dnd5.scroll'.
-			 * In this case `value`contains the complete, modified `dnd5` option hash.
-			 * We can check for changed values like
-			 *     if( value.scroll !== tree.options.dnd5.scroll ) {...}
-			 *
-			 * @param {EventData} ctx
-			 * @param {string} key option name
-			 * @param {any} value option value
-			 */
-			treeSetOption: function(ctx, key, value) {
-				var tree = ctx.tree,
-					callDefault = true,
-					callCreate = false,
-					callRender = false;
-
-				switch (key) {
-					case "aria":
-					case "checkbox":
-					case "icon":
-					case "minExpandLevel":
-					case "tabindex":
-						// tree._callHook("treeCreate", tree);
-						callCreate = true;
-						callRender = true;
-						break;
-					case "checkboxAutoHide":
-						tree.$container.toggleClass(
-							"fancytree-checkbox-auto-hide",
-							!!value
-						);
-						break;
-					case "escapeTitles":
-					case "tooltip":
-						callRender = true;
-						break;
-					case "rtl":
-						if (value === false) {
-							tree.$container
-								.removeAttr("DIR")
-								.removeClass("fancytree-rtl");
-						} else {
-							tree.$container
-								.attr("DIR", "RTL")
-								.addClass("fancytree-rtl");
-						}
-						callRender = true;
-						break;
-					case "source":
-						callDefault = false;
-						tree._callHook("treeLoad", tree, value);
-						callRender = true;
-						break;
-				}
-				tree.debug(
-					"set option " +
-						key +
-						"=" +
-						value +
-						" <" +
-						typeof value +
-						">"
-				);
-				if (callDefault) {
-					if (this.widget._super) {
-						// jQuery UI 1.9+
-						this.widget._super.call(this.widget, key, value);
-					} else {
-						// jQuery UI <= 1.8, we have to manually invoke the _setOption method from the base widget
-						$.Widget.prototype._setOption.call(
-							this.widget,
-							key,
-							value
-						);
-					}
-				}
-				if (callCreate) {
-					tree._callHook("treeCreate", tree);
-				}
-				if (callRender) {
-					tree.render(true, false); // force, not-deep
-				}
-			},
-			/** A Node was added, removed, moved, or it's visibility changed.
-			 * @param {EventData} ctx
-			 */
-			treeStructureChanged: function(ctx, type) {},
-		}
-	);
-
-	/*******************************************************************************
-	 * jQuery UI widget boilerplate
-	 */
-
-	/**
-	 * The plugin (derrived from [jQuery.Widget](http://api.jqueryui.com/jQuery.widget/)).
-	 *
-	 * **Note:**
-	 * These methods implement the standard jQuery UI widget API.
-	 * It is recommended to use methods of the {Fancytree} instance instead
-	 *
-	 * @example
-	 * // DEPRECATED: Access jQuery UI widget methods and members:
-	 * var tree = $("#tree").fancytree("getTree", "#myTree");
-	 * var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-	 *
-	 * // RECOMMENDED: Use the Fancytree object API
-	 * var tree = $.ui.fancytree.getTree("#myTree");
-	 * var node = tree.getActiveNode();
-	 *
-	 * // or you may already have stored the tree instance upon creation:
-	 * import {createTree, version} from 'jquery.fancytree'
-	 * const tree = createTree('#tree', { ... });
-	 * var node = tree.getActiveNode();
-	 *
-	 * @see {Fancytree_Static#getTree}
-	 * @deprecated Use methods of the {Fancytree} instance instead
-	 * @mixin Fancytree_Widget
-	 */
-
-	$.widget(
-		"ui.fancytree",
-		/** @lends Fancytree_Widget# */
-		{
-			/**These options will be used as defaults
-			 * @type {FancytreeOptions}
-			 */
-			options: {
-				activeVisible: true,
-				ajax: {
-					type: "GET",
-					cache: false, // false: Append random '_' argument to the request url to prevent caching.
-					// timeout: 0, // >0: Make sure we get an ajax error if server is unreachable
-					dataType: "json", // Expect json format and pass json object to callbacks.
-				},
-				aria: true,
-				autoActivate: true,
-				autoCollapse: false,
-				autoScroll: false,
-				checkbox: false,
-				clickFolderMode: 4,
-				copyFunctionsToData: false,
-				debugLevel: null, // 0..4 (null: use global setting $.ui.fancytree.debugLevel)
-				disabled: false, // TODO: required anymore?
-				enableAspx: 42, // TODO: this is truethy, but distinguishable from true: default will change to false in the future
-				escapeTitles: false,
-				extensions: [],
-				focusOnSelect: false,
-				generateIds: false,
-				icon: true,
-				idPrefix: "ft_",
-				keyboard: true,
-				keyPathSeparator: "/",
-				minExpandLevel: 1,
-				nodata: true, // (bool, string, or callback) display message, when no data available
-				quicksearch: false,
-				rtl: false,
-				scrollOfs: { top: 0, bottom: 0 },
-				scrollParent: null,
-				selectMode: 2,
-				strings: {
-					loading: "Loading...", // &#8230; would be escaped when escapeTitles is true
-					loadError: "Load error!",
-					moreData: "More...",
-					noData: "No data.",
-				},
-				tabindex: "0",
-				titlesTabbable: false,
-				toggleEffect: { effect: "slideToggle", duration: 200 }, //< "toggle" or "slideToggle" to use jQuery instead of jQueryUI for toggleEffect animation
-				tooltip: false,
-				treeId: null,
-				_classNames: {
-					active: "fancytree-active",
-					animating: "fancytree-animating",
-					combinedExpanderPrefix: "fancytree-exp-",
-					combinedIconPrefix: "fancytree-ico-",
-					error: "fancytree-error",
-					expanded: "fancytree-expanded",
-					focused: "fancytree-focused",
-					folder: "fancytree-folder",
-					hasChildren: "fancytree-has-children",
-					lastsib: "fancytree-lastsib",
-					lazy: "fancytree-lazy",
-					loading: "fancytree-loading",
-					node: "fancytree-node",
-					partload: "fancytree-partload",
-					partsel: "fancytree-partsel",
-					radio: "fancytree-radio",
-					selected: "fancytree-selected",
-					statusNodePrefix: "fancytree-statusnode-",
-					unselectable: "fancytree-unselectable",
-				},
-				// events
-				lazyLoad: null,
-				postProcess: null,
-			},
-			_deprecationWarning: function(name) {
-				var tree = this.tree;
-
-				if (tree && tree.options.debugLevel >= 3) {
-					tree.warn(
-						"$().fancytree('" +
-							name +
-							"') is deprecated (see https://wwwendt.de/tech/fancytree/doc/jsdoc/Fancytree_Widget.html"
-					);
-				}
-			},
-			/* Set up the widget, Called on first $().fancytree() */
-			_create: function() {
-				this.tree = new Fancytree(this);
-
-				this.$source =
-					this.source || this.element.data("type") === "json"
-						? this.element
-						: this.element.find(">ul").first();
-				// Subclass Fancytree instance with all enabled extensions
-				var extension,
-					extName,
-					i,
-					opts = this.options,
-					extensions = opts.extensions,
-					base = this.tree;
-
-				for (i = 0; i < extensions.length; i++) {
-					extName = extensions[i];
-					extension = $.ui.fancytree._extensions[extName];
-					if (!extension) {
-						$.error(
-							"Could not apply extension '" +
-								extName +
-								"' (it is not registered, did you forget to include it?)"
-						);
-					}
-					// Add extension options as tree.options.EXTENSION
-					// 	_assert(!this.tree.options[extName], "Extension name must not exist as option name: " + extName);
-
-					// console.info("extend " + extName, extension.options, this.tree.options[extName])
-					// issue #876: we want to replace custom array-options, not merge them
-					this.tree.options[extName] = _simpleDeepMerge(
-						{},
-						extension.options,
-						this.tree.options[extName]
-					);
-					// this.tree.options[extName] = $.extend(true, {}, extension.options, this.tree.options[extName]);
-
-					// console.info("extend " + extName + " =>", this.tree.options[extName])
-					// console.info("extend " + extName + " org default =>", extension.options)
-
-					// Add a namespace tree.ext.EXTENSION, to hold instance data
-					_assert(
-						this.tree.ext[extName] === undefined,
-						"Extension name must not exist as Fancytree.ext attribute: '" +
-							extName +
-							"'"
-					);
-					// this.tree[extName] = extension;
-					this.tree.ext[extName] = {};
-					// Subclass Fancytree methods using proxies.
-					_subclassObject(this.tree, base, extension, extName);
-					// current extension becomes base for the next extension
-					base = extension;
-				}
-				//
-				if (opts.icons !== undefined) {
-					// 2015-11-16
-					if (opts.icon === true) {
-						this.tree.warn(
-							"'icons' tree option is deprecated since v2.14.0: use 'icon' instead"
-						);
-						opts.icon = opts.icons;
-					} else {
-						$.error(
-							"'icons' tree option is deprecated since v2.14.0: use 'icon' only instead"
-						);
-					}
-				}
-				if (opts.iconClass !== undefined) {
-					// 2015-11-16
-					if (opts.icon) {
-						$.error(
-							"'iconClass' tree option is deprecated since v2.14.0: use 'icon' only instead"
-						);
-					} else {
-						this.tree.warn(
-							"'iconClass' tree option is deprecated since v2.14.0: use 'icon' instead"
-						);
-						opts.icon = opts.iconClass;
-					}
-				}
-				if (opts.tabbable !== undefined) {
-					// 2016-04-04
-					opts.tabindex = opts.tabbable ? "0" : "-1";
-					this.tree.warn(
-						"'tabbable' tree option is deprecated since v2.17.0: use 'tabindex='" +
-							opts.tabindex +
-							"' instead"
-					);
-				}
-				//
-				this.tree._callHook("treeCreate", this.tree);
-				// Note: 'fancytreecreate' event is fired by widget base class
-				//        this.tree._triggerTreeEvent("create");
-			},
-
-			/* Called on every $().fancytree() */
-			_init: function() {
-				this.tree._callHook("treeInit", this.tree);
-				// TODO: currently we call bind after treeInit, because treeInit
-				// might change tree.$container.
-				// It would be better, to move event binding into hooks altogether
-				this._bind();
-			},
-
-			/* Use the _setOption method to respond to changes to options. */
-			_setOption: function(key, value) {
-				return this.tree._callHook(
-					"treeSetOption",
-					this.tree,
-					key,
-					value
-				);
-			},
-
-			/** Use the destroy method to clean up any modifications your widget has made to the DOM */
-			_destroy: function() {
-				this._unbind();
-				this.tree._callHook("treeDestroy", this.tree);
-				// In jQuery UI 1.8, you must invoke the destroy method from the base widget
-				// $.Widget.prototype.destroy.call(this);
-				// TODO: delete tree and nodes to make garbage collect easier?
-				// TODO: In jQuery UI 1.9 and above, you would define _destroy instead of destroy and not call the base method
-			},
-
-			// -------------------------------------------------------------------------
-
-			/* Remove all event handlers for our namespace */
-			_unbind: function() {
-				var ns = this.tree._ns;
-				this.element.off(ns);
-				this.tree.$container.off(ns);
-				$(document).off(ns);
-			},
-			/* Add mouse and kyboard handlers to the container */
-			_bind: function() {
-				var self = this,
-					opts = this.options,
-					tree = this.tree,
-					ns = tree._ns;
-				// selstartEvent = ( $.support.selectstart ? "selectstart" : "mousedown" )
-
-				// Remove all previuous handlers for this tree
-				this._unbind();
-
-				//alert("keydown" + ns + "foc=" + tree.hasFocus() + tree.$container);
-				// tree.debug("bind events; container: ", tree.$container);
-				tree.$container
-					.on("focusin" + ns + " focusout" + ns, function(event) {
-						var node = FT.getNode(event),
-							flag = event.type === "focusin";
-
-						if (!flag && node && $(event.target).is("a")) {
-							// #764
-							node.debug(
-								"Ignored focusout on embedded <a> element."
-							);
-							return;
-						}
-						// tree.treeOnFocusInOut.call(tree, event);
-						// tree.debug("Tree container got event " + event.type, node, event, FT.getEventTarget(event));
-						if (flag) {
-							if (tree._getExpiringValue("focusin")) {
-								// #789: IE 11 may send duplicate focusin events
-								tree.debug("Ignored double focusin.");
-								return;
-							}
-							tree._setExpiringValue("focusin", true, 50);
-
-							if (!node) {
-								// #789: IE 11 may send focusin before mousdown(?)
-								node = tree._getExpiringValue("mouseDownNode");
-								if (node) {
-									tree.debug(
-										"Reconstruct mouse target for focusin from recent event."
-									);
-								}
-							}
-						}
-						if (node) {
-							// For example clicking into an <input> that is part of a node
-							tree._callHook(
-								"nodeSetFocus",
-								tree._makeHookContext(node, event),
-								flag
-							);
-						} else {
-							if (
-								tree.tbody &&
-								$(event.target).parents(
-									"table.fancytree-container > thead"
-								).length
-							) {
-								// #767: ignore events in the table's header
-								tree.debug(
-									"Ignore focus event outside table body.",
-									event
-								);
-							} else {
-								tree._callHook("treeSetFocus", tree, flag);
-							}
-						}
-					})
-					.on("selectstart" + ns, "span.fancytree-title", function(
-						event
-					) {
-						// prevent mouse-drags to select text ranges
-						// tree.debug("<span title> got event " + event.type);
-						event.preventDefault();
-					})
-					.on("keydown" + ns, function(event) {
-						// TODO: also bind keyup and keypress
-						// tree.debug("got event " + event.type + ", hasFocus:" + tree.hasFocus());
-						// if(opts.disabled || opts.keyboard === false || !tree.hasFocus() ){
-						if (opts.disabled || opts.keyboard === false) {
-							return true;
-						}
-						var res,
-							node = tree.focusNode, // node may be null
-							ctx = tree._makeHookContext(node || tree, event),
-							prevPhase = tree.phase;
-
-						try {
-							tree.phase = "userEvent";
-							// If a 'fancytreekeydown' handler returns false, skip the default
-							// handling (implemented by tree.nodeKeydown()).
-							if (node) {
-								res = tree._triggerNodeEvent(
-									"keydown",
-									node,
-									event
-								);
-							} else {
-								res = tree._triggerTreeEvent("keydown", event);
-							}
-							if (res === "preventNav") {
-								res = true; // prevent keyboard navigation, but don't prevent default handling of embedded input controls
-							} else if (res !== false) {
-								res = tree._callHook("nodeKeydown", ctx);
-							}
-							return res;
-						} finally {
-							tree.phase = prevPhase;
-						}
-					})
-					.on("mousedown" + ns, function(event) {
-						var et = FT.getEventTarget(event);
-						// self.tree.debug("event(" + event.type + "): node: ", et.node);
-						// #712: Store the clicked node, so we can use it when we get a focusin event
-						//       ('click' event fires after focusin)
-						// tree.debug("event(" + event.type + "): node: ", et.node);
-						tree._lastMousedownNode = et ? et.node : null;
-						// #789: Store the node also for a short period, so we can use it
-						// in a *resulting* focusin event
-						tree._setExpiringValue(
-							"mouseDownNode",
-							tree._lastMousedownNode
-						);
-					})
-					.on("click" + ns + " dblclick" + ns, function(event) {
-						if (opts.disabled) {
-							return true;
-						}
-						var ctx,
-							et = FT.getEventTarget(event),
-							node = et.node,
-							tree = self.tree,
-							prevPhase = tree.phase;
-
-						// self.tree.debug("event(" + event.type + "): node: ", node);
-						if (!node) {
-							return true; // Allow bubbling of other events
-						}
-						ctx = tree._makeHookContext(node, event);
-						// self.tree.debug("event(" + event.type + "): node: ", node);
-						try {
-							tree.phase = "userEvent";
-							switch (event.type) {
-								case "click":
-									ctx.targetType = et.type;
-									if (node.isPagingNode()) {
-										return (
-											tree._triggerNodeEvent(
-												"clickPaging",
-												ctx,
-												event
-											) === true
-										);
-									}
-									return tree._triggerNodeEvent(
-										"click",
-										ctx,
-										event
-									) === false
-										? false
-										: tree._callHook("nodeClick", ctx);
-								case "dblclick":
-									ctx.targetType = et.type;
-									return tree._triggerNodeEvent(
-										"dblclick",
-										ctx,
-										event
-									) === false
-										? false
-										: tree._callHook("nodeDblclick", ctx);
-							}
-						} finally {
-							tree.phase = prevPhase;
-						}
-					});
-			},
-			/** Return the active node or null.
-			 * @returns {FancytreeNode}
-			 * @deprecated Use methods of the Fancytree instance instead (<a href="Fancytree_Widget.html">example above</a>).
-			 */
-			getActiveNode: function() {
-				this._deprecationWarning("getActiveNode");
-				return this.tree.activeNode;
-			},
-			/** Return the matching node or null.
-			 * @param {string} key
-			 * @returns {FancytreeNode}
-			 * @deprecated Use methods of the Fancytree instance instead (<a href="Fancytree_Widget.html">example above</a>).
-			 */
-			getNodeByKey: function(key) {
-				this._deprecationWarning("getNodeByKey");
-				return this.tree.getNodeByKey(key);
-			},
-			/** Return the invisible system root node.
-			 * @returns {FancytreeNode}
-			 * @deprecated Use methods of the Fancytree instance instead (<a href="Fancytree_Widget.html">example above</a>).
-			 */
-			getRootNode: function() {
-				this._deprecationWarning("getRootNode");
-				return this.tree.rootNode;
-			},
-			/** Return the current tree instance.
-			 * @returns {Fancytree}
-			 * @deprecated Use `$.ui.fancytree.getTree()` instead (<a href="Fancytree_Widget.html">example above</a>).
-			 */
-			getTree: function() {
-				this._deprecationWarning("getTree");
-				return this.tree;
-			},
-		}
-	);
-
-	// $.ui.fancytree was created by the widget factory. Create a local shortcut:
-	FT = $.ui.fancytree;
-
-	/**
-	 * Static members in the `$.ui.fancytree` namespace.
-	 * This properties and methods can be accessed without instantiating a concrete
-	 * Fancytree instance.
-	 *
-	 * @example
-	 * // Access static members:
-	 * var node = $.ui.fancytree.getNode(element);
-	 * alert($.ui.fancytree.version);
-	 *
-	 * @mixin Fancytree_Static
-	 */
-	$.extend(
-		$.ui.fancytree,
-		/** @lends Fancytree_Static# */
-		{
-			/** Version number `"MAJOR.MINOR.PATCH"`
-			 * @type {string} */
-			version: "2.38.0", // Set to semver by 'grunt release'
-			/** @type {string}
-			 * @description `"production" for release builds` */
-			buildType: "production", // Set to 'production' by 'grunt build'
-			/** @type {int}
-			 * @description 0: silent .. 5: verbose (default: 3 for release builds). */
-			debugLevel: 3, // Set to 3 by 'grunt build'
-			// Used by $.ui.fancytree.debug() and as default for tree.options.debugLevel
-
-			_nextId: 1,
-			_nextNodeKey: 1,
-			_extensions: {},
-			// focusTree: null,
-
-			/** Expose class object as `$.ui.fancytree._FancytreeClass`.
-			 * Useful to extend `$.ui.fancytree._FancytreeClass.prototype`.
-			 * @type {Fancytree}
-			 */
-			_FancytreeClass: Fancytree,
-			/** Expose class object as $.ui.fancytree._FancytreeNodeClass
-			 * Useful to extend `$.ui.fancytree._FancytreeNodeClass.prototype`.
-			 * @type {FancytreeNode}
-			 */
-			_FancytreeNodeClass: FancytreeNode,
-			/* Feature checks to provide backwards compatibility */
-			jquerySupports: {
-				// http://jqueryui.com/upgrade-guide/1.9/#deprecated-offset-option-merged-into-my-and-at
-				positionMyOfs: isVersionAtLeast($.ui.version, 1, 9),
-			},
-			/** Throw an error if condition fails (debug method).
-			 * @param {boolean} cond
-			 * @param {string} msg
-			 */
-			assert: function(cond, msg) {
-				return _assert(cond, msg);
-			},
-			/** Create a new Fancytree instance on a target element.
-			 *
-			 * @param {Element | jQueryObject | string} el Target DOM element or selector
-			 * @param {FancytreeOptions} [opts] Fancytree options
-			 * @returns {Fancytree} new tree instance
-			 * @example
-			 * var tree = $.ui.fancytree.createTree("#tree", {
-			 *     source: {url: "my/webservice"}
-			 * }); // Create tree for this matching element
-			 *
-			 * @since 2.25
-			 */
-			createTree: function(el, opts) {
-				var $tree = $(el).fancytree(opts);
-				return FT.getTree($tree);
-			},
-			/** Return a function that executes *fn* at most every *timeout* ms.
-			 * @param {integer} timeout
-			 * @param {function} fn
-			 * @param {boolean} [invokeAsap=false]
-			 * @param {any} [ctx]
-			 */
-			debounce: function(timeout, fn, invokeAsap, ctx) {
-				var timer;
-				if (arguments.length === 3 && typeof invokeAsap !== "boolean") {
-					ctx = invokeAsap;
-					invokeAsap = false;
-				}
-				return function() {
-					var args = arguments;
-					ctx = ctx || this;
-					// eslint-disable-next-line no-unused-expressions
-					invokeAsap && !timer && fn.apply(ctx, args);
-					clearTimeout(timer);
-					timer = setTimeout(function() {
-						// eslint-disable-next-line no-unused-expressions
-						invokeAsap || fn.apply(ctx, args);
-						timer = null;
-					}, timeout);
-				};
-			},
-			/** Write message to console if debugLevel >= 4
-			 * @param {string} msg
-			 */
-			debug: function(msg) {
-				if ($.ui.fancytree.debugLevel >= 4) {
-					consoleApply("log", arguments);
-				}
-			},
-			/** Write error message to console if debugLevel >= 1.
-			 * @param {string} msg
-			 */
-			error: function(msg) {
-				if ($.ui.fancytree.debugLevel >= 1) {
-					consoleApply("error", arguments);
-				}
-			},
-			/** Convert `<`, `>`, `&`, `"`, `'`, and `/` to the equivalent entities.
-			 *
-			 * @param {string} s
-			 * @returns {string}
-			 */
-			escapeHtml: function(s) {
-				return ("" + s).replace(REX_HTML, function(s) {
-					return ENTITY_MAP[s];
-				});
-			},
-			/** Make jQuery.position() arguments backwards compatible, i.e. if
-			 * jQuery UI version <= 1.8, convert
-			 *   { my: "left+3 center", at: "left bottom", of: $target }
-			 * to
-			 *   { my: "left center", at: "left bottom", of: $target, offset: "3  0" }
-			 *
-			 * See http://jqueryui.com/upgrade-guide/1.9/#deprecated-offset-option-merged-into-my-and-at
-			 * and http://jsfiddle.net/mar10/6xtu9a4e/
-			 *
-			 * @param {object} opts
-			 * @returns {object} the (potentially modified) original opts hash object
-			 */
-			fixPositionOptions: function(opts) {
-				if (opts.offset || ("" + opts.my + opts.at).indexOf("%") >= 0) {
-					$.error(
-						"expected new position syntax (but '%' is not supported)"
-					);
-				}
-				if (!$.ui.fancytree.jquerySupports.positionMyOfs) {
-					var // parse 'left+3 center' into ['left+3 center', 'left', '+3', 'center', undefined]
-						myParts = /(\w+)([+-]?\d+)?\s+(\w+)([+-]?\d+)?/.exec(
-							opts.my
-						),
-						atParts = /(\w+)([+-]?\d+)?\s+(\w+)([+-]?\d+)?/.exec(
-							opts.at
-						),
-						// convert to numbers
-						dx =
-							(myParts[2] ? +myParts[2] : 0) +
-							(atParts[2] ? +atParts[2] : 0),
-						dy =
-							(myParts[4] ? +myParts[4] : 0) +
-							(atParts[4] ? +atParts[4] : 0);
-
-					opts = $.extend({}, opts, {
-						// make a copy and overwrite
-						my: myParts[1] + " " + myParts[3],
-						at: atParts[1] + " " + atParts[3],
-					});
-					if (dx || dy) {
-						opts.offset = "" + dx + " " + dy;
-					}
-				}
-				return opts;
-			},
-			/** Return a {node: FancytreeNode, type: TYPE} object for a mouse event.
-			 *
-			 * @param {Event} event Mouse event, e.g. click, ...
-			 * @returns {object} Return a {node: FancytreeNode, type: TYPE} object
-			 *     TYPE: 'title' | 'prefix' | 'expander' | 'checkbox' | 'icon' | undefined
-			 */
-			getEventTarget: function(event) {
-				var $target,
-					tree,
-					tcn = event && event.target ? event.target.className : "",
-					res = { node: this.getNode(event.target), type: undefined };
-				// We use a fast version of $(res.node).hasClass()
-				// See http://jsperf.com/test-for-classname/2
-				if (/\bfancytree-title\b/.test(tcn)) {
-					res.type = "title";
-				} else if (/\bfancytree-expander\b/.test(tcn)) {
-					res.type =
-						res.node.hasChildren() === false
-							? "prefix"
-							: "expander";
-					// }else if( /\bfancytree-checkbox\b/.test(tcn) || /\bfancytree-radio\b/.test(tcn) ){
-				} else if (/\bfancytree-checkbox\b/.test(tcn)) {
-					res.type = "checkbox";
-				} else if (/\bfancytree(-custom)?-icon\b/.test(tcn)) {
-					res.type = "icon";
-				} else if (/\bfancytree-node\b/.test(tcn)) {
-					// Somewhere near the title
-					res.type = "title";
-				} else if (event && event.target) {
-					$target = $(event.target);
-					if ($target.is("ul[role=group]")) {
-						// #nnn: Clicking right to a node may hit the surrounding UL
-						tree = res.node && res.node.tree;
-						(tree || FT).debug("Ignoring click on outer UL.");
-						res.node = null;
-					} else if ($target.closest(".fancytree-title").length) {
-						// #228: clicking an embedded element inside a title
-						res.type = "title";
-					} else if ($target.closest(".fancytree-checkbox").length) {
-						// E.g. <svg> inside checkbox span
-						res.type = "checkbox";
-					} else if ($target.closest(".fancytree-expander").length) {
-						res.type = "expander";
-					}
-				}
-				return res;
-			},
-			/** Return a string describing the affected node region for a mouse event.
-			 *
-			 * @param {Event} event Mouse event, e.g. click, mousemove, ...
-			 * @returns {string} 'title' | 'prefix' | 'expander' | 'checkbox' | 'icon' | undefined
-			 */
-			getEventTargetType: function(event) {
-				return this.getEventTarget(event).type;
-			},
-			/** Return a FancytreeNode instance from element, event, or jQuery object.
-			 *
-			 * @param {Element | jQueryObject | Event} el
-			 * @returns {FancytreeNode} matching node or null
-			 */
-			getNode: function(el) {
-				if (el instanceof FancytreeNode) {
-					return el; // el already was a FancytreeNode
-				} else if (el instanceof $) {
-					el = el[0]; // el was a jQuery object: use the DOM element
-				} else if (el.originalEvent !== undefined) {
-					el = el.target; // el was an Event
-				}
-				while (el) {
-					if (el.ftnode) {
-						return el.ftnode;
-					}
-					el = el.parentNode;
-				}
-				return null;
-			},
-			/** Return a Fancytree instance, from element, index, event, or jQueryObject.
-			 *
-			 * @param {Element | jQueryObject | Event | integer | string} [el]
-			 * @returns {Fancytree} matching tree or null
-			 * @example
-			 * $.ui.fancytree.getTree();  // Get first Fancytree instance on page
-			 * $.ui.fancytree.getTree(1);  // Get second Fancytree instance on page
-			 * $.ui.fancytree.getTree(event);  // Get tree for this mouse- or keyboard event
-			 * $.ui.fancytree.getTree("foo");  // Get tree for this `opts.treeId`
-			 * $.ui.fancytree.getTree("#tree");  // Get tree for this matching element
-			 *
-			 * @since 2.13
-			 */
-			getTree: function(el) {
-				var widget,
-					orgEl = el;
-
-				if (el instanceof Fancytree) {
-					return el; // el already was a Fancytree
-				}
-				if (el === undefined) {
-					el = 0; // get first tree
-				}
-				if (typeof el === "number") {
-					el = $(".fancytree-container").eq(el); // el was an integer: return nth instance
-				} else if (typeof el === "string") {
-					// `el` may be a treeId or a selector:
-					el = $("#ft-id-" + orgEl).eq(0);
-					if (!el.length) {
-						el = $(orgEl).eq(0); // el was a selector: use first match
-					}
-				} else if (
-					el instanceof Element ||
-					el instanceof HTMLDocument
-				) {
-					el = $(el);
-				} else if (el instanceof $) {
-					el = el.eq(0); // el was a jQuery object: use the first
-				} else if (el.originalEvent !== undefined) {
-					el = $(el.target); // el was an Event
-				}
-				// el is a jQuery object wit one element here
-				el = el.closest(":ui-fancytree");
-				widget = el.data("ui-fancytree") || el.data("fancytree"); // the latter is required by jQuery <= 1.8
-				return widget ? widget.tree : null;
-			},
-			/** Return an option value that has a default, but may be overridden by a
-			 * callback or a node instance attribute.
-			 *
-			 * Evaluation sequence:
-			 *
-			 * If `tree.options.<optionName>` is a callback that returns something, use that.
-			 * Else if `node.<optionName>` is defined, use that.
-			 * Else if `tree.options.<optionName>` is a value, use that.
-			 * Else use `defaultValue`.
-			 *
-			 * @param {string} optionName name of the option property (on node and tree)
-			 * @param {FancytreeNode} node passed to the callback
-			 * @param {object} nodeObject where to look for the local option property, e.g. `node` or `node.data`
-			 * @param {object} treeOption where to look for the tree option, e.g. `tree.options` or `tree.options.dnd5`
-			 * @param {any} [defaultValue]
-			 * @returns {any}
-			 *
-			 * @example
-			 * // Check for node.foo, tree,options.foo(), and tree.options.foo:
-			 * $.ui.fancytree.evalOption("foo", node, node, tree.options);
-			 * // Check for node.data.bar, tree,options.qux.bar(), and tree.options.qux.bar:
-			 * $.ui.fancytree.evalOption("bar", node, node.data, tree.options.qux);
-			 *
-			 * @since 2.22
-			 */
-			evalOption: function(
-				optionName,
-				node,
-				nodeObject,
-				treeOptions,
-				defaultValue
-			) {
-				var ctx,
-					res,
-					tree = node.tree,
-					treeOpt = treeOptions[optionName],
-					nodeOpt = nodeObject[optionName];
-
-				if ($.isFunction(treeOpt)) {
-					ctx = {
-						node: node,
-						tree: tree,
-						widget: tree.widget,
-						options: tree.widget.options,
-						typeInfo: tree.types[node.type] || {},
-					};
-					res = treeOpt.call(tree, { type: optionName }, ctx);
-					if (res == null) {
-						res = nodeOpt;
-					}
-				} else {
-					res = nodeOpt == null ? treeOpt : nodeOpt;
-				}
-				if (res == null) {
-					res = defaultValue; // no option set at all: return default
-				}
-				return res;
-			},
-			/** Set expander, checkbox, or node icon, supporting string and object format.
-			 *
-			 * @param {Element | jQueryObject} span
-			 * @param {string} baseClass
-			 * @param {string | object} icon
-			 * @since 2.27
-			 */
-			setSpanIcon: function(span, baseClass, icon) {
-				var $span = $(span);
-
-				if (typeof icon === "string") {
-					$span.attr("class", baseClass + " " + icon);
-				} else {
-					// support object syntax: { text: ligature, addClasse: classname }
-					if (icon.text) {
-						$span.text("" + icon.text);
-					} else if (icon.html) {
-						span.innerHTML = icon.html;
-					}
-					$span.attr(
-						"class",
-						baseClass + " " + (icon.addClass || "")
-					);
-				}
-			},
-			/** Convert a keydown or mouse event to a canonical string like 'ctrl+a',
-			 * 'ctrl+shift+f2', 'shift+leftdblclick'.
-			 *
-			 * This is especially handy for switch-statements in event handlers.
-			 *
-			 * @param {event}
-			 * @returns {string}
-			 *
-			 * @example
-
-			switch( $.ui.fancytree.eventToString(event) ) {
-				case "-":
-					tree.nodeSetExpanded(ctx, false);
-					break;
-				case "shift+return":
-					tree.nodeSetActive(ctx, true);
-					break;
-				case "down":
-					res = node.navigate(event.which, activate);
-					break;
-				default:
-					handled = false;
-			}
-			if( handled ){
-				event.preventDefault();
-			}
-			*/
-			eventToString: function(event) {
-				// Poor-man's hotkeys. See here for a complete implementation:
-				//   https://github.com/jeresig/jquery.hotkeys
-				var which = event.which,
-					et = event.type,
-					s = [];
-
-				if (event.altKey) {
-					s.push("alt");
-				}
-				if (event.ctrlKey) {
-					s.push("ctrl");
-				}
-				if (event.metaKey) {
-					s.push("meta");
-				}
-				if (event.shiftKey) {
-					s.push("shift");
-				}
-
-				if (et === "click" || et === "dblclick") {
-					s.push(MOUSE_BUTTONS[event.button] + et);
-				} else if (et === "wheel") {
-					s.push(et);
-				} else if (!IGNORE_KEYCODES[which]) {
-					s.push(
-						SPECIAL_KEYCODES[which] ||
-							String.fromCharCode(which).toLowerCase()
-					);
-				}
-				return s.join("+");
-			},
-			/** Write message to console if debugLevel >= 3
-			 * @param {string} msg
-			 */
-			info: function(msg) {
-				if ($.ui.fancytree.debugLevel >= 3) {
-					consoleApply("info", arguments);
-				}
-			},
-			/* @deprecated: use eventToString(event) instead.
-			 */
-			keyEventToString: function(event) {
-				this.warn(
-					"keyEventToString() is deprecated: use eventToString()"
-				);
-				return this.eventToString(event);
-			},
-			/** Return a wrapped handler method, that provides `this._super`.
-			 *
-			 * @example
-				// Implement `opts.createNode` event to add the 'draggable' attribute
-				$.ui.fancytree.overrideMethod(ctx.options, "createNode", function(event, data) {
-					// Default processing if any
-					this._super.apply(this, arguments);
-					// Add 'draggable' attribute
-					data.node.span.draggable = true;
-				});
-			 *
-			 * @param {object} instance
-			 * @param {string} methodName
-			 * @param {function} handler
-			 * @param {object} [context] optional context
-			 */
-			overrideMethod: function(instance, methodName, handler, context) {
-				var prevSuper,
-					_super = instance[methodName] || $.noop;
-
-				instance[methodName] = function() {
-					var self = context || this;
-
-					try {
-						prevSuper = self._super;
-						self._super = _super;
-						return handler.apply(self, arguments);
-					} finally {
-						self._super = prevSuper;
-					}
-				};
-			},
-			/**
-			 * Parse tree data from HTML <ul> markup
-			 *
-			 * @param {jQueryObject} $ul
-			 * @returns {NodeData[]}
-			 */
-			parseHtml: function($ul) {
-				var classes,
-					className,
-					extraClasses,
-					i,
-					iPos,
-					l,
-					tmp,
-					tmp2,
-					$children = $ul.find(">li"),
-					children = [];
-
-				$children.each(function() {
-					var allData,
-						lowerCaseAttr,
-						$li = $(this),
-						$liSpan = $li.find(">span", this).first(),
-						$liA = $liSpan.length ? null : $li.find(">a").first(),
-						d = { tooltip: null, data: {} };
-
-					if ($liSpan.length) {
-						d.title = $liSpan.html();
-					} else if ($liA && $liA.length) {
-						// If a <li><a> tag is specified, use it literally and extract href/target.
-						d.title = $liA.html();
-						d.data.href = $liA.attr("href");
-						d.data.target = $liA.attr("target");
-						d.tooltip = $liA.attr("title");
-					} else {
-						// If only a <li> tag is specified, use the trimmed string up to
-						// the next child <ul> tag.
-						d.title = $li.html();
-						iPos = d.title.search(/<ul/i);
-						if (iPos >= 0) {
-							d.title = d.title.substring(0, iPos);
-						}
-					}
-					d.title = $.trim(d.title);
-
-					// Make sure all fields exist
-					for (i = 0, l = CLASS_ATTRS.length; i < l; i++) {
-						d[CLASS_ATTRS[i]] = undefined;
-					}
-					// Initialize to `true`, if class is set and collect extraClasses
-					classes = this.className.split(" ");
-					extraClasses = [];
-					for (i = 0, l = classes.length; i < l; i++) {
-						className = classes[i];
-						if (CLASS_ATTR_MAP[className]) {
-							d[className] = true;
-						} else {
-							extraClasses.push(className);
-						}
-					}
-					d.extraClasses = extraClasses.join(" ");
-
-					// Parse node options from ID, title and class attributes
-					tmp = $li.attr("title");
-					if (tmp) {
-						d.tooltip = tmp; // overrides <a title='...'>
-					}
-					tmp = $li.attr("id");
-					if (tmp) {
-						d.key = tmp;
-					}
-					// Translate hideCheckbox -> checkbox:false
-					if ($li.attr("hideCheckbox")) {
-						d.checkbox = false;
-					}
-					// Add <li data-NAME='...'> as node.data.NAME
-					allData = _getElementDataAsDict($li);
-					if (allData && !$.isEmptyObject(allData)) {
-						// #507: convert data-hidecheckbox (lower case) to hideCheckbox
-						for (lowerCaseAttr in NODE_ATTR_LOWERCASE_MAP) {
-							if (allData.hasOwnProperty(lowerCaseAttr)) {
-								allData[
-									NODE_ATTR_LOWERCASE_MAP[lowerCaseAttr]
-								] = allData[lowerCaseAttr];
-								delete allData[lowerCaseAttr];
-							}
-						}
-						// #56: Allow to set special node.attributes from data-...
-						for (i = 0, l = NODE_ATTRS.length; i < l; i++) {
-							tmp = NODE_ATTRS[i];
-							tmp2 = allData[tmp];
-							if (tmp2 != null) {
-								delete allData[tmp];
-								d[tmp] = tmp2;
-							}
-						}
-						// All other data-... goes to node.data...
-						$.extend(d.data, allData);
-					}
-					// Recursive reading of child nodes, if LI tag contains an UL tag
-					$ul = $li.find(">ul").first();
-					if ($ul.length) {
-						d.children = $.ui.fancytree.parseHtml($ul);
-					} else {
-						d.children = d.lazy ? undefined : null;
-					}
-					children.push(d);
-					// FT.debug("parse ", d, children);
-				});
-				return children;
-			},
-			/** Add Fancytree extension definition to the list of globally available extensions.
-			 *
-			 * @param {object} definition
-			 */
-			registerExtension: function(definition) {
-				_assert(
-					definition.name != null,
-					"extensions must have a `name` property."
-				);
-				_assert(
-					definition.version != null,
-					"extensions must have a `version` property."
-				);
-				$.ui.fancytree._extensions[definition.name] = definition;
-			},
-			/** Inverse of escapeHtml().
-			 *
-			 * @param {string} s
-			 * @returns {string}
-			 */
-			unescapeHtml: function(s) {
-				var e = document.createElement("div");
-				e.innerHTML = s;
-				return e.childNodes.length === 0
-					? ""
-					: e.childNodes[0].nodeValue;
-			},
-			/** Write warning message to console if debugLevel >= 2.
-			 * @param {string} msg
-			 */
-			warn: function(msg) {
-				if ($.ui.fancytree.debugLevel >= 2) {
-					consoleApply("warn", arguments);
-				}
-			},
-		}
-	);
-
-	// Value returned by `require('jquery.fancytree')`
-	return $.ui.fancytree;
-}); // End of closure
-
-
-/***/ }),
-
-/***/ "./node_modules/jquery.fancytree/dist/modules/jquery.fancytree.ui-deps.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/jquery.fancytree/dist/modules/jquery.fancytree.ui-deps.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! jQuery UI - v1.12.1 - 2018-05-20
-* http://jqueryui.com
-* Includes: widget.js, position.js, keycode.js, scroll-parent.js, unique-id.js
-* Copyright jQuery Foundation and other contributors; Licensed MIT */
-
-;(function( factory ) {
-	if ( true ) {
-		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js") ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-}(function( $ ) {
-
-$.ui = $.ui || {};
-
-var version = $.ui.version = "1.12.1";
-
-
-/*!
- * jQuery UI Widget 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Widget
-//>>group: Core
-//>>description: Provides a factory for creating stateful widgets with a common API.
-//>>docs: http://api.jqueryui.com/jQuery.widget/
-//>>demos: http://jqueryui.com/widget/
-
-
-
-var widgetUuid = 0;
-var widgetSlice = Array.prototype.slice;
-
-$.cleanData = $.cleanData || ( function( orig ) {
-	return function( elems ) {
-		var events, elem, i;
-		for ( i = 0; ( elem = elems[ i ] ) != null; i++ ) {
-			try {
-
-				// Only trigger remove when necessary to save time
-				events = $._data( elem, "events" );
-				if ( events && events.remove ) {
-					$( elem ).triggerHandler( "remove" );
-				}
-
-			// Http://bugs.jquery.com/ticket/8235
-			} catch ( e ) {}
-		}
-		orig( elems );
-	};
-} )( $.cleanData );
-
-$.widget = $.widget || function( name, base, prototype ) {
-	var existingConstructor, constructor, basePrototype;
-
-	// ProxiedPrototype allows the provided prototype to remain unmodified
-	// so that it can be used as a mixin for multiple widgets (#8876)
-	var proxiedPrototype = {};
-
-	var namespace = name.split( "." )[ 0 ];
-	name = name.split( "." )[ 1 ];
-	var fullName = namespace + "-" + name;
-
-	if ( !prototype ) {
-		prototype = base;
-		base = $.Widget;
-	}
-
-	if ( $.isArray( prototype ) ) {
-		prototype = $.extend.apply( null, [ {} ].concat( prototype ) );
-	}
-
-	// Create selector for plugin
-	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
-		return !!$.data( elem, fullName );
-	};
-
-	$[ namespace ] = $[ namespace ] || {};
-	existingConstructor = $[ namespace ][ name ];
-	constructor = $[ namespace ][ name ] = function( options, element ) {
-
-		// Allow instantiation without "new" keyword
-		if ( !this._createWidget ) {
-			return new constructor( options, element );
-		}
-
-		// Allow instantiation without initializing for simple inheritance
-		// must use "new" keyword (the code above always passes args)
-		if ( arguments.length ) {
-			this._createWidget( options, element );
-		}
-	};
-
-	// Extend with the existing constructor to carry over any static properties
-	$.extend( constructor, existingConstructor, {
-		version: prototype.version,
-
-		// Copy the object used to create the prototype in case we need to
-		// redefine the widget later
-		_proto: $.extend( {}, prototype ),
-
-		// Track widgets that inherit from this widget in case this widget is
-		// redefined after a widget inherits from it
-		_childConstructors: []
-	} );
-
-	basePrototype = new base();
-
-	// We need to make the options hash a property directly on the new instance
-	// otherwise we'll modify the options hash on the prototype that we're
-	// inheriting from
-	basePrototype.options = $.widget.extend( {}, basePrototype.options );
-	$.each( prototype, function( prop, value ) {
-		if ( !$.isFunction( value ) ) {
-			proxiedPrototype[ prop ] = value;
-			return;
-		}
-		proxiedPrototype[ prop ] = ( function() {
-			function _super() {
-				return base.prototype[ prop ].apply( this, arguments );
-			}
-
-			function _superApply( args ) {
-				return base.prototype[ prop ].apply( this, args );
-			}
-
-			return function() {
-				var __super = this._super;
-				var __superApply = this._superApply;
-				var returnValue;
-
-				this._super = _super;
-				this._superApply = _superApply;
-
-				returnValue = value.apply( this, arguments );
-
-				this._super = __super;
-				this._superApply = __superApply;
-
-				return returnValue;
-			};
-		} )();
-	} );
-	constructor.prototype = $.widget.extend( basePrototype, {
-
-		// TODO: remove support for widgetEventPrefix
-		// always use the name + a colon as the prefix, e.g., draggable:start
-		// don't prefix for widgets that aren't DOM-based
-		widgetEventPrefix: existingConstructor ? ( basePrototype.widgetEventPrefix || name ) : name
-	}, proxiedPrototype, {
-		constructor: constructor,
-		namespace: namespace,
-		widgetName: name,
-		widgetFullName: fullName
-	} );
-
-	// If this widget is being redefined then we need to find all widgets that
-	// are inheriting from it and redefine all of them so that they inherit from
-	// the new version of this widget. We're essentially trying to replace one
-	// level in the prototype chain.
-	if ( existingConstructor ) {
-		$.each( existingConstructor._childConstructors, function( i, child ) {
-			var childPrototype = child.prototype;
-
-			// Redefine the child widget using the same prototype that was
-			// originally used, but inherit from the new version of the base
-			$.widget( childPrototype.namespace + "." + childPrototype.widgetName, constructor,
-				child._proto );
-		} );
-
-		// Remove the list of existing child constructors from the old constructor
-		// so the old child constructors can be garbage collected
-		delete existingConstructor._childConstructors;
-	} else {
-		base._childConstructors.push( constructor );
-	}
-
-	$.widget.bridge( name, constructor );
-
-	return constructor;
-};
-
-$.widget.extend = function( target ) {
-	var input = widgetSlice.call( arguments, 1 );
-	var inputIndex = 0;
-	var inputLength = input.length;
-	var key;
-	var value;
-
-	for ( ; inputIndex < inputLength; inputIndex++ ) {
-		for ( key in input[ inputIndex ] ) {
-			value = input[ inputIndex ][ key ];
-			if ( input[ inputIndex ].hasOwnProperty( key ) && value !== undefined ) {
-
-				// Clone objects
-				if ( $.isPlainObject( value ) ) {
-					target[ key ] = $.isPlainObject( target[ key ] ) ?
-						$.widget.extend( {}, target[ key ], value ) :
-
-						// Don't extend strings, arrays, etc. with objects
-						$.widget.extend( {}, value );
-
-				// Copy everything else by reference
-				} else {
-					target[ key ] = value;
-				}
-			}
-		}
-	}
-	return target;
-};
-
-$.widget.bridge = function( name, object ) {
-	var fullName = object.prototype.widgetFullName || name;
-	$.fn[ name ] = function( options ) {
-		var isMethodCall = typeof options === "string";
-		var args = widgetSlice.call( arguments, 1 );
-		var returnValue = this;
-
-		if ( isMethodCall ) {
-
-			// If this is an empty collection, we need to have the instance method
-			// return undefined instead of the jQuery instance
-			if ( !this.length && options === "instance" ) {
-				returnValue = undefined;
-			} else {
-				this.each( function() {
-					var methodValue;
-					var instance = $.data( this, fullName );
-
-					if ( options === "instance" ) {
-						returnValue = instance;
-						return false;
-					}
-
-					if ( !instance ) {
-						return $.error( "cannot call methods on " + name +
-							" prior to initialization; " +
-							"attempted to call method '" + options + "'" );
-					}
-
-					if ( !$.isFunction( instance[ options ] ) || options.charAt( 0 ) === "_" ) {
-						return $.error( "no such method '" + options + "' for " + name +
-							" widget instance" );
-					}
-
-					methodValue = instance[ options ].apply( instance, args );
-
-					if ( methodValue !== instance && methodValue !== undefined ) {
-						returnValue = methodValue && methodValue.jquery ?
-							returnValue.pushStack( methodValue.get() ) :
-							methodValue;
-						return false;
-					}
-				} );
-			}
-		} else {
-
-			// Allow multiple hashes to be passed on init
-			if ( args.length ) {
-				options = $.widget.extend.apply( null, [ options ].concat( args ) );
-			}
-
-			this.each( function() {
-				var instance = $.data( this, fullName );
-				if ( instance ) {
-					instance.option( options || {} );
-					if ( instance._init ) {
-						instance._init();
-					}
-				} else {
-					$.data( this, fullName, new object( options, this ) );
-				}
-			} );
-		}
-
-		return returnValue;
-	};
-};
-
-$.Widget = $.Widget || function( /* options, element */ ) {};
-$.Widget._childConstructors = [];
-
-$.Widget.prototype = {
-	widgetName: "widget",
-	widgetEventPrefix: "",
-	defaultElement: "<div>",
-
-	options: {
-		classes: {},
-		disabled: false,
-
-		// Callbacks
-		create: null
-	},
-
-	_createWidget: function( options, element ) {
-		element = $( element || this.defaultElement || this )[ 0 ];
-		this.element = $( element );
-		this.uuid = widgetUuid++;
-		this.eventNamespace = "." + this.widgetName + this.uuid;
-
-		this.bindings = $();
-		this.hoverable = $();
-		this.focusable = $();
-		this.classesElementLookup = {};
-
-		if ( element !== this ) {
-			$.data( element, this.widgetFullName, this );
-			this._on( true, this.element, {
-				remove: function( event ) {
-					if ( event.target === element ) {
-						this.destroy();
-					}
-				}
-			} );
-			this.document = $( element.style ?
-
-				// Element within the document
-				element.ownerDocument :
-
-				// Element is window or document
-				element.document || element );
-			this.window = $( this.document[ 0 ].defaultView || this.document[ 0 ].parentWindow );
-		}
-
-		this.options = $.widget.extend( {},
-			this.options,
-			this._getCreateOptions(),
-			options );
-
-		this._create();
-
-		if ( this.options.disabled ) {
-			this._setOptionDisabled( this.options.disabled );
-		}
-
-		this._trigger( "create", null, this._getCreateEventData() );
-		this._init();
-	},
-
-	_getCreateOptions: function() {
-		return {};
-	},
-
-	_getCreateEventData: $.noop,
-
-	_create: $.noop,
-
-	_init: $.noop,
-
-	destroy: function() {
-		var that = this;
-
-		this._destroy();
-		$.each( this.classesElementLookup, function( key, value ) {
-			that._removeClass( value, key );
-		} );
-
-		// We can probably remove the unbind calls in 2.0
-		// all event bindings should go through this._on()
-		this.element
-			.off( this.eventNamespace )
-			.removeData( this.widgetFullName );
-		this.widget()
-			.off( this.eventNamespace )
-			.removeAttr( "aria-disabled" );
-
-		// Clean up events and states
-		this.bindings.off( this.eventNamespace );
-	},
-
-	_destroy: $.noop,
-
-	widget: function() {
-		return this.element;
-	},
-
-	option: function( key, value ) {
-		var options = key;
-		var parts;
-		var curOption;
-		var i;
-
-		if ( arguments.length === 0 ) {
-
-			// Don't return a reference to the internal hash
-			return $.widget.extend( {}, this.options );
-		}
-
-		if ( typeof key === "string" ) {
-
-			// Handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
-			options = {};
-			parts = key.split( "." );
-			key = parts.shift();
-			if ( parts.length ) {
-				curOption = options[ key ] = $.widget.extend( {}, this.options[ key ] );
-				for ( i = 0; i < parts.length - 1; i++ ) {
-					curOption[ parts[ i ] ] = curOption[ parts[ i ] ] || {};
-					curOption = curOption[ parts[ i ] ];
-				}
-				key = parts.pop();
-				if ( arguments.length === 1 ) {
-					return curOption[ key ] === undefined ? null : curOption[ key ];
-				}
-				curOption[ key ] = value;
-			} else {
-				if ( arguments.length === 1 ) {
-					return this.options[ key ] === undefined ? null : this.options[ key ];
-				}
-				options[ key ] = value;
-			}
-		}
-
-		this._setOptions( options );
-
-		return this;
-	},
-
-	_setOptions: function( options ) {
-		var key;
-
-		for ( key in options ) {
-			this._setOption( key, options[ key ] );
-		}
-
-		return this;
-	},
-
-	_setOption: function( key, value ) {
-		if ( key === "classes" ) {
-			this._setOptionClasses( value );
-		}
-
-		this.options[ key ] = value;
-
-		if ( key === "disabled" ) {
-			this._setOptionDisabled( value );
-		}
-
-		return this;
-	},
-
-	_setOptionClasses: function( value ) {
-		var classKey, elements, currentElements;
-
-		for ( classKey in value ) {
-			currentElements = this.classesElementLookup[ classKey ];
-			if ( value[ classKey ] === this.options.classes[ classKey ] ||
-					!currentElements ||
-					!currentElements.length ) {
-				continue;
-			}
-
-			// We are doing this to create a new jQuery object because the _removeClass() call
-			// on the next line is going to destroy the reference to the current elements being
-			// tracked. We need to save a copy of this collection so that we can add the new classes
-			// below.
-			elements = $( currentElements.get() );
-			this._removeClass( currentElements, classKey );
-
-			// We don't use _addClass() here, because that uses this.options.classes
-			// for generating the string of classes. We want to use the value passed in from
-			// _setOption(), this is the new value of the classes option which was passed to
-			// _setOption(). We pass this value directly to _classes().
-			elements.addClass( this._classes( {
-				element: elements,
-				keys: classKey,
-				classes: value,
-				add: true
-			} ) );
-		}
-	},
-
-	_setOptionDisabled: function( value ) {
-		this._toggleClass( this.widget(), this.widgetFullName + "-disabled", null, !!value );
-
-		// If the widget is becoming disabled, then nothing is interactive
-		if ( value ) {
-			this._removeClass( this.hoverable, null, "ui-state-hover" );
-			this._removeClass( this.focusable, null, "ui-state-focus" );
-		}
-	},
-
-	enable: function() {
-		return this._setOptions( { disabled: false } );
-	},
-
-	disable: function() {
-		return this._setOptions( { disabled: true } );
-	},
-
-	_classes: function( options ) {
-		var full = [];
-		var that = this;
-
-		options = $.extend( {
-			element: this.element,
-			classes: this.options.classes || {}
-		}, options );
-
-		function processClassString( classes, checkOption ) {
-			var current, i;
-			for ( i = 0; i < classes.length; i++ ) {
-				current = that.classesElementLookup[ classes[ i ] ] || $();
-				if ( options.add ) {
-					current = $( $.unique( current.get().concat( options.element.get() ) ) );
-				} else {
-					current = $( current.not( options.element ).get() );
-				}
-				that.classesElementLookup[ classes[ i ] ] = current;
-				full.push( classes[ i ] );
-				if ( checkOption && options.classes[ classes[ i ] ] ) {
-					full.push( options.classes[ classes[ i ] ] );
-				}
-			}
-		}
-
-		this._on( options.element, {
-			"remove": "_untrackClassesElement"
-		} );
-
-		if ( options.keys ) {
-			processClassString( options.keys.match( /\S+/g ) || [], true );
-		}
-		if ( options.extra ) {
-			processClassString( options.extra.match( /\S+/g ) || [] );
-		}
-
-		return full.join( " " );
-	},
-
-	_untrackClassesElement: function( event ) {
-		var that = this;
-		$.each( that.classesElementLookup, function( key, value ) {
-			if ( $.inArray( event.target, value ) !== -1 ) {
-				that.classesElementLookup[ key ] = $( value.not( event.target ).get() );
-			}
-		} );
-	},
-
-	_removeClass: function( element, keys, extra ) {
-		return this._toggleClass( element, keys, extra, false );
-	},
-
-	_addClass: function( element, keys, extra ) {
-		return this._toggleClass( element, keys, extra, true );
-	},
-
-	_toggleClass: function( element, keys, extra, add ) {
-		add = ( typeof add === "boolean" ) ? add : extra;
-		var shift = ( typeof element === "string" || element === null ),
-			options = {
-				extra: shift ? keys : extra,
-				keys: shift ? element : keys,
-				element: shift ? this.element : element,
-				add: add
-			};
-		options.element.toggleClass( this._classes( options ), add );
-		return this;
-	},
-
-	_on: function( suppressDisabledCheck, element, handlers ) {
-		var delegateElement;
-		var instance = this;
-
-		// No suppressDisabledCheck flag, shuffle arguments
-		if ( typeof suppressDisabledCheck !== "boolean" ) {
-			handlers = element;
-			element = suppressDisabledCheck;
-			suppressDisabledCheck = false;
-		}
-
-		// No element argument, shuffle and use this.element
-		if ( !handlers ) {
-			handlers = element;
-			element = this.element;
-			delegateElement = this.widget();
-		} else {
-			element = delegateElement = $( element );
-			this.bindings = this.bindings.add( element );
-		}
-
-		$.each( handlers, function( event, handler ) {
-			function handlerProxy() {
-
-				// Allow widgets to customize the disabled handling
-				// - disabled as an array instead of boolean
-				// - disabled class as method for disabling individual parts
-				if ( !suppressDisabledCheck &&
-						( instance.options.disabled === true ||
-						$( this ).hasClass( "ui-state-disabled" ) ) ) {
-					return;
-				}
-				return ( typeof handler === "string" ? instance[ handler ] : handler )
-					.apply( instance, arguments );
-			}
-
-			// Copy the guid so direct unbinding works
-			if ( typeof handler !== "string" ) {
-				handlerProxy.guid = handler.guid =
-					handler.guid || handlerProxy.guid || $.guid++;
-			}
-
-			var match = event.match( /^([\w:-]*)\s*(.*)$/ );
-			var eventName = match[ 1 ] + instance.eventNamespace;
-			var selector = match[ 2 ];
-
-			if ( selector ) {
-				delegateElement.on( eventName, selector, handlerProxy );
-			} else {
-				element.on( eventName, handlerProxy );
-			}
-		} );
-	},
-
-	_off: function( element, eventName ) {
-		eventName = ( eventName || "" ).split( " " ).join( this.eventNamespace + " " ) +
-			this.eventNamespace;
-		element.off( eventName ).off( eventName );
-
-		// Clear the stack to avoid memory leaks (#10056)
-		this.bindings = $( this.bindings.not( element ).get() );
-		this.focusable = $( this.focusable.not( element ).get() );
-		this.hoverable = $( this.hoverable.not( element ).get() );
-	},
-
-	_delay: function( handler, delay ) {
-		function handlerProxy() {
-			return ( typeof handler === "string" ? instance[ handler ] : handler )
-				.apply( instance, arguments );
-		}
-		var instance = this;
-		return setTimeout( handlerProxy, delay || 0 );
-	},
-
-	_hoverable: function( element ) {
-		this.hoverable = this.hoverable.add( element );
-		this._on( element, {
-			mouseenter: function( event ) {
-				this._addClass( $( event.currentTarget ), null, "ui-state-hover" );
-			},
-			mouseleave: function( event ) {
-				this._removeClass( $( event.currentTarget ), null, "ui-state-hover" );
-			}
-		} );
-	},
-
-	_focusable: function( element ) {
-		this.focusable = this.focusable.add( element );
-		this._on( element, {
-			focusin: function( event ) {
-				this._addClass( $( event.currentTarget ), null, "ui-state-focus" );
-			},
-			focusout: function( event ) {
-				this._removeClass( $( event.currentTarget ), null, "ui-state-focus" );
-			}
-		} );
-	},
-
-	_trigger: function( type, event, data ) {
-		var prop, orig;
-		var callback = this.options[ type ];
-
-		data = data || {};
-		event = $.Event( event );
-		event.type = ( type === this.widgetEventPrefix ?
-			type :
-			this.widgetEventPrefix + type ).toLowerCase();
-
-		// The original event may come from any element
-		// so we need to reset the target on the new event
-		event.target = this.element[ 0 ];
-
-		// Copy original event properties over to the new event
-		orig = event.originalEvent;
-		if ( orig ) {
-			for ( prop in orig ) {
-				if ( !( prop in event ) ) {
-					event[ prop ] = orig[ prop ];
-				}
-			}
-		}
-
-		this.element.trigger( event, data );
-		return !( $.isFunction( callback ) &&
-			callback.apply( this.element[ 0 ], [ event ].concat( data ) ) === false ||
-			event.isDefaultPrevented() );
-	}
-};
-
-$.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
-	$.Widget.prototype[ "_" + method ] = function( element, options, callback ) {
-		if ( typeof options === "string" ) {
-			options = { effect: options };
-		}
-
-		var hasOptions;
-		var effectName = !options ?
-			method :
-			options === true || typeof options === "number" ?
-				defaultEffect :
-				options.effect || defaultEffect;
-
-		options = options || {};
-		if ( typeof options === "number" ) {
-			options = { duration: options };
-		}
-
-		hasOptions = !$.isEmptyObject( options );
-		options.complete = callback;
-
-		if ( options.delay ) {
-			element.delay( options.delay );
-		}
-
-		if ( hasOptions && $.effects && $.effects.effect[ effectName ] ) {
-			element[ method ]( options );
-		} else if ( effectName !== method && element[ effectName ] ) {
-			element[ effectName ]( options.duration, options.easing, callback );
-		} else {
-			element.queue( function( next ) {
-				$( this )[ method ]();
-				if ( callback ) {
-					callback.call( element[ 0 ] );
-				}
-				next();
-			} );
-		}
-	};
-} );
-
-var widget = $.widget;
-
-
-/*!
- * jQuery UI Position 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- *
- * http://api.jqueryui.com/position/
- */
-
-//>>label: Position
-//>>group: Core
-//>>description: Positions elements relative to other elements.
-//>>docs: http://api.jqueryui.com/position/
-//>>demos: http://jqueryui.com/position/
-
-
-( function() {
-var cachedScrollbarWidth,
-	max = Math.max,
-	abs = Math.abs,
-	rhorizontal = /left|center|right/,
-	rvertical = /top|center|bottom/,
-	roffset = /[\+\-]\d+(\.[\d]+)?%?/,
-	rposition = /^\w+/,
-	rpercent = /%$/,
-	_position = $.fn.position;
-
-function getOffsets( offsets, width, height ) {
-	return [
-		parseFloat( offsets[ 0 ] ) * ( rpercent.test( offsets[ 0 ] ) ? width / 100 : 1 ),
-		parseFloat( offsets[ 1 ] ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
-	];
-}
-
-function parseCss( element, property ) {
-	return parseInt( $.css( element, property ), 10 ) || 0;
-}
-
-function getDimensions( elem ) {
-	var raw = elem[ 0 ];
-	if ( raw.nodeType === 9 ) {
-		return {
-			width: elem.width(),
-			height: elem.height(),
-			offset: { top: 0, left: 0 }
-		};
-	}
-	if ( $.isWindow( raw ) ) {
-		return {
-			width: elem.width(),
-			height: elem.height(),
-			offset: { top: elem.scrollTop(), left: elem.scrollLeft() }
-		};
-	}
-	if ( raw.preventDefault ) {
-		return {
-			width: 0,
-			height: 0,
-			offset: { top: raw.pageY, left: raw.pageX }
-		};
-	}
-	return {
-		width: elem.outerWidth(),
-		height: elem.outerHeight(),
-		offset: elem.offset()
-	};
-}
-
-$.position = $.position || {
-	scrollbarWidth: function() {
-		if ( cachedScrollbarWidth !== undefined ) {
-			return cachedScrollbarWidth;
-		}
-		var w1, w2,
-			div = $( "<div " +
-				"style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'>" +
-				"<div style='height:100px;width:auto;'></div></div>" ),
-			innerDiv = div.children()[ 0 ];
-
-		$( "body" ).append( div );
-		w1 = innerDiv.offsetWidth;
-		div.css( "overflow", "scroll" );
-
-		w2 = innerDiv.offsetWidth;
-
-		if ( w1 === w2 ) {
-			w2 = div[ 0 ].clientWidth;
-		}
-
-		div.remove();
-
-		return ( cachedScrollbarWidth = w1 - w2 );
-	},
-	getScrollInfo: function( within ) {
-		var overflowX = within.isWindow || within.isDocument ? "" :
-				within.element.css( "overflow-x" ),
-			overflowY = within.isWindow || within.isDocument ? "" :
-				within.element.css( "overflow-y" ),
-			hasOverflowX = overflowX === "scroll" ||
-				( overflowX === "auto" && within.width < within.element[ 0 ].scrollWidth ),
-			hasOverflowY = overflowY === "scroll" ||
-				( overflowY === "auto" && within.height < within.element[ 0 ].scrollHeight );
-		return {
-			width: hasOverflowY ? $.position.scrollbarWidth() : 0,
-			height: hasOverflowX ? $.position.scrollbarWidth() : 0
-		};
-	},
-	getWithinInfo: function( element ) {
-		var withinElement = $( element || window ),
-			isWindow = $.isWindow( withinElement[ 0 ] ),
-			isDocument = !!withinElement[ 0 ] && withinElement[ 0 ].nodeType === 9,
-			hasOffset = !isWindow && !isDocument;
-		return {
-			element: withinElement,
-			isWindow: isWindow,
-			isDocument: isDocument,
-			offset: hasOffset ? $( element ).offset() : { left: 0, top: 0 },
-			scrollLeft: withinElement.scrollLeft(),
-			scrollTop: withinElement.scrollTop(),
-			width: withinElement.outerWidth(),
-			height: withinElement.outerHeight()
-		};
-	}
-};
-
-$.fn.position = function( options ) {
-	if ( !options || !options.of ) {
-		return _position.apply( this, arguments );
-	}
-
-	// Make a copy, we don't want to modify arguments
-	options = $.extend( {}, options );
-
-	var atOffset, targetWidth, targetHeight, targetOffset, basePosition, dimensions,
-		target = $( options.of ),
-		within = $.position.getWithinInfo( options.within ),
-		scrollInfo = $.position.getScrollInfo( within ),
-		collision = ( options.collision || "flip" ).split( " " ),
-		offsets = {};
-
-	dimensions = getDimensions( target );
-	if ( target[ 0 ].preventDefault ) {
-
-		// Force left top to allow flipping
-		options.at = "left top";
-	}
-	targetWidth = dimensions.width;
-	targetHeight = dimensions.height;
-	targetOffset = dimensions.offset;
-
-	// Clone to reuse original targetOffset later
-	basePosition = $.extend( {}, targetOffset );
-
-	// Force my and at to have valid horizontal and vertical positions
-	// if a value is missing or invalid, it will be converted to center
-	$.each( [ "my", "at" ], function() {
-		var pos = ( options[ this ] || "" ).split( " " ),
-			horizontalOffset,
-			verticalOffset;
-
-		if ( pos.length === 1 ) {
-			pos = rhorizontal.test( pos[ 0 ] ) ?
-				pos.concat( [ "center" ] ) :
-				rvertical.test( pos[ 0 ] ) ?
-					[ "center" ].concat( pos ) :
-					[ "center", "center" ];
-		}
-		pos[ 0 ] = rhorizontal.test( pos[ 0 ] ) ? pos[ 0 ] : "center";
-		pos[ 1 ] = rvertical.test( pos[ 1 ] ) ? pos[ 1 ] : "center";
-
-		// Calculate offsets
-		horizontalOffset = roffset.exec( pos[ 0 ] );
-		verticalOffset = roffset.exec( pos[ 1 ] );
-		offsets[ this ] = [
-			horizontalOffset ? horizontalOffset[ 0 ] : 0,
-			verticalOffset ? verticalOffset[ 0 ] : 0
-		];
-
-		// Reduce to just the positions without the offsets
-		options[ this ] = [
-			rposition.exec( pos[ 0 ] )[ 0 ],
-			rposition.exec( pos[ 1 ] )[ 0 ]
-		];
-	} );
-
-	// Normalize collision option
-	if ( collision.length === 1 ) {
-		collision[ 1 ] = collision[ 0 ];
-	}
-
-	if ( options.at[ 0 ] === "right" ) {
-		basePosition.left += targetWidth;
-	} else if ( options.at[ 0 ] === "center" ) {
-		basePosition.left += targetWidth / 2;
-	}
-
-	if ( options.at[ 1 ] === "bottom" ) {
-		basePosition.top += targetHeight;
-	} else if ( options.at[ 1 ] === "center" ) {
-		basePosition.top += targetHeight / 2;
-	}
-
-	atOffset = getOffsets( offsets.at, targetWidth, targetHeight );
-	basePosition.left += atOffset[ 0 ];
-	basePosition.top += atOffset[ 1 ];
-
-	return this.each( function() {
-		var collisionPosition, using,
-			elem = $( this ),
-			elemWidth = elem.outerWidth(),
-			elemHeight = elem.outerHeight(),
-			marginLeft = parseCss( this, "marginLeft" ),
-			marginTop = parseCss( this, "marginTop" ),
-			collisionWidth = elemWidth + marginLeft + parseCss( this, "marginRight" ) +
-				scrollInfo.width,
-			collisionHeight = elemHeight + marginTop + parseCss( this, "marginBottom" ) +
-				scrollInfo.height,
-			position = $.extend( {}, basePosition ),
-			myOffset = getOffsets( offsets.my, elem.outerWidth(), elem.outerHeight() );
-
-		if ( options.my[ 0 ] === "right" ) {
-			position.left -= elemWidth;
-		} else if ( options.my[ 0 ] === "center" ) {
-			position.left -= elemWidth / 2;
-		}
-
-		if ( options.my[ 1 ] === "bottom" ) {
-			position.top -= elemHeight;
-		} else if ( options.my[ 1 ] === "center" ) {
-			position.top -= elemHeight / 2;
-		}
-
-		position.left += myOffset[ 0 ];
-		position.top += myOffset[ 1 ];
-
-		collisionPosition = {
-			marginLeft: marginLeft,
-			marginTop: marginTop
-		};
-
-		$.each( [ "left", "top" ], function( i, dir ) {
-			if ( $.ui.position[ collision[ i ] ] ) {
-				$.ui.position[ collision[ i ] ][ dir ]( position, {
-					targetWidth: targetWidth,
-					targetHeight: targetHeight,
-					elemWidth: elemWidth,
-					elemHeight: elemHeight,
-					collisionPosition: collisionPosition,
-					collisionWidth: collisionWidth,
-					collisionHeight: collisionHeight,
-					offset: [ atOffset[ 0 ] + myOffset[ 0 ], atOffset [ 1 ] + myOffset[ 1 ] ],
-					my: options.my,
-					at: options.at,
-					within: within,
-					elem: elem
-				} );
-			}
-		} );
-
-		if ( options.using ) {
-
-			// Adds feedback as second argument to using callback, if present
-			using = function( props ) {
-				var left = targetOffset.left - position.left,
-					right = left + targetWidth - elemWidth,
-					top = targetOffset.top - position.top,
-					bottom = top + targetHeight - elemHeight,
-					feedback = {
-						target: {
-							element: target,
-							left: targetOffset.left,
-							top: targetOffset.top,
-							width: targetWidth,
-							height: targetHeight
-						},
-						element: {
-							element: elem,
-							left: position.left,
-							top: position.top,
-							width: elemWidth,
-							height: elemHeight
-						},
-						horizontal: right < 0 ? "left" : left > 0 ? "right" : "center",
-						vertical: bottom < 0 ? "top" : top > 0 ? "bottom" : "middle"
-					};
-				if ( targetWidth < elemWidth && abs( left + right ) < targetWidth ) {
-					feedback.horizontal = "center";
-				}
-				if ( targetHeight < elemHeight && abs( top + bottom ) < targetHeight ) {
-					feedback.vertical = "middle";
-				}
-				if ( max( abs( left ), abs( right ) ) > max( abs( top ), abs( bottom ) ) ) {
-					feedback.important = "horizontal";
-				} else {
-					feedback.important = "vertical";
-				}
-				options.using.call( this, props, feedback );
-			};
-		}
-
-		elem.offset( $.extend( position, { using: using } ) );
-	} );
-};
-
-$.ui.position = {
-	fit: {
-		left: function( position, data ) {
-			var within = data.within,
-				withinOffset = within.isWindow ? within.scrollLeft : within.offset.left,
-				outerWidth = within.width,
-				collisionPosLeft = position.left - data.collisionPosition.marginLeft,
-				overLeft = withinOffset - collisionPosLeft,
-				overRight = collisionPosLeft + data.collisionWidth - outerWidth - withinOffset,
-				newOverRight;
-
-			// Element is wider than within
-			if ( data.collisionWidth > outerWidth ) {
-
-				// Element is initially over the left side of within
-				if ( overLeft > 0 && overRight <= 0 ) {
-					newOverRight = position.left + overLeft + data.collisionWidth - outerWidth -
-						withinOffset;
-					position.left += overLeft - newOverRight;
-
-				// Element is initially over right side of within
-				} else if ( overRight > 0 && overLeft <= 0 ) {
-					position.left = withinOffset;
-
-				// Element is initially over both left and right sides of within
-				} else {
-					if ( overLeft > overRight ) {
-						position.left = withinOffset + outerWidth - data.collisionWidth;
-					} else {
-						position.left = withinOffset;
-					}
-				}
-
-			// Too far left -> align with left edge
-			} else if ( overLeft > 0 ) {
-				position.left += overLeft;
-
-			// Too far right -> align with right edge
-			} else if ( overRight > 0 ) {
-				position.left -= overRight;
-
-			// Adjust based on position and margin
-			} else {
-				position.left = max( position.left - collisionPosLeft, position.left );
-			}
-		},
-		top: function( position, data ) {
-			var within = data.within,
-				withinOffset = within.isWindow ? within.scrollTop : within.offset.top,
-				outerHeight = data.within.height,
-				collisionPosTop = position.top - data.collisionPosition.marginTop,
-				overTop = withinOffset - collisionPosTop,
-				overBottom = collisionPosTop + data.collisionHeight - outerHeight - withinOffset,
-				newOverBottom;
-
-			// Element is taller than within
-			if ( data.collisionHeight > outerHeight ) {
-
-				// Element is initially over the top of within
-				if ( overTop > 0 && overBottom <= 0 ) {
-					newOverBottom = position.top + overTop + data.collisionHeight - outerHeight -
-						withinOffset;
-					position.top += overTop - newOverBottom;
-
-				// Element is initially over bottom of within
-				} else if ( overBottom > 0 && overTop <= 0 ) {
-					position.top = withinOffset;
-
-				// Element is initially over both top and bottom of within
-				} else {
-					if ( overTop > overBottom ) {
-						position.top = withinOffset + outerHeight - data.collisionHeight;
-					} else {
-						position.top = withinOffset;
-					}
-				}
-
-			// Too far up -> align with top
-			} else if ( overTop > 0 ) {
-				position.top += overTop;
-
-			// Too far down -> align with bottom edge
-			} else if ( overBottom > 0 ) {
-				position.top -= overBottom;
-
-			// Adjust based on position and margin
-			} else {
-				position.top = max( position.top - collisionPosTop, position.top );
-			}
-		}
-	},
-	flip: {
-		left: function( position, data ) {
-			var within = data.within,
-				withinOffset = within.offset.left + within.scrollLeft,
-				outerWidth = within.width,
-				offsetLeft = within.isWindow ? within.scrollLeft : within.offset.left,
-				collisionPosLeft = position.left - data.collisionPosition.marginLeft,
-				overLeft = collisionPosLeft - offsetLeft,
-				overRight = collisionPosLeft + data.collisionWidth - outerWidth - offsetLeft,
-				myOffset = data.my[ 0 ] === "left" ?
-					-data.elemWidth :
-					data.my[ 0 ] === "right" ?
-						data.elemWidth :
-						0,
-				atOffset = data.at[ 0 ] === "left" ?
-					data.targetWidth :
-					data.at[ 0 ] === "right" ?
-						-data.targetWidth :
-						0,
-				offset = -2 * data.offset[ 0 ],
-				newOverRight,
-				newOverLeft;
-
-			if ( overLeft < 0 ) {
-				newOverRight = position.left + myOffset + atOffset + offset + data.collisionWidth -
-					outerWidth - withinOffset;
-				if ( newOverRight < 0 || newOverRight < abs( overLeft ) ) {
-					position.left += myOffset + atOffset + offset;
-				}
-			} else if ( overRight > 0 ) {
-				newOverLeft = position.left - data.collisionPosition.marginLeft + myOffset +
-					atOffset + offset - offsetLeft;
-				if ( newOverLeft > 0 || abs( newOverLeft ) < overRight ) {
-					position.left += myOffset + atOffset + offset;
-				}
-			}
-		},
-		top: function( position, data ) {
-			var within = data.within,
-				withinOffset = within.offset.top + within.scrollTop,
-				outerHeight = within.height,
-				offsetTop = within.isWindow ? within.scrollTop : within.offset.top,
-				collisionPosTop = position.top - data.collisionPosition.marginTop,
-				overTop = collisionPosTop - offsetTop,
-				overBottom = collisionPosTop + data.collisionHeight - outerHeight - offsetTop,
-				top = data.my[ 1 ] === "top",
-				myOffset = top ?
-					-data.elemHeight :
-					data.my[ 1 ] === "bottom" ?
-						data.elemHeight :
-						0,
-				atOffset = data.at[ 1 ] === "top" ?
-					data.targetHeight :
-					data.at[ 1 ] === "bottom" ?
-						-data.targetHeight :
-						0,
-				offset = -2 * data.offset[ 1 ],
-				newOverTop,
-				newOverBottom;
-			if ( overTop < 0 ) {
-				newOverBottom = position.top + myOffset + atOffset + offset + data.collisionHeight -
-					outerHeight - withinOffset;
-				if ( newOverBottom < 0 || newOverBottom < abs( overTop ) ) {
-					position.top += myOffset + atOffset + offset;
-				}
-			} else if ( overBottom > 0 ) {
-				newOverTop = position.top - data.collisionPosition.marginTop + myOffset + atOffset +
-					offset - offsetTop;
-				if ( newOverTop > 0 || abs( newOverTop ) < overBottom ) {
-					position.top += myOffset + atOffset + offset;
-				}
-			}
-		}
-	},
-	flipfit: {
-		left: function() {
-			$.ui.position.flip.left.apply( this, arguments );
-			$.ui.position.fit.left.apply( this, arguments );
-		},
-		top: function() {
-			$.ui.position.flip.top.apply( this, arguments );
-			$.ui.position.fit.top.apply( this, arguments );
-		}
-	}
-};
-
-} )();
-
-var position = $.ui.position;
-
-
-/*!
- * jQuery UI Keycode 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Keycode
-//>>group: Core
-//>>description: Provide keycodes as keynames
-//>>docs: http://api.jqueryui.com/jQuery.ui.keyCode/
-
-
-var keycode = $.ui.keyCode = {
-	BACKSPACE: 8,
-	COMMA: 188,
-	DELETE: 46,
-	DOWN: 40,
-	END: 35,
-	ENTER: 13,
-	ESCAPE: 27,
-	HOME: 36,
-	LEFT: 37,
-	PAGE_DOWN: 34,
-	PAGE_UP: 33,
-	PERIOD: 190,
-	RIGHT: 39,
-	SPACE: 32,
-	TAB: 9,
-	UP: 38
-};
-
-
-/*!
- * jQuery UI Scroll Parent 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: scrollParent
-//>>group: Core
-//>>description: Get the closest ancestor element that is scrollable.
-//>>docs: http://api.jqueryui.com/scrollParent/
-
-
-
-var scrollParent = $.fn.scrollParent = function( includeHidden ) {
-	var position = this.css( "position" ),
-		excludeStaticParent = position === "absolute",
-		overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
-		scrollParent = this.parents().filter( function() {
-			var parent = $( this );
-			if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
-				return false;
-			}
-			return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) +
-				parent.css( "overflow-x" ) );
-		} ).eq( 0 );
-
-	return position === "fixed" || !scrollParent.length ?
-		$( this[ 0 ].ownerDocument || document ) :
-		scrollParent;
-};
-
-
-/*!
- * jQuery UI Unique ID 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: uniqueId
-//>>group: Core
-//>>description: Functions to generate and remove uniqueId's
-//>>docs: http://api.jqueryui.com/uniqueId/
-
-
-
-var uniqueId = $.fn.extend( {
-	uniqueId: ( function() {
-		var uuid = 0;
-
-		return function() {
-			return this.each( function() {
-				if ( !this.id ) {
-					this.id = "ui-id-" + ( ++uuid );
-				}
-			} );
-		};
-	} )(),
-
-	removeUniqueId: function() {
-		return this.each( function() {
-			if ( /^ui-id-\d+$/.test( this.id ) ) {
-				$( this ).removeAttr( "id" );
-			}
-		} );
-	}
-} );
-
-
-}));
-
-
-/***/ }),
-
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -68276,502 +59566,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./node_modules/toastr/toastr.js":
-/*!***************************************!*\
-  !*** ./node_modules/toastr/toastr.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
- * Toastr
- * Copyright 2012-2015
- * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
- * All Rights Reserved.
- * Use, reproduction, distribution, and modification of this code is subject to the terms and
- * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
- *
- * ARIA Support: Greta Krafsig
- *
- * Project: https://github.com/CodeSeven/toastr
- */
-/* global define */
-(function (define) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        return (function () {
-            var $container;
-            var listener;
-            var toastId = 0;
-            var toastType = {
-                error: 'error',
-                info: 'info',
-                success: 'success',
-                warning: 'warning'
-            };
-
-            var toastr = {
-                clear: clear,
-                remove: remove,
-                error: error,
-                getContainer: getContainer,
-                info: info,
-                options: {},
-                subscribe: subscribe,
-                success: success,
-                version: '2.1.4',
-                warning: warning
-            };
-
-            var previousToast;
-
-            return toastr;
-
-            ////////////////
-
-            function error(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.error,
-                    iconClass: getOptions().iconClasses.error,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function getContainer(options, create) {
-                if (!options) { options = getOptions(); }
-                $container = $('#' + options.containerId);
-                if ($container.length) {
-                    return $container;
-                }
-                if (create) {
-                    $container = createContainer(options);
-                }
-                return $container;
-            }
-
-            function info(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.info,
-                    iconClass: getOptions().iconClasses.info,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function subscribe(callback) {
-                listener = callback;
-            }
-
-            function success(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.success,
-                    iconClass: getOptions().iconClasses.success,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function warning(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.warning,
-                    iconClass: getOptions().iconClasses.warning,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function clear($toastElement, clearOptions) {
-                var options = getOptions();
-                if (!$container) { getContainer(options); }
-                if (!clearToast($toastElement, options, clearOptions)) {
-                    clearContainer(options);
-                }
-            }
-
-            function remove($toastElement) {
-                var options = getOptions();
-                if (!$container) { getContainer(options); }
-                if ($toastElement && $(':focus', $toastElement).length === 0) {
-                    removeToast($toastElement);
-                    return;
-                }
-                if ($container.children().length) {
-                    $container.remove();
-                }
-            }
-
-            // internal functions
-
-            function clearContainer (options) {
-                var toastsToClear = $container.children();
-                for (var i = toastsToClear.length - 1; i >= 0; i--) {
-                    clearToast($(toastsToClear[i]), options);
-                }
-            }
-
-            function clearToast ($toastElement, options, clearOptions) {
-                var force = clearOptions && clearOptions.force ? clearOptions.force : false;
-                if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
-                    $toastElement[options.hideMethod]({
-                        duration: options.hideDuration,
-                        easing: options.hideEasing,
-                        complete: function () { removeToast($toastElement); }
-                    });
-                    return true;
-                }
-                return false;
-            }
-
-            function createContainer(options) {
-                $container = $('<div/>')
-                    .attr('id', options.containerId)
-                    .addClass(options.positionClass);
-
-                $container.appendTo($(options.target));
-                return $container;
-            }
-
-            function getDefaults() {
-                return {
-                    tapToDismiss: true,
-                    toastClass: 'toast',
-                    containerId: 'toast-container',
-                    debug: false,
-
-                    showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
-                    showDuration: 300,
-                    showEasing: 'swing', //swing and linear are built into jQuery
-                    onShown: undefined,
-                    hideMethod: 'fadeOut',
-                    hideDuration: 1000,
-                    hideEasing: 'swing',
-                    onHidden: undefined,
-                    closeMethod: false,
-                    closeDuration: false,
-                    closeEasing: false,
-                    closeOnHover: true,
-
-                    extendedTimeOut: 1000,
-                    iconClasses: {
-                        error: 'toast-error',
-                        info: 'toast-info',
-                        success: 'toast-success',
-                        warning: 'toast-warning'
-                    },
-                    iconClass: 'toast-info',
-                    positionClass: 'toast-top-right',
-                    timeOut: 5000, // Set timeOut and extendedTimeOut to 0 to make it sticky
-                    titleClass: 'toast-title',
-                    messageClass: 'toast-message',
-                    escapeHtml: false,
-                    target: 'body',
-                    closeHtml: '<button type="button">&times;</button>',
-                    closeClass: 'toast-close-button',
-                    newestOnTop: true,
-                    preventDuplicates: false,
-                    progressBar: false,
-                    progressClass: 'toast-progress',
-                    rtl: false
-                };
-            }
-
-            function publish(args) {
-                if (!listener) { return; }
-                listener(args);
-            }
-
-            function notify(map) {
-                var options = getOptions();
-                var iconClass = map.iconClass || options.iconClass;
-
-                if (typeof (map.optionsOverride) !== 'undefined') {
-                    options = $.extend(options, map.optionsOverride);
-                    iconClass = map.optionsOverride.iconClass || iconClass;
-                }
-
-                if (shouldExit(options, map)) { return; }
-
-                toastId++;
-
-                $container = getContainer(options, true);
-
-                var intervalId = null;
-                var $toastElement = $('<div/>');
-                var $titleElement = $('<div/>');
-                var $messageElement = $('<div/>');
-                var $progressElement = $('<div/>');
-                var $closeElement = $(options.closeHtml);
-                var progressBar = {
-                    intervalId: null,
-                    hideEta: null,
-                    maxHideTime: null
-                };
-                var response = {
-                    toastId: toastId,
-                    state: 'visible',
-                    startTime: new Date(),
-                    options: options,
-                    map: map
-                };
-
-                personalizeToast();
-
-                displayToast();
-
-                handleEvents();
-
-                publish(response);
-
-                if (options.debug && console) {
-                    console.log(response);
-                }
-
-                return $toastElement;
-
-                function escapeHtml(source) {
-                    if (source == null) {
-                        source = '';
-                    }
-
-                    return source
-                        .replace(/&/g, '&amp;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#39;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
-                }
-
-                function personalizeToast() {
-                    setIcon();
-                    setTitle();
-                    setMessage();
-                    setCloseButton();
-                    setProgressBar();
-                    setRTL();
-                    setSequence();
-                    setAria();
-                }
-
-                function setAria() {
-                    var ariaValue = '';
-                    switch (map.iconClass) {
-                        case 'toast-success':
-                        case 'toast-info':
-                            ariaValue =  'polite';
-                            break;
-                        default:
-                            ariaValue = 'assertive';
-                    }
-                    $toastElement.attr('aria-live', ariaValue);
-                }
-
-                function handleEvents() {
-                    if (options.closeOnHover) {
-                        $toastElement.hover(stickAround, delayedHideToast);
-                    }
-
-                    if (!options.onclick && options.tapToDismiss) {
-                        $toastElement.click(hideToast);
-                    }
-
-                    if (options.closeButton && $closeElement) {
-                        $closeElement.click(function (event) {
-                            if (event.stopPropagation) {
-                                event.stopPropagation();
-                            } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
-                                event.cancelBubble = true;
-                            }
-
-                            if (options.onCloseClick) {
-                                options.onCloseClick(event);
-                            }
-
-                            hideToast(true);
-                        });
-                    }
-
-                    if (options.onclick) {
-                        $toastElement.click(function (event) {
-                            options.onclick(event);
-                            hideToast();
-                        });
-                    }
-                }
-
-                function displayToast() {
-                    $toastElement.hide();
-
-                    $toastElement[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
-                    );
-
-                    if (options.timeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.timeOut);
-                        progressBar.maxHideTime = parseFloat(options.timeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-                        if (options.progressBar) {
-                            progressBar.intervalId = setInterval(updateProgress, 10);
-                        }
-                    }
-                }
-
-                function setIcon() {
-                    if (map.iconClass) {
-                        $toastElement.addClass(options.toastClass).addClass(iconClass);
-                    }
-                }
-
-                function setSequence() {
-                    if (options.newestOnTop) {
-                        $container.prepend($toastElement);
-                    } else {
-                        $container.append($toastElement);
-                    }
-                }
-
-                function setTitle() {
-                    if (map.title) {
-                        var suffix = map.title;
-                        if (options.escapeHtml) {
-                            suffix = escapeHtml(map.title);
-                        }
-                        $titleElement.append(suffix).addClass(options.titleClass);
-                        $toastElement.append($titleElement);
-                    }
-                }
-
-                function setMessage() {
-                    if (map.message) {
-                        var suffix = map.message;
-                        if (options.escapeHtml) {
-                            suffix = escapeHtml(map.message);
-                        }
-                        $messageElement.append(suffix).addClass(options.messageClass);
-                        $toastElement.append($messageElement);
-                    }
-                }
-
-                function setCloseButton() {
-                    if (options.closeButton) {
-                        $closeElement.addClass(options.closeClass).attr('role', 'button');
-                        $toastElement.prepend($closeElement);
-                    }
-                }
-
-                function setProgressBar() {
-                    if (options.progressBar) {
-                        $progressElement.addClass(options.progressClass);
-                        $toastElement.prepend($progressElement);
-                    }
-                }
-
-                function setRTL() {
-                    if (options.rtl) {
-                        $toastElement.addClass('rtl');
-                    }
-                }
-
-                function shouldExit(options, map) {
-                    if (options.preventDuplicates) {
-                        if (map.message === previousToast) {
-                            return true;
-                        } else {
-                            previousToast = map.message;
-                        }
-                    }
-                    return false;
-                }
-
-                function hideToast(override) {
-                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
-                    var duration = override && options.closeDuration !== false ?
-                        options.closeDuration : options.hideDuration;
-                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
-                    if ($(':focus', $toastElement).length && !override) {
-                        return;
-                    }
-                    clearTimeout(progressBar.intervalId);
-                    return $toastElement[method]({
-                        duration: duration,
-                        easing: easing,
-                        complete: function () {
-                            removeToast($toastElement);
-                            clearTimeout(intervalId);
-                            if (options.onHidden && response.state !== 'hidden') {
-                                options.onHidden();
-                            }
-                            response.state = 'hidden';
-                            response.endTime = new Date();
-                            publish(response);
-                        }
-                    });
-                }
-
-                function delayedHideToast() {
-                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
-                        progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-                    }
-                }
-
-                function stickAround() {
-                    clearTimeout(intervalId);
-                    progressBar.hideEta = 0;
-                    $toastElement.stop(true, true)[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing}
-                    );
-                }
-
-                function updateProgress() {
-                    var percentage = ((progressBar.hideEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
-                    $progressElement.width(percentage + '%');
-                }
-            }
-
-            function getOptions() {
-                return $.extend({}, getDefaults(), toastr.options);
-            }
-
-            function removeToast($toastElement) {
-                if (!$container) { $container = getContainer(); }
-                if ($toastElement.is(':visible')) {
-                    return;
-                }
-                $toastElement.remove();
-                $toastElement = null;
-                if ($container.children().length === 0) {
-                    $container.remove();
-                    previousToast = undefined;
-                }
-            }
-
-        })();
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(/*! !webpack amd define */ "./node_modules/webpack/buildin/amd-define.js")));
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/amd-define.js":
-/*!***************************************!*\
-  !*** (webpack)/buildin/amd-define.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function() {
-	throw new Error("define cannot be used indirect");
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -68847,9 +59641,12 @@ module.exports = function(module) {
 $(document).ready(function () {
   setTimeout(function () {
     $(".slick-slider").slick({
-      dots: true,
+      // dots: true,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      arrows: false,
+      infinite: true,
+      speed: 500
     });
     $(".slick-slider-3").slick({
       dots: true,
@@ -70968,6 +61765,396 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/admin_ui/js/charts/chartjs.js":
+/*!*************************************************!*\
+  !*** ./resources/admin_ui/js/charts/chartjs.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Chart.js
+var randomScalingFactor = function randomScalingFactor() {
+  return Math.round(Math.random() * 100);
+};
+
+var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+chartColors = {
+  red: "#dc3545",
+  orange: "#fd7e14",
+  yellow: "#ffc107",
+  green: "#28a745",
+  blue: "#007bff",
+  purple: "#6f42c1",
+  grey: "#6c757d"
+};
+var color = Chart.helpers.color;
+var barChartData = {
+  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  datasets: [{
+    label: "Dataset 1",
+    backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+    borderColor: chartColors.red,
+    borderWidth: 1,
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }, {
+    label: "Dataset 2",
+    backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+    borderColor: chartColors.blue,
+    borderWidth: 1,
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }]
+};
+var configPie = {
+  type: "pie",
+  data: {
+    datasets: [{
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+      backgroundColor: [chartColors.red, chartColors.orange, chartColors.yellow, chartColors.green, chartColors.blue],
+      label: "Dataset 1"
+    }],
+    labels: ["Red", "Orange", "Yellow", "Green", "Blue"]
+  },
+  options: {
+    responsive: true
+  }
+};
+var barChartData = {
+  labels: ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"],
+  datasets: [{
+    label: "Page",
+    backgroundColor: color(chartColors.red).alpha(0.7).rgbString(),
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }, {
+    label: "Board",
+    backgroundColor: color(chartColors.blue).alpha(0.7).rgbString(),
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }, {
+    label: "Program",
+    backgroundColor: color(chartColors.green).alpha(0.7).rgbString(),
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }, {
+    label: "Link",
+    backgroundColor: color(chartColors.yellow).alpha(0.7).rgbString(),
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }, {
+    label: "Submenu",
+    backgroundColor: color(chartColors.purple).alpha(0.7).rgbString(),
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }]
+};
+var configRadar = {
+  type: "radar",
+  data: {
+    labels: [["Eating", "Dinner"], ["Drinking", "Water"], "Sleeping", ["Designing", "Graphics"], "Coding", "Cycling", "Running"],
+    datasets: [{
+      label: "My First dataset",
+      backgroundColor: color(chartColors.red).alpha(0.2).rgbString(),
+      borderColor: chartColors.red,
+      pointBackgroundColor: chartColors.red,
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+    }, {
+      label: "My Second dataset",
+      backgroundColor: color(chartColors.blue).alpha(0.2).rgbString(),
+      borderColor: chartColors.blue,
+      pointBackgroundColor: chartColors.blue,
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+    }]
+  },
+  options: {
+    legend: {
+      position: "top"
+    },
+    title: {
+      display: false,
+      text: "Chart.js Radar Chart"
+    },
+    scale: {
+      ticks: {
+        beginAtZero: true
+      }
+    }
+  }
+};
+var configDoughnut = {
+  type: "doughnut",
+  data: {
+    datasets: [{
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor() // randomScalingFactor(),
+      // randomScalingFactor(),
+      ],
+      backgroundColor: [chartColors.red, chartColors.orange, chartColors.yellow // chartColors.green,
+      // chartColors.blue,
+      ],
+      label: "Dataset 1"
+    }],
+    labels: ["Red", "Orange", "Yellow", "Green", "Blue"]
+  },
+  options: {
+    responsive: true,
+    legend: {
+      position: "top"
+    },
+    title: {
+      display: false,
+      text: "Chart.js Doughnut Chart"
+    },
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  }
+};
+var configDoughnut2 = {
+  type: "doughnut",
+  data: {
+    datasets: [{
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+      backgroundColor: [chartColors.red, chartColors.orange, chartColors.yellow, chartColors.green, chartColors.blue],
+      label: "Dataset 1"
+    }],
+    labels: ["Red", "Orange", "Yellow", "Green", "Blue"]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    title: {
+      display: false,
+      text: "Chart.js Doughnut Chart"
+    },
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  }
+};
+var configPolar = {
+  data: {
+    datasets: [{
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+      backgroundColor: [color(chartColors.red).alpha(0.5).rgbString(), color(chartColors.orange).alpha(0.5).rgbString(), color(chartColors.yellow).alpha(0.5).rgbString(), color(chartColors.green).alpha(0.5).rgbString(), color(chartColors.blue).alpha(0.5).rgbString()],
+      label: "My dataset" // for legend
+
+    }],
+    labels: ["Red", "Orange", "Yellow", "Green", "Blue"]
+  },
+  options: {
+    responsive: true,
+    legend: {
+      position: "right"
+    },
+    title: {
+      display: false,
+      text: "Chart.js Polar Area Chart"
+    },
+    scale: {
+      ticks: {
+        beginAtZero: true
+      },
+      reverse: false
+    },
+    animation: {
+      animateRotate: false,
+      animateScale: true
+    }
+  }
+};
+var configLine = {
+  type: "line",
+  data: {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+      label: "My First dataset",
+      backgroundColor: chartColors.red,
+      borderColor: chartColors.red,
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+      fill: false
+    }, {
+      label: "My Second dataset",
+      fill: false,
+      backgroundColor: chartColors.blue,
+      borderColor: chartColors.blue,
+      data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: false,
+      text: "Chart.js Line Chart"
+    },
+    legend: {
+      display: false
+    },
+    layout: {
+      padding: {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 0
+      }
+    },
+    tooltips: {
+      mode: "index",
+      intersect: false
+    },
+    hover: {
+      mode: "nearest",
+      intersect: true
+    },
+    pointBackgroundColor: "#fff",
+    pointBorderColor: chartColors.blue,
+    pointBorderWidth: "2",
+    scales: {
+      xAxes: [{
+        display: false,
+        scaleLabel: {
+          display: true,
+          labelString: "Month"
+        }
+      }],
+      yAxes: [{
+        display: false,
+        scaleLabel: {
+          display: true,
+          labelString: "Value"
+        }
+      }]
+    }
+  }
+};
+var horizontalBarChartData = {
+  labels: ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"],
+  datasets: [{
+    label: "Unused",
+    backgroundColor: color(chartColors.red).alpha(0.7).rgbString(),
+    borderColor: chartColors.red,
+    borderWidth: 0,
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }, {
+    label: "Used",
+    backgroundColor: color(chartColors.blue).alpha(0.7).rgbString(),
+    borderColor: chartColors.blue,
+    borderWidth: 0,
+    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+  }]
+};
+
+window.onload = function () {
+  //Bar
+  if (document.getElementById("canvas")) {
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myBar = new Chart(ctx, {
+      type: "bar",
+      data: barChartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: "top"
+        },
+        title: {
+          display: false,
+          text: "Chart.js Bar Chart"
+        }
+      }
+    });
+  } // Pie
+
+
+  if (document.getElementById("chart-area")) {
+    var ctx2 = document.getElementById("chart-area").getContext("2d");
+    window.myPie = new Chart(ctx2, configPie);
+  } // Doughnut
+
+
+  if (document.getElementById("doughnut-chart")) {
+    var ctx3 = document.getElementById("doughnut-chart").getContext("2d");
+    window.myDoughnut = new Chart(ctx3, configDoughnut);
+  }
+
+  if (document.getElementById("doughnut-chart-2")) {
+    var ctx33 = document.getElementById("doughnut-chart-2").getContext("2d");
+    window.myDoughnut = new Chart(ctx33, configDoughnut2);
+  }
+
+  if (document.getElementById("doughnut-chart-3")) {
+    var ctx333 = document.getElementById("doughnut-chart-3").getContext("2d");
+    window.myDoughnut = new Chart(ctx333, configDoughnut2);
+  } // Radar
+
+
+  if (document.getElementById("radar-chart")) {
+    window.myRadar = new Chart(document.getElementById("radar-chart"), configRadar);
+  } // Polar
+
+
+  if (document.getElementById("polar-chart")) {
+    var ctx4 = document.getElementById("polar-chart");
+    window.myPolarArea = Chart.PolarArea(ctx4, configPolar);
+  } // Line
+
+
+  if (document.getElementById("line-chart")) {
+    var ctx5 = document.getElementById("line-chart").getContext("2d");
+    window.myLine = new Chart(ctx5, configLine);
+  }
+
+  if (document.getElementById("chart-horiz-bar")) {
+    var ctx6 = document.getElementById("chart-horiz-bar").getContext("2d");
+    window.myHorizontalBar = new Chart(ctx6, {
+      type: "horizontalBar",
+      data: horizontalBarChartData,
+      options: {
+        elements: {
+          rectangle: {
+            borderWidth: 2
+          }
+        },
+        responsive: true,
+        legend: {
+          position: "right"
+        },
+        title: {
+          display: false,
+          text: "Chart.js Horizontal Bar Chart"
+        }
+      }
+    });
+  }
+
+  if (document.getElementById("stacked-bars-chart")) {
+    var ctx7 = document.getElementById("stacked-bars-chart").getContext("2d");
+    window.myBar = new Chart(ctx7, {
+      type: "bar",
+      data: barChartData,
+      options: {
+        title: {
+          display: true,
+          text: "Chart.js Bar Chart - Stacked"
+        },
+        tooltips: {
+          mode: "index",
+          intersect: false
+        },
+        responsive: true,
+        scales: {
+          xAxes: [{
+            stacked: true
+          }],
+          yAxes: [{
+            stacked: true
+          }]
+        }
+      }
+    });
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/admin_ui/js/circle-progress.js":
 /*!**************************************************!*\
   !*** ./resources/admin_ui/js/circle-progress.js ***!
@@ -71163,10 +62350,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
 
-window.ClassicEditor = _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a;
-_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a.create(document.querySelector('#SiteInfoeditor3'))["catch"](function (error) {
-  console.error(error);
-});
+window.ClassicEditor = _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a; // import FroalaEditor from 'froala-editor'
+// import 'froala-editor/js/plugins/align.min'
+// import 'froala-editor/js/plugins/code_view.min'
+// import 'froala-editor/js/plugins/quick_insert.min'
+// import 'froala-editor/js/plugins/file.min'
+// import 'froala-editor/js/plugins/files_manager.min'
+// import 'froala-editor/js/plugins/word_paste.min'
+// import 'froala-editor/js/plugins/image.min'
+// import 'froala-editor/js/plugins/image_manager.min'
+// import 'froala-editor/js/plugins/video.min'
+// import 'froala-editor/js/plugins/edit_in_popup.min'
+// import 'froala-editor/js/plugins/colors.min'
+// window.FroalaEditor = FroalaEditor;
+//
 
 /***/ }),
 
@@ -71400,7 +62597,7 @@ $(document).ready(function () {
 }); // contact us submit START
 // Form disabler Start
 
-$('.disabler').on('click', function () {
+$('.disabler_contactus').on('click', function () {
   if ($('#ContactUsForm fieldset').attr('disabled') === 'disabled') {
     $('#ContactUsForm fieldset').removeAttr('disabled');
     $('#contactSaveBtn').removeClass('invisible'); // $('#contactEditBtn').html('Cancel');
@@ -71411,29 +62608,29 @@ $('.disabler').on('click', function () {
 }); // Form disabler End
 // send data
 //
-
-$('.contactSubmit').on('click', function () {
-  var data = {
-    title: $('#title').val(),
-    email: $('#email').val(),
-    phone: $('#phone').val(),
-    short_content: $('#short_content').val(),
-    address: $('#address').val(),
-    facebook: $('#facebook').val(),
-    youtube: $('#youtube').val(),
-    twitter: $('#twitter').val(),
-    linkedin: $("#linkedin").val()
-  };
-  Axios.post('contact_us_save', data).then(function (resp) {
-    $('#contactSaveBtn').addClass('invisible');
-    Toast.fire({
-      icon: 'success',
-      title: 'Successfully save'
-    });
-  })["catch"](function (err) {
-    console.log(err);
-  });
-}); // contact us submit END
+// $('.contactSubmit').on('click', () => {
+//     const data = {
+//         title: $('#title').val(),
+//         email: $('#email').val(),
+//         phone:$('#phone').val(),
+//         short_content: $('#short_content').val(),
+//         address:$('#address').val(),
+//         facebook:$('#facebook').val(),
+//         youtube:$('#youtube').val(),
+//         twitter:$('#twitter').val(),
+//         linkedin:$("#linkedin").val()
+//     };
+//     Axios.post('contact_us_save', data).then((resp)=>{
+//         $('#contactSaveBtn').addClass('invisible');
+//         Toast.fire({
+//             icon: 'success',
+//             title: 'Successfully save'
+//         });
+//     }).catch((err)=>{
+//         console.log(err);
+//     });
+// });
+// contact us submit END
 // $('.dltUser').on('click', ()=>{
 //     $(this).closest('tr').attr('key')
 //
@@ -71506,8 +62703,8 @@ $('#update_profile').click(function () {
       headers: headers
     }).then(function (resp) {
       Toast.fire({
-        icon: resp.data.msg,
-        title: resp.data.title
+        icon: resp.data.icon,
+        title: resp.data.msg
       });
     })["catch"](function (err) {
       Toast.fire({
@@ -71526,6 +62723,11 @@ $(document).ready(function () {
     $('#v-pills-tab a[href="' + activeTab + '"]').tab('show');
   }
 }); // -- Refresh tab show end --
+// -- Refresh page
+
+$('.refresh-page').click(function () {
+  window.location.reload();
+}); // -- Refresh page end
 // -- Change Password --
 
 $(document).ready(function () {
@@ -71593,7 +62795,7 @@ $('#change_password').click(function () {
     Axios.post('/api/profile/updatePassword', password).then(function (resp) {
       console.log(resp);
       Toast.fire({
-        icon: 'success',
+        icon: resp.data.icon,
         title: resp.data.msg
       });
     })["catch"](function (err) {
@@ -71606,21 +62808,23 @@ $('#change_password').click(function () {
 }); // -- Change Password End --
 // -- Profile image upload --
 
-$('#file-upload').change(function () {
-  var files = this.files[0];
-  $('#loading').circleProgress({
-    value: 1,
-    size: 50,
-    lineCap: "round",
-    fill: {
-      color: "#3ac47d"
-    }
+$(document).ready(function () {
+  $('#file-upload').change(function () {
+    var files = this.files[0];
+    $('#loading').circleProgress({
+      value: 1,
+      size: 50,
+      lineCap: "round",
+      fill: {
+        color: "#3ac47d"
+      }
+    });
+    $('#loading').attr('style', 'display:flex');
+    setInterval(function () {
+      $('#loading').removeAttr('style');
+    }, 2000);
+    $("#changeImage").attr("src", URL.createObjectURL(files));
   });
-  $('#loading').attr('style', 'display:flex');
-  setInterval(function () {
-    $('#loading').removeAttr('style');
-  }, 2000);
-  $("#changeImage").attr("src", URL.createObjectURL(files));
 }); // -- Profile image upload  END --
 // -- Layouts Option Save LocalStorage --
 // ----- Layout Fixed Header ------//
@@ -71725,12 +62929,6 @@ $(document).ready(function () {
   $('#lightColorSwitcher button[data-class="' + localStorage.getItem('light-color') + '"]').addClass('active');
 }); // ---- Main Content Option ----
 // -- Layouts Option Save LocalStorage end --
-// -- User Edit --
-
-$('.edituser').click(function () {
-  $('#editUserModal').appendTo('body').show();
-});
-$('#editProfileChanges').click(function () {}); //--  User Edit End --
 // -- Site info page edit Start --
 
 $('.disabler').on('click', function () {
@@ -71742,6 +62940,332 @@ $('.disabler').on('click', function () {
     $('#siteInfoSaveBtn').addClass('invisible'); // $('#contactEditBtn').html('Edit');
   }
 }); // -- Site info page edit End --
+// -- Site info page validator Start --
+
+$(document).ready(function () {
+  $("#siteInfoForm").validate({
+    rules: {
+      companyName: {
+        required: true,
+        minlength: 3,
+        maxlength: 110
+      },
+      companyRegister: {
+        required: true,
+        minlength: 10,
+        maxlength: 13,
+        number: true
+      },
+      siteName: {
+        required: true,
+        minlength: 3,
+        maxlength: 110
+      },
+      phone: {
+        required: true
+      },
+      fax: {
+        required: true,
+        minlength: 6,
+        maxlength: 50
+      },
+      email: {
+        required: true,
+        email: true
+      },
+      personalInformation: {
+        required: true,
+        minlegth: 6,
+        maxlength: 50
+      },
+      copyright: {
+        required: true
+      },
+      address: {
+        required: true,
+        minlength: 6,
+        maxlength: 110
+      },
+      SiteInfoeditor1: {
+        required: true,
+        maxlength: 250
+      },
+      SiteInfoeditor2: {
+        required: true,
+        maxlength: 250
+      }
+    },
+    messages: {
+      companyName: {
+        required: "Please enter your company name",
+        minlength: "Your company name too short",
+        maxlength: "Your company name must less than 110 characters long"
+      },
+      companyRegister: {
+        required: "Please enter your company register",
+        minlength: "Your register must be at least 10 characters long",
+        maxlength: "Your register must less than 13 characters long"
+      },
+      siteName: {
+        required: "Please enter your site name",
+        minlength: "Your site name too short",
+        maxlength: "Your site name must less than 110 characters long"
+      },
+      fax: {
+        required: "Please enter your fax number",
+        minlength: "Your fax must be at least 6 characters long"
+      },
+      email: "Please enter a valid email address",
+      personalInformation: {
+        required: "Please enter your personal information",
+        minlegth: "Your personal information too short",
+        maxlength: "Your company name must less than 50 characters long"
+      },
+      copyright: "Please enter a copyright",
+      address: {
+        required: "Please enter official address",
+        minlength: "Your register must be at least 6 characters long",
+        maxlength: "Your register must less than 110 characters long"
+      },
+      SiteInfoeditor1: {
+        required: "You must enter terms of use",
+        maxlength: "Your Terms of use must less than 250 characters long"
+      },
+      SiteInfoeditor2: {
+        required: "You must enter privacy statement",
+        maxlength: "Your privacy statement must less than 250 characters long"
+      }
+    },
+    errorElement: "em",
+    errorPlacement: function errorPlacement(error, element) {
+      // Add the `invalid-feedback` class to the error element
+      error.addClass("invalid-feedback");
+
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function highlight(element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function unhighlight(element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+}); // -- Site info page validator End --
+// -- Contact us page valitaor Start --
+
+$(document).ready(function () {
+  $("#ContactUsForm").validate({
+    rules: {
+      title: {
+        required: true,
+        maxlength: 90
+      },
+      email: {
+        required: true,
+        email: true,
+        maxlength: 90
+      },
+      phone: {
+        required: true,
+        minlength: 6,
+        maxlength: 90
+      },
+      ContactUsEditor1: {
+        required: true,
+        minlength: 20,
+        maxlength: 250
+      },
+      address: {
+        required: true,
+        minlength: 6,
+        maxlength: 250
+      },
+      facebook: {
+        minlength: 6,
+        maxlength: 70
+      },
+      youtube: {
+        minlength: 6,
+        maxlength: 70
+      },
+      twitter: {
+        minlength: 6,
+        maxlength: 70
+      },
+      linkedin: {
+        minlength: 6,
+        maxlength: 70
+      }
+    },
+    messages: {
+      title: {
+        required: "Please enter you contact us title",
+        maxlength: "Your title must less than 70 characters long"
+      },
+      email: {
+        required: "Please enter your contact us email",
+        maxlength: "Your email must less than 70 characters long"
+      },
+      phone: {
+        required: "Please enter your phone number",
+        minlength: "Your phone must be at least 6 characters long"
+      },
+      ContactUsEditor1: {
+        required: "Please enter short content",
+        minlength: "Your short content must be at least 20 characters long",
+        maxlength: "Your short content must less than 250 characters long"
+      },
+      address: {
+        required: "Please enter address",
+        minlength: "Your address must be at least 6 characters long",
+        maxlength: "Your address must less than 250 characters long"
+      },
+      facebook: {
+        minlength: "Your facebook must be at least 6 characters long",
+        maxlength: "Your facebook must less than 50 characters long"
+      },
+      youtube: {
+        minlength: "Your youtube must be at least 6 characters long",
+        maxlength: "Your youtube must less than 50 characters long"
+      },
+      twitter: {
+        minlength: "Your twitter must be at least 6 characters long",
+        maxlength: "Your twitter must less than 50 characters long"
+      },
+      linkedin: {
+        minlength: "Your linked in must be at least 6 characters long",
+        maxlength: "Your linked in must less than 50 characters long"
+      }
+    },
+    errorElement: "em",
+    errorPlacement: function errorPlacement(error, element) {
+      // Add the `invalid-feedback` class to the error element
+      error.addClass("invalid-feedback");
+
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function highlight(element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function unhighlight(element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+}); // -- Contact us page valitaor End --
+// -- Manage page create Start --
+
+$(document).ready(function () {
+  $("#create_page_form").validate({
+    rules: {
+      PageName: {
+        required: true,
+        minlength: 3,
+        maxlength: 110
+      },
+      PageUrl: {
+        required: true,
+        maxlength: 110
+      },
+      PageCode: {
+        required: true,
+        maxlength: 110
+      }
+    },
+    messages: {
+      PageName: {
+        required: "Please enter your page name",
+        minlength: "Your Page name must be at least 3 characters long",
+        maxlength: "Your Page name must less than 110 characters long "
+      },
+      PageUrl: {
+        required: "Please enter your page url",
+        maxlength: "Your Page url must less than 110 characters long "
+      },
+      PageCode: {
+        required: "Please enter your page code",
+        maxlength: "Your Page code must less than 110 characters long"
+      }
+    },
+    errorElement: "em",
+    errorPlacement: function errorPlacement(error, element) {
+      // Add the `invalid-feedback` class to the error element
+      error.addClass("invalid-feedback");
+
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function highlight(element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function unhighlight(element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+}); // -- Manage page create End --
+// -- Manage page edit Start --
+
+$(document).ready(function () {
+  $("#edit_page_form").validate({
+    rules: {
+      PageName: {
+        required: true,
+        minlength: 3,
+        maxlength: 110
+      },
+      PageUrl: {
+        required: true,
+        maxlength: 110
+      },
+      PageCode: {
+        required: true,
+        maxlength: 110
+      }
+    },
+    messages: {
+      PageName: {
+        required: "Please enter your page name",
+        minlength: "Your Page name must be at least 3 characters long",
+        maxlength: "Your Page name must less than 110 characters long "
+      },
+      PageUrl: {
+        required: "Please enter your page url",
+        maxlength: "Your Page url must less than 110 characters long "
+      },
+      PageCode: {
+        required: "Please enter your page code",
+        maxlength: "Your Page code must less than 110 characters long"
+      }
+    },
+    errorElement: "em",
+    errorPlacement: function errorPlacement(error, element) {
+      // Add the `invalid-feedback` class to the error element
+      error.addClass("invalid-feedback");
+
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function highlight(element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function unhighlight(element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+}); // -- Manage page edit End --
 
 /***/ }),
 
@@ -71792,7 +63316,1714 @@ $(document).ready(function () {
   }).draw();
   $('#NewsTable').DataTable({});
   $('#BulletInBoard').DataTable({});
+  $('#noControlledTable').DataTable({
+    "bPaginate": false,
+    "bLengthChange": false,
+    "bFilter": true,
+    "bInfo": false,
+    "bAutoWidth": false,
+    "searching": false
+  });
+  $('#noControlledTable1').DataTable({
+    "bPaginate": false,
+    "bLengthChange": false,
+    "bFilter": true,
+    "bInfo": false,
+    "bAutoWidth": false,
+    "searching": false
+  });
+  $('#BasicTable').DataTable({});
 });
+
+/***/ }),
+
+/***/ "./resources/admin_ui/js/customs/tree.jquery.js":
+/*!******************************************************!*\
+  !*** ./resources/admin_ui/js/customs/tree.jquery.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*
+JqTree 1.6.1
+
+Copyright 2021 Marco Braak
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+@license
+
+*/
+var jqtree = function (e, t) {
+  "use strict";
+
+  function o(e) {
+    if (e && e.__esModule) return e;
+    var t = Object.create(null);
+    return e && Object.keys(e).forEach(function (o) {
+      if ("default" !== o) {
+        var n = Object.getOwnPropertyDescriptor(e, o);
+        Object.defineProperty(t, o, n.get ? n : {
+          enumerable: !0,
+          get: function get() {
+            return e[o];
+          }
+        });
+      }
+    }), t["default"] = e, Object.freeze(t);
+  }
+
+  var n = o(jQuery),
+      _r = function r(e, t) {
+    return (_r = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (e, t) {
+      e.__proto__ = t;
+    } || function (e, t) {
+      for (var o in t) {
+        Object.prototype.hasOwnProperty.call(t, o) && (e[o] = t[o]);
+      }
+    })(e, t);
+  };
+
+  function i(e, t) {
+    if ("function" != typeof t && null !== t) throw new TypeError("Class extends value " + String(t) + " is not a constructor or null");
+
+    function o() {
+      this.constructor = e;
+    }
+
+    _r(e, t), e.prototype = null === t ? Object.create(t) : (o.prototype = t.prototype, new o());
+  }
+
+  var s,
+      _a = function a() {
+    return (_a = Object.assign || function (e) {
+      for (var t, o = 1, n = arguments.length; o < n; o++) {
+        for (var r in t = arguments[o]) {
+          Object.prototype.hasOwnProperty.call(t, r) && (e[r] = t[r]);
+        }
+      }
+
+      return e;
+    }).apply(this, arguments);
+  };
+
+  !function (e) {
+    e[e.Before = 1] = "Before", e[e.After = 2] = "After", e[e.Inside = 3] = "Inside", e[e.None = 4] = "None";
+  }(s || (s = {}));
+
+  var l = {
+    before: s.Before,
+    after: s.After,
+    inside: s.Inside,
+    none: s.None
+  },
+      d = function d(e) {
+    for (var t in l) {
+      if (Object.prototype.hasOwnProperty.call(l, t) && l[t] === e) return t;
+    }
+
+    return "";
+  },
+      h = function () {
+    function e(t, o, n) {
+      void 0 === t && (t = null), void 0 === o && (o = !1), void 0 === n && (n = e), this.name = "", this.isEmptyFolder = !1, this.load_on_demand = !1, this.setData(t), this.children = [], this.parent = null, o && (this.idMapping = new Map(), this.tree = this, this.nodeClass = n);
+    }
+
+    return e.prototype.setData = function (e) {
+      if (e) if ("string" == typeof e) this.name = e;else if ("object" == _typeof(e)) for (var t in e) {
+        if (Object.prototype.hasOwnProperty.call(e, t)) {
+          var o = e[t];
+          "label" === t || "name" === t ? "string" == typeof o && (this.name = o) : "children" !== t && "parent" !== t && (this[t] = o);
+        }
+      }
+    }, e.prototype.loadFromData = function (e) {
+      this.removeChildren();
+
+      for (var t = 0, o = e; t < o.length; t++) {
+        var n = o[t],
+            r = this.createNode(n);
+        this.addChild(r), "object" == _typeof(n) && n.children && n.children instanceof Array && (0 === n.children.length ? r.isEmptyFolder = !0 : r.loadFromData(n.children));
+      }
+
+      return this;
+    }, e.prototype.addChild = function (e) {
+      this.children.push(e), e.setParent(this);
+    }, e.prototype.addChildAtPosition = function (e, t) {
+      this.children.splice(t, 0, e), e.setParent(this);
+    }, e.prototype.removeChild = function (e) {
+      e.removeChildren(), this.doRemoveChild(e);
+    }, e.prototype.getChildIndex = function (e) {
+      return this.children.indexOf(e);
+    }, e.prototype.hasChildren = function () {
+      return 0 !== this.children.length;
+    }, e.prototype.isFolder = function () {
+      return this.hasChildren() || this.load_on_demand;
+    }, e.prototype.iterate = function (e) {
+      var t = function t(o, n) {
+        if (o.children) for (var r = 0, i = o.children; r < i.length; r++) {
+          var s = i[r];
+          e(s, n) && s.hasChildren() && t(s, n + 1);
+        }
+      };
+
+      t(this, 0);
+    }, e.prototype.moveNode = function (e, t, o) {
+      if (!e.parent || e.isParentOf(t)) return !1;
+
+      switch (e.parent.doRemoveChild(e), o) {
+        case s.After:
+          return !!t.parent && (t.parent.addChildAtPosition(e, t.parent.getChildIndex(t) + 1), !0);
+
+        case s.Before:
+          return !!t.parent && (t.parent.addChildAtPosition(e, t.parent.getChildIndex(t)), !0);
+
+        case s.Inside:
+          return t.addChildAtPosition(e, 0), !0;
+
+        default:
+          return !1;
+      }
+    }, e.prototype.getData = function (e) {
+      void 0 === e && (e = !1);
+
+      var t = function t(e) {
+        return e.map(function (e) {
+          var o = {};
+
+          for (var n in e) {
+            if (-1 === ["parent", "children", "element", "idMapping", "load_on_demand", "nodeClass", "tree", "isEmptyFolder"].indexOf(n) && Object.prototype.hasOwnProperty.call(e, n)) {
+              var r = e[n];
+              o[n] = r;
+            }
+          }
+
+          return e.hasChildren() && (o.children = t(e.children)), o;
+        });
+      };
+
+      return t(e ? [this] : this.children);
+    }, e.prototype.getNodeByName = function (e) {
+      return this.getNodeByCallback(function (t) {
+        return t.name === e;
+      });
+    }, e.prototype.getNodeByNameMustExist = function (e) {
+      var t = this.getNodeByCallback(function (t) {
+        return t.name === e;
+      });
+      if (!t) throw "Node with name " + e + " not found";
+      return t;
+    }, e.prototype.getNodeByCallback = function (e) {
+      var t = null;
+      return this.iterate(function (o) {
+        return !t && (!e(o) || (t = o, !1));
+      }), t;
+    }, e.prototype.addAfter = function (e) {
+      if (this.parent) {
+        var t = this.createNode(e),
+            o = this.parent.getChildIndex(this);
+        return this.parent.addChildAtPosition(t, o + 1), "object" == _typeof(e) && e.children && e.children instanceof Array && e.children.length && t.loadFromData(e.children), t;
+      }
+
+      return null;
+    }, e.prototype.addBefore = function (e) {
+      if (this.parent) {
+        var t = this.createNode(e),
+            o = this.parent.getChildIndex(this);
+        return this.parent.addChildAtPosition(t, o), "object" == _typeof(e) && e.children && e.children instanceof Array && e.children.length && t.loadFromData(e.children), t;
+      }
+
+      return null;
+    }, e.prototype.addParent = function (e) {
+      if (this.parent) {
+        var t = this.createNode(e);
+        this.tree && t.setParent(this.tree);
+
+        for (var o = this.parent, n = 0, r = o.children; n < r.length; n++) {
+          var i = r[n];
+          t.addChild(i);
+        }
+
+        return o.children = [], o.addChild(t), t;
+      }
+
+      return null;
+    }, e.prototype.remove = function () {
+      this.parent && (this.parent.removeChild(this), this.parent = null);
+    }, e.prototype.append = function (e) {
+      var t = this.createNode(e);
+      return this.addChild(t), "object" == _typeof(e) && e.children && e.children instanceof Array && e.children.length && t.loadFromData(e.children), t;
+    }, e.prototype.prepend = function (e) {
+      var t = this.createNode(e);
+      return this.addChildAtPosition(t, 0), "object" == _typeof(e) && e.children && e.children instanceof Array && e.children.length && t.loadFromData(e.children), t;
+    }, e.prototype.isParentOf = function (e) {
+      for (var t = e.parent; t;) {
+        if (t === this) return !0;
+        t = t.parent;
+      }
+
+      return !1;
+    }, e.prototype.getLevel = function () {
+      for (var e = 0, t = this; t.parent;) {
+        e += 1, t = t.parent;
+      }
+
+      return e;
+    }, e.prototype.getNodeById = function (e) {
+      return this.idMapping.get(e) || null;
+    }, e.prototype.addNodeToIndex = function (e) {
+      null != e.id && this.idMapping.set(e.id, e);
+    }, e.prototype.removeNodeFromIndex = function (e) {
+      null != e.id && this.idMapping["delete"](e.id);
+    }, e.prototype.removeChildren = function () {
+      var e = this;
+      this.iterate(function (t) {
+        var o;
+        return null === (o = e.tree) || void 0 === o || o.removeNodeFromIndex(t), !0;
+      }), this.children = [];
+    }, e.prototype.getPreviousSibling = function () {
+      if (this.parent) {
+        var e = this.parent.getChildIndex(this) - 1;
+        return e >= 0 ? this.parent.children[e] : null;
+      }
+
+      return null;
+    }, e.prototype.getNextSibling = function () {
+      if (this.parent) {
+        var e = this.parent.getChildIndex(this) + 1;
+        return e < this.parent.children.length ? this.parent.children[e] : null;
+      }
+
+      return null;
+    }, e.prototype.getNodesByProperty = function (e, t) {
+      return this.filter(function (o) {
+        return o[e] === t;
+      });
+    }, e.prototype.filter = function (e) {
+      var t = [];
+      return this.iterate(function (o) {
+        return e(o) && t.push(o), !0;
+      }), t;
+    }, e.prototype.getNextNode = function (e) {
+      if (void 0 === e && (e = !0), e && this.hasChildren() && this.is_open) return this.children[0];
+
+      if (this.parent) {
+        var t = this.getNextSibling();
+        return t || this.parent.getNextNode(!1);
+      }
+
+      return null;
+    }, e.prototype.getPreviousNode = function () {
+      if (this.parent) {
+        var e = this.getPreviousSibling();
+        return e ? e.hasChildren() && e.is_open ? e.getLastChild() : e : this.getParent();
+      }
+
+      return null;
+    }, e.prototype.getParent = function () {
+      return this.parent && this.parent.parent ? this.parent : null;
+    }, e.prototype.getLastChild = function () {
+      if (this.hasChildren()) {
+        var e = this.children[this.children.length - 1];
+        return e.hasChildren() && e.is_open ? e.getLastChild() : e;
+      }
+
+      return null;
+    }, e.prototype.initFromData = function (e) {
+      var t,
+          o = this,
+          n = function n(e) {
+        for (var t = 0, n = e; t < n.length; t++) {
+          var r = n[t],
+              i = o.createNode();
+          i.initFromData(r), o.addChild(i);
+        }
+      };
+
+      t = e, o.setData(t), "object" == _typeof(t) && t.children && t.children instanceof Array && t.children.length && n(t.children);
+    }, e.prototype.setParent = function (e) {
+      var t;
+      this.parent = e, this.tree = e.tree, null === (t = this.tree) || void 0 === t || t.addNodeToIndex(this);
+    }, e.prototype.doRemoveChild = function (e) {
+      var t;
+      this.children.splice(this.getChildIndex(e), 1), null === (t = this.tree) || void 0 === t || t.removeNodeFromIndex(e);
+    }, e.prototype.getNodeClass = function () {
+      var t;
+      return this.nodeClass || (null === (t = null == this ? void 0 : this.tree) || void 0 === t ? void 0 : t.nodeClass) || e;
+    }, e.prototype.createNode = function (e) {
+      return new (this.getNodeClass())(e);
+    }, e;
+  }(),
+      u = n["default"] || n,
+      p = function () {
+    function e(e) {
+      this.treeWidget = e, this.hoveredArea = null, this.hitAreas = [], this.isDragging = !1, this.currentItem = null, this.positionInfo = null;
+    }
+
+    return e.prototype.mouseCapture = function (e) {
+      var t = u(e.target);
+      if (!this.mustCaptureElement(t)) return null;
+      if (this.treeWidget.options.onIsMoveHandle && !this.treeWidget.options.onIsMoveHandle(t)) return null;
+
+      var o = this.treeWidget._getNodeElement(t);
+
+      return o && this.treeWidget.options.onCanMove && (this.treeWidget.options.onCanMove(o.node) || (o = null)), this.currentItem = o, null != this.currentItem;
+    }, e.prototype.mouseStart = function (e) {
+      var t;
+      if (!this.currentItem || void 0 === e.pageX || void 0 === e.pageY) return !1;
+      this.refresh();
+      var o = u(e.target).offset(),
+          n = o ? o.left : 0,
+          r = o ? o.top : 0,
+          i = this.currentItem.node;
+      return this.dragElement = new f(i.name, e.pageX - n, e.pageY - r, this.treeWidget.element, null === (t = this.treeWidget.options.autoEscape) || void 0 === t || t), this.isDragging = !0, this.positionInfo = e, this.currentItem.$element.addClass("jqtree-moving"), !0;
+    }, e.prototype.mouseDrag = function (e) {
+      if (!this.currentItem || !this.dragElement || void 0 === e.pageX || void 0 === e.pageY) return !1;
+      this.dragElement.move(e.pageX, e.pageY), this.positionInfo = e;
+      var t = this.findHoveredArea(e.pageX, e.pageY);
+      return t && this.canMoveToArea(t) ? (t.node.isFolder() || this.stopOpenFolderTimer(), this.hoveredArea !== t && (this.hoveredArea = t, this.mustOpenFolderTimer(t) ? this.startOpenFolderTimer(t.node) : this.stopOpenFolderTimer(), this.updateDropHint())) : (this.removeDropHint(), this.stopOpenFolderTimer(), this.hoveredArea = t), t || this.treeWidget.options.onDragMove && this.treeWidget.options.onDragMove(this.currentItem.node, e.originalEvent), !0;
+    }, e.prototype.mouseStop = function (e) {
+      this.moveItem(e), this.clear(), this.removeHover(), this.removeDropHint(), this.removeHitAreas();
+      var t = this.currentItem;
+      return this.currentItem && (this.currentItem.$element.removeClass("jqtree-moving"), this.currentItem = null), this.isDragging = !1, this.positionInfo = null, !this.hoveredArea && t && this.treeWidget.options.onDragStop && this.treeWidget.options.onDragStop(t.node, e.originalEvent), !1;
+    }, e.prototype.refresh = function () {
+      this.removeHitAreas(), this.currentItem && (this.generateHitAreas(), this.currentItem = this.treeWidget._getNodeElementForNode(this.currentItem.node), this.isDragging && this.currentItem.$element.addClass("jqtree-moving"));
+    }, e.prototype.generateHitAreas = function () {
+      if (this.currentItem) {
+        var e = new c(this.treeWidget.tree, this.currentItem.node, this.getTreeDimensions().bottom);
+        this.hitAreas = e.generate();
+      } else this.hitAreas = [];
+    }, e.prototype.mustCaptureElement = function (e) {
+      return !e.is("input,select,textarea");
+    }, e.prototype.canMoveToArea = function (e) {
+      if (!this.treeWidget.options.onCanMoveTo) return !0;
+      if (!this.currentItem) return !1;
+      var t = d(e.position);
+      return this.treeWidget.options.onCanMoveTo(this.currentItem.node, e.node, t);
+    }, e.prototype.removeHitAreas = function () {
+      this.hitAreas = [];
+    }, e.prototype.clear = function () {
+      this.dragElement && (this.dragElement.remove(), this.dragElement = null);
+    }, e.prototype.removeDropHint = function () {
+      this.previousGhost && this.previousGhost.remove();
+    }, e.prototype.removeHover = function () {
+      this.hoveredArea = null;
+    }, e.prototype.findHoveredArea = function (e, t) {
+      var o = this.getTreeDimensions();
+      if (e < o.left || t < o.top || e > o.right || t > o.bottom) return null;
+
+      for (var n = 0, r = this.hitAreas.length; n < r;) {
+        var i = n + r >> 1,
+            s = this.hitAreas[i];
+        if (t < s.top) r = i;else {
+          if (!(t > s.bottom)) return s;
+          n = i + 1;
+        }
+      }
+
+      return null;
+    }, e.prototype.mustOpenFolderTimer = function (e) {
+      var t = e.node;
+      return t.isFolder() && !t.is_open && e.position === s.Inside;
+    }, e.prototype.updateDropHint = function () {
+      if (this.hoveredArea) {
+        this.removeDropHint();
+
+        var e = this.treeWidget._getNodeElementForNode(this.hoveredArea.node);
+
+        this.previousGhost = e.addDropHint(this.hoveredArea.position);
+      }
+    }, e.prototype.startOpenFolderTimer = function (e) {
+      var t = this;
+      this.stopOpenFolderTimer(), this.openFolderTimer = window.setTimeout(function () {
+        t.treeWidget._openNode(e, t.treeWidget.options.slide, function () {
+          t.refresh(), t.updateDropHint();
+        });
+      }, this.treeWidget.options.openFolderDelay);
+    }, e.prototype.stopOpenFolderTimer = function () {
+      this.openFolderTimer && (clearTimeout(this.openFolderTimer), this.openFolderTimer = null);
+    }, e.prototype.moveItem = function (e) {
+      var t = this;
+
+      if (this.currentItem && this.hoveredArea && this.hoveredArea.position !== s.None && this.canMoveToArea(this.hoveredArea)) {
+        var o = this.currentItem.node,
+            n = this.hoveredArea.node,
+            r = this.hoveredArea.position,
+            i = o.parent;
+        r === s.Inside && (this.hoveredArea.node.is_open = !0);
+
+        var a = function a() {
+          t.treeWidget.tree.moveNode(o, n, r), t.treeWidget.element.empty(), t.treeWidget._refreshElements(null);
+        };
+
+        this.treeWidget._triggerEvent("tree.move", {
+          move_info: {
+            moved_node: o,
+            target_node: n,
+            position: d(r),
+            previous_parent: i,
+            do_move: a,
+            original_event: e.originalEvent
+          }
+        }).isDefaultPrevented() || a();
+      }
+    }, e.prototype.getTreeDimensions = function () {
+      var e = this.treeWidget.element.offset();
+
+      if (e) {
+        var t = this.treeWidget.element,
+            o = t.width() || 0,
+            n = t.height() || 0,
+            r = e.left + this.treeWidget._getScrollLeft();
+
+        return {
+          left: r,
+          top: e.top,
+          right: r + o,
+          bottom: e.top + n + 16
+        };
+      }
+
+      return {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0
+      };
+    }, e;
+  }(),
+      c = function (e) {
+    function t(t, o, n) {
+      var r = e.call(this, t) || this;
+      return r.currentNode = o, r.treeBottom = n, r;
+    }
+
+    return i(t, e), t.prototype.generate = function () {
+      return this.positions = [], this.lastTop = 0, this.iterate(), this.generateHitAreas(this.positions);
+    }, t.prototype.generateHitAreas = function (e) {
+      for (var t = -1, o = [], n = [], r = 0, i = e; r < i.length; r++) {
+        var s = i[r];
+        s.top !== t && o.length && (o.length && this.generateHitAreasForGroup(n, o, t, s.top), t = s.top, o = []), o.push(s);
+      }
+
+      return this.generateHitAreasForGroup(n, o, t, this.treeBottom), n;
+    }, t.prototype.handleOpenFolder = function (e, t) {
+      return e !== this.currentNode && (e.children[0] !== this.currentNode && this.addPosition(e, s.Inside, this.getTop(t)), !0);
+    }, t.prototype.handleClosedFolder = function (e, t, o) {
+      var n = this.getTop(o);
+      e === this.currentNode ? this.addPosition(e, s.None, n) : (this.addPosition(e, s.Inside, n), t !== this.currentNode && this.addPosition(e, s.After, n));
+    }, t.prototype.handleFirstNode = function (e) {
+      e !== this.currentNode && this.addPosition(e, s.Before, this.getTop(u(e.element)));
+    }, t.prototype.handleAfterOpenFolder = function (e, t) {
+      e === this.currentNode || t === this.currentNode ? this.addPosition(e, s.None, this.lastTop) : this.addPosition(e, s.After, this.lastTop);
+    }, t.prototype.handleNode = function (e, t, o) {
+      var n = this.getTop(o);
+      e === this.currentNode ? this.addPosition(e, s.None, n) : this.addPosition(e, s.Inside, n), t === this.currentNode || e === this.currentNode ? this.addPosition(e, s.None, n) : this.addPosition(e, s.After, n);
+    }, t.prototype.getTop = function (e) {
+      var t = e.offset();
+      return t ? t.top : 0;
+    }, t.prototype.addPosition = function (e, t, o) {
+      var n = {
+        top: o,
+        bottom: 0,
+        node: e,
+        position: t
+      };
+      this.positions.push(n), this.lastTop = o;
+    }, t.prototype.generateHitAreasForGroup = function (e, t, o, n) {
+      for (var r = Math.min(t.length, 4), i = Math.round((n - o) / r), s = o, a = 0; a < r;) {
+        var l = t[a];
+        e.push({
+          top: s,
+          bottom: s + i,
+          node: l.node,
+          position: l.position
+        }), s += i, a += 1;
+      }
+    }, t;
+  }(function () {
+    function e(e) {
+      this.tree = e;
+    }
+
+    return e.prototype.iterate = function () {
+      var e = this,
+          t = !0,
+          o = function o(n, r) {
+        var i = (n.is_open || !n.element) && n.hasChildren(),
+            s = null;
+
+        if (n.element) {
+          if (!(s = u(n.element)).is(":visible")) return;
+          t && (e.handleFirstNode(n), t = !1), n.hasChildren() ? n.is_open ? e.handleOpenFolder(n, s) || (i = !1) : e.handleClosedFolder(n, r, s) : e.handleNode(n, r, s);
+        }
+
+        if (i) {
+          var a = n.children.length;
+          n.children.forEach(function (e, t) {
+            o(n.children[t], t === a - 1 ? null : n.children[t + 1]);
+          }), n.is_open && s && e.handleAfterOpenFolder(n, r);
+        }
+      };
+
+      o(this.tree, null);
+    }, e;
+  }()),
+      f = function () {
+    function e(e, t, o, n, r) {
+      this.offsetX = t, this.offsetY = o, this.$element = u("<span>").addClass("jqtree-title jqtree-dragging"), r ? this.$element.text(e) : this.$element.html(e), this.$element.css("position", "absolute"), n.append(this.$element);
+    }
+
+    return e.prototype.move = function (e, t) {
+      this.$element.offset({
+        left: e - this.offsetX,
+        top: t - this.offsetY
+      });
+    }, e.prototype.remove = function () {
+      this.$element.remove();
+    }, e;
+  }(),
+      g = function g(e) {
+    return e ? "true" : "false";
+  },
+      v = function () {
+    function e(e) {
+      this.treeWidget = e, this.openedIconElement = this.createButtonElement(e.options.openedIcon || "+"), this.closedIconElement = this.createButtonElement(e.options.closedIcon || "-");
+    }
+
+    return e.prototype.render = function (e) {
+      e && e.parent ? this.renderFromNode(e) : this.renderFromRoot();
+    }, e.prototype.renderFromRoot = function () {
+      var e = this.treeWidget.element;
+      e.empty(), this.createDomElements(e[0], this.treeWidget.tree.children, !0, 1);
+    }, e.prototype.renderFromNode = function (e) {
+      var t = jQuery(e.element),
+          o = this.createLi(e, e.getLevel());
+      this.attachNodeData(e, o), t.after(o), t.remove(), e.children && this.createDomElements(o, e.children, !1, e.getLevel() + 1);
+    }, e.prototype.createDomElements = function (e, t, o, n) {
+      var r = this.createUl(o);
+      e.appendChild(r);
+
+      for (var i = 0, s = t; i < s.length; i++) {
+        var a = s[i],
+            l = this.createLi(a, n);
+        r.appendChild(l), this.attachNodeData(a, l), a.hasChildren() && this.createDomElements(l, a.children, !1, n + 1);
+      }
+    }, e.prototype.attachNodeData = function (e, t) {
+      e.element = t, jQuery(t).data("node", e);
+    }, e.prototype.createUl = function (e) {
+      var t, o;
+      e ? (t = "jqtree-tree", o = "tree", this.treeWidget.options.rtl && (t += " jqtree-rtl")) : (t = "", o = "group"), this.treeWidget.options.dragAndDrop && (t += " jqtree-dnd");
+      var n = document.createElement("ul");
+      return n.className = "jqtree_common " + t, n.setAttribute("role", o), n;
+    }, e.prototype.createLi = function (e, t) {
+      var o = Boolean(this.treeWidget.selectNodeHandler.isNodeSelected(e)),
+          n = e.isFolder() || e.isEmptyFolder && this.treeWidget.options.showEmptyFolder ? this.createFolderLi(e, t, o) : this.createNodeLi(e, t, o);
+      return this.treeWidget.options.onCreateLi && this.treeWidget.options.onCreateLi(e, jQuery(n), o), n;
+    }, e.prototype.createFolderLi = function (e, t, o) {
+      var n = this.getButtonClasses(e),
+          r = this.getFolderClasses(e, o),
+          i = e.is_open ? this.openedIconElement : this.closedIconElement,
+          s = document.createElement("li");
+      s.className = "jqtree_common " + r, s.setAttribute("role", "presentation");
+      var a = document.createElement("div");
+      a.className = "jqtree-element jqtree_common", a.setAttribute("role", "presentation"), s.appendChild(a);
+      var l = document.createElement("a");
+      return l.className = n, l.appendChild(i.cloneNode(!0)), l.setAttribute("role", "presentation"), l.setAttribute("aria-hidden", "true"), this.treeWidget.options.buttonLeft && a.appendChild(l), a.appendChild(this.createTitleSpan(e.name, t, o, e.is_open, !0)), this.treeWidget.options.buttonLeft || a.appendChild(l), s;
+    }, e.prototype.createNodeLi = function (e, t, o) {
+      var n = ["jqtree_common"];
+      o && n.push("jqtree-selected");
+      var r = n.join(" "),
+          i = document.createElement("li");
+      i.className = r, i.setAttribute("role", "presentation");
+      var s = document.createElement("div");
+      return s.className = "jqtree-element jqtree_common", s.setAttribute("role", "presentation"), i.appendChild(s), s.appendChild(this.createTitleSpan(e.name, t, o, e.is_open, !1)), i;
+    }, e.prototype.createTitleSpan = function (e, t, o, n, r) {
+      var i = document.createElement("span"),
+          s = "jqtree-title jqtree_common";
+
+      if (r && (s += " jqtree-title-folder"), i.className = s, i.setAttribute("role", "treeitem"), i.setAttribute("aria-level", "" + t), i.setAttribute("aria-selected", g(o)), i.setAttribute("aria-expanded", g(n)), o) {
+        var a = this.treeWidget.options.tabIndex;
+        void 0 !== a && i.setAttribute("tabindex", "" + a);
+      }
+
+      return this.treeWidget.options.autoEscape ? i.textContent = e : i.innerHTML = e, i;
+    }, e.prototype.getButtonClasses = function (e) {
+      var t = ["jqtree-toggler", "jqtree_common"];
+      return e.is_open || t.push("jqtree-closed"), this.treeWidget.options.buttonLeft ? t.push("jqtree-toggler-left") : t.push("jqtree-toggler-right"), t.join(" ");
+    }, e.prototype.getFolderClasses = function (e, t) {
+      var o = ["jqtree-folder"];
+      return e.is_open || o.push("jqtree-closed"), t && o.push("jqtree-selected"), e.is_loading && o.push("jqtree-loading"), o.join(" ");
+    }, e.prototype.createButtonElement = function (e) {
+      if ("string" == typeof e) {
+        var t = document.createElement("div");
+        return t.innerHTML = e, document.createTextNode(t.innerHTML);
+      }
+
+      return jQuery(e)[0];
+    }, e;
+  }(),
+      m = function () {
+    function e(e) {
+      this.treeWidget = e;
+    }
+
+    return e.prototype.loadFromUrl = function (e, t, o) {
+      var n = this;
+
+      if (e) {
+        var r = this.getDomElement(t);
+        this.addLoadingClass(r), this.notifyLoading(!0, t, r);
+
+        var i = function i() {
+          n.removeLoadingClass(r), n.notifyLoading(!1, t, r);
+        };
+
+        this.submitRequest(e, function (e) {
+          i(), n.treeWidget.loadData(n.parseData(e), t), o && "function" == typeof o && o();
+        }, function (e) {
+          i(), n.treeWidget.options.onLoadFailed && n.treeWidget.options.onLoadFailed(e);
+        });
+      }
+    }, e.prototype.addLoadingClass = function (e) {
+      e && e.addClass("jqtree-loading");
+    }, e.prototype.removeLoadingClass = function (e) {
+      e && e.removeClass("jqtree-loading");
+    }, e.prototype.getDomElement = function (e) {
+      return e ? jQuery(e.element) : this.treeWidget.element;
+    }, e.prototype.notifyLoading = function (e, t, o) {
+      this.treeWidget.options.onLoading && this.treeWidget.options.onLoading(e, t, o), this.treeWidget._triggerEvent("tree.loading_data", {
+        isLoading: e,
+        node: t,
+        $el: o
+      });
+    }, e.prototype.submitRequest = function (e, t, o) {
+      var n,
+          r = _a({
+        method: "GET",
+        cache: !1,
+        dataType: "json",
+        success: t,
+        error: o
+      }, "string" == typeof e ? {
+        url: e
+      } : e);
+
+      r.method = (null === (n = r.method) || void 0 === n ? void 0 : n.toUpperCase()) || "GET", jQuery.ajax(r);
+    }, e.prototype.parseData = function (e) {
+      var t = this.treeWidget.options.dataFilter,
+          o = "string" == typeof e ? JSON.parse(e) : e;
+      return t ? t(o) : o;
+    }, e;
+  }(),
+      y = function () {
+    function e(t) {
+      var o = this;
+      this.handleKeyDown = function (t) {
+        if (!o.canHandleKeyboard()) return !0;
+        var n = o.treeWidget.getSelectedNode();
+        if (!n) return !0;
+
+        switch (t.which) {
+          case e.DOWN:
+            return o.moveDown(n);
+
+          case e.UP:
+            return o.moveUp(n);
+
+          case e.RIGHT:
+            return o.moveRight(n);
+
+          case e.LEFT:
+            return o.moveLeft(n);
+
+          default:
+            return !0;
+        }
+      }, this.treeWidget = t, t.options.keyboardSupport && jQuery(document).on("keydown.jqtree", this.handleKeyDown);
+    }
+
+    return e.prototype.deinit = function () {
+      jQuery(document).off("keydown.jqtree");
+    }, e.prototype.moveDown = function (e) {
+      return this.selectNode(e.getNextNode());
+    }, e.prototype.moveUp = function (e) {
+      return this.selectNode(e.getPreviousNode());
+    }, e.prototype.moveRight = function (e) {
+      return !e.isFolder() || (e.is_open ? this.selectNode(e.getNextNode()) : (this.treeWidget.openNode(e), !1));
+    }, e.prototype.moveLeft = function (e) {
+      return e.isFolder() && e.is_open ? (this.treeWidget.closeNode(e), !1) : this.selectNode(e.getParent());
+    }, e.prototype.selectNode = function (e) {
+      return !e || (this.treeWidget.selectNode(e), this.treeWidget.scrollHandler.isScrolledIntoView(jQuery(e.element).find(".jqtree-element")) || this.treeWidget.scrollToNode(e), !1);
+    }, e.prototype.canHandleKeyboard = function () {
+      return !!this.treeWidget.options.keyboardSupport && this.treeWidget.selectNodeHandler.isFocusOnTree();
+    }, e.LEFT = 37, e.UP = 38, e.RIGHT = 39, e.DOWN = 40, e;
+  }(),
+      N = function N(e, t) {
+    var o = function o() {
+      return "simple_widget_" + t;
+    },
+        n = function n(e, t) {
+      var o = jQuery.data(e, t);
+      return o && o instanceof S ? o : null;
+    },
+        r = function r(t, _r2) {
+      for (var i = o(), s = 0, a = t.get(); s < a.length; s++) {
+        var l = a[s];
+
+        if (!n(l, i)) {
+          var d = new e(l, _r2);
+          jQuery.data(l, i) || jQuery.data(l, i, d), d.init();
+        }
+      }
+
+      return t;
+    },
+        i = function i(e) {
+      for (var t = o(), r = 0, i = e.get(); r < i.length; r++) {
+        var s = i[r],
+            a = n(s, t);
+        a && a.destroy(), jQuery.removeData(s, t);
+      }
+    },
+        s = function s(e, t, n) {
+      for (var r = null, i = 0, s = e.get(); i < s.length; i++) {
+        var a = s[i],
+            l = jQuery.data(a, o());
+
+        if (l && l instanceof S) {
+          var d = l[t];
+          d && "function" == typeof d && (r = d.apply(l, n));
+        }
+      }
+
+      return r;
+    };
+
+    jQuery.fn[t] = function (t) {
+      for (var o = [], n = 1; n < arguments.length; n++) {
+        o[n - 1] = arguments[n];
+      }
+
+      if (!t) return r(this, null);
+
+      if ("object" == _typeof(t)) {
+        var a = t;
+        return r(this, a);
+      }
+
+      if ("string" == typeof t && "_" !== t[0]) {
+        var l = t;
+        return "destroy" === l ? i(this) : "get_widget_class" === l ? e : s(this, l, o);
+      }
+    };
+  },
+      S = function () {
+    function e(e, t) {
+      this.$el = jQuery(e);
+      var o = this.constructor.defaults;
+      this.options = _a(_a({}, o), t);
+    }
+
+    return e.register = function (e, t) {
+      N(e, t);
+    }, e.prototype.destroy = function () {
+      this.deinit();
+    }, e.prototype.init = function () {}, e.prototype.deinit = function () {}, e.defaults = {}, e;
+  }(),
+      _ = function _(e) {
+    return {
+      pageX: e.pageX,
+      pageY: e.pageY,
+      target: e.target,
+      originalEvent: e
+    };
+  },
+      D = function D(e, t) {
+    return {
+      pageX: e.pageX,
+      pageY: e.pageY,
+      target: e.target,
+      originalEvent: t
+    };
+  },
+      I = function (e) {
+    function t() {
+      var t = null !== e && e.apply(this, arguments) || this;
+      return t.mouseDown = function (e) {
+        0 === e.button && t.handleMouseDown(_(e)) && e.cancelable && e.preventDefault();
+      }, t.mouseMove = function (e) {
+        t.handleMouseMove(e, _(e));
+      }, t.mouseUp = function (e) {
+        t.handleMouseUp(_(e));
+      }, t.touchStart = function (e) {
+        if (e && !(e.touches.length > 1)) {
+          var o = e.changedTouches[0];
+          t.handleMouseDown(D(o, e));
+        }
+      }, t.touchMove = function (e) {
+        if (e && !(e.touches.length > 1)) {
+          var o = e.changedTouches[0];
+          t.handleMouseMove(e, D(o, e));
+        }
+      }, t.touchEnd = function (e) {
+        if (e && !(e.touches.length > 1)) {
+          var o = e.changedTouches[0];
+          t.handleMouseUp(D(o, e));
+        }
+      }, t;
+    }
+
+    return i(t, e), t.prototype.init = function () {
+      var e = this.$el.get(0);
+      e.addEventListener("mousedown", this.mouseDown, {
+        passive: !1
+      }), e.addEventListener("touchstart", this.touchStart, {
+        passive: !1
+      }), this.isMouseStarted = !1, this.mouseDelayTimer = null, this.isMouseDelayMet = !1, this.mouseDownInfo = null;
+    }, t.prototype.deinit = function () {
+      var e = this.$el.get(0);
+      e.removeEventListener("mousedown", this.mouseDown, {
+        passive: !1
+      }), e.removeEventListener("touchstart", this.touchStart, {
+        passive: !1
+      }), this.removeMouseMoveEventListeners();
+    }, t.prototype.handleMouseDown = function (e) {
+      return this.isMouseStarted && this.handleMouseUp(e), this.mouseDownInfo = e, !!this.mouseCapture(e) && (this.handleStartMouse(), !0);
+    }, t.prototype.handleStartMouse = function () {
+      document.addEventListener("mousemove", this.mouseMove, {
+        passive: !1
+      }), document.addEventListener("touchmove", this.touchMove, {
+        passive: !1
+      }), document.addEventListener("mouseup", this.mouseUp, {
+        passive: !1
+      }), document.addEventListener("touchend", this.touchEnd, {
+        passive: !1
+      });
+      var e = this.getMouseDelay();
+      e ? this.startMouseDelayTimer(e) : this.isMouseDelayMet = !0;
+    }, t.prototype.startMouseDelayTimer = function (e) {
+      var t = this;
+      this.mouseDelayTimer && clearTimeout(this.mouseDelayTimer), this.mouseDelayTimer = window.setTimeout(function () {
+        t.mouseDownInfo && (t.isMouseDelayMet = !0);
+      }, e), this.isMouseDelayMet = !1;
+    }, t.prototype.handleMouseMove = function (e, t) {
+      if (this.isMouseStarted) return this.mouseDrag(t), void (e.cancelable && e.preventDefault());
+      this.isMouseDelayMet && (this.mouseDownInfo && (this.isMouseStarted = !1 !== this.mouseStart(this.mouseDownInfo)), this.isMouseStarted ? (this.mouseDrag(t), e.cancelable && e.preventDefault()) : this.handleMouseUp(t));
+    }, t.prototype.handleMouseUp = function (e) {
+      this.removeMouseMoveEventListeners(), this.isMouseDelayMet = !1, this.mouseDownInfo = null, this.isMouseStarted && (this.isMouseStarted = !1, this.mouseStop(e));
+    }, t.prototype.removeMouseMoveEventListeners = function () {
+      document.removeEventListener("mousemove", this.mouseMove, {
+        passive: !1
+      }), document.removeEventListener("touchmove", this.touchMove, {
+        passive: !1
+      }), document.removeEventListener("mouseup", this.mouseUp, {
+        passive: !1
+      }), document.removeEventListener("touchend", this.touchEnd, {
+        passive: !1
+      });
+    }, t;
+  }(S),
+      E = function () {
+    function e(e) {
+      this.treeWidget = e;
+    }
+
+    return e.prototype.saveState = function () {
+      var e = JSON.stringify(this.getState());
+      this.treeWidget.options.onSetStateFromStorage ? this.treeWidget.options.onSetStateFromStorage(e) : this.supportsLocalStorage() && localStorage.setItem(this.getKeyName(), e);
+    }, e.prototype.getStateFromStorage = function () {
+      var e = this.loadFromStorage();
+      return e ? this.parseState(e) : null;
+    }, e.prototype.getState = function () {
+      var e,
+          t,
+          o = this;
+      return {
+        open_nodes: (t = [], o.treeWidget.tree.iterate(function (e) {
+          return e.is_open && e.id && e.hasChildren() && t.push(e.id), !0;
+        }), t),
+        selected_node: (e = [], o.treeWidget.getSelectedNodes().forEach(function (t) {
+          null != t.id && e.push(t.id);
+        }), e)
+      };
+    }, e.prototype.setInitialState = function (e) {
+      if (e) {
+        var t = !1;
+        return e.open_nodes && (t = this.openInitialNodes(e.open_nodes)), e.selected_node && (this.resetSelection(), this.selectInitialNodes(e.selected_node)), t;
+      }
+
+      return !1;
+    }, e.prototype.setInitialStateOnDemand = function (e, t) {
+      e ? this.doSetInitialStateOnDemand(e.open_nodes, e.selected_node, t) : t();
+    }, e.prototype.getNodeIdToBeSelected = function () {
+      var e = this.getStateFromStorage();
+      return e && e.selected_node ? e.selected_node[0] : null;
+    }, e.prototype.parseState = function (e) {
+      var t,
+          o = JSON.parse(e);
+      return o && o.selected_node && "number" == typeof (t = o.selected_node) && t % 1 == 0 && (o.selected_node = [o.selected_node]), o;
+    }, e.prototype.loadFromStorage = function () {
+      return this.treeWidget.options.onGetStateFromStorage ? this.treeWidget.options.onGetStateFromStorage() : this.supportsLocalStorage() ? localStorage.getItem(this.getKeyName()) : null;
+    }, e.prototype.openInitialNodes = function (e) {
+      for (var t = !1, o = 0, n = e; o < n.length; o++) {
+        var r = n[o],
+            i = this.treeWidget.getNodeById(r);
+        i && (i.load_on_demand ? t = !0 : i.is_open = !0);
+      }
+
+      return t;
+    }, e.prototype.selectInitialNodes = function (e) {
+      for (var t = 0, o = 0, n = e; o < n.length; o++) {
+        var r = n[o],
+            i = this.treeWidget.getNodeById(r);
+        i && (t += 1, this.treeWidget.selectNodeHandler.addToSelection(i));
+      }
+
+      return 0 !== t;
+    }, e.prototype.resetSelection = function () {
+      var e = this.treeWidget.selectNodeHandler;
+      e.getSelectedNodes().forEach(function (t) {
+        e.removeFromSelection(t);
+      });
+    }, e.prototype.doSetInitialStateOnDemand = function (e, t, o) {
+      var n = this,
+          r = 0,
+          i = e,
+          s = function s() {
+        for (var e = [], s = 0, l = i; s < l.length; s++) {
+          var d = l[s],
+              h = n.treeWidget.getNodeById(d);
+          h ? h.is_loading || (h.load_on_demand ? a(h) : n.treeWidget._openNode(h, !1, null)) : e.push(d);
+        }
+
+        i = e, n.selectInitialNodes(t) && n.treeWidget._refreshElements(null), 0 === r && o();
+      },
+          a = function a(e) {
+        r += 1, n.treeWidget._openNode(e, !1, function () {
+          r -= 1, s();
+        });
+      };
+
+      s();
+    }, e.prototype.getKeyName = function () {
+      return "string" == typeof this.treeWidget.options.saveState ? this.treeWidget.options.saveState : "tree";
+    }, e.prototype.supportsLocalStorage = function () {
+      return null == this._supportsLocalStorage && (this._supportsLocalStorage = function () {
+        if (null == localStorage) return !1;
+
+        try {
+          var e = "_storage_test";
+          sessionStorage.setItem(e, "value"), sessionStorage.removeItem(e);
+        } catch (e) {
+          return !1;
+        }
+
+        return !0;
+      }()), this._supportsLocalStorage;
+    }, e;
+  }(),
+      C = function () {
+    function e(e) {
+      this.treeWidget = e, this.previousTop = -1, this.isInitialized = !1;
+    }
+
+    return e.prototype.checkScrolling = function () {
+      this.ensureInit(), this.checkVerticalScrolling(), this.checkHorizontalScrolling();
+    }, e.prototype.scrollToY = function (e) {
+      if (this.ensureInit(), this.$scrollParent) this.$scrollParent[0].scrollTop = e;else {
+        var t = this.treeWidget.$el.offset(),
+            o = t ? t.top : 0;
+        jQuery(document).scrollTop(e + o);
+      }
+    }, e.prototype.isScrolledIntoView = function (e) {
+      var t, o, n, r;
+      this.ensureInit();
+      var i,
+          s = e.height() || 0;
+      this.$scrollParent ? (r = 0, o = this.$scrollParent.height() || 0, t = (n = ((i = e.offset()) ? i.top : 0) - this.scrollParentTop) + s) : (o = (r = jQuery(window).scrollTop() || 0) + (jQuery(window).height() || 0), t = (n = (i = e.offset()) ? i.top : 0) + s);
+      return t <= o && n >= r;
+    }, e.prototype.getScrollLeft = function () {
+      return this.$scrollParent && this.$scrollParent.scrollLeft() || 0;
+    }, e.prototype.initScrollParent = function () {
+      var e = this,
+          t = function t() {
+        e.scrollParentTop = 0, e.$scrollParent = null;
+      };
+
+      "fixed" === this.treeWidget.$el.css("position") && t();
+
+      var o = function () {
+        var t = ["overflow", "overflow-y"],
+            o = function o(e) {
+          for (var o = 0, n = t; o < n.length; o++) {
+            var r = n[o],
+                i = e.css(r);
+            if ("auto" === i || "scroll" === i) return !0;
+          }
+
+          return !1;
+        };
+
+        if (o(e.treeWidget.$el)) return e.treeWidget.$el;
+
+        for (var n = 0, r = e.treeWidget.$el.parents().get(); n < r.length; n++) {
+          var i = r[n],
+              s = jQuery(i);
+          if (o(s)) return s;
+        }
+
+        return null;
+      }();
+
+      if (o && o.length && "HTML" !== o[0].tagName) {
+        this.$scrollParent = o;
+        var n = this.$scrollParent.offset();
+        this.scrollParentTop = n ? n.top : 0;
+      } else t();
+
+      this.isInitialized = !0;
+    }, e.prototype.ensureInit = function () {
+      this.isInitialized || this.initScrollParent();
+    }, e.prototype.handleVerticalScrollingWithScrollParent = function (e) {
+      var t = this.$scrollParent && this.$scrollParent[0];
+      t && (this.scrollParentTop + t.offsetHeight - e.bottom < 20 ? (t.scrollTop += 20, this.treeWidget.refreshHitAreas(), this.previousTop = -1) : e.top - this.scrollParentTop < 20 && (t.scrollTop -= 20, this.treeWidget.refreshHitAreas(), this.previousTop = -1));
+    }, e.prototype.handleVerticalScrollingWithDocument = function (e) {
+      var t = jQuery(document).scrollTop() || 0;
+      e.top - t < 20 ? jQuery(document).scrollTop(t - 20) : (jQuery(window).height() || 0) - (e.bottom - t) < 20 && jQuery(document).scrollTop(t + 20);
+    }, e.prototype.checkVerticalScrolling = function () {
+      var e = this.treeWidget.dndHandler.hoveredArea;
+      e && e.top !== this.previousTop && (this.previousTop = e.top, this.$scrollParent ? this.handleVerticalScrollingWithScrollParent(e) : this.handleVerticalScrollingWithDocument(e));
+    }, e.prototype.checkHorizontalScrolling = function () {
+      var e = this.treeWidget.dndHandler.positionInfo;
+      e && (this.$scrollParent ? this.handleHorizontalScrollingWithParent(e) : this.handleHorizontalScrollingWithDocument(e));
+    }, e.prototype.handleHorizontalScrollingWithParent = function (e) {
+      if (void 0 !== e.pageX && void 0 !== e.pageY) {
+        var t = this.$scrollParent,
+            o = t && t.offset();
+
+        if (t && o) {
+          var n = t[0],
+              r = n.scrollLeft + n.clientWidth < n.scrollWidth,
+              i = n.scrollLeft > 0,
+              s = o.left + n.clientWidth,
+              a = o.left,
+              l = e.pageX > s - 20,
+              d = e.pageX < a + 20;
+          l && r ? n.scrollLeft = Math.min(n.scrollLeft + 20, n.scrollWidth) : d && i && (n.scrollLeft = Math.max(n.scrollLeft - 20, 0));
+        }
+      }
+    }, e.prototype.handleHorizontalScrollingWithDocument = function (e) {
+      if (void 0 !== e.pageX && void 0 !== e.pageY) {
+        var t = jQuery(document),
+            o = t.scrollLeft() || 0,
+            n = jQuery(window).width() || 0,
+            r = o > 0,
+            i = e.pageX > n - 20,
+            s = e.pageX - o < 20;
+        i ? t.scrollLeft(o + 20) : s && r && t.scrollLeft(Math.max(o - 20, 0));
+      }
+    }, e;
+  }(),
+      j = function () {
+    function e(e) {
+      this.treeWidget = e, this.selectedNodes = new Set(), this.clear();
+    }
+
+    return e.prototype.getSelectedNode = function () {
+      var e = this.getSelectedNodes();
+      return !!e.length && e[0];
+    }, e.prototype.getSelectedNodes = function () {
+      var e = this;
+      if (this.selectedSingleNode) return [this.selectedSingleNode];
+      var t = [];
+      return this.selectedNodes.forEach(function (o) {
+        var n = e.treeWidget.getNodeById(o);
+        n && t.push(n);
+      }), t;
+    }, e.prototype.getSelectedNodesUnder = function (e) {
+      if (this.selectedSingleNode) return e.isParentOf(this.selectedSingleNode) ? [this.selectedSingleNode] : [];
+      var t = [];
+
+      for (var o in this.selectedNodes) {
+        if (Object.prototype.hasOwnProperty.call(this.selectedNodes, o)) {
+          var n = this.treeWidget.getNodeById(o);
+          n && e.isParentOf(n) && t.push(n);
+        }
+      }
+
+      return t;
+    }, e.prototype.isNodeSelected = function (e) {
+      return null != e.id ? this.selectedNodes.has(e.id) : !!this.selectedSingleNode && this.selectedSingleNode.element === e.element;
+    }, e.prototype.clear = function () {
+      this.selectedNodes.clear(), this.selectedSingleNode = null;
+    }, e.prototype.removeFromSelection = function (e, t) {
+      var o = this;
+      void 0 === t && (t = !1), null == e.id ? this.selectedSingleNode && e.element === this.selectedSingleNode.element && (this.selectedSingleNode = null) : (this.selectedNodes["delete"](e.id), t && e.iterate(function () {
+        return null != e.id && o.selectedNodes["delete"](e.id), !0;
+      }));
+    }, e.prototype.addToSelection = function (e) {
+      null != e.id ? this.selectedNodes.add(e.id) : this.selectedSingleNode = e;
+    }, e.prototype.isFocusOnTree = function () {
+      var e = document.activeElement;
+      return Boolean(e && "SPAN" === e.tagName && this.treeWidget._containsElement(e));
+    }, e;
+  }(),
+      F = function () {
+    function e(e, t) {
+      this.init(e, t);
+    }
+
+    return e.prototype.init = function (e, t) {
+      this.node = e, this.treeWidget = t, e.element || (e.element = this.treeWidget.element.get(0)), this.$element = jQuery(e.element);
+    }, e.prototype.addDropHint = function (e) {
+      return this.mustShowBorderDropHint(e) ? new b(this.$element, this.treeWidget._getScrollLeft()) : new T(this.node, this.$element, e);
+    }, e.prototype.select = function (e) {
+      var t,
+          o = this.getLi();
+      o.addClass("jqtree-selected"), o.attr("aria-selected", "true");
+      var n = this.getSpan();
+      n.attr("tabindex", null !== (t = this.treeWidget.options.tabIndex) && void 0 !== t ? t : null), e && n.trigger("focus");
+    }, e.prototype.deselect = function () {
+      var e = this.getLi();
+      e.removeClass("jqtree-selected"), e.attr("aria-selected", "false");
+      var t = this.getSpan();
+      t.removeAttr("tabindex"), t.blur();
+    }, e.prototype.getUl = function () {
+      return this.$element.children("ul:first");
+    }, e.prototype.getSpan = function () {
+      return this.$element.children(".jqtree-element").find("span.jqtree-title");
+    }, e.prototype.getLi = function () {
+      return this.$element;
+    }, e.prototype.mustShowBorderDropHint = function (e) {
+      return e === s.Inside;
+    }, e;
+  }(),
+      W = function (e) {
+    function t() {
+      return null !== e && e.apply(this, arguments) || this;
+    }
+
+    return i(t, e), t.prototype.open = function (e, t, o) {
+      var n = this;
+
+      if (void 0 === t && (t = !0), void 0 === o && (o = "fast"), !this.node.is_open) {
+        this.node.is_open = !0;
+        var r = this.getButton();
+        r.removeClass("jqtree-closed"), r.html("");
+        var i = r.get(0);
+
+        if (i) {
+          var s = this.treeWidget.renderer.openedIconElement.cloneNode(!0);
+          i.appendChild(s);
+        }
+
+        var a = function a() {
+          n.getLi().removeClass("jqtree-closed"), n.getSpan().attr("aria-expanded", "true"), e && e(n.node), n.treeWidget._triggerEvent("tree.open", {
+            node: n.node
+          });
+        };
+
+        t ? this.getUl().slideDown(o, a) : (this.getUl().show(), a());
+      }
+    }, t.prototype.close = function (e, t) {
+      var o = this;
+
+      if (void 0 === e && (e = !0), void 0 === t && (t = "fast"), this.node.is_open) {
+        this.node.is_open = !1;
+        var n = this.getButton();
+        n.addClass("jqtree-closed"), n.html("");
+        var r = n.get(0);
+
+        if (r) {
+          var i = this.treeWidget.renderer.closedIconElement.cloneNode(!0);
+          r.appendChild(i);
+        }
+
+        var s = function s() {
+          o.getLi().addClass("jqtree-closed"), o.getSpan().attr("aria-expanded", "false"), o.treeWidget._triggerEvent("tree.close", {
+            node: o.node
+          });
+        };
+
+        e ? this.getUl().slideUp(t, s) : (this.getUl().hide(), s());
+      }
+    }, t.prototype.mustShowBorderDropHint = function (e) {
+      return !this.node.is_open && e === s.Inside;
+    }, t.prototype.getButton = function () {
+      return this.$element.children(".jqtree-element").find("a.jqtree-toggler");
+    }, t;
+  }(F),
+      b = function () {
+    function e(e, t) {
+      var o = e.children(".jqtree-element"),
+          n = e.width() || 0,
+          r = Math.max(n + t - 4, 0),
+          i = o.outerHeight() || 0,
+          s = Math.max(i - 4, 0);
+      this.$hint = jQuery('<span class="jqtree-border"></span>'), o.append(this.$hint), this.$hint.css({
+        width: r,
+        height: s
+      });
+    }
+
+    return e.prototype.remove = function () {
+      this.$hint.remove();
+    }, e;
+  }(),
+      T = function () {
+    function e(e, t, o) {
+      this.$element = t, this.node = e, this.$ghost = jQuery('<li class="jqtree_common jqtree-ghost"><span class="jqtree_common jqtree-circle"></span>\n            <span class="jqtree_common jqtree-line"></span></li>'), o === s.After ? this.moveAfter() : o === s.Before ? this.moveBefore() : o === s.Inside && (e.isFolder() && e.is_open ? this.moveInsideOpenFolder() : this.moveInside());
+    }
+
+    return e.prototype.remove = function () {
+      this.$ghost.remove();
+    }, e.prototype.moveAfter = function () {
+      this.$element.after(this.$ghost);
+    }, e.prototype.moveBefore = function () {
+      this.$element.before(this.$ghost);
+    }, e.prototype.moveInsideOpenFolder = function () {
+      jQuery(this.node.children[0].element).before(this.$ghost);
+    }, e.prototype.moveInside = function () {
+      this.$element.after(this.$ghost), this.$ghost.addClass("jqtree-inside");
+    }, e;
+  }(),
+      w = n["default"] || n,
+      L = "Node parameter is empty",
+      H = "Parameter is empty: ",
+      A = function (e) {
+    function t() {
+      var t = null !== e && e.apply(this, arguments) || this;
+      return t.handleClick = function (e) {
+        var o = t.getClickTarget(e.target);
+        if (o) if ("button" === o.type) t.toggle(o.node, t.options.slide), e.preventDefault(), e.stopPropagation();else if ("label" === o.type) {
+          var n = o.node;
+          t._triggerEvent("tree.click", {
+            node: n,
+            click_event: e
+          }).isDefaultPrevented() || t.doSelectNode(n);
+        }
+      }, t.handleDblclick = function (e) {
+        var o = t.getClickTarget(e.target);
+        "label" === (null == o ? void 0 : o.type) && t._triggerEvent("tree.dblclick", {
+          node: o.node,
+          click_event: e
+        });
+      }, t.handleContextmenu = function (e) {
+        var o = w(e.target).closest("ul.jqtree-tree .jqtree-element");
+
+        if (o.length) {
+          var n = t.getNode(o);
+          if (n) return e.preventDefault(), e.stopPropagation(), t._triggerEvent("tree.contextmenu", {
+            node: n,
+            click_event: e
+          }), !1;
+        }
+
+        return null;
+      }, t;
+    }
+
+    return i(t, e), t.prototype.toggle = function (e, t) {
+      if (void 0 === t && (t = null), !e) throw Error(L);
+      var o = null != t ? t : this.options.slide;
+      return e.is_open ? this.closeNode(e, o) : this.openNode(e, o), this.element;
+    }, t.prototype.getTree = function () {
+      return this.tree;
+    }, t.prototype.selectNode = function (e, t) {
+      return this.doSelectNode(e, t), this.element;
+    }, t.prototype.getSelectedNode = function () {
+      return this.selectNodeHandler.getSelectedNode();
+    }, t.prototype.toJson = function () {
+      return JSON.stringify(this.tree.getData());
+    }, t.prototype.loadData = function (e, t) {
+      return this.doLoadData(e, t), this.element;
+    }, t.prototype.loadDataFromUrl = function (e, t, o) {
+      return "string" == typeof e ? this.doLoadDataFromUrl(e, t, null != o ? o : null) : this.doLoadDataFromUrl(null, e, t), this.element;
+    }, t.prototype.reload = function (e) {
+      return this.doLoadDataFromUrl(null, null, e), this.element;
+    }, t.prototype.refresh = function () {
+      return this._refreshElements(null), this.element;
+    }, t.prototype.getNodeById = function (e) {
+      return this.tree.getNodeById(e);
+    }, t.prototype.getNodeByName = function (e) {
+      return this.tree.getNodeByName(e);
+    }, t.prototype.getNodeByNameMustExist = function (e) {
+      return this.tree.getNodeByNameMustExist(e);
+    }, t.prototype.getNodesByProperty = function (e, t) {
+      return this.tree.getNodesByProperty(e, t);
+    }, t.prototype.getNodeByHtmlElement = function (e) {
+      return this.getNode(w(e));
+    }, t.prototype.getNodeByCallback = function (e) {
+      return this.tree.getNodeByCallback(e);
+    }, t.prototype.openNode = function (e, t, o) {
+      var n = this;
+      if (!e) throw Error(L);
+
+      var r = function () {
+        var e, r, i;
+        return "function" == typeof t ? (r = t, i = null) : (i = t, r = o), null == i && (i = null !== (e = n.options.slide) && void 0 !== e && e), [i, r];
+      }(),
+          i = r[0],
+          s = r[1];
+
+      return this._openNode(e, i, s), this.element;
+    }, t.prototype.closeNode = function (e, t) {
+      if (!e) throw Error(L);
+      var o = null != t ? t : this.options.slide;
+      return (e.isFolder() || e.isEmptyFolder) && (new W(e, this).close(o, this.options.animationSpeed), this.saveState()), this.element;
+    }, t.prototype.isDragging = function () {
+      return this.dndHandler.isDragging;
+    }, t.prototype.refreshHitAreas = function () {
+      return this.dndHandler.refresh(), this.element;
+    }, t.prototype.addNodeAfter = function (e, t) {
+      var o = t.addAfter(e);
+      return o && this._refreshElements(t.parent), o;
+    }, t.prototype.addNodeBefore = function (e, t) {
+      if (!t) throw Error(H + "existingNode");
+      var o = t.addBefore(e);
+      return o && this._refreshElements(t.parent), o;
+    }, t.prototype.addParentNode = function (e, t) {
+      if (!t) throw Error(H + "existingNode");
+      var o = t.addParent(e);
+      return o && this._refreshElements(o.parent), o;
+    }, t.prototype.removeNode = function (e) {
+      if (!e) throw Error(L);
+      if (!e.parent) throw Error("Node has no parent");
+      this.selectNodeHandler.removeFromSelection(e, !0);
+      var t = e.parent;
+      return e.remove(), this._refreshElements(t), this.element;
+    }, t.prototype.appendNode = function (e, t) {
+      var o = t || this.tree,
+          n = o.append(e);
+      return this._refreshElements(o), n;
+    }, t.prototype.prependNode = function (e, t) {
+      var o = null != t ? t : this.tree,
+          n = o.prepend(e);
+      return this._refreshElements(o), n;
+    }, t.prototype.updateNode = function (e, t) {
+      if (!e) throw Error(L);
+      var o = "object" == _typeof(t) && t.id && t.id !== e.id;
+      o && this.tree.removeNodeFromIndex(e), e.setData(t), o && this.tree.addNodeToIndex(e), "object" == _typeof(t) && t.children && t.children instanceof Array && (e.removeChildren(), t.children.length && e.loadFromData(t.children));
+      var n = this.selectNodeHandler.isFocusOnTree(),
+          r = this.isSelectedNodeInSubtree(e);
+      return this._refreshElements(e), r && this.selectCurrentNode(n), this.element;
+    }, t.prototype.isSelectedNodeInSubtree = function (e) {
+      var t = this.getSelectedNode();
+      return !!t && (e === t || e.isParentOf(t));
+    }, t.prototype.moveNode = function (e, t, o) {
+      if (!e) throw Error(L);
+      if (!t) throw Error(H + "targetNode");
+      var n = l[o];
+      return void 0 !== n && (this.tree.moveNode(e, t, n), this._refreshElements(null)), this.element;
+    }, t.prototype.getStateFromStorage = function () {
+      return this.saveStateHandler.getStateFromStorage();
+    }, t.prototype.addToSelection = function (e, t) {
+      if (!e) throw Error(L);
+      return this.selectNodeHandler.addToSelection(e), this._getNodeElementForNode(e).select(void 0 === t || t), this.saveState(), this.element;
+    }, t.prototype.getSelectedNodes = function () {
+      return this.selectNodeHandler.getSelectedNodes();
+    }, t.prototype.isNodeSelected = function (e) {
+      if (!e) throw Error(L);
+      return this.selectNodeHandler.isNodeSelected(e);
+    }, t.prototype.removeFromSelection = function (e) {
+      if (!e) throw Error(L);
+      return this.selectNodeHandler.removeFromSelection(e), this._getNodeElementForNode(e).deselect(), this.saveState(), this.element;
+    }, t.prototype.scrollToNode = function (e) {
+      if (!e) throw Error(L);
+      var t = w(e.element).offset(),
+          o = t ? t.top : 0,
+          n = this.$el.offset(),
+          r = o - (n ? n.top : 0);
+      return this.scrollHandler.scrollToY(r), this.element;
+    }, t.prototype.getState = function () {
+      return this.saveStateHandler.getState();
+    }, t.prototype.setState = function (e) {
+      return this.saveStateHandler.setInitialState(e), this._refreshElements(null), this.element;
+    }, t.prototype.setOption = function (e, t) {
+      return this.options[e] = t, this.element;
+    }, t.prototype.moveDown = function () {
+      var e = this.getSelectedNode();
+      return e && this.keyHandler.moveDown(e), this.element;
+    }, t.prototype.moveUp = function () {
+      var e = this.getSelectedNode();
+      return e && this.keyHandler.moveUp(e), this.element;
+    }, t.prototype.getVersion = function () {
+      return "1.6.1";
+    }, t.prototype._triggerEvent = function (e, t) {
+      var o = w.Event(e, t);
+      return this.element.trigger(o), o;
+    }, t.prototype._openNode = function (e, t, o) {
+      var n = this;
+      void 0 === t && (t = !0);
+
+      var r = function r(e, t, o) {
+        new W(e, n).open(o, t, n.options.animationSpeed);
+      };
+
+      if (e.isFolder() || e.isEmptyFolder) if (e.load_on_demand) this.loadFolderOnDemand(e, t, o);else {
+        for (var i = e.parent; i;) {
+          i.parent && r(i, !1, null), i = i.parent;
+        }
+
+        r(e, t, o), this.saveState();
+      }
+    }, t.prototype._refreshElements = function (e) {
+      this.renderer.render(e), this._triggerEvent("tree.refresh");
+    }, t.prototype._getNodeElementForNode = function (e) {
+      return e.isFolder() ? new W(e, this) : new F(e, this);
+    }, t.prototype._getNodeElement = function (e) {
+      var t = this.getNode(e);
+      return t ? this._getNodeElementForNode(t) : null;
+    }, t.prototype._containsElement = function (e) {
+      var t = this.getNode(w(e));
+      return null != t && t.tree === this.tree;
+    }, t.prototype._getScrollLeft = function () {
+      return this.scrollHandler.getScrollLeft();
+    }, t.prototype.init = function () {
+      e.prototype.init.call(this), this.element = this.$el, this.isInitialized = !1, this.options.rtl = this.getRtlOption(), null == this.options.closedIcon && (this.options.closedIcon = this.getDefaultClosedIcon()), this.renderer = new v(this), this.dataLoader = new m(this), this.saveStateHandler = new E(this), this.selectNodeHandler = new j(this), this.dndHandler = new p(this), this.scrollHandler = new C(this), this.keyHandler = new y(this), this.initData(), this.element.on("click", this.handleClick), this.element.on("dblclick", this.handleDblclick), this.options.useContextMenu && this.element.on("contextmenu", this.handleContextmenu);
+    }, t.prototype.deinit = function () {
+      this.element.empty(), this.element.off(), this.keyHandler.deinit(), this.tree = new h({}, !0), e.prototype.deinit.call(this);
+    }, t.prototype.mouseCapture = function (e) {
+      return !!this.options.dragAndDrop && this.dndHandler.mouseCapture(e);
+    }, t.prototype.mouseStart = function (e) {
+      return !!this.options.dragAndDrop && this.dndHandler.mouseStart(e);
+    }, t.prototype.mouseDrag = function (e) {
+      if (this.options.dragAndDrop) {
+        var t = this.dndHandler.mouseDrag(e);
+        return this.scrollHandler.checkScrolling(), t;
+      }
+
+      return !1;
+    }, t.prototype.mouseStop = function (e) {
+      return !!this.options.dragAndDrop && this.dndHandler.mouseStop(e);
+    }, t.prototype.getMouseDelay = function () {
+      var e;
+      return null !== (e = this.options.startDndDelay) && void 0 !== e ? e : 0;
+    }, t.prototype.initData = function () {
+      this.options.data ? this.doLoadData(this.options.data, null) : this.getDataUrlInfo(null) ? this.doLoadDataFromUrl(null, null, null) : this.doLoadData([], null);
+    }, t.prototype.getDataUrlInfo = function (e) {
+      var t,
+          o = this,
+          n = this.options.dataUrl || this.element.data("url"),
+          r = function r(t) {
+        if (null == e ? void 0 : e.id) {
+          var n = {
+            node: e.id
+          };
+          t.data = n;
+        } else {
+          var r = o.getNodeIdToBeSelected();
+
+          if (r) {
+            n = {
+              selected_node: r
+            };
+            t.data = n;
+          }
+        }
+      };
+
+      return "function" == typeof n ? n(e) : "string" == typeof n ? (r(t = {
+        url: n
+      }), t) : n && "object" == _typeof(n) ? (r(n), n) : null;
+    }, t.prototype.getNodeIdToBeSelected = function () {
+      return this.options.saveState ? this.saveStateHandler.getNodeIdToBeSelected() : null;
+    }, t.prototype.initTree = function (e) {
+      var t = this,
+          o = function o() {
+        t.isInitialized || (t.isInitialized = !0, t._triggerEvent("tree.init"));
+      };
+
+      if (this.options.nodeClass) {
+        this.tree = new this.options.nodeClass(null, !0, this.options.nodeClass), this.selectNodeHandler.clear(), this.tree.loadFromData(e);
+        var n = this.setInitialState();
+        this._refreshElements(null), n ? this.setInitialStateOnDemand(o) : o();
+      }
+    }, t.prototype.setInitialState = function () {
+      var e = this,
+          t = function () {
+        if (e.options.saveState) {
+          var t = e.saveStateHandler.getStateFromStorage();
+          return t ? [!0, e.saveStateHandler.setInitialState(t)] : [!1, !1];
+        }
+
+        return [!1, !1];
+      }(),
+          o = t[0],
+          n = t[1];
+
+      return o || (n = function () {
+        if (!1 === e.options.autoOpen) return !1;
+        var t = e.getAutoOpenMaxLevel(),
+            o = !1;
+        return e.tree.iterate(function (e, n) {
+          return e.load_on_demand ? (o = !0, !1) : !!e.hasChildren() && (e.is_open = !0, n !== t);
+        }), o;
+      }()), n;
+    }, t.prototype.setInitialStateOnDemand = function (e) {
+      var t,
+          o,
+          _n,
+          r = this;
+
+      (function () {
+        if (r.options.saveState) {
+          var t = r.saveStateHandler.getStateFromStorage();
+          return !!t && (r.saveStateHandler.setInitialStateOnDemand(t, e), !0);
+        }
+
+        return !1;
+      })() || (t = r.getAutoOpenMaxLevel(), o = 0, (_n = function n() {
+        r.tree.iterate(function (e, i) {
+          return e.load_on_demand ? (e.is_loading || function (e) {
+            o += 1, r._openNode(e, !1, function () {
+              o -= 1, _n();
+            });
+          }(e), !1) : (r._openNode(e, !1, null), i !== t);
+        }), 0 === o && e();
+      })());
+    }, t.prototype.getAutoOpenMaxLevel = function () {
+      return !0 === this.options.autoOpen ? -1 : "number" == typeof this.options.autoOpen ? this.options.autoOpen : "string" == typeof this.options.autoOpen ? parseInt(this.options.autoOpen, 10) : 0;
+    }, t.prototype.getClickTarget = function (e) {
+      var t = w(e),
+          o = t.closest(".jqtree-toggler");
+
+      if (o.length) {
+        if (n = this.getNode(o)) return {
+          type: "button",
+          node: n
+        };
+      } else {
+        var n,
+            r = t.closest(".jqtree-element");
+        if (r.length) if (n = this.getNode(r)) return {
+          type: "label",
+          node: n
+        };
+      }
+
+      return null;
+    }, t.prototype.getNode = function (e) {
+      var t = e.closest("li.jqtree_common");
+      return 0 === t.length ? null : t.data("node");
+    }, t.prototype.saveState = function () {
+      this.options.saveState && this.saveStateHandler.saveState();
+    }, t.prototype.selectCurrentNode = function (e) {
+      var t = this.getSelectedNode();
+
+      if (t) {
+        var o = this._getNodeElementForNode(t);
+
+        o && o.select(e);
+      }
+    }, t.prototype.deselectCurrentNode = function () {
+      var e = this.getSelectedNode();
+      e && this.removeFromSelection(e);
+    }, t.prototype.getDefaultClosedIcon = function () {
+      return this.options.rtl ? "&#x25c0;" : "&#x25ba;";
+    }, t.prototype.getRtlOption = function () {
+      if (null != this.options.rtl) return this.options.rtl;
+      var e = this.element.data("rtl");
+      return null !== e && !1 !== e && void 0 !== e;
+    }, t.prototype.doSelectNode = function (e, t) {
+      var o = this,
+          n = function n() {
+        o.options.saveState && o.saveStateHandler.saveState();
+      };
+
+      if (!e) return this.deselectCurrentNode(), void n();
+
+      var r = _a(_a({}, {
+        mustSetFocus: !0,
+        mustToggle: !0
+      }), t || {});
+
+      if (o.options.onCanSelectNode ? !0 === o.options.selectable && o.options.onCanSelectNode(e) : !0 === o.options.selectable) {
+        if (this.selectNodeHandler.isNodeSelected(e)) r.mustToggle && (this.deselectCurrentNode(), this._triggerEvent("tree.select", {
+          node: null,
+          previous_node: e
+        }));else {
+          var i = this.getSelectedNode() || null;
+          this.deselectCurrentNode(), this.addToSelection(e, r.mustSetFocus), this._triggerEvent("tree.select", {
+            node: e,
+            deselected_node: i
+          }), (s = e.parent) && s.parent && !s.is_open && o.openNode(s, !1);
+        }
+        var s;
+        n();
+      }
+    }, t.prototype.doLoadData = function (e, t) {
+      e && (this._triggerEvent("tree.load_data", {
+        tree_data: e
+      }), t ? (this.deselectNodes(t), this.loadSubtree(e, t)) : this.initTree(e), this.isDragging() && this.dndHandler.refresh());
+    }, t.prototype.deselectNodes = function (e) {
+      for (var t = 0, o = this.selectNodeHandler.getSelectedNodesUnder(e); t < o.length; t++) {
+        var n = o[t];
+        this.selectNodeHandler.removeFromSelection(n);
+      }
+    }, t.prototype.loadSubtree = function (e, t) {
+      t.loadFromData(e), t.load_on_demand = !1, t.is_loading = !1, this._refreshElements(t);
+    }, t.prototype.doLoadDataFromUrl = function (e, t, o) {
+      var n = e || this.getDataUrlInfo(t);
+      this.dataLoader.loadFromUrl(n, t, o);
+    }, t.prototype.loadFolderOnDemand = function (e, t, o) {
+      var n = this;
+      void 0 === t && (t = !0), e.is_loading = !0, this.doLoadDataFromUrl(null, e, function () {
+        n._openNode(e, t, o);
+      });
+    }, t.defaults = {
+      animationSpeed: "fast",
+      autoEscape: !0,
+      autoOpen: !1,
+      buttonLeft: !0,
+      closedIcon: void 0,
+      data: void 0,
+      dataFilter: void 0,
+      dataUrl: void 0,
+      dragAndDrop: !1,
+      keyboardSupport: !0,
+      nodeClass: h,
+      onCanMove: void 0,
+      onCanMoveTo: void 0,
+      onCanSelectNode: void 0,
+      onCreateLi: void 0,
+      onDragMove: void 0,
+      onDragStop: void 0,
+      onGetStateFromStorage: void 0,
+      onIsMoveHandle: void 0,
+      onLoadFailed: void 0,
+      onLoading: void 0,
+      onSetStateFromStorage: void 0,
+      openedIcon: "&#x25bc;",
+      openFolderDelay: 500,
+      rtl: void 0,
+      saveState: !1,
+      selectable: !0,
+      showEmptyFolder: !1,
+      slide: !0,
+      startDndDelay: 300,
+      tabIndex: 0,
+      useContextMenu: !0
+    }, t;
+  }(I);
+
+  return S.register(A, "tree"), e.JqTreeWidget = A, Object.defineProperty(e, "__esModule", {
+    value: !0
+  }), e;
+}({});
 
 /***/ }),
 
@@ -71906,37 +65137,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery_circle_progress__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery-circle-progress */ "./resources/admin_ui/vendors/jquery-circle-progress/dist/circle-progress.js");
 /* harmony import */ var jquery_circle_progress__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery_circle_progress__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
-/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
-/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var jquery_fancytree__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jquery.fancytree */ "./node_modules/jquery.fancytree/dist/modules/jquery.fancytree.js");
-/* harmony import */ var jquery_fancytree__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jquery_fancytree__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var apexcharts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! apexcharts */ "./node_modules/apexcharts/dist/apexcharts.common.js");
-/* harmony import */ var apexcharts__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(apexcharts__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var bootstrap_table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! bootstrap-table */ "./node_modules/bootstrap-table/dist/bootstrap-table.min.js");
-/* harmony import */ var bootstrap_table__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(bootstrap_table__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js");
-/* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(datatables_net__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var datatables_net_bs4__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js");
-/* harmony import */ var datatables_net_bs4__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(datatables_net_bs4__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var datatables_net_responsive__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! datatables.net-responsive */ "./node_modules/datatables.net-responsive/js/dataTables.responsive.js");
-/* harmony import */ var datatables_net_responsive__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(datatables_net_responsive__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var datatables_net_responsive_bs4__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.js");
-/* harmony import */ var datatables_net_responsive_bs4__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(datatables_net_responsive_bs4__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _vendors_chenfengyuan_datepicker__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../vendors/@chenfengyuan/datepicker */ "./resources/admin_ui/vendors/@chenfengyuan/datepicker/dist/datepicker.js");
-/* harmony import */ var _vendors_chenfengyuan_datepicker__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_vendors_chenfengyuan_datepicker__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _vendors_daterangepicker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../vendors/daterangepicker */ "./resources/admin_ui/vendors/daterangepicker/daterangepicker.js");
-/* harmony import */ var _vendors_daterangepicker__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_vendors_daterangepicker__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
-/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./../vendors/countup.js/dist/countUp */ "./resources/admin_ui/vendors/countup.js/dist/countUp.js");
-/* harmony import */ var _vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../vendors/sweetalert2 */ "./resources/admin_ui/vendors/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _vendors_jquery_validation_dist_jquery_validate__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../vendors/jquery-validation/dist/jquery.validate */ "./resources/admin_ui/vendors/jquery-validation/dist/jquery.validate.js");
-/* harmony import */ var _vendors_jquery_validation_dist_jquery_validate__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_vendors_jquery_validation_dist_jquery_validate__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var apexcharts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! apexcharts */ "./node_modules/apexcharts/dist/apexcharts.common.js");
+/* harmony import */ var apexcharts__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(apexcharts__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var bootstrap_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! bootstrap-table */ "./node_modules/bootstrap-table/dist/bootstrap-table.min.js");
+/* harmony import */ var bootstrap_table__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(bootstrap_table__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js");
+/* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(datatables_net__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var datatables_net_bs4__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js");
+/* harmony import */ var datatables_net_bs4__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(datatables_net_bs4__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var datatables_net_responsive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! datatables.net-responsive */ "./node_modules/datatables.net-responsive/js/dataTables.responsive.js");
+/* harmony import */ var datatables_net_responsive__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(datatables_net_responsive__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var datatables_net_responsive_bs4__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.js");
+/* harmony import */ var datatables_net_responsive_bs4__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(datatables_net_responsive_bs4__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _vendors_chart_js_dist_Chart_min__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../vendors/chart.js/dist/Chart.min */ "./resources/admin_ui/vendors/chart.js/dist/Chart.min.js");
+/* harmony import */ var _vendors_chart_js_dist_Chart_min__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_vendors_chart_js_dist_Chart_min__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _vendors_chenfengyuan_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../vendors/@chenfengyuan/datepicker */ "./resources/admin_ui/vendors/@chenfengyuan/datepicker/dist/datepicker.js");
+/* harmony import */ var _vendors_chenfengyuan_datepicker__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_vendors_chenfengyuan_datepicker__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _vendors_daterangepicker__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../vendors/daterangepicker */ "./resources/admin_ui/vendors/daterangepicker/daterangepicker.js");
+/* harmony import */ var _vendors_daterangepicker__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_vendors_daterangepicker__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./../vendors/countup.js/dist/countUp */ "./resources/admin_ui/vendors/countup.js/dist/countUp.js");
+/* harmony import */ var _vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../vendors/sweetalert2 */ "./resources/admin_ui/vendors/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _vendors_jquery_validation_dist_jquery_validate__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../vendors/jquery-validation/dist/jquery.validate */ "./resources/admin_ui/vendors/jquery-validation/dist/jquery.validate.js");
+/* harmony import */ var _vendors_jquery_validation_dist_jquery_validate__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_vendors_jquery_validation_dist_jquery_validate__WEBPACK_IMPORTED_MODULE_19__);
 // // Imports
+// window.Vue = require('vue');
 
 window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 window.jQuery = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
@@ -71946,38 +65176,39 @@ window.bootstrap = _vendors_bootstrap__WEBPACK_IMPORTED_MODULE_1__; // import mo
 
 window.moment = moment__WEBPACK_IMPORTED_MODULE_2___default.a;
 
+ // import "perfect-scrollbar"
 
 
-
-window.PerfectScrollbar = perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__["default"];
-
-
-
-window.ApexCharts = apexcharts__WEBPACK_IMPORTED_MODULE_8___default.a;
+window.PerfectScrollbar = perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__["default"]; // import "toastr";
+// import "jquery.fancytree";
 
 
-
-
+window.ApexCharts = apexcharts__WEBPACK_IMPORTED_MODULE_6___default.a;
 
 
 
 
 
-window.CountUp = _vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_17___default.a;
 
 
-window.Swal = _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19___default.a;
-window.Axios = axios__WEBPACK_IMPORTED_MODULE_18___default.a;
 
-window.Toast = _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19___default.a.mixin({
+
+
+window.CountUp = _vendors_countup_js_dist_countUp__WEBPACK_IMPORTED_MODULE_16___default.a;
+
+
+window.Swal = _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18___default.a;
+window.Axios = axios__WEBPACK_IMPORTED_MODULE_17___default.a;
+
+window.Toast = _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18___default.a.mixin({
   toast: true,
   position: 'mid-center',
   showConfirmButton: false,
-  timer: 3000,
+  timer: 2000,
   timerProgressBar: true,
   didOpen: function didOpen(toast) {
-    toast.addEventListener('mouseenter', _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19___default.a.stopTimer);
-    toast.addEventListener('mouseleave', _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_19___default.a.resumeTimer);
+    toast.addEventListener('mouseenter', _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18___default.a.stopTimer);
+    toast.addEventListener('mouseleave', _vendors_sweetalert2__WEBPACK_IMPORTED_MODULE_18___default.a.resumeTimer);
   }
 });
 
@@ -71991,11 +65222,9 @@ __webpack_require__(/*! ./circle-progress */ "./resources/admin_ui/js/circle-pro
 
 __webpack_require__(/*! ./demo */ "./resources/admin_ui/js/demo.js");
 
-__webpack_require__(/*! ./scrollbar */ "./resources/admin_ui/js/scrollbar.js");
+__webpack_require__(/*! ./scrollbar */ "./resources/admin_ui/js/scrollbar.js"); // require('./toastr');
+// require('./treeview');
 
-__webpack_require__(/*! ./toastr */ "./resources/admin_ui/js/toastr.js");
-
-__webpack_require__(/*! ./treeview */ "./resources/admin_ui/js/treeview.js");
 
 __webpack_require__(/*! ./form-components/toggle-switch */ "./resources/admin_ui/js/form-components/toggle-switch.js");
 
@@ -72005,15 +65234,11 @@ __webpack_require__(/*! ./carousel-slider */ "./resources/admin_ui/js/carousel-s
 
 __webpack_require__(/*! ./customs/count-up */ "./resources/admin_ui/js/customs/count-up.js");
 
-__webpack_require__(/*! ./customs/ckeditor */ "./resources/admin_ui/js/customs/ckeditor.js"); // require('./form-components/datepicker')
-// window.Vue = require('vue');
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-//
+__webpack_require__(/*! ./customs/ckeditor */ "./resources/admin_ui/js/customs/ckeditor.js");
 
+__webpack_require__(/*! ./charts/chartjs */ "./resources/admin_ui/js/charts/chartjs.js");
 
-var app = new Vue({
-  el: '#app'
-}); // // Stylesheets
+__webpack_require__(/*! ./customs/tree.jquery */ "./resources/admin_ui/js/customs/tree.jquery.js");
 
 /***/ }),
 
@@ -72042,228 +65267,6 @@ $(document).ready(function () {
       });
     }
   }, 1000);
-});
-
-/***/ }),
-
-/***/ "./resources/admin_ui/js/toastr.js":
-/*!*****************************************!*\
-  !*** ./resources/admin_ui/js/toastr.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Toastr
-$(document).ready(function () {
-  $(function () {
-    var i = -1;
-    var toastCount = 0;
-    var $toastlast;
-
-    var getMessage = function getMessage() {
-      var msgs = ["My name is Inigo Montoya. You killed my father. Prepare to die!", '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>', "Are you the six fingered man?", "Inconceivable!", "I do not think that means what you think it means.", "Have fun storming the castle!"];
-      i++;
-
-      if (i === msgs.length) {
-        i = 0;
-      }
-
-      return msgs[i];
-    };
-
-    var getMessageWithClearButton = function getMessageWithClearButton(msg) {
-      msg = msg ? msg : "Clear itself?";
-      msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
-      return msg;
-    };
-
-    $("#closeButton").click(function () {
-      if ($(this).is(":checked")) {
-        $("#addBehaviorOnToastCloseClick").prop("disabled", false);
-      } else {
-        $("#addBehaviorOnToastCloseClick").prop("disabled", true);
-        $("#addBehaviorOnToastCloseClick").prop("checked", false);
-      }
-    });
-    $("#showtoast").click(function () {
-      var shortCutFunction = $("#toastTypeGroup input:radio:checked").val();
-      var msg = $("#message").val();
-      var title = $("#title").val() || "";
-      var $showDuration = $("#showDuration");
-      var $hideDuration = $("#hideDuration");
-      var $timeOut = $("#timeOut");
-      var $extendedTimeOut = $("#extendedTimeOut");
-      var $showEasing = $("#showEasing");
-      var $hideEasing = $("#hideEasing");
-      var $showMethod = $("#showMethod");
-      var $hideMethod = $("#hideMethod");
-      var toastIndex = toastCount++;
-      var addClear = $("#addClear").prop("checked");
-      toastr.options = {
-        closeButton: $("#closeButton").prop("checked"),
-        debug: $("#debugInfo").prop("checked"),
-        newestOnTop: $("#newestOnTop").prop("checked"),
-        progressBar: $("#progressBar").prop("checked"),
-        rtl: $("#rtl").prop("checked"),
-        positionClass: $("#positionGroup input:radio:checked").val() || "toast-top-right",
-        preventDuplicates: $("#preventDuplicates").prop("checked"),
-        onclick: null
-      };
-
-      if ($("#addBehaviorOnToastClick").prop("checked")) {
-        toastr.options.onclick = function () {
-          alert("You can perform some custom action after a toast goes away");
-        };
-      }
-
-      if ($("#addBehaviorOnToastCloseClick").prop("checked")) {
-        toastr.options.onCloseClick = function () {
-          alert("You can perform some custom action when the close button is clicked");
-        };
-      }
-
-      if ($showDuration.val().length) {
-        toastr.options.showDuration = parseInt($showDuration.val());
-      }
-
-      if ($hideDuration.val().length) {
-        toastr.options.hideDuration = parseInt($hideDuration.val());
-      }
-
-      if ($timeOut.val().length) {
-        toastr.options.timeOut = addClear ? 0 : parseInt($timeOut.val());
-      }
-
-      if ($extendedTimeOut.val().length) {
-        toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut.val());
-      }
-
-      if ($showEasing.val().length) {
-        toastr.options.showEasing = $showEasing.val();
-      }
-
-      if ($hideEasing.val().length) {
-        toastr.options.hideEasing = $hideEasing.val();
-      }
-
-      if ($showMethod.val().length) {
-        toastr.options.showMethod = $showMethod.val();
-      }
-
-      if ($hideMethod.val().length) {
-        toastr.options.hideMethod = $hideMethod.val();
-      }
-
-      if (addClear) {
-        msg = getMessageWithClearButton(msg);
-        toastr.options.tapToDismiss = false;
-      }
-
-      if (!msg) {
-        msg = getMessage();
-      }
-
-      $("#toastrOptions").text('Command: toastr["' + shortCutFunction + '"]("' + msg + (title ? '", "' + title : "") + '")\n\ntoastr.options = ' + JSON.stringify(toastr.options, null, 2));
-      var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
-
-      $toastlast = $toast;
-
-      if (typeof $toast === "undefined") {
-        return;
-      }
-
-      if ($toast.find("#okBtn").length) {
-        $toast.delegate("#okBtn", "click", function () {
-          alert("you clicked me. i was toast #" + toastIndex + ". goodbye!");
-          $toast.remove();
-        });
-      }
-
-      if ($toast.find("#surpriseBtn").length) {
-        $toast.delegate("#surpriseBtn", "click", function () {
-          alert("Surprise! you clicked me. i was toast #" + toastIndex + ". You could perform an action here.");
-        });
-      }
-
-      if ($toast.find(".clear").length) {
-        $toast.delegate(".clear", "click", function () {
-          toastr.clear($toast, {
-            force: true
-          });
-        });
-      }
-    });
-
-    function getLastToast() {
-      return $toastlast;
-    }
-
-    $("#clearlasttoast").click(function () {
-      toastr.clear(getLastToast());
-    });
-    $("#cleartoasts").click(function () {
-      toastr.clear();
-    });
-  });
-  $(".show-toastr-example").click(function () {
-    toastr.options = {
-      closeButton: true,
-      debug: false,
-      newestOnTop: true,
-      progressBar: true,
-      positionClass: "toast-bottom-center",
-      preventDuplicates: false,
-      onclick: null,
-      showDuration: "300",
-      hideDuration: "1000",
-      timeOut: "5000",
-      extendedTimeOut: "1000",
-      showEasing: "swing",
-      hideEasing: "linear",
-      showMethod: "fadeIn",
-      hideMethod: "fadeOut"
-    };
-    toastr["info"]("You don't have any new items in your calendar today!", "Example Toastr");
-  });
-});
-
-/***/ }),
-
-/***/ "./resources/admin_ui/js/treeview.js":
-/*!*******************************************!*\
-  !*** ./resources/admin_ui/js/treeview.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Tree View
-$(document).ready(function () {
-  $("#tree").fancytree({
-    checkbox: true,
-    selectMode: 3,
-    source: {
-      url: "https://cdn.rawgit.com/mar10/fancytree/72e03685/demo/ajax-tree-products.json"
-    },
-    lazyLoad: function lazyLoad(event, data) {
-      data.result = {
-        url: "https://cdn.rawgit.com/mar10/fancytree/72e03685/demo/ajax-sub2.json"
-      };
-    },
-    activate: function activate(event, data) {
-      $("#statusLine").text(event.type + ": " + data.node);
-    },
-    select: function select(event, data) {
-      $("#statusLine").text(event.type + ": " + data.node.isSelected() + " " + data.node);
-    }
-  }); // Sample button
-
-  $("#button1").click(function () {
-    var tree = $.ui.fancytree.getTree(),
-        node = tree.findFirst(function (n) {
-      return n.title === "The Hobbit";
-    });
-    node.toggleSelected();
-  });
 });
 
 /***/ }),
@@ -79989,6 +72992,8111 @@ enableDismissTrigger(Toast);
 
 defineJQueryPlugin(Toast);
 
+
+/***/ }),
+
+/***/ "./resources/admin_ui/vendors/chart.js/dist/Chart.min.js":
+/*!***************************************************************!*\
+  !*** ./resources/admin_ui/vendors/chart.js/dist/Chart.min.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
+ * Chart.js v2.9.4
+ * https://www.chartjs.org
+ * (c) 2020 Chart.js Contributors
+ * Released under the MIT License
+ */
+!function (t, e) {
+  "object" == ( false ? undefined : _typeof(exports)) && "undefined" != typeof module ? module.exports = e(function () {
+    try {
+      return __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+    } catch (t) {}
+  }()) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__], __WEBPACK_AMD_DEFINE_RESULT__ = (function (t) {
+    return e(function () {
+      try {
+        return t("moment");
+      } catch (t) {}
+    }());
+  }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
+}(this, function (t) {
+  "use strict";
+
+  t = t && t.hasOwnProperty("default") ? t["default"] : t;
+
+  var e = {
+    aliceblue: [240, 248, 255],
+    antiquewhite: [250, 235, 215],
+    aqua: [0, 255, 255],
+    aquamarine: [127, 255, 212],
+    azure: [240, 255, 255],
+    beige: [245, 245, 220],
+    bisque: [255, 228, 196],
+    black: [0, 0, 0],
+    blanchedalmond: [255, 235, 205],
+    blue: [0, 0, 255],
+    blueviolet: [138, 43, 226],
+    brown: [165, 42, 42],
+    burlywood: [222, 184, 135],
+    cadetblue: [95, 158, 160],
+    chartreuse: [127, 255, 0],
+    chocolate: [210, 105, 30],
+    coral: [255, 127, 80],
+    cornflowerblue: [100, 149, 237],
+    cornsilk: [255, 248, 220],
+    crimson: [220, 20, 60],
+    cyan: [0, 255, 255],
+    darkblue: [0, 0, 139],
+    darkcyan: [0, 139, 139],
+    darkgoldenrod: [184, 134, 11],
+    darkgray: [169, 169, 169],
+    darkgreen: [0, 100, 0],
+    darkgrey: [169, 169, 169],
+    darkkhaki: [189, 183, 107],
+    darkmagenta: [139, 0, 139],
+    darkolivegreen: [85, 107, 47],
+    darkorange: [255, 140, 0],
+    darkorchid: [153, 50, 204],
+    darkred: [139, 0, 0],
+    darksalmon: [233, 150, 122],
+    darkseagreen: [143, 188, 143],
+    darkslateblue: [72, 61, 139],
+    darkslategray: [47, 79, 79],
+    darkslategrey: [47, 79, 79],
+    darkturquoise: [0, 206, 209],
+    darkviolet: [148, 0, 211],
+    deeppink: [255, 20, 147],
+    deepskyblue: [0, 191, 255],
+    dimgray: [105, 105, 105],
+    dimgrey: [105, 105, 105],
+    dodgerblue: [30, 144, 255],
+    firebrick: [178, 34, 34],
+    floralwhite: [255, 250, 240],
+    forestgreen: [34, 139, 34],
+    fuchsia: [255, 0, 255],
+    gainsboro: [220, 220, 220],
+    ghostwhite: [248, 248, 255],
+    gold: [255, 215, 0],
+    goldenrod: [218, 165, 32],
+    gray: [128, 128, 128],
+    green: [0, 128, 0],
+    greenyellow: [173, 255, 47],
+    grey: [128, 128, 128],
+    honeydew: [240, 255, 240],
+    hotpink: [255, 105, 180],
+    indianred: [205, 92, 92],
+    indigo: [75, 0, 130],
+    ivory: [255, 255, 240],
+    khaki: [240, 230, 140],
+    lavender: [230, 230, 250],
+    lavenderblush: [255, 240, 245],
+    lawngreen: [124, 252, 0],
+    lemonchiffon: [255, 250, 205],
+    lightblue: [173, 216, 230],
+    lightcoral: [240, 128, 128],
+    lightcyan: [224, 255, 255],
+    lightgoldenrodyellow: [250, 250, 210],
+    lightgray: [211, 211, 211],
+    lightgreen: [144, 238, 144],
+    lightgrey: [211, 211, 211],
+    lightpink: [255, 182, 193],
+    lightsalmon: [255, 160, 122],
+    lightseagreen: [32, 178, 170],
+    lightskyblue: [135, 206, 250],
+    lightslategray: [119, 136, 153],
+    lightslategrey: [119, 136, 153],
+    lightsteelblue: [176, 196, 222],
+    lightyellow: [255, 255, 224],
+    lime: [0, 255, 0],
+    limegreen: [50, 205, 50],
+    linen: [250, 240, 230],
+    magenta: [255, 0, 255],
+    maroon: [128, 0, 0],
+    mediumaquamarine: [102, 205, 170],
+    mediumblue: [0, 0, 205],
+    mediumorchid: [186, 85, 211],
+    mediumpurple: [147, 112, 219],
+    mediumseagreen: [60, 179, 113],
+    mediumslateblue: [123, 104, 238],
+    mediumspringgreen: [0, 250, 154],
+    mediumturquoise: [72, 209, 204],
+    mediumvioletred: [199, 21, 133],
+    midnightblue: [25, 25, 112],
+    mintcream: [245, 255, 250],
+    mistyrose: [255, 228, 225],
+    moccasin: [255, 228, 181],
+    navajowhite: [255, 222, 173],
+    navy: [0, 0, 128],
+    oldlace: [253, 245, 230],
+    olive: [128, 128, 0],
+    olivedrab: [107, 142, 35],
+    orange: [255, 165, 0],
+    orangered: [255, 69, 0],
+    orchid: [218, 112, 214],
+    palegoldenrod: [238, 232, 170],
+    palegreen: [152, 251, 152],
+    paleturquoise: [175, 238, 238],
+    palevioletred: [219, 112, 147],
+    papayawhip: [255, 239, 213],
+    peachpuff: [255, 218, 185],
+    peru: [205, 133, 63],
+    pink: [255, 192, 203],
+    plum: [221, 160, 221],
+    powderblue: [176, 224, 230],
+    purple: [128, 0, 128],
+    rebeccapurple: [102, 51, 153],
+    red: [255, 0, 0],
+    rosybrown: [188, 143, 143],
+    royalblue: [65, 105, 225],
+    saddlebrown: [139, 69, 19],
+    salmon: [250, 128, 114],
+    sandybrown: [244, 164, 96],
+    seagreen: [46, 139, 87],
+    seashell: [255, 245, 238],
+    sienna: [160, 82, 45],
+    silver: [192, 192, 192],
+    skyblue: [135, 206, 235],
+    slateblue: [106, 90, 205],
+    slategray: [112, 128, 144],
+    slategrey: [112, 128, 144],
+    snow: [255, 250, 250],
+    springgreen: [0, 255, 127],
+    steelblue: [70, 130, 180],
+    tan: [210, 180, 140],
+    teal: [0, 128, 128],
+    thistle: [216, 191, 216],
+    tomato: [255, 99, 71],
+    turquoise: [64, 224, 208],
+    violet: [238, 130, 238],
+    wheat: [245, 222, 179],
+    white: [255, 255, 255],
+    whitesmoke: [245, 245, 245],
+    yellow: [255, 255, 0],
+    yellowgreen: [154, 205, 50]
+  },
+      n = function (t, e) {
+    return t(e = {
+      exports: {}
+    }, e.exports), e.exports;
+  }(function (t) {
+    var n = {};
+
+    for (var i in e) {
+      e.hasOwnProperty(i) && (n[e[i]] = i);
+    }
+
+    var a = t.exports = {
+      rgb: {
+        channels: 3,
+        labels: "rgb"
+      },
+      hsl: {
+        channels: 3,
+        labels: "hsl"
+      },
+      hsv: {
+        channels: 3,
+        labels: "hsv"
+      },
+      hwb: {
+        channels: 3,
+        labels: "hwb"
+      },
+      cmyk: {
+        channels: 4,
+        labels: "cmyk"
+      },
+      xyz: {
+        channels: 3,
+        labels: "xyz"
+      },
+      lab: {
+        channels: 3,
+        labels: "lab"
+      },
+      lch: {
+        channels: 3,
+        labels: "lch"
+      },
+      hex: {
+        channels: 1,
+        labels: ["hex"]
+      },
+      keyword: {
+        channels: 1,
+        labels: ["keyword"]
+      },
+      ansi16: {
+        channels: 1,
+        labels: ["ansi16"]
+      },
+      ansi256: {
+        channels: 1,
+        labels: ["ansi256"]
+      },
+      hcg: {
+        channels: 3,
+        labels: ["h", "c", "g"]
+      },
+      apple: {
+        channels: 3,
+        labels: ["r16", "g16", "b16"]
+      },
+      gray: {
+        channels: 1,
+        labels: ["gray"]
+      }
+    };
+
+    for (var r in a) {
+      if (a.hasOwnProperty(r)) {
+        if (!("channels" in a[r])) throw new Error("missing channels property: " + r);
+        if (!("labels" in a[r])) throw new Error("missing channel labels property: " + r);
+        if (a[r].labels.length !== a[r].channels) throw new Error("channel and label counts mismatch: " + r);
+        var o = a[r].channels,
+            s = a[r].labels;
+        delete a[r].channels, delete a[r].labels, Object.defineProperty(a[r], "channels", {
+          value: o
+        }), Object.defineProperty(a[r], "labels", {
+          value: s
+        });
+      }
+    }
+
+    a.rgb.hsl = function (t) {
+      var e,
+          n,
+          i = t[0] / 255,
+          a = t[1] / 255,
+          r = t[2] / 255,
+          o = Math.min(i, a, r),
+          s = Math.max(i, a, r),
+          l = s - o;
+      return s === o ? e = 0 : i === s ? e = (a - r) / l : a === s ? e = 2 + (r - i) / l : r === s && (e = 4 + (i - a) / l), (e = Math.min(60 * e, 360)) < 0 && (e += 360), n = (o + s) / 2, [e, 100 * (s === o ? 0 : n <= .5 ? l / (s + o) : l / (2 - s - o)), 100 * n];
+    }, a.rgb.hsv = function (t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o = t[0] / 255,
+          s = t[1] / 255,
+          l = t[2] / 255,
+          u = Math.max(o, s, l),
+          d = u - Math.min(o, s, l),
+          h = function h(t) {
+        return (u - t) / 6 / d + .5;
+      };
+
+      return 0 === d ? a = r = 0 : (r = d / u, e = h(o), n = h(s), i = h(l), o === u ? a = i - n : s === u ? a = 1 / 3 + e - i : l === u && (a = 2 / 3 + n - e), a < 0 ? a += 1 : a > 1 && (a -= 1)), [360 * a, 100 * r, 100 * u];
+    }, a.rgb.hwb = function (t) {
+      var e = t[0],
+          n = t[1],
+          i = t[2];
+      return [a.rgb.hsl(t)[0], 100 * (1 / 255 * Math.min(e, Math.min(n, i))), 100 * (i = 1 - 1 / 255 * Math.max(e, Math.max(n, i)))];
+    }, a.rgb.cmyk = function (t) {
+      var e,
+          n = t[0] / 255,
+          i = t[1] / 255,
+          a = t[2] / 255;
+      return [100 * ((1 - n - (e = Math.min(1 - n, 1 - i, 1 - a))) / (1 - e) || 0), 100 * ((1 - i - e) / (1 - e) || 0), 100 * ((1 - a - e) / (1 - e) || 0), 100 * e];
+    }, a.rgb.keyword = function (t) {
+      var i = n[t];
+      if (i) return i;
+      var a,
+          r,
+          o,
+          s = 1 / 0;
+
+      for (var l in e) {
+        if (e.hasOwnProperty(l)) {
+          var u = e[l],
+              d = (r = t, o = u, Math.pow(r[0] - o[0], 2) + Math.pow(r[1] - o[1], 2) + Math.pow(r[2] - o[2], 2));
+          d < s && (s = d, a = l);
+        }
+      }
+
+      return a;
+    }, a.keyword.rgb = function (t) {
+      return e[t];
+    }, a.rgb.xyz = function (t) {
+      var e = t[0] / 255,
+          n = t[1] / 255,
+          i = t[2] / 255;
+      return [100 * (.4124 * (e = e > .04045 ? Math.pow((e + .055) / 1.055, 2.4) : e / 12.92) + .3576 * (n = n > .04045 ? Math.pow((n + .055) / 1.055, 2.4) : n / 12.92) + .1805 * (i = i > .04045 ? Math.pow((i + .055) / 1.055, 2.4) : i / 12.92)), 100 * (.2126 * e + .7152 * n + .0722 * i), 100 * (.0193 * e + .1192 * n + .9505 * i)];
+    }, a.rgb.lab = function (t) {
+      var e = a.rgb.xyz(t),
+          n = e[0],
+          i = e[1],
+          r = e[2];
+      return i /= 100, r /= 108.883, n = (n /= 95.047) > .008856 ? Math.pow(n, 1 / 3) : 7.787 * n + 16 / 116, [116 * (i = i > .008856 ? Math.pow(i, 1 / 3) : 7.787 * i + 16 / 116) - 16, 500 * (n - i), 200 * (i - (r = r > .008856 ? Math.pow(r, 1 / 3) : 7.787 * r + 16 / 116))];
+    }, a.hsl.rgb = function (t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o = t[0] / 360,
+          s = t[1] / 100,
+          l = t[2] / 100;
+      if (0 === s) return [r = 255 * l, r, r];
+      e = 2 * l - (n = l < .5 ? l * (1 + s) : l + s - l * s), a = [0, 0, 0];
+
+      for (var u = 0; u < 3; u++) {
+        (i = o + 1 / 3 * -(u - 1)) < 0 && i++, i > 1 && i--, r = 6 * i < 1 ? e + 6 * (n - e) * i : 2 * i < 1 ? n : 3 * i < 2 ? e + (n - e) * (2 / 3 - i) * 6 : e, a[u] = 255 * r;
+      }
+
+      return a;
+    }, a.hsl.hsv = function (t) {
+      var e = t[0],
+          n = t[1] / 100,
+          i = t[2] / 100,
+          a = n,
+          r = Math.max(i, .01);
+      return n *= (i *= 2) <= 1 ? i : 2 - i, a *= r <= 1 ? r : 2 - r, [e, 100 * (0 === i ? 2 * a / (r + a) : 2 * n / (i + n)), 100 * ((i + n) / 2)];
+    }, a.hsv.rgb = function (t) {
+      var e = t[0] / 60,
+          n = t[1] / 100,
+          i = t[2] / 100,
+          a = Math.floor(e) % 6,
+          r = e - Math.floor(e),
+          o = 255 * i * (1 - n),
+          s = 255 * i * (1 - n * r),
+          l = 255 * i * (1 - n * (1 - r));
+
+      switch (i *= 255, a) {
+        case 0:
+          return [i, l, o];
+
+        case 1:
+          return [s, i, o];
+
+        case 2:
+          return [o, i, l];
+
+        case 3:
+          return [o, s, i];
+
+        case 4:
+          return [l, o, i];
+
+        case 5:
+          return [i, o, s];
+      }
+    }, a.hsv.hsl = function (t) {
+      var e,
+          n,
+          i,
+          a = t[0],
+          r = t[1] / 100,
+          o = t[2] / 100,
+          s = Math.max(o, .01);
+      return i = (2 - r) * o, n = r * s, [a, 100 * (n = (n /= (e = (2 - r) * s) <= 1 ? e : 2 - e) || 0), 100 * (i /= 2)];
+    }, a.hwb.rgb = function (t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l = t[0] / 360,
+          u = t[1] / 100,
+          d = t[2] / 100,
+          h = u + d;
+
+      switch (h > 1 && (u /= h, d /= h), i = 6 * l - (e = Math.floor(6 * l)), 0 != (1 & e) && (i = 1 - i), a = u + i * ((n = 1 - d) - u), e) {
+        default:
+        case 6:
+        case 0:
+          r = n, o = a, s = u;
+          break;
+
+        case 1:
+          r = a, o = n, s = u;
+          break;
+
+        case 2:
+          r = u, o = n, s = a;
+          break;
+
+        case 3:
+          r = u, o = a, s = n;
+          break;
+
+        case 4:
+          r = a, o = u, s = n;
+          break;
+
+        case 5:
+          r = n, o = u, s = a;
+      }
+
+      return [255 * r, 255 * o, 255 * s];
+    }, a.cmyk.rgb = function (t) {
+      var e = t[0] / 100,
+          n = t[1] / 100,
+          i = t[2] / 100,
+          a = t[3] / 100;
+      return [255 * (1 - Math.min(1, e * (1 - a) + a)), 255 * (1 - Math.min(1, n * (1 - a) + a)), 255 * (1 - Math.min(1, i * (1 - a) + a))];
+    }, a.xyz.rgb = function (t) {
+      var e,
+          n,
+          i,
+          a = t[0] / 100,
+          r = t[1] / 100,
+          o = t[2] / 100;
+      return n = -.9689 * a + 1.8758 * r + .0415 * o, i = .0557 * a + -.204 * r + 1.057 * o, e = (e = 3.2406 * a + -1.5372 * r + -.4986 * o) > .0031308 ? 1.055 * Math.pow(e, 1 / 2.4) - .055 : 12.92 * e, n = n > .0031308 ? 1.055 * Math.pow(n, 1 / 2.4) - .055 : 12.92 * n, i = i > .0031308 ? 1.055 * Math.pow(i, 1 / 2.4) - .055 : 12.92 * i, [255 * (e = Math.min(Math.max(0, e), 1)), 255 * (n = Math.min(Math.max(0, n), 1)), 255 * (i = Math.min(Math.max(0, i), 1))];
+    }, a.xyz.lab = function (t) {
+      var e = t[0],
+          n = t[1],
+          i = t[2];
+      return n /= 100, i /= 108.883, e = (e /= 95.047) > .008856 ? Math.pow(e, 1 / 3) : 7.787 * e + 16 / 116, [116 * (n = n > .008856 ? Math.pow(n, 1 / 3) : 7.787 * n + 16 / 116) - 16, 500 * (e - n), 200 * (n - (i = i > .008856 ? Math.pow(i, 1 / 3) : 7.787 * i + 16 / 116))];
+    }, a.lab.xyz = function (t) {
+      var e,
+          n,
+          i,
+          a = t[0];
+      e = t[1] / 500 + (n = (a + 16) / 116), i = n - t[2] / 200;
+      var r = Math.pow(n, 3),
+          o = Math.pow(e, 3),
+          s = Math.pow(i, 3);
+      return n = r > .008856 ? r : (n - 16 / 116) / 7.787, e = o > .008856 ? o : (e - 16 / 116) / 7.787, i = s > .008856 ? s : (i - 16 / 116) / 7.787, [e *= 95.047, n *= 100, i *= 108.883];
+    }, a.lab.lch = function (t) {
+      var e,
+          n = t[0],
+          i = t[1],
+          a = t[2];
+      return (e = 360 * Math.atan2(a, i) / 2 / Math.PI) < 0 && (e += 360), [n, Math.sqrt(i * i + a * a), e];
+    }, a.lch.lab = function (t) {
+      var e,
+          n = t[0],
+          i = t[1];
+      return e = t[2] / 360 * 2 * Math.PI, [n, i * Math.cos(e), i * Math.sin(e)];
+    }, a.rgb.ansi16 = function (t) {
+      var e = t[0],
+          n = t[1],
+          i = t[2],
+          r = 1 in arguments ? arguments[1] : a.rgb.hsv(t)[2];
+      if (0 === (r = Math.round(r / 50))) return 30;
+      var o = 30 + (Math.round(i / 255) << 2 | Math.round(n / 255) << 1 | Math.round(e / 255));
+      return 2 === r && (o += 60), o;
+    }, a.hsv.ansi16 = function (t) {
+      return a.rgb.ansi16(a.hsv.rgb(t), t[2]);
+    }, a.rgb.ansi256 = function (t) {
+      var e = t[0],
+          n = t[1],
+          i = t[2];
+      return e === n && n === i ? e < 8 ? 16 : e > 248 ? 231 : Math.round((e - 8) / 247 * 24) + 232 : 16 + 36 * Math.round(e / 255 * 5) + 6 * Math.round(n / 255 * 5) + Math.round(i / 255 * 5);
+    }, a.ansi16.rgb = function (t) {
+      var e = t % 10;
+      if (0 === e || 7 === e) return t > 50 && (e += 3.5), [e = e / 10.5 * 255, e, e];
+      var n = .5 * (1 + ~~(t > 50));
+      return [(1 & e) * n * 255, (e >> 1 & 1) * n * 255, (e >> 2 & 1) * n * 255];
+    }, a.ansi256.rgb = function (t) {
+      if (t >= 232) {
+        var e = 10 * (t - 232) + 8;
+        return [e, e, e];
+      }
+
+      var n;
+      return t -= 16, [Math.floor(t / 36) / 5 * 255, Math.floor((n = t % 36) / 6) / 5 * 255, n % 6 / 5 * 255];
+    }, a.rgb.hex = function (t) {
+      var e = (((255 & Math.round(t[0])) << 16) + ((255 & Math.round(t[1])) << 8) + (255 & Math.round(t[2]))).toString(16).toUpperCase();
+      return "000000".substring(e.length) + e;
+    }, a.hex.rgb = function (t) {
+      var e = t.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
+      if (!e) return [0, 0, 0];
+      var n = e[0];
+      3 === e[0].length && (n = n.split("").map(function (t) {
+        return t + t;
+      }).join(""));
+      var i = parseInt(n, 16);
+      return [i >> 16 & 255, i >> 8 & 255, 255 & i];
+    }, a.rgb.hcg = function (t) {
+      var e,
+          n = t[0] / 255,
+          i = t[1] / 255,
+          a = t[2] / 255,
+          r = Math.max(Math.max(n, i), a),
+          o = Math.min(Math.min(n, i), a),
+          s = r - o;
+      return e = s <= 0 ? 0 : r === n ? (i - a) / s % 6 : r === i ? 2 + (a - n) / s : 4 + (n - i) / s + 4, e /= 6, [360 * (e %= 1), 100 * s, 100 * (s < 1 ? o / (1 - s) : 0)];
+    }, a.hsl.hcg = function (t) {
+      var e = t[1] / 100,
+          n = t[2] / 100,
+          i = 1,
+          a = 0;
+      return (i = n < .5 ? 2 * e * n : 2 * e * (1 - n)) < 1 && (a = (n - .5 * i) / (1 - i)), [t[0], 100 * i, 100 * a];
+    }, a.hsv.hcg = function (t) {
+      var e = t[1] / 100,
+          n = t[2] / 100,
+          i = e * n,
+          a = 0;
+      return i < 1 && (a = (n - i) / (1 - i)), [t[0], 100 * i, 100 * a];
+    }, a.hcg.rgb = function (t) {
+      var e = t[0] / 360,
+          n = t[1] / 100,
+          i = t[2] / 100;
+      if (0 === n) return [255 * i, 255 * i, 255 * i];
+      var a,
+          r = [0, 0, 0],
+          o = e % 1 * 6,
+          s = o % 1,
+          l = 1 - s;
+
+      switch (Math.floor(o)) {
+        case 0:
+          r[0] = 1, r[1] = s, r[2] = 0;
+          break;
+
+        case 1:
+          r[0] = l, r[1] = 1, r[2] = 0;
+          break;
+
+        case 2:
+          r[0] = 0, r[1] = 1, r[2] = s;
+          break;
+
+        case 3:
+          r[0] = 0, r[1] = l, r[2] = 1;
+          break;
+
+        case 4:
+          r[0] = s, r[1] = 0, r[2] = 1;
+          break;
+
+        default:
+          r[0] = 1, r[1] = 0, r[2] = l;
+      }
+
+      return a = (1 - n) * i, [255 * (n * r[0] + a), 255 * (n * r[1] + a), 255 * (n * r[2] + a)];
+    }, a.hcg.hsv = function (t) {
+      var e = t[1] / 100,
+          n = e + t[2] / 100 * (1 - e),
+          i = 0;
+      return n > 0 && (i = e / n), [t[0], 100 * i, 100 * n];
+    }, a.hcg.hsl = function (t) {
+      var e = t[1] / 100,
+          n = t[2] / 100 * (1 - e) + .5 * e,
+          i = 0;
+      return n > 0 && n < .5 ? i = e / (2 * n) : n >= .5 && n < 1 && (i = e / (2 * (1 - n))), [t[0], 100 * i, 100 * n];
+    }, a.hcg.hwb = function (t) {
+      var e = t[1] / 100,
+          n = e + t[2] / 100 * (1 - e);
+      return [t[0], 100 * (n - e), 100 * (1 - n)];
+    }, a.hwb.hcg = function (t) {
+      var e = t[1] / 100,
+          n = 1 - t[2] / 100,
+          i = n - e,
+          a = 0;
+      return i < 1 && (a = (n - i) / (1 - i)), [t[0], 100 * i, 100 * a];
+    }, a.apple.rgb = function (t) {
+      return [t[0] / 65535 * 255, t[1] / 65535 * 255, t[2] / 65535 * 255];
+    }, a.rgb.apple = function (t) {
+      return [t[0] / 255 * 65535, t[1] / 255 * 65535, t[2] / 255 * 65535];
+    }, a.gray.rgb = function (t) {
+      return [t[0] / 100 * 255, t[0] / 100 * 255, t[0] / 100 * 255];
+    }, a.gray.hsl = a.gray.hsv = function (t) {
+      return [0, 0, t[0]];
+    }, a.gray.hwb = function (t) {
+      return [0, 100, t[0]];
+    }, a.gray.cmyk = function (t) {
+      return [0, 0, 0, t[0]];
+    }, a.gray.lab = function (t) {
+      return [t[0], 0, 0];
+    }, a.gray.hex = function (t) {
+      var e = 255 & Math.round(t[0] / 100 * 255),
+          n = ((e << 16) + (e << 8) + e).toString(16).toUpperCase();
+      return "000000".substring(n.length) + n;
+    }, a.rgb.gray = function (t) {
+      return [(t[0] + t[1] + t[2]) / 3 / 255 * 100];
+    };
+  });
+
+  n.rgb, n.hsl, n.hsv, n.hwb, n.cmyk, n.xyz, n.lab, n.lch, n.hex, n.keyword, n.ansi16, n.ansi256, n.hcg, n.apple, n.gray;
+
+  function i(t) {
+    var e = function () {
+      for (var t = {}, e = Object.keys(n), i = e.length, a = 0; a < i; a++) {
+        t[e[a]] = {
+          distance: -1,
+          parent: null
+        };
+      }
+
+      return t;
+    }(),
+        i = [t];
+
+    for (e[t].distance = 0; i.length;) {
+      for (var a = i.pop(), r = Object.keys(n[a]), o = r.length, s = 0; s < o; s++) {
+        var l = r[s],
+            u = e[l];
+        -1 === u.distance && (u.distance = e[a].distance + 1, u.parent = a, i.unshift(l));
+      }
+    }
+
+    return e;
+  }
+
+  function a(t, e) {
+    return function (n) {
+      return e(t(n));
+    };
+  }
+
+  function r(t, e) {
+    for (var i = [e[t].parent, t], r = n[e[t].parent][t], o = e[t].parent; e[o].parent;) {
+      i.unshift(e[o].parent), r = a(n[e[o].parent][o], r), o = e[o].parent;
+    }
+
+    return r.conversion = i, r;
+  }
+
+  var o = {};
+  Object.keys(n).forEach(function (t) {
+    o[t] = {}, Object.defineProperty(o[t], "channels", {
+      value: n[t].channels
+    }), Object.defineProperty(o[t], "labels", {
+      value: n[t].labels
+    });
+
+    var e = function (t) {
+      for (var e = i(t), n = {}, a = Object.keys(e), o = a.length, s = 0; s < o; s++) {
+        var l = a[s];
+        null !== e[l].parent && (n[l] = r(l, e));
+      }
+
+      return n;
+    }(t);
+
+    Object.keys(e).forEach(function (n) {
+      var i = e[n];
+      o[t][n] = function (t) {
+        var e = function e(_e2) {
+          if (null == _e2) return _e2;
+          arguments.length > 1 && (_e2 = Array.prototype.slice.call(arguments));
+          var n = t(_e2);
+          if ("object" == _typeof(n)) for (var i = n.length, a = 0; a < i; a++) {
+            n[a] = Math.round(n[a]);
+          }
+          return n;
+        };
+
+        return "conversion" in t && (e.conversion = t.conversion), e;
+      }(i), o[t][n].raw = function (t) {
+        var e = function e(_e3) {
+          return null == _e3 ? _e3 : (arguments.length > 1 && (_e3 = Array.prototype.slice.call(arguments)), t(_e3));
+        };
+
+        return "conversion" in t && (e.conversion = t.conversion), e;
+      }(i);
+    });
+  });
+  var s = o,
+      l = {
+    aliceblue: [240, 248, 255],
+    antiquewhite: [250, 235, 215],
+    aqua: [0, 255, 255],
+    aquamarine: [127, 255, 212],
+    azure: [240, 255, 255],
+    beige: [245, 245, 220],
+    bisque: [255, 228, 196],
+    black: [0, 0, 0],
+    blanchedalmond: [255, 235, 205],
+    blue: [0, 0, 255],
+    blueviolet: [138, 43, 226],
+    brown: [165, 42, 42],
+    burlywood: [222, 184, 135],
+    cadetblue: [95, 158, 160],
+    chartreuse: [127, 255, 0],
+    chocolate: [210, 105, 30],
+    coral: [255, 127, 80],
+    cornflowerblue: [100, 149, 237],
+    cornsilk: [255, 248, 220],
+    crimson: [220, 20, 60],
+    cyan: [0, 255, 255],
+    darkblue: [0, 0, 139],
+    darkcyan: [0, 139, 139],
+    darkgoldenrod: [184, 134, 11],
+    darkgray: [169, 169, 169],
+    darkgreen: [0, 100, 0],
+    darkgrey: [169, 169, 169],
+    darkkhaki: [189, 183, 107],
+    darkmagenta: [139, 0, 139],
+    darkolivegreen: [85, 107, 47],
+    darkorange: [255, 140, 0],
+    darkorchid: [153, 50, 204],
+    darkred: [139, 0, 0],
+    darksalmon: [233, 150, 122],
+    darkseagreen: [143, 188, 143],
+    darkslateblue: [72, 61, 139],
+    darkslategray: [47, 79, 79],
+    darkslategrey: [47, 79, 79],
+    darkturquoise: [0, 206, 209],
+    darkviolet: [148, 0, 211],
+    deeppink: [255, 20, 147],
+    deepskyblue: [0, 191, 255],
+    dimgray: [105, 105, 105],
+    dimgrey: [105, 105, 105],
+    dodgerblue: [30, 144, 255],
+    firebrick: [178, 34, 34],
+    floralwhite: [255, 250, 240],
+    forestgreen: [34, 139, 34],
+    fuchsia: [255, 0, 255],
+    gainsboro: [220, 220, 220],
+    ghostwhite: [248, 248, 255],
+    gold: [255, 215, 0],
+    goldenrod: [218, 165, 32],
+    gray: [128, 128, 128],
+    green: [0, 128, 0],
+    greenyellow: [173, 255, 47],
+    grey: [128, 128, 128],
+    honeydew: [240, 255, 240],
+    hotpink: [255, 105, 180],
+    indianred: [205, 92, 92],
+    indigo: [75, 0, 130],
+    ivory: [255, 255, 240],
+    khaki: [240, 230, 140],
+    lavender: [230, 230, 250],
+    lavenderblush: [255, 240, 245],
+    lawngreen: [124, 252, 0],
+    lemonchiffon: [255, 250, 205],
+    lightblue: [173, 216, 230],
+    lightcoral: [240, 128, 128],
+    lightcyan: [224, 255, 255],
+    lightgoldenrodyellow: [250, 250, 210],
+    lightgray: [211, 211, 211],
+    lightgreen: [144, 238, 144],
+    lightgrey: [211, 211, 211],
+    lightpink: [255, 182, 193],
+    lightsalmon: [255, 160, 122],
+    lightseagreen: [32, 178, 170],
+    lightskyblue: [135, 206, 250],
+    lightslategray: [119, 136, 153],
+    lightslategrey: [119, 136, 153],
+    lightsteelblue: [176, 196, 222],
+    lightyellow: [255, 255, 224],
+    lime: [0, 255, 0],
+    limegreen: [50, 205, 50],
+    linen: [250, 240, 230],
+    magenta: [255, 0, 255],
+    maroon: [128, 0, 0],
+    mediumaquamarine: [102, 205, 170],
+    mediumblue: [0, 0, 205],
+    mediumorchid: [186, 85, 211],
+    mediumpurple: [147, 112, 219],
+    mediumseagreen: [60, 179, 113],
+    mediumslateblue: [123, 104, 238],
+    mediumspringgreen: [0, 250, 154],
+    mediumturquoise: [72, 209, 204],
+    mediumvioletred: [199, 21, 133],
+    midnightblue: [25, 25, 112],
+    mintcream: [245, 255, 250],
+    mistyrose: [255, 228, 225],
+    moccasin: [255, 228, 181],
+    navajowhite: [255, 222, 173],
+    navy: [0, 0, 128],
+    oldlace: [253, 245, 230],
+    olive: [128, 128, 0],
+    olivedrab: [107, 142, 35],
+    orange: [255, 165, 0],
+    orangered: [255, 69, 0],
+    orchid: [218, 112, 214],
+    palegoldenrod: [238, 232, 170],
+    palegreen: [152, 251, 152],
+    paleturquoise: [175, 238, 238],
+    palevioletred: [219, 112, 147],
+    papayawhip: [255, 239, 213],
+    peachpuff: [255, 218, 185],
+    peru: [205, 133, 63],
+    pink: [255, 192, 203],
+    plum: [221, 160, 221],
+    powderblue: [176, 224, 230],
+    purple: [128, 0, 128],
+    rebeccapurple: [102, 51, 153],
+    red: [255, 0, 0],
+    rosybrown: [188, 143, 143],
+    royalblue: [65, 105, 225],
+    saddlebrown: [139, 69, 19],
+    salmon: [250, 128, 114],
+    sandybrown: [244, 164, 96],
+    seagreen: [46, 139, 87],
+    seashell: [255, 245, 238],
+    sienna: [160, 82, 45],
+    silver: [192, 192, 192],
+    skyblue: [135, 206, 235],
+    slateblue: [106, 90, 205],
+    slategray: [112, 128, 144],
+    slategrey: [112, 128, 144],
+    snow: [255, 250, 250],
+    springgreen: [0, 255, 127],
+    steelblue: [70, 130, 180],
+    tan: [210, 180, 140],
+    teal: [0, 128, 128],
+    thistle: [216, 191, 216],
+    tomato: [255, 99, 71],
+    turquoise: [64, 224, 208],
+    violet: [238, 130, 238],
+    wheat: [245, 222, 179],
+    white: [255, 255, 255],
+    whitesmoke: [245, 245, 245],
+    yellow: [255, 255, 0],
+    yellowgreen: [154, 205, 50]
+  },
+      u = {
+    getRgba: d,
+    getHsla: h,
+    getRgb: function getRgb(t) {
+      var e = d(t);
+      return e && e.slice(0, 3);
+    },
+    getHsl: function getHsl(t) {
+      var e = h(t);
+      return e && e.slice(0, 3);
+    },
+    getHwb: c,
+    getAlpha: function getAlpha(t) {
+      var e = d(t);
+      if (e) return e[3];
+      if (e = h(t)) return e[3];
+      if (e = c(t)) return e[3];
+    },
+    hexString: function hexString(t, e) {
+      e = void 0 !== e && 3 === t.length ? e : t[3];
+      return "#" + v(t[0]) + v(t[1]) + v(t[2]) + (e >= 0 && e < 1 ? v(Math.round(255 * e)) : "");
+    },
+    rgbString: function rgbString(t, e) {
+      if (e < 1 || t[3] && t[3] < 1) return f(t, e);
+      return "rgb(" + t[0] + ", " + t[1] + ", " + t[2] + ")";
+    },
+    rgbaString: f,
+    percentString: function percentString(t, e) {
+      if (e < 1 || t[3] && t[3] < 1) return g(t, e);
+      var n = Math.round(t[0] / 255 * 100),
+          i = Math.round(t[1] / 255 * 100),
+          a = Math.round(t[2] / 255 * 100);
+      return "rgb(" + n + "%, " + i + "%, " + a + "%)";
+    },
+    percentaString: g,
+    hslString: function hslString(t, e) {
+      if (e < 1 || t[3] && t[3] < 1) return p(t, e);
+      return "hsl(" + t[0] + ", " + t[1] + "%, " + t[2] + "%)";
+    },
+    hslaString: p,
+    hwbString: function hwbString(t, e) {
+      void 0 === e && (e = void 0 !== t[3] ? t[3] : 1);
+      return "hwb(" + t[0] + ", " + t[1] + "%, " + t[2] + "%" + (void 0 !== e && 1 !== e ? ", " + e : "") + ")";
+    },
+    keyword: function keyword(t) {
+      return b[t.slice(0, 3)];
+    }
+  };
+
+  function d(t) {
+    if (t) {
+      var e = [0, 0, 0],
+          n = 1,
+          i = t.match(/^#([a-fA-F0-9]{3,4})$/i),
+          a = "";
+
+      if (i) {
+        a = (i = i[1])[3];
+
+        for (var r = 0; r < e.length; r++) {
+          e[r] = parseInt(i[r] + i[r], 16);
+        }
+
+        a && (n = Math.round(parseInt(a + a, 16) / 255 * 100) / 100);
+      } else if (i = t.match(/^#([a-fA-F0-9]{6}([a-fA-F0-9]{2})?)$/i)) {
+        a = i[2], i = i[1];
+
+        for (r = 0; r < e.length; r++) {
+          e[r] = parseInt(i.slice(2 * r, 2 * r + 2), 16);
+        }
+
+        a && (n = Math.round(parseInt(a, 16) / 255 * 100) / 100);
+      } else if (i = t.match(/^rgba?\(\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/i)) {
+        for (r = 0; r < e.length; r++) {
+          e[r] = parseInt(i[r + 1]);
+        }
+
+        n = parseFloat(i[4]);
+      } else if (i = t.match(/^rgba?\(\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/i)) {
+        for (r = 0; r < e.length; r++) {
+          e[r] = Math.round(2.55 * parseFloat(i[r + 1]));
+        }
+
+        n = parseFloat(i[4]);
+      } else if (i = t.match(/(\w+)/)) {
+        if ("transparent" == i[1]) return [0, 0, 0, 0];
+        if (!(e = l[i[1]])) return;
+      }
+
+      for (r = 0; r < e.length; r++) {
+        e[r] = m(e[r], 0, 255);
+      }
+
+      return n = n || 0 == n ? m(n, 0, 1) : 1, e[3] = n, e;
+    }
+  }
+
+  function h(t) {
+    if (t) {
+      var e = t.match(/^hsla?\(\s*([+-]?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)/);
+
+      if (e) {
+        var n = parseFloat(e[4]);
+        return [m(parseInt(e[1]), 0, 360), m(parseFloat(e[2]), 0, 100), m(parseFloat(e[3]), 0, 100), m(isNaN(n) ? 1 : n, 0, 1)];
+      }
+    }
+  }
+
+  function c(t) {
+    if (t) {
+      var e = t.match(/^hwb\(\s*([+-]?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)/);
+
+      if (e) {
+        var n = parseFloat(e[4]);
+        return [m(parseInt(e[1]), 0, 360), m(parseFloat(e[2]), 0, 100), m(parseFloat(e[3]), 0, 100), m(isNaN(n) ? 1 : n, 0, 1)];
+      }
+    }
+  }
+
+  function f(t, e) {
+    return void 0 === e && (e = void 0 !== t[3] ? t[3] : 1), "rgba(" + t[0] + ", " + t[1] + ", " + t[2] + ", " + e + ")";
+  }
+
+  function g(t, e) {
+    return "rgba(" + Math.round(t[0] / 255 * 100) + "%, " + Math.round(t[1] / 255 * 100) + "%, " + Math.round(t[2] / 255 * 100) + "%, " + (e || t[3] || 1) + ")";
+  }
+
+  function p(t, e) {
+    return void 0 === e && (e = void 0 !== t[3] ? t[3] : 1), "hsla(" + t[0] + ", " + t[1] + "%, " + t[2] + "%, " + e + ")";
+  }
+
+  function m(t, e, n) {
+    return Math.min(Math.max(e, t), n);
+  }
+
+  function v(t) {
+    var e = t.toString(16).toUpperCase();
+    return e.length < 2 ? "0" + e : e;
+  }
+
+  var b = {};
+
+  for (var x in l) {
+    b[l[x]] = x;
+  }
+
+  var y = function y(t) {
+    return t instanceof y ? t : this instanceof y ? (this.valid = !1, this.values = {
+      rgb: [0, 0, 0],
+      hsl: [0, 0, 0],
+      hsv: [0, 0, 0],
+      hwb: [0, 0, 0],
+      cmyk: [0, 0, 0, 0],
+      alpha: 1
+    }, void ("string" == typeof t ? (e = u.getRgba(t)) ? this.setValues("rgb", e) : (e = u.getHsla(t)) ? this.setValues("hsl", e) : (e = u.getHwb(t)) && this.setValues("hwb", e) : "object" == _typeof(t) && (void 0 !== (e = t).r || void 0 !== e.red ? this.setValues("rgb", e) : void 0 !== e.l || void 0 !== e.lightness ? this.setValues("hsl", e) : void 0 !== e.v || void 0 !== e.value ? this.setValues("hsv", e) : void 0 !== e.w || void 0 !== e.whiteness ? this.setValues("hwb", e) : void 0 === e.c && void 0 === e.cyan || this.setValues("cmyk", e)))) : new y(t);
+    var e;
+  };
+
+  y.prototype = {
+    isValid: function isValid() {
+      return this.valid;
+    },
+    rgb: function rgb() {
+      return this.setSpace("rgb", arguments);
+    },
+    hsl: function hsl() {
+      return this.setSpace("hsl", arguments);
+    },
+    hsv: function hsv() {
+      return this.setSpace("hsv", arguments);
+    },
+    hwb: function hwb() {
+      return this.setSpace("hwb", arguments);
+    },
+    cmyk: function cmyk() {
+      return this.setSpace("cmyk", arguments);
+    },
+    rgbArray: function rgbArray() {
+      return this.values.rgb;
+    },
+    hslArray: function hslArray() {
+      return this.values.hsl;
+    },
+    hsvArray: function hsvArray() {
+      return this.values.hsv;
+    },
+    hwbArray: function hwbArray() {
+      var t = this.values;
+      return 1 !== t.alpha ? t.hwb.concat([t.alpha]) : t.hwb;
+    },
+    cmykArray: function cmykArray() {
+      return this.values.cmyk;
+    },
+    rgbaArray: function rgbaArray() {
+      var t = this.values;
+      return t.rgb.concat([t.alpha]);
+    },
+    hslaArray: function hslaArray() {
+      var t = this.values;
+      return t.hsl.concat([t.alpha]);
+    },
+    alpha: function alpha(t) {
+      return void 0 === t ? this.values.alpha : (this.setValues("alpha", t), this);
+    },
+    red: function red(t) {
+      return this.setChannel("rgb", 0, t);
+    },
+    green: function green(t) {
+      return this.setChannel("rgb", 1, t);
+    },
+    blue: function blue(t) {
+      return this.setChannel("rgb", 2, t);
+    },
+    hue: function hue(t) {
+      return t && (t = (t %= 360) < 0 ? 360 + t : t), this.setChannel("hsl", 0, t);
+    },
+    saturation: function saturation(t) {
+      return this.setChannel("hsl", 1, t);
+    },
+    lightness: function lightness(t) {
+      return this.setChannel("hsl", 2, t);
+    },
+    saturationv: function saturationv(t) {
+      return this.setChannel("hsv", 1, t);
+    },
+    whiteness: function whiteness(t) {
+      return this.setChannel("hwb", 1, t);
+    },
+    blackness: function blackness(t) {
+      return this.setChannel("hwb", 2, t);
+    },
+    value: function value(t) {
+      return this.setChannel("hsv", 2, t);
+    },
+    cyan: function cyan(t) {
+      return this.setChannel("cmyk", 0, t);
+    },
+    magenta: function magenta(t) {
+      return this.setChannel("cmyk", 1, t);
+    },
+    yellow: function yellow(t) {
+      return this.setChannel("cmyk", 2, t);
+    },
+    black: function black(t) {
+      return this.setChannel("cmyk", 3, t);
+    },
+    hexString: function hexString() {
+      return u.hexString(this.values.rgb);
+    },
+    rgbString: function rgbString() {
+      return u.rgbString(this.values.rgb, this.values.alpha);
+    },
+    rgbaString: function rgbaString() {
+      return u.rgbaString(this.values.rgb, this.values.alpha);
+    },
+    percentString: function percentString() {
+      return u.percentString(this.values.rgb, this.values.alpha);
+    },
+    hslString: function hslString() {
+      return u.hslString(this.values.hsl, this.values.alpha);
+    },
+    hslaString: function hslaString() {
+      return u.hslaString(this.values.hsl, this.values.alpha);
+    },
+    hwbString: function hwbString() {
+      return u.hwbString(this.values.hwb, this.values.alpha);
+    },
+    keyword: function keyword() {
+      return u.keyword(this.values.rgb, this.values.alpha);
+    },
+    rgbNumber: function rgbNumber() {
+      var t = this.values.rgb;
+      return t[0] << 16 | t[1] << 8 | t[2];
+    },
+    luminosity: function luminosity() {
+      for (var t = this.values.rgb, e = [], n = 0; n < t.length; n++) {
+        var i = t[n] / 255;
+        e[n] = i <= .03928 ? i / 12.92 : Math.pow((i + .055) / 1.055, 2.4);
+      }
+
+      return .2126 * e[0] + .7152 * e[1] + .0722 * e[2];
+    },
+    contrast: function contrast(t) {
+      var e = this.luminosity(),
+          n = t.luminosity();
+      return e > n ? (e + .05) / (n + .05) : (n + .05) / (e + .05);
+    },
+    level: function level(t) {
+      var e = this.contrast(t);
+      return e >= 7.1 ? "AAA" : e >= 4.5 ? "AA" : "";
+    },
+    dark: function dark() {
+      var t = this.values.rgb;
+      return (299 * t[0] + 587 * t[1] + 114 * t[2]) / 1e3 < 128;
+    },
+    light: function light() {
+      return !this.dark();
+    },
+    negate: function negate() {
+      for (var t = [], e = 0; e < 3; e++) {
+        t[e] = 255 - this.values.rgb[e];
+      }
+
+      return this.setValues("rgb", t), this;
+    },
+    lighten: function lighten(t) {
+      var e = this.values.hsl;
+      return e[2] += e[2] * t, this.setValues("hsl", e), this;
+    },
+    darken: function darken(t) {
+      var e = this.values.hsl;
+      return e[2] -= e[2] * t, this.setValues("hsl", e), this;
+    },
+    saturate: function saturate(t) {
+      var e = this.values.hsl;
+      return e[1] += e[1] * t, this.setValues("hsl", e), this;
+    },
+    desaturate: function desaturate(t) {
+      var e = this.values.hsl;
+      return e[1] -= e[1] * t, this.setValues("hsl", e), this;
+    },
+    whiten: function whiten(t) {
+      var e = this.values.hwb;
+      return e[1] += e[1] * t, this.setValues("hwb", e), this;
+    },
+    blacken: function blacken(t) {
+      var e = this.values.hwb;
+      return e[2] += e[2] * t, this.setValues("hwb", e), this;
+    },
+    greyscale: function greyscale() {
+      var t = this.values.rgb,
+          e = .3 * t[0] + .59 * t[1] + .11 * t[2];
+      return this.setValues("rgb", [e, e, e]), this;
+    },
+    clearer: function clearer(t) {
+      var e = this.values.alpha;
+      return this.setValues("alpha", e - e * t), this;
+    },
+    opaquer: function opaquer(t) {
+      var e = this.values.alpha;
+      return this.setValues("alpha", e + e * t), this;
+    },
+    rotate: function rotate(t) {
+      var e = this.values.hsl,
+          n = (e[0] + t) % 360;
+      return e[0] = n < 0 ? 360 + n : n, this.setValues("hsl", e), this;
+    },
+    mix: function mix(t, e) {
+      var n = t,
+          i = void 0 === e ? .5 : e,
+          a = 2 * i - 1,
+          r = this.alpha() - n.alpha(),
+          o = ((a * r == -1 ? a : (a + r) / (1 + a * r)) + 1) / 2,
+          s = 1 - o;
+      return this.rgb(o * this.red() + s * n.red(), o * this.green() + s * n.green(), o * this.blue() + s * n.blue()).alpha(this.alpha() * i + n.alpha() * (1 - i));
+    },
+    toJSON: function toJSON() {
+      return this.rgb();
+    },
+    clone: function clone() {
+      var t,
+          e,
+          n = new y(),
+          i = this.values,
+          a = n.values;
+
+      for (var r in i) {
+        i.hasOwnProperty(r) && (t = i[r], "[object Array]" === (e = {}.toString.call(t)) ? a[r] = t.slice(0) : "[object Number]" === e ? a[r] = t : console.error("unexpected color value:", t));
+      }
+
+      return n;
+    }
+  }, y.prototype.spaces = {
+    rgb: ["red", "green", "blue"],
+    hsl: ["hue", "saturation", "lightness"],
+    hsv: ["hue", "saturation", "value"],
+    hwb: ["hue", "whiteness", "blackness"],
+    cmyk: ["cyan", "magenta", "yellow", "black"]
+  }, y.prototype.maxes = {
+    rgb: [255, 255, 255],
+    hsl: [360, 100, 100],
+    hsv: [360, 100, 100],
+    hwb: [360, 100, 100],
+    cmyk: [100, 100, 100, 100]
+  }, y.prototype.getValues = function (t) {
+    for (var e = this.values, n = {}, i = 0; i < t.length; i++) {
+      n[t.charAt(i)] = e[t][i];
+    }
+
+    return 1 !== e.alpha && (n.a = e.alpha), n;
+  }, y.prototype.setValues = function (t, e) {
+    var n,
+        i,
+        a = this.values,
+        r = this.spaces,
+        o = this.maxes,
+        l = 1;
+    if (this.valid = !0, "alpha" === t) l = e;else if (e.length) a[t] = e.slice(0, t.length), l = e[t.length];else if (void 0 !== e[t.charAt(0)]) {
+      for (n = 0; n < t.length; n++) {
+        a[t][n] = e[t.charAt(n)];
+      }
+
+      l = e.a;
+    } else if (void 0 !== e[r[t][0]]) {
+      var u = r[t];
+
+      for (n = 0; n < t.length; n++) {
+        a[t][n] = e[u[n]];
+      }
+
+      l = e.alpha;
+    }
+    if (a.alpha = Math.max(0, Math.min(1, void 0 === l ? a.alpha : l)), "alpha" === t) return !1;
+
+    for (n = 0; n < t.length; n++) {
+      i = Math.max(0, Math.min(o[t][n], a[t][n])), a[t][n] = Math.round(i);
+    }
+
+    for (var d in r) {
+      d !== t && (a[d] = s[t][d](a[t]));
+    }
+
+    return !0;
+  }, y.prototype.setSpace = function (t, e) {
+    var n = e[0];
+    return void 0 === n ? this.getValues(t) : ("number" == typeof n && (n = Array.prototype.slice.call(e)), this.setValues(t, n), this);
+  }, y.prototype.setChannel = function (t, e, n) {
+    var i = this.values[t];
+    return void 0 === n ? i[e] : n === i[e] ? this : (i[e] = n, this.setValues(t, i), this);
+  }, "undefined" != typeof window && (window.Color = y);
+  var _ = y;
+
+  function k(t) {
+    return -1 === ["__proto__", "prototype", "constructor"].indexOf(t);
+  }
+
+  var w,
+      M = {
+    noop: function noop() {},
+    uid: (w = 0, function () {
+      return w++;
+    }),
+    isNullOrUndef: function isNullOrUndef(t) {
+      return null == t;
+    },
+    isArray: function isArray(t) {
+      if (Array.isArray && Array.isArray(t)) return !0;
+      var e = Object.prototype.toString.call(t);
+      return "[object" === e.substr(0, 7) && "Array]" === e.substr(-6);
+    },
+    isObject: function isObject(t) {
+      return null !== t && "[object Object]" === Object.prototype.toString.call(t);
+    },
+    isFinite: function (_isFinite) {
+      function isFinite(_x) {
+        return _isFinite.apply(this, arguments);
+      }
+
+      isFinite.toString = function () {
+        return _isFinite.toString();
+      };
+
+      return isFinite;
+    }(function (t) {
+      return ("number" == typeof t || t instanceof Number) && isFinite(t);
+    }),
+    valueOrDefault: function valueOrDefault(t, e) {
+      return void 0 === t ? e : t;
+    },
+    valueAtIndexOrDefault: function valueAtIndexOrDefault(t, e, n) {
+      return M.valueOrDefault(M.isArray(t) ? t[e] : t, n);
+    },
+    callback: function callback(t, e, n) {
+      if (t && "function" == typeof t.call) return t.apply(n, e);
+    },
+    each: function each(t, e, n, i) {
+      var a, r, o;
+      if (M.isArray(t)) {
+        if (r = t.length, i) for (a = r - 1; a >= 0; a--) {
+          e.call(n, t[a], a);
+        } else for (a = 0; a < r; a++) {
+          e.call(n, t[a], a);
+        }
+      } else if (M.isObject(t)) for (r = (o = Object.keys(t)).length, a = 0; a < r; a++) {
+        e.call(n, t[o[a]], o[a]);
+      }
+    },
+    arrayEquals: function arrayEquals(t, e) {
+      var n, i, a, r;
+      if (!t || !e || t.length !== e.length) return !1;
+
+      for (n = 0, i = t.length; n < i; ++n) {
+        if (a = t[n], r = e[n], a instanceof Array && r instanceof Array) {
+          if (!M.arrayEquals(a, r)) return !1;
+        } else if (a !== r) return !1;
+      }
+
+      return !0;
+    },
+    clone: function clone(t) {
+      if (M.isArray(t)) return t.map(M.clone);
+
+      if (M.isObject(t)) {
+        for (var e = Object.create(t), n = Object.keys(t), i = n.length, a = 0; a < i; ++a) {
+          e[n[a]] = M.clone(t[n[a]]);
+        }
+
+        return e;
+      }
+
+      return t;
+    },
+    _merger: function _merger(t, e, n, i) {
+      if (k(t)) {
+        var a = e[t],
+            r = n[t];
+        M.isObject(a) && M.isObject(r) ? M.merge(a, r, i) : e[t] = M.clone(r);
+      }
+    },
+    _mergerIf: function _mergerIf(t, e, n) {
+      if (k(t)) {
+        var i = e[t],
+            a = n[t];
+        M.isObject(i) && M.isObject(a) ? M.mergeIf(i, a) : e.hasOwnProperty(t) || (e[t] = M.clone(a));
+      }
+    },
+    merge: function merge(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l = M.isArray(e) ? e : [e],
+          u = l.length;
+      if (!M.isObject(t)) return t;
+
+      for (i = (n = n || {}).merger || M._merger, a = 0; a < u; ++a) {
+        if (e = l[a], M.isObject(e)) for (s = 0, o = (r = Object.keys(e)).length; s < o; ++s) {
+          i(r[s], t, e, n);
+        }
+      }
+
+      return t;
+    },
+    mergeIf: function mergeIf(t, e) {
+      return M.merge(t, e, {
+        merger: M._mergerIf
+      });
+    },
+    extend: Object.assign || function (t) {
+      return M.merge(t, [].slice.call(arguments, 1), {
+        merger: function merger(t, e, n) {
+          e[t] = n[t];
+        }
+      });
+    },
+    inherits: function inherits(t) {
+      var e = this,
+          n = t && t.hasOwnProperty("constructor") ? t.constructor : function () {
+        return e.apply(this, arguments);
+      },
+          i = function i() {
+        this.constructor = n;
+      };
+
+      return i.prototype = e.prototype, n.prototype = new i(), n.extend = M.inherits, t && M.extend(n.prototype, t), n.__super__ = e.prototype, n;
+    },
+    _deprecated: function _deprecated(t, e, n, i) {
+      void 0 !== e && console.warn(t + ': "' + n + '" is deprecated. Please use "' + i + '" instead');
+    }
+  },
+      S = M;
+  M.callCallback = M.callback, M.indexOf = function (t, e, n) {
+    return Array.prototype.indexOf.call(t, e, n);
+  }, M.getValueOrDefault = M.valueOrDefault, M.getValueAtIndexOrDefault = M.valueAtIndexOrDefault;
+  var C = {
+    linear: function linear(t) {
+      return t;
+    },
+    easeInQuad: function easeInQuad(t) {
+      return t * t;
+    },
+    easeOutQuad: function easeOutQuad(t) {
+      return -t * (t - 2);
+    },
+    easeInOutQuad: function easeInOutQuad(t) {
+      return (t /= .5) < 1 ? .5 * t * t : -.5 * (--t * (t - 2) - 1);
+    },
+    easeInCubic: function easeInCubic(t) {
+      return t * t * t;
+    },
+    easeOutCubic: function easeOutCubic(t) {
+      return (t -= 1) * t * t + 1;
+    },
+    easeInOutCubic: function easeInOutCubic(t) {
+      return (t /= .5) < 1 ? .5 * t * t * t : .5 * ((t -= 2) * t * t + 2);
+    },
+    easeInQuart: function easeInQuart(t) {
+      return t * t * t * t;
+    },
+    easeOutQuart: function easeOutQuart(t) {
+      return -((t -= 1) * t * t * t - 1);
+    },
+    easeInOutQuart: function easeInOutQuart(t) {
+      return (t /= .5) < 1 ? .5 * t * t * t * t : -.5 * ((t -= 2) * t * t * t - 2);
+    },
+    easeInQuint: function easeInQuint(t) {
+      return t * t * t * t * t;
+    },
+    easeOutQuint: function easeOutQuint(t) {
+      return (t -= 1) * t * t * t * t + 1;
+    },
+    easeInOutQuint: function easeInOutQuint(t) {
+      return (t /= .5) < 1 ? .5 * t * t * t * t * t : .5 * ((t -= 2) * t * t * t * t + 2);
+    },
+    easeInSine: function easeInSine(t) {
+      return 1 - Math.cos(t * (Math.PI / 2));
+    },
+    easeOutSine: function easeOutSine(t) {
+      return Math.sin(t * (Math.PI / 2));
+    },
+    easeInOutSine: function easeInOutSine(t) {
+      return -.5 * (Math.cos(Math.PI * t) - 1);
+    },
+    easeInExpo: function easeInExpo(t) {
+      return 0 === t ? 0 : Math.pow(2, 10 * (t - 1));
+    },
+    easeOutExpo: function easeOutExpo(t) {
+      return 1 === t ? 1 : 1 - Math.pow(2, -10 * t);
+    },
+    easeInOutExpo: function easeInOutExpo(t) {
+      return 0 === t ? 0 : 1 === t ? 1 : (t /= .5) < 1 ? .5 * Math.pow(2, 10 * (t - 1)) : .5 * (2 - Math.pow(2, -10 * --t));
+    },
+    easeInCirc: function easeInCirc(t) {
+      return t >= 1 ? t : -(Math.sqrt(1 - t * t) - 1);
+    },
+    easeOutCirc: function easeOutCirc(t) {
+      return Math.sqrt(1 - (t -= 1) * t);
+    },
+    easeInOutCirc: function easeInOutCirc(t) {
+      return (t /= .5) < 1 ? -.5 * (Math.sqrt(1 - t * t) - 1) : .5 * (Math.sqrt(1 - (t -= 2) * t) + 1);
+    },
+    easeInElastic: function easeInElastic(t) {
+      var e = 1.70158,
+          n = 0,
+          i = 1;
+      return 0 === t ? 0 : 1 === t ? 1 : (n || (n = .3), i < 1 ? (i = 1, e = n / 4) : e = n / (2 * Math.PI) * Math.asin(1 / i), -i * Math.pow(2, 10 * (t -= 1)) * Math.sin((t - e) * (2 * Math.PI) / n));
+    },
+    easeOutElastic: function easeOutElastic(t) {
+      var e = 1.70158,
+          n = 0,
+          i = 1;
+      return 0 === t ? 0 : 1 === t ? 1 : (n || (n = .3), i < 1 ? (i = 1, e = n / 4) : e = n / (2 * Math.PI) * Math.asin(1 / i), i * Math.pow(2, -10 * t) * Math.sin((t - e) * (2 * Math.PI) / n) + 1);
+    },
+    easeInOutElastic: function easeInOutElastic(t) {
+      var e = 1.70158,
+          n = 0,
+          i = 1;
+      return 0 === t ? 0 : 2 == (t /= .5) ? 1 : (n || (n = .45), i < 1 ? (i = 1, e = n / 4) : e = n / (2 * Math.PI) * Math.asin(1 / i), t < 1 ? i * Math.pow(2, 10 * (t -= 1)) * Math.sin((t - e) * (2 * Math.PI) / n) * -.5 : i * Math.pow(2, -10 * (t -= 1)) * Math.sin((t - e) * (2 * Math.PI) / n) * .5 + 1);
+    },
+    easeInBack: function easeInBack(t) {
+      var e = 1.70158;
+      return t * t * ((e + 1) * t - e);
+    },
+    easeOutBack: function easeOutBack(t) {
+      var e = 1.70158;
+      return (t -= 1) * t * ((e + 1) * t + e) + 1;
+    },
+    easeInOutBack: function easeInOutBack(t) {
+      var e = 1.70158;
+      return (t /= .5) < 1 ? t * t * ((1 + (e *= 1.525)) * t - e) * .5 : .5 * ((t -= 2) * t * ((1 + (e *= 1.525)) * t + e) + 2);
+    },
+    easeInBounce: function easeInBounce(t) {
+      return 1 - C.easeOutBounce(1 - t);
+    },
+    easeOutBounce: function easeOutBounce(t) {
+      return t < 1 / 2.75 ? 7.5625 * t * t : t < 2 / 2.75 ? 7.5625 * (t -= 1.5 / 2.75) * t + .75 : t < 2.5 / 2.75 ? 7.5625 * (t -= 2.25 / 2.75) * t + .9375 : 7.5625 * (t -= 2.625 / 2.75) * t + .984375;
+    },
+    easeInOutBounce: function easeInOutBounce(t) {
+      return t < .5 ? .5 * C.easeInBounce(2 * t) : .5 * C.easeOutBounce(2 * t - 1) + .5;
+    }
+  },
+      P = {
+    effects: C
+  };
+  S.easingEffects = C;
+  var A = Math.PI,
+      D = A / 180,
+      T = 2 * A,
+      I = A / 2,
+      F = A / 4,
+      O = 2 * A / 3,
+      L = {
+    clear: function clear(t) {
+      t.ctx.clearRect(0, 0, t.width, t.height);
+    },
+    roundedRect: function roundedRect(t, e, n, i, a, r) {
+      if (r) {
+        var o = Math.min(r, a / 2, i / 2),
+            s = e + o,
+            l = n + o,
+            u = e + i - o,
+            d = n + a - o;
+        t.moveTo(e, l), s < u && l < d ? (t.arc(s, l, o, -A, -I), t.arc(u, l, o, -I, 0), t.arc(u, d, o, 0, I), t.arc(s, d, o, I, A)) : s < u ? (t.moveTo(s, n), t.arc(u, l, o, -I, I), t.arc(s, l, o, I, A + I)) : l < d ? (t.arc(s, l, o, -A, 0), t.arc(s, d, o, 0, A)) : t.arc(s, l, o, -A, A), t.closePath(), t.moveTo(e, n);
+      } else t.rect(e, n, i, a);
+    },
+    drawPoint: function drawPoint(t, e, n, i, a, r) {
+      var o,
+          s,
+          l,
+          u,
+          d,
+          h = (r || 0) * D;
+      if (e && "object" == _typeof(e) && ("[object HTMLImageElement]" === (o = e.toString()) || "[object HTMLCanvasElement]" === o)) return t.save(), t.translate(i, a), t.rotate(h), t.drawImage(e, -e.width / 2, -e.height / 2, e.width, e.height), void t.restore();
+
+      if (!(isNaN(n) || n <= 0)) {
+        switch (t.beginPath(), e) {
+          default:
+            t.arc(i, a, n, 0, T), t.closePath();
+            break;
+
+          case "triangle":
+            t.moveTo(i + Math.sin(h) * n, a - Math.cos(h) * n), h += O, t.lineTo(i + Math.sin(h) * n, a - Math.cos(h) * n), h += O, t.lineTo(i + Math.sin(h) * n, a - Math.cos(h) * n), t.closePath();
+            break;
+
+          case "rectRounded":
+            u = n - (d = .516 * n), s = Math.cos(h + F) * u, l = Math.sin(h + F) * u, t.arc(i - s, a - l, d, h - A, h - I), t.arc(i + l, a - s, d, h - I, h), t.arc(i + s, a + l, d, h, h + I), t.arc(i - l, a + s, d, h + I, h + A), t.closePath();
+            break;
+
+          case "rect":
+            if (!r) {
+              u = Math.SQRT1_2 * n, t.rect(i - u, a - u, 2 * u, 2 * u);
+              break;
+            }
+
+            h += F;
+
+          case "rectRot":
+            s = Math.cos(h) * n, l = Math.sin(h) * n, t.moveTo(i - s, a - l), t.lineTo(i + l, a - s), t.lineTo(i + s, a + l), t.lineTo(i - l, a + s), t.closePath();
+            break;
+
+          case "crossRot":
+            h += F;
+
+          case "cross":
+            s = Math.cos(h) * n, l = Math.sin(h) * n, t.moveTo(i - s, a - l), t.lineTo(i + s, a + l), t.moveTo(i + l, a - s), t.lineTo(i - l, a + s);
+            break;
+
+          case "star":
+            s = Math.cos(h) * n, l = Math.sin(h) * n, t.moveTo(i - s, a - l), t.lineTo(i + s, a + l), t.moveTo(i + l, a - s), t.lineTo(i - l, a + s), h += F, s = Math.cos(h) * n, l = Math.sin(h) * n, t.moveTo(i - s, a - l), t.lineTo(i + s, a + l), t.moveTo(i + l, a - s), t.lineTo(i - l, a + s);
+            break;
+
+          case "line":
+            s = Math.cos(h) * n, l = Math.sin(h) * n, t.moveTo(i - s, a - l), t.lineTo(i + s, a + l);
+            break;
+
+          case "dash":
+            t.moveTo(i, a), t.lineTo(i + Math.cos(h) * n, a + Math.sin(h) * n);
+        }
+
+        t.fill(), t.stroke();
+      }
+    },
+    _isPointInArea: function _isPointInArea(t, e) {
+      return t.x > e.left - 1e-6 && t.x < e.right + 1e-6 && t.y > e.top - 1e-6 && t.y < e.bottom + 1e-6;
+    },
+    clipArea: function clipArea(t, e) {
+      t.save(), t.beginPath(), t.rect(e.left, e.top, e.right - e.left, e.bottom - e.top), t.clip();
+    },
+    unclipArea: function unclipArea(t) {
+      t.restore();
+    },
+    lineTo: function lineTo(t, e, n, i) {
+      var a = n.steppedLine;
+
+      if (a) {
+        if ("middle" === a) {
+          var r = (e.x + n.x) / 2;
+          t.lineTo(r, i ? n.y : e.y), t.lineTo(r, i ? e.y : n.y);
+        } else "after" === a && !i || "after" !== a && i ? t.lineTo(e.x, n.y) : t.lineTo(n.x, e.y);
+
+        t.lineTo(n.x, n.y);
+      } else n.tension ? t.bezierCurveTo(i ? e.controlPointPreviousX : e.controlPointNextX, i ? e.controlPointPreviousY : e.controlPointNextY, i ? n.controlPointNextX : n.controlPointPreviousX, i ? n.controlPointNextY : n.controlPointPreviousY, n.x, n.y) : t.lineTo(n.x, n.y);
+    }
+  },
+      R = L;
+  S.clear = L.clear, S.drawRoundedRectangle = function (t) {
+    t.beginPath(), L.roundedRect.apply(L, arguments);
+  };
+  var z = {
+    _set: function _set(t, e) {
+      return S.merge(this[t] || (this[t] = {}), e);
+    }
+  };
+
+  z._set("global", {
+    defaultColor: "rgba(0,0,0,0.1)",
+    defaultFontColor: "#666",
+    defaultFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+    defaultFontSize: 12,
+    defaultFontStyle: "normal",
+    defaultLineHeight: 1.2,
+    showLines: !0
+  });
+
+  var N = z,
+      B = S.valueOrDefault;
+  var E = {
+    toLineHeight: function toLineHeight(t, e) {
+      var n = ("" + t).match(/^(normal|(\d+(?:\.\d+)?)(px|em|%)?)$/);
+      if (!n || "normal" === n[1]) return 1.2 * e;
+
+      switch (t = +n[2], n[3]) {
+        case "px":
+          return t;
+
+        case "%":
+          t /= 100;
+      }
+
+      return e * t;
+    },
+    toPadding: function toPadding(t) {
+      var e, n, i, a;
+      return S.isObject(t) ? (e = +t.top || 0, n = +t.right || 0, i = +t.bottom || 0, a = +t.left || 0) : e = n = i = a = +t || 0, {
+        top: e,
+        right: n,
+        bottom: i,
+        left: a,
+        height: e + i,
+        width: a + n
+      };
+    },
+    _parseFont: function _parseFont(t) {
+      var e = N.global,
+          n = B(t.fontSize, e.defaultFontSize),
+          i = {
+        family: B(t.fontFamily, e.defaultFontFamily),
+        lineHeight: S.options.toLineHeight(B(t.lineHeight, e.defaultLineHeight), n),
+        size: n,
+        style: B(t.fontStyle, e.defaultFontStyle),
+        weight: null,
+        string: ""
+      };
+      return i.string = function (t) {
+        return !t || S.isNullOrUndef(t.size) || S.isNullOrUndef(t.family) ? null : (t.style ? t.style + " " : "") + (t.weight ? t.weight + " " : "") + t.size + "px " + t.family;
+      }(i), i;
+    },
+    resolve: function resolve(t, e, n, i) {
+      var a,
+          r,
+          o,
+          s = !0;
+
+      for (a = 0, r = t.length; a < r; ++a) {
+        if (void 0 !== (o = t[a]) && (void 0 !== e && "function" == typeof o && (o = o(e), s = !1), void 0 !== n && S.isArray(o) && (o = o[n], s = !1), void 0 !== o)) return i && !s && (i.cacheable = !1), o;
+      }
+    }
+  },
+      W = {
+    _factorize: function _factorize(t) {
+      var e,
+          n = [],
+          i = Math.sqrt(t);
+
+      for (e = 1; e < i; e++) {
+        t % e == 0 && (n.push(e), n.push(t / e));
+      }
+
+      return i === (0 | i) && n.push(i), n.sort(function (t, e) {
+        return t - e;
+      }).pop(), n;
+    },
+    log10: Math.log10 || function (t) {
+      var e = Math.log(t) * Math.LOG10E,
+          n = Math.round(e);
+      return t === Math.pow(10, n) ? n : e;
+    }
+  },
+      V = W;
+  S.log10 = W.log10;
+  var H = S,
+      j = P,
+      q = R,
+      U = E,
+      Y = V,
+      G = {
+    getRtlAdapter: function getRtlAdapter(t, e, n) {
+      return t ? function (t, e) {
+        return {
+          x: function x(n) {
+            return t + t + e - n;
+          },
+          setWidth: function setWidth(t) {
+            e = t;
+          },
+          textAlign: function textAlign(t) {
+            return "center" === t ? t : "right" === t ? "left" : "right";
+          },
+          xPlus: function xPlus(t, e) {
+            return t - e;
+          },
+          leftForLtr: function leftForLtr(t, e) {
+            return t - e;
+          }
+        };
+      }(e, n) : {
+        x: function x(t) {
+          return t;
+        },
+        setWidth: function setWidth(t) {},
+        textAlign: function textAlign(t) {
+          return t;
+        },
+        xPlus: function xPlus(t, e) {
+          return t + e;
+        },
+        leftForLtr: function leftForLtr(t, e) {
+          return t;
+        }
+      };
+    },
+    overrideTextDirection: function overrideTextDirection(t, e) {
+      var n, i;
+      "ltr" !== e && "rtl" !== e || (i = [(n = t.canvas.style).getPropertyValue("direction"), n.getPropertyPriority("direction")], n.setProperty("direction", e, "important"), t.prevTextDirection = i);
+    },
+    restoreTextDirection: function restoreTextDirection(t) {
+      var e = t.prevTextDirection;
+      void 0 !== e && (delete t.prevTextDirection, t.canvas.style.setProperty("direction", e[0], e[1]));
+    }
+  };
+  H.easing = j, H.canvas = q, H.options = U, H.math = Y, H.rtl = G;
+
+  var X = function X(t) {
+    H.extend(this, t), this.initialize.apply(this, arguments);
+  };
+
+  H.extend(X.prototype, {
+    _type: void 0,
+    initialize: function initialize() {
+      this.hidden = !1;
+    },
+    pivot: function pivot() {
+      var t = this;
+      return t._view || (t._view = H.extend({}, t._model)), t._start = {}, t;
+    },
+    transition: function transition(t) {
+      var e = this,
+          n = e._model,
+          i = e._start,
+          a = e._view;
+      return n && 1 !== t ? (a || (a = e._view = {}), i || (i = e._start = {}), function (t, e, n, i) {
+        var a,
+            r,
+            o,
+            s,
+            l,
+            u,
+            d,
+            h,
+            c,
+            f = Object.keys(n);
+
+        for (a = 0, r = f.length; a < r; ++a) {
+          if (u = n[o = f[a]], e.hasOwnProperty(o) || (e[o] = u), (s = e[o]) !== u && "_" !== o[0]) {
+            if (t.hasOwnProperty(o) || (t[o] = s), (d = _typeof(u)) === _typeof(l = t[o])) if ("string" === d) {
+              if ((h = _(l)).valid && (c = _(u)).valid) {
+                e[o] = c.mix(h, i).rgbString();
+                continue;
+              }
+            } else if (H.isFinite(l) && H.isFinite(u)) {
+              e[o] = l + (u - l) * i;
+              continue;
+            }
+            e[o] = u;
+          }
+        }
+      }(i, a, n, t), e) : (e._view = H.extend({}, n), e._start = null, e);
+    },
+    tooltipPosition: function tooltipPosition() {
+      return {
+        x: this._model.x,
+        y: this._model.y
+      };
+    },
+    hasValue: function hasValue() {
+      return H.isNumber(this._model.x) && H.isNumber(this._model.y);
+    }
+  }), X.extend = H.inherits;
+  var K = X,
+      Z = K.extend({
+    chart: null,
+    currentStep: 0,
+    numSteps: 60,
+    easing: "",
+    render: null,
+    onAnimationProgress: null,
+    onAnimationComplete: null
+  }),
+      $ = Z;
+  Object.defineProperty(Z.prototype, "animationObject", {
+    get: function get() {
+      return this;
+    }
+  }), Object.defineProperty(Z.prototype, "chartInstance", {
+    get: function get() {
+      return this.chart;
+    },
+    set: function set(t) {
+      this.chart = t;
+    }
+  }), N._set("global", {
+    animation: {
+      duration: 1e3,
+      easing: "easeOutQuart",
+      onProgress: H.noop,
+      onComplete: H.noop
+    }
+  });
+  var J = {
+    animations: [],
+    request: null,
+    addAnimation: function addAnimation(t, e, n, i) {
+      var a,
+          r,
+          o = this.animations;
+
+      for (e.chart = t, e.startTime = Date.now(), e.duration = n, i || (t.animating = !0), a = 0, r = o.length; a < r; ++a) {
+        if (o[a].chart === t) return void (o[a] = e);
+      }
+
+      o.push(e), 1 === o.length && this.requestAnimationFrame();
+    },
+    cancelAnimation: function cancelAnimation(t) {
+      var e = H.findIndex(this.animations, function (e) {
+        return e.chart === t;
+      });
+      -1 !== e && (this.animations.splice(e, 1), t.animating = !1);
+    },
+    requestAnimationFrame: function requestAnimationFrame() {
+      var t = this;
+      null === t.request && (t.request = H.requestAnimFrame.call(window, function () {
+        t.request = null, t.startDigest();
+      }));
+    },
+    startDigest: function startDigest() {
+      this.advance(), this.animations.length > 0 && this.requestAnimationFrame();
+    },
+    advance: function advance() {
+      for (var t, e, n, i, a = this.animations, r = 0; r < a.length;) {
+        e = (t = a[r]).chart, n = t.numSteps, i = Math.floor((Date.now() - t.startTime) / t.duration * n) + 1, t.currentStep = Math.min(i, n), H.callback(t.render, [e, t], e), H.callback(t.onAnimationProgress, [t], e), t.currentStep >= n ? (H.callback(t.onAnimationComplete, [t], e), e.animating = !1, a.splice(r, 1)) : ++r;
+      }
+    }
+  },
+      Q = H.options.resolve,
+      tt = ["push", "pop", "shift", "splice", "unshift"];
+
+  function et(t, e) {
+    var n = t._chartjs;
+
+    if (n) {
+      var i = n.listeners,
+          a = i.indexOf(e);
+      -1 !== a && i.splice(a, 1), i.length > 0 || (tt.forEach(function (e) {
+        delete t[e];
+      }), delete t._chartjs);
+    }
+  }
+
+  var nt = function nt(t, e) {
+    this.initialize(t, e);
+  };
+
+  H.extend(nt.prototype, {
+    datasetElementType: null,
+    dataElementType: null,
+    _datasetElementOptions: ["backgroundColor", "borderCapStyle", "borderColor", "borderDash", "borderDashOffset", "borderJoinStyle", "borderWidth"],
+    _dataElementOptions: ["backgroundColor", "borderColor", "borderWidth", "pointStyle"],
+    initialize: function initialize(t, e) {
+      var n = this;
+      n.chart = t, n.index = e, n.linkScales(), n.addElements(), n._type = n.getMeta().type;
+    },
+    updateIndex: function updateIndex(t) {
+      this.index = t;
+    },
+    linkScales: function linkScales() {
+      var t = this.getMeta(),
+          e = this.chart,
+          n = e.scales,
+          i = this.getDataset(),
+          a = e.options.scales;
+      null !== t.xAxisID && t.xAxisID in n && !i.xAxisID || (t.xAxisID = i.xAxisID || a.xAxes[0].id), null !== t.yAxisID && t.yAxisID in n && !i.yAxisID || (t.yAxisID = i.yAxisID || a.yAxes[0].id);
+    },
+    getDataset: function getDataset() {
+      return this.chart.data.datasets[this.index];
+    },
+    getMeta: function getMeta() {
+      return this.chart.getDatasetMeta(this.index);
+    },
+    getScaleForId: function getScaleForId(t) {
+      return this.chart.scales[t];
+    },
+    _getValueScaleId: function _getValueScaleId() {
+      return this.getMeta().yAxisID;
+    },
+    _getIndexScaleId: function _getIndexScaleId() {
+      return this.getMeta().xAxisID;
+    },
+    _getValueScale: function _getValueScale() {
+      return this.getScaleForId(this._getValueScaleId());
+    },
+    _getIndexScale: function _getIndexScale() {
+      return this.getScaleForId(this._getIndexScaleId());
+    },
+    reset: function reset() {
+      this._update(!0);
+    },
+    destroy: function destroy() {
+      this._data && et(this._data, this);
+    },
+    createMetaDataset: function createMetaDataset() {
+      var t = this.datasetElementType;
+      return t && new t({
+        _chart: this.chart,
+        _datasetIndex: this.index
+      });
+    },
+    createMetaData: function createMetaData(t) {
+      var e = this.dataElementType;
+      return e && new e({
+        _chart: this.chart,
+        _datasetIndex: this.index,
+        _index: t
+      });
+    },
+    addElements: function addElements() {
+      var t,
+          e,
+          n = this.getMeta(),
+          i = this.getDataset().data || [],
+          a = n.data;
+
+      for (t = 0, e = i.length; t < e; ++t) {
+        a[t] = a[t] || this.createMetaData(t);
+      }
+
+      n.dataset = n.dataset || this.createMetaDataset();
+    },
+    addElementAndReset: function addElementAndReset(t) {
+      var e = this.createMetaData(t);
+      this.getMeta().data.splice(t, 0, e), this.updateElement(e, t, !0);
+    },
+    buildOrUpdateElements: function buildOrUpdateElements() {
+      var t,
+          e,
+          n = this,
+          i = n.getDataset(),
+          a = i.data || (i.data = []);
+      n._data !== a && (n._data && et(n._data, n), a && Object.isExtensible(a) && (e = n, (t = a)._chartjs ? t._chartjs.listeners.push(e) : (Object.defineProperty(t, "_chartjs", {
+        configurable: !0,
+        enumerable: !1,
+        value: {
+          listeners: [e]
+        }
+      }), tt.forEach(function (e) {
+        var n = "onData" + e.charAt(0).toUpperCase() + e.slice(1),
+            i = t[e];
+        Object.defineProperty(t, e, {
+          configurable: !0,
+          enumerable: !1,
+          value: function value() {
+            var e = Array.prototype.slice.call(arguments),
+                a = i.apply(this, e);
+            return H.each(t._chartjs.listeners, function (t) {
+              "function" == typeof t[n] && t[n].apply(t, e);
+            }), a;
+          }
+        });
+      }))), n._data = a), n.resyncElements();
+    },
+    _configure: function _configure() {
+      this._config = H.merge(Object.create(null), [this.chart.options.datasets[this._type], this.getDataset()], {
+        merger: function merger(t, e, n) {
+          "_meta" !== t && "data" !== t && H._merger(t, e, n);
+        }
+      });
+    },
+    _update: function _update(t) {
+      this._configure(), this._cachedDataOpts = null, this.update(t);
+    },
+    update: H.noop,
+    transition: function transition(t) {
+      for (var e = this.getMeta(), n = e.data || [], i = n.length, a = 0; a < i; ++a) {
+        n[a].transition(t);
+      }
+
+      e.dataset && e.dataset.transition(t);
+    },
+    draw: function draw() {
+      var t = this.getMeta(),
+          e = t.data || [],
+          n = e.length,
+          i = 0;
+
+      for (t.dataset && t.dataset.draw(); i < n; ++i) {
+        e[i].draw();
+      }
+    },
+    getStyle: function getStyle(t) {
+      var e,
+          n = this.getMeta(),
+          i = n.dataset;
+      return this._configure(), i && void 0 === t ? e = this._resolveDatasetElementOptions(i || {}) : (t = t || 0, e = this._resolveDataElementOptions(n.data[t] || {}, t)), !1 !== e.fill && null !== e.fill || (e.backgroundColor = e.borderColor), e;
+    },
+    _resolveDatasetElementOptions: function _resolveDatasetElementOptions(t, e) {
+      var n,
+          i,
+          a,
+          r,
+          o = this,
+          s = o.chart,
+          l = o._config,
+          u = t.custom || {},
+          d = s.options.elements[o.datasetElementType.prototype._type] || {},
+          h = o._datasetElementOptions,
+          c = {},
+          f = {
+        chart: s,
+        dataset: o.getDataset(),
+        datasetIndex: o.index,
+        hover: e
+      };
+
+      for (n = 0, i = h.length; n < i; ++n) {
+        a = h[n], r = e ? "hover" + a.charAt(0).toUpperCase() + a.slice(1) : a, c[a] = Q([u[r], l[r], d[r]], f);
+      }
+
+      return c;
+    },
+    _resolveDataElementOptions: function _resolveDataElementOptions(t, e) {
+      var n = this,
+          i = t && t.custom,
+          a = n._cachedDataOpts;
+      if (a && !i) return a;
+      var r,
+          o,
+          s,
+          l,
+          u = n.chart,
+          d = n._config,
+          h = u.options.elements[n.dataElementType.prototype._type] || {},
+          c = n._dataElementOptions,
+          f = {},
+          g = {
+        chart: u,
+        dataIndex: e,
+        dataset: n.getDataset(),
+        datasetIndex: n.index
+      },
+          p = {
+        cacheable: !i
+      };
+      if (i = i || {}, H.isArray(c)) for (o = 0, s = c.length; o < s; ++o) {
+        f[l = c[o]] = Q([i[l], d[l], h[l]], g, e, p);
+      } else for (o = 0, s = (r = Object.keys(c)).length; o < s; ++o) {
+        f[l = r[o]] = Q([i[l], d[c[l]], d[l], h[l]], g, e, p);
+      }
+      return p.cacheable && (n._cachedDataOpts = Object.freeze(f)), f;
+    },
+    removeHoverStyle: function removeHoverStyle(t) {
+      H.merge(t._model, t.$previousStyle || {}), delete t.$previousStyle;
+    },
+    setHoverStyle: function setHoverStyle(t) {
+      var e = this.chart.data.datasets[t._datasetIndex],
+          n = t._index,
+          i = t.custom || {},
+          a = t._model,
+          r = H.getHoverColor;
+      t.$previousStyle = {
+        backgroundColor: a.backgroundColor,
+        borderColor: a.borderColor,
+        borderWidth: a.borderWidth
+      }, a.backgroundColor = Q([i.hoverBackgroundColor, e.hoverBackgroundColor, r(a.backgroundColor)], void 0, n), a.borderColor = Q([i.hoverBorderColor, e.hoverBorderColor, r(a.borderColor)], void 0, n), a.borderWidth = Q([i.hoverBorderWidth, e.hoverBorderWidth, a.borderWidth], void 0, n);
+    },
+    _removeDatasetHoverStyle: function _removeDatasetHoverStyle() {
+      var t = this.getMeta().dataset;
+      t && this.removeHoverStyle(t);
+    },
+    _setDatasetHoverStyle: function _setDatasetHoverStyle() {
+      var t,
+          e,
+          n,
+          i,
+          a,
+          r,
+          o = this.getMeta().dataset,
+          s = {};
+
+      if (o) {
+        for (r = o._model, a = this._resolveDatasetElementOptions(o, !0), t = 0, e = (i = Object.keys(a)).length; t < e; ++t) {
+          s[n = i[t]] = r[n], r[n] = a[n];
+        }
+
+        o.$previousStyle = s;
+      }
+    },
+    resyncElements: function resyncElements() {
+      var t = this.getMeta(),
+          e = this.getDataset().data,
+          n = t.data.length,
+          i = e.length;
+      i < n ? t.data.splice(i, n - i) : i > n && this.insertElements(n, i - n);
+    },
+    insertElements: function insertElements(t, e) {
+      for (var n = 0; n < e; ++n) {
+        this.addElementAndReset(t + n);
+      }
+    },
+    onDataPush: function onDataPush() {
+      var t = arguments.length;
+      this.insertElements(this.getDataset().data.length - t, t);
+    },
+    onDataPop: function onDataPop() {
+      this.getMeta().data.pop();
+    },
+    onDataShift: function onDataShift() {
+      this.getMeta().data.shift();
+    },
+    onDataSplice: function onDataSplice(t, e) {
+      this.getMeta().data.splice(t, e), this.insertElements(t, arguments.length - 2);
+    },
+    onDataUnshift: function onDataUnshift() {
+      this.insertElements(0, arguments.length);
+    }
+  }), nt.extend = H.inherits;
+  var it = nt,
+      at = 2 * Math.PI;
+
+  function rt(t, e) {
+    var n = e.startAngle,
+        i = e.endAngle,
+        a = e.pixelMargin,
+        r = a / e.outerRadius,
+        o = e.x,
+        s = e.y;
+    t.beginPath(), t.arc(o, s, e.outerRadius, n - r, i + r), e.innerRadius > a ? (r = a / e.innerRadius, t.arc(o, s, e.innerRadius - a, i + r, n - r, !0)) : t.arc(o, s, a, i + Math.PI / 2, n - Math.PI / 2), t.closePath(), t.clip();
+  }
+
+  function ot(t, e, n) {
+    var i = "inner" === e.borderAlign;
+    i ? (t.lineWidth = 2 * e.borderWidth, t.lineJoin = "round") : (t.lineWidth = e.borderWidth, t.lineJoin = "bevel"), n.fullCircles && function (t, e, n, i) {
+      var a,
+          r = n.endAngle;
+
+      for (i && (n.endAngle = n.startAngle + at, rt(t, n), n.endAngle = r, n.endAngle === n.startAngle && n.fullCircles && (n.endAngle += at, n.fullCircles--)), t.beginPath(), t.arc(n.x, n.y, n.innerRadius, n.startAngle + at, n.startAngle, !0), a = 0; a < n.fullCircles; ++a) {
+        t.stroke();
+      }
+
+      for (t.beginPath(), t.arc(n.x, n.y, e.outerRadius, n.startAngle, n.startAngle + at), a = 0; a < n.fullCircles; ++a) {
+        t.stroke();
+      }
+    }(t, e, n, i), i && rt(t, n), t.beginPath(), t.arc(n.x, n.y, e.outerRadius, n.startAngle, n.endAngle), t.arc(n.x, n.y, n.innerRadius, n.endAngle, n.startAngle, !0), t.closePath(), t.stroke();
+  }
+
+  N._set("global", {
+    elements: {
+      arc: {
+        backgroundColor: N.global.defaultColor,
+        borderColor: "#fff",
+        borderWidth: 2,
+        borderAlign: "center"
+      }
+    }
+  });
+
+  var st = K.extend({
+    _type: "arc",
+    inLabelRange: function inLabelRange(t) {
+      var e = this._view;
+      return !!e && Math.pow(t - e.x, 2) < Math.pow(e.radius + e.hoverRadius, 2);
+    },
+    inRange: function inRange(t, e) {
+      var n = this._view;
+
+      if (n) {
+        for (var i = H.getAngleFromPoint(n, {
+          x: t,
+          y: e
+        }), a = i.angle, r = i.distance, o = n.startAngle, s = n.endAngle; s < o;) {
+          s += at;
+        }
+
+        for (; a > s;) {
+          a -= at;
+        }
+
+        for (; a < o;) {
+          a += at;
+        }
+
+        var l = a >= o && a <= s,
+            u = r >= n.innerRadius && r <= n.outerRadius;
+        return l && u;
+      }
+
+      return !1;
+    },
+    getCenterPoint: function getCenterPoint() {
+      var t = this._view,
+          e = (t.startAngle + t.endAngle) / 2,
+          n = (t.innerRadius + t.outerRadius) / 2;
+      return {
+        x: t.x + Math.cos(e) * n,
+        y: t.y + Math.sin(e) * n
+      };
+    },
+    getArea: function getArea() {
+      var t = this._view;
+      return Math.PI * ((t.endAngle - t.startAngle) / (2 * Math.PI)) * (Math.pow(t.outerRadius, 2) - Math.pow(t.innerRadius, 2));
+    },
+    tooltipPosition: function tooltipPosition() {
+      var t = this._view,
+          e = t.startAngle + (t.endAngle - t.startAngle) / 2,
+          n = (t.outerRadius - t.innerRadius) / 2 + t.innerRadius;
+      return {
+        x: t.x + Math.cos(e) * n,
+        y: t.y + Math.sin(e) * n
+      };
+    },
+    draw: function draw() {
+      var t,
+          e = this._chart.ctx,
+          n = this._view,
+          i = "inner" === n.borderAlign ? .33 : 0,
+          a = {
+        x: n.x,
+        y: n.y,
+        innerRadius: n.innerRadius,
+        outerRadius: Math.max(n.outerRadius - i, 0),
+        pixelMargin: i,
+        startAngle: n.startAngle,
+        endAngle: n.endAngle,
+        fullCircles: Math.floor(n.circumference / at)
+      };
+
+      if (e.save(), e.fillStyle = n.backgroundColor, e.strokeStyle = n.borderColor, a.fullCircles) {
+        for (a.endAngle = a.startAngle + at, e.beginPath(), e.arc(a.x, a.y, a.outerRadius, a.startAngle, a.endAngle), e.arc(a.x, a.y, a.innerRadius, a.endAngle, a.startAngle, !0), e.closePath(), t = 0; t < a.fullCircles; ++t) {
+          e.fill();
+        }
+
+        a.endAngle = a.startAngle + n.circumference % at;
+      }
+
+      e.beginPath(), e.arc(a.x, a.y, a.outerRadius, a.startAngle, a.endAngle), e.arc(a.x, a.y, a.innerRadius, a.endAngle, a.startAngle, !0), e.closePath(), e.fill(), n.borderWidth && ot(e, n, a), e.restore();
+    }
+  }),
+      lt = H.valueOrDefault,
+      ut = N.global.defaultColor;
+
+  N._set("global", {
+    elements: {
+      line: {
+        tension: .4,
+        backgroundColor: ut,
+        borderWidth: 3,
+        borderColor: ut,
+        borderCapStyle: "butt",
+        borderDash: [],
+        borderDashOffset: 0,
+        borderJoinStyle: "miter",
+        capBezierPoints: !0,
+        fill: !0
+      }
+    }
+  });
+
+  var dt = K.extend({
+    _type: "line",
+    draw: function draw() {
+      var t,
+          e,
+          n,
+          i = this,
+          a = i._view,
+          r = i._chart.ctx,
+          o = a.spanGaps,
+          s = i._children.slice(),
+          l = N.global,
+          u = l.elements.line,
+          d = -1,
+          h = i._loop;
+
+      if (s.length) {
+        if (i._loop) {
+          for (t = 0; t < s.length; ++t) {
+            if (e = H.previousItem(s, t), !s[t]._view.skip && e._view.skip) {
+              s = s.slice(t).concat(s.slice(0, t)), h = o;
+              break;
+            }
+          }
+
+          h && s.push(s[0]);
+        }
+
+        for (r.save(), r.lineCap = a.borderCapStyle || u.borderCapStyle, r.setLineDash && r.setLineDash(a.borderDash || u.borderDash), r.lineDashOffset = lt(a.borderDashOffset, u.borderDashOffset), r.lineJoin = a.borderJoinStyle || u.borderJoinStyle, r.lineWidth = lt(a.borderWidth, u.borderWidth), r.strokeStyle = a.borderColor || l.defaultColor, r.beginPath(), (n = s[0]._view).skip || (r.moveTo(n.x, n.y), d = 0), t = 1; t < s.length; ++t) {
+          n = s[t]._view, e = -1 === d ? H.previousItem(s, t) : s[d], n.skip || (d !== t - 1 && !o || -1 === d ? r.moveTo(n.x, n.y) : H.canvas.lineTo(r, e._view, n), d = t);
+        }
+
+        h && r.closePath(), r.stroke(), r.restore();
+      }
+    }
+  }),
+      ht = H.valueOrDefault,
+      ct = N.global.defaultColor;
+
+  function ft(t) {
+    var e = this._view;
+    return !!e && Math.abs(t - e.x) < e.radius + e.hitRadius;
+  }
+
+  N._set("global", {
+    elements: {
+      point: {
+        radius: 3,
+        pointStyle: "circle",
+        backgroundColor: ct,
+        borderColor: ct,
+        borderWidth: 1,
+        hitRadius: 1,
+        hoverRadius: 4,
+        hoverBorderWidth: 1
+      }
+    }
+  });
+
+  var gt = K.extend({
+    _type: "point",
+    inRange: function inRange(t, e) {
+      var n = this._view;
+      return !!n && Math.pow(t - n.x, 2) + Math.pow(e - n.y, 2) < Math.pow(n.hitRadius + n.radius, 2);
+    },
+    inLabelRange: ft,
+    inXRange: ft,
+    inYRange: function inYRange(t) {
+      var e = this._view;
+      return !!e && Math.abs(t - e.y) < e.radius + e.hitRadius;
+    },
+    getCenterPoint: function getCenterPoint() {
+      var t = this._view;
+      return {
+        x: t.x,
+        y: t.y
+      };
+    },
+    getArea: function getArea() {
+      return Math.PI * Math.pow(this._view.radius, 2);
+    },
+    tooltipPosition: function tooltipPosition() {
+      var t = this._view;
+      return {
+        x: t.x,
+        y: t.y,
+        padding: t.radius + t.borderWidth
+      };
+    },
+    draw: function draw(t) {
+      var e = this._view,
+          n = this._chart.ctx,
+          i = e.pointStyle,
+          a = e.rotation,
+          r = e.radius,
+          o = e.x,
+          s = e.y,
+          l = N.global,
+          u = l.defaultColor;
+      e.skip || (void 0 === t || H.canvas._isPointInArea(e, t)) && (n.strokeStyle = e.borderColor || u, n.lineWidth = ht(e.borderWidth, l.elements.point.borderWidth), n.fillStyle = e.backgroundColor || u, H.canvas.drawPoint(n, i, r, o, s, a));
+    }
+  }),
+      pt = N.global.defaultColor;
+
+  function mt(t) {
+    return t && void 0 !== t.width;
+  }
+
+  function vt(t) {
+    var e, n, i, a, r;
+    return mt(t) ? (r = t.width / 2, e = t.x - r, n = t.x + r, i = Math.min(t.y, t.base), a = Math.max(t.y, t.base)) : (r = t.height / 2, e = Math.min(t.x, t.base), n = Math.max(t.x, t.base), i = t.y - r, a = t.y + r), {
+      left: e,
+      top: i,
+      right: n,
+      bottom: a
+    };
+  }
+
+  function bt(t, e, n) {
+    return t === e ? n : t === n ? e : t;
+  }
+
+  function xt(t, e, n) {
+    var i,
+        a,
+        r,
+        o,
+        s = t.borderWidth,
+        l = function (t) {
+      var e = t.borderSkipped,
+          n = {};
+      return e ? (t.horizontal ? t.base > t.x && (e = bt(e, "left", "right")) : t.base < t.y && (e = bt(e, "bottom", "top")), n[e] = !0, n) : n;
+    }(t);
+
+    return H.isObject(s) ? (i = +s.top || 0, a = +s.right || 0, r = +s.bottom || 0, o = +s.left || 0) : i = a = r = o = +s || 0, {
+      t: l.top || i < 0 ? 0 : i > n ? n : i,
+      r: l.right || a < 0 ? 0 : a > e ? e : a,
+      b: l.bottom || r < 0 ? 0 : r > n ? n : r,
+      l: l.left || o < 0 ? 0 : o > e ? e : o
+    };
+  }
+
+  function yt(t, e, n) {
+    var i = null === e,
+        a = null === n,
+        r = !(!t || i && a) && vt(t);
+    return r && (i || e >= r.left && e <= r.right) && (a || n >= r.top && n <= r.bottom);
+  }
+
+  N._set("global", {
+    elements: {
+      rectangle: {
+        backgroundColor: pt,
+        borderColor: pt,
+        borderSkipped: "bottom",
+        borderWidth: 0
+      }
+    }
+  });
+
+  var _t = K.extend({
+    _type: "rectangle",
+    draw: function draw() {
+      var t = this._chart.ctx,
+          e = this._view,
+          n = function (t) {
+        var e = vt(t),
+            n = e.right - e.left,
+            i = e.bottom - e.top,
+            a = xt(t, n / 2, i / 2);
+        return {
+          outer: {
+            x: e.left,
+            y: e.top,
+            w: n,
+            h: i
+          },
+          inner: {
+            x: e.left + a.l,
+            y: e.top + a.t,
+            w: n - a.l - a.r,
+            h: i - a.t - a.b
+          }
+        };
+      }(e),
+          i = n.outer,
+          a = n.inner;
+
+      t.fillStyle = e.backgroundColor, t.fillRect(i.x, i.y, i.w, i.h), i.w === a.w && i.h === a.h || (t.save(), t.beginPath(), t.rect(i.x, i.y, i.w, i.h), t.clip(), t.fillStyle = e.borderColor, t.rect(a.x, a.y, a.w, a.h), t.fill("evenodd"), t.restore());
+    },
+    height: function height() {
+      var t = this._view;
+      return t.base - t.y;
+    },
+    inRange: function inRange(t, e) {
+      return yt(this._view, t, e);
+    },
+    inLabelRange: function inLabelRange(t, e) {
+      var n = this._view;
+      return mt(n) ? yt(n, t, null) : yt(n, null, e);
+    },
+    inXRange: function inXRange(t) {
+      return yt(this._view, t, null);
+    },
+    inYRange: function inYRange(t) {
+      return yt(this._view, null, t);
+    },
+    getCenterPoint: function getCenterPoint() {
+      var t,
+          e,
+          n = this._view;
+      return mt(n) ? (t = n.x, e = (n.y + n.base) / 2) : (t = (n.x + n.base) / 2, e = n.y), {
+        x: t,
+        y: e
+      };
+    },
+    getArea: function getArea() {
+      var t = this._view;
+      return mt(t) ? t.width * Math.abs(t.y - t.base) : t.height * Math.abs(t.x - t.base);
+    },
+    tooltipPosition: function tooltipPosition() {
+      var t = this._view;
+      return {
+        x: t.x,
+        y: t.y
+      };
+    }
+  }),
+      kt = {},
+      wt = st,
+      Mt = dt,
+      St = gt,
+      Ct = _t;
+
+  kt.Arc = wt, kt.Line = Mt, kt.Point = St, kt.Rectangle = Ct;
+  var Pt = H._deprecated,
+      At = H.valueOrDefault;
+
+  function Dt(t, e, n) {
+    var i,
+        a,
+        r = n.barThickness,
+        o = e.stackCount,
+        s = e.pixels[t],
+        l = H.isNullOrUndef(r) ? function (t, e) {
+      var n,
+          i,
+          a,
+          r,
+          o = t._length;
+
+      for (a = 1, r = e.length; a < r; ++a) {
+        o = Math.min(o, Math.abs(e[a] - e[a - 1]));
+      }
+
+      for (a = 0, r = t.getTicks().length; a < r; ++a) {
+        i = t.getPixelForTick(a), o = a > 0 ? Math.min(o, Math.abs(i - n)) : o, n = i;
+      }
+
+      return o;
+    }(e.scale, e.pixels) : -1;
+    return H.isNullOrUndef(r) ? (i = l * n.categoryPercentage, a = n.barPercentage) : (i = r * o, a = 1), {
+      chunk: i / o,
+      ratio: a,
+      start: s - i / 2
+    };
+  }
+
+  N._set("bar", {
+    hover: {
+      mode: "label"
+    },
+    scales: {
+      xAxes: [{
+        type: "category",
+        offset: !0,
+        gridLines: {
+          offsetGridLines: !0
+        }
+      }],
+      yAxes: [{
+        type: "linear"
+      }]
+    }
+  }), N._set("global", {
+    datasets: {
+      bar: {
+        categoryPercentage: .8,
+        barPercentage: .9
+      }
+    }
+  });
+  var Tt = it.extend({
+    dataElementType: kt.Rectangle,
+    _dataElementOptions: ["backgroundColor", "borderColor", "borderSkipped", "borderWidth", "barPercentage", "barThickness", "categoryPercentage", "maxBarThickness", "minBarLength"],
+    initialize: function initialize() {
+      var t,
+          e,
+          n = this;
+      it.prototype.initialize.apply(n, arguments), (t = n.getMeta()).stack = n.getDataset().stack, t.bar = !0, e = n._getIndexScale().options, Pt("bar chart", e.barPercentage, "scales.[x/y]Axes.barPercentage", "dataset.barPercentage"), Pt("bar chart", e.barThickness, "scales.[x/y]Axes.barThickness", "dataset.barThickness"), Pt("bar chart", e.categoryPercentage, "scales.[x/y]Axes.categoryPercentage", "dataset.categoryPercentage"), Pt("bar chart", n._getValueScale().options.minBarLength, "scales.[x/y]Axes.minBarLength", "dataset.minBarLength"), Pt("bar chart", e.maxBarThickness, "scales.[x/y]Axes.maxBarThickness", "dataset.maxBarThickness");
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i = this.getMeta().data;
+
+      for (this._ruler = this.getRuler(), e = 0, n = i.length; e < n; ++e) {
+        this.updateElement(i[e], e, t);
+      }
+    },
+    updateElement: function updateElement(t, e, n) {
+      var i = this,
+          a = i.getMeta(),
+          r = i.getDataset(),
+          o = i._resolveDataElementOptions(t, e);
+
+      t._xScale = i.getScaleForId(a.xAxisID), t._yScale = i.getScaleForId(a.yAxisID), t._datasetIndex = i.index, t._index = e, t._model = {
+        backgroundColor: o.backgroundColor,
+        borderColor: o.borderColor,
+        borderSkipped: o.borderSkipped,
+        borderWidth: o.borderWidth,
+        datasetLabel: r.label,
+        label: i.chart.data.labels[e]
+      }, H.isArray(r.data[e]) && (t._model.borderSkipped = null), i._updateElementGeometry(t, e, n, o), t.pivot();
+    },
+    _updateElementGeometry: function _updateElementGeometry(t, e, n, i) {
+      var a = this,
+          r = t._model,
+          o = a._getValueScale(),
+          s = o.getBasePixel(),
+          l = o.isHorizontal(),
+          u = a._ruler || a.getRuler(),
+          d = a.calculateBarValuePixels(a.index, e, i),
+          h = a.calculateBarIndexPixels(a.index, e, u, i);
+
+      r.horizontal = l, r.base = n ? s : d.base, r.x = l ? n ? s : d.head : h.center, r.y = l ? h.center : n ? s : d.head, r.height = l ? h.size : void 0, r.width = l ? void 0 : h.size;
+    },
+    _getStacks: function _getStacks(t) {
+      var e,
+          n,
+          i = this._getIndexScale(),
+          a = i._getMatchingVisibleMetas(this._type),
+          r = i.options.stacked,
+          o = a.length,
+          s = [];
+
+      for (e = 0; e < o && (n = a[e], (!1 === r || -1 === s.indexOf(n.stack) || void 0 === r && void 0 === n.stack) && s.push(n.stack), n.index !== t); ++e) {
+        ;
+      }
+
+      return s;
+    },
+    getStackCount: function getStackCount() {
+      return this._getStacks().length;
+    },
+    getStackIndex: function getStackIndex(t, e) {
+      var n = this._getStacks(t),
+          i = void 0 !== e ? n.indexOf(e) : -1;
+
+      return -1 === i ? n.length - 1 : i;
+    },
+    getRuler: function getRuler() {
+      var t,
+          e,
+          n = this._getIndexScale(),
+          i = [];
+
+      for (t = 0, e = this.getMeta().data.length; t < e; ++t) {
+        i.push(n.getPixelForValue(null, t, this.index));
+      }
+
+      return {
+        pixels: i,
+        start: n._startPixel,
+        end: n._endPixel,
+        stackCount: this.getStackCount(),
+        scale: n
+      };
+    },
+    calculateBarValuePixels: function calculateBarValuePixels(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d = this.chart,
+          h = this._getValueScale(),
+          c = h.isHorizontal(),
+          f = d.data.datasets,
+          g = h._getMatchingVisibleMetas(this._type),
+          p = h._parseValue(f[t].data[e]),
+          m = n.minBarLength,
+          v = h.options.stacked,
+          b = this.getMeta().stack,
+          x = void 0 === p.start ? 0 : p.max >= 0 && p.min >= 0 ? p.min : p.max,
+          y = void 0 === p.start ? p.end : p.max >= 0 && p.min >= 0 ? p.max - p.min : p.min - p.max,
+          _ = g.length;
+
+      if (v || void 0 === v && void 0 !== b) for (i = 0; i < _ && (a = g[i]).index !== t; ++i) {
+        a.stack === b && (r = void 0 === (u = h._parseValue(f[a.index].data[e])).start ? u.end : u.min >= 0 && u.max >= 0 ? u.max : u.min, (p.min < 0 && r < 0 || p.max >= 0 && r > 0) && (x += r));
+      }
+      return o = h.getPixelForValue(x), l = (s = h.getPixelForValue(x + y)) - o, void 0 !== m && Math.abs(l) < m && (l = m, s = y >= 0 && !c || y < 0 && c ? o - m : o + m), {
+        size: l,
+        base: o,
+        head: s,
+        center: s + l / 2
+      };
+    },
+    calculateBarIndexPixels: function calculateBarIndexPixels(t, e, n, i) {
+      var a = "flex" === i.barThickness ? function (t, e, n) {
+        var i,
+            a = e.pixels,
+            r = a[t],
+            o = t > 0 ? a[t - 1] : null,
+            s = t < a.length - 1 ? a[t + 1] : null,
+            l = n.categoryPercentage;
+        return null === o && (o = r - (null === s ? e.end - e.start : s - r)), null === s && (s = r + r - o), i = r - (r - Math.min(o, s)) / 2 * l, {
+          chunk: Math.abs(s - o) / 2 * l / e.stackCount,
+          ratio: n.barPercentage,
+          start: i
+        };
+      }(e, n, i) : Dt(e, n, i),
+          r = this.getStackIndex(t, this.getMeta().stack),
+          o = a.start + a.chunk * r + a.chunk / 2,
+          s = Math.min(At(i.maxBarThickness, 1 / 0), a.chunk * a.ratio);
+      return {
+        base: o - s / 2,
+        head: o + s / 2,
+        center: o,
+        size: s
+      };
+    },
+    draw: function draw() {
+      var t = this.chart,
+          e = this._getValueScale(),
+          n = this.getMeta().data,
+          i = this.getDataset(),
+          a = n.length,
+          r = 0;
+
+      for (H.canvas.clipArea(t.ctx, t.chartArea); r < a; ++r) {
+        var o = e._parseValue(i.data[r]);
+
+        isNaN(o.min) || isNaN(o.max) || n[r].draw();
+      }
+
+      H.canvas.unclipArea(t.ctx);
+    },
+    _resolveDataElementOptions: function _resolveDataElementOptions() {
+      var t = this,
+          e = H.extend({}, it.prototype._resolveDataElementOptions.apply(t, arguments)),
+          n = t._getIndexScale().options,
+          i = t._getValueScale().options;
+
+      return e.barPercentage = At(n.barPercentage, e.barPercentage), e.barThickness = At(n.barThickness, e.barThickness), e.categoryPercentage = At(n.categoryPercentage, e.categoryPercentage), e.maxBarThickness = At(n.maxBarThickness, e.maxBarThickness), e.minBarLength = At(i.minBarLength, e.minBarLength), e;
+    }
+  }),
+      It = H.valueOrDefault,
+      Ft = H.options.resolve;
+
+  N._set("bubble", {
+    hover: {
+      mode: "single"
+    },
+    scales: {
+      xAxes: [{
+        type: "linear",
+        position: "bottom",
+        id: "x-axis-0"
+      }],
+      yAxes: [{
+        type: "linear",
+        position: "left",
+        id: "y-axis-0"
+      }]
+    },
+    tooltips: {
+      callbacks: {
+        title: function title() {
+          return "";
+        },
+        label: function label(t, e) {
+          var n = e.datasets[t.datasetIndex].label || "",
+              i = e.datasets[t.datasetIndex].data[t.index];
+          return n + ": (" + t.xLabel + ", " + t.yLabel + ", " + i.r + ")";
+        }
+      }
+    }
+  });
+
+  var Ot = it.extend({
+    dataElementType: kt.Point,
+    _dataElementOptions: ["backgroundColor", "borderColor", "borderWidth", "hoverBackgroundColor", "hoverBorderColor", "hoverBorderWidth", "hoverRadius", "hitRadius", "pointStyle", "rotation"],
+    update: function update(t) {
+      var e = this,
+          n = e.getMeta().data;
+      H.each(n, function (n, i) {
+        e.updateElement(n, i, t);
+      });
+    },
+    updateElement: function updateElement(t, e, n) {
+      var i = this,
+          a = i.getMeta(),
+          r = t.custom || {},
+          o = i.getScaleForId(a.xAxisID),
+          s = i.getScaleForId(a.yAxisID),
+          l = i._resolveDataElementOptions(t, e),
+          u = i.getDataset().data[e],
+          d = i.index,
+          h = n ? o.getPixelForDecimal(.5) : o.getPixelForValue("object" == _typeof(u) ? u : NaN, e, d),
+          c = n ? s.getBasePixel() : s.getPixelForValue(u, e, d);
+
+      t._xScale = o, t._yScale = s, t._options = l, t._datasetIndex = d, t._index = e, t._model = {
+        backgroundColor: l.backgroundColor,
+        borderColor: l.borderColor,
+        borderWidth: l.borderWidth,
+        hitRadius: l.hitRadius,
+        pointStyle: l.pointStyle,
+        rotation: l.rotation,
+        radius: n ? 0 : l.radius,
+        skip: r.skip || isNaN(h) || isNaN(c),
+        x: h,
+        y: c
+      }, t.pivot();
+    },
+    setHoverStyle: function setHoverStyle(t) {
+      var e = t._model,
+          n = t._options,
+          i = H.getHoverColor;
+      t.$previousStyle = {
+        backgroundColor: e.backgroundColor,
+        borderColor: e.borderColor,
+        borderWidth: e.borderWidth,
+        radius: e.radius
+      }, e.backgroundColor = It(n.hoverBackgroundColor, i(n.backgroundColor)), e.borderColor = It(n.hoverBorderColor, i(n.borderColor)), e.borderWidth = It(n.hoverBorderWidth, n.borderWidth), e.radius = n.radius + n.hoverRadius;
+    },
+    _resolveDataElementOptions: function _resolveDataElementOptions(t, e) {
+      var n = this,
+          i = n.chart,
+          a = n.getDataset(),
+          r = t.custom || {},
+          o = a.data[e] || {},
+          s = it.prototype._resolveDataElementOptions.apply(n, arguments),
+          l = {
+        chart: i,
+        dataIndex: e,
+        dataset: a,
+        datasetIndex: n.index
+      };
+
+      return n._cachedDataOpts === s && (s = H.extend({}, s)), s.radius = Ft([r.radius, o.r, n._config.radius, i.options.elements.point.radius], l, e), s;
+    }
+  }),
+      Lt = H.valueOrDefault,
+      Rt = Math.PI,
+      zt = 2 * Rt,
+      Nt = Rt / 2;
+
+  N._set("doughnut", {
+    animation: {
+      animateRotate: !0,
+      animateScale: !1
+    },
+    hover: {
+      mode: "single"
+    },
+    legendCallback: function legendCallback(t) {
+      var e,
+          n,
+          i,
+          a = document.createElement("ul"),
+          r = t.data,
+          o = r.datasets,
+          s = r.labels;
+      if (a.setAttribute("class", t.id + "-legend"), o.length) for (e = 0, n = o[0].data.length; e < n; ++e) {
+        (i = a.appendChild(document.createElement("li"))).appendChild(document.createElement("span")).style.backgroundColor = o[0].backgroundColor[e], s[e] && i.appendChild(document.createTextNode(s[e]));
+      }
+      return a.outerHTML;
+    },
+    legend: {
+      labels: {
+        generateLabels: function generateLabels(t) {
+          var e = t.data;
+          return e.labels.length && e.datasets.length ? e.labels.map(function (n, i) {
+            var a = t.getDatasetMeta(0),
+                r = a.controller.getStyle(i);
+            return {
+              text: n,
+              fillStyle: r.backgroundColor,
+              strokeStyle: r.borderColor,
+              lineWidth: r.borderWidth,
+              hidden: isNaN(e.datasets[0].data[i]) || a.data[i].hidden,
+              index: i
+            };
+          }) : [];
+        }
+      },
+      onClick: function onClick(t, e) {
+        var n,
+            i,
+            a,
+            r = e.index,
+            o = this.chart;
+
+        for (n = 0, i = (o.data.datasets || []).length; n < i; ++n) {
+          (a = o.getDatasetMeta(n)).data[r] && (a.data[r].hidden = !a.data[r].hidden);
+        }
+
+        o.update();
+      }
+    },
+    cutoutPercentage: 50,
+    rotation: -Nt,
+    circumference: zt,
+    tooltips: {
+      callbacks: {
+        title: function title() {
+          return "";
+        },
+        label: function label(t, e) {
+          var n = e.labels[t.index],
+              i = ": " + e.datasets[t.datasetIndex].data[t.index];
+          return H.isArray(n) ? (n = n.slice())[0] += i : n += i, n;
+        }
+      }
+    }
+  });
+
+  var Bt = it.extend({
+    dataElementType: kt.Arc,
+    linkScales: H.noop,
+    _dataElementOptions: ["backgroundColor", "borderColor", "borderWidth", "borderAlign", "hoverBackgroundColor", "hoverBorderColor", "hoverBorderWidth"],
+    getRingIndex: function getRingIndex(t) {
+      for (var e = 0, n = 0; n < t; ++n) {
+        this.chart.isDatasetVisible(n) && ++e;
+      }
+
+      return e;
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i,
+          a,
+          r = this,
+          o = r.chart,
+          s = o.chartArea,
+          l = o.options,
+          u = 1,
+          d = 1,
+          h = 0,
+          c = 0,
+          f = r.getMeta(),
+          g = f.data,
+          p = l.cutoutPercentage / 100 || 0,
+          m = l.circumference,
+          v = r._getRingWeight(r.index);
+
+      if (m < zt) {
+        var b = l.rotation % zt,
+            x = (b += b >= Rt ? -zt : b < -Rt ? zt : 0) + m,
+            y = Math.cos(b),
+            _ = Math.sin(b),
+            k = Math.cos(x),
+            w = Math.sin(x),
+            M = b <= 0 && x >= 0 || x >= zt,
+            S = b <= Nt && x >= Nt || x >= zt + Nt,
+            C = b <= -Nt && x >= -Nt || x >= Rt + Nt,
+            P = b === -Rt || x >= Rt ? -1 : Math.min(y, y * p, k, k * p),
+            A = C ? -1 : Math.min(_, _ * p, w, w * p),
+            D = M ? 1 : Math.max(y, y * p, k, k * p),
+            T = S ? 1 : Math.max(_, _ * p, w, w * p);
+
+        u = (D - P) / 2, d = (T - A) / 2, h = -(D + P) / 2, c = -(T + A) / 2;
+      }
+
+      for (i = 0, a = g.length; i < a; ++i) {
+        g[i]._options = r._resolveDataElementOptions(g[i], i);
+      }
+
+      for (o.borderWidth = r.getMaxBorderWidth(), e = (s.right - s.left - o.borderWidth) / u, n = (s.bottom - s.top - o.borderWidth) / d, o.outerRadius = Math.max(Math.min(e, n) / 2, 0), o.innerRadius = Math.max(o.outerRadius * p, 0), o.radiusLength = (o.outerRadius - o.innerRadius) / (r._getVisibleDatasetWeightTotal() || 1), o.offsetX = h * o.outerRadius, o.offsetY = c * o.outerRadius, f.total = r.calculateTotal(), r.outerRadius = o.outerRadius - o.radiusLength * r._getRingWeightOffset(r.index), r.innerRadius = Math.max(r.outerRadius - o.radiusLength * v, 0), i = 0, a = g.length; i < a; ++i) {
+        r.updateElement(g[i], i, t);
+      }
+    },
+    updateElement: function updateElement(t, e, n) {
+      var i = this,
+          a = i.chart,
+          r = a.chartArea,
+          o = a.options,
+          s = o.animation,
+          l = (r.left + r.right) / 2,
+          u = (r.top + r.bottom) / 2,
+          d = o.rotation,
+          h = o.rotation,
+          c = i.getDataset(),
+          f = n && s.animateRotate ? 0 : t.hidden ? 0 : i.calculateCircumference(c.data[e]) * (o.circumference / zt),
+          g = n && s.animateScale ? 0 : i.innerRadius,
+          p = n && s.animateScale ? 0 : i.outerRadius,
+          m = t._options || {};
+      H.extend(t, {
+        _datasetIndex: i.index,
+        _index: e,
+        _model: {
+          backgroundColor: m.backgroundColor,
+          borderColor: m.borderColor,
+          borderWidth: m.borderWidth,
+          borderAlign: m.borderAlign,
+          x: l + a.offsetX,
+          y: u + a.offsetY,
+          startAngle: d,
+          endAngle: h,
+          circumference: f,
+          outerRadius: p,
+          innerRadius: g,
+          label: H.valueAtIndexOrDefault(c.label, e, a.data.labels[e])
+        }
+      });
+      var v = t._model;
+      n && s.animateRotate || (v.startAngle = 0 === e ? o.rotation : i.getMeta().data[e - 1]._model.endAngle, v.endAngle = v.startAngle + v.circumference), t.pivot();
+    },
+    calculateTotal: function calculateTotal() {
+      var t,
+          e = this.getDataset(),
+          n = this.getMeta(),
+          i = 0;
+      return H.each(n.data, function (n, a) {
+        t = e.data[a], isNaN(t) || n.hidden || (i += Math.abs(t));
+      }), i;
+    },
+    calculateCircumference: function calculateCircumference(t) {
+      var e = this.getMeta().total;
+      return e > 0 && !isNaN(t) ? zt * (Math.abs(t) / e) : 0;
+    },
+    getMaxBorderWidth: function getMaxBorderWidth(t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u = 0,
+          d = this.chart;
+      if (!t) for (e = 0, n = d.data.datasets.length; e < n; ++e) {
+        if (d.isDatasetVisible(e)) {
+          t = (i = d.getDatasetMeta(e)).data, e !== this.index && (r = i.controller);
+          break;
+        }
+      }
+      if (!t) return 0;
+
+      for (e = 0, n = t.length; e < n; ++e) {
+        a = t[e], r ? (r._configure(), o = r._resolveDataElementOptions(a, e)) : o = a._options, "inner" !== o.borderAlign && (s = o.borderWidth, u = (l = o.hoverBorderWidth) > (u = s > u ? s : u) ? l : u);
+      }
+
+      return u;
+    },
+    setHoverStyle: function setHoverStyle(t) {
+      var e = t._model,
+          n = t._options,
+          i = H.getHoverColor;
+      t.$previousStyle = {
+        backgroundColor: e.backgroundColor,
+        borderColor: e.borderColor,
+        borderWidth: e.borderWidth
+      }, e.backgroundColor = Lt(n.hoverBackgroundColor, i(n.backgroundColor)), e.borderColor = Lt(n.hoverBorderColor, i(n.borderColor)), e.borderWidth = Lt(n.hoverBorderWidth, n.borderWidth);
+    },
+    _getRingWeightOffset: function _getRingWeightOffset(t) {
+      for (var e = 0, n = 0; n < t; ++n) {
+        this.chart.isDatasetVisible(n) && (e += this._getRingWeight(n));
+      }
+
+      return e;
+    },
+    _getRingWeight: function _getRingWeight(t) {
+      return Math.max(Lt(this.chart.data.datasets[t].weight, 1), 0);
+    },
+    _getVisibleDatasetWeightTotal: function _getVisibleDatasetWeightTotal() {
+      return this._getRingWeightOffset(this.chart.data.datasets.length);
+    }
+  });
+  N._set("horizontalBar", {
+    hover: {
+      mode: "index",
+      axis: "y"
+    },
+    scales: {
+      xAxes: [{
+        type: "linear",
+        position: "bottom"
+      }],
+      yAxes: [{
+        type: "category",
+        position: "left",
+        offset: !0,
+        gridLines: {
+          offsetGridLines: !0
+        }
+      }]
+    },
+    elements: {
+      rectangle: {
+        borderSkipped: "left"
+      }
+    },
+    tooltips: {
+      mode: "index",
+      axis: "y"
+    }
+  }), N._set("global", {
+    datasets: {
+      horizontalBar: {
+        categoryPercentage: .8,
+        barPercentage: .9
+      }
+    }
+  });
+  var Et = Tt.extend({
+    _getValueScaleId: function _getValueScaleId() {
+      return this.getMeta().xAxisID;
+    },
+    _getIndexScaleId: function _getIndexScaleId() {
+      return this.getMeta().yAxisID;
+    }
+  }),
+      Wt = H.valueOrDefault,
+      Vt = H.options.resolve,
+      Ht = H.canvas._isPointInArea;
+
+  function jt(t, e) {
+    var n = t && t.options.ticks || {},
+        i = n.reverse,
+        a = void 0 === n.min ? e : 0,
+        r = void 0 === n.max ? e : 0;
+    return {
+      start: i ? r : a,
+      end: i ? a : r
+    };
+  }
+
+  function qt(t, e, n) {
+    var i = n / 2,
+        a = jt(t, i),
+        r = jt(e, i);
+    return {
+      top: r.end,
+      right: a.end,
+      bottom: r.start,
+      left: a.start
+    };
+  }
+
+  function Ut(t) {
+    var e, n, i, a;
+    return H.isObject(t) ? (e = t.top, n = t.right, i = t.bottom, a = t.left) : e = n = i = a = t, {
+      top: e,
+      right: n,
+      bottom: i,
+      left: a
+    };
+  }
+
+  N._set("line", {
+    showLines: !0,
+    spanGaps: !1,
+    hover: {
+      mode: "label"
+    },
+    scales: {
+      xAxes: [{
+        type: "category",
+        id: "x-axis-0"
+      }],
+      yAxes: [{
+        type: "linear",
+        id: "y-axis-0"
+      }]
+    }
+  });
+
+  var Yt = it.extend({
+    datasetElementType: kt.Line,
+    dataElementType: kt.Point,
+    _datasetElementOptions: ["backgroundColor", "borderCapStyle", "borderColor", "borderDash", "borderDashOffset", "borderJoinStyle", "borderWidth", "cubicInterpolationMode", "fill"],
+    _dataElementOptions: {
+      backgroundColor: "pointBackgroundColor",
+      borderColor: "pointBorderColor",
+      borderWidth: "pointBorderWidth",
+      hitRadius: "pointHitRadius",
+      hoverBackgroundColor: "pointHoverBackgroundColor",
+      hoverBorderColor: "pointHoverBorderColor",
+      hoverBorderWidth: "pointHoverBorderWidth",
+      hoverRadius: "pointHoverRadius",
+      pointStyle: "pointStyle",
+      radius: "pointRadius",
+      rotation: "pointRotation"
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i = this,
+          a = i.getMeta(),
+          r = a.dataset,
+          o = a.data || [],
+          s = i.chart.options,
+          l = i._config,
+          u = i._showLine = Wt(l.showLine, s.showLines);
+
+      for (i._xScale = i.getScaleForId(a.xAxisID), i._yScale = i.getScaleForId(a.yAxisID), u && (void 0 !== l.tension && void 0 === l.lineTension && (l.lineTension = l.tension), r._scale = i._yScale, r._datasetIndex = i.index, r._children = o, r._model = i._resolveDatasetElementOptions(r), r.pivot()), e = 0, n = o.length; e < n; ++e) {
+        i.updateElement(o[e], e, t);
+      }
+
+      for (u && 0 !== r._model.tension && i.updateBezierControlPoints(), e = 0, n = o.length; e < n; ++e) {
+        o[e].pivot();
+      }
+    },
+    updateElement: function updateElement(t, e, n) {
+      var i,
+          a,
+          r = this,
+          o = r.getMeta(),
+          s = t.custom || {},
+          l = r.getDataset(),
+          u = r.index,
+          d = l.data[e],
+          h = r._xScale,
+          c = r._yScale,
+          f = o.dataset._model,
+          g = r._resolveDataElementOptions(t, e);
+
+      i = h.getPixelForValue("object" == _typeof(d) ? d : NaN, e, u), a = n ? c.getBasePixel() : r.calculatePointY(d, e, u), t._xScale = h, t._yScale = c, t._options = g, t._datasetIndex = u, t._index = e, t._model = {
+        x: i,
+        y: a,
+        skip: s.skip || isNaN(i) || isNaN(a),
+        radius: g.radius,
+        pointStyle: g.pointStyle,
+        rotation: g.rotation,
+        backgroundColor: g.backgroundColor,
+        borderColor: g.borderColor,
+        borderWidth: g.borderWidth,
+        tension: Wt(s.tension, f ? f.tension : 0),
+        steppedLine: !!f && f.steppedLine,
+        hitRadius: g.hitRadius
+      };
+    },
+    _resolveDatasetElementOptions: function _resolveDatasetElementOptions(t) {
+      var e = this,
+          n = e._config,
+          i = t.custom || {},
+          a = e.chart.options,
+          r = a.elements.line,
+          o = it.prototype._resolveDatasetElementOptions.apply(e, arguments);
+
+      return o.spanGaps = Wt(n.spanGaps, a.spanGaps), o.tension = Wt(n.lineTension, r.tension), o.steppedLine = Vt([i.steppedLine, n.steppedLine, r.stepped]), o.clip = Ut(Wt(n.clip, qt(e._xScale, e._yScale, o.borderWidth))), o;
+    },
+    calculatePointY: function calculatePointY(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d = this.chart,
+          h = this._yScale,
+          c = 0,
+          f = 0;
+
+      if (h.options.stacked) {
+        for (s = +h.getRightValue(t), u = (l = d._getSortedVisibleDatasetMetas()).length, i = 0; i < u && (r = l[i]).index !== n; ++i) {
+          a = d.data.datasets[r.index], "line" === r.type && r.yAxisID === h.id && ((o = +h.getRightValue(a.data[e])) < 0 ? f += o || 0 : c += o || 0);
+        }
+
+        return s < 0 ? h.getPixelForValue(f + s) : h.getPixelForValue(c + s);
+      }
+
+      return h.getPixelForValue(t);
+    },
+    updateBezierControlPoints: function updateBezierControlPoints() {
+      var t,
+          e,
+          n,
+          i,
+          a = this.chart,
+          r = this.getMeta(),
+          o = r.dataset._model,
+          s = a.chartArea,
+          l = r.data || [];
+
+      function u(t, e, n) {
+        return Math.max(Math.min(t, n), e);
+      }
+
+      if (o.spanGaps && (l = l.filter(function (t) {
+        return !t._model.skip;
+      })), "monotone" === o.cubicInterpolationMode) H.splineCurveMonotone(l);else for (t = 0, e = l.length; t < e; ++t) {
+        n = l[t]._model, i = H.splineCurve(H.previousItem(l, t)._model, n, H.nextItem(l, t)._model, o.tension), n.controlPointPreviousX = i.previous.x, n.controlPointPreviousY = i.previous.y, n.controlPointNextX = i.next.x, n.controlPointNextY = i.next.y;
+      }
+      if (a.options.elements.line.capBezierPoints) for (t = 0, e = l.length; t < e; ++t) {
+        n = l[t]._model, Ht(n, s) && (t > 0 && Ht(l[t - 1]._model, s) && (n.controlPointPreviousX = u(n.controlPointPreviousX, s.left, s.right), n.controlPointPreviousY = u(n.controlPointPreviousY, s.top, s.bottom)), t < l.length - 1 && Ht(l[t + 1]._model, s) && (n.controlPointNextX = u(n.controlPointNextX, s.left, s.right), n.controlPointNextY = u(n.controlPointNextY, s.top, s.bottom)));
+      }
+    },
+    draw: function draw() {
+      var t,
+          e = this.chart,
+          n = this.getMeta(),
+          i = n.data || [],
+          a = e.chartArea,
+          r = e.canvas,
+          o = 0,
+          s = i.length;
+
+      for (this._showLine && (t = n.dataset._model.clip, H.canvas.clipArea(e.ctx, {
+        left: !1 === t.left ? 0 : a.left - t.left,
+        right: !1 === t.right ? r.width : a.right + t.right,
+        top: !1 === t.top ? 0 : a.top - t.top,
+        bottom: !1 === t.bottom ? r.height : a.bottom + t.bottom
+      }), n.dataset.draw(), H.canvas.unclipArea(e.ctx)); o < s; ++o) {
+        i[o].draw(a);
+      }
+    },
+    setHoverStyle: function setHoverStyle(t) {
+      var e = t._model,
+          n = t._options,
+          i = H.getHoverColor;
+      t.$previousStyle = {
+        backgroundColor: e.backgroundColor,
+        borderColor: e.borderColor,
+        borderWidth: e.borderWidth,
+        radius: e.radius
+      }, e.backgroundColor = Wt(n.hoverBackgroundColor, i(n.backgroundColor)), e.borderColor = Wt(n.hoverBorderColor, i(n.borderColor)), e.borderWidth = Wt(n.hoverBorderWidth, n.borderWidth), e.radius = Wt(n.hoverRadius, n.radius);
+    }
+  }),
+      Gt = H.options.resolve;
+
+  N._set("polarArea", {
+    scale: {
+      type: "radialLinear",
+      angleLines: {
+        display: !1
+      },
+      gridLines: {
+        circular: !0
+      },
+      pointLabels: {
+        display: !1
+      },
+      ticks: {
+        beginAtZero: !0
+      }
+    },
+    animation: {
+      animateRotate: !0,
+      animateScale: !0
+    },
+    startAngle: -.5 * Math.PI,
+    legendCallback: function legendCallback(t) {
+      var e,
+          n,
+          i,
+          a = document.createElement("ul"),
+          r = t.data,
+          o = r.datasets,
+          s = r.labels;
+      if (a.setAttribute("class", t.id + "-legend"), o.length) for (e = 0, n = o[0].data.length; e < n; ++e) {
+        (i = a.appendChild(document.createElement("li"))).appendChild(document.createElement("span")).style.backgroundColor = o[0].backgroundColor[e], s[e] && i.appendChild(document.createTextNode(s[e]));
+      }
+      return a.outerHTML;
+    },
+    legend: {
+      labels: {
+        generateLabels: function generateLabels(t) {
+          var e = t.data;
+          return e.labels.length && e.datasets.length ? e.labels.map(function (n, i) {
+            var a = t.getDatasetMeta(0),
+                r = a.controller.getStyle(i);
+            return {
+              text: n,
+              fillStyle: r.backgroundColor,
+              strokeStyle: r.borderColor,
+              lineWidth: r.borderWidth,
+              hidden: isNaN(e.datasets[0].data[i]) || a.data[i].hidden,
+              index: i
+            };
+          }) : [];
+        }
+      },
+      onClick: function onClick(t, e) {
+        var n,
+            i,
+            a,
+            r = e.index,
+            o = this.chart;
+
+        for (n = 0, i = (o.data.datasets || []).length; n < i; ++n) {
+          (a = o.getDatasetMeta(n)).data[r].hidden = !a.data[r].hidden;
+        }
+
+        o.update();
+      }
+    },
+    tooltips: {
+      callbacks: {
+        title: function title() {
+          return "";
+        },
+        label: function label(t, e) {
+          return e.labels[t.index] + ": " + t.yLabel;
+        }
+      }
+    }
+  });
+
+  var Xt = it.extend({
+    dataElementType: kt.Arc,
+    linkScales: H.noop,
+    _dataElementOptions: ["backgroundColor", "borderColor", "borderWidth", "borderAlign", "hoverBackgroundColor", "hoverBorderColor", "hoverBorderWidth"],
+    _getIndexScaleId: function _getIndexScaleId() {
+      return this.chart.scale.id;
+    },
+    _getValueScaleId: function _getValueScaleId() {
+      return this.chart.scale.id;
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i,
+          a = this,
+          r = a.getDataset(),
+          o = a.getMeta(),
+          s = a.chart.options.startAngle || 0,
+          l = a._starts = [],
+          u = a._angles = [],
+          d = o.data;
+
+      for (a._updateRadius(), o.count = a.countVisibleElements(), e = 0, n = r.data.length; e < n; e++) {
+        l[e] = s, i = a._computeAngle(e), u[e] = i, s += i;
+      }
+
+      for (e = 0, n = d.length; e < n; ++e) {
+        d[e]._options = a._resolveDataElementOptions(d[e], e), a.updateElement(d[e], e, t);
+      }
+    },
+    _updateRadius: function _updateRadius() {
+      var t = this,
+          e = t.chart,
+          n = e.chartArea,
+          i = e.options,
+          a = Math.min(n.right - n.left, n.bottom - n.top);
+      e.outerRadius = Math.max(a / 2, 0), e.innerRadius = Math.max(i.cutoutPercentage ? e.outerRadius / 100 * i.cutoutPercentage : 1, 0), e.radiusLength = (e.outerRadius - e.innerRadius) / e.getVisibleDatasetCount(), t.outerRadius = e.outerRadius - e.radiusLength * t.index, t.innerRadius = t.outerRadius - e.radiusLength;
+    },
+    updateElement: function updateElement(t, e, n) {
+      var i = this,
+          a = i.chart,
+          r = i.getDataset(),
+          o = a.options,
+          s = o.animation,
+          l = a.scale,
+          u = a.data.labels,
+          d = l.xCenter,
+          h = l.yCenter,
+          c = o.startAngle,
+          f = t.hidden ? 0 : l.getDistanceFromCenterForValue(r.data[e]),
+          g = i._starts[e],
+          p = g + (t.hidden ? 0 : i._angles[e]),
+          m = s.animateScale ? 0 : l.getDistanceFromCenterForValue(r.data[e]),
+          v = t._options || {};
+      H.extend(t, {
+        _datasetIndex: i.index,
+        _index: e,
+        _scale: l,
+        _model: {
+          backgroundColor: v.backgroundColor,
+          borderColor: v.borderColor,
+          borderWidth: v.borderWidth,
+          borderAlign: v.borderAlign,
+          x: d,
+          y: h,
+          innerRadius: 0,
+          outerRadius: n ? m : f,
+          startAngle: n && s.animateRotate ? c : g,
+          endAngle: n && s.animateRotate ? c : p,
+          label: H.valueAtIndexOrDefault(u, e, u[e])
+        }
+      }), t.pivot();
+    },
+    countVisibleElements: function countVisibleElements() {
+      var t = this.getDataset(),
+          e = this.getMeta(),
+          n = 0;
+      return H.each(e.data, function (e, i) {
+        isNaN(t.data[i]) || e.hidden || n++;
+      }), n;
+    },
+    setHoverStyle: function setHoverStyle(t) {
+      var e = t._model,
+          n = t._options,
+          i = H.getHoverColor,
+          a = H.valueOrDefault;
+      t.$previousStyle = {
+        backgroundColor: e.backgroundColor,
+        borderColor: e.borderColor,
+        borderWidth: e.borderWidth
+      }, e.backgroundColor = a(n.hoverBackgroundColor, i(n.backgroundColor)), e.borderColor = a(n.hoverBorderColor, i(n.borderColor)), e.borderWidth = a(n.hoverBorderWidth, n.borderWidth);
+    },
+    _computeAngle: function _computeAngle(t) {
+      var e = this,
+          n = this.getMeta().count,
+          i = e.getDataset(),
+          a = e.getMeta();
+      if (isNaN(i.data[t]) || a.data[t].hidden) return 0;
+      var r = {
+        chart: e.chart,
+        dataIndex: t,
+        dataset: i,
+        datasetIndex: e.index
+      };
+      return Gt([e.chart.options.elements.arc.angle, 2 * Math.PI / n], r, t);
+    }
+  });
+  N._set("pie", H.clone(N.doughnut)), N._set("pie", {
+    cutoutPercentage: 0
+  });
+  var Kt = Bt,
+      Zt = H.valueOrDefault;
+
+  N._set("radar", {
+    spanGaps: !1,
+    scale: {
+      type: "radialLinear"
+    },
+    elements: {
+      line: {
+        fill: "start",
+        tension: 0
+      }
+    }
+  });
+
+  var $t = it.extend({
+    datasetElementType: kt.Line,
+    dataElementType: kt.Point,
+    linkScales: H.noop,
+    _datasetElementOptions: ["backgroundColor", "borderWidth", "borderColor", "borderCapStyle", "borderDash", "borderDashOffset", "borderJoinStyle", "fill"],
+    _dataElementOptions: {
+      backgroundColor: "pointBackgroundColor",
+      borderColor: "pointBorderColor",
+      borderWidth: "pointBorderWidth",
+      hitRadius: "pointHitRadius",
+      hoverBackgroundColor: "pointHoverBackgroundColor",
+      hoverBorderColor: "pointHoverBorderColor",
+      hoverBorderWidth: "pointHoverBorderWidth",
+      hoverRadius: "pointHoverRadius",
+      pointStyle: "pointStyle",
+      radius: "pointRadius",
+      rotation: "pointRotation"
+    },
+    _getIndexScaleId: function _getIndexScaleId() {
+      return this.chart.scale.id;
+    },
+    _getValueScaleId: function _getValueScaleId() {
+      return this.chart.scale.id;
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i = this,
+          a = i.getMeta(),
+          r = a.dataset,
+          o = a.data || [],
+          s = i.chart.scale,
+          l = i._config;
+
+      for (void 0 !== l.tension && void 0 === l.lineTension && (l.lineTension = l.tension), r._scale = s, r._datasetIndex = i.index, r._children = o, r._loop = !0, r._model = i._resolveDatasetElementOptions(r), r.pivot(), e = 0, n = o.length; e < n; ++e) {
+        i.updateElement(o[e], e, t);
+      }
+
+      for (i.updateBezierControlPoints(), e = 0, n = o.length; e < n; ++e) {
+        o[e].pivot();
+      }
+    },
+    updateElement: function updateElement(t, e, n) {
+      var i = this,
+          a = t.custom || {},
+          r = i.getDataset(),
+          o = i.chart.scale,
+          s = o.getPointPositionForValue(e, r.data[e]),
+          l = i._resolveDataElementOptions(t, e),
+          u = i.getMeta().dataset._model,
+          d = n ? o.xCenter : s.x,
+          h = n ? o.yCenter : s.y;
+
+      t._scale = o, t._options = l, t._datasetIndex = i.index, t._index = e, t._model = {
+        x: d,
+        y: h,
+        skip: a.skip || isNaN(d) || isNaN(h),
+        radius: l.radius,
+        pointStyle: l.pointStyle,
+        rotation: l.rotation,
+        backgroundColor: l.backgroundColor,
+        borderColor: l.borderColor,
+        borderWidth: l.borderWidth,
+        tension: Zt(a.tension, u ? u.tension : 0),
+        hitRadius: l.hitRadius
+      };
+    },
+    _resolveDatasetElementOptions: function _resolveDatasetElementOptions() {
+      var t = this,
+          e = t._config,
+          n = t.chart.options,
+          i = it.prototype._resolveDatasetElementOptions.apply(t, arguments);
+
+      return i.spanGaps = Zt(e.spanGaps, n.spanGaps), i.tension = Zt(e.lineTension, n.elements.line.tension), i;
+    },
+    updateBezierControlPoints: function updateBezierControlPoints() {
+      var t,
+          e,
+          n,
+          i,
+          a = this.getMeta(),
+          r = this.chart.chartArea,
+          o = a.data || [];
+
+      function s(t, e, n) {
+        return Math.max(Math.min(t, n), e);
+      }
+
+      for (a.dataset._model.spanGaps && (o = o.filter(function (t) {
+        return !t._model.skip;
+      })), t = 0, e = o.length; t < e; ++t) {
+        n = o[t]._model, i = H.splineCurve(H.previousItem(o, t, !0)._model, n, H.nextItem(o, t, !0)._model, n.tension), n.controlPointPreviousX = s(i.previous.x, r.left, r.right), n.controlPointPreviousY = s(i.previous.y, r.top, r.bottom), n.controlPointNextX = s(i.next.x, r.left, r.right), n.controlPointNextY = s(i.next.y, r.top, r.bottom);
+      }
+    },
+    setHoverStyle: function setHoverStyle(t) {
+      var e = t._model,
+          n = t._options,
+          i = H.getHoverColor;
+      t.$previousStyle = {
+        backgroundColor: e.backgroundColor,
+        borderColor: e.borderColor,
+        borderWidth: e.borderWidth,
+        radius: e.radius
+      }, e.backgroundColor = Zt(n.hoverBackgroundColor, i(n.backgroundColor)), e.borderColor = Zt(n.hoverBorderColor, i(n.borderColor)), e.borderWidth = Zt(n.hoverBorderWidth, n.borderWidth), e.radius = Zt(n.hoverRadius, n.radius);
+    }
+  });
+  N._set("scatter", {
+    hover: {
+      mode: "single"
+    },
+    scales: {
+      xAxes: [{
+        id: "x-axis-1",
+        type: "linear",
+        position: "bottom"
+      }],
+      yAxes: [{
+        id: "y-axis-1",
+        type: "linear",
+        position: "left"
+      }]
+    },
+    tooltips: {
+      callbacks: {
+        title: function title() {
+          return "";
+        },
+        label: function label(t) {
+          return "(" + t.xLabel + ", " + t.yLabel + ")";
+        }
+      }
+    }
+  }), N._set("global", {
+    datasets: {
+      scatter: {
+        showLine: !1
+      }
+    }
+  });
+  var Jt = {
+    bar: Tt,
+    bubble: Ot,
+    doughnut: Bt,
+    horizontalBar: Et,
+    line: Yt,
+    polarArea: Xt,
+    pie: Kt,
+    radar: $t,
+    scatter: Yt
+  };
+
+  function Qt(t, e) {
+    return t["native"] ? {
+      x: t.x,
+      y: t.y
+    } : H.getRelativePosition(t, e);
+  }
+
+  function te(t, e) {
+    var n,
+        i,
+        a,
+        r,
+        o,
+        s,
+        l = t._getSortedVisibleDatasetMetas();
+
+    for (i = 0, r = l.length; i < r; ++i) {
+      for (a = 0, o = (n = l[i].data).length; a < o; ++a) {
+        (s = n[a])._view.skip || e(s);
+      }
+    }
+  }
+
+  function ee(t, e) {
+    var n = [];
+    return te(t, function (t) {
+      t.inRange(e.x, e.y) && n.push(t);
+    }), n;
+  }
+
+  function ne(t, e, n, i) {
+    var a = Number.POSITIVE_INFINITY,
+        r = [];
+    return te(t, function (t) {
+      if (!n || t.inRange(e.x, e.y)) {
+        var o = t.getCenterPoint(),
+            s = i(e, o);
+        s < a ? (r = [t], a = s) : s === a && r.push(t);
+      }
+    }), r;
+  }
+
+  function ie(t) {
+    var e = -1 !== t.indexOf("x"),
+        n = -1 !== t.indexOf("y");
+    return function (t, i) {
+      var a = e ? Math.abs(t.x - i.x) : 0,
+          r = n ? Math.abs(t.y - i.y) : 0;
+      return Math.sqrt(Math.pow(a, 2) + Math.pow(r, 2));
+    };
+  }
+
+  function ae(t, e, n) {
+    var i = Qt(e, t);
+    n.axis = n.axis || "x";
+    var a = ie(n.axis),
+        r = n.intersect ? ee(t, i) : ne(t, i, !1, a),
+        o = [];
+    return r.length ? (t._getSortedVisibleDatasetMetas().forEach(function (t) {
+      var e = t.data[r[0]._index];
+      e && !e._view.skip && o.push(e);
+    }), o) : [];
+  }
+
+  var re = {
+    modes: {
+      single: function single(t, e) {
+        var n = Qt(e, t),
+            i = [];
+        return te(t, function (t) {
+          if (t.inRange(n.x, n.y)) return i.push(t), i;
+        }), i.slice(0, 1);
+      },
+      label: ae,
+      index: ae,
+      dataset: function dataset(t, e, n) {
+        var i = Qt(e, t);
+        n.axis = n.axis || "xy";
+        var a = ie(n.axis),
+            r = n.intersect ? ee(t, i) : ne(t, i, !1, a);
+        return r.length > 0 && (r = t.getDatasetMeta(r[0]._datasetIndex).data), r;
+      },
+      "x-axis": function xAxis(t, e) {
+        return ae(t, e, {
+          intersect: !1
+        });
+      },
+      point: function point(t, e) {
+        return ee(t, Qt(e, t));
+      },
+      nearest: function nearest(t, e, n) {
+        var i = Qt(e, t);
+        n.axis = n.axis || "xy";
+        var a = ie(n.axis);
+        return ne(t, i, n.intersect, a);
+      },
+      x: function x(t, e, n) {
+        var i = Qt(e, t),
+            a = [],
+            r = !1;
+        return te(t, function (t) {
+          t.inXRange(i.x) && a.push(t), t.inRange(i.x, i.y) && (r = !0);
+        }), n.intersect && !r && (a = []), a;
+      },
+      y: function y(t, e, n) {
+        var i = Qt(e, t),
+            a = [],
+            r = !1;
+        return te(t, function (t) {
+          t.inYRange(i.y) && a.push(t), t.inRange(i.x, i.y) && (r = !0);
+        }), n.intersect && !r && (a = []), a;
+      }
+    }
+  },
+      oe = H.extend;
+
+  function se(t, e) {
+    return H.where(t, function (t) {
+      return t.pos === e;
+    });
+  }
+
+  function le(t, e) {
+    return t.sort(function (t, n) {
+      var i = e ? n : t,
+          a = e ? t : n;
+      return i.weight === a.weight ? i.index - a.index : i.weight - a.weight;
+    });
+  }
+
+  function ue(t, e, n, i) {
+    return Math.max(t[n], e[n]) + Math.max(t[i], e[i]);
+  }
+
+  function de(t, e, n) {
+    var i,
+        a,
+        r = n.box,
+        o = t.maxPadding;
+
+    if (n.size && (t[n.pos] -= n.size), n.size = n.horizontal ? r.height : r.width, t[n.pos] += n.size, r.getPadding) {
+      var s = r.getPadding();
+      o.top = Math.max(o.top, s.top), o.left = Math.max(o.left, s.left), o.bottom = Math.max(o.bottom, s.bottom), o.right = Math.max(o.right, s.right);
+    }
+
+    if (i = e.outerWidth - ue(o, t, "left", "right"), a = e.outerHeight - ue(o, t, "top", "bottom"), i !== t.w || a !== t.h) {
+      t.w = i, t.h = a;
+      var l = n.horizontal ? [i, t.w] : [a, t.h];
+      return !(l[0] === l[1] || isNaN(l[0]) && isNaN(l[1]));
+    }
+  }
+
+  function he(t, e) {
+    var n = e.maxPadding;
+
+    function i(t) {
+      var i = {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0
+      };
+      return t.forEach(function (t) {
+        i[t] = Math.max(e[t], n[t]);
+      }), i;
+    }
+
+    return i(t ? ["left", "right"] : ["top", "bottom"]);
+  }
+
+  function ce(t, e, n) {
+    var i,
+        a,
+        r,
+        o,
+        s,
+        l,
+        u = [];
+
+    for (i = 0, a = t.length; i < a; ++i) {
+      (o = (r = t[i]).box).update(r.width || e.w, r.height || e.h, he(r.horizontal, e)), de(e, n, r) && (l = !0, u.length && (s = !0)), o.fullWidth || u.push(r);
+    }
+
+    return s && ce(u, e, n) || l;
+  }
+
+  function fe(t, e, n) {
+    var i,
+        a,
+        r,
+        o,
+        s = n.padding,
+        l = e.x,
+        u = e.y;
+
+    for (i = 0, a = t.length; i < a; ++i) {
+      o = (r = t[i]).box, r.horizontal ? (o.left = o.fullWidth ? s.left : e.left, o.right = o.fullWidth ? n.outerWidth - s.right : e.left + e.w, o.top = u, o.bottom = u + o.height, o.width = o.right - o.left, u = o.bottom) : (o.left = l, o.right = l + o.width, o.top = e.top, o.bottom = e.top + e.h, o.height = o.bottom - o.top, l = o.right);
+    }
+
+    e.x = l, e.y = u;
+  }
+
+  N._set("global", {
+    layout: {
+      padding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      }
+    }
+  });
+
+  var ge,
+      pe = {
+    defaults: {},
+    addBox: function addBox(t, e) {
+      t.boxes || (t.boxes = []), e.fullWidth = e.fullWidth || !1, e.position = e.position || "top", e.weight = e.weight || 0, e._layers = e._layers || function () {
+        return [{
+          z: 0,
+          draw: function draw() {
+            e.draw.apply(e, arguments);
+          }
+        }];
+      }, t.boxes.push(e);
+    },
+    removeBox: function removeBox(t, e) {
+      var n = t.boxes ? t.boxes.indexOf(e) : -1;
+      -1 !== n && t.boxes.splice(n, 1);
+    },
+    configure: function configure(t, e, n) {
+      for (var i, a = ["fullWidth", "position", "weight"], r = a.length, o = 0; o < r; ++o) {
+        i = a[o], n.hasOwnProperty(i) && (e[i] = n[i]);
+      }
+    },
+    update: function update(t, e, n) {
+      if (t) {
+        var i = t.options.layout || {},
+            a = H.options.toPadding(i.padding),
+            r = e - a.width,
+            o = n - a.height,
+            s = function (t) {
+          var e = function (t) {
+            var e,
+                n,
+                i,
+                a = [];
+
+            for (e = 0, n = (t || []).length; e < n; ++e) {
+              i = t[e], a.push({
+                index: e,
+                box: i,
+                pos: i.position,
+                horizontal: i.isHorizontal(),
+                weight: i.weight
+              });
+            }
+
+            return a;
+          }(t),
+              n = le(se(e, "left"), !0),
+              i = le(se(e, "right")),
+              a = le(se(e, "top"), !0),
+              r = le(se(e, "bottom"));
+
+          return {
+            leftAndTop: n.concat(a),
+            rightAndBottom: i.concat(r),
+            chartArea: se(e, "chartArea"),
+            vertical: n.concat(i),
+            horizontal: a.concat(r)
+          };
+        }(t.boxes),
+            l = s.vertical,
+            u = s.horizontal,
+            d = Object.freeze({
+          outerWidth: e,
+          outerHeight: n,
+          padding: a,
+          availableWidth: r,
+          vBoxMaxWidth: r / 2 / l.length,
+          hBoxMaxHeight: o / 2
+        }),
+            h = oe({
+          maxPadding: oe({}, a),
+          w: r,
+          h: o,
+          x: a.left,
+          y: a.top
+        }, a);
+
+        !function (t, e) {
+          var n, i, a;
+
+          for (n = 0, i = t.length; n < i; ++n) {
+            (a = t[n]).width = a.horizontal ? a.box.fullWidth && e.availableWidth : e.vBoxMaxWidth, a.height = a.horizontal && e.hBoxMaxHeight;
+          }
+        }(l.concat(u), d), ce(l, h, d), ce(u, h, d) && ce(l, h, d), function (t) {
+          var e = t.maxPadding;
+
+          function n(n) {
+            var i = Math.max(e[n] - t[n], 0);
+            return t[n] += i, i;
+          }
+
+          t.y += n("top"), t.x += n("left"), n("right"), n("bottom");
+        }(h), fe(s.leftAndTop, h, d), h.x += h.w, h.y += h.h, fe(s.rightAndBottom, h, d), t.chartArea = {
+          left: h.left,
+          top: h.top,
+          right: h.left + h.w,
+          bottom: h.top + h.h
+        }, H.each(s.chartArea, function (e) {
+          var n = e.box;
+          oe(n, t.chartArea), n.update(h.w, h.h);
+        });
+      }
+    }
+  },
+      me = (ge = Object.freeze({
+    __proto__: null,
+    "default": "@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}"
+  })) && ge["default"] || ge,
+      ve = "$chartjs",
+      be = "chartjs-size-monitor",
+      xe = "chartjs-render-monitor",
+      ye = "chartjs-render-animation",
+      _e = ["animationstart", "webkitAnimationStart"],
+      ke = {
+    touchstart: "mousedown",
+    touchmove: "mousemove",
+    touchend: "mouseup",
+    pointerenter: "mouseenter",
+    pointerdown: "mousedown",
+    pointermove: "mousemove",
+    pointerup: "mouseup",
+    pointerleave: "mouseout",
+    pointerout: "mouseout"
+  };
+
+  function we(t, e) {
+    var n = H.getStyle(t, e),
+        i = n && n.match(/^(\d+)(\.\d+)?px$/);
+    return i ? Number(i[1]) : void 0;
+  }
+
+  var Me = !!function () {
+    var t = !1;
+
+    try {
+      var e = Object.defineProperty({}, "passive", {
+        get: function get() {
+          t = !0;
+        }
+      });
+      window.addEventListener("e", null, e);
+    } catch (t) {}
+
+    return t;
+  }() && {
+    passive: !0
+  };
+
+  function Se(t, e, n) {
+    t.addEventListener(e, n, Me);
+  }
+
+  function Ce(t, e, n) {
+    t.removeEventListener(e, n, Me);
+  }
+
+  function Pe(t, e, n, i, a) {
+    return {
+      type: t,
+      chart: e,
+      "native": a || null,
+      x: void 0 !== n ? n : null,
+      y: void 0 !== i ? i : null
+    };
+  }
+
+  function Ae(t) {
+    var e = document.createElement("div");
+    return e.className = t || "", e;
+  }
+
+  function De(t, e, n) {
+    var i,
+        a,
+        r,
+        o,
+        s = t[ve] || (t[ve] = {}),
+        l = s.resizer = function (t) {
+      var e = Ae(be),
+          n = Ae(be + "-expand"),
+          i = Ae(be + "-shrink");
+      n.appendChild(Ae()), i.appendChild(Ae()), e.appendChild(n), e.appendChild(i), e._reset = function () {
+        n.scrollLeft = 1e6, n.scrollTop = 1e6, i.scrollLeft = 1e6, i.scrollTop = 1e6;
+      };
+
+      var a = function a() {
+        e._reset(), t();
+      };
+
+      return Se(n, "scroll", a.bind(n, "expand")), Se(i, "scroll", a.bind(i, "shrink")), e;
+    }((i = function i() {
+      if (s.resizer) {
+        var i = n.options.maintainAspectRatio && t.parentNode,
+            a = i ? i.clientWidth : 0;
+        e(Pe("resize", n)), i && i.clientWidth < a && n.canvas && e(Pe("resize", n));
+      }
+    }, r = !1, o = [], function () {
+      o = Array.prototype.slice.call(arguments), a = a || this, r || (r = !0, H.requestAnimFrame.call(window, function () {
+        r = !1, i.apply(a, o);
+      }));
+    }));
+
+    !function (t, e) {
+      var n = t[ve] || (t[ve] = {}),
+          i = n.renderProxy = function (t) {
+        t.animationName === ye && e();
+      };
+
+      H.each(_e, function (e) {
+        Se(t, e, i);
+      }), n.reflow = !!t.offsetParent, t.classList.add(xe);
+    }(t, function () {
+      if (s.resizer) {
+        var e = t.parentNode;
+        e && e !== l.parentNode && e.insertBefore(l, e.firstChild), l._reset();
+      }
+    });
+  }
+
+  function Te(t) {
+    var e = t[ve] || {},
+        n = e.resizer;
+    delete e.resizer, function (t) {
+      var e = t[ve] || {},
+          n = e.renderProxy;
+      n && (H.each(_e, function (e) {
+        Ce(t, e, n);
+      }), delete e.renderProxy), t.classList.remove(xe);
+    }(t), n && n.parentNode && n.parentNode.removeChild(n);
+  }
+
+  var Ie = {
+    disableCSSInjection: !1,
+    _enabled: "undefined" != typeof window && "undefined" != typeof document,
+    _ensureLoaded: function _ensureLoaded(t) {
+      if (!this.disableCSSInjection) {
+        var e = t.getRootNode ? t.getRootNode() : document;
+        !function (t, e) {
+          var n = t[ve] || (t[ve] = {});
+
+          if (!n.containsStyles) {
+            n.containsStyles = !0, e = "/* Chart.js */\n" + e;
+            var i = document.createElement("style");
+            i.setAttribute("type", "text/css"), i.appendChild(document.createTextNode(e)), t.appendChild(i);
+          }
+        }(e.host ? e : document.head, me);
+      }
+    },
+    acquireContext: function acquireContext(t, e) {
+      "string" == typeof t ? t = document.getElementById(t) : t.length && (t = t[0]), t && t.canvas && (t = t.canvas);
+      var n = t && t.getContext && t.getContext("2d");
+      return n && n.canvas === t ? (this._ensureLoaded(t), function (t, e) {
+        var n = t.style,
+            i = t.getAttribute("height"),
+            a = t.getAttribute("width");
+
+        if (t[ve] = {
+          initial: {
+            height: i,
+            width: a,
+            style: {
+              display: n.display,
+              height: n.height,
+              width: n.width
+            }
+          }
+        }, n.display = n.display || "block", null === a || "" === a) {
+          var r = we(t, "width");
+          void 0 !== r && (t.width = r);
+        }
+
+        if (null === i || "" === i) if ("" === t.style.height) t.height = t.width / (e.options.aspectRatio || 2);else {
+          var o = we(t, "height");
+          void 0 !== r && (t.height = o);
+        }
+      }(t, e), n) : null;
+    },
+    releaseContext: function releaseContext(t) {
+      var e = t.canvas;
+
+      if (e[ve]) {
+        var n = e[ve].initial;
+        ["height", "width"].forEach(function (t) {
+          var i = n[t];
+          H.isNullOrUndef(i) ? e.removeAttribute(t) : e.setAttribute(t, i);
+        }), H.each(n.style || {}, function (t, n) {
+          e.style[n] = t;
+        }), e.width = e.width, delete e[ve];
+      }
+    },
+    addEventListener: function addEventListener(t, e, n) {
+      var i = t.canvas;
+
+      if ("resize" !== e) {
+        var a = n[ve] || (n[ve] = {});
+        Se(i, e, (a.proxies || (a.proxies = {}))[t.id + "_" + e] = function (e) {
+          n(function (t, e) {
+            var n = ke[t.type] || t.type,
+                i = H.getRelativePosition(t, e);
+            return Pe(n, e, i.x, i.y, t);
+          }(e, t));
+        });
+      } else De(i, n, t);
+    },
+    removeEventListener: function removeEventListener(t, e, n) {
+      var i = t.canvas;
+
+      if ("resize" !== e) {
+        var a = ((n[ve] || {}).proxies || {})[t.id + "_" + e];
+        a && Ce(i, e, a);
+      } else Te(i);
+    }
+  };
+  H.addEvent = Se, H.removeEvent = Ce;
+  var Fe = Ie._enabled ? Ie : {
+    acquireContext: function acquireContext(t) {
+      return t && t.canvas && (t = t.canvas), t && t.getContext("2d") || null;
+    }
+  },
+      Oe = H.extend({
+    initialize: function initialize() {},
+    acquireContext: function acquireContext() {},
+    releaseContext: function releaseContext() {},
+    addEventListener: function addEventListener() {},
+    removeEventListener: function removeEventListener() {}
+  }, Fe);
+
+  N._set("global", {
+    plugins: {}
+  });
+
+  var Le = {
+    _plugins: [],
+    _cacheId: 0,
+    register: function register(t) {
+      var e = this._plugins;
+      [].concat(t).forEach(function (t) {
+        -1 === e.indexOf(t) && e.push(t);
+      }), this._cacheId++;
+    },
+    unregister: function unregister(t) {
+      var e = this._plugins;
+      [].concat(t).forEach(function (t) {
+        var n = e.indexOf(t);
+        -1 !== n && e.splice(n, 1);
+      }), this._cacheId++;
+    },
+    clear: function clear() {
+      this._plugins = [], this._cacheId++;
+    },
+    count: function count() {
+      return this._plugins.length;
+    },
+    getAll: function getAll() {
+      return this._plugins;
+    },
+    notify: function notify(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l = this.descriptors(t),
+          u = l.length;
+
+      for (i = 0; i < u; ++i) {
+        if ("function" == typeof (s = (r = (a = l[i]).plugin)[e]) && ((o = [t].concat(n || [])).push(a.options), !1 === s.apply(r, o))) return !1;
+      }
+
+      return !0;
+    },
+    descriptors: function descriptors(t) {
+      var e = t.$plugins || (t.$plugins = {});
+      if (e.id === this._cacheId) return e.descriptors;
+      var n = [],
+          i = [],
+          a = t && t.config || {},
+          r = a.options && a.options.plugins || {};
+      return this._plugins.concat(a.plugins || []).forEach(function (t) {
+        if (-1 === n.indexOf(t)) {
+          var e = t.id,
+              a = r[e];
+          !1 !== a && (!0 === a && (a = H.clone(N.global.plugins[e])), n.push(t), i.push({
+            plugin: t,
+            options: a || {}
+          }));
+        }
+      }), e.descriptors = i, e.id = this._cacheId, i;
+    },
+    _invalidate: function _invalidate(t) {
+      delete t.$plugins;
+    }
+  },
+      Re = {
+    constructors: {},
+    defaults: {},
+    registerScaleType: function registerScaleType(t, e, n) {
+      this.constructors[t] = e, this.defaults[t] = H.clone(n);
+    },
+    getScaleConstructor: function getScaleConstructor(t) {
+      return this.constructors.hasOwnProperty(t) ? this.constructors[t] : void 0;
+    },
+    getScaleDefaults: function getScaleDefaults(t) {
+      return this.defaults.hasOwnProperty(t) ? H.merge(Object.create(null), [N.scale, this.defaults[t]]) : {};
+    },
+    updateScaleDefaults: function updateScaleDefaults(t, e) {
+      this.defaults.hasOwnProperty(t) && (this.defaults[t] = H.extend(this.defaults[t], e));
+    },
+    addScalesToLayout: function addScalesToLayout(t) {
+      H.each(t.scales, function (e) {
+        e.fullWidth = e.options.fullWidth, e.position = e.options.position, e.weight = e.options.weight, pe.addBox(t, e);
+      });
+    }
+  },
+      ze = H.valueOrDefault,
+      Ne = H.rtl.getRtlAdapter;
+
+  N._set("global", {
+    tooltips: {
+      enabled: !0,
+      custom: null,
+      mode: "nearest",
+      position: "average",
+      intersect: !0,
+      backgroundColor: "rgba(0,0,0,0.8)",
+      titleFontStyle: "bold",
+      titleSpacing: 2,
+      titleMarginBottom: 6,
+      titleFontColor: "#fff",
+      titleAlign: "left",
+      bodySpacing: 2,
+      bodyFontColor: "#fff",
+      bodyAlign: "left",
+      footerFontStyle: "bold",
+      footerSpacing: 2,
+      footerMarginTop: 6,
+      footerFontColor: "#fff",
+      footerAlign: "left",
+      yPadding: 6,
+      xPadding: 6,
+      caretPadding: 2,
+      caretSize: 5,
+      cornerRadius: 6,
+      multiKeyBackground: "#fff",
+      displayColors: !0,
+      borderColor: "rgba(0,0,0,0)",
+      borderWidth: 0,
+      callbacks: {
+        beforeTitle: H.noop,
+        title: function title(t, e) {
+          var n = "",
+              i = e.labels,
+              a = i ? i.length : 0;
+
+          if (t.length > 0) {
+            var r = t[0];
+            r.label ? n = r.label : r.xLabel ? n = r.xLabel : a > 0 && r.index < a && (n = i[r.index]);
+          }
+
+          return n;
+        },
+        afterTitle: H.noop,
+        beforeBody: H.noop,
+        beforeLabel: H.noop,
+        label: function label(t, e) {
+          var n = e.datasets[t.datasetIndex].label || "";
+          return n && (n += ": "), H.isNullOrUndef(t.value) ? n += t.yLabel : n += t.value, n;
+        },
+        labelColor: function labelColor(t, e) {
+          var n = e.getDatasetMeta(t.datasetIndex).data[t.index]._view;
+
+          return {
+            borderColor: n.borderColor,
+            backgroundColor: n.backgroundColor
+          };
+        },
+        labelTextColor: function labelTextColor() {
+          return this._options.bodyFontColor;
+        },
+        afterLabel: H.noop,
+        afterBody: H.noop,
+        beforeFooter: H.noop,
+        footer: H.noop,
+        afterFooter: H.noop
+      }
+    }
+  });
+
+  var Be = {
+    average: function average(t) {
+      if (!t.length) return !1;
+      var e,
+          n,
+          i = 0,
+          a = 0,
+          r = 0;
+
+      for (e = 0, n = t.length; e < n; ++e) {
+        var o = t[e];
+
+        if (o && o.hasValue()) {
+          var s = o.tooltipPosition();
+          i += s.x, a += s.y, ++r;
+        }
+      }
+
+      return {
+        x: i / r,
+        y: a / r
+      };
+    },
+    nearest: function nearest(t, e) {
+      var n,
+          i,
+          a,
+          r = e.x,
+          o = e.y,
+          s = Number.POSITIVE_INFINITY;
+
+      for (n = 0, i = t.length; n < i; ++n) {
+        var l = t[n];
+
+        if (l && l.hasValue()) {
+          var u = l.getCenterPoint(),
+              d = H.distanceBetweenPoints(e, u);
+          d < s && (s = d, a = l);
+        }
+      }
+
+      if (a) {
+        var h = a.tooltipPosition();
+        r = h.x, o = h.y;
+      }
+
+      return {
+        x: r,
+        y: o
+      };
+    }
+  };
+
+  function Ee(t, e) {
+    return e && (H.isArray(e) ? Array.prototype.push.apply(t, e) : t.push(e)), t;
+  }
+
+  function We(t) {
+    return ("string" == typeof t || t instanceof String) && t.indexOf("\n") > -1 ? t.split("\n") : t;
+  }
+
+  function Ve(t) {
+    var e = N.global;
+    return {
+      xPadding: t.xPadding,
+      yPadding: t.yPadding,
+      xAlign: t.xAlign,
+      yAlign: t.yAlign,
+      rtl: t.rtl,
+      textDirection: t.textDirection,
+      bodyFontColor: t.bodyFontColor,
+      _bodyFontFamily: ze(t.bodyFontFamily, e.defaultFontFamily),
+      _bodyFontStyle: ze(t.bodyFontStyle, e.defaultFontStyle),
+      _bodyAlign: t.bodyAlign,
+      bodyFontSize: ze(t.bodyFontSize, e.defaultFontSize),
+      bodySpacing: t.bodySpacing,
+      titleFontColor: t.titleFontColor,
+      _titleFontFamily: ze(t.titleFontFamily, e.defaultFontFamily),
+      _titleFontStyle: ze(t.titleFontStyle, e.defaultFontStyle),
+      titleFontSize: ze(t.titleFontSize, e.defaultFontSize),
+      _titleAlign: t.titleAlign,
+      titleSpacing: t.titleSpacing,
+      titleMarginBottom: t.titleMarginBottom,
+      footerFontColor: t.footerFontColor,
+      _footerFontFamily: ze(t.footerFontFamily, e.defaultFontFamily),
+      _footerFontStyle: ze(t.footerFontStyle, e.defaultFontStyle),
+      footerFontSize: ze(t.footerFontSize, e.defaultFontSize),
+      _footerAlign: t.footerAlign,
+      footerSpacing: t.footerSpacing,
+      footerMarginTop: t.footerMarginTop,
+      caretSize: t.caretSize,
+      cornerRadius: t.cornerRadius,
+      backgroundColor: t.backgroundColor,
+      opacity: 0,
+      legendColorBackground: t.multiKeyBackground,
+      displayColors: t.displayColors,
+      borderColor: t.borderColor,
+      borderWidth: t.borderWidth
+    };
+  }
+
+  function He(t, e) {
+    return "center" === e ? t.x + t.width / 2 : "right" === e ? t.x + t.width - t.xPadding : t.x + t.xPadding;
+  }
+
+  function je(t) {
+    return Ee([], We(t));
+  }
+
+  var qe = K.extend({
+    initialize: function initialize() {
+      this._model = Ve(this._options), this._lastActive = [];
+    },
+    getTitle: function getTitle() {
+      var t = this,
+          e = t._options,
+          n = e.callbacks,
+          i = n.beforeTitle.apply(t, arguments),
+          a = n.title.apply(t, arguments),
+          r = n.afterTitle.apply(t, arguments),
+          o = [];
+      return o = Ee(o, We(i)), o = Ee(o, We(a)), o = Ee(o, We(r));
+    },
+    getBeforeBody: function getBeforeBody() {
+      return je(this._options.callbacks.beforeBody.apply(this, arguments));
+    },
+    getBody: function getBody(t, e) {
+      var n = this,
+          i = n._options.callbacks,
+          a = [];
+      return H.each(t, function (t) {
+        var r = {
+          before: [],
+          lines: [],
+          after: []
+        };
+        Ee(r.before, We(i.beforeLabel.call(n, t, e))), Ee(r.lines, i.label.call(n, t, e)), Ee(r.after, We(i.afterLabel.call(n, t, e))), a.push(r);
+      }), a;
+    },
+    getAfterBody: function getAfterBody() {
+      return je(this._options.callbacks.afterBody.apply(this, arguments));
+    },
+    getFooter: function getFooter() {
+      var t = this,
+          e = t._options.callbacks,
+          n = e.beforeFooter.apply(t, arguments),
+          i = e.footer.apply(t, arguments),
+          a = e.afterFooter.apply(t, arguments),
+          r = [];
+      return r = Ee(r, We(n)), r = Ee(r, We(i)), r = Ee(r, We(a));
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d,
+          h = this,
+          c = h._options,
+          f = h._model,
+          g = h._model = Ve(c),
+          p = h._active,
+          m = h._data,
+          v = {
+        xAlign: f.xAlign,
+        yAlign: f.yAlign
+      },
+          b = {
+        x: f.x,
+        y: f.y
+      },
+          x = {
+        width: f.width,
+        height: f.height
+      },
+          y = {
+        x: f.caretX,
+        y: f.caretY
+      };
+
+      if (p.length) {
+        g.opacity = 1;
+        var _ = [],
+            k = [];
+        y = Be[c.position].call(h, p, h._eventPosition);
+        var w = [];
+
+        for (e = 0, n = p.length; e < n; ++e) {
+          w.push((i = p[e], a = void 0, r = void 0, o = void 0, s = void 0, l = void 0, u = void 0, d = void 0, a = i._xScale, r = i._yScale || i._scale, o = i._index, s = i._datasetIndex, l = i._chart.getDatasetMeta(s).controller, u = l._getIndexScale(), d = l._getValueScale(), {
+            xLabel: a ? a.getLabelForIndex(o, s) : "",
+            yLabel: r ? r.getLabelForIndex(o, s) : "",
+            label: u ? "" + u.getLabelForIndex(o, s) : "",
+            value: d ? "" + d.getLabelForIndex(o, s) : "",
+            index: o,
+            datasetIndex: s,
+            x: i._model.x,
+            y: i._model.y
+          }));
+        }
+
+        c.filter && (w = w.filter(function (t) {
+          return c.filter(t, m);
+        })), c.itemSort && (w = w.sort(function (t, e) {
+          return c.itemSort(t, e, m);
+        })), H.each(w, function (t) {
+          _.push(c.callbacks.labelColor.call(h, t, h._chart)), k.push(c.callbacks.labelTextColor.call(h, t, h._chart));
+        }), g.title = h.getTitle(w, m), g.beforeBody = h.getBeforeBody(w, m), g.body = h.getBody(w, m), g.afterBody = h.getAfterBody(w, m), g.footer = h.getFooter(w, m), g.x = y.x, g.y = y.y, g.caretPadding = c.caretPadding, g.labelColors = _, g.labelTextColors = k, g.dataPoints = w, x = function (t, e) {
+          var n = t._chart.ctx,
+              i = 2 * e.yPadding,
+              a = 0,
+              r = e.body,
+              o = r.reduce(function (t, e) {
+            return t + e.before.length + e.lines.length + e.after.length;
+          }, 0);
+          o += e.beforeBody.length + e.afterBody.length;
+          var s = e.title.length,
+              l = e.footer.length,
+              u = e.titleFontSize,
+              d = e.bodyFontSize,
+              h = e.footerFontSize;
+          i += s * u, i += s ? (s - 1) * e.titleSpacing : 0, i += s ? e.titleMarginBottom : 0, i += o * d, i += o ? (o - 1) * e.bodySpacing : 0, i += l ? e.footerMarginTop : 0, i += l * h, i += l ? (l - 1) * e.footerSpacing : 0;
+
+          var c = 0,
+              f = function f(t) {
+            a = Math.max(a, n.measureText(t).width + c);
+          };
+
+          return n.font = H.fontString(u, e._titleFontStyle, e._titleFontFamily), H.each(e.title, f), n.font = H.fontString(d, e._bodyFontStyle, e._bodyFontFamily), H.each(e.beforeBody.concat(e.afterBody), f), c = e.displayColors ? d + 2 : 0, H.each(r, function (t) {
+            H.each(t.before, f), H.each(t.lines, f), H.each(t.after, f);
+          }), c = 0, n.font = H.fontString(h, e._footerFontStyle, e._footerFontFamily), H.each(e.footer, f), {
+            width: a += 2 * e.xPadding,
+            height: i
+          };
+        }(this, g), b = function (t, e, n, i) {
+          var a = t.x,
+              r = t.y,
+              o = t.caretSize,
+              s = t.caretPadding,
+              l = t.cornerRadius,
+              u = n.xAlign,
+              d = n.yAlign,
+              h = o + s,
+              c = l + s;
+          return "right" === u ? a -= e.width : "center" === u && ((a -= e.width / 2) + e.width > i.width && (a = i.width - e.width), a < 0 && (a = 0)), "top" === d ? r += h : r -= "bottom" === d ? e.height + h : e.height / 2, "center" === d ? "left" === u ? a += h : "right" === u && (a -= h) : "left" === u ? a -= c : "right" === u && (a += c), {
+            x: a,
+            y: r
+          };
+        }(g, x, v = function (t, e) {
+          var n,
+              i,
+              a,
+              r,
+              o,
+              s = t._model,
+              l = t._chart,
+              u = t._chart.chartArea,
+              d = "center",
+              h = "center";
+          s.y < e.height ? h = "top" : s.y > l.height - e.height && (h = "bottom");
+          var c = (u.left + u.right) / 2,
+              f = (u.top + u.bottom) / 2;
+          "center" === h ? (n = function n(t) {
+            return t <= c;
+          }, i = function i(t) {
+            return t > c;
+          }) : (n = function n(t) {
+            return t <= e.width / 2;
+          }, i = function i(t) {
+            return t >= l.width - e.width / 2;
+          }), a = function a(t) {
+            return t + e.width + s.caretSize + s.caretPadding > l.width;
+          }, r = function r(t) {
+            return t - e.width - s.caretSize - s.caretPadding < 0;
+          }, o = function o(t) {
+            return t <= f ? "top" : "bottom";
+          }, n(s.x) ? (d = "left", a(s.x) && (d = "center", h = o(s.y))) : i(s.x) && (d = "right", r(s.x) && (d = "center", h = o(s.y)));
+          var g = t._options;
+          return {
+            xAlign: g.xAlign ? g.xAlign : d,
+            yAlign: g.yAlign ? g.yAlign : h
+          };
+        }(this, x), h._chart);
+      } else g.opacity = 0;
+
+      return g.xAlign = v.xAlign, g.yAlign = v.yAlign, g.x = b.x, g.y = b.y, g.width = x.width, g.height = x.height, g.caretX = y.x, g.caretY = y.y, h._model = g, t && c.custom && c.custom.call(h, g), h;
+    },
+    drawCaret: function drawCaret(t, e) {
+      var n = this._chart.ctx,
+          i = this._view,
+          a = this.getCaretPosition(t, e, i);
+      n.lineTo(a.x1, a.y1), n.lineTo(a.x2, a.y2), n.lineTo(a.x3, a.y3);
+    },
+    getCaretPosition: function getCaretPosition(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u = n.caretSize,
+          d = n.cornerRadius,
+          h = n.xAlign,
+          c = n.yAlign,
+          f = t.x,
+          g = t.y,
+          p = e.width,
+          m = e.height;
+      if ("center" === c) s = g + m / 2, "left" === h ? (a = (i = f) - u, r = i, o = s + u, l = s - u) : (a = (i = f + p) + u, r = i, o = s - u, l = s + u);else if ("left" === h ? (i = (a = f + d + u) - u, r = a + u) : "right" === h ? (i = (a = f + p - d - u) - u, r = a + u) : (i = (a = n.caretX) - u, r = a + u), "top" === c) s = (o = g) - u, l = o;else {
+        s = (o = g + m) + u, l = o;
+        var v = r;
+        r = i, i = v;
+      }
+      return {
+        x1: i,
+        x2: a,
+        x3: r,
+        y1: o,
+        y2: s,
+        y3: l
+      };
+    },
+    drawTitle: function drawTitle(t, e, n) {
+      var i,
+          a,
+          r,
+          o = e.title,
+          s = o.length;
+
+      if (s) {
+        var l = Ne(e.rtl, e.x, e.width);
+
+        for (t.x = He(e, e._titleAlign), n.textAlign = l.textAlign(e._titleAlign), n.textBaseline = "middle", i = e.titleFontSize, a = e.titleSpacing, n.fillStyle = e.titleFontColor, n.font = H.fontString(i, e._titleFontStyle, e._titleFontFamily), r = 0; r < s; ++r) {
+          n.fillText(o[r], l.x(t.x), t.y + i / 2), t.y += i + a, r + 1 === s && (t.y += e.titleMarginBottom - a);
+        }
+      }
+    },
+    drawBody: function drawBody(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d,
+          h = e.bodyFontSize,
+          c = e.bodySpacing,
+          f = e._bodyAlign,
+          g = e.body,
+          p = e.displayColors,
+          m = 0,
+          v = p ? He(e, "left") : 0,
+          b = Ne(e.rtl, e.x, e.width),
+          x = function x(e) {
+        n.fillText(e, b.x(t.x + m), t.y + h / 2), t.y += h + c;
+      },
+          y = b.textAlign(f);
+
+      for (n.textAlign = f, n.textBaseline = "middle", n.font = H.fontString(h, e._bodyFontStyle, e._bodyFontFamily), t.x = He(e, y), n.fillStyle = e.bodyFontColor, H.each(e.beforeBody, x), m = p && "right" !== y ? "center" === f ? h / 2 + 1 : h + 2 : 0, s = 0, u = g.length; s < u; ++s) {
+        for (i = g[s], a = e.labelTextColors[s], r = e.labelColors[s], n.fillStyle = a, H.each(i.before, x), l = 0, d = (o = i.lines).length; l < d; ++l) {
+          if (p) {
+            var _ = b.x(v);
+
+            n.fillStyle = e.legendColorBackground, n.fillRect(b.leftForLtr(_, h), t.y, h, h), n.lineWidth = 1, n.strokeStyle = r.borderColor, n.strokeRect(b.leftForLtr(_, h), t.y, h, h), n.fillStyle = r.backgroundColor, n.fillRect(b.leftForLtr(b.xPlus(_, 1), h - 2), t.y + 1, h - 2, h - 2), n.fillStyle = a;
+          }
+
+          x(o[l]);
+        }
+
+        H.each(i.after, x);
+      }
+
+      m = 0, H.each(e.afterBody, x), t.y -= c;
+    },
+    drawFooter: function drawFooter(t, e, n) {
+      var i,
+          a,
+          r = e.footer,
+          o = r.length;
+
+      if (o) {
+        var s = Ne(e.rtl, e.x, e.width);
+
+        for (t.x = He(e, e._footerAlign), t.y += e.footerMarginTop, n.textAlign = s.textAlign(e._footerAlign), n.textBaseline = "middle", i = e.footerFontSize, n.fillStyle = e.footerFontColor, n.font = H.fontString(i, e._footerFontStyle, e._footerFontFamily), a = 0; a < o; ++a) {
+          n.fillText(r[a], s.x(t.x), t.y + i / 2), t.y += i + e.footerSpacing;
+        }
+      }
+    },
+    drawBackground: function drawBackground(t, e, n, i) {
+      n.fillStyle = e.backgroundColor, n.strokeStyle = e.borderColor, n.lineWidth = e.borderWidth;
+      var a = e.xAlign,
+          r = e.yAlign,
+          o = t.x,
+          s = t.y,
+          l = i.width,
+          u = i.height,
+          d = e.cornerRadius;
+      n.beginPath(), n.moveTo(o + d, s), "top" === r && this.drawCaret(t, i), n.lineTo(o + l - d, s), n.quadraticCurveTo(o + l, s, o + l, s + d), "center" === r && "right" === a && this.drawCaret(t, i), n.lineTo(o + l, s + u - d), n.quadraticCurveTo(o + l, s + u, o + l - d, s + u), "bottom" === r && this.drawCaret(t, i), n.lineTo(o + d, s + u), n.quadraticCurveTo(o, s + u, o, s + u - d), "center" === r && "left" === a && this.drawCaret(t, i), n.lineTo(o, s + d), n.quadraticCurveTo(o, s, o + d, s), n.closePath(), n.fill(), e.borderWidth > 0 && n.stroke();
+    },
+    draw: function draw() {
+      var t = this._chart.ctx,
+          e = this._view;
+
+      if (0 !== e.opacity) {
+        var n = {
+          width: e.width,
+          height: e.height
+        },
+            i = {
+          x: e.x,
+          y: e.y
+        },
+            a = Math.abs(e.opacity < .001) ? 0 : e.opacity,
+            r = e.title.length || e.beforeBody.length || e.body.length || e.afterBody.length || e.footer.length;
+        this._options.enabled && r && (t.save(), t.globalAlpha = a, this.drawBackground(i, e, t, n), i.y += e.yPadding, H.rtl.overrideTextDirection(t, e.textDirection), this.drawTitle(i, e, t), this.drawBody(i, e, t), this.drawFooter(i, e, t), H.rtl.restoreTextDirection(t, e.textDirection), t.restore());
+      }
+    },
+    handleEvent: function handleEvent(t) {
+      var e,
+          n = this,
+          i = n._options;
+      return n._lastActive = n._lastActive || [], "mouseout" === t.type ? n._active = [] : (n._active = n._chart.getElementsAtEventForMode(t, i.mode, i), i.reverse && n._active.reverse()), (e = !H.arrayEquals(n._active, n._lastActive)) && (n._lastActive = n._active, (i.enabled || i.custom) && (n._eventPosition = {
+        x: t.x,
+        y: t.y
+      }, n.update(!0), n.pivot())), e;
+    }
+  }),
+      Ue = Be,
+      Ye = qe;
+  Ye.positioners = Ue;
+  var Ge = H.valueOrDefault;
+
+  function Xe() {
+    return H.merge(Object.create(null), [].slice.call(arguments), {
+      merger: function merger(t, e, n, i) {
+        if ("xAxes" === t || "yAxes" === t) {
+          var a,
+              r,
+              o,
+              s = n[t].length;
+
+          for (e[t] || (e[t] = []), a = 0; a < s; ++a) {
+            o = n[t][a], r = Ge(o.type, "xAxes" === t ? "category" : "linear"), a >= e[t].length && e[t].push({}), !e[t][a].type || o.type && o.type !== e[t][a].type ? H.merge(e[t][a], [Re.getScaleDefaults(r), o]) : H.merge(e[t][a], o);
+          }
+        } else H._merger(t, e, n, i);
+      }
+    });
+  }
+
+  function Ke() {
+    return H.merge(Object.create(null), [].slice.call(arguments), {
+      merger: function merger(t, e, n, i) {
+        var a = e[t] || Object.create(null),
+            r = n[t];
+        "scales" === t ? e[t] = Xe(a, r) : "scale" === t ? e[t] = H.merge(a, [Re.getScaleDefaults(r.type), r]) : H._merger(t, e, n, i);
+      }
+    });
+  }
+
+  function Ze(t) {
+    var e = t.options;
+    H.each(t.scales, function (e) {
+      pe.removeBox(t, e);
+    }), e = Ke(N.global, N[t.config.type], e), t.options = t.config.options = e, t.ensureScalesHaveIDs(), t.buildOrUpdateScales(), t.tooltip._options = e.tooltips, t.tooltip.initialize();
+  }
+
+  function $e(t, e, n) {
+    var i,
+        a = function a(t) {
+      return t.id === i;
+    };
+
+    do {
+      i = e + n++;
+    } while (H.findIndex(t, a) >= 0);
+
+    return i;
+  }
+
+  function Je(t) {
+    return "top" === t || "bottom" === t;
+  }
+
+  function Qe(t, e) {
+    return function (n, i) {
+      return n[t] === i[t] ? n[e] - i[e] : n[t] - i[t];
+    };
+  }
+
+  N._set("global", {
+    elements: {},
+    events: ["mousemove", "mouseout", "click", "touchstart", "touchmove"],
+    hover: {
+      onHover: null,
+      mode: "nearest",
+      intersect: !0,
+      animationDuration: 400
+    },
+    onClick: null,
+    maintainAspectRatio: !0,
+    responsive: !0,
+    responsiveAnimationDuration: 0
+  });
+
+  var tn = function tn(t, e) {
+    return this.construct(t, e), this;
+  };
+
+  H.extend(tn.prototype, {
+    construct: function construct(t, e) {
+      var n = this;
+
+      e = function (t) {
+        var e = (t = t || Object.create(null)).data = t.data || {};
+        return e.datasets = e.datasets || [], e.labels = e.labels || [], t.options = Ke(N.global, N[t.type], t.options || {}), t;
+      }(e);
+
+      var i = Oe.acquireContext(t, e),
+          a = i && i.canvas,
+          r = a && a.height,
+          o = a && a.width;
+      n.id = H.uid(), n.ctx = i, n.canvas = a, n.config = e, n.width = o, n.height = r, n.aspectRatio = r ? o / r : null, n.options = e.options, n._bufferedRender = !1, n._layers = [], n.chart = n, n.controller = n, tn.instances[n.id] = n, Object.defineProperty(n, "data", {
+        get: function get() {
+          return n.config.data;
+        },
+        set: function set(t) {
+          n.config.data = t;
+        }
+      }), i && a ? (n.initialize(), n.update()) : console.error("Failed to create chart: can't acquire context from the given item");
+    },
+    initialize: function initialize() {
+      var t = this;
+      return Le.notify(t, "beforeInit"), H.retinaScale(t, t.options.devicePixelRatio), t.bindEvents(), t.options.responsive && t.resize(!0), t.initToolTip(), Le.notify(t, "afterInit"), t;
+    },
+    clear: function clear() {
+      return H.canvas.clear(this), this;
+    },
+    stop: function stop() {
+      return J.cancelAnimation(this), this;
+    },
+    resize: function resize(t) {
+      var e = this,
+          n = e.options,
+          i = e.canvas,
+          a = n.maintainAspectRatio && e.aspectRatio || null,
+          r = Math.max(0, Math.floor(H.getMaximumWidth(i))),
+          o = Math.max(0, Math.floor(a ? r / a : H.getMaximumHeight(i)));
+
+      if ((e.width !== r || e.height !== o) && (i.width = e.width = r, i.height = e.height = o, i.style.width = r + "px", i.style.height = o + "px", H.retinaScale(e, n.devicePixelRatio), !t)) {
+        var s = {
+          width: r,
+          height: o
+        };
+        Le.notify(e, "resize", [s]), n.onResize && n.onResize(e, s), e.stop(), e.update({
+          duration: n.responsiveAnimationDuration
+        });
+      }
+    },
+    ensureScalesHaveIDs: function ensureScalesHaveIDs() {
+      var t = this.options,
+          e = t.scales || {},
+          n = t.scale;
+      H.each(e.xAxes, function (t, n) {
+        t.id || (t.id = $e(e.xAxes, "x-axis-", n));
+      }), H.each(e.yAxes, function (t, n) {
+        t.id || (t.id = $e(e.yAxes, "y-axis-", n));
+      }), n && (n.id = n.id || "scale");
+    },
+    buildOrUpdateScales: function buildOrUpdateScales() {
+      var t = this,
+          e = t.options,
+          n = t.scales || {},
+          i = [],
+          a = Object.keys(n).reduce(function (t, e) {
+        return t[e] = !1, t;
+      }, {});
+      e.scales && (i = i.concat((e.scales.xAxes || []).map(function (t) {
+        return {
+          options: t,
+          dtype: "category",
+          dposition: "bottom"
+        };
+      }), (e.scales.yAxes || []).map(function (t) {
+        return {
+          options: t,
+          dtype: "linear",
+          dposition: "left"
+        };
+      }))), e.scale && i.push({
+        options: e.scale,
+        dtype: "radialLinear",
+        isDefault: !0,
+        dposition: "chartArea"
+      }), H.each(i, function (e) {
+        var i = e.options,
+            r = i.id,
+            o = Ge(i.type, e.dtype);
+        Je(i.position) !== Je(e.dposition) && (i.position = e.dposition), a[r] = !0;
+        var s = null;
+        if (r in n && n[r].type === o) (s = n[r]).options = i, s.ctx = t.ctx, s.chart = t;else {
+          var l = Re.getScaleConstructor(o);
+          if (!l) return;
+          s = new l({
+            id: r,
+            type: o,
+            options: i,
+            ctx: t.ctx,
+            chart: t
+          }), n[s.id] = s;
+        }
+        s.mergeTicksOptions(), e.isDefault && (t.scale = s);
+      }), H.each(a, function (t, e) {
+        t || delete n[e];
+      }), t.scales = n, Re.addScalesToLayout(this);
+    },
+    buildOrUpdateControllers: function buildOrUpdateControllers() {
+      var t,
+          e,
+          n = this,
+          i = [],
+          a = n.data.datasets;
+
+      for (t = 0, e = a.length; t < e; t++) {
+        var r = a[t],
+            o = n.getDatasetMeta(t),
+            s = r.type || n.config.type;
+        if (o.type && o.type !== s && (n.destroyDatasetMeta(t), o = n.getDatasetMeta(t)), o.type = s, o.order = r.order || 0, o.index = t, o.controller) o.controller.updateIndex(t), o.controller.linkScales();else {
+          var l = Jt[o.type];
+          if (void 0 === l) throw new Error('"' + o.type + '" is not a chart type.');
+          o.controller = new l(n, t), i.push(o.controller);
+        }
+      }
+
+      return i;
+    },
+    resetElements: function resetElements() {
+      var t = this;
+      H.each(t.data.datasets, function (e, n) {
+        t.getDatasetMeta(n).controller.reset();
+      }, t);
+    },
+    reset: function reset() {
+      this.resetElements(), this.tooltip.initialize();
+    },
+    update: function update(t) {
+      var e,
+          n,
+          i = this;
+
+      if (t && "object" == _typeof(t) || (t = {
+        duration: t,
+        lazy: arguments[1]
+      }), Ze(i), Le._invalidate(i), !1 !== Le.notify(i, "beforeUpdate")) {
+        i.tooltip._data = i.data;
+        var a = i.buildOrUpdateControllers();
+
+        for (e = 0, n = i.data.datasets.length; e < n; e++) {
+          i.getDatasetMeta(e).controller.buildOrUpdateElements();
+        }
+
+        i.updateLayout(), i.options.animation && i.options.animation.duration && H.each(a, function (t) {
+          t.reset();
+        }), i.updateDatasets(), i.tooltip.initialize(), i.lastActive = [], Le.notify(i, "afterUpdate"), i._layers.sort(Qe("z", "_idx")), i._bufferedRender ? i._bufferedRequest = {
+          duration: t.duration,
+          easing: t.easing,
+          lazy: t.lazy
+        } : i.render(t);
+      }
+    },
+    updateLayout: function updateLayout() {
+      var t = this;
+      !1 !== Le.notify(t, "beforeLayout") && (pe.update(this, this.width, this.height), t._layers = [], H.each(t.boxes, function (e) {
+        e._configure && e._configure(), t._layers.push.apply(t._layers, e._layers());
+      }, t), t._layers.forEach(function (t, e) {
+        t._idx = e;
+      }), Le.notify(t, "afterScaleUpdate"), Le.notify(t, "afterLayout"));
+    },
+    updateDatasets: function updateDatasets() {
+      if (!1 !== Le.notify(this, "beforeDatasetsUpdate")) {
+        for (var t = 0, e = this.data.datasets.length; t < e; ++t) {
+          this.updateDataset(t);
+        }
+
+        Le.notify(this, "afterDatasetsUpdate");
+      }
+    },
+    updateDataset: function updateDataset(t) {
+      var e = this.getDatasetMeta(t),
+          n = {
+        meta: e,
+        index: t
+      };
+      !1 !== Le.notify(this, "beforeDatasetUpdate", [n]) && (e.controller._update(), Le.notify(this, "afterDatasetUpdate", [n]));
+    },
+    render: function render(t) {
+      var e = this;
+      t && "object" == _typeof(t) || (t = {
+        duration: t,
+        lazy: arguments[1]
+      });
+      var n = e.options.animation,
+          i = Ge(t.duration, n && n.duration),
+          a = t.lazy;
+
+      if (!1 !== Le.notify(e, "beforeRender")) {
+        var r = function r(t) {
+          Le.notify(e, "afterRender"), H.callback(n && n.onComplete, [t], e);
+        };
+
+        if (n && i) {
+          var o = new $({
+            numSteps: i / 16.66,
+            easing: t.easing || n.easing,
+            render: function render(t, e) {
+              var n = H.easing.effects[e.easing],
+                  i = e.currentStep,
+                  a = i / e.numSteps;
+              t.draw(n(a), a, i);
+            },
+            onAnimationProgress: n.onProgress,
+            onAnimationComplete: r
+          });
+          J.addAnimation(e, o, i, a);
+        } else e.draw(), r(new $({
+          numSteps: 0,
+          chart: e
+        }));
+
+        return e;
+      }
+    },
+    draw: function draw(t) {
+      var e,
+          n,
+          i = this;
+
+      if (i.clear(), H.isNullOrUndef(t) && (t = 1), i.transition(t), !(i.width <= 0 || i.height <= 0) && !1 !== Le.notify(i, "beforeDraw", [t])) {
+        for (n = i._layers, e = 0; e < n.length && n[e].z <= 0; ++e) {
+          n[e].draw(i.chartArea);
+        }
+
+        for (i.drawDatasets(t); e < n.length; ++e) {
+          n[e].draw(i.chartArea);
+        }
+
+        i._drawTooltip(t), Le.notify(i, "afterDraw", [t]);
+      }
+    },
+    transition: function transition(t) {
+      for (var e = 0, n = (this.data.datasets || []).length; e < n; ++e) {
+        this.isDatasetVisible(e) && this.getDatasetMeta(e).controller.transition(t);
+      }
+
+      this.tooltip.transition(t);
+    },
+    _getSortedDatasetMetas: function _getSortedDatasetMetas(t) {
+      var e,
+          n,
+          i = [];
+
+      for (e = 0, n = (this.data.datasets || []).length; e < n; ++e) {
+        t && !this.isDatasetVisible(e) || i.push(this.getDatasetMeta(e));
+      }
+
+      return i.sort(Qe("order", "index")), i;
+    },
+    _getSortedVisibleDatasetMetas: function _getSortedVisibleDatasetMetas() {
+      return this._getSortedDatasetMetas(!0);
+    },
+    drawDatasets: function drawDatasets(t) {
+      var e, n;
+
+      if (!1 !== Le.notify(this, "beforeDatasetsDraw", [t])) {
+        for (n = (e = this._getSortedVisibleDatasetMetas()).length - 1; n >= 0; --n) {
+          this.drawDataset(e[n], t);
+        }
+
+        Le.notify(this, "afterDatasetsDraw", [t]);
+      }
+    },
+    drawDataset: function drawDataset(t, e) {
+      var n = {
+        meta: t,
+        index: t.index,
+        easingValue: e
+      };
+      !1 !== Le.notify(this, "beforeDatasetDraw", [n]) && (t.controller.draw(e), Le.notify(this, "afterDatasetDraw", [n]));
+    },
+    _drawTooltip: function _drawTooltip(t) {
+      var e = this.tooltip,
+          n = {
+        tooltip: e,
+        easingValue: t
+      };
+      !1 !== Le.notify(this, "beforeTooltipDraw", [n]) && (e.draw(), Le.notify(this, "afterTooltipDraw", [n]));
+    },
+    getElementAtEvent: function getElementAtEvent(t) {
+      return re.modes.single(this, t);
+    },
+    getElementsAtEvent: function getElementsAtEvent(t) {
+      return re.modes.label(this, t, {
+        intersect: !0
+      });
+    },
+    getElementsAtXAxis: function getElementsAtXAxis(t) {
+      return re.modes["x-axis"](this, t, {
+        intersect: !0
+      });
+    },
+    getElementsAtEventForMode: function getElementsAtEventForMode(t, e, n) {
+      var i = re.modes[e];
+      return "function" == typeof i ? i(this, t, n) : [];
+    },
+    getDatasetAtEvent: function getDatasetAtEvent(t) {
+      return re.modes.dataset(this, t, {
+        intersect: !0
+      });
+    },
+    getDatasetMeta: function getDatasetMeta(t) {
+      var e = this.data.datasets[t];
+      e._meta || (e._meta = {});
+      var n = e._meta[this.id];
+      return n || (n = e._meta[this.id] = {
+        type: null,
+        data: [],
+        dataset: null,
+        controller: null,
+        hidden: null,
+        xAxisID: null,
+        yAxisID: null,
+        order: e.order || 0,
+        index: t
+      }), n;
+    },
+    getVisibleDatasetCount: function getVisibleDatasetCount() {
+      for (var t = 0, e = 0, n = this.data.datasets.length; e < n; ++e) {
+        this.isDatasetVisible(e) && t++;
+      }
+
+      return t;
+    },
+    isDatasetVisible: function isDatasetVisible(t) {
+      var e = this.getDatasetMeta(t);
+      return "boolean" == typeof e.hidden ? !e.hidden : !this.data.datasets[t].hidden;
+    },
+    generateLegend: function generateLegend() {
+      return this.options.legendCallback(this);
+    },
+    destroyDatasetMeta: function destroyDatasetMeta(t) {
+      var e = this.id,
+          n = this.data.datasets[t],
+          i = n._meta && n._meta[e];
+      i && (i.controller.destroy(), delete n._meta[e]);
+    },
+    destroy: function destroy() {
+      var t,
+          e,
+          n = this,
+          i = n.canvas;
+
+      for (n.stop(), t = 0, e = n.data.datasets.length; t < e; ++t) {
+        n.destroyDatasetMeta(t);
+      }
+
+      i && (n.unbindEvents(), H.canvas.clear(n), Oe.releaseContext(n.ctx), n.canvas = null, n.ctx = null), Le.notify(n, "destroy"), delete tn.instances[n.id];
+    },
+    toBase64Image: function toBase64Image() {
+      return this.canvas.toDataURL.apply(this.canvas, arguments);
+    },
+    initToolTip: function initToolTip() {
+      var t = this;
+      t.tooltip = new Ye({
+        _chart: t,
+        _chartInstance: t,
+        _data: t.data,
+        _options: t.options.tooltips
+      }, t);
+    },
+    bindEvents: function bindEvents() {
+      var t = this,
+          e = t._listeners = {},
+          n = function n() {
+        t.eventHandler.apply(t, arguments);
+      };
+
+      H.each(t.options.events, function (i) {
+        Oe.addEventListener(t, i, n), e[i] = n;
+      }), t.options.responsive && (n = function n() {
+        t.resize();
+      }, Oe.addEventListener(t, "resize", n), e.resize = n);
+    },
+    unbindEvents: function unbindEvents() {
+      var t = this,
+          e = t._listeners;
+      e && (delete t._listeners, H.each(e, function (e, n) {
+        Oe.removeEventListener(t, n, e);
+      }));
+    },
+    updateHoverStyle: function updateHoverStyle(t, e, n) {
+      var i,
+          a,
+          r,
+          o = n ? "set" : "remove";
+
+      for (a = 0, r = t.length; a < r; ++a) {
+        (i = t[a]) && this.getDatasetMeta(i._datasetIndex).controller[o + "HoverStyle"](i);
+      }
+
+      "dataset" === e && this.getDatasetMeta(t[0]._datasetIndex).controller["_" + o + "DatasetHoverStyle"]();
+    },
+    eventHandler: function eventHandler(t) {
+      var e = this,
+          n = e.tooltip;
+
+      if (!1 !== Le.notify(e, "beforeEvent", [t])) {
+        e._bufferedRender = !0, e._bufferedRequest = null;
+        var i = e.handleEvent(t);
+        n && (i = n._start ? n.handleEvent(t) : i | n.handleEvent(t)), Le.notify(e, "afterEvent", [t]);
+        var a = e._bufferedRequest;
+        return a ? e.render(a) : i && !e.animating && (e.stop(), e.render({
+          duration: e.options.hover.animationDuration,
+          lazy: !0
+        })), e._bufferedRender = !1, e._bufferedRequest = null, e;
+      }
+    },
+    handleEvent: function handleEvent(t) {
+      var e,
+          n = this,
+          i = n.options || {},
+          a = i.hover;
+      return n.lastActive = n.lastActive || [], "mouseout" === t.type ? n.active = [] : n.active = n.getElementsAtEventForMode(t, a.mode, a), H.callback(i.onHover || i.hover.onHover, [t["native"], n.active], n), "mouseup" !== t.type && "click" !== t.type || i.onClick && i.onClick.call(n, t["native"], n.active), n.lastActive.length && n.updateHoverStyle(n.lastActive, a.mode, !1), n.active.length && a.mode && n.updateHoverStyle(n.active, a.mode, !0), e = !H.arrayEquals(n.active, n.lastActive), n.lastActive = n.active, e;
+    }
+  }), tn.instances = {};
+  var en = tn;
+  tn.Controller = tn, tn.types = {}, H.configMerge = Ke, H.scaleMerge = Xe;
+
+  function nn() {
+    throw new Error("This method is not implemented: either no adapter can be found or an incomplete integration was provided.");
+  }
+
+  function an(t) {
+    this.options = t || {};
+  }
+
+  H.extend(an.prototype, {
+    formats: nn,
+    parse: nn,
+    format: nn,
+    add: nn,
+    diff: nn,
+    startOf: nn,
+    endOf: nn,
+    _create: function _create(t) {
+      return t;
+    }
+  }), an.override = function (t) {
+    H.extend(an.prototype, t);
+  };
+  var rn = {
+    _date: an
+  },
+      on = {
+    formatters: {
+      values: function values(t) {
+        return H.isArray(t) ? t : "" + t;
+      },
+      linear: function linear(t, e, n) {
+        var i = n.length > 3 ? n[2] - n[1] : n[1] - n[0];
+        Math.abs(i) > 1 && t !== Math.floor(t) && (i = t - Math.floor(t));
+        var a = H.log10(Math.abs(i)),
+            r = "";
+        if (0 !== t) {
+          if (Math.max(Math.abs(n[0]), Math.abs(n[n.length - 1])) < 1e-4) {
+            var o = H.log10(Math.abs(t)),
+                s = Math.floor(o) - Math.floor(a);
+            s = Math.max(Math.min(s, 20), 0), r = t.toExponential(s);
+          } else {
+            var l = -1 * Math.floor(a);
+            l = Math.max(Math.min(l, 20), 0), r = t.toFixed(l);
+          }
+        } else r = "0";
+        return r;
+      },
+      logarithmic: function logarithmic(t, e, n) {
+        var i = t / Math.pow(10, Math.floor(H.log10(t)));
+        return 0 === t ? "0" : 1 === i || 2 === i || 5 === i || 0 === e || e === n.length - 1 ? t.toExponential() : "";
+      }
+    }
+  },
+      sn = H.isArray,
+      ln = H.isNullOrUndef,
+      un = H.valueOrDefault,
+      dn = H.valueAtIndexOrDefault;
+
+  function hn(t, e, n) {
+    var i,
+        a = t.getTicks().length,
+        r = Math.min(e, a - 1),
+        o = t.getPixelForTick(r),
+        s = t._startPixel,
+        l = t._endPixel;
+    if (!(n && (i = 1 === a ? Math.max(o - s, l - o) : 0 === e ? (t.getPixelForTick(1) - o) / 2 : (o - t.getPixelForTick(r - 1)) / 2, (o += r < e ? i : -i) < s - 1e-6 || o > l + 1e-6))) return o;
+  }
+
+  function cn(t, e, n, i) {
+    var a,
+        r,
+        o,
+        s,
+        l,
+        u,
+        d,
+        h,
+        c,
+        f,
+        g,
+        p,
+        m,
+        v = n.length,
+        b = [],
+        x = [],
+        y = [],
+        _ = 0,
+        k = 0;
+
+    for (a = 0; a < v; ++a) {
+      if (s = n[a].label, l = n[a].major ? e.major : e.minor, t.font = u = l.string, d = i[u] = i[u] || {
+        data: {},
+        gc: []
+      }, h = l.lineHeight, c = f = 0, ln(s) || sn(s)) {
+        if (sn(s)) for (r = 0, o = s.length; r < o; ++r) {
+          g = s[r], ln(g) || sn(g) || (c = H.measureText(t, d.data, d.gc, c, g), f += h);
+        }
+      } else c = H.measureText(t, d.data, d.gc, c, s), f = h;
+
+      b.push(c), x.push(f), y.push(h / 2), _ = Math.max(c, _), k = Math.max(f, k);
+    }
+
+    function w(t) {
+      return {
+        width: b[t] || 0,
+        height: x[t] || 0,
+        offset: y[t] || 0
+      };
+    }
+
+    return function (t, e) {
+      H.each(t, function (t) {
+        var n,
+            i = t.gc,
+            a = i.length / 2;
+
+        if (a > e) {
+          for (n = 0; n < a; ++n) {
+            delete t.data[i[n]];
+          }
+
+          i.splice(0, a);
+        }
+      });
+    }(i, v), p = b.indexOf(_), m = x.indexOf(k), {
+      first: w(0),
+      last: w(v - 1),
+      widest: w(p),
+      highest: w(m)
+    };
+  }
+
+  function fn(t) {
+    return t.drawTicks ? t.tickMarkLength : 0;
+  }
+
+  function gn(t) {
+    var e, n;
+    return t.display ? (e = H.options._parseFont(t), n = H.options.toPadding(t.padding), e.lineHeight + n.height) : 0;
+  }
+
+  function pn(t, e) {
+    return H.extend(H.options._parseFont({
+      fontFamily: un(e.fontFamily, t.fontFamily),
+      fontSize: un(e.fontSize, t.fontSize),
+      fontStyle: un(e.fontStyle, t.fontStyle),
+      lineHeight: un(e.lineHeight, t.lineHeight)
+    }), {
+      color: H.options.resolve([e.fontColor, t.fontColor, N.global.defaultFontColor])
+    });
+  }
+
+  function mn(t) {
+    var e = pn(t, t.minor);
+    return {
+      minor: e,
+      major: t.major.enabled ? pn(t, t.major) : e
+    };
+  }
+
+  function vn(t) {
+    var e,
+        n,
+        i,
+        a = [];
+
+    for (n = 0, i = t.length; n < i; ++n) {
+      void 0 !== (e = t[n])._index && a.push(e);
+    }
+
+    return a;
+  }
+
+  function bn(t, e, n, i) {
+    var a,
+        r,
+        o,
+        s,
+        l = un(n, 0),
+        u = Math.min(un(i, t.length), t.length),
+        d = 0;
+
+    for (e = Math.ceil(e), i && (e = (a = i - n) / Math.floor(a / e)), s = l; s < 0;) {
+      d++, s = Math.round(l + d * e);
+    }
+
+    for (r = Math.max(l, 0); r < u; r++) {
+      o = t[r], r === s ? (o._index = r, d++, s = Math.round(l + d * e)) : delete o.label;
+    }
+  }
+
+  N._set("scale", {
+    display: !0,
+    position: "left",
+    offset: !1,
+    gridLines: {
+      display: !0,
+      color: "rgba(0,0,0,0.1)",
+      lineWidth: 1,
+      drawBorder: !0,
+      drawOnChartArea: !0,
+      drawTicks: !0,
+      tickMarkLength: 10,
+      zeroLineWidth: 1,
+      zeroLineColor: "rgba(0,0,0,0.25)",
+      zeroLineBorderDash: [],
+      zeroLineBorderDashOffset: 0,
+      offsetGridLines: !1,
+      borderDash: [],
+      borderDashOffset: 0
+    },
+    scaleLabel: {
+      display: !1,
+      labelString: "",
+      padding: {
+        top: 4,
+        bottom: 4
+      }
+    },
+    ticks: {
+      beginAtZero: !1,
+      minRotation: 0,
+      maxRotation: 50,
+      mirror: !1,
+      padding: 0,
+      reverse: !1,
+      display: !0,
+      autoSkip: !0,
+      autoSkipPadding: 0,
+      labelOffset: 0,
+      callback: on.formatters.values,
+      minor: {},
+      major: {}
+    }
+  });
+
+  var xn = K.extend({
+    zeroLineIndex: 0,
+    getPadding: function getPadding() {
+      return {
+        left: this.paddingLeft || 0,
+        top: this.paddingTop || 0,
+        right: this.paddingRight || 0,
+        bottom: this.paddingBottom || 0
+      };
+    },
+    getTicks: function getTicks() {
+      return this._ticks;
+    },
+    _getLabels: function _getLabels() {
+      var t = this.chart.data;
+      return this.options.labels || (this.isHorizontal() ? t.xLabels : t.yLabels) || t.labels || [];
+    },
+    mergeTicksOptions: function mergeTicksOptions() {},
+    beforeUpdate: function beforeUpdate() {
+      H.callback(this.options.beforeUpdate, [this]);
+    },
+    update: function update(t, e, n) {
+      var i,
+          a,
+          r,
+          o,
+          s,
+          l = this,
+          u = l.options.ticks,
+          d = u.sampleSize;
+      if (l.beforeUpdate(), l.maxWidth = t, l.maxHeight = e, l.margins = H.extend({
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }, n), l._ticks = null, l.ticks = null, l._labelSizes = null, l._maxLabelLines = 0, l.longestLabelWidth = 0, l.longestTextCache = l.longestTextCache || {}, l._gridLineItems = null, l._labelItems = null, l.beforeSetDimensions(), l.setDimensions(), l.afterSetDimensions(), l.beforeDataLimits(), l.determineDataLimits(), l.afterDataLimits(), l.beforeBuildTicks(), o = l.buildTicks() || [], (!(o = l.afterBuildTicks(o) || o) || !o.length) && l.ticks) for (o = [], i = 0, a = l.ticks.length; i < a; ++i) {
+        o.push({
+          value: l.ticks[i],
+          major: !1
+        });
+      }
+      return l._ticks = o, s = d < o.length, r = l._convertTicksToLabels(s ? function (t, e) {
+        for (var n = [], i = t.length / e, a = 0, r = t.length; a < r; a += i) {
+          n.push(t[Math.floor(a)]);
+        }
+
+        return n;
+      }(o, d) : o), l._configure(), l.beforeCalculateTickRotation(), l.calculateTickRotation(), l.afterCalculateTickRotation(), l.beforeFit(), l.fit(), l.afterFit(), l._ticksToDraw = u.display && (u.autoSkip || "auto" === u.source) ? l._autoSkip(o) : o, s && (r = l._convertTicksToLabels(l._ticksToDraw)), l.ticks = r, l.afterUpdate(), l.minSize;
+    },
+    _configure: function _configure() {
+      var t,
+          e,
+          n = this,
+          i = n.options.ticks.reverse;
+      n.isHorizontal() ? (t = n.left, e = n.right) : (t = n.top, e = n.bottom, i = !i), n._startPixel = t, n._endPixel = e, n._reversePixels = i, n._length = e - t;
+    },
+    afterUpdate: function afterUpdate() {
+      H.callback(this.options.afterUpdate, [this]);
+    },
+    beforeSetDimensions: function beforeSetDimensions() {
+      H.callback(this.options.beforeSetDimensions, [this]);
+    },
+    setDimensions: function setDimensions() {
+      var t = this;
+      t.isHorizontal() ? (t.width = t.maxWidth, t.left = 0, t.right = t.width) : (t.height = t.maxHeight, t.top = 0, t.bottom = t.height), t.paddingLeft = 0, t.paddingTop = 0, t.paddingRight = 0, t.paddingBottom = 0;
+    },
+    afterSetDimensions: function afterSetDimensions() {
+      H.callback(this.options.afterSetDimensions, [this]);
+    },
+    beforeDataLimits: function beforeDataLimits() {
+      H.callback(this.options.beforeDataLimits, [this]);
+    },
+    determineDataLimits: H.noop,
+    afterDataLimits: function afterDataLimits() {
+      H.callback(this.options.afterDataLimits, [this]);
+    },
+    beforeBuildTicks: function beforeBuildTicks() {
+      H.callback(this.options.beforeBuildTicks, [this]);
+    },
+    buildTicks: H.noop,
+    afterBuildTicks: function afterBuildTicks(t) {
+      var e = this;
+      return sn(t) && t.length ? H.callback(e.options.afterBuildTicks, [e, t]) : (e.ticks = H.callback(e.options.afterBuildTicks, [e, e.ticks]) || e.ticks, t);
+    },
+    beforeTickToLabelConversion: function beforeTickToLabelConversion() {
+      H.callback(this.options.beforeTickToLabelConversion, [this]);
+    },
+    convertTicksToLabels: function convertTicksToLabels() {
+      var t = this.options.ticks;
+      this.ticks = this.ticks.map(t.userCallback || t.callback, this);
+    },
+    afterTickToLabelConversion: function afterTickToLabelConversion() {
+      H.callback(this.options.afterTickToLabelConversion, [this]);
+    },
+    beforeCalculateTickRotation: function beforeCalculateTickRotation() {
+      H.callback(this.options.beforeCalculateTickRotation, [this]);
+    },
+    calculateTickRotation: function calculateTickRotation() {
+      var t,
+          e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s = this,
+          l = s.options,
+          u = l.ticks,
+          d = s.getTicks().length,
+          h = u.minRotation || 0,
+          c = u.maxRotation,
+          f = h;
+      !s._isVisible() || !u.display || h >= c || d <= 1 || !s.isHorizontal() ? s.labelRotation = h : (e = (t = s._getLabelSizes()).widest.width, n = t.highest.height - t.highest.offset, i = Math.min(s.maxWidth, s.chart.width - e), e + 6 > (a = l.offset ? s.maxWidth / d : i / (d - 1)) && (a = i / (d - (l.offset ? .5 : 1)), r = s.maxHeight - fn(l.gridLines) - u.padding - gn(l.scaleLabel), o = Math.sqrt(e * e + n * n), f = H.toDegrees(Math.min(Math.asin(Math.min((t.highest.height + 6) / a, 1)), Math.asin(Math.min(r / o, 1)) - Math.asin(n / o))), f = Math.max(h, Math.min(c, f))), s.labelRotation = f);
+    },
+    afterCalculateTickRotation: function afterCalculateTickRotation() {
+      H.callback(this.options.afterCalculateTickRotation, [this]);
+    },
+    beforeFit: function beforeFit() {
+      H.callback(this.options.beforeFit, [this]);
+    },
+    fit: function fit() {
+      var t = this,
+          e = t.minSize = {
+        width: 0,
+        height: 0
+      },
+          n = t.chart,
+          i = t.options,
+          a = i.ticks,
+          r = i.scaleLabel,
+          o = i.gridLines,
+          s = t._isVisible(),
+          l = "bottom" === i.position,
+          u = t.isHorizontal();
+
+      if (u ? e.width = t.maxWidth : s && (e.width = fn(o) + gn(r)), u ? s && (e.height = fn(o) + gn(r)) : e.height = t.maxHeight, a.display && s) {
+        var d = mn(a),
+            h = t._getLabelSizes(),
+            c = h.first,
+            f = h.last,
+            g = h.widest,
+            p = h.highest,
+            m = .4 * d.minor.lineHeight,
+            v = a.padding;
+
+        if (u) {
+          var b = 0 !== t.labelRotation,
+              x = H.toRadians(t.labelRotation),
+              y = Math.cos(x),
+              _ = Math.sin(x),
+              k = _ * g.width + y * (p.height - (b ? p.offset : 0)) + (b ? 0 : m);
+
+          e.height = Math.min(t.maxHeight, e.height + k + v);
+          var w,
+              M,
+              S = t.getPixelForTick(0) - t.left,
+              C = t.right - t.getPixelForTick(t.getTicks().length - 1);
+          b ? (w = l ? y * c.width + _ * c.offset : _ * (c.height - c.offset), M = l ? _ * (f.height - f.offset) : y * f.width + _ * f.offset) : (w = c.width / 2, M = f.width / 2), t.paddingLeft = Math.max((w - S) * t.width / (t.width - S), 0) + 3, t.paddingRight = Math.max((M - C) * t.width / (t.width - C), 0) + 3;
+        } else {
+          var P = a.mirror ? 0 : g.width + v + m;
+          e.width = Math.min(t.maxWidth, e.width + P), t.paddingTop = c.height / 2, t.paddingBottom = f.height / 2;
+        }
+      }
+
+      t.handleMargins(), u ? (t.width = t._length = n.width - t.margins.left - t.margins.right, t.height = e.height) : (t.width = e.width, t.height = t._length = n.height - t.margins.top - t.margins.bottom);
+    },
+    handleMargins: function handleMargins() {
+      var t = this;
+      t.margins && (t.margins.left = Math.max(t.paddingLeft, t.margins.left), t.margins.top = Math.max(t.paddingTop, t.margins.top), t.margins.right = Math.max(t.paddingRight, t.margins.right), t.margins.bottom = Math.max(t.paddingBottom, t.margins.bottom));
+    },
+    afterFit: function afterFit() {
+      H.callback(this.options.afterFit, [this]);
+    },
+    isHorizontal: function isHorizontal() {
+      var t = this.options.position;
+      return "top" === t || "bottom" === t;
+    },
+    isFullWidth: function isFullWidth() {
+      return this.options.fullWidth;
+    },
+    getRightValue: function getRightValue(t) {
+      if (ln(t)) return NaN;
+      if (("number" == typeof t || t instanceof Number) && !isFinite(t)) return NaN;
+      if (t) if (this.isHorizontal()) {
+        if (void 0 !== t.x) return this.getRightValue(t.x);
+      } else if (void 0 !== t.y) return this.getRightValue(t.y);
+      return t;
+    },
+    _convertTicksToLabels: function _convertTicksToLabels(t) {
+      var e,
+          n,
+          i,
+          a = this;
+
+      for (a.ticks = t.map(function (t) {
+        return t.value;
+      }), a.beforeTickToLabelConversion(), e = a.convertTicksToLabels(t) || a.ticks, a.afterTickToLabelConversion(), n = 0, i = t.length; n < i; ++n) {
+        t[n].label = e[n];
+      }
+
+      return e;
+    },
+    _getLabelSizes: function _getLabelSizes() {
+      var t = this,
+          e = t._labelSizes;
+      return e || (t._labelSizes = e = cn(t.ctx, mn(t.options.ticks), t.getTicks(), t.longestTextCache), t.longestLabelWidth = e.widest.width), e;
+    },
+    _parseValue: function _parseValue(t) {
+      var e, n, i, a;
+      return sn(t) ? (e = +this.getRightValue(t[0]), n = +this.getRightValue(t[1]), i = Math.min(e, n), a = Math.max(e, n)) : (e = void 0, n = t = +this.getRightValue(t), i = t, a = t), {
+        min: i,
+        max: a,
+        start: e,
+        end: n
+      };
+    },
+    _getScaleLabel: function _getScaleLabel(t) {
+      var e = this._parseValue(t);
+
+      return void 0 !== e.start ? "[" + e.start + ", " + e.end + "]" : +this.getRightValue(t);
+    },
+    getLabelForIndex: H.noop,
+    getPixelForValue: H.noop,
+    getValueForPixel: H.noop,
+    getPixelForTick: function getPixelForTick(t) {
+      var e = this.options.offset,
+          n = this._ticks.length,
+          i = 1 / Math.max(n - (e ? 0 : 1), 1);
+      return t < 0 || t > n - 1 ? null : this.getPixelForDecimal(t * i + (e ? i / 2 : 0));
+    },
+    getPixelForDecimal: function getPixelForDecimal(t) {
+      return this._reversePixels && (t = 1 - t), this._startPixel + t * this._length;
+    },
+    getDecimalForPixel: function getDecimalForPixel(t) {
+      var e = (t - this._startPixel) / this._length;
+      return this._reversePixels ? 1 - e : e;
+    },
+    getBasePixel: function getBasePixel() {
+      return this.getPixelForValue(this.getBaseValue());
+    },
+    getBaseValue: function getBaseValue() {
+      var t = this.min,
+          e = this.max;
+      return this.beginAtZero ? 0 : t < 0 && e < 0 ? e : t > 0 && e > 0 ? t : 0;
+    },
+    _autoSkip: function _autoSkip(t) {
+      var e,
+          n,
+          i,
+          a,
+          r = this.options.ticks,
+          o = this._length,
+          s = r.maxTicksLimit || o / this._tickSize() + 1,
+          l = r.major.enabled ? function (t) {
+        var e,
+            n,
+            i = [];
+
+        for (e = 0, n = t.length; e < n; e++) {
+          t[e].major && i.push(e);
+        }
+
+        return i;
+      }(t) : [],
+          u = l.length,
+          d = l[0],
+          h = l[u - 1];
+      if (u > s) return function (t, e, n) {
+        var i,
+            a,
+            r = 0,
+            o = e[0];
+
+        for (n = Math.ceil(n), i = 0; i < t.length; i++) {
+          a = t[i], i === o ? (a._index = i, o = e[++r * n]) : delete a.label;
+        }
+      }(t, l, u / s), vn(t);
+
+      if (i = function (t, e, n, i) {
+        var a,
+            r,
+            o,
+            s,
+            l = function (t) {
+          var e,
+              n,
+              i = t.length;
+          if (i < 2) return !1;
+
+          for (n = t[0], e = 1; e < i; ++e) {
+            if (t[e] - t[e - 1] !== n) return !1;
+          }
+
+          return n;
+        }(t),
+            u = (e.length - 1) / i;
+
+        if (!l) return Math.max(u, 1);
+
+        for (o = 0, s = (a = H.math._factorize(l)).length - 1; o < s; o++) {
+          if ((r = a[o]) > u) return r;
+        }
+
+        return Math.max(u, 1);
+      }(l, t, 0, s), u > 0) {
+        for (e = 0, n = u - 1; e < n; e++) {
+          bn(t, i, l[e], l[e + 1]);
+        }
+
+        return a = u > 1 ? (h - d) / (u - 1) : null, bn(t, i, H.isNullOrUndef(a) ? 0 : d - a, d), bn(t, i, h, H.isNullOrUndef(a) ? t.length : h + a), vn(t);
+      }
+
+      return bn(t, i), vn(t);
+    },
+    _tickSize: function _tickSize() {
+      var t = this.options.ticks,
+          e = H.toRadians(this.labelRotation),
+          n = Math.abs(Math.cos(e)),
+          i = Math.abs(Math.sin(e)),
+          a = this._getLabelSizes(),
+          r = t.autoSkipPadding || 0,
+          o = a ? a.widest.width + r : 0,
+          s = a ? a.highest.height + r : 0;
+
+      return this.isHorizontal() ? s * n > o * i ? o / n : s / i : s * i < o * n ? s / n : o / i;
+    },
+    _isVisible: function _isVisible() {
+      var t,
+          e,
+          n,
+          i = this.chart,
+          a = this.options.display;
+      if ("auto" !== a) return !!a;
+
+      for (t = 0, e = i.data.datasets.length; t < e; ++t) {
+        if (i.isDatasetVisible(t) && ((n = i.getDatasetMeta(t)).xAxisID === this.id || n.yAxisID === this.id)) return !0;
+      }
+
+      return !1;
+    },
+    _computeGridLineItems: function _computeGridLineItems(t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d,
+          h,
+          c,
+          f,
+          g,
+          p,
+          m,
+          v,
+          b = this,
+          x = b.chart,
+          y = b.options,
+          _ = y.gridLines,
+          k = y.position,
+          w = _.offsetGridLines,
+          M = b.isHorizontal(),
+          S = b._ticksToDraw,
+          C = S.length + (w ? 1 : 0),
+          P = fn(_),
+          A = [],
+          D = _.drawBorder ? dn(_.lineWidth, 0, 0) : 0,
+          T = D / 2,
+          I = H._alignPixel,
+          F = function F(t) {
+        return I(x, t, D);
+      };
+
+      for ("top" === k ? (e = F(b.bottom), s = b.bottom - P, u = e - T, h = F(t.top) + T, f = t.bottom) : "bottom" === k ? (e = F(b.top), h = t.top, f = F(t.bottom) - T, s = e + T, u = b.top + P) : "left" === k ? (e = F(b.right), o = b.right - P, l = e - T, d = F(t.left) + T, c = t.right) : (e = F(b.left), d = t.left, c = F(t.right) - T, o = e + T, l = b.left + P), n = 0; n < C; ++n) {
+        i = S[n] || {}, ln(i.label) && n < S.length || (n === b.zeroLineIndex && y.offset === w ? (g = _.zeroLineWidth, p = _.zeroLineColor, m = _.zeroLineBorderDash || [], v = _.zeroLineBorderDashOffset || 0) : (g = dn(_.lineWidth, n, 1), p = dn(_.color, n, "rgba(0,0,0,0.1)"), m = _.borderDash || [], v = _.borderDashOffset || 0), void 0 !== (a = hn(b, i._index || n, w)) && (r = I(x, a, g), M ? o = l = d = c = r : s = u = h = f = r, A.push({
+          tx1: o,
+          ty1: s,
+          tx2: l,
+          ty2: u,
+          x1: d,
+          y1: h,
+          x2: c,
+          y2: f,
+          width: g,
+          color: p,
+          borderDash: m,
+          borderDashOffset: v
+        })));
+      }
+
+      return A.ticksLength = C, A.borderValue = e, A;
+    },
+    _computeLabelItems: function _computeLabelItems() {
+      var t,
+          e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d,
+          h,
+          c = this,
+          f = c.options,
+          g = f.ticks,
+          p = f.position,
+          m = g.mirror,
+          v = c.isHorizontal(),
+          b = c._ticksToDraw,
+          x = mn(g),
+          y = g.padding,
+          _ = fn(f.gridLines),
+          k = -H.toRadians(c.labelRotation),
+          w = [];
+
+      for ("top" === p ? (r = c.bottom - _ - y, o = k ? "left" : "center") : "bottom" === p ? (r = c.top + _ + y, o = k ? "right" : "center") : "left" === p ? (a = c.right - (m ? 0 : _) - y, o = m ? "left" : "right") : (a = c.left + (m ? 0 : _) + y, o = m ? "right" : "left"), t = 0, e = b.length; t < e; ++t) {
+        i = (n = b[t]).label, ln(i) || (s = c.getPixelForTick(n._index || t) + g.labelOffset, u = (l = n.major ? x.major : x.minor).lineHeight, d = sn(i) ? i.length : 1, v ? (a = s, h = "top" === p ? ((k ? 1 : .5) - d) * u : (k ? 0 : .5) * u) : (r = s, h = (1 - d) * u / 2), w.push({
+          x: a,
+          y: r,
+          rotation: k,
+          label: i,
+          font: l,
+          textOffset: h,
+          textAlign: o
+        }));
+      }
+
+      return w;
+    },
+    _drawGrid: function _drawGrid(t) {
+      var e = this,
+          n = e.options.gridLines;
+
+      if (n.display) {
+        var i,
+            a,
+            r,
+            o,
+            s,
+            l = e.ctx,
+            u = e.chart,
+            d = H._alignPixel,
+            h = n.drawBorder ? dn(n.lineWidth, 0, 0) : 0,
+            c = e._gridLineItems || (e._gridLineItems = e._computeGridLineItems(t));
+
+        for (r = 0, o = c.length; r < o; ++r) {
+          i = (s = c[r]).width, a = s.color, i && a && (l.save(), l.lineWidth = i, l.strokeStyle = a, l.setLineDash && (l.setLineDash(s.borderDash), l.lineDashOffset = s.borderDashOffset), l.beginPath(), n.drawTicks && (l.moveTo(s.tx1, s.ty1), l.lineTo(s.tx2, s.ty2)), n.drawOnChartArea && (l.moveTo(s.x1, s.y1), l.lineTo(s.x2, s.y2)), l.stroke(), l.restore());
+        }
+
+        if (h) {
+          var f,
+              g,
+              p,
+              m,
+              v = h,
+              b = dn(n.lineWidth, c.ticksLength - 1, 1),
+              x = c.borderValue;
+          e.isHorizontal() ? (f = d(u, e.left, v) - v / 2, g = d(u, e.right, b) + b / 2, p = m = x) : (p = d(u, e.top, v) - v / 2, m = d(u, e.bottom, b) + b / 2, f = g = x), l.lineWidth = h, l.strokeStyle = dn(n.color, 0), l.beginPath(), l.moveTo(f, p), l.lineTo(g, m), l.stroke();
+        }
+      }
+    },
+    _drawLabels: function _drawLabels() {
+      var t = this;
+
+      if (t.options.ticks.display) {
+        var e,
+            n,
+            i,
+            a,
+            r,
+            o,
+            s,
+            l,
+            u = t.ctx,
+            d = t._labelItems || (t._labelItems = t._computeLabelItems());
+
+        for (e = 0, i = d.length; e < i; ++e) {
+          if (o = (r = d[e]).font, u.save(), u.translate(r.x, r.y), u.rotate(r.rotation), u.font = o.string, u.fillStyle = o.color, u.textBaseline = "middle", u.textAlign = r.textAlign, s = r.label, l = r.textOffset, sn(s)) for (n = 0, a = s.length; n < a; ++n) {
+            u.fillText("" + s[n], 0, l), l += o.lineHeight;
+          } else u.fillText(s, 0, l);
+          u.restore();
+        }
+      }
+    },
+    _drawTitle: function _drawTitle() {
+      var t = this,
+          e = t.ctx,
+          n = t.options,
+          i = n.scaleLabel;
+
+      if (i.display) {
+        var a,
+            r,
+            o = un(i.fontColor, N.global.defaultFontColor),
+            s = H.options._parseFont(i),
+            l = H.options.toPadding(i.padding),
+            u = s.lineHeight / 2,
+            d = n.position,
+            h = 0;
+
+        if (t.isHorizontal()) a = t.left + t.width / 2, r = "bottom" === d ? t.bottom - u - l.bottom : t.top + u + l.top;else {
+          var c = "left" === d;
+          a = c ? t.left + u + l.top : t.right - u - l.top, r = t.top + t.height / 2, h = c ? -.5 * Math.PI : .5 * Math.PI;
+        }
+        e.save(), e.translate(a, r), e.rotate(h), e.textAlign = "center", e.textBaseline = "middle", e.fillStyle = o, e.font = s.string, e.fillText(i.labelString, 0, 0), e.restore();
+      }
+    },
+    draw: function draw(t) {
+      this._isVisible() && (this._drawGrid(t), this._drawTitle(), this._drawLabels());
+    },
+    _layers: function _layers() {
+      var t = this,
+          e = t.options,
+          n = e.ticks && e.ticks.z || 0,
+          i = e.gridLines && e.gridLines.z || 0;
+      return t._isVisible() && n !== i && t.draw === t._draw ? [{
+        z: i,
+        draw: function draw() {
+          t._drawGrid.apply(t, arguments), t._drawTitle.apply(t, arguments);
+        }
+      }, {
+        z: n,
+        draw: function draw() {
+          t._drawLabels.apply(t, arguments);
+        }
+      }] : [{
+        z: n,
+        draw: function draw() {
+          t.draw.apply(t, arguments);
+        }
+      }];
+    },
+    _getMatchingVisibleMetas: function _getMatchingVisibleMetas(t) {
+      var e = this,
+          n = e.isHorizontal();
+      return e.chart._getSortedVisibleDatasetMetas().filter(function (i) {
+        return (!t || i.type === t) && (n ? i.xAxisID === e.id : i.yAxisID === e.id);
+      });
+    }
+  });
+  xn.prototype._draw = xn.prototype.draw;
+  var yn = xn,
+      _n = H.isNullOrUndef,
+      kn = yn.extend({
+    determineDataLimits: function determineDataLimits() {
+      var t,
+          e = this,
+          n = e._getLabels(),
+          i = e.options.ticks,
+          a = i.min,
+          r = i.max,
+          o = 0,
+          s = n.length - 1;
+
+      void 0 !== a && (t = n.indexOf(a)) >= 0 && (o = t), void 0 !== r && (t = n.indexOf(r)) >= 0 && (s = t), e.minIndex = o, e.maxIndex = s, e.min = n[o], e.max = n[s];
+    },
+    buildTicks: function buildTicks() {
+      var t = this._getLabels(),
+          e = this.minIndex,
+          n = this.maxIndex;
+
+      this.ticks = 0 === e && n === t.length - 1 ? t : t.slice(e, n + 1);
+    },
+    getLabelForIndex: function getLabelForIndex(t, e) {
+      var n = this.chart;
+      return n.getDatasetMeta(e).controller._getValueScaleId() === this.id ? this.getRightValue(n.data.datasets[e].data[t]) : this._getLabels()[t];
+    },
+    _configure: function _configure() {
+      var t = this,
+          e = t.options.offset,
+          n = t.ticks;
+      yn.prototype._configure.call(t), t.isHorizontal() || (t._reversePixels = !t._reversePixels), n && (t._startValue = t.minIndex - (e ? .5 : 0), t._valueRange = Math.max(n.length - (e ? 0 : 1), 1));
+    },
+    getPixelForValue: function getPixelForValue(t, e, n) {
+      var i,
+          a,
+          r,
+          o = this;
+      return _n(e) || _n(n) || (t = o.chart.data.datasets[n].data[e]), _n(t) || (i = o.isHorizontal() ? t.x : t.y), (void 0 !== i || void 0 !== t && isNaN(e)) && (a = o._getLabels(), t = H.valueOrDefault(i, t), e = -1 !== (r = a.indexOf(t)) ? r : e, isNaN(e) && (e = t)), o.getPixelForDecimal((e - o._startValue) / o._valueRange);
+    },
+    getPixelForTick: function getPixelForTick(t) {
+      var e = this.ticks;
+      return t < 0 || t > e.length - 1 ? null : this.getPixelForValue(e[t], t + this.minIndex);
+    },
+    getValueForPixel: function getValueForPixel(t) {
+      var e = Math.round(this._startValue + this.getDecimalForPixel(t) * this._valueRange);
+      return Math.min(Math.max(e, 0), this.ticks.length - 1);
+    },
+    getBasePixel: function getBasePixel() {
+      return this.bottom;
+    }
+  }),
+      wn = {
+    position: "bottom"
+  };
+  kn._defaults = wn;
+  var Mn = H.noop,
+      Sn = H.isNullOrUndef;
+  var Cn = yn.extend({
+    getRightValue: function getRightValue(t) {
+      return "string" == typeof t ? +t : yn.prototype.getRightValue.call(this, t);
+    },
+    handleTickRangeOptions: function handleTickRangeOptions() {
+      var t = this,
+          e = t.options.ticks;
+
+      if (e.beginAtZero) {
+        var n = H.sign(t.min),
+            i = H.sign(t.max);
+        n < 0 && i < 0 ? t.max = 0 : n > 0 && i > 0 && (t.min = 0);
+      }
+
+      var a = void 0 !== e.min || void 0 !== e.suggestedMin,
+          r = void 0 !== e.max || void 0 !== e.suggestedMax;
+      void 0 !== e.min ? t.min = e.min : void 0 !== e.suggestedMin && (null === t.min ? t.min = e.suggestedMin : t.min = Math.min(t.min, e.suggestedMin)), void 0 !== e.max ? t.max = e.max : void 0 !== e.suggestedMax && (null === t.max ? t.max = e.suggestedMax : t.max = Math.max(t.max, e.suggestedMax)), a !== r && t.min >= t.max && (a ? t.max = t.min + 1 : t.min = t.max - 1), t.min === t.max && (t.max++, e.beginAtZero || t.min--);
+    },
+    getTickLimit: function getTickLimit() {
+      var t,
+          e = this.options.ticks,
+          n = e.stepSize,
+          i = e.maxTicksLimit;
+      return n ? t = Math.ceil(this.max / n) - Math.floor(this.min / n) + 1 : (t = this._computeTickLimit(), i = i || 11), i && (t = Math.min(i, t)), t;
+    },
+    _computeTickLimit: function _computeTickLimit() {
+      return Number.POSITIVE_INFINITY;
+    },
+    handleDirectionalChanges: Mn,
+    buildTicks: function buildTicks() {
+      var t = this,
+          e = t.options.ticks,
+          n = t.getTickLimit(),
+          i = {
+        maxTicks: n = Math.max(2, n),
+        min: e.min,
+        max: e.max,
+        precision: e.precision,
+        stepSize: H.valueOrDefault(e.fixedStepSize, e.stepSize)
+      },
+          a = t.ticks = function (t, e) {
+        var n,
+            i,
+            a,
+            r,
+            o = [],
+            s = t.stepSize,
+            l = s || 1,
+            u = t.maxTicks - 1,
+            d = t.min,
+            h = t.max,
+            c = t.precision,
+            f = e.min,
+            g = e.max,
+            p = H.niceNum((g - f) / u / l) * l;
+        if (p < 1e-14 && Sn(d) && Sn(h)) return [f, g];
+        (r = Math.ceil(g / p) - Math.floor(f / p)) > u && (p = H.niceNum(r * p / u / l) * l), s || Sn(c) ? n = Math.pow(10, H._decimalPlaces(p)) : (n = Math.pow(10, c), p = Math.ceil(p * n) / n), i = Math.floor(f / p) * p, a = Math.ceil(g / p) * p, s && (!Sn(d) && H.almostWhole(d / p, p / 1e3) && (i = d), !Sn(h) && H.almostWhole(h / p, p / 1e3) && (a = h)), r = (a - i) / p, r = H.almostEquals(r, Math.round(r), p / 1e3) ? Math.round(r) : Math.ceil(r), i = Math.round(i * n) / n, a = Math.round(a * n) / n, o.push(Sn(d) ? i : d);
+
+        for (var m = 1; m < r; ++m) {
+          o.push(Math.round((i + m * p) * n) / n);
+        }
+
+        return o.push(Sn(h) ? a : h), o;
+      }(i, t);
+
+      t.handleDirectionalChanges(), t.max = H.max(a), t.min = H.min(a), e.reverse ? (a.reverse(), t.start = t.max, t.end = t.min) : (t.start = t.min, t.end = t.max);
+    },
+    convertTicksToLabels: function convertTicksToLabels() {
+      var t = this;
+      t.ticksAsNumbers = t.ticks.slice(), t.zeroLineIndex = t.ticks.indexOf(0), yn.prototype.convertTicksToLabels.call(t);
+    },
+    _configure: function _configure() {
+      var t,
+          e = this,
+          n = e.getTicks(),
+          i = e.min,
+          a = e.max;
+      yn.prototype._configure.call(e), e.options.offset && n.length && (i -= t = (a - i) / Math.max(n.length - 1, 1) / 2, a += t), e._startValue = i, e._endValue = a, e._valueRange = a - i;
+    }
+  }),
+      Pn = {
+    position: "left",
+    ticks: {
+      callback: on.formatters.linear
+    }
+  };
+
+  function An(t, e, n, i) {
+    var a,
+        r,
+        o = t.options,
+        s = function (t, e, n) {
+      var i = [n.type, void 0 === e && void 0 === n.stack ? n.index : "", n.stack].join(".");
+      return void 0 === t[i] && (t[i] = {
+        pos: [],
+        neg: []
+      }), t[i];
+    }(e, o.stacked, n),
+        l = s.pos,
+        u = s.neg,
+        d = i.length;
+
+    for (a = 0; a < d; ++a) {
+      r = t._parseValue(i[a]), isNaN(r.min) || isNaN(r.max) || n.data[a].hidden || (l[a] = l[a] || 0, u[a] = u[a] || 0, o.relativePoints ? l[a] = 100 : r.min < 0 || r.max < 0 ? u[a] += r.min : l[a] += r.max);
+    }
+  }
+
+  function Dn(t, e, n) {
+    var i,
+        a,
+        r = n.length;
+
+    for (i = 0; i < r; ++i) {
+      a = t._parseValue(n[i]), isNaN(a.min) || isNaN(a.max) || e.data[i].hidden || (t.min = Math.min(t.min, a.min), t.max = Math.max(t.max, a.max));
+    }
+  }
+
+  var Tn = Cn.extend({
+    determineDataLimits: function determineDataLimits() {
+      var t,
+          e,
+          n,
+          i,
+          a = this,
+          r = a.options,
+          o = a.chart.data.datasets,
+          s = a._getMatchingVisibleMetas(),
+          l = r.stacked,
+          u = {},
+          d = s.length;
+
+      if (a.min = Number.POSITIVE_INFINITY, a.max = Number.NEGATIVE_INFINITY, void 0 === l) for (t = 0; !l && t < d; ++t) {
+        l = void 0 !== (e = s[t]).stack;
+      }
+
+      for (t = 0; t < d; ++t) {
+        n = o[(e = s[t]).index].data, l ? An(a, u, e, n) : Dn(a, e, n);
+      }
+
+      H.each(u, function (t) {
+        i = t.pos.concat(t.neg), a.min = Math.min(a.min, H.min(i)), a.max = Math.max(a.max, H.max(i));
+      }), a.min = H.isFinite(a.min) && !isNaN(a.min) ? a.min : 0, a.max = H.isFinite(a.max) && !isNaN(a.max) ? a.max : 1, a.handleTickRangeOptions();
+    },
+    _computeTickLimit: function _computeTickLimit() {
+      var t;
+      return this.isHorizontal() ? Math.ceil(this.width / 40) : (t = H.options._parseFont(this.options.ticks), Math.ceil(this.height / t.lineHeight));
+    },
+    handleDirectionalChanges: function handleDirectionalChanges() {
+      this.isHorizontal() || this.ticks.reverse();
+    },
+    getLabelForIndex: function getLabelForIndex(t, e) {
+      return this._getScaleLabel(this.chart.data.datasets[e].data[t]);
+    },
+    getPixelForValue: function getPixelForValue(t) {
+      return this.getPixelForDecimal((+this.getRightValue(t) - this._startValue) / this._valueRange);
+    },
+    getValueForPixel: function getValueForPixel(t) {
+      return this._startValue + this.getDecimalForPixel(t) * this._valueRange;
+    },
+    getPixelForTick: function getPixelForTick(t) {
+      var e = this.ticksAsNumbers;
+      return t < 0 || t > e.length - 1 ? null : this.getPixelForValue(e[t]);
+    }
+  }),
+      In = Pn;
+  Tn._defaults = In;
+  var Fn = H.valueOrDefault,
+      On = H.math.log10;
+  var Ln = {
+    position: "left",
+    ticks: {
+      callback: on.formatters.logarithmic
+    }
+  };
+
+  function Rn(t, e) {
+    return H.isFinite(t) && t >= 0 ? t : e;
+  }
+
+  var zn = yn.extend({
+    determineDataLimits: function determineDataLimits() {
+      var t,
+          e,
+          n,
+          i,
+          a,
+          r,
+          o = this,
+          s = o.options,
+          l = o.chart,
+          u = l.data.datasets,
+          d = o.isHorizontal();
+
+      function h(t) {
+        return d ? t.xAxisID === o.id : t.yAxisID === o.id;
+      }
+
+      o.min = Number.POSITIVE_INFINITY, o.max = Number.NEGATIVE_INFINITY, o.minNotZero = Number.POSITIVE_INFINITY;
+      var c = s.stacked;
+      if (void 0 === c) for (t = 0; t < u.length; t++) {
+        if (e = l.getDatasetMeta(t), l.isDatasetVisible(t) && h(e) && void 0 !== e.stack) {
+          c = !0;
+          break;
+        }
+      }
+
+      if (s.stacked || c) {
+        var f = {};
+
+        for (t = 0; t < u.length; t++) {
+          var g = [(e = l.getDatasetMeta(t)).type, void 0 === s.stacked && void 0 === e.stack ? t : "", e.stack].join(".");
+          if (l.isDatasetVisible(t) && h(e)) for (void 0 === f[g] && (f[g] = []), a = 0, r = (i = u[t].data).length; a < r; a++) {
+            var p = f[g];
+            n = o._parseValue(i[a]), isNaN(n.min) || isNaN(n.max) || e.data[a].hidden || n.min < 0 || n.max < 0 || (p[a] = p[a] || 0, p[a] += n.max);
+          }
+        }
+
+        H.each(f, function (t) {
+          if (t.length > 0) {
+            var e = H.min(t),
+                n = H.max(t);
+            o.min = Math.min(o.min, e), o.max = Math.max(o.max, n);
+          }
+        });
+      } else for (t = 0; t < u.length; t++) {
+        if (e = l.getDatasetMeta(t), l.isDatasetVisible(t) && h(e)) for (a = 0, r = (i = u[t].data).length; a < r; a++) {
+          n = o._parseValue(i[a]), isNaN(n.min) || isNaN(n.max) || e.data[a].hidden || n.min < 0 || n.max < 0 || (o.min = Math.min(n.min, o.min), o.max = Math.max(n.max, o.max), 0 !== n.min && (o.minNotZero = Math.min(n.min, o.minNotZero)));
+        }
+      }
+
+      o.min = H.isFinite(o.min) ? o.min : null, o.max = H.isFinite(o.max) ? o.max : null, o.minNotZero = H.isFinite(o.minNotZero) ? o.minNotZero : null, this.handleTickRangeOptions();
+    },
+    handleTickRangeOptions: function handleTickRangeOptions() {
+      var t = this,
+          e = t.options.ticks;
+      t.min = Rn(e.min, t.min), t.max = Rn(e.max, t.max), t.min === t.max && (0 !== t.min && null !== t.min ? (t.min = Math.pow(10, Math.floor(On(t.min)) - 1), t.max = Math.pow(10, Math.floor(On(t.max)) + 1)) : (t.min = 1, t.max = 10)), null === t.min && (t.min = Math.pow(10, Math.floor(On(t.max)) - 1)), null === t.max && (t.max = 0 !== t.min ? Math.pow(10, Math.floor(On(t.min)) + 1) : 10), null === t.minNotZero && (t.min > 0 ? t.minNotZero = t.min : t.max < 1 ? t.minNotZero = Math.pow(10, Math.floor(On(t.max))) : t.minNotZero = 1);
+    },
+    buildTicks: function buildTicks() {
+      var t = this,
+          e = t.options.ticks,
+          n = !t.isHorizontal(),
+          i = {
+        min: Rn(e.min),
+        max: Rn(e.max)
+      },
+          a = t.ticks = function (t, e) {
+        var n,
+            i,
+            a = [],
+            r = Fn(t.min, Math.pow(10, Math.floor(On(e.min)))),
+            o = Math.floor(On(e.max)),
+            s = Math.ceil(e.max / Math.pow(10, o));
+        0 === r ? (n = Math.floor(On(e.minNotZero)), i = Math.floor(e.minNotZero / Math.pow(10, n)), a.push(r), r = i * Math.pow(10, n)) : (n = Math.floor(On(r)), i = Math.floor(r / Math.pow(10, n)));
+        var l = n < 0 ? Math.pow(10, Math.abs(n)) : 1;
+
+        do {
+          a.push(r), 10 === ++i && (i = 1, l = ++n >= 0 ? 1 : l), r = Math.round(i * Math.pow(10, n) * l) / l;
+        } while (n < o || n === o && i < s);
+
+        var u = Fn(t.max, r);
+        return a.push(u), a;
+      }(i, t);
+
+      t.max = H.max(a), t.min = H.min(a), e.reverse ? (n = !n, t.start = t.max, t.end = t.min) : (t.start = t.min, t.end = t.max), n && a.reverse();
+    },
+    convertTicksToLabels: function convertTicksToLabels() {
+      this.tickValues = this.ticks.slice(), yn.prototype.convertTicksToLabels.call(this);
+    },
+    getLabelForIndex: function getLabelForIndex(t, e) {
+      return this._getScaleLabel(this.chart.data.datasets[e].data[t]);
+    },
+    getPixelForTick: function getPixelForTick(t) {
+      var e = this.tickValues;
+      return t < 0 || t > e.length - 1 ? null : this.getPixelForValue(e[t]);
+    },
+    _getFirstTickValue: function _getFirstTickValue(t) {
+      var e = Math.floor(On(t));
+      return Math.floor(t / Math.pow(10, e)) * Math.pow(10, e);
+    },
+    _configure: function _configure() {
+      var t = this,
+          e = t.min,
+          n = 0;
+      yn.prototype._configure.call(t), 0 === e && (e = t._getFirstTickValue(t.minNotZero), n = Fn(t.options.ticks.fontSize, N.global.defaultFontSize) / t._length), t._startValue = On(e), t._valueOffset = n, t._valueRange = (On(t.max) - On(e)) / (1 - n);
+    },
+    getPixelForValue: function getPixelForValue(t) {
+      var e = this,
+          n = 0;
+      return (t = +e.getRightValue(t)) > e.min && t > 0 && (n = (On(t) - e._startValue) / e._valueRange + e._valueOffset), e.getPixelForDecimal(n);
+    },
+    getValueForPixel: function getValueForPixel(t) {
+      var e = this,
+          n = e.getDecimalForPixel(t);
+      return 0 === n && 0 === e.min ? 0 : Math.pow(10, e._startValue + (n - e._valueOffset) * e._valueRange);
+    }
+  }),
+      Nn = Ln;
+  zn._defaults = Nn;
+  var Bn = H.valueOrDefault,
+      En = H.valueAtIndexOrDefault,
+      Wn = H.options.resolve,
+      Vn = {
+    display: !0,
+    animate: !0,
+    position: "chartArea",
+    angleLines: {
+      display: !0,
+      color: "rgba(0,0,0,0.1)",
+      lineWidth: 1,
+      borderDash: [],
+      borderDashOffset: 0
+    },
+    gridLines: {
+      circular: !1
+    },
+    ticks: {
+      showLabelBackdrop: !0,
+      backdropColor: "rgba(255,255,255,0.75)",
+      backdropPaddingY: 2,
+      backdropPaddingX: 2,
+      callback: on.formatters.linear
+    },
+    pointLabels: {
+      display: !0,
+      fontSize: 10,
+      callback: function callback(t) {
+        return t;
+      }
+    }
+  };
+
+  function Hn(t) {
+    var e = t.ticks;
+    return e.display && t.display ? Bn(e.fontSize, N.global.defaultFontSize) + 2 * e.backdropPaddingY : 0;
+  }
+
+  function jn(t, e, n, i, a) {
+    return t === i || t === a ? {
+      start: e - n / 2,
+      end: e + n / 2
+    } : t < i || t > a ? {
+      start: e - n,
+      end: e
+    } : {
+      start: e,
+      end: e + n
+    };
+  }
+
+  function qn(t) {
+    return 0 === t || 180 === t ? "center" : t < 180 ? "left" : "right";
+  }
+
+  function Un(t, e, n, i) {
+    var a,
+        r,
+        o = n.y + i / 2;
+    if (H.isArray(e)) for (a = 0, r = e.length; a < r; ++a) {
+      t.fillText(e[a], n.x, o), o += i;
+    } else t.fillText(e, n.x, o);
+  }
+
+  function Yn(t, e, n) {
+    90 === t || 270 === t ? n.y -= e.h / 2 : (t > 270 || t < 90) && (n.y -= e.h);
+  }
+
+  function Gn(t) {
+    return H.isNumber(t) ? t : 0;
+  }
+
+  var Xn = Cn.extend({
+    setDimensions: function setDimensions() {
+      var t = this;
+      t.width = t.maxWidth, t.height = t.maxHeight, t.paddingTop = Hn(t.options) / 2, t.xCenter = Math.floor(t.width / 2), t.yCenter = Math.floor((t.height - t.paddingTop) / 2), t.drawingArea = Math.min(t.height - t.paddingTop, t.width) / 2;
+    },
+    determineDataLimits: function determineDataLimits() {
+      var t = this,
+          e = t.chart,
+          n = Number.POSITIVE_INFINITY,
+          i = Number.NEGATIVE_INFINITY;
+      H.each(e.data.datasets, function (a, r) {
+        if (e.isDatasetVisible(r)) {
+          var o = e.getDatasetMeta(r);
+          H.each(a.data, function (e, a) {
+            var r = +t.getRightValue(e);
+            isNaN(r) || o.data[a].hidden || (n = Math.min(r, n), i = Math.max(r, i));
+          });
+        }
+      }), t.min = n === Number.POSITIVE_INFINITY ? 0 : n, t.max = i === Number.NEGATIVE_INFINITY ? 0 : i, t.handleTickRangeOptions();
+    },
+    _computeTickLimit: function _computeTickLimit() {
+      return Math.ceil(this.drawingArea / Hn(this.options));
+    },
+    convertTicksToLabels: function convertTicksToLabels() {
+      var t = this;
+      Cn.prototype.convertTicksToLabels.call(t), t.pointLabels = t.chart.data.labels.map(function () {
+        var e = H.callback(t.options.pointLabels.callback, arguments, t);
+        return e || 0 === e ? e : "";
+      });
+    },
+    getLabelForIndex: function getLabelForIndex(t, e) {
+      return +this.getRightValue(this.chart.data.datasets[e].data[t]);
+    },
+    fit: function fit() {
+      var t = this.options;
+      t.display && t.pointLabels.display ? function (t) {
+        var e,
+            n,
+            i,
+            a = H.options._parseFont(t.options.pointLabels),
+            r = {
+          l: 0,
+          r: t.width,
+          t: 0,
+          b: t.height - t.paddingTop
+        },
+            o = {};
+
+        t.ctx.font = a.string, t._pointLabelSizes = [];
+        var s,
+            l,
+            u,
+            d = t.chart.data.labels.length;
+
+        for (e = 0; e < d; e++) {
+          i = t.getPointPosition(e, t.drawingArea + 5), s = t.ctx, l = a.lineHeight, u = t.pointLabels[e], n = H.isArray(u) ? {
+            w: H.longestText(s, s.font, u),
+            h: u.length * l
+          } : {
+            w: s.measureText(u).width,
+            h: l
+          }, t._pointLabelSizes[e] = n;
+          var h = t.getIndexAngle(e),
+              c = H.toDegrees(h) % 360,
+              f = jn(c, i.x, n.w, 0, 180),
+              g = jn(c, i.y, n.h, 90, 270);
+          f.start < r.l && (r.l = f.start, o.l = h), f.end > r.r && (r.r = f.end, o.r = h), g.start < r.t && (r.t = g.start, o.t = h), g.end > r.b && (r.b = g.end, o.b = h);
+        }
+
+        t.setReductions(t.drawingArea, r, o);
+      }(this) : this.setCenterPoint(0, 0, 0, 0);
+    },
+    setReductions: function setReductions(t, e, n) {
+      var i = this,
+          a = e.l / Math.sin(n.l),
+          r = Math.max(e.r - i.width, 0) / Math.sin(n.r),
+          o = -e.t / Math.cos(n.t),
+          s = -Math.max(e.b - (i.height - i.paddingTop), 0) / Math.cos(n.b);
+      a = Gn(a), r = Gn(r), o = Gn(o), s = Gn(s), i.drawingArea = Math.min(Math.floor(t - (a + r) / 2), Math.floor(t - (o + s) / 2)), i.setCenterPoint(a, r, o, s);
+    },
+    setCenterPoint: function setCenterPoint(t, e, n, i) {
+      var a = this,
+          r = a.width - e - a.drawingArea,
+          o = t + a.drawingArea,
+          s = n + a.drawingArea,
+          l = a.height - a.paddingTop - i - a.drawingArea;
+      a.xCenter = Math.floor((o + r) / 2 + a.left), a.yCenter = Math.floor((s + l) / 2 + a.top + a.paddingTop);
+    },
+    getIndexAngle: function getIndexAngle(t) {
+      var e = this.chart,
+          n = (t * (360 / e.data.labels.length) + ((e.options || {}).startAngle || 0)) % 360;
+      return (n < 0 ? n + 360 : n) * Math.PI * 2 / 360;
+    },
+    getDistanceFromCenterForValue: function getDistanceFromCenterForValue(t) {
+      var e = this;
+      if (H.isNullOrUndef(t)) return NaN;
+      var n = e.drawingArea / (e.max - e.min);
+      return e.options.ticks.reverse ? (e.max - t) * n : (t - e.min) * n;
+    },
+    getPointPosition: function getPointPosition(t, e) {
+      var n = this.getIndexAngle(t) - Math.PI / 2;
+      return {
+        x: Math.cos(n) * e + this.xCenter,
+        y: Math.sin(n) * e + this.yCenter
+      };
+    },
+    getPointPositionForValue: function getPointPositionForValue(t, e) {
+      return this.getPointPosition(t, this.getDistanceFromCenterForValue(e));
+    },
+    getBasePosition: function getBasePosition(t) {
+      var e = this.min,
+          n = this.max;
+      return this.getPointPositionForValue(t || 0, this.beginAtZero ? 0 : e < 0 && n < 0 ? n : e > 0 && n > 0 ? e : 0);
+    },
+    _drawGrid: function _drawGrid() {
+      var t,
+          e,
+          n,
+          i = this,
+          a = i.ctx,
+          r = i.options,
+          o = r.gridLines,
+          s = r.angleLines,
+          l = Bn(s.lineWidth, o.lineWidth),
+          u = Bn(s.color, o.color);
+
+      if (r.pointLabels.display && function (t) {
+        var e = t.ctx,
+            n = t.options,
+            i = n.pointLabels,
+            a = Hn(n),
+            r = t.getDistanceFromCenterForValue(n.ticks.reverse ? t.min : t.max),
+            o = H.options._parseFont(i);
+
+        e.save(), e.font = o.string, e.textBaseline = "middle";
+
+        for (var s = t.chart.data.labels.length - 1; s >= 0; s--) {
+          var l = 0 === s ? a / 2 : 0,
+              u = t.getPointPosition(s, r + l + 5),
+              d = En(i.fontColor, s, N.global.defaultFontColor);
+          e.fillStyle = d;
+          var h = t.getIndexAngle(s),
+              c = H.toDegrees(h);
+          e.textAlign = qn(c), Yn(c, t._pointLabelSizes[s], u), Un(e, t.pointLabels[s], u, o.lineHeight);
+        }
+
+        e.restore();
+      }(i), o.display && H.each(i.ticks, function (t, n) {
+        0 !== n && (e = i.getDistanceFromCenterForValue(i.ticksAsNumbers[n]), function (t, e, n, i) {
+          var a,
+              r = t.ctx,
+              o = e.circular,
+              s = t.chart.data.labels.length,
+              l = En(e.color, i - 1),
+              u = En(e.lineWidth, i - 1);
+
+          if ((o || s) && l && u) {
+            if (r.save(), r.strokeStyle = l, r.lineWidth = u, r.setLineDash && (r.setLineDash(e.borderDash || []), r.lineDashOffset = e.borderDashOffset || 0), r.beginPath(), o) r.arc(t.xCenter, t.yCenter, n, 0, 2 * Math.PI);else {
+              a = t.getPointPosition(0, n), r.moveTo(a.x, a.y);
+
+              for (var d = 1; d < s; d++) {
+                a = t.getPointPosition(d, n), r.lineTo(a.x, a.y);
+              }
+            }
+            r.closePath(), r.stroke(), r.restore();
+          }
+        }(i, o, e, n));
+      }), s.display && l && u) {
+        for (a.save(), a.lineWidth = l, a.strokeStyle = u, a.setLineDash && (a.setLineDash(Wn([s.borderDash, o.borderDash, []])), a.lineDashOffset = Wn([s.borderDashOffset, o.borderDashOffset, 0])), t = i.chart.data.labels.length - 1; t >= 0; t--) {
+          e = i.getDistanceFromCenterForValue(r.ticks.reverse ? i.min : i.max), n = i.getPointPosition(t, e), a.beginPath(), a.moveTo(i.xCenter, i.yCenter), a.lineTo(n.x, n.y), a.stroke();
+        }
+
+        a.restore();
+      }
+    },
+    _drawLabels: function _drawLabels() {
+      var t = this,
+          e = t.ctx,
+          n = t.options.ticks;
+
+      if (n.display) {
+        var i,
+            a,
+            r = t.getIndexAngle(0),
+            o = H.options._parseFont(n),
+            s = Bn(n.fontColor, N.global.defaultFontColor);
+
+        e.save(), e.font = o.string, e.translate(t.xCenter, t.yCenter), e.rotate(r), e.textAlign = "center", e.textBaseline = "middle", H.each(t.ticks, function (r, l) {
+          (0 !== l || n.reverse) && (i = t.getDistanceFromCenterForValue(t.ticksAsNumbers[l]), n.showLabelBackdrop && (a = e.measureText(r).width, e.fillStyle = n.backdropColor, e.fillRect(-a / 2 - n.backdropPaddingX, -i - o.size / 2 - n.backdropPaddingY, a + 2 * n.backdropPaddingX, o.size + 2 * n.backdropPaddingY)), e.fillStyle = s, e.fillText(r, 0, -i));
+        }), e.restore();
+      }
+    },
+    _drawTitle: H.noop
+  }),
+      Kn = Vn;
+  Xn._defaults = Kn;
+  var Zn = H._deprecated,
+      $n = H.options.resolve,
+      Jn = H.valueOrDefault,
+      Qn = Number.MIN_SAFE_INTEGER || -9007199254740991,
+      ti = Number.MAX_SAFE_INTEGER || 9007199254740991,
+      ei = {
+    millisecond: {
+      common: !0,
+      size: 1,
+      steps: 1e3
+    },
+    second: {
+      common: !0,
+      size: 1e3,
+      steps: 60
+    },
+    minute: {
+      common: !0,
+      size: 6e4,
+      steps: 60
+    },
+    hour: {
+      common: !0,
+      size: 36e5,
+      steps: 24
+    },
+    day: {
+      common: !0,
+      size: 864e5,
+      steps: 30
+    },
+    week: {
+      common: !1,
+      size: 6048e5,
+      steps: 4
+    },
+    month: {
+      common: !0,
+      size: 2628e6,
+      steps: 12
+    },
+    quarter: {
+      common: !1,
+      size: 7884e6,
+      steps: 4
+    },
+    year: {
+      common: !0,
+      size: 3154e7
+    }
+  },
+      ni = Object.keys(ei);
+
+  function ii(t, e) {
+    return t - e;
+  }
+
+  function ai(t) {
+    return H.valueOrDefault(t.time.min, t.ticks.min);
+  }
+
+  function ri(t) {
+    return H.valueOrDefault(t.time.max, t.ticks.max);
+  }
+
+  function oi(t, e, n, i) {
+    var a = function (t, e, n) {
+      for (var i, a, r, o = 0, s = t.length - 1; o >= 0 && o <= s;) {
+        if (a = t[(i = o + s >> 1) - 1] || null, r = t[i], !a) return {
+          lo: null,
+          hi: r
+        };
+        if (r[e] < n) o = i + 1;else {
+          if (!(a[e] > n)) return {
+            lo: a,
+            hi: r
+          };
+          s = i - 1;
+        }
+      }
+
+      return {
+        lo: r,
+        hi: null
+      };
+    }(t, e, n),
+        r = a.lo ? a.hi ? a.lo : t[t.length - 2] : t[0],
+        o = a.lo ? a.hi ? a.hi : t[t.length - 1] : t[1],
+        s = o[e] - r[e],
+        l = s ? (n - r[e]) / s : 0,
+        u = (o[i] - r[i]) * l;
+
+    return r[i] + u;
+  }
+
+  function si(t, e) {
+    var n = t._adapter,
+        i = t.options.time,
+        a = i.parser,
+        r = a || i.format,
+        o = e;
+    return "function" == typeof a && (o = a(o)), H.isFinite(o) || (o = "string" == typeof r ? n.parse(o, r) : n.parse(o)), null !== o ? +o : (a || "function" != typeof r || (o = r(e), H.isFinite(o) || (o = n.parse(o))), o);
+  }
+
+  function li(t, e) {
+    if (H.isNullOrUndef(e)) return null;
+    var n = t.options.time,
+        i = si(t, t.getRightValue(e));
+    return null === i ? i : (n.round && (i = +t._adapter.startOf(i, n.round)), i);
+  }
+
+  function ui(t, e, n, i) {
+    var a,
+        r,
+        o,
+        s = ni.length;
+
+    for (a = ni.indexOf(t); a < s - 1; ++a) {
+      if (o = (r = ei[ni[a]]).steps ? r.steps : ti, r.common && Math.ceil((n - e) / (o * r.size)) <= i) return ni[a];
+    }
+
+    return ni[s - 1];
+  }
+
+  function di(t, e, n) {
+    var i,
+        a,
+        r = [],
+        o = {},
+        s = e.length;
+
+    for (i = 0; i < s; ++i) {
+      o[a = e[i]] = i, r.push({
+        value: a,
+        major: !1
+      });
+    }
+
+    return 0 !== s && n ? function (t, e, n, i) {
+      var a,
+          r,
+          o = t._adapter,
+          s = +o.startOf(e[0].value, i),
+          l = e[e.length - 1].value;
+
+      for (a = s; a <= l; a = +o.add(a, 1, i)) {
+        (r = n[a]) >= 0 && (e[r].major = !0);
+      }
+
+      return e;
+    }(t, r, o, n) : r;
+  }
+
+  var hi = yn.extend({
+    initialize: function initialize() {
+      this.mergeTicksOptions(), yn.prototype.initialize.call(this);
+    },
+    update: function update() {
+      var t = this,
+          e = t.options,
+          n = e.time || (e.time = {}),
+          i = t._adapter = new rn._date(e.adapters.date);
+      return Zn("time scale", n.format, "time.format", "time.parser"), Zn("time scale", n.min, "time.min", "ticks.min"), Zn("time scale", n.max, "time.max", "ticks.max"), H.mergeIf(n.displayFormats, i.formats()), yn.prototype.update.apply(t, arguments);
+    },
+    getRightValue: function getRightValue(t) {
+      return t && void 0 !== t.t && (t = t.t), yn.prototype.getRightValue.call(this, t);
+    },
+    determineDataLimits: function determineDataLimits() {
+      var t,
+          e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s = this,
+          l = s.chart,
+          u = s._adapter,
+          d = s.options,
+          h = d.time.unit || "day",
+          c = ti,
+          f = Qn,
+          g = [],
+          p = [],
+          m = [],
+          v = s._getLabels();
+
+      for (t = 0, n = v.length; t < n; ++t) {
+        m.push(li(s, v[t]));
+      }
+
+      for (t = 0, n = (l.data.datasets || []).length; t < n; ++t) {
+        if (l.isDatasetVisible(t)) {
+          if (a = l.data.datasets[t].data, H.isObject(a[0])) for (p[t] = [], e = 0, i = a.length; e < i; ++e) {
+            r = li(s, a[e]), g.push(r), p[t][e] = r;
+          } else p[t] = m.slice(0), o || (g = g.concat(m), o = !0);
+        } else p[t] = [];
+      }
+
+      m.length && (c = Math.min(c, m[0]), f = Math.max(f, m[m.length - 1])), g.length && (g = n > 1 ? function (t) {
+        var e,
+            n,
+            i,
+            a = {},
+            r = [];
+
+        for (e = 0, n = t.length; e < n; ++e) {
+          a[i = t[e]] || (a[i] = !0, r.push(i));
+        }
+
+        return r;
+      }(g).sort(ii) : g.sort(ii), c = Math.min(c, g[0]), f = Math.max(f, g[g.length - 1])), c = li(s, ai(d)) || c, f = li(s, ri(d)) || f, c = c === ti ? +u.startOf(Date.now(), h) : c, f = f === Qn ? +u.endOf(Date.now(), h) + 1 : f, s.min = Math.min(c, f), s.max = Math.max(c + 1, f), s._table = [], s._timestamps = {
+        data: g,
+        datasets: p,
+        labels: m
+      };
+    },
+    buildTicks: function buildTicks() {
+      var t,
+          e,
+          n,
+          i = this,
+          a = i.min,
+          r = i.max,
+          o = i.options,
+          s = o.ticks,
+          l = o.time,
+          u = i._timestamps,
+          d = [],
+          h = i.getLabelCapacity(a),
+          c = s.source,
+          f = o.distribution;
+
+      for (u = "data" === c || "auto" === c && "series" === f ? u.data : "labels" === c ? u.labels : function (t, e, n, i) {
+        var a,
+            r = t._adapter,
+            o = t.options,
+            s = o.time,
+            l = s.unit || ui(s.minUnit, e, n, i),
+            u = $n([s.stepSize, s.unitStepSize, 1]),
+            d = "week" === l && s.isoWeekday,
+            h = e,
+            c = [];
+        if (d && (h = +r.startOf(h, "isoWeek", d)), h = +r.startOf(h, d ? "day" : l), r.diff(n, e, l) > 1e5 * u) throw e + " and " + n + " are too far apart with stepSize of " + u + " " + l;
+
+        for (a = h; a < n; a = +r.add(a, u, l)) {
+          c.push(a);
+        }
+
+        return a !== n && "ticks" !== o.bounds || c.push(a), c;
+      }(i, a, r, h), "ticks" === o.bounds && u.length && (a = u[0], r = u[u.length - 1]), a = li(i, ai(o)) || a, r = li(i, ri(o)) || r, t = 0, e = u.length; t < e; ++t) {
+        (n = u[t]) >= a && n <= r && d.push(n);
+      }
+
+      return i.min = a, i.max = r, i._unit = l.unit || (s.autoSkip ? ui(l.minUnit, i.min, i.max, h) : function (t, e, n, i, a) {
+        var r, o;
+
+        for (r = ni.length - 1; r >= ni.indexOf(n); r--) {
+          if (o = ni[r], ei[o].common && t._adapter.diff(a, i, o) >= e - 1) return o;
+        }
+
+        return ni[n ? ni.indexOf(n) : 0];
+      }(i, d.length, l.minUnit, i.min, i.max)), i._majorUnit = s.major.enabled && "year" !== i._unit ? function (t) {
+        for (var e = ni.indexOf(t) + 1, n = ni.length; e < n; ++e) {
+          if (ei[ni[e]].common) return ni[e];
+        }
+      }(i._unit) : void 0, i._table = function (t, e, n, i) {
+        if ("linear" === i || !t.length) return [{
+          time: e,
+          pos: 0
+        }, {
+          time: n,
+          pos: 1
+        }];
+        var a,
+            r,
+            o,
+            s,
+            l,
+            u = [],
+            d = [e];
+
+        for (a = 0, r = t.length; a < r; ++a) {
+          (s = t[a]) > e && s < n && d.push(s);
+        }
+
+        for (d.push(n), a = 0, r = d.length; a < r; ++a) {
+          l = d[a + 1], o = d[a - 1], s = d[a], void 0 !== o && void 0 !== l && Math.round((l + o) / 2) === s || u.push({
+            time: s,
+            pos: a / (r - 1)
+          });
+        }
+
+        return u;
+      }(i._timestamps.data, a, r, f), i._offsets = function (t, e, n, i, a) {
+        var r,
+            o,
+            s = 0,
+            l = 0;
+        return a.offset && e.length && (r = oi(t, "time", e[0], "pos"), s = 1 === e.length ? 1 - r : (oi(t, "time", e[1], "pos") - r) / 2, o = oi(t, "time", e[e.length - 1], "pos"), l = 1 === e.length ? o : (o - oi(t, "time", e[e.length - 2], "pos")) / 2), {
+          start: s,
+          end: l,
+          factor: 1 / (s + 1 + l)
+        };
+      }(i._table, d, 0, 0, o), s.reverse && d.reverse(), di(i, d, i._majorUnit);
+    },
+    getLabelForIndex: function getLabelForIndex(t, e) {
+      var n = this,
+          i = n._adapter,
+          a = n.chart.data,
+          r = n.options.time,
+          o = a.labels && t < a.labels.length ? a.labels[t] : "",
+          s = a.datasets[e].data[t];
+      return H.isObject(s) && (o = n.getRightValue(s)), r.tooltipFormat ? i.format(si(n, o), r.tooltipFormat) : "string" == typeof o ? o : i.format(si(n, o), r.displayFormats.datetime);
+    },
+    tickFormatFunction: function tickFormatFunction(t, e, n, i) {
+      var a = this._adapter,
+          r = this.options,
+          o = r.time.displayFormats,
+          s = o[this._unit],
+          l = this._majorUnit,
+          u = o[l],
+          d = n[e],
+          h = r.ticks,
+          c = l && u && d && d.major,
+          f = a.format(t, i || (c ? u : s)),
+          g = c ? h.major : h.minor,
+          p = $n([g.callback, g.userCallback, h.callback, h.userCallback]);
+      return p ? p(f, e, n) : f;
+    },
+    convertTicksToLabels: function convertTicksToLabels(t) {
+      var e,
+          n,
+          i = [];
+
+      for (e = 0, n = t.length; e < n; ++e) {
+        i.push(this.tickFormatFunction(t[e].value, e, t));
+      }
+
+      return i;
+    },
+    getPixelForOffset: function getPixelForOffset(t) {
+      var e = this._offsets,
+          n = oi(this._table, "time", t, "pos");
+      return this.getPixelForDecimal((e.start + n) * e.factor);
+    },
+    getPixelForValue: function getPixelForValue(t, e, n) {
+      var i = null;
+      if (void 0 !== e && void 0 !== n && (i = this._timestamps.datasets[n][e]), null === i && (i = li(this, t)), null !== i) return this.getPixelForOffset(i);
+    },
+    getPixelForTick: function getPixelForTick(t) {
+      var e = this.getTicks();
+      return t >= 0 && t < e.length ? this.getPixelForOffset(e[t].value) : null;
+    },
+    getValueForPixel: function getValueForPixel(t) {
+      var e = this._offsets,
+          n = this.getDecimalForPixel(t) / e.factor - e.end,
+          i = oi(this._table, "pos", n, "time");
+      return this._adapter._create(i);
+    },
+    _getLabelSize: function _getLabelSize(t) {
+      var e = this.options.ticks,
+          n = this.ctx.measureText(t).width,
+          i = H.toRadians(this.isHorizontal() ? e.maxRotation : e.minRotation),
+          a = Math.cos(i),
+          r = Math.sin(i),
+          o = Jn(e.fontSize, N.global.defaultFontSize);
+      return {
+        w: n * a + o * r,
+        h: n * r + o * a
+      };
+    },
+    getLabelWidth: function getLabelWidth(t) {
+      return this._getLabelSize(t).w;
+    },
+    getLabelCapacity: function getLabelCapacity(t) {
+      var e = this,
+          n = e.options.time,
+          i = n.displayFormats,
+          a = i[n.unit] || i.millisecond,
+          r = e.tickFormatFunction(t, 0, di(e, [t], e._majorUnit), a),
+          o = e._getLabelSize(r),
+          s = Math.floor(e.isHorizontal() ? e.width / o.w : e.height / o.h);
+
+      return e.options.offset && s--, s > 0 ? s : 1;
+    }
+  }),
+      ci = {
+    position: "bottom",
+    distribution: "linear",
+    bounds: "data",
+    adapters: {},
+    time: {
+      parser: !1,
+      unit: !1,
+      round: !1,
+      displayFormat: !1,
+      isoWeekday: !1,
+      minUnit: "millisecond",
+      displayFormats: {}
+    },
+    ticks: {
+      autoSkip: !1,
+      source: "auto",
+      major: {
+        enabled: !1
+      }
+    }
+  };
+  hi._defaults = ci;
+  var fi = {
+    category: kn,
+    linear: Tn,
+    logarithmic: zn,
+    radialLinear: Xn,
+    time: hi
+  },
+      gi = {
+    datetime: "MMM D, YYYY, h:mm:ss a",
+    millisecond: "h:mm:ss.SSS a",
+    second: "h:mm:ss a",
+    minute: "h:mm a",
+    hour: "hA",
+    day: "MMM D",
+    week: "ll",
+    month: "MMM YYYY",
+    quarter: "[Q]Q - YYYY",
+    year: "YYYY"
+  };
+  rn._date.override("function" == typeof t ? {
+    _id: "moment",
+    formats: function formats() {
+      return gi;
+    },
+    parse: function parse(e, n) {
+      return "string" == typeof e && "string" == typeof n ? e = t(e, n) : e instanceof t || (e = t(e)), e.isValid() ? e.valueOf() : null;
+    },
+    format: function format(e, n) {
+      return t(e).format(n);
+    },
+    add: function add(e, n, i) {
+      return t(e).add(n, i).valueOf();
+    },
+    diff: function diff(e, n, i) {
+      return t(e).diff(t(n), i);
+    },
+    startOf: function startOf(e, n, i) {
+      return e = t(e), "isoWeek" === n ? e.isoWeekday(i).valueOf() : e.startOf(n).valueOf();
+    },
+    endOf: function endOf(e, n) {
+      return t(e).endOf(n).valueOf();
+    },
+    _create: function _create(e) {
+      return t(e);
+    }
+  } : {}), N._set("global", {
+    plugins: {
+      filler: {
+        propagate: !0
+      }
+    }
+  });
+  var pi = {
+    dataset: function dataset(t) {
+      var e = t.fill,
+          n = t.chart,
+          i = n.getDatasetMeta(e),
+          a = i && n.isDatasetVisible(e) && i.dataset._children || [],
+          r = a.length || 0;
+      return r ? function (t, e) {
+        return e < r && a[e]._view || null;
+      } : null;
+    },
+    boundary: function boundary(t) {
+      var e = t.boundary,
+          n = e ? e.x : null,
+          i = e ? e.y : null;
+      return H.isArray(e) ? function (t, n) {
+        return e[n];
+      } : function (t) {
+        return {
+          x: null === n ? t.x : n,
+          y: null === i ? t.y : i
+        };
+      };
+    }
+  };
+
+  function mi(t, e, n) {
+    var i,
+        a = t._model || {},
+        r = a.fill;
+    if (void 0 === r && (r = !!a.backgroundColor), !1 === r || null === r) return !1;
+    if (!0 === r) return "origin";
+    if (i = parseFloat(r, 10), isFinite(i) && Math.floor(i) === i) return "-" !== r[0] && "+" !== r[0] || (i = e + i), !(i === e || i < 0 || i >= n) && i;
+
+    switch (r) {
+      case "bottom":
+        return "start";
+
+      case "top":
+        return "end";
+
+      case "zero":
+        return "origin";
+
+      case "origin":
+      case "start":
+      case "end":
+        return r;
+
+      default:
+        return !1;
+    }
+  }
+
+  function vi(t) {
+    return (t.el._scale || {}).getPointPositionForValue ? function (t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o = t.el._scale,
+          s = o.options,
+          l = o.chart.data.labels.length,
+          u = t.fill,
+          d = [];
+      if (!l) return null;
+
+      for (e = s.ticks.reverse ? o.max : o.min, n = s.ticks.reverse ? o.min : o.max, i = o.getPointPositionForValue(0, e), a = 0; a < l; ++a) {
+        r = "start" === u || "end" === u ? o.getPointPositionForValue(a, "start" === u ? e : n) : o.getBasePosition(a), s.gridLines.circular && (r.cx = i.x, r.cy = i.y, r.angle = o.getIndexAngle(a) - Math.PI / 2), d.push(r);
+      }
+
+      return d;
+    }(t) : function (t) {
+      var e,
+          n = t.el._model || {},
+          i = t.el._scale || {},
+          a = t.fill,
+          r = null;
+      if (isFinite(a)) return null;
+
+      if ("start" === a ? r = void 0 === n.scaleBottom ? i.bottom : n.scaleBottom : "end" === a ? r = void 0 === n.scaleTop ? i.top : n.scaleTop : void 0 !== n.scaleZero ? r = n.scaleZero : i.getBasePixel && (r = i.getBasePixel()), null != r) {
+        if (void 0 !== r.x && void 0 !== r.y) return r;
+        if (H.isFinite(r)) return {
+          x: (e = i.isHorizontal()) ? r : null,
+          y: e ? null : r
+        };
+      }
+
+      return null;
+    }(t);
+  }
+
+  function bi(t, e, n) {
+    var i,
+        a = t[e].fill,
+        r = [e];
+    if (!n) return a;
+
+    for (; !1 !== a && -1 === r.indexOf(a);) {
+      if (!isFinite(a)) return a;
+      if (!(i = t[a])) return !1;
+      if (i.visible) return a;
+      r.push(a), a = i.fill;
+    }
+
+    return !1;
+  }
+
+  function xi(t) {
+    var e = t.fill,
+        n = "dataset";
+    return !1 === e ? null : (isFinite(e) || (n = "boundary"), pi[n](t));
+  }
+
+  function yi(t) {
+    return t && !t.skip;
+  }
+
+  function _i(t, e, n, i, a) {
+    var r, o, s, l;
+
+    if (i && a) {
+      for (t.moveTo(e[0].x, e[0].y), r = 1; r < i; ++r) {
+        H.canvas.lineTo(t, e[r - 1], e[r]);
+      }
+
+      if (void 0 === n[0].angle) for (t.lineTo(n[a - 1].x, n[a - 1].y), r = a - 1; r > 0; --r) {
+        H.canvas.lineTo(t, n[r], n[r - 1], !0);
+      } else for (o = n[0].cx, s = n[0].cy, l = Math.sqrt(Math.pow(n[0].x - o, 2) + Math.pow(n[0].y - s, 2)), r = a - 1; r > 0; --r) {
+        t.arc(o, s, l, n[r].angle, n[r - 1].angle, !0);
+      }
+    }
+  }
+
+  function ki(t, e, n, i, a, r) {
+    var o,
+        s,
+        l,
+        u,
+        d,
+        h,
+        c,
+        f,
+        g = e.length,
+        p = i.spanGaps,
+        m = [],
+        v = [],
+        b = 0,
+        x = 0;
+
+    for (t.beginPath(), o = 0, s = g; o < s; ++o) {
+      d = n(u = e[l = o % g]._view, l, i), h = yi(u), c = yi(d), r && void 0 === f && h && (s = g + (f = o + 1)), h && c ? (b = m.push(u), x = v.push(d)) : b && x && (p ? (h && m.push(u), c && v.push(d)) : (_i(t, m, v, b, x), b = x = 0, m = [], v = []));
+    }
+
+    _i(t, m, v, b, x), t.closePath(), t.fillStyle = a, t.fill();
+  }
+
+  var wi = {
+    id: "filler",
+    afterDatasetsUpdate: function afterDatasetsUpdate(t, e) {
+      var n,
+          i,
+          a,
+          r,
+          o = (t.data.datasets || []).length,
+          s = e.propagate,
+          l = [];
+
+      for (i = 0; i < o; ++i) {
+        r = null, (a = (n = t.getDatasetMeta(i)).dataset) && a._model && a instanceof kt.Line && (r = {
+          visible: t.isDatasetVisible(i),
+          fill: mi(a, i, o),
+          chart: t,
+          el: a
+        }), n.$filler = r, l.push(r);
+      }
+
+      for (i = 0; i < o; ++i) {
+        (r = l[i]) && (r.fill = bi(l, i, s), r.boundary = vi(r), r.mapper = xi(r));
+      }
+    },
+    beforeDatasetsDraw: function beforeDatasetsDraw(t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l = t._getSortedVisibleDatasetMetas(),
+          u = t.ctx;
+
+      for (n = l.length - 1; n >= 0; --n) {
+        (e = l[n].$filler) && e.visible && (a = (i = e.el)._view, r = i._children || [], o = e.mapper, s = a.backgroundColor || N.global.defaultColor, o && s && r.length && (H.canvas.clipArea(u, t.chartArea), ki(u, r, o, a, s, i._loop), H.canvas.unclipArea(u)));
+      }
+    }
+  },
+      Mi = H.rtl.getRtlAdapter,
+      Si = H.noop,
+      Ci = H.valueOrDefault;
+
+  function Pi(t, e) {
+    return t.usePointStyle && t.boxWidth > e ? e : t.boxWidth;
+  }
+
+  N._set("global", {
+    legend: {
+      display: !0,
+      position: "top",
+      align: "center",
+      fullWidth: !0,
+      reverse: !1,
+      weight: 1e3,
+      onClick: function onClick(t, e) {
+        var n = e.datasetIndex,
+            i = this.chart,
+            a = i.getDatasetMeta(n);
+        a.hidden = null === a.hidden ? !i.data.datasets[n].hidden : null, i.update();
+      },
+      onHover: null,
+      onLeave: null,
+      labels: {
+        boxWidth: 40,
+        padding: 10,
+        generateLabels: function generateLabels(t) {
+          var e = t.data.datasets,
+              n = t.options.legend || {},
+              i = n.labels && n.labels.usePointStyle;
+          return t._getSortedDatasetMetas().map(function (n) {
+            var a = n.controller.getStyle(i ? 0 : void 0);
+            return {
+              text: e[n.index].label,
+              fillStyle: a.backgroundColor,
+              hidden: !t.isDatasetVisible(n.index),
+              lineCap: a.borderCapStyle,
+              lineDash: a.borderDash,
+              lineDashOffset: a.borderDashOffset,
+              lineJoin: a.borderJoinStyle,
+              lineWidth: a.borderWidth,
+              strokeStyle: a.borderColor,
+              pointStyle: a.pointStyle,
+              rotation: a.rotation,
+              datasetIndex: n.index
+            };
+          }, this);
+        }
+      }
+    },
+    legendCallback: function legendCallback(t) {
+      var e,
+          n,
+          i,
+          a = document.createElement("ul"),
+          r = t.data.datasets;
+
+      for (a.setAttribute("class", t.id + "-legend"), e = 0, n = r.length; e < n; e++) {
+        (i = a.appendChild(document.createElement("li"))).appendChild(document.createElement("span")).style.backgroundColor = r[e].backgroundColor, r[e].label && i.appendChild(document.createTextNode(r[e].label));
+      }
+
+      return a.outerHTML;
+    }
+  });
+
+  var Ai = K.extend({
+    initialize: function initialize(t) {
+      H.extend(this, t), this.legendHitBoxes = [], this._hoveredItem = null, this.doughnutMode = !1;
+    },
+    beforeUpdate: Si,
+    update: function update(t, e, n) {
+      var i = this;
+      return i.beforeUpdate(), i.maxWidth = t, i.maxHeight = e, i.margins = n, i.beforeSetDimensions(), i.setDimensions(), i.afterSetDimensions(), i.beforeBuildLabels(), i.buildLabels(), i.afterBuildLabels(), i.beforeFit(), i.fit(), i.afterFit(), i.afterUpdate(), i.minSize;
+    },
+    afterUpdate: Si,
+    beforeSetDimensions: Si,
+    setDimensions: function setDimensions() {
+      var t = this;
+      t.isHorizontal() ? (t.width = t.maxWidth, t.left = 0, t.right = t.width) : (t.height = t.maxHeight, t.top = 0, t.bottom = t.height), t.paddingLeft = 0, t.paddingTop = 0, t.paddingRight = 0, t.paddingBottom = 0, t.minSize = {
+        width: 0,
+        height: 0
+      };
+    },
+    afterSetDimensions: Si,
+    beforeBuildLabels: Si,
+    buildLabels: function buildLabels() {
+      var t = this,
+          e = t.options.labels || {},
+          n = H.callback(e.generateLabels, [t.chart], t) || [];
+      e.filter && (n = n.filter(function (n) {
+        return e.filter(n, t.chart.data);
+      })), t.options.reverse && n.reverse(), t.legendItems = n;
+    },
+    afterBuildLabels: Si,
+    beforeFit: Si,
+    fit: function fit() {
+      var t = this,
+          e = t.options,
+          n = e.labels,
+          i = e.display,
+          a = t.ctx,
+          r = H.options._parseFont(n),
+          o = r.size,
+          s = t.legendHitBoxes = [],
+          l = t.minSize,
+          u = t.isHorizontal();
+
+      if (u ? (l.width = t.maxWidth, l.height = i ? 10 : 0) : (l.width = i ? 10 : 0, l.height = t.maxHeight), i) {
+        if (a.font = r.string, u) {
+          var d = t.lineWidths = [0],
+              h = 0;
+          a.textAlign = "left", a.textBaseline = "middle", H.each(t.legendItems, function (t, e) {
+            var i = Pi(n, o) + o / 2 + a.measureText(t.text).width;
+            (0 === e || d[d.length - 1] + i + 2 * n.padding > l.width) && (h += o + n.padding, d[d.length - (e > 0 ? 0 : 1)] = 0), s[e] = {
+              left: 0,
+              top: 0,
+              width: i,
+              height: o
+            }, d[d.length - 1] += i + n.padding;
+          }), l.height += h;
+        } else {
+          var c = n.padding,
+              f = t.columnWidths = [],
+              g = t.columnHeights = [],
+              p = n.padding,
+              m = 0,
+              v = 0;
+          H.each(t.legendItems, function (t, e) {
+            var i = Pi(n, o) + o / 2 + a.measureText(t.text).width;
+            e > 0 && v + o + 2 * c > l.height && (p += m + n.padding, f.push(m), g.push(v), m = 0, v = 0), m = Math.max(m, i), v += o + c, s[e] = {
+              left: 0,
+              top: 0,
+              width: i,
+              height: o
+            };
+          }), p += m, f.push(m), g.push(v), l.width += p;
+        }
+
+        t.width = l.width, t.height = l.height;
+      } else t.width = l.width = t.height = l.height = 0;
+    },
+    afterFit: Si,
+    isHorizontal: function isHorizontal() {
+      return "top" === this.options.position || "bottom" === this.options.position;
+    },
+    draw: function draw() {
+      var t = this,
+          e = t.options,
+          n = e.labels,
+          i = N.global,
+          a = i.defaultColor,
+          r = i.elements.line,
+          o = t.height,
+          s = t.columnHeights,
+          l = t.width,
+          u = t.lineWidths;
+
+      if (e.display) {
+        var d,
+            h = Mi(e.rtl, t.left, t.minSize.width),
+            c = t.ctx,
+            f = Ci(n.fontColor, i.defaultFontColor),
+            g = H.options._parseFont(n),
+            p = g.size;
+
+        c.textAlign = h.textAlign("left"), c.textBaseline = "middle", c.lineWidth = .5, c.strokeStyle = f, c.fillStyle = f, c.font = g.string;
+
+        var m = Pi(n, p),
+            v = t.legendHitBoxes,
+            b = function b(t, i) {
+          switch (e.align) {
+            case "start":
+              return n.padding;
+
+            case "end":
+              return t - i;
+
+            default:
+              return (t - i + n.padding) / 2;
+          }
+        },
+            x = t.isHorizontal();
+
+        d = x ? {
+          x: t.left + b(l, u[0]),
+          y: t.top + n.padding,
+          line: 0
+        } : {
+          x: t.left + n.padding,
+          y: t.top + b(o, s[0]),
+          line: 0
+        }, H.rtl.overrideTextDirection(t.ctx, e.textDirection);
+        var y = p + n.padding;
+        H.each(t.legendItems, function (e, i) {
+          var f = c.measureText(e.text).width,
+              g = m + p / 2 + f,
+              _ = d.x,
+              k = d.y;
+          h.setWidth(t.minSize.width), x ? i > 0 && _ + g + n.padding > t.left + t.minSize.width && (k = d.y += y, d.line++, _ = d.x = t.left + b(l, u[d.line])) : i > 0 && k + y > t.top + t.minSize.height && (_ = d.x = _ + t.columnWidths[d.line] + n.padding, d.line++, k = d.y = t.top + b(o, s[d.line]));
+          var w = h.x(_);
+          !function (t, e, i) {
+            if (!(isNaN(m) || m <= 0)) {
+              c.save();
+              var o = Ci(i.lineWidth, r.borderWidth);
+
+              if (c.fillStyle = Ci(i.fillStyle, a), c.lineCap = Ci(i.lineCap, r.borderCapStyle), c.lineDashOffset = Ci(i.lineDashOffset, r.borderDashOffset), c.lineJoin = Ci(i.lineJoin, r.borderJoinStyle), c.lineWidth = o, c.strokeStyle = Ci(i.strokeStyle, a), c.setLineDash && c.setLineDash(Ci(i.lineDash, r.borderDash)), n && n.usePointStyle) {
+                var s = m * Math.SQRT2 / 2,
+                    l = h.xPlus(t, m / 2),
+                    u = e + p / 2;
+                H.canvas.drawPoint(c, i.pointStyle, s, l, u, i.rotation);
+              } else c.fillRect(h.leftForLtr(t, m), e, m, p), 0 !== o && c.strokeRect(h.leftForLtr(t, m), e, m, p);
+
+              c.restore();
+            }
+          }(w, k, e), v[i].left = h.leftForLtr(w, v[i].width), v[i].top = k, function (t, e, n, i) {
+            var a = p / 2,
+                r = h.xPlus(t, m + a),
+                o = e + a;
+            c.fillText(n.text, r, o), n.hidden && (c.beginPath(), c.lineWidth = 2, c.moveTo(r, o), c.lineTo(h.xPlus(r, i), o), c.stroke());
+          }(w, k, e, f), x ? d.x += g + n.padding : d.y += y;
+        }), H.rtl.restoreTextDirection(t.ctx, e.textDirection);
+      }
+    },
+    _getLegendItemAt: function _getLegendItemAt(t, e) {
+      var n,
+          i,
+          a,
+          r = this;
+      if (t >= r.left && t <= r.right && e >= r.top && e <= r.bottom) for (a = r.legendHitBoxes, n = 0; n < a.length; ++n) {
+        if (t >= (i = a[n]).left && t <= i.left + i.width && e >= i.top && e <= i.top + i.height) return r.legendItems[n];
+      }
+      return null;
+    },
+    handleEvent: function handleEvent(t) {
+      var e,
+          n = this,
+          i = n.options,
+          a = "mouseup" === t.type ? "click" : t.type;
+
+      if ("mousemove" === a) {
+        if (!i.onHover && !i.onLeave) return;
+      } else {
+        if ("click" !== a) return;
+        if (!i.onClick) return;
+      }
+
+      e = n._getLegendItemAt(t.x, t.y), "click" === a ? e && i.onClick && i.onClick.call(n, t["native"], e) : (i.onLeave && e !== n._hoveredItem && (n._hoveredItem && i.onLeave.call(n, t["native"], n._hoveredItem), n._hoveredItem = e), i.onHover && e && i.onHover.call(n, t["native"], e));
+    }
+  });
+
+  function Di(t, e) {
+    var n = new Ai({
+      ctx: t.ctx,
+      options: e,
+      chart: t
+    });
+    pe.configure(t, n, e), pe.addBox(t, n), t.legend = n;
+  }
+
+  var Ti = {
+    id: "legend",
+    _element: Ai,
+    beforeInit: function beforeInit(t) {
+      var e = t.options.legend;
+      e && Di(t, e);
+    },
+    beforeUpdate: function beforeUpdate(t) {
+      var e = t.options.legend,
+          n = t.legend;
+      e ? (H.mergeIf(e, N.global.legend), n ? (pe.configure(t, n, e), n.options = e) : Di(t, e)) : n && (pe.removeBox(t, n), delete t.legend);
+    },
+    afterEvent: function afterEvent(t, e) {
+      var n = t.legend;
+      n && n.handleEvent(e);
+    }
+  },
+      Ii = H.noop;
+
+  N._set("global", {
+    title: {
+      display: !1,
+      fontStyle: "bold",
+      fullWidth: !0,
+      padding: 10,
+      position: "top",
+      text: "",
+      weight: 2e3
+    }
+  });
+
+  var Fi = K.extend({
+    initialize: function initialize(t) {
+      H.extend(this, t), this.legendHitBoxes = [];
+    },
+    beforeUpdate: Ii,
+    update: function update(t, e, n) {
+      var i = this;
+      return i.beforeUpdate(), i.maxWidth = t, i.maxHeight = e, i.margins = n, i.beforeSetDimensions(), i.setDimensions(), i.afterSetDimensions(), i.beforeBuildLabels(), i.buildLabels(), i.afterBuildLabels(), i.beforeFit(), i.fit(), i.afterFit(), i.afterUpdate(), i.minSize;
+    },
+    afterUpdate: Ii,
+    beforeSetDimensions: Ii,
+    setDimensions: function setDimensions() {
+      var t = this;
+      t.isHorizontal() ? (t.width = t.maxWidth, t.left = 0, t.right = t.width) : (t.height = t.maxHeight, t.top = 0, t.bottom = t.height), t.paddingLeft = 0, t.paddingTop = 0, t.paddingRight = 0, t.paddingBottom = 0, t.minSize = {
+        width: 0,
+        height: 0
+      };
+    },
+    afterSetDimensions: Ii,
+    beforeBuildLabels: Ii,
+    buildLabels: Ii,
+    afterBuildLabels: Ii,
+    beforeFit: Ii,
+    fit: function fit() {
+      var t,
+          e = this,
+          n = e.options,
+          i = e.minSize = {},
+          a = e.isHorizontal();
+      n.display ? (t = (H.isArray(n.text) ? n.text.length : 1) * H.options._parseFont(n).lineHeight + 2 * n.padding, e.width = i.width = a ? e.maxWidth : t, e.height = i.height = a ? t : e.maxHeight) : e.width = i.width = e.height = i.height = 0;
+    },
+    afterFit: Ii,
+    isHorizontal: function isHorizontal() {
+      var t = this.options.position;
+      return "top" === t || "bottom" === t;
+    },
+    draw: function draw() {
+      var t = this,
+          e = t.ctx,
+          n = t.options;
+
+      if (n.display) {
+        var i,
+            a,
+            r,
+            o = H.options._parseFont(n),
+            s = o.lineHeight,
+            l = s / 2 + n.padding,
+            u = 0,
+            d = t.top,
+            h = t.left,
+            c = t.bottom,
+            f = t.right;
+
+        e.fillStyle = H.valueOrDefault(n.fontColor, N.global.defaultFontColor), e.font = o.string, t.isHorizontal() ? (a = h + (f - h) / 2, r = d + l, i = f - h) : (a = "left" === n.position ? h + l : f - l, r = d + (c - d) / 2, i = c - d, u = Math.PI * ("left" === n.position ? -.5 : .5)), e.save(), e.translate(a, r), e.rotate(u), e.textAlign = "center", e.textBaseline = "middle";
+        var g = n.text;
+        if (H.isArray(g)) for (var p = 0, m = 0; m < g.length; ++m) {
+          e.fillText(g[m], 0, p, i), p += s;
+        } else e.fillText(g, 0, 0, i);
+        e.restore();
+      }
+    }
+  });
+
+  function Oi(t, e) {
+    var n = new Fi({
+      ctx: t.ctx,
+      options: e,
+      chart: t
+    });
+    pe.configure(t, n, e), pe.addBox(t, n), t.titleBlock = n;
+  }
+
+  var Li = {},
+      Ri = wi,
+      zi = Ti,
+      Ni = {
+    id: "title",
+    _element: Fi,
+    beforeInit: function beforeInit(t) {
+      var e = t.options.title;
+      e && Oi(t, e);
+    },
+    beforeUpdate: function beforeUpdate(t) {
+      var e = t.options.title,
+          n = t.titleBlock;
+      e ? (H.mergeIf(e, N.global.title), n ? (pe.configure(t, n, e), n.options = e) : Oi(t, e)) : n && (pe.removeBox(t, n), delete t.titleBlock);
+    }
+  };
+
+  for (var Bi in Li.filler = Ri, Li.legend = zi, Li.title = Ni, en.helpers = H, function () {
+    function t(t, e, n) {
+      var i;
+      return "string" == typeof t ? (i = parseInt(t, 10), -1 !== t.indexOf("%") && (i = i / 100 * e.parentNode[n])) : i = t, i;
+    }
+
+    function e(t) {
+      return null != t && "none" !== t;
+    }
+
+    function n(n, i, a) {
+      var r = document.defaultView,
+          o = H._getParentNode(n),
+          s = r.getComputedStyle(n)[i],
+          l = r.getComputedStyle(o)[i],
+          u = e(s),
+          d = e(l),
+          h = Number.POSITIVE_INFINITY;
+
+      return u || d ? Math.min(u ? t(s, n, a) : h, d ? t(l, o, a) : h) : "none";
+    }
+
+    H.where = function (t, e) {
+      if (H.isArray(t) && Array.prototype.filter) return t.filter(e);
+      var n = [];
+      return H.each(t, function (t) {
+        e(t) && n.push(t);
+      }), n;
+    }, H.findIndex = Array.prototype.findIndex ? function (t, e, n) {
+      return t.findIndex(e, n);
+    } : function (t, e, n) {
+      n = void 0 === n ? t : n;
+
+      for (var i = 0, a = t.length; i < a; ++i) {
+        if (e.call(n, t[i], i, t)) return i;
+      }
+
+      return -1;
+    }, H.findNextWhere = function (t, e, n) {
+      H.isNullOrUndef(n) && (n = -1);
+
+      for (var i = n + 1; i < t.length; i++) {
+        var a = t[i];
+        if (e(a)) return a;
+      }
+    }, H.findPreviousWhere = function (t, e, n) {
+      H.isNullOrUndef(n) && (n = t.length);
+
+      for (var i = n - 1; i >= 0; i--) {
+        var a = t[i];
+        if (e(a)) return a;
+      }
+    }, H.isNumber = function (t) {
+      return !isNaN(parseFloat(t)) && isFinite(t);
+    }, H.almostEquals = function (t, e, n) {
+      return Math.abs(t - e) < n;
+    }, H.almostWhole = function (t, e) {
+      var n = Math.round(t);
+      return n - e <= t && n + e >= t;
+    }, H.max = function (t) {
+      return t.reduce(function (t, e) {
+        return isNaN(e) ? t : Math.max(t, e);
+      }, Number.NEGATIVE_INFINITY);
+    }, H.min = function (t) {
+      return t.reduce(function (t, e) {
+        return isNaN(e) ? t : Math.min(t, e);
+      }, Number.POSITIVE_INFINITY);
+    }, H.sign = Math.sign ? function (t) {
+      return Math.sign(t);
+    } : function (t) {
+      return 0 === (t = +t) || isNaN(t) ? t : t > 0 ? 1 : -1;
+    }, H.toRadians = function (t) {
+      return t * (Math.PI / 180);
+    }, H.toDegrees = function (t) {
+      return t * (180 / Math.PI);
+    }, H._decimalPlaces = function (t) {
+      if (H.isFinite(t)) {
+        for (var e = 1, n = 0; Math.round(t * e) / e !== t;) {
+          e *= 10, n++;
+        }
+
+        return n;
+      }
+    }, H.getAngleFromPoint = function (t, e) {
+      var n = e.x - t.x,
+          i = e.y - t.y,
+          a = Math.sqrt(n * n + i * i),
+          r = Math.atan2(i, n);
+      return r < -.5 * Math.PI && (r += 2 * Math.PI), {
+        angle: r,
+        distance: a
+      };
+    }, H.distanceBetweenPoints = function (t, e) {
+      return Math.sqrt(Math.pow(e.x - t.x, 2) + Math.pow(e.y - t.y, 2));
+    }, H.aliasPixel = function (t) {
+      return t % 2 == 0 ? 0 : .5;
+    }, H._alignPixel = function (t, e, n) {
+      var i = t.currentDevicePixelRatio,
+          a = n / 2;
+      return Math.round((e - a) * i) / i + a;
+    }, H.splineCurve = function (t, e, n, i) {
+      var a = t.skip ? e : t,
+          r = e,
+          o = n.skip ? e : n,
+          s = Math.sqrt(Math.pow(r.x - a.x, 2) + Math.pow(r.y - a.y, 2)),
+          l = Math.sqrt(Math.pow(o.x - r.x, 2) + Math.pow(o.y - r.y, 2)),
+          u = s / (s + l),
+          d = l / (s + l),
+          h = i * (u = isNaN(u) ? 0 : u),
+          c = i * (d = isNaN(d) ? 0 : d);
+      return {
+        previous: {
+          x: r.x - h * (o.x - a.x),
+          y: r.y - h * (o.y - a.y)
+        },
+        next: {
+          x: r.x + c * (o.x - a.x),
+          y: r.y + c * (o.y - a.y)
+        }
+      };
+    }, H.EPSILON = Number.EPSILON || 1e-14, H.splineCurveMonotone = function (t) {
+      var e,
+          n,
+          i,
+          a,
+          r,
+          o,
+          s,
+          l,
+          u,
+          d = (t || []).map(function (t) {
+        return {
+          model: t._model,
+          deltaK: 0,
+          mK: 0
+        };
+      }),
+          h = d.length;
+
+      for (e = 0; e < h; ++e) {
+        if (!(i = d[e]).model.skip) {
+          if (n = e > 0 ? d[e - 1] : null, (a = e < h - 1 ? d[e + 1] : null) && !a.model.skip) {
+            var c = a.model.x - i.model.x;
+            i.deltaK = 0 !== c ? (a.model.y - i.model.y) / c : 0;
+          }
+
+          !n || n.model.skip ? i.mK = i.deltaK : !a || a.model.skip ? i.mK = n.deltaK : this.sign(n.deltaK) !== this.sign(i.deltaK) ? i.mK = 0 : i.mK = (n.deltaK + i.deltaK) / 2;
+        }
+      }
+
+      for (e = 0; e < h - 1; ++e) {
+        i = d[e], a = d[e + 1], i.model.skip || a.model.skip || (H.almostEquals(i.deltaK, 0, this.EPSILON) ? i.mK = a.mK = 0 : (r = i.mK / i.deltaK, o = a.mK / i.deltaK, (l = Math.pow(r, 2) + Math.pow(o, 2)) <= 9 || (s = 3 / Math.sqrt(l), i.mK = r * s * i.deltaK, a.mK = o * s * i.deltaK)));
+      }
+
+      for (e = 0; e < h; ++e) {
+        (i = d[e]).model.skip || (n = e > 0 ? d[e - 1] : null, a = e < h - 1 ? d[e + 1] : null, n && !n.model.skip && (u = (i.model.x - n.model.x) / 3, i.model.controlPointPreviousX = i.model.x - u, i.model.controlPointPreviousY = i.model.y - u * i.mK), a && !a.model.skip && (u = (a.model.x - i.model.x) / 3, i.model.controlPointNextX = i.model.x + u, i.model.controlPointNextY = i.model.y + u * i.mK));
+      }
+    }, H.nextItem = function (t, e, n) {
+      return n ? e >= t.length - 1 ? t[0] : t[e + 1] : e >= t.length - 1 ? t[t.length - 1] : t[e + 1];
+    }, H.previousItem = function (t, e, n) {
+      return n ? e <= 0 ? t[t.length - 1] : t[e - 1] : e <= 0 ? t[0] : t[e - 1];
+    }, H.niceNum = function (t, e) {
+      var n = Math.floor(H.log10(t)),
+          i = t / Math.pow(10, n);
+      return (e ? i < 1.5 ? 1 : i < 3 ? 2 : i < 7 ? 5 : 10 : i <= 1 ? 1 : i <= 2 ? 2 : i <= 5 ? 5 : 10) * Math.pow(10, n);
+    }, H.requestAnimFrame = "undefined" == typeof window ? function (t) {
+      t();
+    } : window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (t) {
+      return window.setTimeout(t, 1e3 / 60);
+    }, H.getRelativePosition = function (t, e) {
+      var n,
+          i,
+          a = t.originalEvent || t,
+          r = t.target || t.srcElement,
+          o = r.getBoundingClientRect(),
+          s = a.touches;
+      s && s.length > 0 ? (n = s[0].clientX, i = s[0].clientY) : (n = a.clientX, i = a.clientY);
+      var l = parseFloat(H.getStyle(r, "padding-left")),
+          u = parseFloat(H.getStyle(r, "padding-top")),
+          d = parseFloat(H.getStyle(r, "padding-right")),
+          h = parseFloat(H.getStyle(r, "padding-bottom")),
+          c = o.right - o.left - l - d,
+          f = o.bottom - o.top - u - h;
+      return {
+        x: n = Math.round((n - o.left - l) / c * r.width / e.currentDevicePixelRatio),
+        y: i = Math.round((i - o.top - u) / f * r.height / e.currentDevicePixelRatio)
+      };
+    }, H.getConstraintWidth = function (t) {
+      return n(t, "max-width", "clientWidth");
+    }, H.getConstraintHeight = function (t) {
+      return n(t, "max-height", "clientHeight");
+    }, H._calculatePadding = function (t, e, n) {
+      return (e = H.getStyle(t, e)).indexOf("%") > -1 ? n * parseInt(e, 10) / 100 : parseInt(e, 10);
+    }, H._getParentNode = function (t) {
+      var e = t.parentNode;
+      return e && "[object ShadowRoot]" === e.toString() && (e = e.host), e;
+    }, H.getMaximumWidth = function (t) {
+      var e = H._getParentNode(t);
+
+      if (!e) return t.clientWidth;
+
+      var n = e.clientWidth,
+          i = n - H._calculatePadding(e, "padding-left", n) - H._calculatePadding(e, "padding-right", n),
+          a = H.getConstraintWidth(t);
+
+      return isNaN(a) ? i : Math.min(i, a);
+    }, H.getMaximumHeight = function (t) {
+      var e = H._getParentNode(t);
+
+      if (!e) return t.clientHeight;
+
+      var n = e.clientHeight,
+          i = n - H._calculatePadding(e, "padding-top", n) - H._calculatePadding(e, "padding-bottom", n),
+          a = H.getConstraintHeight(t);
+
+      return isNaN(a) ? i : Math.min(i, a);
+    }, H.getStyle = function (t, e) {
+      return t.currentStyle ? t.currentStyle[e] : document.defaultView.getComputedStyle(t, null).getPropertyValue(e);
+    }, H.retinaScale = function (t, e) {
+      var n = t.currentDevicePixelRatio = e || "undefined" != typeof window && window.devicePixelRatio || 1;
+
+      if (1 !== n) {
+        var i = t.canvas,
+            a = t.height,
+            r = t.width;
+        i.height = a * n, i.width = r * n, t.ctx.scale(n, n), i.style.height || i.style.width || (i.style.height = a + "px", i.style.width = r + "px");
+      }
+    }, H.fontString = function (t, e, n) {
+      return e + " " + t + "px " + n;
+    }, H.longestText = function (t, e, n, i) {
+      var a = (i = i || {}).data = i.data || {},
+          r = i.garbageCollect = i.garbageCollect || [];
+      i.font !== e && (a = i.data = {}, r = i.garbageCollect = [], i.font = e), t.font = e;
+      var o,
+          s,
+          l,
+          u,
+          d,
+          h = 0,
+          c = n.length;
+
+      for (o = 0; o < c; o++) {
+        if (null != (u = n[o]) && !0 !== H.isArray(u)) h = H.measureText(t, a, r, h, u);else if (H.isArray(u)) for (s = 0, l = u.length; s < l; s++) {
+          null == (d = u[s]) || H.isArray(d) || (h = H.measureText(t, a, r, h, d));
+        }
+      }
+
+      var f = r.length / 2;
+
+      if (f > n.length) {
+        for (o = 0; o < f; o++) {
+          delete a[r[o]];
+        }
+
+        r.splice(0, f);
+      }
+
+      return h;
+    }, H.measureText = function (t, e, n, i, a) {
+      var r = e[a];
+      return r || (r = e[a] = t.measureText(a).width, n.push(a)), r > i && (i = r), i;
+    }, H.numberOfLabelLines = function (t) {
+      var e = 1;
+      return H.each(t, function (t) {
+        H.isArray(t) && t.length > e && (e = t.length);
+      }), e;
+    }, H.color = _ ? function (t) {
+      return t instanceof CanvasGradient && (t = N.global.defaultColor), _(t);
+    } : function (t) {
+      return console.error("Color.js not found!"), t;
+    }, H.getHoverColor = function (t) {
+      return t instanceof CanvasPattern || t instanceof CanvasGradient ? t : H.color(t).saturate(.5).darken(.1).rgbString();
+    };
+  }(), en._adapters = rn, en.Animation = $, en.animationService = J, en.controllers = Jt, en.DatasetController = it, en.defaults = N, en.Element = K, en.elements = kt, en.Interaction = re, en.layouts = pe, en.platform = Oe, en.plugins = Le, en.Scale = yn, en.scaleService = Re, en.Ticks = on, en.Tooltip = Ye, en.helpers.each(fi, function (t, e) {
+    en.scaleService.registerScaleType(e, t, t._defaults);
+  }), Li) {
+    Li.hasOwnProperty(Bi) && en.plugins.register(Li[Bi]);
+  }
+
+  en.platform.initialize();
+  var Ei = en;
+  return "undefined" != typeof window && (window.Chart = en), en.Chart = en, en.Legend = Li.legend._element, en.Title = Li.title._element, en.pluginService = en.plugins, en.PluginBase = en.Element.extend({}), en.canvasHelpers = en.helpers.canvas, en.layoutService = en.layouts, en.LinearScaleBase = Cn, en.helpers.each(["Bar", "Bubble", "Doughnut", "Line", "PolarArea", "Radar", "Scatter"], function (t) {
+    en[t] = function (e, n) {
+      return new en(e, en.helpers.merge(n || {}, {
+        type: t.charAt(0).toLowerCase() + t.slice(1)
+      }));
+    };
+  }), Ei;
+});
 
 /***/ }),
 

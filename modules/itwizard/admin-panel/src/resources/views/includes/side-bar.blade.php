@@ -37,8 +37,8 @@
                         <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
                         @foreach($menus['menus'] as $mainmenu)
                             @if($mainmenu['child'])
-                                <li class="{{Request::is($mainmenu['url'].'*') ? 'mm-active' : null }}">
-                                    <a href="#" aria-expanded="{{Request::is($mainmenu['url'].'*') ? 'true' : null }}">
+                                <li class="{{Request::is($mainmenu['url'].'/*') ? 'mm-active' : null }}">
+                                    <a href="#" aria-expanded="{{Request::is($mainmenu['url'].'/*') ? 'true' : null }}">
                                         <i class="metismenu-icon {{$mainmenu['icon']}} {{$mainmenu['colorClass'] ?? ''}}"></i>
                                         {{__($mainmenu['name'])}}
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>

@@ -15,6 +15,6 @@ Route::get('lang/{locale}', function ($lang) {
 });
 
 
-Route::any('/{slug}', function (){
-    return view('welcome');
-});
+
+Route::get('/',[\App\Http\Controllers\Client\MainController::class,'index']);
+Route::get('/{id}/{slug}',[\App\Http\Controllers\Client\MainController::class,'viewer']);
