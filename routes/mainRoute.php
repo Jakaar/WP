@@ -14,5 +14,7 @@ Route::get('lang/{locale}', function ($lang) {
     return redirect()->back();
 });
 
+
+
 Route::get('/',[\App\Http\Controllers\Client\MainController::class,'index']);
 Route::get('/{id}/{slug}',[\App\Http\Controllers\Client\MainController::class,'viewer']);

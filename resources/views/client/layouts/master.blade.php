@@ -32,7 +32,6 @@
         @include('client.includes.header')
             @yield('content')
         @include('client.includes.footer')
-
         @foreach($static['js'] as $js)
             <script type="javascript" src="{{$js->file_absolute_path}}"></script>
         @endforeach

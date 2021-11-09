@@ -314,21 +314,21 @@ return [
     ], // Member Management
     [
         'title'=>'Page Manage',
-        'url'=>'cms/manage_pages/manage_pages',
+        'url'=>'cms/manage_pages',
         'menus'=> [
             [
-                'url'=>'cms/manage_pages/manage_pages',
+                'url'=>'cms/manage_pages',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Manage pages',
                 'child' => null
             ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-upload',
-                'name'=>'(No group)',
-                'colorClass'=>'index',
-                'child' => [],
-            ],
+//            [
+//                'url'=>'#',
+//                'icon'=>'pe-7s-upload',
+//                'name'=>'(No group)',
+//                'colorClass'=>'index',
+//                'child' => [],
+//            ],
 //            [
 //                'url'=>'#',
 //                'icon'=>'pe-7s-global',
@@ -513,8 +513,8 @@ return [
                     ],
                 ],
             ],
-        
-          
+
+
         ],
 
     ], // Banner Manage

@@ -34,6 +34,7 @@ class MainController extends Controller
             foreach ($boardData as $item)
             {
                 $translating = json_decode($item->content, true);
+
                 $item->content = $translating[Session::get('locale')];
             }
             $data['board'] = $boardData;

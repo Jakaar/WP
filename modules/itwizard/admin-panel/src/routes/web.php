@@ -7,7 +7,6 @@ use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
-use Itwizard\Adminpanel\Http\Controllers\Page\PageManageController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
 
@@ -39,7 +38,8 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
 
-    Route::get('/manage_pages/manage_pages', [PageManageController::class, 'index']);
+    Route::get('/manage_pages', [\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'index']);
+    Route::get('/manage_pages/{slug}/page_content',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content']);
 
     Route::get('/myProfile', [MyProfileController::class, 'index']);
 
@@ -54,7 +54,6 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
 
     Route::get('/preferences',[PreferencesController::class, 'index']);
-
     Route::get('/{slug}/{view}', function ($slug, $view){
        return view('Admin::pages.'.$slug.'.'.$view);
     });
