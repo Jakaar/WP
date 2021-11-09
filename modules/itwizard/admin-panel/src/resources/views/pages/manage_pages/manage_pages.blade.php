@@ -44,10 +44,10 @@
             </a>
         </li>
     @endforeach
-        @if($content['detail'])
-{{--            @include('Admin::pages.manage_pages.__Page_types.'.$)--}}
-        @endif
 </ul>
+@if($content['detail'])
+    @include('Admin::pages.manage_pages.__Page_types.'.$content['type']->board_type)
+@endif
 @endsection
 {{--@section('modal')--}}
 {{--<div class="modal fade create-page-management" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">--}}
