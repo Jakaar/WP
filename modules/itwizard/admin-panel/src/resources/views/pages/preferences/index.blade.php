@@ -43,252 +43,306 @@
         @foreach ($data['langs'] as $key => $lang)
             <div class="tab-pane fade @if ($key === 0) active show @endif" id="tab-animated1-{{ $lang->id }}" role="tabpanel"> --}}
 
-                <div class="card card-btm-border border-primary mb-3">
-                    <div class="card-body">
-                        <form action="#" id="s_settings">
-                            <ul class="body-tabs body-tabs-layout tabs-animated nav" id="v-pills-tab" role="tablist"
-                                aria-orientation="vertical">
-                                @foreach ($group as $key => $name)
-                                    <li class="nav-item   text-uppercase" role="presentation">
-                                        <a class="nav-link pt-2 pb-2 @if ($key == 0) active @endif"
-                                            id="t-{{ $name->group }}-tab" data-bs-toggle="tab"
-                                            data-bs-target="#t-{{ $name->group }}" type="button" role="tab"
-                                            aria-controls="t-{{ $name->group }}" @if ($key == 0) aria-selected="true" @else aria-selected="false" @endif
-                                            style="font-weight: 500;">{{ $name->group }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <div class="divider"></div>
-                            <div class="tab-content mt-4" id="navcontent">
-                                @foreach ($group as $key => $name)
-                                    <div class="tab-pane fade @if ($key == 0) active show @endif" id="t-{{ $name->group }}"
-                                        role="tabpanel" aria-labelledby="t-{{ $name->group }}-tab">
-                                        @foreach ($model[$name->group] as $inputs)
-                                            <div class="mb-3">
-                                                <label for="" class="form-label fw-bold"> {{ $inputs->display_name }}
-                                                </label>
-                                                <div class="d-inline-block bg-light ms-2 px-2"><code>
-                                                        Config::get('setting.{{ $inputs->key }}')
-                                                    </code>
-                                                </div>
-                                                @switch($inputs->type)
-                                                    @case('text')
-                                                        <div class="float-end mb-2">
-                                                            <button type="button"
-                                                                class="btn btn-outline-danger btn-sm delete_settings"
-                                                                data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control"
-                                                                name="{{ $inputs->key }}"
-                                                                placeholder="{{ $inputs->display_name }}"
-                                                                value="{{ $inputs->value }}" id="{{ $inputs->key }}"
-                                                                inputs-id="{{ $inputs->id }}">
-                                                            <select class="form-select change-group" style="max-width: 100px"
-                                                                data-id="{{ $inputs->id }}">
-                                                                @foreach ($group as $changer)
-                                                                    <option value="{{ $changer->group }}"
-                                                                        @if ($changer->group == $inputs->group) selected @endif>
-                                                                        {{ $changer->group }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                    @break
-                                                    @case('text_area')
-                                                        <div class="float-end mb-2">
-                                                            <div class="input-group">
-                                                                <button type="button"
-                                                                    class="btn btn-outline-danger btn-sm delete_settings"
-                                                                    data-id="{{ $inputs->id }}"> {{ __('Delete') }}
-                                                                </button>
-                                                                <select class="form-select change-group"
-                                                                    style="max-width: 100px" data-id="{{ $inputs->id }}">
-                                                                    @foreach ($group as $changer)
-                                                                        <option value="{{ $changer->group }}"
-                                                                            @if ($changer->group == $inputs->group) selected @endif>
-                                                                            {{ $changer->group }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <textarea name="{{ $inputs->key }}" id="{{ $inputs->key }}"
-                                                            placeholder="{{ $inputs->display_name }}" cols="30" rows="10"
-                                                            class="form-control">{{ $inputs->value }}</textarea>
-                                                    @break
-                                                    @case('rich_text_box')
-                                                        <div class="float-end mb-2">
-                                                            <div class="input-group">
-                                                                <button type="button"
-                                                                    class="btn btn-outline-danger btn-sm delete_settings"
-                                                                    data-id="{{ $inputs->id }}"> {{ __('Delete') }}
-                                                                </button>
-                                                                <select class="form-select change-group"
-                                                                    style="max-width: 100px" data-id="{{ $inputs->id }}">
-                                                                    @foreach ($group as $changer)
-                                                                        <option value="{{ $changer->group }}"
-                                                                            @if ($changer->group == $inputs->group) selected @endif>
-                                                                            {{ $changer->group }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                        <textarea name="{{ $inputs->key }}" id="{{ $inputs->key }}"
-                                                            {{ $inputs->display_name }} class="form-control ckeditor"
-                                                            cols="30" rows="10">{{ $inputs->value }}</textarea>
-                                                    @break
-                                                    @case('select_dropdown')
-                                                        <div class="float-end mb-2">
-                                                            <button type="button"
-                                                                class="btn btn-outline-danger btn-sm delete_settings"
-                                                                data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <select name="{{ $inputs->key }}" id="{{ $inputs->key }}"
-                                                                {{ $inputs->display_name }} class="form-control form-select">
-                                                                @foreach (json_decode($inputs->details, true)['options'] as $key => $rr)
-                                                                    <option value="{{ $key }}"
-                                                                        @if ($key == $inputs->value) selected @endif>
-                                                                        {{ $rr }} </option>
-                                                                @endforeach
-                                                            </select>
-                                                            <select class="form-select change-group" style="max-width: 100px"
-                                                                data-id="{{ $inputs->id }}">
-                                                                @foreach ($group as $changer)
-                                                                    <option value="{{ $changer->group }}"
-                                                                        @if ($changer->group == $inputs->group) selected @endif>
-                                                                        {{ $changer->group }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                    @break
-                                                    @case('file')
-                                                        <div class="float-end mb-2">
-                                                            <button type="button"
-                                                                class="btn btn-outline-danger btn-sm delete_settings"
-                                                                data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <button type="button"
-                                                                onclick="filemanager.selectFile('{{ $inputs->key }}')"
-                                                                class="btn btn-outline-primary">{{ __('Choose') }}</button>
-                                                            <input type="text" name="{{ $inputs->key }}"
-                                                                class="form-control" id="{{ $inputs->key }}"
-                                                                inputs-id="{{ $inputs->id }}"
-                                                                value="{{ $inputs->value }}">
-                                                            <img src="" id="profile-photo-preview-{{ $inputs->id }}">
-                                                            <select class="form-select change-group" style="max-width: 100px"
-                                                                data-id="{{ $inputs->id }}">
-                                                                @foreach ($group as $changer)
-                                                                    <option value="{{ $changer->group }}"
-                                                                        @if ($changer->group == $inputs->group) selected @endif>
-                                                                        {{ $changer->group }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    @break
-                                                    @default
-                                                        <div class="float-end mb-2">
-                                                            <button type="button"
-                                                                class="btn btn-outline-danger btn-sm delete_settings"
-                                                                data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" name="{{ $inputs->key }}"
-                                                                placeholder="{{ $inputs->display_name }}"
-                                                                value="{{ $inputs->value }}" id="{{ $inputs->key }}"
-                                                                inputs-id="{{ $inputs->id }}">
-                                                            <select class="form-select change-group" style="max-width: 100px"
-                                                                data-id="{{ $inputs->id }}">
-                                                                @foreach ($group as $changer)
-                                                                    <option value="{{ $changer->group }}"
-                                                                        @if ($changer->group == $inputs->group) selected @endif>
-                                                                        {{ $changer->group }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                @endswitch
-
-                                            </div>
-                                        @endforeach
+    <div class="card card-btm-border border-primary mb-3">
+        <div class="card-body">
+            <form action="#" id="s_settings">
+                <ul class="body-tabs body-tabs-layout tabs-animated nav" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    @foreach ($group as $key => $name)
+                        <li class="nav-item   text-uppercase" role="presentation">
+                            <a class="nav-link pt-2 pb-2 @if ($key == 0) active @endif" id="t-{{ $name->group }}-tab"
+                                data-bs-toggle="tab" data-bs-target="#t-{{ $name->group }}" type="button" role="tab"
+                                aria-controls="t-{{ $name->group }}" @if ($key == 0) aria-selected="true" @else aria-selected="false" @endif
+                                style="font-weight: 500;">{{ $name->group }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="divider"></div>
+                <div class="tab-content mt-4" id="navcontent">
+                    @foreach ($group as $key => $name)
+                        <div class="tab-pane fade @if ($key == 0) active show @endif" id="t-{{ $name->group }}" role="tabpanel"
+                            aria-labelledby="t-{{ $name->group }}-tab">
+                            @foreach ($model[$name->group] as $inputs)
+                                <div class="mb-3">
+                                    <label for="" class="form-label fw-bold"> {{ $inputs->display_name }}
+                                    </label>
+                                    <div class="d-inline-block bg-light ms-2 px-2"><code>
+                                            Config::get('setting.{{ $inputs->key }}')
+                                        </code>
                                     </div>
-                                @endforeach
-                            </div>
-                        </form>
-                    </div>
+                                    @switch($inputs->type)
+                                        @case('text')
+                                            <div class="float-end mb-2">
+                                                <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                    data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="{{ $inputs->key }}"
+                                                    placeholder="{{ $inputs->display_name }}" value="{{ $inputs->value }}"
+                                                    id="{{ $inputs->key }}" inputs-id="{{ $inputs->id }}">
+                                                <select class="form-select change-group" style="max-width: 100px"
+                                                    data-id="{{ $inputs->id }}">
+                                                    @foreach ($group as $changer)
+                                                        <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                            {{ $changer->group }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        @break
+                                        @case('text_area')
+                                            <div class="float-end mb-2">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                        data-id="{{ $inputs->id }}"> {{ __('Delete') }}
+                                                    </button>
+                                                    <select class="form-select change-group" style="max-width: 100px"
+                                                        data-id="{{ $inputs->id }}">
+                                                        @foreach ($group as $changer)
+                                                            <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                                {{ $changer->group }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <textarea name="{{ $inputs->key }}" id="{{ $inputs->key }}"
+                                                placeholder="{{ $inputs->display_name }}" cols="30" rows="10"
+                                                class="form-control">{{ $inputs->value }}</textarea>
+                                        @break
+                                        @case('rich_text_box')
+                                            <div class="float-end mb-2">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                        data-id="{{ $inputs->id }}"> {{ __('Delete') }}
+                                                    </button>
+                                                    <select class="form-select change-group" style="max-width: 100px"
+                                                        data-id="{{ $inputs->id }}">
+                                                        @foreach ($group as $changer)
+                                                            <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                                {{ $changer->group }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <textarea class="form-control ckeditor" id="{{ $inputs->key }}" cols="30"
+                                                rows="10">{{ $inputs->value }}</textarea>
+                                            {{-- <input type="hidden" name="{{ $inputs->key }}" > --}}
+                                        @break
+                                        @case('select_dropdown')
+                                            <div class="float-end mb-2">
+                                                <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                    data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
+                                            </div>
+                                            <div class="input-group">
+                                                @if (isset(json_decode($inputs->details, true)['options']))
+                                                    <select name="{{ $inputs->key }}" id="{{ $inputs->key }}"
+                                                        {{ $inputs->display_name }} class="form-control form-select">
+                                                        @foreach (json_decode($inputs->details, true)['options'] as $key => $rr)
+                                                            <option value="{{ $key }}" @if ($key == $inputs->value) selected @endif>
+                                                                {{ $rr }} </option>
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    <div class="alert alert-danger"> JSON format error </div>
+                                                @endif
+                                                <select class="form-select change-group" style="max-width: 100px"
+                                                    data-id="{{ $inputs->id }}">
+                                                    @foreach ($group as $changer)
+                                                        <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                            {{ $changer->group }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        @break
+                                        @case('file')
+                                            <div class="float-end mb-2">
+                                                <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                    data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
+                                            </div>
+                                            <div class="input-group">
+                                                <button type="button" onclick="filemanager.selectFile('{{ $inputs->key }}')"
+                                                    class="btn btn-outline-primary">{{ __('Choose') }}</button>
+                                                <input type="text" name="{{ $inputs->key }}" class="form-control"
+                                                    id="{{ $inputs->key }}" inputs-id="{{ $inputs->id }}"
+                                                    value="{{ $inputs->value }}">
+                                                <img src="" id="profile-photo-preview-{{ $inputs->id }}">
+                                                <select class="form-select change-group" style="max-width: 100px"
+                                                    data-id="{{ $inputs->id }}">
+                                                    @foreach ($group as $changer)
+                                                        <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                            {{ $changer->group }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @break
+                                        @case('checkbox')
+
+                                            <div class="float-start">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input form-check-input-lg" type="checkbox"
+                                                        @if ($inputs->value == 'on') checked @endif>
+                                                    <input type="hidden" name="{{ $inputs->key }}" id="{{ $inputs->key }}"
+                                                        value="{{ $inputs->value }}">
+                                                    <label class="form-check-label" for="{{ $inputs->key }}">
+                                                        @if ($inputs->value == 'on')
+                                                            {{ isset(json_decode($inputs->details, true)['on']) }}
+                                                        @else
+                                                            {{ isset(json_decode($inputs->details, true)['off']) }}
+                                                        @endif
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="float-end">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                        data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
+                                                    <select class="form-select change-group" style="max-width: 100px"
+                                                        data-id="{{ $inputs->id }}">
+                                                        @foreach ($group as $changer)
+                                                            <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                                {{ $changer->group }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        @break
+                                        @case('radio_btn')
+                                            <div class="clearfix"></div>
+
+                                            @if (isset(json_decode($inputs->details, true)['options']))
+                                                @foreach (json_decode($inputs->details, true)['options'] as $key => $radio)
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="{{ $inputs->key }}" id="{{ $inputs->key }}"
+                                                            value="{{ $key }}" @if ($key == $inputs->value) checked @endif>
+                                                        <label class="form-check-label" for="inlineRadio1">
+                                                            {{ $radio }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <div class="alert alert-danger"> {{ __('"options" JSON error') }} </div>
+                                            @endif
+
+                                            <div class="float-end">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                        data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
+                                                    <select class="form-select change-group" style="max-width: 100px"
+                                                        data-id="{{ $inputs->id }}">
+                                                        @foreach ($group as $changer)
+                                                            <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                                {{ $changer->group }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        @break
+                                        @default
+                                            <div class="float-end mb-2">
+                                                <button type="button" class="btn btn-outline-danger btn-sm delete_settings"
+                                                    data-id="{{ $inputs->id }}"> {{ __('Delete') }} </button>
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="{{ $inputs->key }}"
+                                                    placeholder="{{ $inputs->display_name }}" value="{{ $inputs->value }}"
+                                                    id="{{ $inputs->key }}" inputs-id="{{ $inputs->id }}">
+                                                <select class="form-select change-group" style="max-width: 100px"
+                                                    data-id="{{ $inputs->id }}">
+                                                    @foreach ($group as $changer)
+                                                        <option value="{{ $changer->group }}" @if ($changer->group == $inputs->group) selected @endif>
+                                                            {{ $changer->group }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                    @endswitch
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="divider"></div>
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
-                <div class="card card-btm-border border-primary mb-3">
-                    <div class="card-body">
-                        <div class="card-title"> {{ __('Add new settings') }} </div>
-                        <div class="divider"></div>
-                        <div class="row">
-                            <div class="mb-3 col-lg-3">
-                                <label for="" class="fw-bold form-label"> {{ __('Name') }} </label>
-                                <input type="text" class="form-control" placeholder="Name" id="info_name">
-                            </div>
-                            <div class="mb-3 col-lg-3">
-                                <label for="" class="fw-bold form-label"> {{ __('Key') }} </label>
-                                <input type="text" class="form-control" placeholder="Key" id="info_key">
-                            </div>
-                            <div class="mb-3 col-lg-3">
-                                <label for="" class="fw-bold form-label"> {{ __('Type') }} </label>
-                                <select name="info_type" id="info_type" class="form-control form-select">
-                                    <option value="">{{ __('Choose Type') }}</option>
-                                    <option value="text"> {{ __('Text Box') }} </option>
-                                    <option value="text_area"> {{ __('Text Area') }} </option>
-                                    <option value="rich_text_box"> {{ __('Editor') }} </option>
-                                    {{-- <option value="checkbox">Check Box</option>
-                        <option value="radio_btn">Radio Button</option> --}}
-                                    <option value="select_dropdown"> {{ __('Select Dropdown') }} </option>
-                                    <option value="file"> {{ __('File') }} </option>
-                                </select>
-                            </div>
-                            <div class="mb-3 col-lg-3">
-                                <label for="" class="fw-bold form-label"> {{ __('Group') }} </label>
-                                <input type="text" name="info_group" id="info_group" list="groups"
-                                    class="form-control form-select" placeholder="Choose group">
-                                <datalist id="groups">
-                                    @foreach ($group as $groups)
-                                        <option value="{{ $groups->group }}"> {{ $groups->group }} </option>
-                                    @endforeach
-                                </datalist>
-                                {{-- <select name="info_group" id="info_group" class="form-control form-select">
+            </form>
+        </div>
+    </div>
+    <div class="card card-btm-border border-primary mb-3">
+        <div class="card-body">
+            <div class="card-title"> {{ __('Add new settings') }} </div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="mb-3 col-lg-3">
+                    <label for="" class="fw-bold form-label"> {{ __('Name') }} </label>
+                    <input type="text" class="form-control" placeholder="Name" id="info_name">
+                </div>
+                <div class="mb-3 col-lg-3">
+                    <label for="" class="fw-bold form-label"> {{ __('Key') }} </label>
+                    <input type="text" class="form-control" placeholder="Key" id="info_key">
+                </div>
+                <div class="mb-3 col-lg-3">
+                    <label for="" class="fw-bold form-label"> {{ __('Type') }} </label>
+                    <select name="info_type" id="info_type" class="form-control form-select">
+                        <option value="">{{ __('Choose Type') }}</option>
+                        <option value="text"> {{ __('Text Box') }} </option>
+                        <option value="text_area"> {{ __('Text Area') }} </option>
+                        <option value="rich_text_box"> {{ __('Editor') }} </option>
+                        <option value="checkbox"> {{ __('Check Box') }} </option>
+                        <option value="radio_btn"> {{ __('Radio Button') }} </option>
+                        <option value="select_dropdown"> {{ __('Select Dropdown') }} </option>
+                        <option value="file"> {{ __('File') }} </option>
+                    </select>
+                </div>
+                <div class="mb-3 col-lg-3">
+                    <label for="" class="fw-bold form-label"> {{ __('Group') }} </label>
+                    <input type="text" name="info_group" id="info_group" list="groups" class="form-control form-select"
+                        placeholder="Choose group">
+                    <datalist id="groups">
+                        @foreach ($group as $groups)
+                            <option value="{{ $groups->group }}"> {{ $groups->group }} </option>
+                        @endforeach
+                    </datalist>
+                    {{-- <select name="info_group" id="info_group" class="form-control form-select">
                         <option value=""> Choose group </option>
                         @foreach ($group as $groups)
                             <option value="{{ $groups->group }}"> {{ $groups->group }} </option>
                         @endforeach
                     </select> --}}
-                            </div>
-                            <div class="col-lg-12">
-                                <textarea name="" id="options_editor" cols="30" rows="10"
-                                    class="form-control d-none my-3"></textarea>
-                                <div class="float-end">
-                                    <a href="javascript:;" id="open_options"> Options <i class="fa fa-angle-double-down"
-                                            id="openclose" aria-hidden="true"></i> </a>
-                                    <button type="button" class="btn btn-success" id="add_new_setting">
-                                        <i class="fa fa-plus"></i>
-                                        {{ __('Add new setting') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-lg-12">
+                    <textarea name="" id="options_editor" cols="30" rows="10" class="form-control d-none my-3"
+                        placeholder="Enter your input's options, example: { { options: { 'key' : 'value' } } }"></textarea>
+                    <div class="float-end">
+                        <a href="javascript:;" id="open_options" class="me-2"> Options <i
+                                class="fa fa-angle-double-down" id="openclose" aria-hidden="true"></i> </a>
+                        <button type="button" class="btn btn-success" id="add_new_setting">
+                            <i class="fa fa-plus"></i>
+                            {{ __('Add new setting') }}
+                        </button>
                     </div>
                 </div>
-            {{-- </div>
+            </div>
+        </div>
+    </div>
+    {{-- </div>
         @endforeach
     </div> --}}
 @endsection
 @section('script')
+
     <script>
         $('#open_options').click(function() {
             $('#openclose').toggleClass('fa-angle-double-up')
             $('#options_editor').toggleClass('d-none').animate()
         })
     </script>
-    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
+     {{-- item's change group --}}
     <script>
         $('.change-group').on('focusin', function() {
             $(this).data('val', $(this).val())
@@ -327,6 +381,7 @@
 
         })
     </script>
+    {{-- Delete item --}}
     <script>
         $('.delete_settings').click(function() {
             const settings_id = $(this).data('id')
@@ -359,8 +414,19 @@
             })
         })
     </script>
+
+    <script>
+        $('.form-check-input').on('change', function() {
+            if ($(this).is(':checked') == true) {
+                $(this).next().val('on')
+            } else {
+                $(this).next().val('off')
+            }
+        });
+    </script>
     <script>
         $('#s_settings input, #s_settings select, #s_settings button').attr('disabled', true)
+
         $('#s_edit_settings').click(function() {
             $(this).toggleClass('d-none')
             $('#s_settings input, #s_settings select, #s_settings textarea, #s_settings button').removeAttr(
@@ -368,13 +434,21 @@
             $('#s_save_settings').toggleClass('d-none')
         })
         $('#s_save_settings').click(function() {
-            const data = $('#s_settings').serializeArray();
-            console.log(data)
 
-            Axios.post('/api/preferences/update', data).then((resp) => {
+            let data = $('#s_settings').serializeArray();
+            $.each(theEditor, function(i, item) {
+                data.push({
+                    name: item.name,
+                    value: item.editor.getData()
+                })
+            })
+            data['user_id'] = '{{Auth::user()->id}}';
+
+            Axios.post('/api/preferences/update',  data).then((resp) => {
                 console.log(resp.data)
             }).catch((err) => {
-                Toast.fire({
+                console.log(err)
+                Swal.fire({
                     icon: 'error',
                     title: err
                 });
@@ -382,17 +456,19 @@
             $('#s_settings input, #s_settings select, #s_settings textarea, #s_settings button').attr('disabled',
                 true)
             $('#s_save_settings').toggleClass('d-none')
+            $('#s_edit_settings').toggleClass('d-none')
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 showConfirmButton: false,
                 timer: 1500
             })
-            setInterval(() => {
-                window.location.reload()
-            }, 1500);
+            // setInterval(() => {
+            //     window.location.reload()
+            // }, 1500);
         })
     </script>
+    {{-- Add new Item --}}
     <script>
         $('#add_new_setting').click(function() {
             const data = {
@@ -424,14 +500,37 @@
                 });
             });
         })
+        let theEditor = [];
+        var allEditors = document.querySelectorAll('.ckeditor');
+        let EditorId = [];
 
-        window.onload = function() {
-            CKEDITOR.replace('ckeditor', {
-                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
-                language: 'ko'
-            });
-        }
-        $('#reload_page').click(function () {
+        $.each(allEditors, function(i, item) {
+            EditorId[i] = allEditors[i].id
+
+            ClassicEditor
+                .create(allEditors[i])
+                .then(editor => {
+                    theEditor.push({
+                        name: EditorId[i],
+                        editor
+                    }); // Save for later use.
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        })
+
+        // $.each(allEditors, function(i, item) {
+        //     console.log(item)
+        // })
+        // window.onload = function() {
+        //     CKEDITOR.replace('.ckeditor', {
+        //         filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+        //         language: 'ko'
+        //     });
+        // }
+
+        $('#reload_page').click(function() {
             location.reload(true);
         });
     </script>

@@ -19,9 +19,11 @@
                             class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                             <i class="pe-7s-refresh-2"></i>
                         </button>
+                        @permission('permission-create')
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createPermission">
                             <i class="fa fa-plus"></i> Create New Permission
                         </button>
+                        @endpermission
                     </div>
                 </div>
             </div>
@@ -36,7 +38,7 @@
                                 <th> {{ __('Name') }} </th>
                                 <th> {{ __('Display name') }} </th>
                                 <th> {{ __('Description') }} </th>
-                                <th> {{ __('Linked Menu') }} </th>
+
                                 <th> {{ __('Action') }} </th>
                             </tr>
                         </thead>
@@ -47,16 +49,21 @@
                                     <td>{{ $permissions->name }}</td>
                                     <td>{{ $permissions->display_name }}</td>
                                     <td>{{ $permissions->description }}</td>
-                                    <td>{{ $permissions->url }}</td>
+
                                     <td>
                                         <div class="widget-content-right widget-content-actions">
+                                            @permission('permission-update')
                                             <button class="btn-outline-primary btn editPermission" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop" data-id="{{ $permissions->id }}">
                                                 {{ 'Edit' }}
                                             </button>
-                                            <button class="btn-outline-danger btn-link btn deletePermission">
+                                            @endpermission
+                                            @permission('permission-delete')
+                                            <button class="btn-outline-danger btn-link btn deletePermission"
+                                                data-id="{{ $permissions->id }}">
                                                 {{ 'Delete' }}
                                             </button>
+                                            @endpermission
                                             {{-- <button class="border-0 btn-transition btn btn-outline-primary role-switcher" data-id="1">
                                                 <i class="fa fa-lock"> </i>
                                             </button> --}}
@@ -94,7 +101,7 @@
                     $('#u_role_name').val(user.name)
                     $('#u_display_name').val(user.display_name)
                     $('#u_description').text(user.description)
-                    $('#u_menu_url').val(user.url)
+                    // $('#u_menu_url').val(user.url)
                     $('#u_id').val(user.id)
 
                 }).catch((err) => {
@@ -108,14 +115,16 @@
                     name: $('#u_role_name').val(),
                     display_name: $('#u_display_name').val(),
                     description: $('#u_description').val(),
-                    url: $('#u_menu_url').val()
+                    // url: $('#u_menu_url').val()
                 }
 
                 Axios.post('/api/permission/settings/update', data).then((resp) => {
-                    Toast.fire({
+                    Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg
-                    });
+                        title: resp.data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     $('#staticBackdrop').modal('hide')
 
                     setInterval(() => {
@@ -139,10 +148,12 @@
                     url: $('#menu_url').val()
                 }
                 Axios.post('/api/permission/settings/create', data).then((resp) => {
-                    Toast.fire({
+                    Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg
-                    });
+                        title: resp.data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     $('#createPermission').modal('hide')
 
                     setInterval(() => {
@@ -153,13 +164,33 @@
                     console.log(err);
                 });
             })
-            $('.deletePermission').click(function(){
-                Swal.fire({
-                    icon: 'success',
-                    title : 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+            $('.deletePermission').click(function() {
+                const dd = $(this)
+                const data = {
+                    id: $(this).data('id')
+                }
+                Axios.post('/api/permission/settings/delete', data).then((resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: resp.data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    dd.parent().parent().parent().remove()
+                    setInterval(() => {
+                       
+                    }, 1500);
+
+                }).catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: err,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                });
+
+
             })
         })
     </script>
@@ -178,7 +209,7 @@
                     <form action="#" id="create_new_permission" class="row">
                         <input type="hidden" id="id">
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Role name') }} </label>
+                            <label class="form-label"> {{ __('Permission name') }} </label>
                             <input type="text" class="form-control" placeholder="{{ __('Role name') }}"
                                 name="role_name" id="role_name">
                         </div>
@@ -187,11 +218,11 @@
                             <input type="text" class="form-control" placeholder="{{ __('Display Name') }}"
                                 name="display_name" id="display_name">
                         </div>
-                        <div class="mb-3 col-12">
+                        {{-- <div class="mb-3 col-12">
                             <label class="form-label"> {{ __('Menu Url') }} </label>
                             <input type="text" class="form-control" placeholder="{{ __('Menu Url') }}" name="menu_url"
                                 id="menu_url">
-                        </div>
+                        </div> --}}
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{ __('Description') }} </label>
                             <textarea name="description" id="description" cols="10" rows="5"

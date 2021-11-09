@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Laratrust\Laratrust;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +13,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
+            LaratrustSeeder::class,
              AdminUserSeeder::class,
              SiteInfoSeeder::class,
              ContactUsSeeder::class,
              UserMenuSeeder::class,
-             NoticeBoardSeeder::class
+             NoticeBoardSeeder::class,
+             BasicSettingsSeeder::class,
          ]);
     }
 }

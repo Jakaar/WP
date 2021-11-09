@@ -3,6 +3,7 @@ namespace Itwizard\Adminpanel\Http\Controllers\Page;
 
 use App\Category;
 use App\Helper\Helper;
+use App\Models\ContentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,18 +16,6 @@ class PageManageController extends Controller
 
     public function index()
     {
-//        $categories = Category::whereNull('category_id')
-//            ->where('isEnabled', 1)
-//            ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')
-//            ->select(
-//                'categories.id',
-//                'categories.name',
-//                'wpanel_board_master.id as Bid',
-//                'wpanel_board_master.board_type',
-//            )
-//            ->with('childrenCategories')
-//            ->get();
-
         $content['data'] = DB::table('categories')
             ->whereNull('category_id')
             ->where('isEnabled', 1)
@@ -50,20 +39,19 @@ class PageManageController extends Controller
         $content['data'] = DB::table('categories')
             ->whereNull('category_id')
             ->where('isEnabled', 1)
-            ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')
-//            ->leftJoin('')
-            ->select(
-                'categories.id',
-                'categories.name',
-                'wpanel_board_master.id as Bid',
-                'wpanel_board_master.board_type',
-                'wpanel_board_master.isCategory',
-            )
             ->get();
         $content['detail'] = 1;
 
-//        $content['details'] =
-//        dd($content);
+        $content['type'] = DB::table('categories')
+//            ->select('categories.id','categories.board_master_id','wpanel_board_master.id as mId')
+            ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')
+            ->where('categories.id', $id)
+            ->first();
+
+        $content['categories'] = ContentCategory::where(['board_master_id'=>$id])
+            ->with('subCategories')
+            ->get();
+        dd($content['categories']);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
 }

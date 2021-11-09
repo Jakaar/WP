@@ -5,11 +5,13 @@ namespace Itwizard\Adminpanel\Http\ApiControllers\Preferences;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class PreferencesController extends Controller
 {   
     public function create(Request $request)
     {
+       try{
         \Artisan::call("config:cache");
         $model = DB::table('wpanel_settings')->insert([
             'display_name' => $request->name,
@@ -20,7 +22,11 @@ class PreferencesController extends Controller
             'details' => $request->details,       
         ]);
         \Artisan::call("config:cache");
-        return response()->json(['msg' => 'success', 'data' => $request->all()],200);
+        return response()->json(['msg' => 'success'],200);
+       }
+       catch(\Exception $e){
+        return response()->json(['msg' => $e]);
+       }    
     }
 
     public function update(Request $request){
@@ -31,7 +37,7 @@ class PreferencesController extends Controller
             ]);
         }
         \Artisan::call("config:cache");
-        return response()->json(['msg' => 'success'],200);
+        return response()->json(['msg' => 'success','data' => $request->all()],200);
         
     }
 
