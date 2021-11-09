@@ -7,15 +7,13 @@ use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
-use Itwizard\Adminpanel\Http\Controllers\Page\PageManageController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
 
 
-Route::get('/', function (){
-    return redirect('/cms/dashboard');
-});
-
+//Route::get('/', function (){
+//    return redirect('/cms/dashboard');
+//});
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
@@ -31,40 +29,31 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 //    Route::get('/news', [NewsController::class, 'index']);
 //    Route::get('/news/categories', [NewsController::class, 'category']);
 
-    
+
 //    Route::get('/permission/menu_manage', [MenuManageController::class,  'index']);
 
-//зөвхөн Owner role той хүн орох route group
-    Route::group(['middleware' => ['role:owner']],function(){
-        Route::get('/preferences',[PreferencesController::class, 'index']);
-    });
-
-   
     Route::get('/basic_setting', [SiteInfoController::class,  'index']);
     Route::get('/settings/seo_list', [SeoController::class,  'index']);
     Route::get('/settings/contactUs', [\Itwizard\Adminpanel\Http\Controllers\ContactUs\ContactUsController::class,  'index']);
 
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
 
-    Route::get('/manage_pages/manage_pages', [PageManageController::class, 'index']);
+    Route::get('/manage_pages', [\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'index']);
+    Route::get('/manage_pages/{slug}/page_content',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content']);
 
     Route::get('/myProfile', [MyProfileController::class, 'index']);
 
     Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
-    Route::get('/member_management/users', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
-    Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);
-    Route::get('/member_management/settings', [PermissionController::class, 'settings'])->middleware(['permission:permission-read']);
+    Route::get('/member_management/users', [PermissionController::class, 'Members']);
+    Route::get('/member_management/permission', [PermissionController::class, 'index']);
+    Route::get('/member_management/settings',[PermissionController::class, 'settings']);
 
     Route::get('/banner',[BannerController::class, 'index']);
 
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
 
-    
-
-    Route::get('/product_management/manageCategory',[\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'index']);
-    Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
-
+    Route::get('/preferences',[PreferencesController::class, 'index']);
     Route::get('/{slug}/{view}', function ($slug, $view){
        return view('Admin::pages.'.$slug.'.'.$view);
     });
