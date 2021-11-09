@@ -55,6 +55,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/preferences',[PreferencesController::class, 'index']);
 
+    Route::get('/product_management/manageCategory',[\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'index']);
+    Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
+
     Route::get('/{slug}/{view}', function ($slug, $view){
        return view('Admin::pages.'.$slug.'.'.$view);
     });
