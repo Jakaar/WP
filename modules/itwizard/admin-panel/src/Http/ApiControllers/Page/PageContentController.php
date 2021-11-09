@@ -12,21 +12,21 @@ class PageContentController extends Controller
     {
         $this->middleware('auth');
     }
-    public function singlePage(Request $request)
-    {
-        DB::table('wpanel_page_manage')
-        ->insert([
-            'priority' => $request->Priority,
-            'menu_group' => $request->GroupManage,
-            'page_name' => $request->PageName,
-            'connection' => $request->Connection,
-            'page_url' => $request->PageUrl,
-            'page_code' => $request->PageCode,
-            'page_content' => $request->PageContent,
-            'isEnable' => $request->isEnable,
-        ])   ;
-        return response()->json(['msg'=>'success'], 200);
-    }
+//    public function singlePage(Request $request)
+//    {
+//        DB::table('wpanel_page_manage')
+//        ->insert([
+//            'priority' => $request->Priority,
+//            'menu_group' => $request->GroupManage,
+//            'page_name' => $request->PageName,
+//            'connection' => $request->Connection,
+//            'page_url' => $request->PageUrl,
+//            'page_code' => $request->PageCode,
+//            'page_content' => $request->PageContent,
+//            'isEnable' => $request->isEnable,
+//        ])   ;
+//        return response()->json(['msg'=>'success'], 200);
+//    }
 //    public function index()
 //    {
 //        $data = DB::table('wpanel_page_manage')->get();
@@ -42,5 +42,22 @@ class PageContentController extends Controller
              ]);
 
         return response()->json(['msg'=>__('success')], 200);
+    }
+    public function contentcategory(Request $request)
+    {
+//        dd();
+
+//        try {
+            DB::table('content_categories')->insert([
+                'name'=>json_encode($request->NewCategoryName),
+                'content_category_id' => $request->parentId,
+                'isEnabled'=> 1,
+                'board_master_id'=> $request->menuId,
+            ]);
+            return redirect()->back();
+//        }catch (\Exception $exception)
+//        {
+//            return $exception;
+//        }
     }
 }

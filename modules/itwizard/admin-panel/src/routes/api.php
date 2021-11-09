@@ -52,7 +52,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/permission/settings/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class, 'permissionSettingsDelete']);
     Route::post('/permission/update', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionUpdate']);
     Route::post('/permission/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionDelete']);
-    
+
     Route::group(['middleware' => 'user_accessible'], function () {
         Route::post('/preferences/create', [PreferencesController::class, 'create']);
         Route::post('/preferences/update', [PreferencesController::class, 'update']);
@@ -68,6 +68,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/get/menu', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class, 'getMenu']);
     Route::post('/menu/update', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class, 'updateMenu']);
 
-    Route::post('/managepage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'singlePage']);
+    Route::post('/contentcategory/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'contentcategory']);
     Route::post('/managepage/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'DeletePage']);
+
 });
