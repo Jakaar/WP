@@ -525,7 +525,7 @@
             //     localStorage.setItem('latitude', position.coords.latitude)
             //     localStorage.setItem('longitude', position.coords.longitude)
             // }
-            const key = '{{ Config::get('setting.Weather_wapi') ?? '947c5c46b768464e9f621616210211' }}';
+            const key = '{{ Config::get('setting.Weather_wapi') ?? '947c5c46b768464e9f621616210211' }}'; 
             const q = '{{ Config::get('setting.Weather_wcity') ?? 'Seoul' }}';
 
             const url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + q + '&days=7&lang=ko';
@@ -567,7 +567,8 @@
                         }
 
                         $('#forecast').append(
-                            '<div class="col"> <div class="card shadow card-btm-border border-' + color[
+                            '<div class="col"> <div class="card shadow card-btm-border border-' +
+                            color[
                                 i] +
                             ' rounded-3 "> <div class="card-body dd text-center text-dark "> <img src=' +
                             item.day.condition.icon + '> <h5 class="fw-bold"> ' + week +
@@ -583,7 +584,7 @@
                     $('#weather-precipitation').text(current.precip_mm + '%')
                     $('#weather-location').text(location.name + ' / ' + location.country)
 
-                    if(location.localtime > '{{now()->format("Y-m-d")}} 13:00'){
+                    if (location.localtime > '{{ now()->format('Y-m-d') }} 13:00') {
                         var el = $('.dd');
                         el.addClass('bg-midnight-bloom')
 
@@ -599,6 +600,24 @@
                 });
         })
     </script>
+
+    @if (session()->has('error'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'info',
+                    title: '{{session()->get("error")}}',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            })
+        </script>
+    @endif
+<script>
+    Axios.defaults.headers.common = {
+        "user_id" : '{{Auth::user()->id}}'
+    }
+</script>
     @yield('script')
     @yield('modal')
 </body>
