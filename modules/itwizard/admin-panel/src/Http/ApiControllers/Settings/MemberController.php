@@ -19,7 +19,7 @@ class MemberController extends Controller
             if ($request->hasFile('avatar')) {
                 $model->avatar = $request->file('avatar')->store('avatar', 'public');
             }
-            if ($request->has('password')) {
+            if ($request->input('password') != null) {
                 $model->password = Hash::make($request->password);
             }
             $model->save();
@@ -68,6 +68,12 @@ class MemberController extends Controller
         $model->description = $request->description;
         $model->save();
 
+        return response()->json(['msg' => 'success'], 200);
+    }
+
+    public function permissionSettingsDelete(Request $request){
+        $model = \App\Models\Permission::where('id',$request->id);
+        $model->delete();
         return response()->json(['msg' => 'success'], 200);
     }
 
