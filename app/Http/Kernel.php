@@ -64,5 +64,10 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'wpanel_guard' => \App\Http\Middleware\GuardMiddleware::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
+        'user_accessible' => \App\Http\Middleware\UserAccessible::class,
     ];
 }
