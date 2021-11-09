@@ -12,9 +12,9 @@ use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
 
 
-Route::get('/', function (){
-    return redirect('/cms/dashboard');
-});
+//Route::get('/', function (){
+//    return redirect('/cms/dashboard');
+//});
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
@@ -30,7 +30,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 //    Route::get('/news', [NewsController::class, 'index']);
 //    Route::get('/news/categories', [NewsController::class, 'category']);
 
-    
+
 //    Route::get('/permission/menu_manage', [MenuManageController::class,  'index']);
 
     Route::get('/basic_setting', [SiteInfoController::class,  'index']);

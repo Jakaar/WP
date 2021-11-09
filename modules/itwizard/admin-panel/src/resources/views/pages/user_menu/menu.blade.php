@@ -361,6 +361,7 @@
                         }
                     },
                     highlight: function(element, errorClass, validClass) {
+
                         $(element).addClass("is-invalid").removeClass("is-valid");
                         const parantId = $(element).attr('data-parent-id');
                         $('#'+parantId).addClass("text-danger").removeClass("text-success");
@@ -369,7 +370,6 @@
                         const parantId = $(element).attr('data-parent-id');
                         $('#'+parantId).addClass("text-success").removeClass("text-danger");
                         $(element).addClass("is-valid").removeClass("is-invalid");
-
                     },
                 });
 

@@ -67,7 +67,6 @@ class MenuController extends Controller
         ]);
 
         return response()->json(['msg'=>__('success')] , 200);
-
     }
 
     public function getMenu(Request $request){

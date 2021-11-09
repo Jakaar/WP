@@ -8,3 +8,12 @@
     margin-top: 5px;
     margin-right: 10px;
 }
+html:lang(en){
+    font-family:'Rubik', sans-serif !important;
+}
+html:lang(mn){
+    font-family:'Rubik', sans-serif !important;
+}
+html:lang(kr){
+    font-family: 'Nanum Gothic', sans-serif !important;
+}

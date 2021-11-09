@@ -1,6 +1,6 @@
 // Form Validation
 
-$(document).ready(() => {
+// $(document).ready(() => {
   $("#signupForm").validate({
     rules: {
       firstname: "required",
@@ -60,4 +60,4 @@ $(document).ready(() => {
       $(element).addClass("is-valid").removeClass("is-invalid");
     },
   });
-});
+// });
