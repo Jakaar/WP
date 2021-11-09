@@ -501,17 +501,10 @@ return [
         'url'=>'cms/banner',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/banner',
                 'icon'=>'pe-7s-albums',
                 'name'=>'Banner management',
-                'child' => [
-                    [
-                        'url'=>'cms/banner',
-                        'icon'=>'',
-                        'name'=>'Banner management',
-                        'child' => null
-                    ],
-                ],
+                'child' => null,
             ],
 
 
