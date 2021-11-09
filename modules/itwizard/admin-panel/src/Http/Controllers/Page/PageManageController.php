@@ -51,7 +51,7 @@ class PageManageController extends Controller
         $content['categories'] = ContentCategory::where(['board_master_id'=>$id])
             ->with('subCategories')
             ->get();
-        dd($content['categories']);
+//        dd($content['categories']);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
 }
