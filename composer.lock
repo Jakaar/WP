@@ -929,7 +929,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/itwizard/admin-panel",
-                "reference": "7ca8e56084d65be735f62d6021e418ff82428812"
+                "reference": "48a49500a902e16eef7e6c65d79d8c3e709d0503"
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.3",
