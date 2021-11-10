@@ -41,17 +41,23 @@ class PageManageController extends Controller
             ->where('isEnabled', 1)
             ->get();
         $content['detail'] = 1;
-
         $content['type'] = DB::table('categories')
-//            ->select('categories.id','categories.board_master_id','wpanel_board_master.id as mId')
             ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')
             ->where('categories.id', $id)
+            ->select(
+                'categories.id',
+                'categories.board_master_id',
+                'wpanel_board_master.id as mId',
+                'wpanel_board_master.isCategory',
+                'wpanel_board_master.board_type'
+            )
             ->first();
 
-        $content['categories'] = ContentCategory::where(['board_master_id'=>$id])
+        $content['categories'] = ContentCategory::whereNull('content_category_id')
+            ->where(['board_master_id'=>$id])
             ->with('subCategories')
             ->get();
-//        dd($content['categories']);
+//        dd($content);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
 }
