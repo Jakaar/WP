@@ -36,7 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     //-- ì�´ë¯¸ì§€ ì—…ë¡œë“œ ê´€ë ¨ ì„¤ì •
     // config.language = 'en';
-    config.filebrowserImageUploadUrl = '/common/ckeditor_upload';
+    config.filebrowserImageUploadUrl = '/api/ck/file-upload';
 
 
     //dialogDefinition.removeContents('Link');

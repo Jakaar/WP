@@ -2,9 +2,7 @@
     <div class="card-body">
         <h1>single page</h1>
         <form action="">
-            <textarea name="editor1" id="editor1" rows="10" cols="80">
-                This is my textarea to be replaced with CKEditor 4.
-            </textarea>
+            <textarea name="editor1" id="editor1"></textarea>
         </form>
     </div>
 </div>
@@ -18,6 +16,10 @@
         }
         CKEDITOR.replace('editor1', {
             language : lang,
+            height: '840px',
         });
+        $('.save').on('click', function (){
+            console.log($('#editor1').val())
+        })
     </script>
 @endsection
