@@ -8,7 +8,8 @@ $(document).ready(() => {
       slidesToScroll: 1,
         arrows: false,
         infinite: true,
-        speed: 500,
+        speed: 800,
+        autoplay: true,
     });
 
     $(".slick-slider-3").slick({

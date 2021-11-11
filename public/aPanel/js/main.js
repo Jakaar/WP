@@ -59646,7 +59646,8 @@ $(document).ready(function () {
       slidesToScroll: 1,
       arrows: false,
       infinite: true,
-      speed: 500
+      speed: 800,
+      autoplay: true
     });
     $(".slick-slider-3").slick({
       dots: true,
@@ -62477,6 +62478,9 @@ $(document).ready(function () {
 
   setTimeout(function () {
     $(".vertical-nav-menu").metisMenu();
+    $(".vertical-nav-menu-content").metisMenu({
+      preventDefault: false
+    });
   }, 100); // Search wrapper trigger
 
   $(".search-icon").click(function () {

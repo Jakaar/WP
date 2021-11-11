@@ -22,6 +22,9 @@ $(document).ready(function(){
     // Sidebar Menu
     setTimeout(function () {
         $(".vertical-nav-menu").metisMenu();
+        $(".vertical-nav-menu-content").metisMenu({
+            preventDefault: false
+        });
       }, 100);
 
       // Search wrapper trigger
@@ -36,22 +39,22 @@ $(document).ready(function(){
 
       // BS5 Popover
 
-      var popoverTriggerList1 = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover-custom-content"]'));
-      var popoverList = popoverTriggerList1.map(function (popoverTriggerEl1) {
+    const popoverTriggerList1 = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover-custom-content"]'));
+    let popoverList = popoverTriggerList1.map(function (popoverTriggerEl1) {
         return new bootstrap.Popover(popoverTriggerEl1,
-          {
-            html: true,
-          placement: "auto",
-          template:
-            '<div class="popover popover-custom" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-          content: function () {
-            var id = $(this).attr("popover-id");
-            return $("#popover-content-" + id).html();
-          },
-          });
-      });
+            {
+                html: true,
+                placement: "auto",
+                template:
+                    '<div class="popover popover-custom" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+                content: function () {
+                    var id = $(this).attr("popover-id");
+                    return $("#popover-content-" + id).html();
+                },
+            });
+    });
 
-      // Stop Bootstrap 5 Dropdown for closing on click inside
+    // Stop Bootstrap 5 Dropdown for closing on click inside
 
       $(".dropdown-menu").on("click", function (event) {
         var events = $._data(document, "events") || {};
@@ -73,26 +76,26 @@ $(document).ready(function(){
       });
 
       var popoverTriggerList2 = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover-custom-bg"]'));
-      var popoverList = $('[data-bs-toggle="popover-custom-bg"]').each(function (popoverTriggerEl2) {
+    popoverList = $('[data-bs-toggle="popover-custom-bg"]').each(function (popoverTriggerEl2) {
         var popClass = $(this).attr('data-bg-class');
         return new bootstrap.Popover($(this), {
-          trigger: "focus",
-          placement: "top",
-          template:
-            '<div class="popover popover-bg ' +
-            popClass +
-            '" role="tooltip"><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+            trigger: "focus",
+            placement: "top",
+            template:
+                '<div class="popover popover-bg ' +
+                popClass +
+                '" role="tooltip"><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
         });
-      });
+    });
 
-      // BS5 Popover
+    // BS5 Popover
 
       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl);
-      });
+    });
 
-      $('[data-bs-toggle="popover-custom"]').each(function (i, obj) {
+    $('[data-bs-toggle="popover-custom"]').each(function (i, obj) {
         return new bootstrap.Popover($(this), {
           html: true,
           container: $(this).parent().find(".rm-max-width"),
