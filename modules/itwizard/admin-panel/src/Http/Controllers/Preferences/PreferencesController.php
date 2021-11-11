@@ -5,12 +5,17 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
+use Spatie\Activitylog\Models\Activity;
+use App\Helper\LogActivity;
+
 class PreferencesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
+
+
 
     public function index()
     {
@@ -23,5 +28,13 @@ class PreferencesController extends Controller
             'group' => $group,
         ]);
 
+    }
+
+    public function logger(Request $request){
+        $logs = \App\LogActivity::whereDate('created_at','<=', now()->format('Y-m-d h:i:s'))->orderby('created_at','DESC')->get();
+     
+        return view('Admin::pages.preferences.logger',[
+            'logs' => $logs,
+        ]);
     }
 }
