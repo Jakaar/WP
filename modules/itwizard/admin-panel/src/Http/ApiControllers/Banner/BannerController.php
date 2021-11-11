@@ -13,43 +13,23 @@ class BannerController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
- 
+    } 
     public function addbanner(Request $request)
     {
-            if($request->has('image'))
-            {
-                $image=$request->image;
-            }
-            else
-            {
-                $image='';
-            }
-            if($request->has('banner_content'))
-            {
-                $banner_content=$request->banner_content;
-            }
-            else
-            {
-                $banner_content='';
-            }
-            DB::table('wpanel_banners')->insert([
-                'group_name'=>$request->group_name,
-                'code'=>$request->code,
-                'image'=>$image,
-                'banner_content'=>$banner_content,   
-                'design_method'=>$request->design_method,
-                'priority'=>$request->priority,
-                'link_address'=>$request->link_address,
-                'isEnabled'=>$request->isEnabled,
-                'slug'=>Str::slug($request->group_name),
-                'daterange'=>$request->daterange,
-                "created_at" =>  \Carbon\Carbon::now(), 
-                "updated_at" => \Carbon\Carbon::now(), 
-            ]);
-            return response()->json(['icon'=>__('success')] , 200);         
-    
+        DB::table('wpanel_banners')->insert([
+            'group_name'=>$request->group_name,
+            'code'=>$request->code,
+            'banner_content'=>$request->editor,   
+            'priority'=>$request->priority,
+            'daterange'=>$request->daterange,
+            'slug'=>Str::slug($request->group_name),
+            'target_type'=>$request->target_type,
+            'type'=>$request->type,
+            'isEnabled'=>$request->isEnabled,
+            "created_at" =>  \Carbon\Carbon::now(), 
+            "updated_at" => \Carbon\Carbon::now(), 
+        ]);
+        return response()->json(['icon'=>__('success')] , 200);         
     }
     public function DeleteBanner($id)
     {
@@ -64,42 +44,18 @@ class BannerController extends Controller
         return response()->json($banner);
     }
     public function updateBanner(Request $request){
-        if($request->has('image1'))
-        {
-            $image=$request->image1;
-        }
-        else
-        {
-            $image='';
-        }
-        if($request->has('banner_content1'))
-        {
-            $banner_content=$request->banner_content1;
-        }
-        else
-        {
-            $banner_content='';
-        }
         DB::table('wpanel_banners')->where('id',$request->banner_id)->update([
             'group_name' => $request->group_name1,
             'code' => $request->code1,
-            'image' => $image,
-            'banner_content'=>$banner_content,
-            'design_method'=>$request->design_method1,
+            'banner_content'=>$request->ckeditor1,
             'priority'=>$request->priority1,
-            'link_address'=>$request->link_address1,
+            'daterange'=>$request->daterange1,
             'isEnabled'=>$request->isEnabled1,
+            'target_type'=>$request->target_type1,
+            'type'=>$request->type1,
             'slug'=>Str::slug($request->group_name1),
             "updated_at" => \Carbon\Carbon::now(), 
-            "created_at" => \Carbon\Carbon::now(),
         ]);
-
         return response()->json(['msg'=>__('success')] , 200);
-        //return $request->all();
-    }
-
-
-    
-
-  
+    }  
 }

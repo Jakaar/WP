@@ -44,10 +44,8 @@
         </div>
     </div>
 
-
     <div class="row">
         @foreach ($groups as $key => $group)
-
             <div class="col-md-6">
                 <div class="card mb-3 card-btm-border border-primary">
                     <div class="card-body">
@@ -57,28 +55,18 @@
                             <thead>
                                 <tr>
                                     <th> {{ __('Code') }} </th>
-                                    <th> {{ __('Banner') }} </th>
-                                    <th> {{ __('Design Method') }} </th>
+                                    <th> {{ __('Date Range') }} </th>
                                     <th> {{ __('Priority') }} </th>
                                     <th> {{ __('Active') }} </th>
                                     <th>{{ __('Edit/Delete') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-
                                 @foreach ($banners as $banner)
                                     @if ($group->group_name == $banner->group_name)
                                         <tr>
                                             <td>{{ $banner->code }} </td>
-                                            <td>
-                                                @if ($banner->design_method == 'html')
-                                                    {{ __('html') }}
-                                                @else
-                                                    {{ __('code') }}
-                                                @endif
-                                            </td>
-                                            <td>{{ $banner->design_method }}</td>
+                                            <td>{{ $banner->daterange }} </td>
                                             <td>{{ $banner->priority }}</td>
                                             <td>{{ $banner->isEnabled }}</td>
                                             <td>
@@ -93,26 +81,18 @@
                                             </td>
                                         </tr>
                                     @endif
-
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         @endforeach
-
-
-
     </div>
-
-
-
 @endsection
 
-
 @section('script')
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     <script>
         $('#new_table_1').DataTable({})
         $('#new_table_2').DataTable({})
@@ -125,50 +105,13 @@
         $('.ModalShowEdit').click(function() {
             $('#EditRoleModal').modal('show')
         })
-
-
-        function showDiv(select) {
-            if (select.value == 'image') {
-                document.getElementById('image').style.display = "block";
-                document.getElementById('editor').style.display = "none";
-            } else if (select.value == 'html') {
-                document.getElementById('editor').style.display = "block";
-                document.getElementById('image').style.display = "none";
-            } else {
-                document.getElementById('image').style.display = "none";
-                document.getElementById('editor').style.display = "none";
-            }
-        }
-
-        function showDivEdit(select) {
-            //alert(select.options[select.selectedIndex].text);
-
-            if (select.value == 'image') {
-                document.getElementById('editimage').style.display = "block";
-                document.getElementById('editeditor').style.display = "none";
-            } else if (select.value == 'html') {
-                document.getElementById('editeditor').style.display = "block";
-                document.getElementById('editimage').style.display = "none";
-            } else {
-                document.getElementById('editimage').style.display = "none";
-                document.getElementById('editeditor').style.display = "none";
-            }
-        }
-
-
         $(document).ready(function() {
-
-            let editor;
-            ClassicEditor.create(document.querySelector("#banner_content"))
-                .then((newEditor) => {
-                    editor = newEditor;
-                })
-
-            let editor1;
-            ClassicEditor.create(document.querySelector("#banner_content1"))
-                .then((newEditor) => {
-                    editor1 = newEditor;
-                })
+            CKEDITOR.replace('ckeditor', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            }); 
+            CKEDITOR.replace('ckeditor1', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            });            
             $('#createForm').validate({
                 errorPlacement: function(error, element) {
                     // Add the `invalid-feedback` class to the error element
@@ -188,7 +131,6 @@
                     const parantId = $(element).attr('data-parent-id');
                     $('#' + parantId).addClass("text-success").removeClass("text-danger");
                     $(element).addClass("is-valid").removeClass("is-invalid");
-
                 },
             });
             $('#updateForm').validate({
@@ -218,14 +160,14 @@
                     const data = {
                         group_name: $('#group_name').val(),
                         code: $('#code').val(),
-                        image: $('#image').val(),
-                        design_method: $('#design_method').val(),
-                        banner_content: editor.getData(),
+                        editor: CKEDITOR.instances.ckeditor.getData(),
                         priority: $('#priority').val(),
-                        link_address: $('#link_address').val(),
                         isEnabled: $('#isEnabled').val(),
                         daterange: $('#daterange').val(),
+                        target_type: $('#target_type').val(),
+                        type: $('#type').val(),
                     }
+                    console.log(data);
                     const headers = {
                         'Content-Type': 'multipart/form-data',
                         'Content-Type': 'Application/json'
@@ -250,7 +192,6 @@
                 }
             })
 
-
             $('.DeleteBanner').on('click', function() {
                 Swal.fire({
                     title: '{{ __('Are you sure?') }}',
@@ -270,7 +211,7 @@
                             )
                             setTimeout(function() {
                                 location.reload()
-                            }, 2000);
+                            }, 1000);
                         });
                     }
                 })
@@ -282,33 +223,15 @@
                 Axios.get('/api/editbanner/' + banner_id).then((resp) => {
                     $('#banner_id').val(resp.data.id);
                     $('#code1').val(resp.data.code);
-                    $('#banner1').val(resp.data.image);
                     $('#group_name1').val(resp.data.group_name);
                     $('#isEnabled1').val(resp.data.isEnabled);
                     $('#priority1').val(resp.data.priority);
-                    $('#link_address1').val(resp.data.link_address);
-                    $('#design_method1').val(resp.data.design_method);
-                    editor1.setData(resp.data.banner_content);
-                    $('#image1').val(resp.data.image);
-
-                    console.log(resp.data)
-                    
-                    if (resp.data.design_method == 'image') {
-                        document.getElementById('editimage').style.display = "block";
-                        document.getElementById('editeditor').style.display = "none";
-                    } else if (resp.data.design_method == 'html') {
-                        document.getElementById('editeditor').style.display = "block";
-                        document.getElementById('editimage').style.display = "none";
-                    } else {
-                        document.getElementById('editimage').style.display = "none";
-                        document.getElementById('editeditor').style.display = "none";
-                    }
-                    
+                    $('#daterange1').val(resp.data.daterange);
+                    $('#target_type1').val(resp.data.target_type);
+                    $('#type1').val(resp.data.type);
+                    CKEDITOR.instances.ckeditor1.setData(resp.data.banner_content);                
                 });
-
             });
-
-
 
             $('#update_banner').on('click', function() {
                 if ($('#updateForm').valid()) {
@@ -316,13 +239,12 @@
                         banner_id: $('#banner_id').val(),
                         group_name1: $('#group_name1').val(),
                         code1: $('#code1').val(),
-                        image1: $('#image1').val(),
-                        design_method1: $('#design_method1').val(),
-                        banner_content1: editor1.getData(),
+                        ckeditor1: CKEDITOR.instances.ckeditor1.getData(),
                         priority1: $('#priority1').val(),
-                        link_address1: $('#link_address1').val(),
                         isEnabled1: $('#isEnabled1').val(),
                         daterange1: $('#daterange1').val(),
+                        target_type1: $('#target_type1').val(),
+                        type1: $('#type1').val(),
                     }
                     const headers = {
                         'Content-Type': 'multipart/form-data',
@@ -348,11 +270,9 @@
                 }
             })
 
-
             $('#reload_page').click(function() {
                 location.reload(true);
             });
-
 
             $('input[name="daterange"]').daterangepicker({
                 startDate: moment().startOf("month"),
@@ -392,8 +312,7 @@
     </script>
 @endsection
 @section('modal')
-    <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -402,19 +321,17 @@
                 </div>
                 <div class="modal-body">
 
-
                     <div class="row">
                         <form action="#" id="createForm" class="row">
+
                             <div class="mb-3 col-lg-6">
                                 <label class="form-label"> {{ __('Code') }} </label>
-                                <input type="text" class="form-control" placeholder="{{ __('Code') }}" name="code"
-                                    id="code" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <input type="text" class="form-control" placeholder="{{ __('Code') }}" name="code" id="code" data-msg-required="{{ __('This Field is Required') }}" required>
                             </div>
 
                             <div class="mb-3 col-lg-6">
                                 <label for="exampleCity" class="form-label">{{ __('Is Used') }}</label>
-                                <select name="isEnabled" id="isEnabled" class="form-select form-control"
-                                    data-msg-required="{{ __('This Field is Required') }}" required>
+                                <select name="isEnabled" id="isEnabled" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
                                     <option value="{{ __('Used') }}">{{ __('Used') }}</option>
                                     <option value="{{ __('Not Used') }}">{{ __('Not Used') }}</option>
@@ -423,23 +340,19 @@
 
                             <div class="mb-3 col-lg-6">
                                 <label class="form-label"> {{ __('Banner Group') }} </label>
-                                <select name="group_name" id="group_name" class="form-select form-control"
-                                    data-msg-required="{{ __('This Field is Required') }}" required>
+                                <select name="group_name" id="group_name" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
                                     <option value="{{ __('Main Banner') }}">{{ __('Main Banner') }}</option>
                                     <option value="{{ __('Vertical Banner') }}">{{ __('Vertical Banner') }}</option>
-                                    <option value="{{ __('Horizontal Banner') }}">{{ __('Horizontal Banner') }}
-                                    </option>
+                                    <option value="{{ __('Horizontal Banner') }}">{{ __('Horizontal Banner') }}</option>
                                     <option value="{{ __('Left Banner') }}">{{ __('Left Banner') }}</option>
                                     <option value="{{ __('Right Banner') }}">{{ __('Right Banner') }}</option>
                                 </select>
                             </div>
 
-
                             <div class="mb-3 col-lg-6">
                                 <label class="form-label"> {{ __('Priority') }} </label>
-                                <select name="priority" id="priority" class="form-select form-control"
-                                    data-msg-required="{{ __('This Field is Required') }}" required>
+                                <select name="priority" id="priority" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
                                     <option value="1">{{ __('1') }}</option>
                                     <option value="2">{{ __('2') }}</option>
@@ -453,44 +366,41 @@
                                     <option value="10">{{ __('10') }}</option>
                                 </select>
                             </div>
+
                             <div class="mb-3 col-lg-6">
-                                <label class="form-label"> {{ __('Link Address') }} </label>
-                                <input type="text" class="form-control" placeholder="{{ __('Link Address') }}"
-                                    name="link_address" id="link_address"
-                                    data-msg-required="{{ __('This Field is Required') }}" required>
-                            </div>
-                            <div class="mb-3 col-lg-6">
-                                <label class="form-label"> {{ __('Design Method') }} </label>
-                                <select name="design_method" id="design_method" class="form-select form-control"
-                                    onchange="showDiv(this)" data-msg-required="{{ __('This Field is Required') }}"
-                                    required>
+                                <label class="form-label"> {{ __('Target Type') }} </label>
+                                <select name="target_type" id="target_type" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
-                                    <option value="image">{{ __('Image') }}</option>
-                                    <option value="html">{{ __('Html') }}</option>
+                                    <option value="{{__('_self')}}">{{ __('_self') }}</option>
+                                    <option value="{{__('_blank')}}">{{ __('_blank') }}</option>
+                                    <option value="{{__('_parent')}}">{{ __('_parent') }}</option>
+                                    <option value="{{__('_top')}}">{{ __('_top') }}</option>
                                 </select>
                             </div>
+                            <div class="mb-3 col-lg-6">
+                                <label class="form-label"> {{ __('Type') }} </label>
+                                <select name="type" id="type" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <option value="">{{ __('Select') }}</option>
+                                    <option value="{{__('_Pop Up')}}">{{ __('Pop Up') }}</option>
+                                    <option value="{{__('Simple')}}">{{ __('Simple') }}</option>
+                                </select>
+                            </div>
+                            
                             <div class="mb-3 col-lg-12">
                                 <label class="form-label"> {{ __('Posting Period') }} </label>
                                 <div class="input-group">
                                     <div class="input-group-text datepicker-trigger">
                                         <i class="fa fa-calendar-alt"></i>
                                     </div>
-                                    <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange"
-                                        id="daterange" placeholder="{{ __('Date Range') }}"
-                                        data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required>
                                 </div>
                             </div>
-                            <div class="mb-3 col-lg-12 image" id="image">
-                                <label class="form-label"> {{ __('File') }} </label>
-                                <input type="hidden" name="image" id="image">
-                                <button type="button" class="btn btn-outline-info w-100"
-                                    onclick="filemanager.selectFile('image')">{{ __('Image Select') }}</button>
-                                <img class="mw-100 " style="max-height: 150px;" id="logo-photo-preview" alt="">
+
+                            <div class="mb-3 col-lg-12">
+                                <label class="form-label"> {{ __('Banner Content') }} </label>
+                                <textarea  name="ckeditor" id="ckeditor" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
                             </div>
-                            <div class="mb-3 col-lg-12 editor" id="editor">
-                                <label class="form-label"> {{ __('Html Content') }} </label>
-                                <div class="position-relative mb-3" id="banner_content" name="banner_content"></div>
-                            </div>
+                    
                         </form>
                     </div>
 
@@ -517,14 +427,12 @@
                         <input type="hidden" id="banner_id" name="banner_id">
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Code') }} </label>
-                            <input type="text" class="form-control" placeholder="{{ __('Code') }}" name="code1"
-                                id="code1" data-msg-required="{{ __('This Field is Required') }}" required>
+                            <input type="text" class="form-control" placeholder="{{ __('Code') }}" name="code1" id="code1" data-msg-required="{{ __('This Field is Required') }}" required>
                         </div>
 
                         <div class="mb-3 col-lg-6">
                             <label for="exampleCity" class="form-label">{{ __('Is Used') }}</label>
-                            <select name="isEnabled1" id="isEnabled1" class="form-select form-control"
-                                data-msg-required="{{ __('This Field is Required') }}" required>
+                            <select name="isEnabled1" id="isEnabled1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 <option value="">{{ __('Select') }}</option>
                                 <option value="Used">{{ __('Used') }}</option>
                                 <option value="Not Used">{{ __('Not Used') }}</option>
@@ -533,8 +441,7 @@
 
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Banner Group') }} </label>
-                            <select name="group_name1" id="group_name1" class="form-select form-control"
-                                data-msg-required="{{ __('This Field is Required') }}" required>
+                            <select name="group_name1" id="group_name1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 <option value="">{{ __('Select') }}</option>
                                 <option value="{{ __('Main Banner') }}">{{ __('Main Banner') }}</option>
                                 <option value="{{ __('Vertical Banner') }}">{{ __('Vertical Banner') }}</option>
@@ -547,8 +454,7 @@
 
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Priority') }} </label>
-                            <select name="priority1" id="priority1" class="form-select form-control"
-                                data-msg-required="{{ __('This Field is Required') }}" required>
+                            <select name="priority1" id="priority1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 <option value="">{{ __('Select') }}</option>
                                 <option value="1">{{ __('1') }}</option>
                                 <option value="2">{{ __('2') }}</option>
@@ -562,41 +468,45 @@
                                 <option value="10">{{ __('10') }}</option>
                             </select>
                         </div>
+                        
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Link Address') }} </label>
-                            <input type="text" class="form-control" placeholder="{{ __('Link Address') }}"
-                                name="link_address1" id="link_address1"
-                                data-msg-required="{{ __('This Field is Required') }}" required>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Design Method') }} </label>
-                            <select name="design_method1" id="design_method1" class="form-select form-control"
-                                onclick="showDivEdit(this)" data-msg-required="{{ __('This Field is Required') }}"
-                                required>
+                            <label class="form-label"> {{ __('Target Type') }} </label>
+                            <select name="target_type1" id="target_type1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 <option value="">{{ __('Select') }}</option>
-                                <option value="image">{{ __('Image') }}</option>
-                                <option value="html">{{ __('Html') }}</option>
+                                <option value="{{__('_self')}}">{{ __('_self') }}</option>
+                                <option value="{{__('_blank')}}">{{ __('_blank') }}</option>
+                                <option value="{{__('_parent')}}">{{ __('_parent') }}</option>
+                                <option value="{{__('_top')}}">{{ __('_top') }}</option>
                             </select>
                         </div>
-                        <div class="mb-3 col-lg-12 image" id="editimage">
-                            <label class="form-label"> {{ __('File') }} </label>
-                            <input type="hidden" name="image1" id="image1">
-                            <button type="button" class="btn btn-outline-info w-100"
-                                onclick="filemanager.selectFile('image1')">{{ __('Image Select') }}</button>
-                            <img class="mw-100 " style="max-height: 150px;" id="logo-photo-preview" alt="">
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label"> {{ __('Type') }} </label>
+                            <select name="type1" id="type1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <option value="">{{ __('Select') }}</option>
+                                <option value="{{__('_Pop Up')}}">{{ __('Pop Up') }}</option>
+                                <option value="{{__('Simple')}}">{{ __('Simple') }}</option>
+                            </select>
                         </div>
-                        <div class="mb-3 col-lg-12 editor" id="editeditor">
-                            <label class="form-label"> {{ __('Html Content') }} </label>
-                            {{-- <textarea name="banner_content1" id="banner_content1" cols="30" rows="10" class="form-control"></textarea> --}}
-                            <div class="position-relative mb-3" id="banner_content1" name="banner_content1"></div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label"> {{ __('Posting Period') }} </label>
+                            <div class="input-group">
+                                <div class="input-group-text datepicker-trigger">
+                                    <i class="fa fa-calendar-alt"></i>
+                                </div>
+                                <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange1" id="daterange1" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label"> {{ __('Banner Content') }} </label>
+                            <textarea  name="ckeditor1" id="ckeditor1" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-info"
-                        data-bs-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="button" class="btn btn-success update-role"
-                        id="update_banner">{{ __('Save') }}</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-success update-role" id="update_banner">{{ __('Save') }}</button>
                 </div>
             </div>
         </div>

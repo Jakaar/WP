@@ -17,12 +17,11 @@ class CreateWpanelBannersTable extends Migration
             $table->bigIncrements('id');
             $table->string('group_name');
             $table->string('code');
-            $table->string('image')->nullable();
             $table->text('banner_content')->nullable();
-            $table->string('design_method');
             $table->integer('priority');
-            $table->string('link_address');
             $table->string('daterange');
+            $table->string('target_type');
+            $table->string('type');
             $table->string('slug');
             $table->string('isEnabled');
             $table->timestamps();
