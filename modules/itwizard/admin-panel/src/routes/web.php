@@ -55,6 +55,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
 
     Route::get('/preferences',[PreferencesController::class, 'index']);
+
+
+
     Route::get('/{slug}/{view}', function ($slug, $view){
        return view('Admin::pages.'.$slug.'.'.$view);
     });

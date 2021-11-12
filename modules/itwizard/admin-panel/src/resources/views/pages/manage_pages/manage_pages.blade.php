@@ -53,9 +53,7 @@
 @section('script')
 <script>
     $(document).ready(function () {
-        $('.CreateCategoryModal').on('click', function (){
-            $('#CreateCategoryModal').modal('show');
-        });
+
         $('.GetPageContent').on('click',function (){
             Axios.get('/api/GetPageContent/'+$(this).data('key')).then((r)=>{
                console.log(r)

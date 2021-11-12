@@ -60,4 +60,8 @@ class PageContentController extends Controller
 //            return $exception;
 //        }
     }
+    public function contentcreate(Request $request)
+    {
+        dd($request->all());
+    }
 }

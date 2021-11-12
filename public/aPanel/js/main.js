@@ -62522,7 +62522,7 @@ $(document).ready(function () {
     event.stopPropagation(); //Always stop propagation
   });
   var popoverTriggerList2 = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover-custom-bg"]'));
-  var popoverList = $('[data-bs-toggle="popover-custom-bg"]').each(function (popoverTriggerEl2) {
+  popoverList = $('[data-bs-toggle="popover-custom-bg"]').each(function (popoverTriggerEl2) {
     var popClass = $(this).attr('data-bg-class');
     return new bootstrap.Popover($(this), {
       trigger: "focus",
@@ -62532,7 +62532,7 @@ $(document).ready(function () {
   }); // BS5 Popover
 
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl);
   });
   $('[data-bs-toggle="popover-custom"]').each(function (i, obj) {
@@ -63270,6 +63270,18 @@ $(document).ready(function () {
     }
   });
 }); // -- Manage page edit End --
+//DataTable Options
+
+window.option1 = {
+  "language": {
+    paginate: {
+      next: '&#8594;',
+      // or '→'
+      previous: '&#8592;' // or '←'
+
+    }
+  }
+}; //End Datatable Options
 
 /***/ }),
 

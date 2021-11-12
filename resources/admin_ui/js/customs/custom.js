@@ -886,3 +886,14 @@ $(document).ready(function(){
     });
 })
 // -- Manage page edit End --
+
+//DataTable Options
+window.option1 = {
+    "language": {
+        paginate: {
+            next: '&#8594;', // or '→'
+            previous: '&#8592;' // or '←'
+        }
+    }
+}
+//End Datatable Options
