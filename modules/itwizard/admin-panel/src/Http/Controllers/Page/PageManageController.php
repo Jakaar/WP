@@ -7,6 +7,8 @@ use App\Models\ContentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 class PageManageController extends Controller
 {
     public function __construct()
@@ -57,6 +59,24 @@ class PageManageController extends Controller
             ->where(['board_master_id'=>$id])
             ->with('subCategories')
             ->get();
+
+        $boardData = DB::table('wpanel_board_data')
+//                ->where('board_master_id', $temp->id)
+            ->where('category_id', $id)
+            ->get();
+//        dd($boardData);
+            if (count($boardData) > 1)
+            {
+                dd('ih');
+//            $content['PageData'] = $boardData;
+            } else if(count($boardData) == 0){
+//                dd('hooson');
+                $content['PageData'] = null;
+            } else if(count($boardData) <= 1){
+//                dd('baga');
+                $boardData[0]->content = json_decode($boardData[0]->content, true);
+                $content['PageData'] = $boardData[0];
+            }
 //        dd($content);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }

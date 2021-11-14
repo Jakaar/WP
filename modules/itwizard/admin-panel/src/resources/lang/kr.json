@@ -619,5 +619,6 @@
     "Menu Registration": "메뉴 등록",
     "Parent Category": "부모 카테고리",
     "Classification of use": "사용구분",
-    "Category name": "카테고리 이름"
+    "Category name": "카테고리 이름",
+    "The :Name version is empty.": ":Name 에디터에 내용을 입력해 주세요!"
 }

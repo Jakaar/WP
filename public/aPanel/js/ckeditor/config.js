@@ -43,7 +43,11 @@ CKEDITOR.editorConfig = function( config ) {
     //dialogDefinition.removeContents('advanced');
 
     //-- í™ˆíŽ˜ì�´ì§€  CSS include
-    config.contentsCss = ['/client/static/css/8dcfab18-ba4d-4fff-b9ff-dcc3c1118581.css','/client/static/css/17d9acd2-0544-4e83-bc5b-281bcf97b1ff.css'];
+    config.contentsCss = [
+        '/client/static/css/8dcfab18-ba4d-4fff-b9ff-dcc3c1118581.css',
+        '/client/static/css/17d9acd2-0544-4e83-bc5b-281bcf97b1ff.css',
+        'https://use.fontawesome.com/releases/v5.0.6/css/all.css'
+    ];
 };
 
 //ì�´ë¯¸ì§€ íŒŒì�¼ ì—…ë¡œë“œ ë‹¤ì�´ì–¼ë¡œê·¸ ë‚´ ë§�í�¬, ê³ ê¸‰ íƒ­ ì œê±°

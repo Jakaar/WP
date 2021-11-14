@@ -4,6 +4,7 @@ namespace Itwizard\Adminpanel\Http\ApiControllers\Page;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use mysql_xdevapi\Table;
 use Symfony\Component\Console\Input\Input;
 class PageContentController extends Controller
@@ -62,6 +63,36 @@ class PageContentController extends Controller
     }
     public function contentcreate(Request $request)
     {
-        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            "editor"    => "required|array",
+            "editor.*"  => "required",
+        ]);
+
+        if ($validator->fails())
+        {
+            $langs = [];
+            foreach (array_keys($validator->errors()->getMessages()) as $errors)
+            {
+                $errors = DB::table('wpanel_available_language')->where('country_code',explode('.',$errors)[1])->first();
+                array_push($langs, $errors->country);
+            }
+            return back()->withErrors($langs);
+        }
+        if ($validator->passes())
+        {
+            try {
+                $data = json_encode($validator->validated()['editor'], true);
+                DB::table('wpanel_board_data')->insert([
+                   'title'=>'null',
+                    'board_master_id' => 0,
+                    'category_id' => 15,
+                    'content' => $data
+                ]);
+            }
+                catch (\Exception $exception)
+            {
+                return $exception;
+            }
+        }
     }
 }

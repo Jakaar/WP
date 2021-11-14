@@ -3,13 +3,13 @@
 {{--        @php--}}
 {{--            dump($content)--}}
 {{--        @endphp--}}
-        <div class="mb-3">
+        <div class="">
             <div class="card-header-tab card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-bicycle icon-gradient bg-love-kiss"></i>
 {{--                    Header Alternate Tabs--}}
                 </div>
-                <ul class="nav">
+                <ul class="nav tabs-animated">
                     @php $i = 1; $n = 1; @endphp
                     @foreach($data['langs'] as $lang)
                         <li class="nav-item">
@@ -20,19 +20,33 @@
                 </ul>
             </div>
             <div class="card-body">
-                <form action="{{route('save.content')}}" method="POST">
+                @if($errors->all())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ __('The :Name version is empty.', ['name' => $error]) }}</li>
+                        @endforeach
+                    </div>
+                @endif
+                <form id="addNewItemForm" name="addNewItemForm" action="{{route('save.content')}}" method="POST">
                     @csrf
-                    <div class="tab-content">
+                    <div class="tab-content contentEditor">
                         @foreach($data['langs'] as $lang)
-                            <div class="tab-pane contentEditor @if($n == 1) active @endif" id="tab-eg5-{{$lang->id}}" role="tabpanel">
+                            <div class="tab-pane fade @if($n == 1) active show @endif" id="tab-eg5-{{$lang->id}}" role="tabpanel">
                                 <h1>{{$lang->country}}</h1>
-                                <textarea name="editor[{{$lang->country_code}}]" id="editor[{{$lang->country_code}}]"></textarea>
+                                <textarea name="editor[{{$lang->country_code}}]" id="editor{{$lang->country_code}}" value="" required="required">
+                                    {!! $content['PageData']->content[$lang->country_code] !!}
+                                </textarea>
                             </div>
                             @php $n++; @endphp
                         @endforeach
                     </div>
-                    <div class="d-block text-end card-footer">
-                        <button type="submit" class="btn-wide btn-shadow btn btn-danger">Save</button>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="float-end">
+                                <button id="subData" type="button" class="btn-wide btn-shadow btn btn-outline-success mt-2">{{__('Save')}}</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -42,20 +56,25 @@
 @section('script')
     <script src="{{asset('aPanel/js/ckeditor/ckeditor.js')}}"></script>
     <script type="text/javascript">
-        let lang = '{{Session::get('locale')}}';
-        if (lang === 'kr')
-        {
-            lang = 'ko'
-        }
-        $.each($('.contentEditor textarea'), (i,v) =>{
-            CKEDITOR.replace(v.id, {
-                language : lang,
-                height: '840px',
+        $(document).ready(function (){
+            let lang='{{Session::get('locale')}}';if(lang==='kr'){lang = 'ko'}
+            let editors = [];
+            $.each($('.contentEditor textarea'), (i,v) =>{
+                const editor = CKEDITOR.replace(v.id, {
+                    language : lang,
+                    height: '840px',
+                    addAttribute: 'required'
+                });
+                editors.push(editor)
             });
-            console.log(i,v)
-        });
-        $('.save').on('click', function (){
-            console.log($('#editor1').val())
+            $('#subData').click(function() {
+                $.each(editors, (i,v) =>{
+                    const html = v.getData();
+                    $('#'+v.name).html(html);
+                });
+                $('#addNewItemForm').submit()
+            })
+
         })
     </script>
 @endsection
