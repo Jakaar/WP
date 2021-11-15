@@ -58,6 +58,12 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/update', [PreferencesController::class, 'update']);
         Route::post('/preferences/delete', [PreferencesController::class, 'delete']);
         Route::post('/preferences/change', [PreferencesController::class, 'change']);
+
+        Route::post('/preferences/menu/create', [PreferencesController::class, 'menuCreate']);
+        Route::post('/preferences/menu/update',[PreferencesController::class, 'menuUpdate']);
+        Route::post('/preferences/menu/updates',[PreferencesController::class, 'menuUpdates']);
+        Route::post('/preferences/menu/single',[PreferencesController::class, 'menuSingle']);
+        Route::post('/preferences/menu/delete',[PreferencesController::class, 'menuDelete']);
     });
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'show']);

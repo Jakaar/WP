@@ -35,7 +35,7 @@
         </span>
     </div>
     <div class="app-header__content">
-        <div class="app-header-left">
+        {{-- <div class="app-header-left">
             <div class="search-wrapper">
                 <div class="input-holder">
                     <input type="text" class="search-input" placeholder="Type to search">
@@ -45,10 +45,10 @@
                 </div>
                 <button class="btn-close"></button>
             </div>
-        </div>
+        </div> --}}
         <div class="app-header-right">
             <div class="header-dots">
-                <div class="dropdown">
+                {{-- <div class="dropdown">
                     <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-danger"></span>
@@ -344,7 +344,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 <div class="dropdown">
                     <button type="button" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">

@@ -9,11 +9,18 @@ use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
-
+use Spatie\Activitylog\Models\Activity;
 
 //Route::get('/', function (){
 //    return redirect('/cms/dashboard');
 //});
+
+Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function(){
+    Route::get('/preferences',[PreferencesController::class, 'index']);
+    Route::get('/preferences/logger',[PreferencesController::class, 'logger']);
+    Route::get('/preferences/menu',[PreferencesController::class, 'menu']);
+});
+
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
@@ -45,9 +52,10 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/myProfile', [MyProfileController::class, 'index']);
 
     Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
-    Route::get('/member_management/users', [PermissionController::class, 'Members']);
-    Route::get('/member_management/permission', [PermissionController::class, 'index']);
-    Route::get('/member_management/settings',[PermissionController::class, 'settings']);
+
+    Route::get('/member_management/users', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
+    Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);
+    Route::get('/member_management/settings', [PermissionController::class, 'settings'])->middleware(['permission:permission-read']);
 
     Route::get('/banner',[BannerController::class, 'index']);
 
@@ -62,11 +70,8 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
 
-    Route::get('/preferences',[PreferencesController::class, 'index']);
-
-
-
     Route::get('/{slug}/{view}', function ($slug, $view){
+       
        return view('Admin::pages.'.$slug.'.'.$view);
     });
     Route::get('/{slug}', function ($slug){
