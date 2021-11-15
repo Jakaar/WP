@@ -43,7 +43,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.extraPlugins = [
         'ckawesome',
         'wenzgmap',
-        'youtube',
+        'youtubebootstrap',
         'qrc'
         // 'N1ED-editor'
     ];

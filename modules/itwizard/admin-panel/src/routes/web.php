@@ -60,7 +60,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/banner',[BannerController::class, 'index']);
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
-    
+
     Route::get('/basic_setting/adminSettings',[PermissionController::class, 'adminSettings']);
     Route::get('/member_management/secessionist',[PermissionController::class, 'secessionist']);
 
@@ -70,11 +70,15 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
 
-    Route::get('/{slug}/{view}', function ($slug, $view){
-       
-       return view('Admin::pages.'.$slug.'.'.$view);
-    });
-    Route::get('/{slug}', function ($slug){
-        return view('Admin::pages.'.$slug.'.index');
+//    Route::get('/{slug}/{view}', function ($slug, $view){
+//
+//       return view('Admin::pages.'.$slug.'.'.$view);
+//    });
+//    Route::get('/{slug}', function ($slug){
+//        return view('Admin::pages.'.$slug.'.index');
+//    });
+    Route::get('/test',function (){
+        $user = \App\User::find(1);
+        $user->attachRole('owner');
     });
 });
