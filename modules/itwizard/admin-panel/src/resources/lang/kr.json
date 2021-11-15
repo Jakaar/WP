@@ -207,6 +207,7 @@
     "success": "성공",
     "error": "오류",
     "Notice Board Management": "게시판 관리",
+    "Notice Board Manage": "게시판 관리",
     "Popup": "팝업",
     "Gallery photos": "갤러리 사진",
     "Bulletin Board Manage": "게시판 관리",
@@ -534,6 +535,7 @@
     "Total User": "총 사용자 수",
     "Firstname": "명",
     "Lastname": "성",
+    "lastname": "성",
     "Roles": "역할",
     "Create new role": "새 역할 생성",
     "Create role": "역할 생성",
@@ -621,5 +623,15 @@
     "Classification of use": "사용구분",
     "Category name": "카테고리 이름",
     "The :Name version is empty.": ":Name 에디터에 내용을 입력해 주세요!",
-    "Successfully Saved": "성공적으로 저장되었습니다."
+    "Create Member": "회원 생성",
+    "User Role": "사용자 역할",
+    "Fixed Code": "수정된 코드",
+    "User edit & delete": "사용자 편집 및 삭제",
+    "User roles manage": "사용자 역할 관리",
+    "WINDOW": "창",
+    "Create Main Menu": "메인 메뉴 생성",
+    "Current Tab": "현재 탭",
+    "New Tab": "새로운 탭",
+    "Target Type": "목표형",
+    "Banner Content": "배너 내용"
 }
