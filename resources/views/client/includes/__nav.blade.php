@@ -6,7 +6,7 @@
 {{--        </a>--}}
         <ul>
             @foreach ($child_category->categories as $childCategory)
-                @include('includes.__nav', ['child_category' => $childCategory])
+                @include('client.includes.__nav', ['child_category' => $childCategory])
             @endforeach
         </ul>
     @else

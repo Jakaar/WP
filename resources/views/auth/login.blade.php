@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="{{Session::get('locale')}}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,6 +41,27 @@
                                     </div>
                                     <div>
                                         <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
+                                            <div class="slide-img-bg" style="background-image: url('{{asset('aPanel/imgs/citydark.jpg')}}');"></div>
+                                            <div class="slider-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-arielle-smile" tabindex="-1">
+                                            <div class="slide-img-bg" style="background-image: url('{{asset('aPanel/imgs/login2.jpg')}}');"></div>
+                                            <div class="slider-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
+                                            <div class="slide-img-bg" style="background-image: url('{{asset('aPanel/imgs/citynights.jpg')}}');"></div>
+                                            <div class="slider-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
                                             <div class="slide-img-bg" style="background-image: url('{{asset('aPanel/imgs/login1.jpg')}}');"></div>
                                             <div class="slider-content">
 {{--                                                <h3>Scalable, Modular, Consistent</h3>--}}
@@ -65,20 +86,27 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="rm-pointers">
-                                            @if(session()->get('locale') == 'kr')
-                                        <a href="/lang/en" type="button" class="float-right" style="float:right">
-                                            <span class="icon-wrapper icon-wrapper-alt">
-                                                <span class="icon-wrapper-bg "></span>
-                                                <span class="language-icon opacity-8 flag large  US "></span>
-                                            </span>
-                                        </a>
-                                            @else
-                                         <a href="/lang/kr" type="button" class="float-right" style="float:right">
-                                            <span class="icon-wrapper icon-wrapper-alt">
-                                                <span class="icon-wrapper-bg "></span>
-                                                <span class="language-icon opacity-8 flag large  KR "></span>
-                                            </span>
-                                         </a>
+                                            @if(session()->get('locale') == 'en')
+                                                <a href="/lang/mn" type="button" class="float-right" style="float:right">
+                                                    <span class="icon-wrapper icon-wrapper-alt">
+                                                        <span class="icon-wrapper-bg "></span>
+                                                        <span class="language-icon opacity-8 flag large  US "></span>
+                                                    </span>
+                                                </a>
+                                            @elseif(session()->get('locale') == 'kr')
+                                                 <a href="/lang/en" type="button" class="float-right" style="float:right">
+                                                    <span class="icon-wrapper icon-wrapper-alt">
+                                                        <span class="icon-wrapper-bg "></span>
+                                                        <span class="language-icon opacity-8 flag large  KR "></span>
+                                                    </span>
+                                                 </a>
+                                            @elseif(session()->get('locale') == 'mn')
+                                                <a href="/lang/kr" type="button" class="float-right" style="float:right">
+                                                    <span class="icon-wrapper icon-wrapper-alt">
+                                                        <span class="icon-wrapper-bg "></span>
+                                                        <span class="language-icon opacity-8 flag large  MN "></span>
+                                                    </span>
+                                                </a>
                                             @endif
                                         </div>
                                     </div>
