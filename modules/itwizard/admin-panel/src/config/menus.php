@@ -197,7 +197,7 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/adminSettings',
                 'icon'=>'pe-7s-user',
                 'name'=>'Administrator settings',
                 'colorClass'=>'index',
