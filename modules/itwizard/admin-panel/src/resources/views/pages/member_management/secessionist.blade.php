@@ -33,18 +33,21 @@
                                     <th> {{__('Name')}} </th>
                                     <th> {{__('Reason')}} </th>
                                     <th> {{__('Date')}} </th>
-                                    <th> {{__('Action')}} </th>
+                                    <!-- <th> {{__('Action')}} </th> -->
                                 </tr>
                             </thead>
-                            {{-- <tbody>
+                            <tbody>
+                                @foreach ($data as $data_admin)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                 
+                                    <td>{{ $data_admin-> id}}</td>
+                                    <td>{{ $data_admin-> firstname}}</td>
+                                    <td>{{ $data_admin-> reason}}</td>
+                                    <td>{{ $data_admin-> date}}</td>
                                 </tr>
-                            </tbody> --}}
+                            
+                                @endforeach
+                            </tbody> 
                         </table>
                     </div>
                 </div>

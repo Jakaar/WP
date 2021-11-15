@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Carbon\Carbon;
 class PermissionController extends Controller
 {
     public function __construct()
@@ -105,5 +105,73 @@ class PermissionController extends Controller
        }
        
       
+    }
+
+    public function userSettingsCreate(Request $request){
+        // return $request->all();
+            DB::table('users')->insert([
+                'firstname'=>$request->firstname,
+                'lastname'=>$request->lastname,
+                'email'=>$request->email,
+                'avatar'=>NULL,
+                'email_verified_at'=>NULL,
+                'password'=> Hash::make($request->password),
+                'remember_token'=>NULL,
+                'isEnabled'=> 1,
+                'created_at'=> \Carbon\Carbon::now(),
+            ]);
+            return response()->json(['msg'=>__('success')] , 200);
+    }
+
+    public function userSettingsDelete(Request $request)
+    {
+        // dd( $request->delete_id);
+        DB::table('users')->where('id', $request->delete_id)->update([
+            'isEnabled' => 0
+        ]);
+        return response()->json(200,200);
+    }
+    
+    public function adminEdit(Request $request){
+        
+            $data = DB::table('users')->where('id',$request->admin_edit_id)->first();
+             return response()->json(['msg' => __('sucess'),'data' => $data],200);
+    }
+
+
+
+    public function adminUpdate(Request $request){
+    //   dd($request->reason);
+            $updated = DB::table('users')->where('id', $request->id);
+
+            if ($request->firstname!= Null || $request->lastname!= Null || $request->email != Null  ) {
+                $updated->update([
+                    'firstname'=>$request->firstname,
+                    'lastname'=>$request->lastname,
+                    'email'=>$request->email,
+                    'avatar'=>NULL,
+                    'email_verified_at'=>NULL,
+                    'remember_token'=>NULL,
+                    'isEnabled' => 1,
+                    'updated_at'=> \Carbon\Carbon::now(),
+
+                ]);
+            }
+
+            if ($request->password!= Null) {
+                    $updated->update([
+                        'password'=> Hash::make($request->password),
+                    ]);
+                }
+
+            if ($request->reason!= Null) {
+                $updated->update([
+                    'reason'=> $request->reason,
+                    'date'=> \Carbon\Carbon::now(),
+                ]); 
+
+            }
+            return response()->json(['msg'=>__('success')] , 200);
+            
     }
 }
