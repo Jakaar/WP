@@ -82,12 +82,19 @@ class PageContentController extends Controller
         {
             try {
                 $data = json_encode($validator->validated()['editor'], true);
-                DB::table('wpanel_board_data')->insert([
-                   'title'=>'null',
-                    'board_master_id' => 0,
-                    'category_id' => 15,
-                    'content' => $data
-                ]);
+
+//                dd($data, $request->all());
+
+                if ($request->type === 'SinglePage')
+                {
+                    DB::table('wpanel_board_data')->updateOrInsert(['category_id'=> explode('/',$request->option)[5]], [
+                        'title'=>'null',
+                        'board_master_id' => 0,
+                        'category_id' => explode('/',$request->option)[5],
+                        'content' => $data
+                    ]);
+                    return back()->with('message', 'Successfully Saved');
+                }
             }
                 catch (\Exception $exception)
             {
