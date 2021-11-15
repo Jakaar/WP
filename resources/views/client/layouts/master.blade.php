@@ -29,9 +29,11 @@
         }
     </style>
 </head>
-    <body>
+    <body class="sections-page">
         @include('client.includes.header')
-            @yield('content')
+            <div class="wrapper">
+                @yield('content')
+            </div>
         @include('client.includes.footer')
 
         @foreach($static['js'] as $js)

@@ -28,6 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.allowedContent = true;
     CKEDITOR.dtd.$removeEmpty.i = false;
     config.extraAllowedContent = 'span(*)';
+
     // config.uiColor = '#F7B42C';
     config.removeButtons = 'Underline,Subscript,Superscript';
     config.enterMode =		CKEDITOR.ENTER_BR;		//ì—”í„°í‚¤ ìž…ë ¥ì‹œ br íƒœê·¸ ë³€ê²½
@@ -39,7 +40,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserImageUploadUrl = '/api/ck/file-upload';
     // config.allowedContent = true;
     // config.toolbar = [['Source', '-', 'NewPage', '-', 'Templates','fontawesome5']];
-    config.extraPlugins = 'ckawesome';
+    config.extraPlugins = ['ckawesome','wenzgmap'];
     config.fillEmptyBlocks = false;
     config.FormatOutput = false;
     // config.ProcessHTMLTags = false ;
