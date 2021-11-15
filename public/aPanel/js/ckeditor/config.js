@@ -40,7 +40,14 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserImageUploadUrl = '/api/ck/file-upload';
     // config.allowedContent = true;
     // config.toolbar = [['Source', '-', 'NewPage', '-', 'Templates','fontawesome5']];
-    config.extraPlugins = ['ckawesome','wenzgmap','youtube'];
+    config.extraPlugins = [
+        'ckawesome',
+        'wenzgmap',
+        'youtube',
+        'qrc'
+        // 'N1ED-editor'
+    ];
+    // config.apiKey = "8DVZDFLT";
     config.fillEmptyBlocks = false;
     config.FormatOutput = false;
     // config.ProcessHTMLTags = false ;
