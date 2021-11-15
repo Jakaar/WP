@@ -53,6 +53,19 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/permission/update', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionUpdate']);
     Route::post('/permission/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionDelete']);
     
+    Route::post('/mail/create',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailCreate']);
+    Route::post('/mail/update',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailUpdate']);
+    Route::post('/mail/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailDelete']);
+    Route::post('/mail/edit',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailEdit']);
+    Route::post('/mail/send',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailSend']);
+
+    Route::post('/permission/settingsCreate',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'userSettingsCreate']);
+    Route::post('/permission/settingsDelete',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'userSettingsDelete']);
+    Route::post('/permission/adminEdit',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'adminEdit']);
+    Route::post('/permission/adminUpdate',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'adminUpdate']);
+
+    
+
     Route::group(['middleware' => 'user_accessible'], function () {
         Route::post('/preferences/create', [PreferencesController::class, 'create']);
         Route::post('/preferences/update', [PreferencesController::class, 'update']);
