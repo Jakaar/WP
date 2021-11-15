@@ -67,8 +67,8 @@ class PageManageController extends Controller
 //        dd($boardData);
             if (count($boardData) > 1)
             {
-                dd('ih');
-//            $content['PageData'] = $boardData;
+//                dd('ih');
+            $content['PageData'] = $boardData;
             } else if(count($boardData) == 0){
 //                dd('hooson');
                 $content['PageData'] = null;
