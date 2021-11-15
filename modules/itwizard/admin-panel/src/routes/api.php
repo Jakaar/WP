@@ -52,19 +52,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/permission/settings/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class, 'permissionSettingsDelete']);
     Route::post('/permission/update', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionUpdate']);
     Route::post('/permission/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionDelete']);
-    
-    Route::post('/mail/create',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailCreate']);
-    Route::post('/mail/update',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailUpdate']);
-    Route::post('/mail/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailDelete']);
-    Route::post('/mail/edit',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailEdit']);
-    Route::post('/mail/send',[\Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,'mailSend']);
-
-    Route::post('/permission/settingsCreate',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'userSettingsCreate']);
-    Route::post('/permission/settingsDelete',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'userSettingsDelete']);
-    Route::post('/permission/adminEdit',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'adminEdit']);
-    Route::post('/permission/adminUpdate',[\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class,'adminUpdate']);
-
-    
 
     Route::group(['middleware' => 'user_accessible'], function () {
         Route::post('/preferences/create', [PreferencesController::class, 'create']);
@@ -81,6 +68,13 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/get/menu', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class, 'getMenu']);
     Route::post('/menu/update', [\Itwizard\Adminpanel\Http\ApiControllers\Content\MenuController::class, 'updateMenu']);
 
-    Route::post('/managepage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'singlePage']);
+    Route::post('/contentcategory/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'contentcategory']);
+    Route::post('/content/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'contentcreate'])->name('save.content');
     Route::post('/managepage/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'DeletePage']);
+
+    Route::post('/ck/file-upload', function (Request $request){
+        return response()->json(['uploaded'=>true, 'fileName'=>'xxxxcx.jpg','url'=>'/client/static/img/faces/team-2.jpg'], 200);
+//        dd($request->all());
+    });
+
 });

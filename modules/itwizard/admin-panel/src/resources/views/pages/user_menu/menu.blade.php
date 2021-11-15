@@ -351,6 +351,7 @@
                     localStorage.setItem('MenuParentId', $(this).attr('key'));
                 });
                 $('#createForm').validate({
+                    ignore:"",
                     errorPlacement: function(error, element) {
                         // Add the `invalid-feedback` class to the error element
                         error.addClass("invalid-feedback");
@@ -378,6 +379,7 @@
                     if($('#createForm').valid())
                     {
                             const langs = {!! $data['langs'] !!};
+
                             let dataJ = {}
                             $.each(langs, function (i, v){
                                 const inp = $('#BoardName'+v.country_code).val()
@@ -385,12 +387,14 @@
                                 const code = v.country_code
                                 dataJ[code] = inp
                             });
+
                             const data = {
                                 MenuName: JSON.stringify(dataJ),
                                 OpenType: $("input[name='target']:checked").val(),
                                 parent_id: $('#CreateMenuModal').attr('key'),
                                 board_id: $('#JoinedBoard').val(),
                             };
+
                             Axios.post('/api/CreateMenu', data).then((resp) => {
                                 Toast.fire({
                                     icon: 'success',

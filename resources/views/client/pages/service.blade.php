@@ -1,4 +1,5 @@
 @extends('client.layouts.master')
+@inject('t','App\Helper\Helper')
 @section('content')
     <header class="header-4 skew-separator">
         <div class="header-wrapper">

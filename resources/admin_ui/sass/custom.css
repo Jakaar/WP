@@ -17,3 +17,57 @@ html:lang(mn){
 html:lang(kr){
     font-family: 'Nanum Gothic', sans-serif !important;
 }
+
+.vertical-nav-menus {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style: none;
+}
+.vertical-nav-menus li a{
+    display: block;
+    line-height: 2.4rem;
+    height: 2.4rem;
+    padding: 0 1.5rem 0 45px;
+    position: relative;
+    border-radius: 0.25rem;
+    color: #343a40;
+    white-space: nowrap;
+    transition: all 0.2s;
+    margin: 0.1rem 0;
+}
+.vertical-nav-menus ul {
+    border-radius: 15px;
+    margin: 0;
+    position: relative;
+    list-style: none;
+    transition: padding 300ms;
+    padding: .5em 0 0 2rem;
+}
+.vertical-nav-menus ul > li > a {
+    color: #6c757d;
+    height: 2rem;
+    line-height: 2rem;
+    padding: 0 1.5rem 0;
+}
+.vertical-nav-menus ul::before {
+    content: "";
+    height: 100%;
+    opacity: 1;
+    width: 3px;
+    background: #e0f3ff;
+    position: absolute;
+    left: 20px;
+    top: 0;
+    border-radius: 15px;
+}
+.vertical-nav-menus li a:hover
+{
+    background: #e0f3ff;
+    text-decoration: none;
+}
+.vertical-nav-menus li a.active
+{
+    background: #e0f3ff;
+    text-decoration: none;
+}
