@@ -121,3 +121,7 @@ html:lang(kr){
     vertical-align: sub;
     margin: 5px;
 }
+ .google-icon {
+    background-color: white ;
+    padding: 3px;
+}
