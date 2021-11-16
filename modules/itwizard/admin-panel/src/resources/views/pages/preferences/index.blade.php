@@ -64,7 +64,8 @@
                             aria-labelledby="t-{{ $name->group }}-tab">
                             @foreach ($model[$name->group] as $inputs)
                                 <div class="mb-3">
-                                    <label for="" class="form-label fw-bold"> {{ $inputs->display_name }}
+                                    <label for="" class="form-label fw-bold">
+                                        {{ $t->translateText($inputs->display_name) ?? $inputs->display_name }}
                                     </label>
                                     <div class="d-inline-block bg-light ms-2 px-2"><code>
                                             Config::get('setting.{{ $inputs->key }}')
@@ -78,8 +79,9 @@
                                             </div>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="{{ $inputs->key }}"
-                                                    placeholder="{{ $inputs->display_name }}" value="{{ $inputs->value }}"
-                                                    id="{{ $inputs->key }}" inputs-id="{{ $inputs->id }}">
+                                                    placeholder="{{ $t->translateText($inputs->display_name) }}"
+                                                    value="{{ $inputs->value }}" id="{{ $inputs->key }}"
+                                                    inputs-id="{{ $inputs->id }}">
                                                 <select class="form-select change-group" style="max-width: 100px"
                                                     data-id="{{ $inputs->id }}">
                                                     @foreach ($group as $changer)
@@ -272,66 +274,98 @@
             </form>
         </div>
     </div>
+    <div class="card mb-3 border-primary">
+        <div class="card-body">
+            <ul class="nav tabs-animated">
+                @foreach ($data['langs'] as $key => $lang)
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link @if ($key === 0) active @endif" id="tab-c1-{{ $lang->id }}"
+                            data-bs-toggle="tab" href="#tab-animated1-{{ $lang->id }}">
+                            <span class="nav-text">{{ $lang->country }}</span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+
+
     <div class="card card-btm-border border-primary mb-3">
         <div class="card-body">
             <div class="card-title"> {{ __('Add new settings') }} </div>
             <div class="divider"></div>
-            <div class="row">
-                <div class="mb-3 col-lg-3">
-                    <label for="" class="fw-bold form-label"> {{ __('Name') }} </label>
-                    <input type="text" class="form-control" placeholder="Name" id="info_name">
-                </div>
-                <div class="mb-3 col-lg-3">
-                    <label for="" class="fw-bold form-label"> {{ __('Key') }} </label>
-                    <input type="text" class="form-control" placeholder="Key" id="info_key">
-                </div>
-                <div class="mb-3 col-lg-3">
-                    <label for="" class="fw-bold form-label"> {{ __('Type') }} </label>
-                    <select name="info_type" id="info_type" class="form-control form-select">
-                        <option value="">{{ __('Choose Type') }}</option>
-                        <option value="text"> {{ __('Text Box') }} </option>
-                        <option value="text_area"> {{ __('Text Area') }} </option>
-                        <option value="rich_text_box"> {{ __('Editor') }} </option>
-                        <option value="checkbox"> {{ __('Check Box') }} </option>
-                        <option value="radio_btn"> {{ __('Radio Button') }} </option>
-                        <option value="select_dropdown"> {{ __('Select Dropdown') }} </option>
-                        <option value="file"> {{ __('File') }} </option>
-                    </select>
-                </div>
-                <div class="mb-3 col-lg-3">
-                    <label for="" class="fw-bold form-label"> {{ __('Group') }} </label>
-                    <input type="text" name="info_group" id="info_group" list="groups" class="form-control form-select"
-                        placeholder="Choose group">
-                    <datalist id="groups">
-                        @foreach ($group as $groups)
-                            <option value="{{ $groups->group }}"> {{ $groups->group }} </option>
-                        @endforeach
-                    </datalist>
-                    {{-- <select name="info_group" id="info_group" class="form-control form-select">
+            <form action="#" id="addNewItemForm">
+                <div class="row">
+                    <div class="col-lg-3 mb-3">
+                        <div class="tab-content ">
+                            @foreach ($data['langs'] as $key => $lang)
+                                <div class="tab-pane fade @if ($key === 0) active show @endif" id="tab-animated1-{{ $lang->id }}"
+                                    role="tabpanel">
+
+                                    <label for="" class="fw-bold form-label"> {{ __('Name') }} </label>
+                                    <input type="text" name="info_name{{ $lang->country_code }}" class="form-control"
+                                        placeholder="Name" id="info_name{{ $lang->country_code }}" required
+                                        data-msg-required=" {{ __('This Field is Required') }} "
+                                        data-parent-id="tab-c1-{{ $lang->id }}">
+
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="mb-3 col-lg-3">
+                        <label for="" class="fw-bold form-label"> {{ __('Key') }} </label>
+                        <input type="text" class="form-control" placeholder="Key" id="info_key" required
+                            data-msg-required=" {{ __('This Field is Required') }}  ">
+                    </div>
+                    <div class="mb-3 col-lg-3">
+                        <label for="" class="fw-bold form-label"> {{ __('Type') }} </label>
+                        <select name="info_type" id="info_type" class="form-control form-select" required
+                            data-msg-required=" {{ __('This Field is Required') }}  ">
+                            <option value="">{{ __('Choose Type') }}</option>
+                            <option value="text"> {{ __('Text Box') }} </option>
+                            <option value="text_area"> {{ __('Text Area') }} </option>
+                            <option value="rich_text_box"> {{ __('Editor') }} </option>
+                            <option value="checkbox"> {{ __('Check Box') }} </option>
+                            <option value="radio_btn"> {{ __('Radio Button') }} </option>
+                            <option value="select_dropdown"> {{ __('Select Dropdown') }} </option>
+                            <option value="file"> {{ __('File') }} </option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-lg-3">
+                        <label for="" class="fw-bold form-label"> {{ __('Group') }} </label>
+                        <input type="text" name="info_group" id="info_group" list="groups" class="form-control form-select"
+                            placeholder="Choose group" required
+                            data-msg-required=" {{ __('This Field is Required') }}  ">
+                        <datalist id="groups">
+                            @foreach ($group as $groups)
+                                <option value="{{ $groups->group }}"> {{ $groups->group }} </option>
+                            @endforeach
+                        </datalist>
+                        {{-- <select name="info_group" id="info_group" class="form-control form-select">
                         <option value=""> Choose group </option>
                         @foreach ($group as $groups)
                             <option value="{{ $groups->group }}"> {{ $groups->group }} </option>
                         @endforeach
                     </select> --}}
-                </div>
-                <div class="col-lg-12">
-                    <textarea name="" id="options_editor" cols="30" rows="10" class="form-control d-none my-3"
-                        placeholder="Enter your input's options, example: { { options: { 'key' : 'value' } } }"></textarea>
-                    <div class="float-end">
-                        <a href="javascript:;" id="open_options" class="me-2"> Options <i
-                                class="fa fa-angle-double-down" id="openclose" aria-hidden="true"></i> </a>
-                        <button type="button" class="btn btn-success" id="add_new_setting">
-                            <i class="fa fa-plus"></i>
-                            {{ __('Add new setting') }}
-                        </button>
+                    </div>
+                    <div class="col-lg-12">
+                        <textarea name="" id="options_editor" cols="30" rows="10" class="form-control d-none my-3"
+                            placeholder="Enter your input's options, example: { { options: { 'key' : 'value' } } }"></textarea>
+                        <div class="float-end">
+                            <a href="javascript:;" id="open_options" class="me-2"> Options <i
+                                    class="fa fa-angle-double-down" id="openclose" aria-hidden="true"></i> </a>
+                            <button type="button" class="btn btn-success" id="add_new_setting">
+                                <i class="fa fa-plus"></i>
+                                {{ __('Add new setting') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-    {{-- </div>
-        @endforeach
-    </div> --}}
+
 @endsection
 @section('script')
 
@@ -342,7 +376,7 @@
         })
     </script>
     {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
-     {{-- item's change group --}}
+    {{-- item's change group --}}
     <script>
         $('.change-group').on('focusin', function() {
             $(this).data('val', $(this).val())
@@ -424,8 +458,12 @@
             }
         });
     </script>
+
     <script>
         $('#s_settings input, #s_settings select, #s_settings button').attr('disabled', true)
+        let theEditor = [];
+        var allEditors = document.querySelectorAll('.ckeditor');
+        let EditorId = [];
 
         $('#s_edit_settings').click(function() {
             $(this).toggleClass('d-none')
@@ -442,9 +480,9 @@
                     value: item.editor.getData()
                 })
             })
-            data['user_id'] = '{{Auth::user()->id}}';
+            data['user_id'] = '{{ Auth::user()->id }}';
 
-            Axios.post('/api/preferences/update',  data).then((resp) => {
+            Axios.post('/api/preferences/update', data).then((resp) => {
                 console.log(resp.data)
             }).catch((err) => {
                 console.log(err)
@@ -470,68 +508,105 @@
     </script>
     {{-- Add new Item --}}
     <script>
-        $('#add_new_setting').click(function() {
-            const data = {
-                name: $('#info_name').val(),
-                key: $('#info_group').val() + '_' + $('#info_key').val(),
-                type: $('#info_type').val(),
-                group: $('#info_group').val(),
-                details: $('#options_editor').val()
-            }
+        $(document).ready(function() {
+            let langs = {!! $data['langs'] !!}
 
-            Axios.post('/api/preferences/create', data).then((resp) => {
+            $('#add_new_setting').click(function() {
+                $('#addNewItemForm').validate({
+                    ignore: "",
+                    errorPlacement: function(error, element) {
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        if (element.prop("type") === "checkbox") {
+                            // error.insertAfter(element.next("label"));
+                        } else {
+                            // error.insertAfter(element);
+                        }
+                    },
+                    highlight: function(element, errorClass, validClass) {
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
+                        $(element).addClass("is-invalid").removeClass("is-valid");
+                        const parantId = $(element).data('parent-id');
+                        $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+
+                        const parantId = $(element).data('parent-id');
+                        $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                        $(element).addClass("is-valid").removeClass("is-invalid");
+                    },
+                });
+
+                let item_name = {};
+
+                $.each(langs, function(i, v) {
+                    const code = v.country_code;
+                    item_name[code] = $('#info_name' + v.country_code).val();
                 })
 
-                setInterval(() => {
-                    window.location.reload()
-                }, 1500);
+                const data = {
+                    name: JSON.stringify(item_name),
+                    key: $('#info_group').val() + '_' + $('#info_key').val(),
+                    type: $('#info_type').val(),
+                    group: $('#info_group').val(),
+                    details: $('#options_editor').val()
+                }
 
+                if ($('#addNewItemForm').valid({
+                        ignore: ""
+                    })) {
+                    Axios.post('/api/preferences/create', data).then((resp) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1500);
+                    }).catch((err) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err
+                        });
+                    });
+                }
+            })
 
-            }).catch((err) => {
-                Toast.fire({
-                    icon: 'error',
-                    title: err
-                });
+            // console.log(filemanager)
+            $.each(allEditors, function(i, item) {
+                EditorId[i] = allEditors[i].id
+
+                ClassicEditor
+                    .create(allEditors[i], {
+                        uploadUrl: filemanager.ckEditorBrowse
+
+                    })
+                    .then(editor => {
+                        theEditor.push({
+                            name: EditorId[i],
+                            editor
+                        }); // Save for later use.
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            })
+
+            // $.each(allEditors, function(i, item) {
+            //     console.log(item)
+            // })
+            // window.onload = function() {
+            //     CKEDITOR.replace('.ckeditor', {
+            //         filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            //         language: 'ko'
+            //     });
+            // }
+
+            $('#reload_page').click(function() {
+                location.reload(true);
             });
         })
-        let theEditor = [];
-        var allEditors = document.querySelectorAll('.ckeditor');
-        let EditorId = [];
-
-        $.each(allEditors, function(i, item) {
-            EditorId[i] = allEditors[i].id
-
-            ClassicEditor
-                .create(allEditors[i])
-                .then(editor => {
-                    theEditor.push({
-                        name: EditorId[i],
-                        editor
-                    }); // Save for later use.
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        })
-
-        // $.each(allEditors, function(i, item) {
-        //     console.log(item)
-        // })
-        // window.onload = function() {
-        //     CKEDITOR.replace('.ckeditor', {
-        //         filebrowserBrowseUrl: filemanager.ckBrowseUrl,
-        //         language: 'ko'
-        //     });
-        // }
-
-        $('#reload_page').click(function() {
-            location.reload(true);
-        });
     </script>
 @endsection
