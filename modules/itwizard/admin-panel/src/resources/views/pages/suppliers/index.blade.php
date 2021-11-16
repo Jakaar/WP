@@ -132,14 +132,15 @@
     $(document).ready(function() {
       
         var data_id = 0;
-        var allMail = 13; // 0s ylgaatai utga opj ipwel buh mail hayg ru ywna
+        var allMail= $('#all_name').val() ; // 0s ylgaatai utga opj ipwel buh mail hayg ru ywna
         var subscribe = 0;
         $('.getSendData').click(function() {
             data_id = $(this).data('id'); //form mail id
         })
-        
+
         // all checked selected and unchecked
         $(document).on('click', '#all_name', function() {
+          
             if ($('#all_name').is(':checked')) {
                 allMail = $('#all_name').val();
                 $('#roleMultiSelect').attr('disabled', 'disabled');
@@ -160,8 +161,6 @@
             $('#all_name').removeAttr('disabled');
                 $('#subscribe').removeAttr('disabled');
                 subscribe = $('#subscribe').val();
-
-
         })
             $('.select2').on('select2:select', function () {
                 $('#all_name').attr('disabled', 'disabled');
@@ -181,7 +180,6 @@
                 fadeIn: 200,
                 fadeOut: 400,
             };
-
             $(".modal-content").block({
                     message: $(
                         "" +
@@ -397,7 +395,7 @@
                     <input type="hidden" id="idMail">
                     <div class="mb-3 col-lg-1">
                             <div class="form-check d-inline-block  fw-bold">
-                            <input type="checkbox" value="13" id="all_name"  class="form-check-input" checked>
+                            <input type="checkbox" value="all_checked" id="all_name"  class="form-check-input" checked>
                             <label for="all_name" class="form-check-label"> {{__('All')}} </label></div>
                     </div>
                    

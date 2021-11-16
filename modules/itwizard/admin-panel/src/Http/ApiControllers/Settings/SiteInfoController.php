@@ -25,8 +25,8 @@ class SiteInfoController extends Controller
             'email' => $request->email,
             'site_copyright' => $request->copyright,
             'logo' => $request->logo,
-            'terms_of_condition' => $request->SiteInfoeditor1,
-            'privacy' => $request->SiteInfoeditor2,
+            'terms_of_condition' => $request->c_product_editor,
+            'privacy' => $request->e_product_editor,
         ]);
 
         return response()->json(['msg' => 'success', 'data' => $request->all()], 200);

@@ -57,18 +57,17 @@ class MailController extends Controller
 
 
     public function mailSend(Request $request){
-        $value=array();
-// return $request->select_email;
 
-        if($request->all_mail!='0'|| $request->subscribe==2 ){
+        $value=array();
+        if($request->all_mail!='0'|| $request->subscribe==2 ){ //check all mail
             $tableData = DB::table('users')-> select('email')->get();
            
             foreach ($tableData as $tableData) {
                 array_push($value,$tableData->email);
             }
             $tableData=$value;
-        } else if($request->select_email!=Null){
 
+        } else if($request->select_email!=Null){ //multi select email
 
             $tableData= $request->select_email;
 
@@ -77,15 +76,9 @@ class MailController extends Controller
                 }
             $tableData=$value;
             
-
-
-
-
-
         } else if($request->subscribe==1){
           
             $tableData = DB::table('users')->where('subscribed',$request->subscribe)->get();
-            // dd($tableData);
             foreach ($tableData as $tableData) {
                 array_push($value,$tableData->email);
             }
@@ -93,7 +86,7 @@ class MailController extends Controller
         } 
 
 
-        if($request->input_email!=Null){
+        if($request->input_email!=Null){ //input email
             $tableData =$request->input_email;
                 array_push($value,$tableData);
             $tableData=$value;
@@ -101,11 +94,9 @@ class MailController extends Controller
       
         // return $tableData;
        
-        
-        
          $data = DB::table('mail')->where('id',$request->send_id)->first();
          
-         $subject=$data->title;
+            $subject=$data->title;
             $data= ['title'=>$data->title, 'content'=>$data->content];
           
             Mail::send('Admin::pages.suppliers.sent_file', $data, function($message) use ($tableData, $subject) {
@@ -113,8 +104,6 @@ class MailController extends Controller
                 $message->subject($subject );
                 $message->from('n.buynhishig@gmail.com', 'itwizard');
                 // $message->from(env('MAIL_FROM_ADDRESS'), env('ORG_NAME'));
-
-
             });
             return response()->json(['msg'=>__('success')] , 200);
     }

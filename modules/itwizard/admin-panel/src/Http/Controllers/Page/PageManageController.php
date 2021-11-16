@@ -67,13 +67,10 @@ class PageManageController extends Controller
 //        dd($boardData);
             if (count($boardData) > 1)
             {
-//                dd('ih');
-            $content['PageData'] = $boardData;
+                $content['PageData'] = $boardData;
             } else if(count($boardData) == 0){
-//                dd('hooson');
                 $content['PageData'] = null;
             } else if(count($boardData) <= 1){
-//                dd('baga');
                 $boardData[0]->content = json_decode($boardData[0]->content, true);
                 $content['PageData'] = $boardData[0];
             }
@@ -100,10 +97,10 @@ class PageManageController extends Controller
             ->first();
 
         $content['categories'] = ContentCategory::whereNull('content_category_id')
-            ->where(['board_master_id'=>$id])
+            ->where(['board_master_id' => $id])
             ->with('subCategories')
             ->get();
-//        dd($content);
+        dd($content,$slug);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
 }

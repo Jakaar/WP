@@ -1,8 +1,5 @@
 <div class="main-card mb-3 card-btm-border border-primary card">
     <div class="card-body">
-{{--        @php--}}
-{{--            dump($content)--}}
-{{--        @endphp--}}
         <div class="">
             <div class="card-header-tab card-header">
                 <div class="card-header-title">

@@ -65,6 +65,17 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/menu/single',[PreferencesController::class, 'menuSingle']);
         Route::post('/preferences/menu/delete',[PreferencesController::class, 'menuDelete']);
     });
+    Route::post('/preferences/language/create', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'createLanguage']);
+    Route::post('/preferences/language/update', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'updateLanguage']);
+    Route::post('/preferences/language/delete', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'deleteLanguage']);
+    Route::post('/preferences/language/edit', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'editLanguage']);
+
+    Route::post('/mail/create', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailCreate']);
+    Route::post('/mail/update', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailUpdate']);
+    Route::post('/mail/delete', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailDelete']);
+    Route::post('/mail/edit', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailEdit']);
+    Route::post('/mail/send', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailSend']);
+
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'GetContentData']);
@@ -78,9 +89,16 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/content/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'contentcreate'])->name('save.content');
     Route::post('/managepage/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'DeletePage']);
 
-    Route::post('/ck/file-upload', function (Request $request){
-        return response()->json(['uploaded'=>true, 'fileName'=>'xxxxcx.jpg','url'=>'/client/static/img/faces/team-2.jpg'], 200);
-//        dd($request->all());
-    });
+    Route::post('/manageCategory/create', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'create']);
+    Route::post('/manageCategory/update', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'update']);
+    Route::post('/manageCategory/singleProduct', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'singleProduct']);
+    Route::post('/manageCategory/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'deletePage']);
+
+    Route::post('/productManage/create', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'create']);
+    Route::post('/productManage/singleProduct', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'singleProduct']);
+    Route::post('/productManage/update', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'update']);
+    Route::post('/productManage/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'delete']);
+
+    Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
 });
