@@ -123,5 +123,15 @@ html:lang(kr){
 }
  .google-icon {
     background-color: white ;
-    padding: 3px;
+    padding: 2px;
 }
+ .btn-google {
+     background-color: #4285f4 !important;
+     border-color: #4285f4 !important;
+ }
+ .btn-text {
+     color: white;
+ }
+ .roboto {
+     font-family: Roboto;
+ }

@@ -176,9 +176,9 @@
                                             <div class="row">
                                                 <div class="col-md-8 offset-md-2">
                                                 <div class="" href="{{ route('google.login') }}">
-                                                    <a class="w-100  me-2 btn-icon btn-shadow btn btn-primary" href="{{route('google.login')}}">
+                                                    <a class="w-100  me-2 btn-shadow btn btn-google" href="{{route('google.login')}}">
                                                         <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                                                        <b  class="btn-text">{{__('Sign in with Google')}}</b>
+                                                        <b  class="btn-text roboto">{{__('Sign in with Google')}}</b>
                                                     </a>
                                                 </div>
                                                 </div>
@@ -186,14 +186,14 @@
                                                 <div class="">
                                                 <a class="h-42 w-100 btn-icon btn btn-shadow btn-success mt-3">
                                                     <img class="naver-icon" width="100" src="{{asset('aPanel/imgs/vectorpaint.svg')}}" alt=""/>
-                                                    <b class="naver">{{__('Sign in with Naver')}}</b>
+                                                    <b class="naver roboto">{{__('Sign in with Naver')}}</b>
                                                 </a>
                                                 </div>
                                                 </div>
                                                 <div class="col-md-8 offset-md-2">
                                                 <a class="w-100 mt-3 me-2 btn-icon btn-shadow btn btn-warning">
                                                     <img class="" width="25" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
-                                                    <b style="color: black">{{__('Sign in with Kakao')}}</b>
+                                                    <b style="color: black roboto">{{__('Sign in with Kakao')}}</b>
                                                 </a>
                                                 </div>
                                             </div>
