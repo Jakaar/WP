@@ -22,43 +22,6 @@
             body::-webkit-scrollbar {
                 display: none; /* for Chrome, Safari, and Opera */
             }
-            .google-btn {
-
-                height: 42px;
-                background-color: #4285f5;
-                border-radius: 2px;
-                box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
-            }
-            .google-btn .google-icon-wrapper {
-                position: absolute;
-                margin-top: 1px;
-                margin-left: 1px;
-                width: 40px;
-                height: 40px;
-                border-radius: 2px;
-                background-color: #fff;
-            }
-            .google-btn .google-icon {
-                position: absolute;
-                margin-top: 11px;
-                margin-left: 11px;
-                width: 18px;
-                height: 18px;
-            }
-            .google-btn .btn-text {
-                float: right;
-                margin: 11px 11px 0 0;
-                color: #fff;
-                font-size: 14px;
-                letter-spacing: 0.2px;
-                font-family: "Roboto";
-            }
-            .google-btn:hover {
-                box-shadow: 0 0 6px #4285f4;
-            }
-            .google-btn:active {
-                background: #1669f2;
-            }
         </style>
         <link rel="stylesheet" href="{{asset('aPanel/css/admin.css')}}">
     </head>
@@ -202,21 +165,37 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="col-md-12">
-                                            <h5 class="card-title">{{__('Social Login')}}</h5>
-                                            <div class="">
-                                                <a class="mb-2 me-2 btn-icon-vertical btn-transition btn btn-outline-primary">
-
+                                            @if($errors->all())
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+                                                    </button>
+                                                    {{__('You Not Have Access')}}
+                                                </div>
+                                            @endif
+                                            <h5 class="card-title text-center">{{__('Social Login')}}</h5>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                <div class="" href="{{ route('google.login') }}">
+                                                    <a class="w-100  me-2 btn-icon btn-shadow btn btn-primary" href="{{route('google.login')}}">
+                                                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                                                        <b  class="btn-text">{{__('Sign in with Google')}}</b>
+                                                    </a>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                <div class="mb-4">
+                                                <a class="h-42 w-100 btn-icon btn btn-shadow btn-success mt-3">
+                                                    <img class="naver-icon" width="100" src="{{asset('aPanel/imgs/vectorpaint.svg')}}" alt=""/>
+                                                    <b class="naver">{{__('Sign in with Naver')}}</b>
                                                 </a>
-                                                <button class="mb-2 me-2 btn-icon-vertical btn-transition border-0 btn btn-outline-primary">
-                                                    <img class="btn-icon-wrapper" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt=""/>
-                                                    Login With Google
-                                                </button>
-                                                <a class="mb-2 me-2 btn-icon btn btn-outline-success">
-                                                    <img class="google-icon" width="100" src="{{asset('aPanel/imgs/naver.svg')}}" alt=""/>
-                                                </a>
-                                                <a class="mb-2 me-2 btn-icon btn btn-outline-success">
+                                                </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                <a class="w-100 mt-3 me-2 btn-icon btn-shadow btn btn-warning">
                                                     <img class="" width="25" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
+                                                    <b style="color: black">{{__('Sign in with Kakao')}}</b>
                                                 </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
