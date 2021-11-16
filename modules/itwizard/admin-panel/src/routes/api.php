@@ -59,6 +59,17 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/delete', [PreferencesController::class, 'delete']);
         Route::post('/preferences/change', [PreferencesController::class, 'change']);
     });
+    Route::post('/preferences/language/create', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'createLanguage']);
+    Route::post('/preferences/language/update', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'updateLanguage']);
+    Route::post('/preferences/language/delete', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'deleteLanguage']);
+    Route::post('/preferences/language/edit', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'editLanguage']);
+
+    Route::post('/mail/create', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailCreate']);
+    Route::post('/mail/update', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailUpdate']);
+    Route::post('/mail/delete', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailDelete']);
+    Route::post('/mail/edit', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailEdit']);
+    Route::post('/mail/send', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailSend']);
+
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'GetContentData']);

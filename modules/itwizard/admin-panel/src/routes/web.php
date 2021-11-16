@@ -64,6 +64,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/preferences',[PreferencesController::class, 'index']);
 
+    Route::get('/preferences/language', [Itwizard\Adminpanel\Http\Controllers\Language\LanguageController::class,  'index']);
+
+
 
 
     Route::get('/{slug}/{view}', function ($slug, $view){
