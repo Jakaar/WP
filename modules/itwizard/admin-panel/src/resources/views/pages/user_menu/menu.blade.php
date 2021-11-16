@@ -92,12 +92,24 @@
         </div>
         <div class="col-md-6">
             <div class="card-title">{{ __('Details') }}</div>
+            <div class="card mb-3">
+                <ul class="nav tabs-animated">
+                    @foreach($data['langs'] as $key=>$lang)
+                        <li class="nav-item">
+                            <a role="tab" class="nav-link @if($key === 0) active @endif" id="tab-c1-{{$lang->id}}" data-bs-toggle="tab" href="#c_tab-animated1-{{$lang->id}}">
+                                <span class="nav-text"><b>{{$lang->country}}</b></span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
             <div class="main-card mb-3 card ">
                 <div class="card-header">
                     <div class="widget-content w-100">
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left">
-                                <div class="card-title m-0" id="menu_label"></div>
+                                <div class="card-title m-0" id="menu_label">
+                                </div>
                             </div>
                             <div class="widget-content-right">
                                 <button class=" btn btn-success d-none" id="save_menu"> {{ __('Save') }}
@@ -110,10 +122,16 @@
                 <div class="card-body card-btm-border border-primary">
                     <div id="ContentData" class="d-none">
                         <form action="" class="row" id="updateMenu">
-                            <div class="mb-3 col-6">
-                                <label for="" class="form-label fw-bold"> {{ __('Name') }} </label>
-                                <input type="hidden" id="m_id">
-                                <input type="text" name="m_name" class="form-control" id="m_name" required>
+                            <input type="hidden" id="m_id">
+                            <div class="tab-content mb-3 col-6">
+                                @foreach($data['langs'] as $key => $lang)
+                                    <div class="tab-pane fade  @if($key === 0) active show @endif" id="c_tab-animated1-{{$lang->id}}">
+                                        <div class="mb-3 col-12">
+                                            <label for="" class="form-label fw-bold"> {{ __('Name') }} </label>
+                                            <input type="text" name="m_name{{$lang->country_code}}" class="form-control" id="m_name{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" required>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="" class="form-label fw-bold"> {{ __('Top Menu') }} </label>
@@ -121,7 +139,7 @@
                                     <option value=""> = Select Parent Menu = </option>
                                     @foreach ($categories as $category)
                                         @if ($category->category == null)
-                                            <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                            <option value="{{ $category->id }}"> {{ $t->translateText($category->name) }} </option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -250,15 +268,19 @@
     @section('script')
         <script>
             $(document).ready(function() {
+                let langs = {!! $data['langs'] !!}
                 $('#ContentData input, #ContentData select, #ContentData textarea').attr('disabled', 'true')
                 $('.vertical-nav-menu li a').click(function() {
                     $('#ContentData').removeClass('d-none')
                     Axios.post('/api/get/menu', {id:$(this).data('key')}).then((resp) => {
-                        $('#menu_label').text(resp.data.data.name)
+                        $.each(langs, function(i, v){
+                            $('#m_name'+v.country_code).val(JSON.parse(resp.data.data.name)[v.country_code])
+                            $('#menu_label').html(JSON.parse(resp.data.data.name)['{{ Session::get("locale") }}'])
+                        })
+                        
                         $('input[name=target]').prop('checked', false);
                         $('input[name=use]').prop('checked', false);
                         $('#m_id').val(resp.data.data.id);
-                        $('#m_name').val(resp.data.data.name)
                         $('#m_menu_url').val(resp.data.data.menu_url)
                         $('#description').html(resp.data.data.description)
                         $('#m_category_id').val(resp.data.data.category_id).change()
@@ -310,16 +332,23 @@
                 // update menu
                 $('#save_menu').click(function() {
                     let m_check = $('#updateMenu').valid();
+                    let langs = {!! $data['langs'] !!}
+                    let title_data = {};
+                    $.each(langs , function(i, v){
+                        title_data[v.country_code] = $('#m_name'+v.country_code).val() 
+                    })
                     if (m_check === true) {
                         const data = {
                             id: $("#m_id").val(),
-                            name: $('#m_name').val(),
+                            title : JSON.stringify(title_data),
                             menu_url: $('#m_menu_url').val(),
                             description: $('#description').val(),
                             category_id: $('#m_category_id').val(),
                             use: $('input[name=use]').val(),
                             target: $('input[name=target]').val(),
                         }
+                        console.log(data);
+                        // dd(data);
                         Axios.post('/api/menu/update', data).then((resp) => {
                             $('#save_menu').toggleClass('d-none')
                             $('#ContentData input, #ContentData select, #ContentData textarea').attr(
@@ -378,7 +407,7 @@
                 $('.CreateMenu').on('click',function (){
                     if($('#createForm').valid())
                     {
-                            const langs = {!! $data['langs'] !!};
+                        const langs = {!! $data['langs'] !!};
 
                             let dataJ = {}
                             $.each(langs, function (i, v){
@@ -396,6 +425,7 @@
                             };
 
                             Axios.post('/api/CreateMenu', data).then((resp) => {
+                                console.log(resp);
                                 Toast.fire({
                                     icon: 'success',
                                     title: resp.data.msg
@@ -408,37 +438,7 @@
 
                     }
                 })
-                {{--$('.CreateMenu').on('click', function () {--}}
-                {{--    const langs = {!! $data['langs'] !!};--}}
-                {{--    let dataJ = {}--}}
-                {{--    $.each(langs, function (i, v){--}}
-                {{--        const inp = $('#BoardName'+v.country_code).val()--}}
-                {{--        const id = '#BoardName'+v.country_code;--}}
-                {{--        const code = v.country_code--}}
-                {{--        dataJ[code] = inp--}}
-                {{--    });--}}
-                {{--    if ($('#creatForm').valid()) {--}}
-                {{--        alert('valid')--}}
-                {{--    }--}}
-                {{--        // console.log(JSON.stringify(data))--}}
-                {{--    const data = {--}}
-                {{--        MenuName: JSON.stringify(dataJ),--}}
-                {{--        OpenType: $("input[name='target']:checked").val(),--}}
-                {{--        parent_id: $('#CreateMenuModal').attr('key'),--}}
-                {{--        board_id: $('#JoinedBoard').val(),--}}
-                {{--    };--}}
-                {{--    // Axios.post('/api/CreateMenu', data).then((resp) => {--}}
-                {{--    //     Toast.fire({--}}
-                {{--    //         icon: 'success',--}}
-                {{--    //         title: resp.data.msg--}}
-                {{--    //     });--}}
-                {{--    //--}}
-                {{--    //     $('#CreateMenuModal').modal('hide').removeAttr('key');--}}
-                {{--    //     setTimeout(function (){--}}
-                {{--    //         location.reload()--}}
-                {{--    //     },2000);--}}
-                {{--    // });--}}
-                {{--});--}}
+                
                 $('.DeleteMenu').on('click', function () {
                     Swal.fire({
                         title: '{{__('Are you sure?')}}',

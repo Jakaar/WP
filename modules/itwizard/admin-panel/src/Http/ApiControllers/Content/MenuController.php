@@ -26,7 +26,7 @@ class MenuController extends Controller
     }
     public function CreateMenu(Request $request)
     {
-        try {
+        // try {
             if ($request->parent_id) {
                 $getId = DB::table('categories')->insertGetId([
                     'category_id' => $request->parent_id,
@@ -36,6 +36,7 @@ class MenuController extends Controller
                     'isEnabled' => 1,
                     'menu_url' => asset('')
                 ]);
+//                dd($getId);
                 return response()->json(['msg' => __('success'),'details'=>'Sub menu created, id is:'.$getId], 200);
             }
             else {
@@ -49,16 +50,16 @@ class MenuController extends Controller
                 ]);
                 return response()->json(['msg' => __('success'),'details'=>'Main menu created, id is:'.$getId], 200);
             }
-        }
-        catch (\Exception $exception)
-        {
-            return response()->json(['error_code'=>'CreateMenu Function not working'], 500);
-        }
+        // }
+        // catch (\Exception $exception)
+        // {
+        //     return response()->json(['error_code'=>'CreateMenu Function not working'], 500);
+        // }
     }
 
     public function updateMenu(Request $request){
         DB::table('categories')->where('id',$request->id)->update([
-            'name' => $request->name,
+            'name' => $request->title,
             'menu_url' => $request->menu_url,
             'target' => $request->target,
             'isEnabled' => $request->use,
@@ -71,7 +72,7 @@ class MenuController extends Controller
 
     public function getMenu(Request $request){
        $data = DB::table('categories')->where('id',$request->id)->first();
-       $data->name = (new \App\Helper\Helper)->translateText($data->name);
+    //    $locale = (new \App\Helper\Helper)->translateText($data->name);
         return response()->json(['msg' => __('success'),'data' => $data],200);
     }
 

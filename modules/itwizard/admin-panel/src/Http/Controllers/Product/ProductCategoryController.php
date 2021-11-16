@@ -5,40 +5,52 @@ namespace Itwizard\Adminpanel\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Helper\Helper;
 
+/**
+ *
+ */
 class ProductCategoryController extends Controller
 {
     //
+    /**
+     *
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
-    public function index()
-    {
-        $data['product'] = DB::table('wpanel_product_category')->get();
-        $data['parent'] = DB::table('wpanel_product_category')->where('category_id', NULL)->get();
-        $data['prdct'] = DB::table('wpanel_product_manage')->where('isEnable',1)->get();
 
-        $data['prd'] = DB::table('wpanel_product_manage')
-        ->leftJoin(
-            'wpanel_product_category',
-            'wpanel_product_manage.product_classification',
-            '=',
-            'wpanel_product_category.id'
-            )
-        ->select(
-            'wpanel_product_manage.product_classification as pId',
-            'wpanel_product_category.category_name'
-            )
-        ->get();
-        return view('Admin::pages.product_management.productManage', compact('data'));
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $product = DB::table('wpanel_product_category')->get();
+        $parent = DB::table('wpanel_product_category')->where('category_id', NULL)->where('state',1)->get();
+        $prdct = \App\Product::where('isEnable',1)->with('category')->get();
+
+//        $data['prd'] = DB::table('wpanel_product_manage')
+//        ->leftJoin('wpanel_product_category','wpanel_product_manage.product_classification','=','wpanel_product_category.id')
+//        ->get();
+
+        return view('Admin::pages.product_management.productManage', [
+            'category' => $product,
+            'parent' => $parent,
+            'prdct' => $prdct,
+        ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(Request $request)
     {
         DB::table('wpanel_product_manage')->insert([
             'product_classification' => $request->classification,
-            'product_name' => $request->name,
+            'product_name' => $request->MenuName,
             'product_code' => $request->code,
             'product_price' => $request->price,
             'product_informationlist' => $request->informationList,
@@ -46,25 +58,33 @@ class ProductCategoryController extends Controller
             'product_informationdetail' => $request->informationDetail,
             'product_informationenlargement' => $request->informationEnlargement,
             'product_desc' => $request->c_product_editor,
-            'product_detail' => $request->prodDetails,
+            'product_detail' => $request->MenuDetails,
             'product_image' => $request->picture,
             'isEnable' => 1,
         ]);
         return response()->json(['msg' => 'success'], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function singleProduct(Request $request)
     {
         $data = DB::table('wpanel_product_manage')->where('id', $request->id)->first();
         return response()->json(['msg' => 'success', 'data' => $data], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request)
     {
         $updated = DB::table('wpanel_product_manage')->where('id', $request->id);
         $updated->update([
             'product_classification' => $request->classification,
-            'product_name' => $request->name,
+            'product_name' => $request->e_MenuName,
             'product_code' => $request->code,
             'product_price' => $request->price,
             'product_informationlist' => $request->informationList,
@@ -72,12 +92,16 @@ class ProductCategoryController extends Controller
             'product_informationdetail' => $request->informationDetail,
             'product_informationenlargement' => $request->informationEnlargement,
             'product_desc' => $request->e_product_editor,
-            'product_detail' => $request->prodDetails,
+            'product_detail' => $request->e_MenuDetails,
             'product_image' => $request->picture
         ]);
         return response()->json(['msg' => 'success'], 200);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete($id){
         DB::table('wpanel_product_manage')
         ->where('id', $id)

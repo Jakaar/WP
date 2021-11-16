@@ -64,6 +64,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/basic_setting/adminSettings',[PermissionController::class, 'adminSettings']);
     Route::get('/member_management/secessionist',[PermissionController::class, 'secessionist']);
 
+    Route::get('/product_management/manageCategory',[\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'index']);
+    Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
+
 
 
 

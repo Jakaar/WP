@@ -17,7 +17,7 @@ class manageCategoryController extends Controller
 
     public function index()
     {
-        $category = DB::table('wpanel_product_category')->where('state',1)->get();
+        $category = \App\ProductCategory::where('state',1)->get();
         $parent = DB::table('wpanel_product_category')->where('category_id', NULL)->where('state',1)->get();
 
         return view('Admin::pages.product_management.manageCategory', [
@@ -29,8 +29,8 @@ class manageCategoryController extends Controller
     public function create(Request $request)
     {
         DB::table('wpanel_product_category')->insert([
-            'category_name' => $request->name,
-            'explanation' => $request->desc,
+            'category_name' => $request->MenuName,
+            'explanation' => $request->MenuDesc,
             'category_id' => $request->parent_id,
             'state' => $request->use,
             'order' => '1',
