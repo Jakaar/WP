@@ -78,9 +78,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/content/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'contentcreate'])->name('save.content');
     Route::post('/managepage/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'DeletePage']);
 
-    Route::post('/ck/file-upload', function (Request $request){
-        return response()->json(['uploaded'=>true, 'fileName'=>'xxxxcx.jpg','url'=>'/client/static/img/faces/team-2.jpg'], 200);
-//        dd($request->all());
-    });
+    Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
 });
