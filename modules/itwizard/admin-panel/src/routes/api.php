@@ -88,9 +88,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/productManage/update', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'update']);
     Route::post('/productManage/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'delete']);
 
-    Route::post('/ck/file-upload', function (Request $request){
-        return response()->json(['uploaded'=>true, 'fileName'=>'xxxxcx.jpg','url'=>'/client/static/img/faces/team-2.jpg'], 200);
-//        dd($request->all());
-    });
+    Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
 });
