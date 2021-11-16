@@ -1,192 +1,451 @@
 @extends('Admin::layouts.master')
 @section('content')
+<style>
+    .ck-editor__editable {
+        min-height: 200px;
+    }
+    .select2-container--default .select2-selection--multiple{
+        width: 691px;
+    }
 
-    <div class="app-page-title">
-        <div class="page-title-wrapper">
-            <div class="page-title-heading">
-                <div class="page-title-icon">
-                    <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
-                </div>
-                <div>
-                    {{ __('Form Mail Manager') }}
-                    <div class="page-title-subheading"></div>
-                </div>
-            </div>
-            <div class="page-title-actions">
-                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
-                    class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
-                    <i class="pe-7s-refresh-2"></i>
-                </button>
-                {{-- <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <i class="fa fa-plus"></i>
-                    {{ __('Create a Form Mail') }}
-                </button> --}}
-            </div>
-        </div>
-    </div>
+    .select2-container--default.select2-container--focus .select2-selection--multiple{
+        
+        border: solid #ced4da 1px  !important;
+        outline: 0  !important;
+    }
 
-    <div class="card mb-3 card-btm-border border-primary">
-        <div class="card-body">
-            <div class="card-title"> {{ __('Conditional Search') }} </div>
-            <div class=" input-group">
-                <div class="col-auto">
-                    <select name="" id="" class="form-control">
-                        <option value=""> = processing status = </option>
-                        <option value=""> Waiting </option>
-                        <option value=""> Processing Complate </option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <select name="" id="" class="form-control">
-                        <option value=""> = Contents = </option>
-                        <option value=""> Waiting </option>
-                        <option value=""> Processing Complate </option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <input type="search" class="form-control" placeholder="{{ __('Keywords') }}">
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-primary px-5"> {{ __('Search') }} </button>
-                    <button class="btn btn-outline-secondary px-5 ml-3"> {{ __('Reset Search') }} </button>
-                </div>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background-color: #e0f3ff  !important;
+        border: 1px solid #94d5ff  !important;
+    }
+   
+</style>
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
+            </div>
+            <div>
+                {{ __('Mail list') }} {{Config::get('setting.Mail Form_mail')}}
+                <div class="page-title-subheading"></div>
             </div>
         </div>
-    </div>
-
-    <div class="card card-btm-border border-primary">
-        <div class="card-body">
-            <div class="card-title"> Total number of registrations: 19</div>
-            <table class="table table-striped table-hover" id="BasicTable">
-                <thead>
-                    <th> {{ __('Number') }} </th>
-                    <th> {{ __('Type') }} </th>
-                    <th> {{ __('Title') }} </th>
-                    <th> {{ __('Date Created') }} </th>
-                    <th> {{ __('Processing Status') }} </th>
-                    <th> {{ __('Action') }} </th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> 1 </td>
-                        <td> Personnel Outsourcing Inquiries </td>
-                        <td> ASP.NET Developer Dispatch Inquiry </td>
-                        <td> {{ now()->format('Y-m-d') }} </td>
-                        <td> Waiting </td>
-                        <td>
-                            <button class="btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                {{ 'Edit' }}
-                            </button>
-                            <button class="btn-outline-danger btn-link btn">
-                                {{ 'Delete' }}
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="page-title-actions">
+            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                <i class="pe-7s-refresh-2"></i>
+            </button>
+            <button class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i class="fa fa-plus"></i>
+                {{ __('Create a Form Mail') }}
+            </button>
         </div>
     </div>
+</div>
+
+<div class="card card-btm-border border-primary">
+    <div class="card-body">
+        <table class="table table-striped table-hover" id="BasicTable">
+            <thead>
+                <th> {{ __('Number') }} </th>
+                <th> {{ __('Title') }} </th>
+                <th> {{ __('Date Created') }} </th>
+                <th> {{ __('Send') }} </th>
+                <th> {{ __('Action') }} </th>
+            </thead>
+            <tbody>
+           
+                @foreach ($datas['mailData'] as $data_mail)
+                <tr>
+                    <td>{{ $data_mail-> id}}</td>
+                    <td>{{ $data_mail-> title}}</td>
+                    <td>{{ $data_mail-> created_at}}</td>
+                    <td>
+                        <button class="btn-outline-primary btn getSendData" data-id="{{$data_mail->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropSent">
+                            {{ ('Send') }}
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn-outline-primary btn editMail" data-id="{{$data_mail->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
+                            {{ ('Edit') }}
+                        </button>
+                        <button class="btn-outline-danger btn-link btn deleteMail" data-id="{{$data_mail->id}}">
+                            {{ ('Delete') }}
+                        </button>
+                    </td>
+                </tr>
+                @endforeach
+
+            </tbody>
+        </table>
+    </div>
+</div>
 @endsection
+
+@section('script')
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+    $(document).ready(function() {
+    $('.select2').select2({
+        dropdownParent: $('#staticBackdropSent')
+
+    });
+         CKEDITOR.replace('ckeditor', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            }); 
+            CKEDITOR.replace('ckeditor1', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            });
+});
+
+    $(document).ready(function() {
+
+        $('.create_mail').click(function() {
+            data = {
+                title: $("#mailTitle").val(),
+                content: CKEDITOR.instances.ckeditor.getData(),
+            };
+            Axios.post('/api/mail/create', data).then((resp) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: resp.data.msg
+                });
+                $('#adminAddModal').modal('hide').removeAttr('key');
+                setTimeout(function() {
+                    location.reload()
+                }, 2000);
+            }).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: err
+                });
+            });
+        })
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+      
+        var data_id = 0;
+        var allMail = 13; // 0s ylgaatai utga opj ipwel buh mail hayg ru ywna
+        var subscribe = 0;
+        $('.getSendData').click(function() {
+            data_id = $(this).data('id'); //form mail id
+        })
+        
+        // all checked selected and unchecked
+        $(document).on('click', '#all_name', function() {
+            if ($('#all_name').is(':checked')) {
+                allMail = $('#all_name').val();
+                $('#roleMultiSelect').attr('disabled', 'disabled');
+                $('.roleMultiSelect').val(null).trigger("change");
+                $('#subscribe').attr('disabled', 'disabled');
+                subscribe = 0;
+            } else {
+                allMail = 0;
+                $('#roleMultiSelect').removeAttr('disabled');
+                $('#subscribe').removeAttr('disabled');
+                subscribe = $('#subscribe').val();
+
+            }
+        });
+
+        // multiple selected and unselected
+        $(".select2").on('select2:unselect',function(){
+            $('#all_name').removeAttr('disabled');
+                $('#subscribe').removeAttr('disabled');
+                subscribe = $('#subscribe').val();
+
+
+        })
+            $('.select2').on('select2:select', function () {
+                $('#all_name').attr('disabled', 'disabled');
+                allMail = 0;
+                $('#subscribe').attr('disabled', 'disabled');
+                subscribe = 0;
+        });
+
+       // subscribe and unsubscribe
+       $(document).on('click', '#subscribe', function() {
+            subscribe = $(this).val();
+       });
+
+        $('.sendMail1').click(function() {
+            $.blockUI.defaults = {
+                //  timeout: 2000,
+                fadeIn: 200,
+                fadeOut: 400,
+            };
+
+            $(".modal-content").block({
+                    message: $(
+                        "" +
+                        '<div class="loader mx-auto">\n' +
+                        '                            <div class="line-scale-pulse-out">\n' +
+                        '                                <div class="bg-success"></div>\n' +
+                        '                                <div class="bg-success"></div>\n' +
+                        '                                <div class="bg-success"></div>\n' +
+                        '                                <div class="bg-success"></div>\n' +
+                        '                                <div class="bg-success"></div>\n' +
+                        "                            </div>\n" +
+                        "                        </div>"
+                    ),
+                });
+            data = {
+                all_mail: allMail,
+                send_id: data_id,
+                input_email: $('#inputEmail').val(),
+                subscribe:  subscribe,
+
+                select_email: $('#roleMultiSelect').val(), //multiselect
+            };
+            Axios.post('/api/mail/send', data).then((resp) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: resp.data.msg,
+                });
+                setTimeout(function() {
+                    location.reload()
+                }, 2000);
+                $(".modal-content").unblock();
+            }).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: err
+                });
+                $(".modal-content").unblock();
+            });
+        })
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.deleteMail').click(function() {
+            const delete_id = $(this).attr('data-id')
+            const data = {
+                delete_id: delete_id
+            }
+            Swal.fire({
+                title: 'Are you sure?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "{{__('Ok')}}",
+                denyButtonText: `{{__('Cancel')}}`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Axios.post('/api/mail/delete', data).then((resp) => {
+                            Swal.fire('Deleted!', '', 'success')
+                            $('tr[key=' + delete_id + ']').remove()
+                            setTimeout(function() {
+                                location.reload()
+                            }, 2000);
+                        })
+                        .catch((err) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: err
+                            });
+                        })
+                }
+            })
+
+        })
+    })
+</script>
+<script>
+    $(document).ready(function() {
+
+
+        $('.editMail').click(function() {
+            const main_edit_id = $(this).attr('data-id');
+            const data = {
+                main_edit_id: main_edit_id,
+            }
+            Axios.post('/api/mail/edit', data).then((resp) => {
+                $('#idMail').val(resp.data.data.id)
+                $('#editMailTitle').val(resp.data.data.title)
+                CKEDITOR.instances.ckeditor1.setData(resp.data.data.content);
+
+            }).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: err
+                });
+            });
+        })
+
+        $('.updateMail').click(function() {
+            let data = {
+                id: $('#idMail').val(),
+                title: $('#editMailTitle').val(),
+                content: CKEDITOR.instances.ckeditor1.getData(),
+
+            }
+            Axios.post('/api/mail/update', data).then((resp) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: resp.data.msg
+                });
+                window.location.reload()
+
+            }).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: err
+                });
+
+            });
+        })
+
+
+
+    })
+</script>
+@endsection
+
 @section('modal')
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-white shadow shadow-sm">
-                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" class="row">
-                        <div class="col-lg-8 mb-3">
-                            <label for="" class="form-label fw-bold">
-                                {{ __('processing status') }}
-                            </label>
-                            <select name="" id="" class="form-control form-select">
-                                <option value=""> = processing status = </option>
-                                <option value=""> Waiting </option>
-                                <option value=""> Processing Complate </option>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-white shadow shadow-sm">
+                <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="row">
+                    <input type="hidden" id="idMail">
+                    <div class="mb-3 col-lg-12">
+                        <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail title')}}</label>
+                        <input id="mailTitle" name="mailTitle" type="text" class="form-control">
+                    </div>
+
+                    <div class="mb-3 col-lg-12">
+                        <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail content')}}</label>
+                        <textarea  name="ckeditor" id="ckeditor" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer card-btm-border card-shadow-success border-success">
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
+                <button type="button" class="btn btn-success create_mail"> {{ __('Confirm') }} </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit modal -->
+<div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" class="row">
+                    <input type="hidden" id="idMail">
+
+                    <div class="mb-3 col-lg-12">
+                        
+                        <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail title')}}</label>
+                        <input id="editMailTitle" name="editMailTitle" type="text" class="form-control">
+                    </div>
+
+                    <div class="mb-3 col-lg-12">
+                        <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail content')}}</label>
+                        <textarea  name="ckeditor1" id="ckeditor1" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
+
+                    </div>
+
+
+                  
+                </form>
+            </div>
+
+            <div class="modal-footer  card-btm-border card-shadow-success border-success">
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
+                <button type="button" class="btn btn-success updateMail">{{__('Save Changes')}}</button>
+            </div>
+
+           
+        </div>
+    </div>
+</div>
+<!-- send modal -->
+<div class="modal fade staticBackdropSent " id="staticBackdropSent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content  ">
+            <div class="modal-header">
+                <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <form action="" class="row">
+
+
+               
+                    <input type="hidden" id="idMail">
+                    <div class="mb-3 col-lg-1">
+                            <div class="form-check d-inline-block  fw-bold">
+                            <input type="checkbox" value="13" id="all_name"  class="form-check-input" checked>
+                            <label for="all_name" class="form-check-label"> {{__('All')}} </label></div>
+                    </div>
+                   
+
+                    <div class=" mb-3 col-lg-11 form-check">
+                        <div class="form-group">
+                            <label for="roleMultiSelect" class="fw-bold">{{__('Multiple select email')}}</label>
+                            <select multiple="multiple" class="form-control select2 w-100 roleMultiSelect " id="roleMultiSelect" disabled>
+                                            @foreach ($datas['roles'] as $item)
+                                                <optgroup label={{$item->name}}>
+                                                    @foreach($item->roles as $user)
+                                                        <option value="{{$user->email}}">{{$user->email ?? ''}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach 
+                              
                             </select>
                         </div>
-                        <div class="col-lg-12">
-                            <table class="table table-bordered table-striped table-hover">
-                                <tbody>
-                                    <tr>
-                                        <th> {{ __('Name') }} </th>
-                                        <td> Lee Sang-deok </td>
-                                    </tr>
-                                    <tr>
-                                        <th> {{ __('Company Name') }} </th>
-                                        <td> ring interactive </td>
-                                    </tr>
-                                    <tr>
-                                        <th> {{ __('E-Mail') }} </th>
-                                        <td> sdlee@ringi.co.kr</td>
-                                    </tr>
-                                    <tr>
-                                        <th> {{ __('Contact') }} </th>
-                                        <td> sdlee@ringi.co.kr</td>
-                                    </tr>
-                                    <tr>
-                                        <th> {{ __('Title') }} </th>
-                                        <td> ASP.NET Developer Dispatch Inquiry</td>
-                                    </tr>
-                                    <tr>
-                                        <th> {{ __('Inquiries') }} </th>
-                                        <td> <textarea name="" id="" cols="30" rows="10" disabled class="form-control">링인터랙티브 이상덕이사입니다.
-                                                    저희 회사는 교육분야 SI/SM을 주로 하는 회사인데, 고객사 중에 자체 개발을 해서 개발인력 파견만 요청하는 회사가 있습니다.
+                    </div>
 
-                                                    가산동에 있고, 개발자 정직원 40여명과 프리랜서 개발자 20여명이 함께 근무중입니다. 7,8개월 기간의 새로운 프로젝트가 생겨서 15명 정도 프리랜서를 충원해야 하는 상황인데 국내에 ASP.NET 웹 개발자가 별로 없어서 문의 드립니다. 책을 활용한 온라인 교육 서비스이고, MVC 패턴의 ASP.NET, MS-SQL로 개발해야 합니다.
+                    <div class="mb-3 col-lg-12">
+                        <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Email')}}</label>
+                        <input id="inputEmail" type="email" class="form-control" placeholder="example@example.com">
+                    </div>
 
-                                                    1. 몽골 현지에서만 프로젝트를 진행하시나요? 한국에 상주 가능한 인력은 없나요?
+                    <!-- subsribe -->
+                    <div class="mb-3 col-lg-12"> 
+                        <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Mailing')}}</label>
+                            <select class="form-select" aria-label="Default " id="subscribe" disabled>
+                                <option value="1">Only members who have agreed to receive</option>
+                                <option value="2">All</option>
+                            </select>
+                            
+                    </div>
 
-                                                    2. 몽골에서만 진행 가능하다면, 업무진행에 어려움은 없을까요? 기획과 디자인, 퍼블은 한국에서 진행하고 있고 개발만 담당하면 되는데, 보안문제나 다른 어려움은 없을까요?
 
-                                                    3. 한국에 개발자를 파견할 수도 있다면, 비자문제나 저희가 준비해야 할것들이 어떤 것이 있을까요?
-
-                                                    몽골 개발자들과 일해본 적이 없어서 가능성을 확인하고자 문의드립니다.
-
-                                                    010-5319-4484, sdlee@ringi.co.kr 로 연락주시면 됩니다. </textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <th> {{ __('Required technical manpower') }} </th>
-                                        <td> C#, etc.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-lg-12">
-                            <textarea name="" id="" cols="30" rows="10" class="form-control test"></textarea>
-                            <div class="form-check d-inline-block float-end fw-bold"><input type="checkbox" id="receive"
-                                class="form-check-input"><label for="receive" class="form-check-label">
-                                {{ __("Send reply by e-mail (If checked, reply will be sent to the author's e-mail.)") }} </label></div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer card-btm-border card-shadow-success border-success">
-                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
-                    <button type="button" class="btn btn-success"> {{ __('Confirm') }} </button>
-                </div>
+                </form>
             </div>
+
+            <div class="modal-footer card-btm-border card-shadow-success border-success">
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
+                <button type="button" class="btn btn-success sendMail1  " >{{__('Send')}}</button>
+            </div>
+
+           
         </div>
     </div>
-@endsection
-@section('script')
-    <script>
-        $(document).ready(function() {
-            let editor;
-            ClassicEditor.create(document.querySelector('.test'))
-                .then(newEditor => {
-                    editor = newEditor;
-                    editor.ui.view.editable.element.style.height = '300px';
-                })
-                .catch(error => {
+</div>
 
-                });
-        })
-        $('#reload_page').click(function () {
-            location.reload(true);
-        });
-    </script>
+
 @endsection

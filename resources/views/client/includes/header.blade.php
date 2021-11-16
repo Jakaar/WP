@@ -1,5 +1,5 @@
 @inject('t','App\Helper\Helper')
-<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent bg-white py-2">
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg bg-default navbar-dark  headroom py-2">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

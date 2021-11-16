@@ -28,14 +28,23 @@
                         @endforeach
                     </div>
                 @endif
+                    @if(session()->has('message'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                            {{ __(session()->get('message')) }}
+                        </div>
+                    @endif
+
                 <form id="addNewItemForm" name="addNewItemForm" action="{{route('save.content')}}" method="POST">
                     @csrf
+                    <input type="hidden" value="{{url()->full()}}" name="option">
+                    <input type="hidden" value="{{$content['type']->board_type}}" name="type">
                     <div class="tab-content contentEditor">
                         @foreach($data['langs'] as $lang)
                             <div class="tab-pane fade @if($n == 1) active show @endif" id="tab-eg5-{{$lang->id}}" role="tabpanel">
                                 <h1>{{$lang->country}}</h1>
                                 <textarea name="editor[{{$lang->country_code}}]" id="editor{{$lang->country_code}}" value="" required="required">
-                                    {!! $content['PageData']->content[$lang->country_code] !!}
+                                    {{ $content['PageData']->content[$lang->country_code] ?? '' }}
                                 </textarea>
                             </div>
                             @php $n++; @endphp
@@ -63,7 +72,6 @@
                 const editor = CKEDITOR.replace(v.id, {
                     language : lang,
                     height: '840px',
-                    addAttribute: 'required'
                 });
                 editors.push(editor)
             });

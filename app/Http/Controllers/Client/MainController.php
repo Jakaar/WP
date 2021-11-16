@@ -33,15 +33,15 @@ class MainController extends Controller
 
             $data['options'] = $temp;
 
-            if (count($boardData) > 1)
-            {
-                foreach ($boardData as $item)
-                {
+            if (count($boardData) > 1) {
+                foreach ($boardData as $item) {
                     $translating = json_decode($item->content, true);
                     $item->content = $translating[Session::get('locale')];
                 }
                 $data['board'] = $boardData;
-            } else {
+            } else if (count($boardData) == 0) {
+                $data['board'] = null;
+            }else if (count($boardData) <= 1){
                 $translating = json_decode($boardData[0]->content, true);
                 $boardData[0]->content = $translating[Session::get('locale')];
                 $data['board'] = $boardData[0];

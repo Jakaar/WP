@@ -25,7 +25,7 @@ class PermissionController extends Controller
     public function GetUsers()
     {
         $data = DB::table('users')
-//            ->select('')
+//            ->select('')/
             ->get();
 //        return $data;
         return response()->json($data, 200);
@@ -51,5 +51,19 @@ class PermissionController extends Controller
 
     public function email_settings(){
         return view('Admin::pages.users.email_settings');
+    }
+
+    public function adminSettings(){
+        $data = DB::table('users')
+        ->where('isEnabled', 1)
+        ->get();
+        return view('Admin::pages.basic_setting.adminSettings', compact('data'));
+    }
+    public function secessionist(){
+        $data = DB::table('users')
+        ->where('isEnabled', 0)
+        ->get();
+        // dd($data);
+        return view('Admin::pages.member_management.secessionist', compact('data'));
     }
 }

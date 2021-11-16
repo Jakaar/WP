@@ -26,9 +26,10 @@ CKEDITOR.editorConfig = function( config ) {
     //     { name: 'about' }
     // ];
     config.allowedContent = true;
+    CKEDITOR.dtd.$removeEmpty.i = false;
+    config.extraAllowedContent = 'span(*)';
 
-
-    //config.uiColor = '#F7B42C';
+    // config.uiColor = '#F7B42C';
     config.removeButtons = 'Underline,Subscript,Superscript';
     config.enterMode =		CKEDITOR.ENTER_BR;		//ì—”í„°í‚¤ ìž…ë ¥ì‹œ br íƒœê·¸ ë³€ê²½
     // Set the most common block elements.
@@ -37,8 +38,19 @@ CKEDITOR.editorConfig = function( config ) {
     //-- ì�´ë¯¸ì§€ ì—…ë¡œë“œ ê´€ë ¨ ì„¤ì •
     // config.language = 'en';
     config.filebrowserImageUploadUrl = '/api/ck/file-upload';
-
-
+    // config.allowedContent = true;
+    // config.toolbar = [['Source', '-', 'NewPage', '-', 'Templates','fontawesome5']];
+    config.extraPlugins = [
+        'ckawesome',
+        'wenzgmap',
+        'youtubebootstrap',
+        'qrc'
+        // 'N1ED-editor'
+    ];
+    // config.apiKey = "8DVZDFLT";
+    config.fillEmptyBlocks = false;
+    config.FormatOutput = false;
+    // config.ProcessHTMLTags = false ;
     //dialogDefinition.removeContents('Link');
     //dialogDefinition.removeContents('advanced');
 
@@ -46,11 +58,12 @@ CKEDITOR.editorConfig = function( config ) {
     config.contentsCss = [
         '/client/static/css/8dcfab18-ba4d-4fff-b9ff-dcc3c1118581.css',
         '/client/static/css/17d9acd2-0544-4e83-bc5b-281bcf97b1ff.css',
-        'https://use.fontawesome.com/releases/v5.0.6/css/all.css'
+        'https://use.fontawesome.com/releases/v5.0.6/css/all.css',
+        'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap',
+        'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'
     ];
+// console.log(config)
 };
-
-//ì�´ë¯¸ì§€ íŒŒì�¼ ì—…ë¡œë“œ ë‹¤ì�´ì–¼ë¡œê·¸ ë‚´ ë§�í�¬, ê³ ê¸‰ íƒ­ ì œê±°
 CKEDITOR.on('dialogDefinition', function(ev) {
     const dialogName = ev.data.name;
     const dialogDefinition = ev.data.definition;
