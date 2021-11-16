@@ -264,27 +264,27 @@ return [
     ], // Basic settings
     [
         'title'=>'Member Manage',
-        'url'=>'cms/member_management',
+        'url'=>'cms/member_management/users',
         'menus'=> [
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-user',
-                'name'=>'Admin Home',
-                'child' => [
-                    [
-                        'url'=>'cms/member_management/index',
-                        'icon'=>'',
-                        'name'=>'Admin Home',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/member_management/administrator_settings',
-                        'icon'=>'',
-                        'name'=>'Administrator settings',
-                        'child' => null
-                    ],
-                ],
-            ],
+            // [
+            //     'url'=>'#',
+            //     'icon'=>'pe-7s-user',
+            //     'name'=>'Admin Home',
+            //     'child' => [
+            //         [
+            //             'url'=>'cms/member_management/index',
+            //             'icon'=>'',
+            //             'name'=>'Admin Home',
+            //             'child' => null
+            //         ],
+            //         [
+            //             'url'=>'cms/member_management/administrator_settings',
+            //             'icon'=>'',
+            //             'name'=>'Administrator settings',
+            //             'child' => null
+            //         ],
+            //     ],
+            // ],
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-users',
