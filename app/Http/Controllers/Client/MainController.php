@@ -47,6 +47,14 @@ class MainController extends Controller
                 $data['board'] = $boardData[0];
             }
 //            dd($data);
+
+            if (isset($data['board']->isSubCategory))
+            {
+                $data['options']->board_type = 'SinglePage';
+                return view($this->compiler($data, $temp),  compact('data'));
+            }
+            if ($data['board'] == null)
+                return view('client.errors.404');
             return view($this->compiler($data, $temp),  compact('data'));
         }else{
             $temp = (object) null;

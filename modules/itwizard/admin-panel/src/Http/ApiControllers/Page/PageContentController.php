@@ -83,13 +83,20 @@ class PageContentController extends Controller
             try {
                 $data = json_encode($validator->validated()['editor'], true);
 
-//                dd($data, $request->all());
-
                 if ($request->type === 'SinglePage')
                 {
                     DB::table('wpanel_board_data')->updateOrInsert(['category_id'=> explode('/',$request->option)[5]], [
                         'title'=>'null',
                         'board_master_id' => 0,
+                        'category_id' => explode('/',$request->option)[5],
+                        'content' => $data
+                    ]);
+                    return back()->with('message', 'Successfully Saved');
+                }else if ($request->type === 'Category'){
+                    DB::table('wpanel_board_data')->updateOrInsert(['category_id'=> explode('/',$request->option)[5]], [
+                        'title'=>'null',
+                        'board_master_id' => 0,
+                        'isSubCategory' => 1,
                         'category_id' => explode('/',$request->option)[5],
                         'content' => $data
                     ]);

@@ -100,7 +100,7 @@ class PageManageController extends Controller
             ->where(['board_master_id' => $id])
             ->with('subCategories')
             ->get();
-//        dd($content);
+        dd($content,$slug);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
 }
