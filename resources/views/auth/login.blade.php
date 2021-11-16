@@ -11,6 +11,7 @@
         <meta name="description" content="This is an example dashboard created using build-in elements and components.">
         <!-- Disable tap highlight on IE -->
         <meta name="msapplication-tap-highlight" content="no">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500">
         <style>
             body {
                 -ms-overflow-style: none; /* for Internet Explorer, Edge */
@@ -20,6 +21,43 @@
             }
             body::-webkit-scrollbar {
                 display: none; /* for Chrome, Safari, and Opera */
+            }
+            .google-btn {
+
+                height: 42px;
+                background-color: #4285f5;
+                border-radius: 2px;
+                box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+            }
+            .google-btn .google-icon-wrapper {
+                position: absolute;
+                margin-top: 1px;
+                margin-left: 1px;
+                width: 40px;
+                height: 40px;
+                border-radius: 2px;
+                background-color: #fff;
+            }
+            .google-btn .google-icon {
+                position: absolute;
+                margin-top: 11px;
+                margin-left: 11px;
+                width: 18px;
+                height: 18px;
+            }
+            .google-btn .btn-text {
+                float: right;
+                margin: 11px 11px 0 0;
+                color: #fff;
+                font-size: 14px;
+                letter-spacing: 0.2px;
+                font-family: "Roboto";
+            }
+            .google-btn:hover {
+                box-shadow: 0 0 6px #4285f4;
+            }
+            .google-btn:active {
+                background: #1669f2;
             }
         </style>
         <link rel="stylesheet" href="{{asset('aPanel/css/admin.css')}}">
@@ -119,48 +157,69 @@
                                     <a href="javascript:void(0);" class="text-primary">{{__('Sign up now')}}</a>
                                 </h6>
                                 <div class="divider row"></div>
-                                <div>
-                                    <form method="POST" action="{{ route('login') }}" class="" autocomplete="off">
-                                        @csrf
-                                        <div class="">
-                                            <div class="col-md-6">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form method="POST" action="{{ route('login') }}" class="" autocomplete="off">
+                                            @csrf
+                                            <div class="col-md-12">
                                                 <div class="position-relative mb-3">
                                                     <label for="email" class="form-label">{{__('Email')}}</label>
                                                     <input name="email" id="email" value="{{ old('email') }}"
                                                            placeholder="{{__('Email here')}}" type="email" class="form-control @error('email') is-invalid @enderror">
                                                 </div>
                                                 @error('email')
-                                                    <div class="card p-2 mb-2 alert-danger fade show" role="alert">
-                                                        <b>{{ __('Authentication Failed') }}</b>
-                                                    </div>
+                                                <div class="card p-2 mb-2 alert-danger fade show" role="alert">
+                                                    <b>{{ __('Authentication Failed') }}</b>
+                                                </div>
                                                 @enderror
 
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="position-relative mb-3">
                                                     <label for="password" class="form-label">{{__('Password')}}</label>
                                                     <input name="password" id="password"
-                                                        placeholder="{{__('Password here')}}" type="password" class="form-control @error('password') is-invalid @enderror">
+                                                           placeholder="{{__('Password here')}}" type="password" class="form-control @error('password') is-invalid @enderror">
                                                 </div>
                                                 @error('password')
-                                                    <div class="card p-2 mb-2 alert-danger fade show" role="alert">
-                                                        <b>{{ __($message)}}</b>
-                                                    </div>
+                                                <div class="card p-2 mb-2 alert-danger fade show" role="alert">
+                                                    <b>{{ __($message)}}</b>
+                                                </div>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="position-relative form-check mb-3">
-                                            <input name="remember" id="remember" type="checkbox" class="form-check-input">
-                                            <label for="remember" class="form-label form-check-label">{{__('Keep me logged in')}}</label>
-                                        </div>
-                                        <div class="divider row"></div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="ms-auto">
-                                                <a href="javascript:void(0);" class="btn-lg btn btn-link">{{__('Recover Password')}}</a>
-                                                <button class="btn btn-outline-info btn-lg" type="submit">{{__('Login')}}</button>
+                                            <div class="position-relative form-check mb-3">
+                                                <input name="remember" id="remember" type="checkbox" class="form-check-input">
+                                                <label for="remember" class="form-label form-check-label">{{__('Keep me logged in')}}</label>
+                                            </div>
+                                            <div class="divider row"></div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="ms-auto">
+                                                    <a href="javascript:void(0);" class="btn-lg btn btn-link">{{__('Recover Password')}}</a>
+                                                    <button class="btn btn-outline-info btn-lg" type="submit">{{__('Login')}}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="col-md-12">
+                                            <h5 class="card-title">{{__('Social Login')}}</h5>
+                                            <div class="">
+                                                <a class="mb-2 me-2 btn-icon-vertical btn-transition btn btn-outline-primary">
+
+                                                </a>
+                                                <button class="mb-2 me-2 btn-icon-vertical btn-transition border-0 btn btn-outline-primary">
+                                                    <img class="btn-icon-wrapper" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt=""/>
+                                                    Login With Google
+                                                </button>
+                                                <a class="mb-2 me-2 btn-icon btn btn-outline-success">
+                                                    <img class="google-icon" width="100" src="{{asset('aPanel/imgs/naver.svg')}}" alt=""/>
+                                                </a>
+                                                <a class="mb-2 me-2 btn-icon btn btn-outline-success">
+                                                    <img class="" width="25" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
+                                                </a>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
