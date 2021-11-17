@@ -394,19 +394,7 @@
             $('#staticBackdrop').modal('show')
         })
     </script>
-    <script>
-        $(document).ready(function() {
-            $('.toggle').click(function() {
-                console.log($(this))
-                if ($(this).hasClass('off')) {
-                    $(this).insertAfter('hide')
-                } else {
-                    $(this)..insertAfter('hide')
-
-                }
-            })
-        })
-    </script>
+  
 
     <script>
         $(document).ready(function() {
@@ -436,22 +424,20 @@
                         // Add the `invalid-feedback` class to the error element
                         error.addClass("invalid-feedback");
                         if (element.prop("type") === "checkbox") {
-                            error.insertAfter(element.next("label"));
+                            // error.insertAfter(element.next("label"));
                         } else {
-                            error.insertAfter(element);
+                            // error.insertAfter(element);
                         }
                     },
                     highlight: function(element, errorClass, validClass) {
-
-                        $(element).addClass("is-invalid").removeClass("is-valid");
-                        const parantId = $(element).data('parent-id');
-                        $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                        console.log(element)
+                        $(element).prev('label').addClass("text-danger").removeClass("is-valid");
+                        
+                        // $('#' + parantId).addClass("text-danger").removeClass("text-success");
                     },
                     unhighlight: function(element, errorClass, validClass) {
-
-                        const parantId = $(element).data('parent-id');
-                        $('#' + parantId).addClass("text-success").removeClass("text-danger");
-                        $(element).addClass("is-valid").removeClass("is-invalid");
+                        console.log(element)
+                        $(element).prev('label').addClass("text-dark").removeClass("is-valid");
                     },
                 });
                 if ($('#addProduct').valid()) {
