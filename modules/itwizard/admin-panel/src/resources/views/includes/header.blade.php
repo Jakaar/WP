@@ -2,13 +2,14 @@
     <div class="app-header__logo">
         <div class="logo-src">
             <a href="/cms">
-<!--                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">-->
+            <!--                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">-->
                 <img class="logo-src" src="{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}" alt="">
             </a>
         </div>
         <div class="header__pane ms-auto">
             <div>
-                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                        data-class="closed-sidebar">
                     <span class="hamburger-box">
                         <span class="hamburger-inner"></span>
                     </span>
@@ -351,42 +352,39 @@
                             <span class="icon-wrapper-bg bg-focus"></span>
                             <span class="language-icon opacity-8 flag large
                                 @if(session()->get('locale') == 'en')
-                                    US
-                                @elseif(session()->get('locale') == 'mn')
-                                    MN
-                                @elseif(session()->get('locale') == 'kr')
-                                    KR
-                                @endif">
+                                US
+@elseif(session()->get('locale') == 'mn')
+                                MN
+@elseif(session()->get('locale') == 'kr')
+                                KR
+@endif">
 
                             </span>
                         </span>
                     </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu dropdown-menu-right">
+                    <div tabindex="-1" role="menu" aria-hidden="true"
+                         class="rm-pointers dropdown-menu dropdown-menu-right">
                         <div class="dropdown-menu-header">
                             <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
-                                <div class="menu-header-image opacity-1" style="background-image: url('/aPanel/images/city2.jpg');"></div>
+                                <div class="menu-header-image opacity-1"
+                                     style="background-image: url('/aPanel/images/city2.jpg');"></div>
                                 <div class="menu-header-content text-center text-white">
                                     <h6 class="menu-header-subtitle mt-0"> {{__('Choose Language')}}</h6>
                                 </div>
                             </div>
                         </div>
-                        @foreach ($data['langs'] as $langs)
-                        <a href="/lang/{{ $langs->country_code }}" type="button" tabindex="0" class="dropdown-item">
-                            <span class="me-3 opacity-8 flag large @if($langs->country_code == 'en') US @else {{ strtoupper($langs->country_code) }} @endif"></span>
-                            {{ $langs->country }}
-                        </a>
-                        @endforeach
-                        
-{{-- 
-                        <a href="/lang/kr" type="button" tabindex="0" class="dropdown-item">
-                            <span class="me-3 opacity-8 flag large KR"></span>
-                            한국어
-                        </a>
 
-                        <a href="/lang/mn" type="button" tabindex="0" class="dropdown-item">
-                            <span class="me-3 opacity-8 flag large MN"></span>
-                            Монгол
-                        </a> --}}
+
+                        {{--
+                                                <a href="/lang/kr" type="button" tabindex="0" class="dropdown-item">
+                                                    <span class="me-3 opacity-8 flag large KR"></span>
+                                                    한국어
+                                                </a>
+
+                                                <a href="/lang/mn" type="button" tabindex="0" class="dropdown-item">
+                                                    <span class="me-3 opacity-8 flag large MN"></span>
+                                                    Монгол
+                                                </a> --}}
                     </div>
                 </div>
             </div>
@@ -396,26 +394,36 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}" alt="">
+                                    <img width="42" class="rounded-circle"
+                                         src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}"
+                                         alt="">
                                     <i class="fa fa-angle-down ms-2 opacity-8"></i>
                                 </a>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
+                                <div tabindex="-1" role="menu" aria-hidden="true"
+                                     class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
                                     <div class="dropdown-menu-header">
                                         <div class="dropdown-menu-header-inner bg-info">
-                                            <div class="menu-header-image opacity-2" style="background-image: url('/aPanel/imgs/city3.jpg');"></div>
+                                            <div class="menu-header-image opacity-2"
+                                                 style="background-image: url('/aPanel/imgs/city3.jpg');"></div>
                                             <div class="menu-header-content text-start">
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left me-3">
-                                                            <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}" alt="">
+                                                            <img width="42" class="rounded-circle"
+                                                                 src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}"
+                                                                 alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">{{auth()->user()->lastname}}</div>
-                                                            <div class="widget-subheading opacity-8">{{auth()->user()->email}}</div>
+                                                            <div
+                                                                class="widget-heading">{{auth()->user()->lastname}}</div>
+                                                            <div
+                                                                class="widget-subheading opacity-8">{{auth()->user()->email}}</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">
-                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">{{__('Logout')}}</button>
-                                                            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus"
+                                                                    onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">{{__('Logout')}}</button>
+                                                            <form id="frm-logout" action="{{ route('logout') }}"
+                                                                  method="POST" style="display: none;">
                                                                 {{ csrf_field() }}
                                                             </form>
                                                         </div>
@@ -441,7 +449,8 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="/cms/myProfile/#profile-settings" class="nav-link">{{__('Settings')}}</a>
+                                                    <a href="/cms/myProfile/#profile-settings"
+                                                       class="nav-link">{{__('Settings')}}</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="/cms/myProfile/#profile-msg" class="nav-link">

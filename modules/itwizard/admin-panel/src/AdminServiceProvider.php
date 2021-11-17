@@ -45,6 +45,8 @@ class AdminServiceProvider extends ServiceProvider
     public function GetDatas(): array
     {
         $data['langs'] = DB::table('wpanel_available_language')->get();
+//        dd($data['langs']);
+
         $data['logo'] = DB::table('wpanel_site_info')
             ->select('logo')
             ->first();
