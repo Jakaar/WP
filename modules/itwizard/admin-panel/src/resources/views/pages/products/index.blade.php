@@ -150,4 +150,234 @@
             });
         })
     </script>
+
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#add_thumbnail').click(function() {
+            let count = $('#thumbnail_group .input-group').length;
+            count = count + 1;
+            if (count == 9) {
+                $(this).remove()
+            }
+            const item =
+                '<div class="input-group mb-3"> <input type="text" class="form-control" placeholder="{{ __('No file chosen') }}" readonly> <input type="file" class="d-none" name="thumbnail[]" id="thumbnail_' +
+                count + '"><label for="thumbnail_' + count +
+                '" class="btn btn-outline-secondary"> {{ __('Choose file') }} </label></div>';
+            $('#thumbnail_group').append(item);
+        })
+    })
+</script>
+<script>
+    $(document).ready(function() {
+        CKEDITOR.replace('description', {
+            filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+        });
+    })
+</script>
+<script>
+    $(document).ready(function() {
+
+        function readFile(file) {
+            var fReader = new FileReader();
+            let image;
+            fReader.readAsDataURL(file);
+            return fReader;
+            // console.log(file)
+            // fReader.onloadend = function (event){
+            //     return event.currentTarget.result;
+
+            // }
+        }
+        console.log(localStorage.getItem('images'))
+        const files = {};
+        $(document).on('change', 'input[type=file]', function() {
+            const image = $(this)
+            const data = readFile($(this).prop('files')[0]);
+            data.onloadend = function(event) {
+                files[image.attr('id')] = event.currentTarget.result
+                // console.log(files)
+                //   image.parent().parent().prev('div').append('<img src="' + event.currentTarget.result + '"style="width:100px" class="rounded mb-3 me-2">')
+            }
+            // $(this).parent().parent().prev('div').html('<img src="' +  + '">')
+            $(this).parent('.input-group').find('input[type=text]').val($(this).val())
+
+            for(var i in files){
+                console.log(files)
+            }
+                
+            
+        })
+    })
+</script>
+<script>
+    $('.ModalShow').click(function(){
+        $('#staticBackdrop').modal('show')  
+    })
+</script>
+<script>
+    $(document).ready(function() {
+        $('#switcher').click(function() {
+            if ($(this).is(':checked')) {
+                $(this).next('label').html('Show')
+            } else {
+                $(this).next('label').html('Hide')
+            }
+        })
+    })
+</script>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form action="">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productLabel">{{ __('Create Product') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row">
+
+                        <div class="mb-3">
+                            <label for="" class="form-label fw-bold"> {{ __('Product Category') }} <span
+                                    class="text-danger ">*</span> </label>
+                            <select name="product_category" id="" class="form-control form-select">
+                                <option value=""> </option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6 col-sm-12">
+                            <label for="" class="form-label fw-bold"> {{ __('Product Code') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Product Code') }} "
+                                name="product_code">
+                        </div>
+
+                        <div class="mb-3 col-lg-6 col-sm-12">
+                            <label for="" class="form-label fw-bold"> {{ __('Product Name') }} <span
+                                    class="text-danger ">*</span> </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Product Name') }} "
+                                name="product_name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label fw-bold"> {{ __(' Priority') }} </label>
+                            <input type="number" min="1" class="form-control" placeholder="{{ __(' Priority') }}"
+                                name="priority">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label fw-bold"> {{ __('Product Type') }} </label>
+                            <div class="clearfix"></div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="hit" value="{{ __('Hit') }}"
+                                    name="type[]">
+                                <label class="form-check-label" for="hit">{{ __('Hit') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="recommended"
+                                    value="{{ __('Recommended') }}" name="type[]">
+                                <label class="form-check-label" for="recommended">{{ __('Recommended') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="Trend" value="{{ __('Trend') }}"
+                                    name="type[]">
+                                <label class="form-check-label" for="Trend">{{ __('Trend') }}</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="Popularity"
+                                    value="{{ __('Popularity') }}" name="type[]">
+                                <label class="form-check-label" for="Popularity">{{ __('Popularity') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="Discount"
+                                    value="{{ __('Discount') }}" name="type[]">
+                                <label class="form-check-label" for="Discount">{{ __('Discount') }}</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
+                            <label for="" class="form-label fw-bold"> {{ __('Principal Company') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Principal Company') }} "
+                                name="principal">
+                        </div>
+
+                        <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
+                            <label for="" class="form-label fw-bold"> {{ __('Made by ') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Made by') }} " name="made_by">
+                        </div>
+
+                        <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
+                            <label for="" class="form-label fw-bold"> {{ __('Brand') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Brand') }} " name="brand">
+                        </div>
+
+                        <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
+                            <label for="" class="form-label fw-bold"> {{ __('Model Name') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Model Name') }} "
+                                name="model_name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label fw-bold"> {{ __('Price') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Price') }} " name="price">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label fw-bold"> {{ __('Product Description') }} <span
+                                    class="text-danger ">*</span> </label>
+                            <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="d-inline"></div>
+                        <div class="mb-3 col">
+                            <label for="" class="form-label fw-bold"> {{ __('Main image') }} <span
+                                    class="text-danger ">*</span> </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ __('No file chosen') }}"
+                                    readonly>
+                                <input type="file" class="d-none" name="main_image" id="main_image">
+                                <label for="main_image" class="btn btn-outline-secondary"> {{ __('Choose file') }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-inline"></div>
+                        <div class="mb" id="thumbnail_group">
+                            <label for="" class="form-label fw-bold"> {{ __('Thumbnails') }} </label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="{{ __('No file chosen') }}"
+                                    readonly>
+                                <input type="file" class="d-none" name="thumbnail[]" id="thumbnail_1">
+                                <label for="thumbnail_1" class="btn btn-outline-secondary"> {{ __('Choose file') }}
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-outline-secondary" id="add_thumbnail"> + </button>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switcher" checked>
+                                <label class="form-check-label fw-bold" for="flexSwitchCheckChecked"> {{ __('Show') }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="float-end">
+                                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">
+                                    {{ __('Close') }}
+                                </button>
+                                <button type="button" class="btn btn-success">{{ __('Save') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
