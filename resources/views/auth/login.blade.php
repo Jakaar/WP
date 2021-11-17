@@ -175,8 +175,8 @@
                                             <h5 class="card-title text-center">{{__('Social Login')}}</h5>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                <div class="" href="{{ route('google.login') }}">
-                                                    <a class="w-100  me-2 btn-icon btn-shadow btn btn-primary" href="{{route('google.login')}}">
+                                                <div class="" href="">
+                                                    <a class="w-100  me-2 btn-icon btn-shadow btn btn-primary" href="">
                                                         <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                                                         <b  class="btn-text">{{__('Sign in with Google')}}</b>
                                                     </a>
