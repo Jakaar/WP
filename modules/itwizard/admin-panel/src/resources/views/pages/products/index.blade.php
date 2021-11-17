@@ -430,13 +430,13 @@
                         }
                     },
                     highlight: function(element, errorClass, validClass) {
-                        console.log(element)
+                        // console.log(element)
                         $(element).prev('label').addClass("text-danger").removeClass("is-valid");
                         
                         // $('#' + parantId).addClass("text-danger").removeClass("text-success");
                     },
                     unhighlight: function(element, errorClass, validClass) {
-                        console.log(element)
+                        // console.log(element)
                         $(element).prev('label').addClass("text-dark").removeClass("is-valid");
                     },
                 });
