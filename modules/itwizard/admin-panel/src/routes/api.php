@@ -39,6 +39,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/editbanner/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class, 'editbanner']);
     Route::post('/updatebanner', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class, 'updateBanner']);
 
+    Route::post('/addfile', [\Itwizard\Adminpanel\Http\ApiControllers\StaticFile\StaticFileController::class, 'addfile']);
+    Route::get('/editfile/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\StaticFile\StaticFileController::class, 'editStaticFile']);
+    Route::post('/DeleteFile/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\StaticFile\StaticFileController::class, 'DeleteStaticFile']);
+    Route::post('/updatefile', [\Itwizard\Adminpanel\Http\ApiControllers\StaticFile\StaticFileController::class, 'updateStaticFile']);
+
     Route::post('/member/create', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\MemberController::class, 'create']);
     Route::post('/permission/create', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'create']);
 

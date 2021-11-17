@@ -9,6 +9,7 @@ use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
+use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
 
 
 //Route::get('/', function (){
@@ -49,6 +50,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/member_management/settings',[PermissionController::class, 'settings']);
 
     Route::get('/banner',[BannerController::class, 'index']);
+    Route::get('/static_file',[StaticFileController::class, 'index']);
 
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
