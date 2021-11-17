@@ -52,7 +52,6 @@ class MemberController extends Controller
         $model = \App\Models\Permission::find($request->id);
         $model->name = $request->name;
         $model->display_name = $request->display_name;
-        $model->url = $request->url;
         $model->description = $request->description;
         $model->save();
 
@@ -64,7 +63,6 @@ class MemberController extends Controller
         $model = new \App\Models\Permission;
         $model->name = $request->name;
         $model->display_name = $request->display_name;
-        $model->url = $request->url;
         $model->description = $request->description;
         $model->save();
 

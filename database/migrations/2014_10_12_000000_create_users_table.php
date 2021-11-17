@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function ($table) {
             $table->increments('id');
+            $table->string('google_id')->nullable();
             $table->integer('reporting_to')->nullable();
             $table->string('firstname', 100)->nullable();
             $table->string('lastname', 100)->nullable();

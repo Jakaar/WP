@@ -61,16 +61,19 @@ class PermissionController extends Controller
     }
 
     public function adminSettings(){
-        $data = DB::table('users')
+        $model = DB::table('users')
         ->where('isEnabled', 1)
         ->get();
-        return view('Admin::pages.basic_setting.adminSettings', compact('data'));
+        return view('Admin::pages.basic_setting.adminSettings', [
+            'model' => $model
+        ]);
     }
     public function secessionist(){
-        $data = DB::table('users')
+        $model = DB::table('users')
         ->where('isEnabled', 0)
         ->get();
-        // dd($data);
-        return view('Admin::pages.member_management.secessionist', compact('data'));
+        return view('Admin::pages.member_management.secessionist',[
+            'model' => $model,
+        ]);
     }
 }
