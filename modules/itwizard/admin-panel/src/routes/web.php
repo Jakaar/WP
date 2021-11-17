@@ -19,8 +19,8 @@ use App\Http\Controllers\Auth\GoogleController;
 Route::group(['middleware' => ['web']], function () {
     Route::get('/auth/login/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])->name('google.login');
     Route::get('/auth/login/google/callback',[App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
+    Route::post('/loginKakao', [App\Http\Controllers\Auth\KakaoController::class,'store']);
 });
-
 Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function(){
     Route::get('/preferences',[PreferencesController::class, 'index']);
     Route::get('/preferences/logger',[PreferencesController::class, 'logger']);
