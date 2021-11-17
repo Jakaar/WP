@@ -13,7 +13,7 @@
                                                         <span class="opacity-10 text-success pe-2">
                                                             <i class="fa fa-angle-up"></i>
                                                         </span>
-                                    {!! $data['users_count'] !!}
+                                    {{-- {!! $data['users_count'] !!} --}}
                                     <small class="opacity-5 ps-1">명</small>
                                 </div>
                                 <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
@@ -774,7 +774,7 @@
     // analytic new account
     $(".circle-progress-gradient-alt-sm")
         .circleProgress({
-            value:  {!! $data['users_count'] !!},
+             value: 0,
             size: 46,
             lineCap: "round",
             fill: { gradient: ["#007bff", "#16aaff"] },

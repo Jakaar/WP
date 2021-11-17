@@ -18,8 +18,8 @@ class AnalyticController extends Controller
         $today = Carbon::now();
         $startOfWeek = $today->startOfWeek()->format('Y-m-d H:i');
         $endOfWeek = $today->endOfWeek()->format('Y-m-d H:i');
-        $data['users_count'] = DB::table('users')->whereBetween('created_at', [$startOfWeek, $endOfWeek])->get()->count();
+        // $data['users_count'] = DB::table('users')->whereBetween('created_at', [$startOfWeek, $endOfWeek])->get()->count();
 
-        return view('Admin::pages.dashboard.analytic', compact('data'));
+        return view('Admin::pages.dashboard.analytic');
     }
 }

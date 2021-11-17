@@ -33,6 +33,7 @@
                         <td> {{ __('IP') }} </td>
                         <td> {{ __('User Agent') }} </td>
                         <td> {{ __('User') }} </td>
+                        <td> {{ __('Created at') }} </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,6 +58,7 @@
                         <td> {{$log->ip}} </td>
                         <td> {{$log->agent}} </td>
                         <td> {{$log->user->firstname}}  {{$log->user->lastname}} </td>
+                        <td> {{ $log->created_at }} </td>
                     </tr>
                     @endforeach
                 </tbody>
