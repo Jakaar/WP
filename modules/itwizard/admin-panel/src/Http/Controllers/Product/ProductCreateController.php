@@ -20,7 +20,7 @@ class ProductCreateController extends Controller
     }
     public function CreateItem(Request $request)
     {
-        dd('it;s work');
+        dd(['it;s work','received array' => $request->all()]);
     }
 
 }
