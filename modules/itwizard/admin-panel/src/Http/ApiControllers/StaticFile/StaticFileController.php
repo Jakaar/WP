@@ -17,7 +17,7 @@ class StaticFileController extends Controller
     public function addfile(Request $request)
     {
         $type=$request->upload_file->getClientOriginalExtension();
-        $typeget = DB::table('static_file_type')->where('type_name', $type)->first();
+        $typeget = DB::table('client_static_file_type')->where('type_name', $type)->first();
         if($typeget != null)
         {
             $file = $request->file('upload_file');
@@ -25,7 +25,7 @@ class StaticFileController extends Controller
             $fileExt = $file->getClientOriginalExtension();
             $lastName = $saveName.'.'.$fileExt;
             $file->move(public_path('client/static/'.$fileExt),$saveName.'.'.$fileExt);
-            DB::table('static_file')->insert([
+            DB::table('client_static_file')->insert([
                 'type_id'=>$typeget->id,
                 'file_absolute_path'=>$lastName,
                 'status'=>$request->status,
@@ -35,7 +35,7 @@ class StaticFileController extends Controller
         }
         else
         {
-            DB::table('static_file_type')->insert([
+            DB::table('client_static_file_type')->insert([
                 'type_name'=>$type,
                 "created_at" =>  \Carbon\Carbon::now(), 
                 "updated_at" => \Carbon\Carbon::now(), 
@@ -49,7 +49,7 @@ class StaticFileController extends Controller
             // $insert_id = $typeget->id;
             $lastName = $saveName.'.'.$fileExt;
             $file->move(public_path('client/static/'.$fileExt),$saveName.'.'.$fileExt);
-            DB::table('static_file')->insert([
+            DB::table('client_static_file')->insert([
                 'type_id'=>$insert_id1,
                 'file_absolute_path'=>$lastName,
                 'status'=>$request->status,
@@ -61,19 +61,19 @@ class StaticFileController extends Controller
     }
     public function DeleteStaticFile($id)
     {
-        DB::table('static_file')->where('id', $id)->update([
+        DB::table('client_static_file')->where('id', $id)->update([
             'status' => '0'
         ]);
         return response()->json(200,200);
     }
     public function editStaticFile($id)
     {
-        $banner=DB::table('static_file')->find($id);
+        $banner=DB::table('client_static_file')->find($id);
         return response()->json($banner);
     }
     public function updateStaticFile(Request $request){
         //return $request->all();
-        $updated = DB::table('static_file')->where('id', $request->file_id);
+        $updated = DB::table('client_static_file')->where('id', $request->file_id);
         
         
         if ($request->file('upload_file1')) 
@@ -102,7 +102,7 @@ class StaticFileController extends Controller
             else
             {
                 $type=$request->upload_file1->getClientOriginalExtension();
-                DB::table('static_file_type')->insert([
+                DB::table('client_static_file_type')->insert([
                     'type_name'=>$type,
                     "created_at" =>  \Carbon\Carbon::now(), 
                     "updated_at" => \Carbon\Carbon::now(), 
