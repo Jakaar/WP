@@ -1,6 +1,6 @@
 <div class="app-header header-shadow">
     <div class="app-header__logo">
-        <div class="logo-src">
+        <div class="logo-src" style="background:url('{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}') ">
             <a href="/cms">
 <!--                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">-->
                 <img class="logo-src" src="{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}" alt="">
