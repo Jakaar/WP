@@ -2,7 +2,7 @@
 
 namespace Itwizard\Adminpanel\Http\Controllers\Users;
 
-
+use App\Models\Permission;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +15,16 @@ class PermissionController extends Controller
     }
     public function index()
     {
-        $data['users'] = DB::table('users')
+        $users = DB::table('users')
             ->get();
-        $data['roles'] = \App\Models\Role::get();
-        $data['permission'] = \App\Models\Permission::get();
+        $roles = \App\Models\Role::get();
+        $permissions = \App\Models\Permission::get();
 
-        return view('Admin::pages.users.permission', compact('data'));
+        return view('Admin::pages.users.permission',[
+            'users' => $users,
+            'roles' => $roles,
+            'permissions' => $permissions,
+        ]);
     }
     public function GetUsers()
     {
@@ -57,16 +61,19 @@ class PermissionController extends Controller
     }
 
     public function adminSettings(){
-        $data = DB::table('users')
+        $model = DB::table('users')
         ->where('isEnabled', 1)
         ->get();
-        return view('Admin::pages.basic_setting.adminSettings', compact('data'));
+        return view('Admin::pages.basic_setting.adminSettings', [
+            'model' => $model
+        ]);
     }
     public function secessionist(){
-        $data = DB::table('users')
+        $model = DB::table('users')
         ->where('isEnabled', 0)
         ->get();
-        // dd($data);
-        return view('Admin::pages.member_management.secessionist', compact('data'));
+        return view('Admin::pages.member_management.secessionist',[
+            'model' => $model,
+        ]);
     }
 }
