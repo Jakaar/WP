@@ -18,5 +18,9 @@ class ProductCreateController extends Controller
     {
         return view('Admin::pages.products.product_modal');
     }
+    public function CreateItem(Request $request)
+    {
+        dd('it;s work');
+    }
 
 }

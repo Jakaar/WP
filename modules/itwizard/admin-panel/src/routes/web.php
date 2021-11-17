@@ -5,15 +5,13 @@ use Illuminate\Support\Facades\Route;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\AnalyticController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
+use Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
 use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
 use App\Http\Controllers\Auth\GoogleController;
-use Spatie\Activitylog\Models\Activity;
-
-use Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController;
 
 //Route::get('/', function (){
 //    return redirect('/cms/dashboard');
@@ -77,6 +75,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 //    Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
 
     Route::get('/products',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'index']);
+    Route::get('/product/create',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'CreateItem']);
+
+
     Route::get('/products/index',[ProductCreateController::class, 'index']);
 
 
@@ -95,4 +96,5 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
         $user = \App\User::find(1);
         $user->attachRole('owner');
     });
+
 });
