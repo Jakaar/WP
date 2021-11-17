@@ -10,12 +10,18 @@ use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
 use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
+use App\Http\Controllers\Auth\GoogleController;
 use Spatie\Activitylog\Models\Activity;
 
+use Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController;
 
 //Route::get('/', function (){
 //    return redirect('/cms/dashboard');
 //});
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/auth/login/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])->name('google.login');
+    Route::get('/auth/login/google/callback',[App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
+});
 
 Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function(){
     Route::get('/preferences',[PreferencesController::class, 'index']);
@@ -27,7 +33,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
     });
-    Route::get('/dashboard', [AnalyticController::class, 'index']);
+    Route::get('/dashboard', [AnalyticController::class, 'index'])->middleware(['permission:dashboard-read']);
 //    Route::get('/dashboard/user_menu', [UserMenuController::class,  'index']);
 
 //    Route::get('/marketing', [BannerController::class,  'index']);
@@ -70,7 +76,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/product_management/manageCategory',[\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'index']);
     Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
 
-    Route::get('/products/index');
+    Route::get('/products/index',[ProductCreateController::class, 'index']);
 
 
 

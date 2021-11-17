@@ -57,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $data_admin)
+                        @foreach ($model as $data_admin)
                         <tr>
                             <td>{{ $data_admin-> id}}</td>
                             <td>{{ $data_admin-> firstname}}</td>
