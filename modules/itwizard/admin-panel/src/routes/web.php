@@ -33,7 +33,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
     });
-    Route::get('/dashboard', [AnalyticController::class, 'index'])->middleware(['permission:dashboard-read']);
+    Route::get('/dashboard', [AnalyticController::class, 'index']);
 //    Route::get('/dashboard/user_menu', [UserMenuController::class,  'index']);
 
 //    Route::get('/marketing', [BannerController::class,  'index']);
