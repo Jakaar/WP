@@ -173,28 +173,31 @@
                                                 </div>
                                             @endif
                                             <h5 class="card-title text-center">{{__('Social Login')}}</h5>
-                                            <div class="row">
-                                                <div class="col-md-8 offset-md-2">
-                                                <div class="" href="">
-                                                    <a class="w-100  me-2 btn-shadow btn btn-google" href="">
-                                                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                                                        <b  class="btn-text roboto">{{__('Sign in with Google')}}</b>
-                                                    </a>
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <div class="google-btn bg-google">
+                                                        <div class="google-icon-wrapper">
+                                                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt=""/>
+                                                        </div>
+                                                        <a href="{{route('google.login')}}" class="btn-text"><b>Sign in with Google</b></a>
+                                                    </div>
                                                 </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="google-btn bg-naver">
+                                                        <div class="google-icon-wrapper">
+                                                            <img class="google-icon" src="{{asset('aPanel/imgs/naver_green.svg')}}" alt=""/>
+                                                        </div>
+                                                        <a href="#" class="btn-text"><b class="roboto">{{__('Sign in with Naver')}}</b></a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-8 offset-md-2">
-                                                <div class="">
-                                                <a class="h-42 w-100 btn-icon btn btn-shadow btn-success mt-3">
-                                                    <img class="naver-icon" width="100" src="{{asset('aPanel/imgs/vectorpaint.svg')}}" alt=""/>
-                                                    <b class="naver roboto">{{__('Sign in with Naver')}}</b>
-                                                </a>
-                                                </div>
-                                                </div>
-                                                <div class="col-md-8 offset-md-2">
-                                                <a class="w-100 mt-3 me-2 btn-icon btn-shadow btn btn-warning">
-                                                    <img class="" width="25" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
-                                                    <b style="color: black">{{__('Sign in with Kakao')}}</b>
-                                                </a>
+                                                <div class="col-md-6  mt-4">
+                                                    <div class="google-btn bg-kakao">
+                                                        <div class="google-icon-wrapper">
+                                                            <img class="google-icon" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
+                                                        </div>
+                                                        <a href="#" class="btn-text text-dark"><b class="roboto">{{__('Sign in with Kakao')}}</b></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
