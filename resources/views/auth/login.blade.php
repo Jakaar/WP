@@ -196,7 +196,7 @@
                                                         <div class="google-icon-wrapper">
                                                             <img class="google-icon" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
                                                         </div>
-                                                        <a href="#" class="btn-text text-dark"><b class="roboto">{{__('Sign in with Kakao')}}</b></a>
+                                                        <a href="javascript:kakaoLogin();" class="btn-text text-dark"><b class="roboto">{{__('Sign in with Kakao')}}</b></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +209,40 @@
                 </div>
             </div>
         </div>
+        <form method="post" id="kakao">
+            <input type="hidden" id="email" name="email">
+            <input type="hidden" id="name" name="name">
+            <input type="hidden" id="avatar" name="avatar">
+        </form>
         <div class="app-drawer-overlay d-none animated fadeIn"></div>
         <script type="text/javascript" src="{{asset('aPanel/js/main.js')}}"></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script>
+            window.Kakao.init("1266f5594789e7ea0dfc2bc963ac71c7")
+            function kakaoLogin() {
+                window.Kakao.Auth.login({
+                    scope:'profile_image,account_email,gender',
+                    success: function(authObj){
+                        window.Kakao.API.request({
+                            url:'/v2/user/me',
+                            success:res =>{
+                                const kakao_account = res.kakao_account;
+                                const test = kakao_account
+                                Axios.post('/loginKakao', test)
+                                    .then((resp) =>{
+                                        location.replace("/cms");
+                                    }).catch((err) => {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: '{{__('Oops...')}}',
+                                            text: '{{__('You are not registered user')}}'
+                                        })
+                                })
+                            }
+                        });
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

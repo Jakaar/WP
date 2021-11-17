@@ -18,5 +18,4 @@ class ProductController extends Controller
     {
         return view('Admin::pages.products.index');
     }
-
 }
