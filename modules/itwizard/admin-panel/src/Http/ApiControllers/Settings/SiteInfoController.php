@@ -5,12 +5,13 @@ namespace Itwizard\Adminpanel\Http\ApiControllers\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Helper\LogActivity;
 
 class SiteInfoController extends Controller
 {
     public function update(Request $request)
     {
-
+        LogActivity::addToLog('Updated SiteInfo');
         $savedInfo = DB::table('wpanel_site_info')->take(1);
         // dd($request);
         // dd($request->companyName);

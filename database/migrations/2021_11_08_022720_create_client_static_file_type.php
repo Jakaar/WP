@@ -13,7 +13,7 @@ class CreateClientStaticFileType extends Migration
      */
     public function up()
     {
-        Schema::create('static_file_type', function (Blueprint $table) {
+        Schema::create('client_static_file_type', function (Blueprint $table) {
             $table->id();
             $table->text('type_name');
             $table->timestamps();

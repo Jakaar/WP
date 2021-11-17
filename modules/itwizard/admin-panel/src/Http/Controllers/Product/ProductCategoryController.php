@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Helper\Helper;
+use App\Helper\LogActivity;
 
 /**
  *
@@ -48,6 +49,7 @@ class ProductCategoryController extends Controller
      */
     public function create(Request $request)
     {
+        LogActivity::addToLog('Created Product');
         DB::table('wpanel_product_manage')->insert([
             'product_classification' => $request->classification,
             'product_name' => $request->MenuName,
@@ -81,6 +83,7 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request)
     {
+        LogActivity::addToLog('product Updated');
         $updated = DB::table('wpanel_product_manage')->where('id', $request->id);
         $updated->update([
             'product_classification' => $request->classification,
@@ -103,6 +106,7 @@ class ProductCategoryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id){
+        LogActivity::addToLog('product Deleted');
         DB::table('wpanel_product_manage')
         ->where('id', $id)
         ->update([

@@ -13,18 +13,18 @@ class SiteInfoSeeder extends Seeder
     public function run()
     {
         DB::table('wpanel_site_info')->insert([
-            'company_name' => 'Your Company Name',
-            'site_name' => 'Your Site Name',
+            'company_name' => '{"mn": "", "en": "", "kr": ""}',
+            'site_name' => '{"mn": "", "en": "", "kr": ""}',
             'fax' => 'Your fax here',
             'company_register_number' => 'Your company register number',
             'phone_number' => 'Your phone',
-            'address' => 'Your official address',
+            'address' => '{"mn": "", "en": "", "kr": ""}',
             'email' => 'You Company email',
-            'site_copyright' => 'Copyright Here',
+            'site_copyright' => '{"mn": "", "en": "", "kr": ""}',
             'logo' => null,
-            'terms_of_condition' => 'Terms of Condition',
-            'privacy' => 'Site Privacy Here',
-            'personal_information_manager' => 'personal manager'
+            'terms_of_condition' => '{"mn": "", "en": "", "kr": ""}',
+            'privacy' => '{"mn": "", "en": "", "kr": ""}',
+            'personal_information_manager' => '{"mn": "", "en": "", "kr": ""}'
         ]);
     }
 }

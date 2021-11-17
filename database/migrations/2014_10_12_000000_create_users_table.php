@@ -44,8 +44,8 @@ class CreateUsersTable extends Migration
             $table->string('upload_folder', 100)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
-            $table->integer('subscribed');
-            $table->integer('isEnabled');
+            $table->integer('subscribed')->nullable();
+            $table->integer('isEnabled')->default(1);
             $table->string('reason', 500)->nullable();
 
         });
