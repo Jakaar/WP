@@ -143,7 +143,6 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-
                 <form action="/cms/product/create" method="POST" id="addProduct">
                     @csrf
                     <div class="modal-header">
@@ -153,10 +152,10 @@
 
                     <div class="modal-body row">
                         <div class="mb-3 col-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Product Category') }} <span
+                            <label for="category_id" class="form-label fw-bold"> {{ __('Product Category') }} <span
                                     class="text-danger ">*</span> </label>
-                            <select name="product_category" id="" class="form-control form-select" required>
-                                <option value="sadsa">gg </option>
+                            <select name="category_id" id="category_id" class="form-control form-select" required>
+                                <option value="a">gg </option>
                             </select>
                         </div>
                         <div class="mb-3 col-6 ">
@@ -164,83 +163,72 @@
                                 {{ __('Is Active') }}
                             </label>
                             <div class="clearfix"></div>
-                            <input class=" switcher" type="checkbox" id="switcher" checked>
+                            <input class="switcher" type="checkbox" id="switcher" name="is_status" checked>
                             {{-- <label for="" class="form-check-label fw-bold me-4 visiblity"> {{ __('Show') }} </label> --}}
                         </div>
                         <div class="mb-3 col-lg-6 col-sm-12">
-                            <label for="" class="form-label fw-bold"> {{ __('Product Code') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Product Code') }} "
-                                name="product_code">
+                            <label for="sku" class="form-label fw-bold"> {{ __('Product Code') }} </label>
+                            <input type="text" class="form-control" id="sku" placeholder="{{ __('Product Code') }}" name="sku">
                         </div>
                         <div class="mb-3 col-lg-6 col-sm-12">
-                            <label for="" class="form-label fw-bold">
+                            <label for="product_name" class="form-label fw-bold">
                                 {{ __('Product Name') }}
-                                <span class="text-danger ">*</span> </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Product Name') }}"
-                                name="product_name" id="product_name" required>
+                                <span class="text-danger ">*</span></label>
+                            <input type="text" class="form-control " placeholder="{{ __('Product Name') }}" name="name" id="product_name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label fw-bold"> {{ __(' Priority') }} </label>
-                            <input type="number" min="1" class="form-control" placeholder="{{ __(' Priority') }}"
-                                name="priority">
+                            <label for="order" class="form-label fw-bold">{{ __(' Priority') }}</label>
+                            <input id="order" type="number" min="1" class="form-control" placeholder="{{ __(' Priority') }}" name="showing_order">
                         </div>
 
                         <div class="mb-3">
                             <label for="" class="form-label fw-bold"> {{ __('Product Type') }} </label>
                             <div class="clearfix"></div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="hit" value="{{ __('Hit') }}"
-                                    name="type[]">
+                                <input class="form-check-input" type="checkbox" id="hit" name="is_hit">
                                 <label class="form-check-label" for="hit">{{ __('Hit') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="recommended"
-                                    value="{{ __('Recommended') }}" name="type[]">
-                                <label class="form-check-label" for="recommended">{{ __('Recommended') }}</label>
+                                <input class="form-check-input" type="checkbox" id="is_suggest" name="is_suggest">
+                                <label class="form-check-label" for="is_suggest">{{ __('Suggest Item') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Trend" value="{{ __('Trend') }}"
-                                    name="type[]">
-                                <label class="form-check-label" for="Trend">{{ __('Trend') }}</label>
+                                <input class="form-check-input" type="checkbox" id="is_new" name="is_new">
+                                <label class="form-check-label" for="is_new">{{ __('New') }}</label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Popularity"
-                                    value="{{ __('Popularity') }}" name="type[]">
-                                <label class="form-check-label" for="Popularity">{{ __('Popularity') }}</label>
+                                <input class="form-check-input" type="checkbox" id="is_trend" name="is_trend">
+                                <label class="form-check-label" for="is_trend">{{ __('Trending') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Discount"
-                                    value="{{ __('Discount') }}" name="type[]">
-                                <label class="form-check-label" for="Discount">{{ __('Discount') }}</label>
+                                <input class="form-check-input" type="checkbox" id="Sale" name="is_sale">
+                                <label class="form-check-label" for="Sale">{{ __('Sale') }}</label>
                             </div>
                         </div>
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Principal Company') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Principal Company') }} "
-                                name="principal">
+                            <label for="manufacturer" class="form-label fw-bold"> {{ __('Manufacturer') }} </label>
+                            <input id="manufacturer" type="text" class="form-control" placeholder="{{ __('Manufacturer') }}" name="manufacturer">
                         </div>
 
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Made by ') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Made by') }} " name="made_by">
+                            <label for="created_country" class="form-label fw-bold"> {{ __('Country of Origin') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Country of Origin') }} " name="created_country">
                         </div>
 
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Brand') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Brand') }} " name="brand">
+                            <label for="brand_name" class="form-label fw-bold"> {{ __('Brand') }} </label>
+                            <input id="brand_name" type="text" class="form-control" placeholder=" {{ __('Brand') }} " name="brand_name">
                         </div>
 
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Model Name') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Model Name') }} "
-                                name="model_name">
+                            <label for="model_name" class="form-label fw-bold"> {{ __('Model Name') }} </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Model Name') }} " name="model_name">
                         </div>
 
                         <div class="mb-3">
-                            <label for="" class="form-label fw-bold"> {{ __('Market Price') }} </label>
-                            <input type="number" class="form-control " placeholder=" {{ __('Market Price') }} "
-                                name="price">
+                            <label for="price" class="form-label fw-bold"> {{ __('Market Price') }} </label>
+                            <input id="price" type="number" class="form-control " placeholder=" {{ __('Market Price') }} " name="price">
                         </div>
 
                         <div class="mb-3">
@@ -248,27 +236,29 @@
                                     class="text-danger ">*</span> </label>
                             <textarea name="description" id="description" cols="30" rows="10" required></textarea>
                         </div>
-
                         <div class="mb-3 col-6">
-                            <img src="" id="profile-photo-preview" class="rounded w-100">
-                            <div class="clearfix"></div>
-                            <label for="" class="form-label fw-bold"> {{ __('Main image') }} <span
-                                    class="text-danger ">*</span> </label>
-                            <input type="hidden" id="profile-photo" name="main-image" required>
+{{--                            <div class="clearfix"></div>--}}
+                            <label for="mnpht" class="form-label fw-bold">
+                                {{ __('Main image') }}
+                                <span class="text-danger ">*</span>
+                            </label>
+                            <img src="" id="main-photo-preview" class="rounded w-100 mb-3" alt="">
+                            <input type="hidden" id="main-photo" name="main_img" required>
                             <div class="input-group">
-                                <button type="button" onclick="filemanager.selectFile('profile-photo')"
-                                    class="btn btn-outline-secondary"> {{ __('Choose file') }} </button>
+                                <button id="mnpht" type="button" onclick="filemanager.selectFile('main-photo')" class="btn btn-outline-secondary">
+                                    {{ __('Select Image') }}
+                                </button>
                             </div>
                         </div>
                         <div class="mb-3 col-6">
+                            <label for="mltplgm" class="form-label fw-bold"> {{ __('Multiple Image') }} </label>
+                            <br>
                             <div class="d-inline" id="bulkImage"></div>
-                            <div class="mt-3" id="thumbnail_group">
-                                <label for="" class="form-label fw-bold"> {{ __('Additional Image') }} </label>
-                                <div class="input-group mb-3">
+                            <div class="mt" id="thumbnail_group">
+                                <div class="mb-3">
                                     <input type="hidden" name="thumbnail" id="thumbnail">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        onclick="filemanager.bulkSelectFile('myBulkSelectCallback')">
-                                        {{ __('Choose file') }}
+                                    <button id="mltplgm" type="button" class="btn btn-outline-secondary" onclick="filemanager.bulkSelectFile('myBulkSelectCallback')">
+                                        {{ __('Multiple Image') }}
                                     </button>
                                 </div>
 
@@ -284,7 +274,6 @@
                             {{ __('Close') }}
                         </button>
                         <button type="button" id="addProductButton" class="btn btn-success">{{ __('Save') }}</button>
-
                     </div>
                 </form>
             </div>
@@ -325,6 +314,10 @@
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
+            CKEDITOR.replace('description', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            });
+
             $('#add_thumbnail').click(function() {
                 let count = $('#thumbnail_group .input-group').length;
                 count = count + 1;
@@ -337,17 +330,6 @@
                     '" class="btn btn-outline-secondary"> {{ __('Choose file') }} </label></div>';
                 $('#thumbnail_group').append(item);
             })
-        })
-    </script>
-    <script>
-        $(document).ready(function() {
-            CKEDITOR.replace('description', {
-                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
-            });
-        })
-    </script>
-    <script>
-        $(document).ready(function() {
 
             function readFile(file) {
                 var fReader = new FileReader();
@@ -360,6 +342,7 @@
 
                 // }
             }
+
             console.log(localStorage.getItem('images'))
             const files = {};
             $(document).on('change', 'input[type=file]', function() {
@@ -377,27 +360,19 @@
                     console.log(files)
                 }
             })
-        })
-    </script>
-    <script>
-        let thumbnail = [];
-        window.myBulkSelectCallback = function(data) {
-            $.each(data, function(i, v) {
-                thumbnail[i] = v.absolute_url
-                $('#bulkImage').append('<img src="' + v.absolute_url +
-                    '" style="width:150px; height:100px; object-fit:cover" class="rounded mb-3">')
-            })
-        };
-    </script>
-    <script>
-        $('.ModalShow').click(function() {
-            $('#staticBackdrop').modal('show')
-        })
-    </script>
-  
 
-    <script>
-        $(document).ready(function() {
+            let thumbnail = [];
+            window.myBulkSelectCallback = function(data) {
+                $.each(data, function(i, v) {
+                    thumbnail[i] = v.absolute_url
+                    $('#bulkImage').append('<img src="' + v.absolute_url +
+                        '" style="width:150px; height:100px; object-fit:cover" class="rounded mb-3">')
+                })
+            };
+
+            $('.ModalShow').click(function() {
+                $('#staticBackdrop').modal('show')
+            })
             $('#addProductButton').click(function() {
                 // console.log(thumbnail)
                 $('#thumbnail').val(thumbnail);
@@ -432,7 +407,7 @@
                     highlight: function(element, errorClass, validClass) {
                         // console.log(element)
                         $(element).prev('label').addClass("text-danger").removeClass("is-valid");
-                        
+
                         // $('#' + parantId).addClass("text-danger").removeClass("text-success");
                     },
                     unhighlight: function(element, errorClass, validClass) {
@@ -444,8 +419,6 @@
                     $('#addProduct').submit()
                 }
             })
-
-
         })
     </script>
 @endsection

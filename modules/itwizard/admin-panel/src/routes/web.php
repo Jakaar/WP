@@ -75,7 +75,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 //    Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
 
     Route::get('/products',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'index']);
-    Route::get('/product/create',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'CreateItem']);
+    Route::post('/product/create',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'CreateItem']);
 
 
     Route::get('/products/index',[ProductCreateController::class, 'index']);

@@ -20,7 +20,7 @@ class ProductCreateController extends Controller
     }
     public function CreateItem(Request $request)
     {
-        dd(['it;s work','received array' => $request->all()]);
+        dd( isset($request->is_sale) ? 1 : 0);
     }
 
 }
