@@ -9,7 +9,9 @@ use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
+use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
 use Spatie\Activitylog\Models\Activity;
+
 
 //Route::get('/', function (){
 //    return redirect('/cms/dashboard');
