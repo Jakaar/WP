@@ -17,7 +17,7 @@ class CreateWpanelBoardData extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('board_master_id')->nullable();
-//            $table->foreign('board_master_id')->references('id')->on('wpanel_board_master');
+            $table->foreign('board_master_id')->references('id')->on('wpanel_board_master');
             $table->unsignedBigInteger('category_id')->nullable();
 //            $table->foreign('category_id')->references('id')->on('categories');
             $table->json('content');

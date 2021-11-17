@@ -176,11 +176,6 @@
                                 <label for="" class="form-label fw-bold"> {{ __('Menu Url') }} </label>
                                 <input type="text" class="form-control" id="m_menu_url">
                             </div>
-
-                            <div class="mb-3 col-12">
-                                <label for="" class="fw-bold form-label"> {{ __('Explanation') }} </label>
-                                <textarea name="description" cols="30" rows="10" id="description" class="form-control"></textarea>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -282,7 +277,6 @@
                         $('input[name=use]').prop('checked', false);
                         $('#m_id').val(resp.data.data.id);
                         $('#m_menu_url').val(resp.data.data.menu_url)
-                        $('#description').html(resp.data.data.description)
                         $('#m_category_id').val(resp.data.data.category_id).change()
                         $('input[name=use][value=' + resp.data.data.isEnabled + ']').prop('checked',
                             true)
@@ -342,13 +336,11 @@
                             id: $("#m_id").val(),
                             title : JSON.stringify(title_data),
                             menu_url: $('#m_menu_url').val(),
-                            description: $('#description').val(),
                             category_id: $('#m_category_id').val(),
                             use: $('input[name=use]').val(),
                             target: $('input[name=target]').val(),
                         }
                         console.log(data);
-                        // dd(data);
                         Axios.post('/api/menu/update', data).then((resp) => {
                             $('#save_menu').toggleClass('d-none')
                             $('#ContentData input, #ContentData select, #ContentData textarea').attr(

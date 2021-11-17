@@ -5,7 +5,7 @@ namespace Itwizard\Adminpanel\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-
+use App\Helper\LogActivity;
 
 class manageCategoryController extends Controller
 {
@@ -28,6 +28,7 @@ class manageCategoryController extends Controller
 
     public function create(Request $request)
     {
+        LogActivity::addToLog('manageProduct Created');
         DB::table('wpanel_product_category')->insert([
             'category_name' => $request->MenuName,
             'explanation' => $request->MenuDesc,
@@ -42,7 +43,7 @@ class manageCategoryController extends Controller
     public function update(Request $request)
     {
         // return $request->all();
-
+        LogActivity::addToLog('manageProduct Updated');
         $updated = DB::table('wpanel_product_category')->where('id', $request->id);
 
         $updated->update([
@@ -57,6 +58,7 @@ class manageCategoryController extends Controller
 
     public function deletePage($id)
     {
+        LogActivity::addToLog('manageProduct Deleted');
         DB::table('wpanel_product_category')
             ->where('id', $id)
             ->update([

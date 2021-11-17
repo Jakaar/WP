@@ -6,6 +6,7 @@ use App\Helper\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Helper\LogActivity;
 
 class MenuController extends Controller
 {
@@ -28,6 +29,7 @@ class MenuController extends Controller
     {
         // try {
             if ($request->parent_id) {
+                LogActivity::addToLog('userMenu Created');
                 $getId = DB::table('categories')->insertGetId([
                     'category_id' => $request->parent_id,
                     'name' => $request->MenuName,
@@ -58,14 +60,29 @@ class MenuController extends Controller
     }
 
     public function updateMenu(Request $request){
-        DB::table('categories')->where('id',$request->id)->update([
-            'name' => $request->title,
-            'menu_url' => $request->menu_url,
-            'target' => $request->target,
-            'isEnabled' => $request->use,
-            'category_id' => $request->category_id,
-            'description' => $request->description,
-        ]);
+        if ($request->category_id){
+            LogActivity::addToLog('userMenu Updated');
+            DB::table('categories')->where('id',$request->id)->update([
+                'name' => $request->title,
+                'menu_url' => $request->menu_url,
+                'target' => $request->target,
+                'isEnabled' => $request->use,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+            ]);
+        }
+        else
+        {
+            DB::table('categories')->where('id',$request->id)->update([
+                'name' => $request->title,
+                'menu_url' => $request->menu_url,
+                'target' => $request->target,
+                'isEnabled' => $request->use,
+                'category_id' => null,
+                'description' => $request->description,
+            ]);
+        }
+
 
         return response()->json(['msg'=>__('success')] , 200);
     }

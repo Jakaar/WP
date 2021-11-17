@@ -533,7 +533,7 @@ return [
     ], // Banner Manage
     [
         'title'=>'Product Manage',
-        'url'=>'cms/product_management',
+        'url'=>'cms/product_management/productManage',
         'menus'=> [
             [
                 'url'=>'#',

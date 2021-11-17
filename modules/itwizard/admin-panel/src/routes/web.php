@@ -9,7 +9,9 @@ use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
+use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
 use Spatie\Activitylog\Models\Activity;
+
 
 //Route::get('/', function (){
 //    return redirect('/cms/dashboard');
@@ -58,6 +60,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/member_management/settings', [PermissionController::class, 'settings'])->middleware(['permission:permission-read']);
 
     Route::get('/banner',[BannerController::class, 'index']);
+    Route::get('/static_file',[StaticFileController::class, 'index']);
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
 
