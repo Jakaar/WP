@@ -41,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data['roles'] as $role)
+                        @foreach ($roles as $role)
                             <tr key="{{ $role->id }}">
                                 <td></td>
                                 <td>{{ $role->name }}</td>
@@ -275,7 +275,7 @@
                                             placeholder="{{ __('Description') }}" class="form-control"></textarea>
                                     </div>
                                     <h6 class="card-title"> {{ __('Permissions') }} </h6>
-                                    @foreach ($data['permission'] as $permission)
+                                    @foreach ($permissions as $permission)
                                         <div class="col-lg-3 ">
                                             <label class="form-label form-check-label" for="input{{ $permission->id }}">
                                                 <input type="checkbox" class="form-check-input" name="permission"
@@ -322,7 +322,7 @@
                                             placeholder="{{ __('Description') }}" class="form-control"></textarea>
                                     </div>
                                     <h6 class="card-title mb-3"> {{ __('Permissions') }} </h6>
-                                    @foreach ($data['permission'] as $permission)
+                                    @foreach ($permissions as $permission)
                                         <div class="col-lg-3 ">
                                             <label class="form-label form-check-label" for="cinput{{ $permission->id }}">
                                                 <input type="checkbox" class="form-check-input" name="c_permission"
