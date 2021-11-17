@@ -34,13 +34,13 @@
                         <div class="text-center">
                             <h3>
                                 <small><i class="lnr-users icon-gradient bg-happy-fisher"></i></small>
-                                <span class="count-up-wrapper">{{ $data['users']->count() }}</span>
+                                <span class="count-up-wrapper">{{ $users->count() }}</span>
                             </h3>
                         </div>
                     </div>
                 </div>
             </div>
-            @foreach ($data['roles'] as $roles)
+            @foreach ($role as $roles)
                 <div class="col-lg-4">
                     <div class="main-card mb-3 card">
                         <div class="card-body">
@@ -71,7 +71,7 @@
                         </tr>
                     </thead>
                     <tbody class="members-table">
-                        @foreach ($data['users'] as $user)
+                        @foreach ($users as $user)
 
                             <tr key="{{ $user->id }}">
                                 <td></td>
@@ -80,11 +80,11 @@
                                 <td>{{ $user->email }}</td>
                                 <td class="">
                                     <div class="mb-3 badgeroles">
-                                        @foreach ($user->roles as $role)
-                                            <span class="badge bg-success me-2">{{ $role->display_name }}
+                                        @foreach ($user->roles as $roled)
+                                            <span class="badge bg-success me-2">{{ $roled->display_name }}
                                                 @permission('role-delete')
                                                     <a class="text-danger border-0 ps-2 remove-role" href="javascript:;"
-                                                        data-user="{{ $user->id }}" data-role="{{ $role->id }}"> <i
+                                                        data-user="{{ $user->id }}" data-role="{{ $roled->id }}"> <i
                                                             class="fa fa-times"></i> </a>
                                                 @endpermission
                                             </span>
@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="input-group d-none change-role" data-id="{{ $user->id }}">
                                             <select name="roles" class="form-control form-control-sm roles">
-                                                @foreach ($data['roles'] as $roles)
+                                                @foreach ($role as $roles)
                                                     <option value="{{ $roles->id }}" data-id="{{ $user->id }}">
                                                         {{ $roles->display_name }}</option>
                                                 @endforeach

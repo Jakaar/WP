@@ -32,10 +32,13 @@ class PermissionController extends Controller
     }
 
     public function Members(){
-        $data['users'] = \App\User::with('roles')->orderby('id','DESC')
+        $users = \App\User::with('roles')->orderby('id','DESC')
             ->get();
-            $data['roles'] = \App\Models\Role::get();
-        return view('Admin::pages.settings.users', compact('data'));
+            $role = \App\Models\Role::get();
+        return view('Admin::pages.settings.users', [
+            'users' => $users,
+            'role' => $role,
+        ]);
     }
 
     public function settings(){
