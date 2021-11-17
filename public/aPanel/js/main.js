@@ -65122,18 +65122,6 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./resources/admin_ui/js/form-components/toggle-switch.js":
-/*!****************************************************************!*\
-  !*** ./resources/admin_ui/js/form-components/toggle-switch.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Forms Toggle Switch;
-$(document).ready(function () {});
-
-/***/ }),
-
 /***/ "./resources/admin_ui/js/main.js":
 /*!***************************************!*\
   !*** ./resources/admin_ui/js/main.js ***!
@@ -65241,8 +65229,6 @@ __webpack_require__(/*! ./demo */ "./resources/admin_ui/js/demo.js");
 __webpack_require__(/*! ./scrollbar */ "./resources/admin_ui/js/scrollbar.js"); // require('./toastr');
 // require('./treeview');
 
-
-__webpack_require__(/*! ./form-components/toggle-switch */ "./resources/admin_ui/js/form-components/toggle-switch.js");
 
 __webpack_require__(/*! ./customs/tables */ "./resources/admin_ui/js/customs/tables.js");
 

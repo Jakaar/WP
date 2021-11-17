@@ -71,17 +71,23 @@ html:lang(kr){
     background: #e0f3ff;
     text-decoration: none;
 }
-.google-btn {
 
+.h-42{
     height: 42px;
-    background-color: #4285f5;
-    border-radius: 2px;
+    float:left;
+}
+ .roboto {
+     font-family: Roboto, sans-serif;
+ }
+.google-btn {
+    height: 42px;
+    border-radius: 5px;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .google-btn .google-icon-wrapper {
     position: absolute;
     margin-top: 1px;
-    margin-left: 1px;
+    margin-left: 2px;
     width: 40px;
     height: 40px;
     border-radius: 2px;
@@ -96,42 +102,35 @@ html:lang(kr){
 }
 .google-btn .btn-text {
     float: right;
-    margin: 11px 11px 0 0;
+    margin: 11px 20px 11px 11px;
     color: #fff;
-    font-size: 0.7vmax;
+    font-size: 15px;
     letter-spacing: 0.2px;
-    font-family: "Roboto";
+    font-family: Roboto, sans-serif;
 }
 .google-btn:hover {
-    box-shadow: 0 0 6px #4285f4;
+    /*box-shadow: 0 0 6px #4285f4;*/
+    border-bottom: 1px;
+    border-bottom-color: red;
 }
-.google-btn:active {
-    background: #1669f2;
+/*.google-btn:active {*/
+/*    background: #1669F2;*/
+/*}*/
+.bg-google:active{
+    background-color: #1669F2 !important;
 }
-.h-42{
-    height: 42px;
-    float:left;
+.bg-kakao{
+    background-color: #FFE812 !important;
 }
-.naver-icon{
-    vertical-align: -webkit-baseline-middle;
-    width:18px;
-    height: 18px;
+.bg-kakao:active{
+    background-color: #f3de19 !important;
 }
-.naver{
-    vertical-align: sub;
-    margin: 5px;
+.bg-google{
+    background-color: #4285f4 !important;
 }
- .google-icon {
-    background-color: white ;
-    padding: 2px;
+.bg-naver{
+    background-color: #3EAF0E !important;
 }
- .btn-google {
-     background-color: #4285f4 !important;
-     border-color: #4285f4 !important;
- }
- .btn-text {
-     color: white;
- }
- .roboto {
-     font-family: Roboto;
- }
+.bg-naver:active{
+    background-color: #37a309 !important;
+}

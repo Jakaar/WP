@@ -15,9 +15,9 @@ class StaticFileController extends Controller
     }
     public function index()
     {
-        $static_files = DB::table('static_file')
-        ->select('static_file.id','static_file_type.type_name','static_file.file_absolute_path','static_file.status','static_file.created_at','static_file.updated_at')
-        ->leftjoin('static_file_type','static_file_type.id','=','static_file.type_id')
+        $static_files = DB::table('client_static_file')
+        ->select('client_static_file.id','client_static_file_type.type_name','client_static_file.file_absolute_path','client_static_file.status','client_static_file.created_at','client_static_file.updated_at')
+        ->leftjoin('client_static_file_type','client_static_file_type.id','=','client_static_file.type_id')
         ->where('status','!=','0')
         ->get();
         return view('Admin::pages.static_file.index', compact('static_files'));

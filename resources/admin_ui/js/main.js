@@ -47,6 +47,7 @@ window.Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
+
 require('./customs/custom');
 require('./customs/loader');
 require('./charts/apex-charts');
@@ -55,7 +56,6 @@ require('./demo');
 require('./scrollbar');
 // require('./toastr');
 // require('./treeview');
-require('./form-components/toggle-switch');
 require('./customs/tables');
 require('./carousel-slider');
 require('./customs/count-up')
