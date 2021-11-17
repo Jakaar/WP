@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{Session::get('locale')}}">
+<html lang="{{ Session::get('locale') }}">
 
 <head>
     <meta charset="utf-8">
@@ -21,7 +21,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nunito:wght@200;300;400;600;700;800&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nunito:wght@200;300;400;600;700;800&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     {{-- <meta name="description" content="This is an example dashboard created using build-in elements and components."> --}}
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -525,37 +527,35 @@
     </script>
     <script>
         $(document).ready(function() {
-            // function getLocation() {
-            //     if (navigator.geolocation) {
-            //         navigator.geolocation.getCurrentPosition(showPosition);
-            //     } else {
-            //         x.innerHTML = "Geolocation is not supported by this browser.";
-            //     }
-            // }
-            // getLocation()
-
-            // function showPosition(position) {
-            //     localStorage.setItem('latitude', position.coords.latitude)
-            //     localStorage.setItem('longitude', position.coords.longitude)
-            // }
-            const key = '{{ Config::get('setting.Weather_wapi') ?? '947c5c46b768464e9f621616210211' }}'; 
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+            getLocation();
+            function showPosition(position) {
+                localStorage.setItem('latitude', position.coords.latitude)
+                localStorage.setItem('longitude', position.coords.longitude)
+            }
+            const key = '{{ Config::get('setting.Weather_wapi') ?? '947c5c46b768464e9f621616210211' }}';
             const q = '{{ Config::get('setting.Weather_wcity') ?? 'Seoul' }}';
 
-            const url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + q + '&days=7&lang=ko';
+            let url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + q + '&days=7&lang=ko';
             let data;
-            // if(localStorage.getItem('latitude') != null && localStorage.getItem('longitude') != null){
-            //     data = {
-            //         lat : localStorage.getItem('latitude'),
-            //         lon : localStorage.getItem('longitude')
-            //     }
-            // }
-            Axios.post(url, data)
+            if(localStorage.getItem('latitude') != null && localStorage.getItem('longitude') != null){
+               
+                data = localStorage.getItem('latitude') + ','+ localStorage.getItem('longitude')
+                url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + data + '&days=7&lang=ko';
+            }
+            Axios.post(url)
                 .then((resp) => {
 
                     const current = resp.data.current;
                     const location = resp.data.location;
                     const forcast = resp.data.forecast.forecastday;
-
+                    console.log(resp)
                     $.each(forcast, function(i, item) {
 
                         let d = new Date(item.date)
@@ -597,7 +597,7 @@
                     $('#weather-precipitation').text(current.precip_mm + '%')
                     $('#weather-location').text(location.name + ' / ' + location.country)
 
-                    if (location.localtime > '{{ now()->format('Y-m-d') }} 13:00') {
+                    if (location.localtime > '{{ now()->format('Y-m-d') }} 17:00') {
                         var el = $('.dd');
                         el.addClass('bg-midnight-bloom')
 
@@ -619,18 +619,20 @@
             $(document).ready(function() {
                 Swal.fire({
                     icon: 'info',
-                    title: '{{session()->get("error")}}',
+                    title: '{{ session()->get('error') }}',
                     showConfirmButton: false,
                     timer: 2500
                 })
             })
         </script>
     @endif
-<script>
-    Axios.defaults.headers.common = {
-        "user_id" : '{{Auth::user()->id}}'
-    }
-</script>
+    <script>
+        $(document).ready(function() {
+            Axios.defaults.headers.common = {
+                "user_id": '{{ Auth::user()->id }}'
+            }
+        })
+    </script>
     @yield('script')
     @yield('modal')
 </body>

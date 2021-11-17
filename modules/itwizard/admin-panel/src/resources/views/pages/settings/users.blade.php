@@ -34,13 +34,13 @@
                         <div class="text-center">
                             <h3>
                                 <small><i class="lnr-users icon-gradient bg-happy-fisher"></i></small>
-                                <span class="count-up-wrapper">{{ $data['users']->count() }}</span>
+                                <span class="count-up-wrapper">{{ $users->count() }}</span>
                             </h3>
                         </div>
                     </div>
                 </div>
             </div>
-            @foreach ($data['roles'] as $roles)
+            @foreach ($role as $roles)
                 <div class="col-lg-4">
                     <div class="main-card mb-3 card">
                         <div class="card-body">
@@ -71,7 +71,7 @@
                         </tr>
                     </thead>
                     <tbody class="members-table">
-                        @foreach ($data['users'] as $user)
+                        @foreach ($users as $user)
 
                             <tr key="{{ $user->id }}">
                                 <td></td>
@@ -80,18 +80,19 @@
                                 <td>{{ $user->email }}</td>
                                 <td class="">
                                     <div class="mb-3 badgeroles">
-                                        @foreach ($user->roles as $role)
-                                            <span class="badge bg-success">{{ $role->display_name }}
+                                        @foreach ($user->roles as $roled)
+                                            <span class="badge bg-success me-2">{{ $roled->display_name }}
                                                 @permission('role-delete')
                                                     <a class="text-danger border-0 ps-2 remove-role" href="javascript:;"
-                                                        data-user="{{ $user->id }}" data-role="{{ $role->id }}"> <i
-                                                            class="fa fa-times"></i> </a></span>
+                                                        data-user="{{ $user->id }}" data-role="{{ $roled->id }}"> <i
+                                                            class="fa fa-times"></i> </a>
                                                 @endpermission
+                                            </span>
                                             @endforeach
                                         </div>
                                         <div class="input-group d-none change-role" data-id="{{ $user->id }}">
                                             <select name="roles" class="form-control form-control-sm roles">
-                                                @foreach ($data['roles'] as $roles)
+                                                @foreach ($role as $roles)
                                                     <option value="{{ $roles->id }}" data-id="{{ $user->id }}">
                                                         {{ $roles->display_name }}</option>
                                                 @endforeach
@@ -171,7 +172,7 @@
                         </style>
                     @endsection
                     @section('modal')
-
+{{-- Create member modal --}}
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
@@ -182,13 +183,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form class="row" id="create_user_form">
-                                            <!-- <div class="col-lg-4">
-                                                                                                                                                                                                                                                                                                                                        <div class="w-100 border" style="height:200px;">
-                                                                                                                                                                                                                                                                                                                                            <img src="" alt="" id="logo-photo-preview">
-                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                        <input type="file" class="d-none" name="avatar" id="c-avatar">
-                                                                                                                                                                                                                                                                                                                                        <button type="button" class=" btn btn-secondary btn-block w-100" onclick="filemanager.selectFile('avatar')"> {{ __('Upload image') }} </button>
-                                                                                                                                                                                                                                                                                                                                    </div> -->
+                                            <!-- <div class="col-lg-4">                                                                                                                                                                                                                                                          </div> -->
                                             <div class="col-lg-12">
                                                 <div class="row">
                                                     <div class="col-lg-6 mb-3">
@@ -204,13 +199,13 @@
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Email') }} </label>
                                                         <input type="text" class="form-control" placeholder="{{ __('Email') }} "
-                                                            name="email" id="c-email">
+                                                            name="email" id="c-email" autocomplete="off">
                                                     </div>
 
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Password') }} </label>
                                                         <input type="password" class="form-control" placeholder="{{ __('Password') }} "
-                                                            name="password" id="c-password">
+                                                            name="password" id="c-password" autocomplete="off">
 
                                                     </div>
                                                 </div>
@@ -225,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-
+{{-- Edit Member Modal --}}
                         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document" style="z-index: 99;">
@@ -263,13 +258,13 @@
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Email') }} </label>
                                                         <input type="text" class="form-control" placeholder="{{ __('Email') }} "
-                                                            name="email" id="email">
+                                                            name="email" id="email" autocomplete="off">
                                                     </div>
 
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Password') }} </label>
                                                         <input type="password" class="form-control" placeholder="{{ __('Password') }} "
-                                                            name="password" id="password">
+                                                            name="password" id="password" autocomplete="off">
                                                         <small class="form-text text-muted">
                                                             {{ __('Leave empty to keep the same') }}
                                                         </small>

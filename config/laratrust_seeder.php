@@ -23,6 +23,7 @@ return [
             'noticeBoard' => 'c,r,u,d',
             'mail' => 'c,r,u,d',
             'userMenu' => 'c,r,u,d',
+            'categoryProduct' => 'c,r,u,d',
         ],
         'admin' => [
             'member' => 'c,r,u,d',

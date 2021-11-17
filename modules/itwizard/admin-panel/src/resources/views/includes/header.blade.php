@@ -3,7 +3,7 @@
         <div class="logo-src">
             <a href="/cms">
 <!--                <img class="logo-src" src="{{$data['logo']->logo ?? ''}}" alt="">-->
-                <img class="logo-src" src="/aPanel/imgs/logo.png" alt="">
+                <img class="logo-src" src="{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}" alt="">
             </a>
         </div>
         <div class="header__pane ms-auto">
@@ -35,7 +35,7 @@
         </span>
     </div>
     <div class="app-header__content">
-        <div class="app-header-left">
+        {{-- <div class="app-header-left">
             <div class="search-wrapper">
                 <div class="input-holder">
                     <input type="text" class="search-input" placeholder="Type to search">
@@ -45,10 +45,10 @@
                 </div>
                 <button class="btn-close"></button>
             </div>
-        </div>
+        </div> --}}
         <div class="app-header-right">
             <div class="header-dots">
-                <div class="dropdown">
+                {{-- <div class="dropdown">
                     <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-danger"></span>
@@ -344,7 +344,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 <div class="dropdown">
                     <button type="button" data-bs-toggle="dropdown" class="p-0 me-2 btn btn-link">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
@@ -370,11 +370,14 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/lang/en" type="button" tabindex="0" class="dropdown-item">
-                            <span class="me-3 opacity-8 flag large US"></span>
-                            English
+                        @foreach ($data['langs'] as $langs)
+                        <a href="/lang/{{ $langs->country_code }}" type="button" tabindex="0" class="dropdown-item">
+                            <span class="me-3 opacity-8 flag large @if($langs->country_code == 'en') US @else {{ strtoupper($langs->country_code) }} @endif"></span>
+                            {{ $langs->country }}
                         </a>
-
+                        @endforeach
+                        
+{{-- 
                         <a href="/lang/kr" type="button" tabindex="0" class="dropdown-item">
                             <span class="me-3 opacity-8 flag large KR"></span>
                             한국어
@@ -383,7 +386,7 @@
                         <a href="/lang/mn" type="button" tabindex="0" class="dropdown-item">
                             <span class="me-3 opacity-8 flag large MN"></span>
                             Монгол
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>

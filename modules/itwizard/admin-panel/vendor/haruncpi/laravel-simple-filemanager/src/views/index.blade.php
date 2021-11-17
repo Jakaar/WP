@@ -44,8 +44,6 @@
                     <i class="fa fa-times"></i>
                 </div>
             </div>
-            <a class="btn-doc" href="https://laravelarticle.com/laravel-simple-filemanager"><i
-                    class="fa fa-info-circle"></i> {{trans('filemanager::filemanager.doc')}}</a>
         </div>
     </header>
     <!--custom preview-->
@@ -479,7 +477,7 @@
 
             //this from tinyMCE editor filemanager
             if (urlParam('editor')) {
-                
+
                 if (urlParam('editor') === 'tinyMCE') {
                     if (typeof parent.tinyMCE !== "undefined") {
                         var version = parseInt(parent.tinyMCE.majorVersion)
@@ -505,7 +503,7 @@
                     window.opener.CKEDITOR.tools.callFunction(urlParam('CKEditorFuncNum'), row.absolute_url, '');
                     window.close();
                 }
-                
+
                 if (urlParam('editor') === 'summernote') {
 
                     if (urlParam('note')) {

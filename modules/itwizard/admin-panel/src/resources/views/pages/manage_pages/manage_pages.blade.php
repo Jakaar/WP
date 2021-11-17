@@ -26,7 +26,7 @@
                 <i class="pe-7s-refresh-2"></i>
             </button>
             <div class="d-inline-block dropdown">
-                <button type="button" class="search-icon btn-shadow btn btn-success CreateModalShow">
+                <button type="button" class="search-icon btn-shadow btn btn-success save">
                     <span class="btn-icon-wrapper pe-2 opacity-7">
                         <i class="pe-7s-plus"></i>
                     </span>
@@ -39,28 +39,26 @@
 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
     @foreach($content['data'] as $page)
         <li class="nav-item">
-            <a class="nav-link {{Request::is('cms/manage_pages/'.$page->id.'/page_content') ? 'active' : null }}" href="/cms/manage_pages/{!! $page->id !!}/page_content">
+            <a class="nav-link {{Request::is('*/*/'.$page->id.'/*') ? 'active' : null }}"
+               href="/cms/manage_pages/{!! $page->id !!}/page_content">
                 <span>{!! $t->translateText($page->name) !!}</span>
             </a>
         </li>
     @endforeach
 </ul>
-@if($content['detail'])
-    @include('Admin::pages.manage_pages.__Page_types.'.$content['type']->board_type)
-@endif
+    @if($content['detail'])
+        @include('Admin::pages.manage_pages.__Page_types.'.$content['type']->board_type)
+    @endif
 @endsection
 @section('script')
 <script>
     $(document).ready(function () {
-        let editor5;
-        ClassicEditor.create(document.querySelector("#CreatePage1"))
-            .then((newEditor) => {
-                editor5 = newEditor;
-            });
 
-        $('.CreateCategoryModal').on('click', function (){
-            $('#CreateCategoryModal').modal('show');
-        });
+        $('.GetPageContent').on('click',function (){
+            Axios.get('/api/GetPageContent/'+$(this).data('key')).then((r)=>{
+               console.log(r)
+            });
+        })
     });
 
     $('#reload_page').click(function () {

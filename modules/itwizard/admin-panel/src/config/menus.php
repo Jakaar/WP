@@ -5,170 +5,190 @@ return [
         'url'=>'cms/preferences',
         'menus'=> [
             [
-                'url'=>'/#',
+                'url'=>'cms/preferences',
                 'icon'=>'pe-7s-config',
                 'name'=>'Configuration',
-                'child' => [
-                    [
-                        'url'=>'cms/preferences',
-                        'icon'=>'',
-                        'name'=>'Basic Information',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/log_analysis',
-                        'icon'=>'',
-                        'name'=>'Log analysis',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/popup_manage',
-                        'icon'=>'',
-                        'name'=>'Popup manage',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/form_mail',
-                        'icon'=>'',
-                        'name'=>'Form mail',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/banner_manage',
-                        'icon'=>'',
-                        'name'=>'Banner manage',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/page_manage',
-                        'icon'=>'',
-                        'name'=>'Page manage',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/page_access',
-                        'icon'=>'',
-                        'name'=>'Page access rights',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/seo_manage',
-                        'icon'=>'',
-                        'name'=>'SEO Manage',
-                        'child' => null
-                    ],
-                ],
+                'child' => null,
+                // 'child' => [
+                //     [
+                //         'url'=>'cms/preferences',
+                //         'icon'=>'',
+                //         'name'=>'Basic Information',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/log_analysis',
+                //         'icon'=>'',
+                //         'name'=>'Log analysis',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/popup_manage',
+                //         'icon'=>'',
+                //         'name'=>'Popup manage',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/form_mail',
+                //         'icon'=>'',
+                //         'name'=>'Form mail',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/banner_manage',
+                //         'icon'=>'',
+                //         'name'=>'Banner manage',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/page_manage',
+                //         'icon'=>'',
+                //         'name'=>'Page manage',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/page_access',
+                //         'icon'=>'',
+                //         'name'=>'Page access rights',
+                //         'child' => null
+                //     ],
+                //     [
+                //         'url'=>'cms/preferences/seo_manage',
+                //         'icon'=>'',
+                //         'name'=>'SEO Manage',
+                //         'child' => null
+                //     ],
+                // ],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/preferences/analystic',
+                'icon'=>'pe-7s-display1',
+                'name'=>'Analytic',
+                'child' => null,
+            ],
+            [
+                'url'=>'cms/preferences/logger',
                 'icon'=>'pe-7s-display2',
-                'name'=>'Notice board',
-                'colorClass'=>'success',
-                'child' => [
-                    [
-                        'url'=>'cms/preferences/notice_board',
-                        'icon'=>'',
-                        'name'=>'Notice board',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/main_post',
-                        'icon'=>'',
-                        'name'=>'Main post',
-                        'child' => null
-                    ],
-                ],
+                'name'=>'Logger',
+                'child' => null,
             ],
             [
-                'url'=>'#',
-                'icon'=>'pe-7s-box1',
-                'name'=>'Product management',
-                'colorClass'=>'success',
-                'child' => [
-                    [
-                        'url'=>'cms/preferences/product_list',
-                        'icon'=>'',
-                        'name'=>'Product list',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/main_picks',
-                        'icon'=>'',
-                        'name'=>'Main & Featured Products',
-                        'child' => null
-                    ],
-                ],
-            ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-users',
-                'name'=>'Member management',
-                'colorClass'=>'success',
-                'child' => [
-                    [
-                        'url'=>'cms/preferences/member_register',
-                        'icon'=>'',
-                        'name'=>'Member Register',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/sns',
-                        'icon'=>'',
-                        'name'=>'SNS settings',
-                        'child' => null
-                    ],
-                ],
-            ],
-            [
-                'url'=>'cms/preferences/api',
-                'icon'=>'pe-7s-share',
-                'name'=>'API management',
-                'colorClass'=>'success',
-                'child' => [
-                ],
-            ],
-            [
-                'url'=>'cms/preferences/point',
-                'icon'=>'pe-7s-ticket',
-                'name'=>'Point manage',
-                'colorClass'=>'success',
-                'child' => [
-//                    [
-//                        'url'=>'#',
-//                        'icon'=>'',
-//                        'name'=>'Point Manage',
-//                        'child' => null
-//                    ],
-                ],
-            ],
-            [
-                'url'=>'cms/preferences/seo_manage',
-                'icon'=>'pe-7s-link',
-                'name'=>'SEO Manage',
-                'colorClass'=>'success',
-                'child' => [
-                ],
-            ],
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-unlock',
-                'name'=>'Menu Permission Manage',
-                'colorClass'=>'success',
-                'child' => [
-                    [
-                        'url'=>'cms/preferences/menu_management',
-                        'icon'=>'',
-                        'name'=>'Menu management',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/preferences/permission_manage',
-                        'icon'=>'',
-                        'name'=>'Permission management',
-                        'child' => null
-                    ],
-                ],
-            ],
+                'url'=>'cms/preferences/menu',
+                'icon'=>'pe-7s-menu',
+                'name'=>'Admin Menu',
+                'child' => null,
+            ]
+
+//             [
+//                 'url'=>'#',
+//                 'icon'=>'pe-7s-display2',
+//                 'name'=>'Notice board',
+//                 'colorClass'=>'success',
+//                 'child' => [
+//                     [
+//                         'url'=>'cms/preferences/notice_board',
+//                         'icon'=>'',
+//                         'name'=>'Notice board',
+//                         'child' => null
+//                     ],
+//                     [
+//                         'url'=>'cms/preferences/main_post',
+//                         'icon'=>'',
+//                         'name'=>'Main post',
+//                         'child' => null
+//                     ],
+//                 ],
+//             ],
+//             [
+//                 'url'=>'#',
+//                 'icon'=>'pe-7s-box1',
+//                 'name'=>'Product management',
+//                 'colorClass'=>'success',
+//                 'child' => [
+//                     [
+//                         'url'=>'cms/preferences/product_list',
+//                         'icon'=>'',
+//                         'name'=>'Product list',
+//                         'child' => null
+//                     ],
+//                     [
+//                         'url'=>'cms/preferences/main_picks',
+//                         'icon'=>'',
+//                         'name'=>'Main & Featured Products',
+//                         'child' => null
+//                     ],
+//                 ],
+//             ],
+//             [
+//                 'url'=>'#',
+//                 'icon'=>'pe-7s-users',
+//                 'name'=>'Member management',
+//                 'colorClass'=>'success',
+//                 'child' => [
+//                     [
+//                         'url'=>'cms/preferences/member_register',
+//                         'icon'=>'',
+//                         'name'=>'Member Register',
+//                         'child' => null
+//                     ],
+//                     [
+//                         'url'=>'cms/preferences/sns',
+//                         'icon'=>'',
+//                         'name'=>'SNS settings',
+//                         'child' => null
+//                     ],
+//                 ],
+//             ],
+//             [
+//                 'url'=>'cms/preferences/api',
+//                 'icon'=>'pe-7s-share',
+//                 'name'=>'API management',
+//                 'colorClass'=>'success',
+//                 'child' => [
+//                 ],
+//             ],
+//             [
+//                 'url'=>'cms/preferences/point',
+//                 'icon'=>'pe-7s-ticket',
+//                 'name'=>'Point manage',
+//                 'colorClass'=>'success',
+//                 'child' => [
+// //                    [
+// //                        'url'=>'#',
+// //                        'icon'=>'',
+// //                        'name'=>'Point Manage',
+// //                        'child' => null
+// //                    ],
+//                 ],
+//             ],
+//             [
+//                 'url'=>'cms/preferences/seo_manage',
+//                 'icon'=>'pe-7s-link',
+//                 'name'=>'SEO Manage',
+//                 'colorClass'=>'success',
+//                 'child' => [
+//                 ],
+//             ],
+//             [
+//                 'url'=>'#',
+//                 'icon'=>'pe-7s-unlock',
+//                 'name'=>'Menu Permission Manage',
+//                 'colorClass'=>'success',
+//                 'child' => [
+//                     [
+//                         'url'=>'cms/preferences/menu_management',
+//                         'icon'=>'',
+//                         'name'=>'Menu management',
+//                         'child' => null
+//                     ],
+//                     [
+//                         'url'=>'cms/preferences/permission_manage',
+//                         'icon'=>'',
+//                         'name'=>'Permission management',
+//                         'child' => null
+//                     ],
+//                 ],
+//             ],
 
         ],
     ], // Control Panel
@@ -197,7 +217,7 @@ return [
                 'child' => [],
             ],
             [
-                'url'=>'#',
+                'url'=>'cms/basic_setting/adminSettings',
                 'icon'=>'pe-7s-user',
                 'name'=>'Administrator settings',
                 'colorClass'=>'index',
@@ -244,27 +264,27 @@ return [
     ], // Basic settings
     [
         'title'=>'Member Manage',
-        'url'=>'cms/member_management',
+        'url'=>'cms/member_management/users',
         'menus'=> [
-            [
-                'url'=>'#',
-                'icon'=>'pe-7s-user',
-                'name'=>'Admin Home',
-                'child' => [
-                    [
-                        'url'=>'cms/member_management/index',
-                        'icon'=>'',
-                        'name'=>'Admin Home',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/member_management/administrator_settings',
-                        'icon'=>'',
-                        'name'=>'Administrator settings',
-                        'child' => null
-                    ],
-                ],
-            ],
+            // [
+            //     'url'=>'#',
+            //     'icon'=>'pe-7s-user',
+            //     'name'=>'Admin Home',
+            //     'child' => [
+            //         [
+            //             'url'=>'cms/member_management/index',
+            //             'icon'=>'',
+            //             'name'=>'Admin Home',
+            //             'child' => null
+            //         ],
+            //         [
+            //             'url'=>'cms/member_management/administrator_settings',
+            //             'icon'=>'',
+            //             'name'=>'Administrator settings',
+            //             'child' => null
+            //         ],
+            //     ],
+            // ],
             [
                 'url'=>'#',
                 'icon'=>'pe-7s-users',

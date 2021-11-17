@@ -30,15 +30,31 @@ class MainController extends Controller
 //                ->where('board_master_id', $temp->id)
                 ->where('category_id', $slug)
                 ->get();
-            $data['options'] = $temp;
-            foreach ($boardData as $item)
-            {
-                $translating = json_decode($item->content, true);
 
-                $item->content = $translating[Session::get('locale')];
+            $data['options'] = $temp;
+
+            if (count($boardData) > 1) {
+                foreach ($boardData as $item) {
+                    $translating = json_decode($item->content, true);
+                    $item->content = $translating[Session::get('locale')];
+                }
+                $data['board'] = $boardData;
+            } else if (count($boardData) == 0) {
+                $data['board'] = null;
+            }else if (count($boardData) <= 1){
+                $translating = json_decode($boardData[0]->content, true);
+                $boardData[0]->content = $translating[Session::get('locale')];
+                $data['board'] = $boardData[0];
             }
-            $data['board'] = $boardData;
 //            dd($data);
+
+            if (isset($data['board']->isSubCategory))
+            {
+                $data['options']->board_type = 'SinglePage';
+                return view($this->compiler($data, $temp),  compact('data'));
+            }
+            if ($data['board'] == null)
+                return view('client.errors.404');
             return view($this->compiler($data, $temp),  compact('data'));
         }else{
             $temp = (object) null;
