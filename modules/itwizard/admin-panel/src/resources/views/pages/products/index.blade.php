@@ -152,12 +152,20 @@
                     </div>
 
                     <div class="modal-body row">
-                        <div class="mb-3">
+                        <div class="mb-3 col-6">
                             <label for="" class="form-label fw-bold"> {{ __('Product Category') }} <span
                                     class="text-danger ">*</span> </label>
                             <select name="product_category" id="" class="form-control form-select" required>
                                 <option value="sadsa">gg </option>
                             </select>
+                        </div>
+                        <div class="mb-3 col-6 ">
+                            <label class="form-check-label fw-bold mb-2">
+                                {{ __('Is Active') }}
+                            </label>
+                            <div class="clearfix"></div>
+                            <input class=" switcher" type="checkbox" id="switcher" checked>
+                            {{-- <label for="" class="form-check-label fw-bold me-4 visiblity"> {{ __('Show') }} </label> --}}
                         </div>
                         <div class="mb-3 col-lg-6 col-sm-12">
                             <label for="" class="form-label fw-bold"> {{ __('Product Code') }} </label>
@@ -240,9 +248,9 @@
                                     class="text-danger ">*</span> </label>
                             <textarea name="description" id="description" cols="30" rows="10" required></textarea>
                         </div>
-                        <div class="d-inline"></div>
-                        <div class="mb-3 col">
-                            <img src="" id="profile-photo-preview" class="rounded" style="width:150px;">
+
+                        <div class="mb-3 col-6">
+                            <img src="" id="profile-photo-preview" class="rounded w-100">
                             <div class="clearfix"></div>
                             <label for="" class="form-label fw-bold"> {{ __('Main image') }} <span
                                     class="text-danger ">*</span> </label>
@@ -252,16 +260,19 @@
                                     class="btn btn-outline-secondary"> {{ __('Choose file') }} </button>
                             </div>
                         </div>
-                        <div class="d-inline" id="bulkImage"></div>
-                        <div class="mb" id="thumbnail_group">
-                            <label for="" class="form-label fw-bold"> {{ __('Additional Image') }} </label>
-                            <div class="input-group mb-3">
-                                <input type="hidden" name="thumbnail" id="thumbnail">
-                                <button type="button" class="btn btn-outline-secondary"
-                                    onclick="filemanager.bulkSelectFile('myBulkSelectCallback')"> {{ __('Choose file') }}
-                                </button>
-                            </div>
+                        <div class="mb-3 col-6">
+                            <div class="d-inline" id="bulkImage"></div>
+                            <div class="mt-3" id="thumbnail_group">
+                                <label for="" class="form-label fw-bold"> {{ __('Additional Image') }} </label>
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="thumbnail" id="thumbnail">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="filemanager.bulkSelectFile('myBulkSelectCallback')">
+                                        {{ __('Choose file') }}
+                                    </button>
+                                </div>
 
+                            </div>
                         </div>
                         {{-- <div class="mb-3">
                             <button type="button" class="btn btn-outline-secondary" id="add_thumbnail"> + </button>
@@ -269,22 +280,11 @@
 
                     </div>
                     <div class="modal-footer">
-                        <div class="col">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="switcher" checked>
-                                <label class="form-check-label fw-bold" for="flexSwitchCheckChecked"> {{ __('Show') }}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="float-end">
-                                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">
-                                    {{ __('Close') }}
-                                </button>
-                                <button type="button" id="addProductButton"
-                                    class="btn btn-success">{{ __('Save') }}</button>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">
+                            {{ __('Close') }}
+                        </button>
+                        <button type="button" id="addProductButton" class="btn btn-success">{{ __('Save') }}</button>
+
                     </div>
                 </form>
             </div>
@@ -310,6 +310,14 @@
                 'on': '<i class="pe-7s-check"></i>',
                 'off': '<i class="pe-7s-close"></i>',
                 'size': 'xs'
+            });
+
+            $('.switcher').bootstrapToggle({
+                'onstyle': 'primary',
+                'offstyle': 'light',
+                'on': '<i class="pe-7s-check"></i>',
+                'off': '<i class="pe-7s-close"></i>',
+                'size': 'sm'
             });
         })
     </script>
@@ -388,11 +396,13 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#switcher').click(function() {
-                if ($(this).is(':checked')) {
-                    $(this).next('label').html('Show')
+            $('.toggle').click(function() {
+                console.log($(this))
+                if ($(this).hasClass('off')) {
+                    $(this).insertAfter('hide')
                 } else {
-                    $(this).next('label').html('Hide')
+                    $(this)..insertAfter('hide')
+
                 }
             })
         })
