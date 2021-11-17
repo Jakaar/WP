@@ -376,8 +376,8 @@
                             {{ $langs->country }}
                         </a>
                         @endforeach
-                        
-{{-- 
+
+{{--
                         <a href="/lang/kr" type="button" tabindex="0" class="dropdown-item">
                             <span class="me-3 opacity-8 flag large KR"></span>
                             한국어

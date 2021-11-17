@@ -42,8 +42,8 @@
                             <h5 class="card-title">{{__('Board Type')}}</h5>
                             <select class="multiselect-dropdown form-control">
                                 <option value="" selected disabled>{{__('Choose')}}</option>
-                                @foreach($data['board_type'] as $type)
-                                <option value="{{$type->key}}">{{$type->key}}</option>
+                                @foreach($dataM['board_type'] as $type)
+                                    <option value="{{$type->key}}">{{$type->key}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($data['board_master'] as $board)
+                    @foreach($dataM['board_master'] as $board)
                         <tr>
                             <td></td>
                             <td>{{$board->board_name}}</td>
@@ -143,7 +143,7 @@
                                 <h5 class="card-title">{{__('Board Type')}}</h5>
                                 <select id="BoardType" class="multiselect-dropdown form-control">
                                     <option value="" selected disabled>{{__('Choose')}}</option>
-                                    @foreach($data['board_type'] as $type)
+                                    @foreach($dataM['board_type'] as $type)
                                         <option value="{{$type->key}}">{{$type->key}}</option>
                                     @endforeach
                                 </select>

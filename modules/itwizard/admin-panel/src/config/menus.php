@@ -533,26 +533,19 @@ return [
     ], // Banner Manage
     [
         'title'=>'Product Manage',
-        'url'=>'cms/product_management/productManage',
+        'url'=>'cms/products',
         'menus'=> [
             [
-                'url'=>'#',
+                'url'=>'cms/products',
                 'icon'=>'pe-7s-albums',
-                'name'=>'Product management',
-                'child' => [
-                    [
-                        'url'=>'cms/product_management/productManage',
-                        'icon'=>'',
-                        'name'=>'Product management',
-                        'child' => null
-                    ],
-                    [
-                        'url'=>'cms/product_management/manageCategory',
-                        'icon'=>'',
-                        'name'=>'Manage categories',
-                        'child' => null
-                    ],
-                ],
+                'name'=>'Product Manage',
+                'child' => null
+            ],
+            [
+                'url'=>'cms/products/categories',
+                'icon'=>'pe-7s-photo-gallery',
+                'name'=>'Manage categories',
+                'child' => null
             ],
         ],
     ], // Product management
