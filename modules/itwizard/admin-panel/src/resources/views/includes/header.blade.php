@@ -350,7 +350,12 @@
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-focus"></span>
                             <span class="language-icon opacity-8 flag large
-                                {{strtoupper(session()->get('locale'))}}">
+                                {{strtoupper(session()->get('locale'))}}
+                                @if(session()->get('locale') == 'en')
+                                    US
+                                @else
+                                    {{strtoupper(session()->get('locale'))}}
+                                @endif">
                             </span>
                         </span>
                     </button>
