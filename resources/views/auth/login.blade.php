@@ -131,12 +131,12 @@
                                 <div class="col-lg-6">
 
                                     <div class="dropdown d-flex justify-content-end">
-                                        <a class="dot-btn-wrapper " aria-haspopup="true" data-bs-toggle="dropdown"
+                                        <a class="dot-btn-wrapper dropstart" aria-haspopup="true" data-bs-toggle="dropdown"
                                             aria-expanded="true">
                                             <i class="dot-btn-icon lnr-earth icon-gradient bg-happy-itmeo"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
-                                            class="rm-pointers dropdown-menu " data-popper-placement="top-start"
+                                            class="rm-pointers dropdown-menu dropdown-menu-right " data-popper-placement="top-start"
                                             style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -46px);">
                                             <div class="dropdown-menu-header">
                                                 <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
