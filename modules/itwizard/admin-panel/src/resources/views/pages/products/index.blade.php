@@ -450,13 +450,13 @@
                         if(resp.data.msg == 'Code Non Duplicated'){
                             label.removeClass('text-danger').addClass('text-dark')
                             $(this).removeClass('btn-outline-primary btn-outline-danger').addClass('btn-outline-success')
-                            buttonD.text('Not Duplicated').addClass('disabled')
+                            buttonD.text('{{__('Not Duplicated')}}').addClass('disabled')
                             buttonD.prev('input').attr('readonly','true')
                             $('#duplicated').html('')
                         }
                         else{
                             $(this).removeClass('btn-outline-primary btn-outline-success').addClass('btn-outline-danger')
-                            buttonD.text('Duplicated')
+                            buttonD.text('{{__('Duplicated')}}')
                             $('#duplicated').html('<code class="d-block"> {{ __("Suggest Product Code") }} : '+resp.data.suggest+ "</code>")
                             $(this).prev('input').val('');
                         }
@@ -470,8 +470,6 @@
                 else{
                    label.addClass('text-danger')
                 }
-
-
             })
         })
     </script>
