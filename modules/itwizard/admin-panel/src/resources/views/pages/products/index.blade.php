@@ -23,20 +23,12 @@
                     </span>
                     {{ __('Add Product') }}
                 </button>
-                <button class="btn btn-outline-light">{{ __('Copy') }}</button>
-                <button class="btn btn-outline-light">{{ __('Delete') }}</button>
+                <button class="btn btn-outline-info bg-opacity-5">{{ __('Copy') }}</button>
+                <button class="btn btn-outline-light opacity-3">{{ __('Delete') }}</button>
             </div>
         </div>
     </div>
-    {{-- <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header"> --}}
-    {{-- <div class="card-header-title fsize-2 text-capitalize fw-normal" style="color: #222222;">{{__('Product Manage')}}</div> --}}
-    {{-- <div class="btn-actions-pane-right text-capitalize actions-icon-btn"> --}}
-    {{-- <button class="btn btn-info btn-sm">{{__('Add Product')}}</button> --}}
-    {{-- <button class="btn btn-light btn-sm">{{__('Copy')}}</button> --}}
-    {{-- <button class="btn btn-light btn-sm">{{__('Delete')}}</button> --}}
-    {{-- </div> --}}
-    {{-- </div> --}}
-    <div class="main-card mb-3 card">
+    <div class="main-card mb-3 card card-btm-border border-primary">
         <div class="">
             <div class="card-body">
                 <div class="row justify-content-center">
@@ -137,6 +129,37 @@
             </div>
         </div>
     </div>
+    <nav class="float-end" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a href="javascript:void(0);" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">1</a>
+            </li>
+            <li class="page-item active">
+                <a href="javascript:void(0);" class="page-link">2</a>
+            </li>
+            <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">3</a>
+            </li>
+            <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">4</a>
+            </li>
+            <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">5</a>
+            </li>
+            <li class="page-item">
+                <a href="javascript:void(0);" class="page-link" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 @endsection
 @section('modal')
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -298,16 +321,18 @@
 
 @endsection
 
-
 @section('script')
     {{-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> --}}
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#ProductTable').DataTable({
-                // language: {
-                //     url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
-                // }
+                "paging":   false,
+                "ordering": false,
+                "info":     false,
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ]
             });
             $('.status').bootstrapToggle({
                 'onstyle': 'primary',
@@ -359,7 +384,6 @@
                 // }
             }
 
-            console.log(localStorage.getItem('images'))
             const files = {};
             $(document).on('change', 'input[type=file]', function() {
                 const image = $(this)
