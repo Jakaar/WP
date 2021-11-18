@@ -169,11 +169,12 @@
                         <div class="mb-3 col-lg-6 col-sm-12">
                             <label for="sku" class="form-label fw-bold"> {{ __('Product Code') }} </label>
                             <div class="input-group">
-                                <input type="text" minlength="10" maxlength="10" class="form-control" id="sku" placeholder="{{ __('Product Code') }}"
-                                    name="sku">
+                                <input type="text" minlength="10" maxlength="10" class="form-control" id="sku"
+                                    placeholder="{{ __('Product Code') }}" name="sku">
                                 <button type="button" class="btn btn-outline-primary checkCode"> {{ __('Check') }}
                                 </button>
                             </div>
+                            <small id="duplicated"></small>
                         </div>
                         <div class="mb-3 col-lg-6 col-sm-12">
                             <label for="product_name" class="form-label fw-bold">
@@ -437,18 +438,40 @@
                 }
             })
             $('.checkCode').click(function() {
+                const label =  $(this).parent('div').prev('label')
+                const buttonD = $(this)
                 const code = $(this).prev('input').val()
-                const data = {
-                    code : code
+                if (code.length == 10) {
+                    const data = {
+                        code: code
+                    }
+                    Axios.post('/api/ProductCodeGenerate', data).then((resp) => {
+                        console.log(resp)
+                        if(resp.data.msg == 'Code Non Duplicated'){
+                            label.removeClass('text-danger').addClass('text-dark')
+                            $(this).removeClass('btn-outline-primary btn-outline-danger').addClass('btn-outline-success')
+                            buttonD.text('Not Duplicated').addClass('disabled')
+                            buttonD.prev('input').attr('readonly','true')
+                            $('#duplicated').html('')
+                        }
+                        else{
+                            $(this).removeClass('btn-outline-primary btn-outline-success').addClass('btn-outline-danger')
+                            buttonD.text('Duplicated')
+                            $('#duplicated').html('<code class="d-block"> {{ __("Suggest Product Code") }} : '+resp.data.suggest+ "</code>")
+                            $(this).prev('input').val('');
+                        }
+                    }).catch((err) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err
+                        });
+                    })
                 }
-                Axios.post('/api/ProductCodeGenerate', data).then((resp) => {
-                    
-                }).catch((err) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: err
-                    });
-                })
+                else{
+                   label.addClass('text-danger')
+                }
+
+
             })
         })
     </script>
