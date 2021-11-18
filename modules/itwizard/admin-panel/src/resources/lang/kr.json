@@ -690,5 +690,8 @@
     "Main image": "대표 이미지",
     "Multiple Image": "이미지 추가",
     "Select Image": "이미지 선택",
-    "All Item": "전체 상품"
+    "All Item": "전체 상품",
+    "Check": "확인",
+    "Not Duplicated": "중복되지 않음",
+    "Duplicated": "중복됨"
 }
