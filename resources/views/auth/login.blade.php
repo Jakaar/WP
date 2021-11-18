@@ -131,12 +131,12 @@
                                 <div class="col-lg-6">
 
                                     <div class="dropdown d-flex justify-content-end">
-                                        <a class="dot-btn-wrapper " aria-haspopup="true" data-bs-toggle="dropdown"
+                                        <a class="dot-btn-wrapper dropstart" aria-haspopup="true" data-bs-toggle="dropdown"
                                             aria-expanded="true">
                                             <i class="dot-btn-icon lnr-earth icon-gradient bg-happy-itmeo"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
-                                            class="rm-pointers dropdown-menu " data-popper-placement="top-start"
+                                            class="rm-pointers dropdown-menu dropdown-menu-right " data-popper-placement="top-start"
                                             style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -46px);">
                                             <div class="dropdown-menu-header">
                                                 <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
@@ -231,7 +231,7 @@
                                         @endif
                                         <h5 class="card-title text-center">{{ __('Social Login') }}</h5>
                                         <div class="row mt-3 justify-content-md-center">
-                                            <div class="col-lg-12 col-xl-9 col-12 mb-3">
+                                            <div class="col-lg-12 col-xl-6 col-12 mb-3">
                                                 <div class="google-btn bg-google">
                                                     <div class="google-icon-wrapper ">
                                                         <img class="google-icon"
@@ -239,10 +239,10 @@
                                                             alt="" />
                                                     </div>
                                                     <a href="{{ route('google.login') }}"
-                                                        class="btn-text"><b>Sign in with Google</b></a>
+                                                        class="btn-text "><b>Sign in with Google</b></a>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 col-xl-9 col-12 mb-3">
+                                            <div class="col-lg-12 col-md-12 col-xl-6 col-12 mb-3">
                                                 <div class="google-btn bg-naver">
                                                     <div class="google-icon-wrapper ">
                                                         <img class="google-icon"
@@ -253,7 +253,7 @@
                                                             class="roboto">{{ __('Sign in with Naver') }}</b></a>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 col-xl-9 col-12 mb-3">
+                                            <div class="col-lg-12 col-md-12 col-xl-12 col-12 mb-3">
                                                 <div class="google-btn bg-kakao">
                                                     <div class="google-icon-wrapper ">
                                                         <img class="google-icon "

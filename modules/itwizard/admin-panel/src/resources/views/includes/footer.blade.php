@@ -365,11 +365,17 @@
                             <div class="dropdown-menu-header">
                                 <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
                                     <div class="menu-header-image opacity-05"
-                                        style="background-image: url('images/dropdown-header/city2.jpg');"></div>
+                                        style="background-image: url('/aPanel/imgs/city2.jpg');"></div>
                                     <div class="menu-header-content text-center text-white">
                                         <h6 class="menu-header-subtitle mt-0">{{ __('Choose Language') }}</h6>
                                     </div>
                                 </div>
+                                @foreach ($data['langs'] as $langs)
+                                <a href="/lang/{{ $langs->country_code }}" type="button" tabindex="0" class="dropdown-item">
+                                    <span class="me-3 opacity-8 flag large @if($langs->country_code == 'en') US @else {{ strtoupper($langs->country_code) }} @endif"></span>
+                                    {{ $langs->country }}
+                                </a>
+                                @endforeach
                             </div>
                             {{-- <h6 tabindex="-1" class="dropdown-header"> Popular Languages</h6> --}}
 
