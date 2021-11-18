@@ -359,7 +359,7 @@
                 // }
             }
 
-            console.log(localStorage.getItem('images'))
+            // console.log(localStorage.getItem('images'))
             const files = {};
             $(document).on('change', 'input[type=file]', function() {
                 const image = $(this)

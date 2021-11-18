@@ -575,7 +575,7 @@
                 <tr>
                     <td class="text-center text-muted" style="width: 80px;">#54</td>
                     <td class="text-center" style="width: 80px;">
-                        <img width="40" class="rounded-circle" src="images/avatars/4.jpg" alt="">
+<!--                        <img width="40" class="rounded-circle" src="/public/aPanel/imgs/1.jpg" alt="">-->
                     </td>
                     <td class="text-center">
                         <a href="javascript:void(0)">Juan C. Cargill</a>
@@ -621,7 +621,7 @@
                 <tr>
                     <td class="text-center text-muted" style="width: 80px;">#55</td>
                     <td class="text-center" style="width: 80px;">
-                        <img width="40" class="rounded-circle" src="images/avatars/3.jpg" alt="">
+<!--                        <img width="40" class="rounded-circle" src="images/avatars/3.jpg" alt="">-->
                     </td>
                     <td class="text-center">
                         <a href="javascript:void(0)">Johnathan Phelan</a>
@@ -667,7 +667,7 @@
                 <tr>
                     <td class="text-center text-muted" style="width: 80px;">#56</td>
                     <td class="text-center" style="width: 80px;">
-                        <img  width="40" class="rounded-circle" src="images/avatars/2.jpg" alt="">
+<!--                        <img  width="40" class="rounded-circle" src="images/avatars/2.jpg" alt="">-->
                     </td>
                     <td class="text-center">
                         <a href="javascript:void(0)">Darrell Lowe</a>
@@ -713,7 +713,7 @@
                 <tr>
                     <td class="text-center text-muted" style="width: 80px;">#56</td>
                     <td class="text-center" style="width: 80px;">
-                        <img width="40" class="rounded-circle" src="images/avatars/1.jpg" alt="">
+<!--                        <img width="40" class="rounded-circle" src="images/avatars/1.jpg" alt="">-->
                     </td>
                     <td class="text-center">
                         <a href="javascript:void(0)">George T. Cottrell</a>
