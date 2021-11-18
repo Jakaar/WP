@@ -23,7 +23,7 @@
                     </span>
                     {{ __('Add Product') }}
                 </button>
-                <button class="btn btn-outline-info bg-opacity-5">{{ __('Copy') }}</button>
+                <button class="btn btn-outline-info opa">{{ __('Copy') }}</button>
                 <button class="btn btn-outline-light opacity-3">{{ __('Delete') }}</button>
             </div>
         </div>
@@ -373,7 +373,7 @@
             })
 
             function readFile(file) {
-                var fReader = new FileReader();
+                const fReader = new FileReader();
                 let image;
                 fReader.readAsDataURL(file);
                 return fReader;
@@ -396,7 +396,7 @@
                 // $(this).parent().parent().prev('div').html('<img src="' +  + '">')
                 $(this).parent('.input-group').find('input[type=text]').val($(this).val())
 
-                for (var i in files) {
+                for (const i in files) {
                     console.log(files)
                 }
             })
