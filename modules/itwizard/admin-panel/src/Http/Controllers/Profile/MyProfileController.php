@@ -14,11 +14,11 @@ class MyProfileController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $data['user'] = DB::table('users')
+        $dataM['user'] = DB::table('users')
             ->where('id', auth()->user()->id)
             ->select('firstname','lastname','email','avatar')
             ->first();
-//        dd($data);
-        return view('Admin::pages.user.profile', compact('data'));
+//        dd($dataM);
+        return view('Admin::pages.user.profile', compact('dataM'));
     }
 }
