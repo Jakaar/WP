@@ -6,19 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>wPanel | {{ env('ORG_NAME') }}</title>
+    <title>{{env('APP_NAME')}} | {{ env('ORG_NAME') }}</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -545,7 +535,7 @@
             let url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + q + '&days=7&lang=ko';
             let data;
             if(localStorage.getItem('latitude') != null && localStorage.getItem('longitude') != null){
-               
+
                 data = localStorage.getItem('latitude') + ','+ localStorage.getItem('longitude')
                 url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + data + '&days=7&lang=ko';
             }

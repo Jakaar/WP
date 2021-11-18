@@ -243,6 +243,22 @@
                     }
                 });
             }
+
+            const options = {
+                method: 'GET',
+                url: 'https://covid-19-data.p.rapidapi.com/country/code',
+                params: {code: 'it'},
+                headers: {
+                    'x-rapidapi-host': 'covid-19-data.p.rapidapi.com',
+                    'x-rapidapi-key': '75f634ec05msh022921ca640e88ep16603ajsn79a55dfc2e6f'
+                }
+            };
+
+            Axios.request(options).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.error(error);
+            });
         </script>
     </body>
 </html>
