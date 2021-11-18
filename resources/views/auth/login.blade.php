@@ -185,15 +185,13 @@
                                     <div class="col-6">
                                         <div class="col-md-12">
                                             @if($errors->all())
-                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
-                                                    </button>
-                                                    {{__('You Not Have Access')}}
-                                                </div>
+<!--                                            <button data-swal-template="#my-template">-->
+<!--                                                Trigger modal-->
+<!--                                            </button>-->
                                             @endif
                                             <h5 class="card-title text-center">{{__('Social Login')}}</h5>
-                                            <div class="row mt-3">
-                                                <div class="col-md-6">
+                                            <div class="row mt-3 justify-content-md-center">
+                                                <div class="col-min-6 mt-2 col-xl-8 ">
                                                     <div class="google-btn bg-google">
                                                         <div class="google-icon-wrapper">
                                                             <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt=""/>
@@ -201,8 +199,7 @@
                                                         <a href="{{route('google.login')}}" class="btn-text"><b>Sign in with Google</b></a>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-6">
+                                                <div class="col-min-6  mt-2  col-xl-8 ">
                                                     <div class="google-btn bg-naver">
                                                         <div class="google-icon-wrapper">
                                                             <img class="google-icon" src="{{asset('aPanel/imgs/naver_green.svg')}}" alt=""/>
@@ -210,7 +207,7 @@
                                                         <a href="#" class="btn-text"><b class="roboto">{{__('Sign in with Naver')}}</b></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6  mt-4">
+                                                <div class="col-min-6  mt-2  col-xl-8 ">
                                                     <div class="google-btn bg-kakao">
                                                         <div class="google-icon-wrapper">
                                                             <img class="google-icon" src="{{asset('aPanel/imgs/KakaoTalk_logo.svg')}}" alt=""/>
@@ -262,22 +259,17 @@
                     }
                 });
             }
-
-            const options = {
-                method: 'GET',
-                url: 'https://covid-19-data.p.rapidapi.com/country/code',
-                params: {code: 'it'},
-                headers: {
-                    'x-rapidapi-host': 'covid-19-data.p.rapidapi.com',
-                    'x-rapidapi-key': '75f634ec05msh022921ca640e88ep16603ajsn79a55dfc2e6f'
-                }
-            };
-
-            Axios.request(options).then(function (response) {
-                console.log(response.data);
-            }).catch(function (error) {
-                console.error(error);
-            });
         </script>
+
+        @if(session('msg'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: '{{__('Oops...')}}',
+                text: '{{__('You are not registered user')}}'
+            })
+        </script>
+            @endif
+
     </body>
 </html>

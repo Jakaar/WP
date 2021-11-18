@@ -134,3 +134,19 @@ html:lang(kr){
 .bg-naver:active{
     background-color: #37a309 !important;
 }
+@media  (min-width: 1920px) {
+    .col-min-6 {
+        flex: 0 0 auto !important;
+        width: 50% !important;
+    }
+}
+@media (max-width: 1919px) {
+    .btn-text > b {
+        font-size: 14px;
+    }
+}
+    @media (max-width: 1400px) {
+        .btn-text > b {
+            font-size: 11px;
+        }
+    }

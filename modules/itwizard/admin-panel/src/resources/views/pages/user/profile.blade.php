@@ -68,7 +68,7 @@
                                 <div class="row justify-content-center d-flex mb-3 rounded">
                                     <div class="col-lg-3">
                                         <div class="position-relative">
-                                            <img src="{{ $user->avatar != null ? asset('/storage/'.$user->avatar) : asset('/aPanel/imgs/1.png')}}" alt=" Avatar 5" class="w-100 border" id="changeImage">
+                                            <img src="{{ $dataM['user']->avatar != null ? asset('/storage/'.$dataM['user']->avatar) : asset('/aPanel/imgs/1.png')}}" alt=" Avatar 5" class="w-100 border" id="changeImage">
                                             <label for="file-upload" class="custom-file-upload">{{__('Upload Image')}}</label>
                                             <input type="file" name="avatar" id="file-upload" class="image-upload">
                                             <div class="loading" id="loading">
@@ -80,19 +80,19 @@
                                             <div class="col-lg-6 mb-3">
                                                 <label class="form-label" for="firstname">{{__('First name')}}</label>
                                                 <div>
-                                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{__('First name')}}" value="{{$user->firstname}}">
+                                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{__('First name')}}" value="{{$dataM['user']->firstname}}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6  mb-3">
                                                 <label class="form-label" for="lastname">{{__('Last name')}}</label>
                                                 <div>
-                                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{__('Last name')}}" value="{{$user->lastname}}">
+                                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{__('Last name')}}" value="{{$dataM['user']->lastname}}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label class="form-label" for="email">{{__('Email')}}</label>
                                                 <div>
-                                                    <input type="text" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" value="{{$user->email}}" readonly>
+                                                    <input type="text" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" value="{{$dataM['user']->email}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-3">
@@ -113,7 +113,7 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                            
+
                             <form class="col-md-12 mx-auto" id="changePasswordValidation">
                                 <div class="mb-3">
                                     <label class="form-label" for="current_password"> {{__('Current password')}} </label>

@@ -41,7 +41,7 @@ class GoogleController extends Controller
                 return redirect('/cms');
             }else{
                 $msg = ['msg'=>'You not have a access'];
-                return redirect('/login')->withErrors($msg);
+                return redirect('/login')->with('msg','You not have a access');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
