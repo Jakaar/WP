@@ -160,7 +160,7 @@
                         </div>
                         <div class="mb-3 col-6 ">
                             <label class="form-check-label fw-bold mb-2">
-                                {{ __('Is Active') }}
+                                {{ __('Status') }}
                             </label>
                             <div class="clearfix"></div>
                             <input class="switcher" type="checkbox" id="switcher" name="is_status" checked>
@@ -184,9 +184,9 @@
                                 id="product_name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="order" class="form-label fw-bold">{{ __(' Priority') }}</label>
+                            <label for="order" class="form-label fw-bold">{{ __('Priority') }}</label>
                             <input id="order" type="number" min="1" class="form-control"
-                                placeholder="{{ __(' Priority') }}" name="showing_order">
+                                placeholder="{{ __('Priority') }}" name="showing_order">
                         </div>
 
                         <div class="mb-3">
