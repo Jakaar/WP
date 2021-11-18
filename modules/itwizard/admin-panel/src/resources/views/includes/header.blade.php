@@ -410,7 +410,7 @@
                                                             <img width="42" class="rounded-circle" src="{{ auth()->user()->avatar != null ? asset('/storage/'.auth()->user()->avatar) : asset('/aPanel/imgs/1.png')}}" alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">{{auth()->user()->lastname}}</div>
+                                                            <div class="widget-heading">{{auth()->user()->firstname}}</div>
                                                             <div class="widget-subheading opacity-8">{{auth()->user()->email}}</div>
                                                         </div>
                                                         <div class="widget-content-right me-2">
@@ -481,7 +481,7 @@
                             </div>
                         </div>
                         <div class="widget-content-left  ms-3 header-user-info">
-                            <div class="widget-heading"> {{auth()->user()->lastname}}
+                            <div class="widget-heading"> {{auth()->user()->firstname}}
                             </div>
                             <div class="widget-subheading">{{ auth()->user()->email}}</div>
                         </div>
