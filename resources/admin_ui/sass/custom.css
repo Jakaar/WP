@@ -101,8 +101,10 @@ html:lang(kr){
     height: 18px;
 }
 .google-btn .btn-text {
-    float: right;
-    margin: 11px 20px 11px 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     color: #fff;
     font-size: 15px;
     letter-spacing: 0.2px;
