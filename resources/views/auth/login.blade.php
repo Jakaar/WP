@@ -3,6 +3,26 @@
 <html lang="{{Session::get('locale')}}">
     <head>
         <meta charset="utf-8">
+        <!-- Primary Meta Tags -->
+        <title>wPanel | Sibizi</title>
+        <meta name="title" content="wPanel | Sibizi">
+        <meta name="description" content="sibizi developing CMS">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{asset('/login')}}">
+        <meta property="og:title" content="wPanel | Sibizi">
+        <meta property="og:description" content="sibizi developing CMS">
+        <meta property="og:image" content="">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{asset('/login')}}">
+        <meta property="twitter:title" content="wPanel | Sibizi">
+        <meta property="twitter:description" content="sibizi developing CMS">
+        <meta property="twitter:image" content="">
+
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Language" content="en">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
