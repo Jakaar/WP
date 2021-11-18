@@ -350,14 +350,7 @@
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <span class="icon-wrapper-bg bg-focus"></span>
                             <span class="language-icon opacity-8 flag large
-                                @if(session()->get('locale') == 'en')
-                                    US
-                                @elseif(session()->get('locale') == 'mn')
-                                    MN
-                                @elseif(session()->get('locale') == 'kr')
-                                    KR
-                                @endif">
-
+                                {{strtoupper(session()->get('locale'))}}">
                             </span>
                         </span>
                     </button>
@@ -376,17 +369,6 @@
                             {{ $langs->country }}
                         </a>
                         @endforeach
-
-{{--
-                        <a href="/lang/kr" type="button" tabindex="0" class="dropdown-item">
-                            <span class="me-3 opacity-8 flag large KR"></span>
-                            한국어
-                        </a>
-
-                        <a href="/lang/mn" type="button" tabindex="0" class="dropdown-item">
-                            <span class="me-3 opacity-8 flag large MN"></span>
-                            Монгол
-                        </a> --}}
                     </div>
                 </div>
             </div>
