@@ -168,17 +168,24 @@
                         </div>
                         <div class="mb-3 col-lg-6 col-sm-12">
                             <label for="sku" class="form-label fw-bold"> {{ __('Product Code') }} </label>
-                            <input type="text" class="form-control" id="sku" placeholder="{{ __('Product Code') }}" name="sku">
+                            <div class="input-group">
+                                <input type="text" minlength="10" maxlength="10" class="form-control" id="sku" placeholder="{{ __('Product Code') }}"
+                                    name="sku">
+                                <button type="button" class="btn btn-outline-primary checkCode"> {{ __('Check') }}
+                                </button>
+                            </div>
                         </div>
                         <div class="mb-3 col-lg-6 col-sm-12">
                             <label for="product_name" class="form-label fw-bold">
                                 {{ __('Product Name') }}
                                 <span class="text-danger ">*</span></label>
-                            <input type="text" class="form-control " placeholder="{{ __('Product Name') }}" name="name" id="product_name" required>
+                            <input type="text" class="form-control " placeholder="{{ __('Product Name') }}" name="name"
+                                id="product_name" required>
                         </div>
                         <div class="mb-3">
                             <label for="order" class="form-label fw-bold">{{ __(' Priority') }}</label>
-                            <input id="order" type="number" min="1" class="form-control" placeholder="{{ __(' Priority') }}" name="showing_order">
+                            <input id="order" type="number" min="1" class="form-control"
+                                placeholder="{{ __(' Priority') }}" name="showing_order">
                         </div>
 
                         <div class="mb-3">
@@ -208,27 +215,33 @@
                         </div>
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
                             <label for="manufacturer" class="form-label fw-bold"> {{ __('Manufacturer') }} </label>
-                            <input id="manufacturer" type="text" class="form-control" placeholder="{{ __('Manufacturer') }}" name="manufacturer">
+                            <input id="manufacturer" type="text" class="form-control"
+                                placeholder="{{ __('Manufacturer') }}" name="manufacturer">
                         </div>
 
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
-                            <label for="created_country" class="form-label fw-bold"> {{ __('Country of Origin') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Country of Origin') }} " name="created_country">
+                            <label for="created_country" class="form-label fw-bold"> {{ __('Country of Origin') }}
+                            </label>
+                            <input type="text" class="form-control " placeholder=" {{ __('Country of Origin') }} "
+                                name="created_country">
                         </div>
 
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
                             <label for="brand_name" class="form-label fw-bold"> {{ __('Brand') }} </label>
-                            <input id="brand_name" type="text" class="form-control" placeholder=" {{ __('Brand') }} " name="brand_name">
+                            <input id="brand_name" type="text" class="form-control" placeholder=" {{ __('Brand') }} "
+                                name="brand_name">
                         </div>
 
                         <div class="mb-3 col-lg-3 col-sm-12 col-md-6">
                             <label for="model_name" class="form-label fw-bold"> {{ __('Model Name') }} </label>
-                            <input type="text" class="form-control " placeholder=" {{ __('Model Name') }} " name="model_name">
+                            <input type="text" class="form-control " placeholder=" {{ __('Model Name') }} "
+                                name="model_name">
                         </div>
 
                         <div class="mb-3">
                             <label for="price" class="form-label fw-bold"> {{ __('Market Price') }} </label>
-                            <input id="price" type="number" class="form-control " placeholder=" {{ __('Market Price') }} " name="price">
+                            <input id="price" type="number" class="form-control "
+                                placeholder=" {{ __('Market Price') }} " name="price">
                         </div>
 
                         <div class="mb-3">
@@ -237,7 +250,7 @@
                             <textarea name="description" id="description" cols="30" rows="10" required></textarea>
                         </div>
                         <div class="mb-3 col-6">
-{{--                            <div class="clearfix"></div>--}}
+                            {{-- <div class="clearfix"></div> --}}
                             <label for="mnpht" class="form-label fw-bold">
                                 {{ __('Main image') }}
                                 <span class="text-danger ">*</span>
@@ -245,7 +258,8 @@
                             <img src="" id="main-photo-preview" class="rounded w-100 mb-3" alt="">
                             <input type="hidden" id="main-photo" name="main_img" required>
                             <div class="input-group">
-                                <button id="mnpht" type="button" onclick="filemanager.selectFile('main-photo')" class="btn btn-outline-secondary">
+                                <button id="mnpht" type="button" onclick="filemanager.selectFile('main-photo')"
+                                    class="btn btn-outline-secondary">
                                     {{ __('Select Image') }}
                                 </button>
                             </div>
@@ -257,7 +271,8 @@
                             <div class="mt" id="thumbnail_group">
                                 <div class="mb-3">
                                     <input type="hidden" name="thumbnail" id="thumbnail">
-                                    <button id="mltplgm" type="button" class="btn btn-outline-secondary" onclick="filemanager.bulkSelectFile('myBulkSelectCallback')">
+                                    <button id="mltplgm" type="button" class="btn btn-outline-secondary"
+                                        onclick="filemanager.bulkSelectFile('myBulkSelectCallback')">
                                         {{ __('Multiple Image') }}
                                     </button>
                                 </div>
@@ -366,7 +381,8 @@
                 $.each(data, function(i, v) {
                     thumbnail[i] = v.absolute_url
                     $('#bulkImage').append('<img src="' + v.absolute_url +
-                        '" style="width:150px; height:100px; object-fit:cover" class="rounded mb-3">')
+                        '" style="width:150px; height:100px; object-fit:cover" class="rounded mb-3">'
+                    )
                 })
             };
 
@@ -406,7 +422,8 @@
                     },
                     highlight: function(element, errorClass, validClass) {
                         // console.log(element)
-                        $(element).prev('label').addClass("text-danger").removeClass("is-valid");
+                        $(element).prev('label').addClass("text-danger").removeClass(
+                            "is-valid");
 
                         // $('#' + parantId).addClass("text-danger").removeClass("text-success");
                     },
@@ -418,6 +435,20 @@
                 if ($('#addProduct').valid()) {
                     $('#addProduct').submit()
                 }
+            })
+            $('.checkCode').click(function() {
+                const code = $(this).prev('input').val()
+                const data = {
+                    code : code
+                }
+                Axios.post('/api/ProductCodeGenerate', data).then((resp) => {
+                    
+                }).catch((err) => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err
+                    });
+                })
             })
         })
     </script>
