@@ -1,21 +1,20 @@
 .active-class {
     background: #16ffa930;
 }
-.navBtns
-{
+.navBtns {
     width: 25px;
     padding: 2px !important;
     margin-top: 5px;
     margin-right: 10px;
 }
-html:lang(en){
-    font-family:'Rubik', sans-serif !important;
+html:lang(en) {
+    font-family: "Rubik", sans-serif !important;
 }
-html:lang(mn){
-    font-family:'Rubik', sans-serif !important;
+html:lang(mn) {
+    font-family: "Rubik", sans-serif !important;
 }
-html:lang(kr){
-    font-family: 'Nanum Gothic', sans-serif !important;
+html:lang(kr) {
+    font-family: "Nanum Gothic", sans-serif !important;
 }
 
 .vertical-nav-menus {
@@ -24,7 +23,7 @@ html:lang(kr){
     position: relative;
     list-style: none;
 }
-.vertical-nav-menus li a{
+.vertical-nav-menus li a {
     display: block;
     line-height: 2.4rem;
     height: 2.4rem;
@@ -42,7 +41,7 @@ html:lang(kr){
     position: relative;
     list-style: none;
     transition: padding 300ms;
-    padding: .5em 0 0 2rem;
+    padding: 0.5em 0 0 2rem;
 }
 .vertical-nav-menus ul > li > a {
     color: #6c757d;
@@ -61,42 +60,40 @@ html:lang(kr){
     top: 0;
     border-radius: 15px;
 }
-.vertical-nav-menus li a:hover
-{
+.vertical-nav-menus li a:hover {
     background: #e0f3ff;
     text-decoration: none;
 }
-.vertical-nav-menus li a.active
-{
+.vertical-nav-menus li a.active {
     background: #e0f3ff;
     text-decoration: none;
 }
 
-.h-42{
+.h-42 {
     height: 42px;
-    float:left;
+    float: left;
 }
- .roboto {
-     font-family: Roboto, sans-serif;
- }
+.roboto {
+    font-family: Roboto, sans-serif;
+}
 .google-btn {
+    position: relative;
     height: 42px;
     border-radius: 5px;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .google-btn .google-icon-wrapper {
     position: absolute;
-    margin-top: 1px;
-    margin-left: 2px;
-    width: 40px;
-    height: 40px;
+    margin: auto;
+    width: 35px;
+    height: 100%;
     border-radius: 2px;
     background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .google-btn .google-icon {
-    position: absolute;
-    margin-top: 11px;
-    margin-left: 11px;
     width: 18px;
     height: 18px;
 }
@@ -118,25 +115,25 @@ html:lang(kr){
 /*.google-btn:active {*/
 /*    background: #1669F2;*/
 /*}*/
-.bg-google:active{
-    background-color: #1669F2 !important;
+.bg-google:active {
+    background-color: #1669f2 !important;
 }
-.bg-kakao{
-    background-color: #FFE812 !important;
+.bg-kakao {
+    background-color: #ffe812 !important;
 }
-.bg-kakao:active{
+.bg-kakao:active {
     background-color: #f3de19 !important;
 }
-.bg-google{
+.bg-google {
     background-color: #4285f4 !important;
 }
-.bg-naver{
-    background-color: #3EAF0E !important;
+.bg-naver {
+    background-color: #3eaf0e !important;
 }
-.bg-naver:active{
+.bg-naver:active {
     background-color: #37a309 !important;
 }
-@media  (min-width: 1920px) {
+@media (min-width: 1920px) {
     .col-min-6 {
         flex: 0 0 auto !important;
         width: 50% !important;
@@ -147,8 +144,8 @@ html:lang(kr){
         font-size: 14px;
     }
 }
-    @media (max-width: 1400px) {
-        .btn-text > b {
-            font-size: 11px;
-        }
+@media (max-width: 1400px) {
+    .btn-text > b {
+        font-size: 11px;
     }
+}
