@@ -18,7 +18,6 @@ class MyProfileController extends Controller
             ->where('id', auth()->user()->id)
             ->select('firstname','lastname','email','avatar')
             ->first();
-//        dd($dataM);
         return view('Admin::pages.user.profile', compact('dataM'));
     }
 }
