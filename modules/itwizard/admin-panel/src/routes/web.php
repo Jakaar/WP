@@ -25,6 +25,7 @@ Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function()
     Route::get('/preferences',[PreferencesController::class, 'index']);
     Route::get('/preferences/logger',[PreferencesController::class, 'logger']);
     Route::get('/preferences/menu',[PreferencesController::class, 'menu']);
+    Route::get('/preferences/static_file',[StaticFileController::class, 'index']);
 });
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
@@ -64,7 +65,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/member_management/settings', [PermissionController::class, 'settings'])->middleware(['permission:permission-read']);
 
     Route::get('/banner',[BannerController::class, 'index']);
-    Route::get('/static_file',[StaticFileController::class, 'index']);
+   
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
 
