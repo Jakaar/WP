@@ -94,15 +94,18 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/content/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'contentcreate'])->name('save.content');
     Route::post('/managepage/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'DeletePage']);
 
-    Route::post('/manageCategory/create', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'create']);
-    Route::post('/manageCategory/update', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'update']);
-    Route::post('/manageCategory/singleProduct', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'singleProduct']);
-    Route::post('/manageCategory/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'deletePage']);
+//    Route::post('/manageCategory/create', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'create']);
+//    Route::post('/manageCategory/update', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'update']);
+//    Route::post('/manageCategory/singleProduct', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'singleProduct']);
+//    Route::post('/manageCategory/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'deletePage']);
 
-    Route::post('/productManage/create', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'create']);
-    Route::post('/productManage/singleProduct', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'singleProduct']);
-    Route::post('/productManage/update', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'update']);
-    Route::post('/productManage/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'delete']);
+//    Route::post('/productManage/create', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'create']);
+//    Route::post('/productManage/singleProduct', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'singleProduct']);
+//    Route::post('/productManage/update', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'update']);
+//    Route::post('/productManage/delete/{id}', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'delete']);
+
+
+    Route::post('/ProductCodeGenerate', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class, 'ProductCodeCheck']);
 
     Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
