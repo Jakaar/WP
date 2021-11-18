@@ -117,7 +117,6 @@
                         </div>
                         <div class="row" id="forecast">
                             <div class="card-title"> {{ __('Daily Forecast') }} </div>
-
                         </div>
                     </div>
                 </div>
@@ -541,11 +540,9 @@
             }
             Axios.post(url)
                 .then((resp) => {
-
                     const current = resp.data.current;
                     const location = resp.data.location;
                     const forcast = resp.data.forecast.forecastday;
-                    console.log(resp)
                     $.each(forcast, function(i, item) {
 
                         let d = new Date(item.date)
