@@ -22,11 +22,11 @@ class ProductCreateController extends Controller
     {
         dd( isset($request->is_sale) ? 1 : 0);
     }
-    public function ProductCodeCheck(): \Illuminate\Http\JsonResponse
+    public function ProductCodeCheck(Request $request): \Illuminate\Http\JsonResponse
     {
         $rand = strrev(uniqid());
         $generatedCode = substr($rand.$rand.$rand,'0','10');
-        $have = DB::table('main_products')->where('sku', $generatedCode)->first();
+        $have = DB::table('main_products')->where('sku', $request->code)->first();
         if ($have === null) { return response()->json(['msg'=>'Code Non Duplicated','code'=> $generatedCode], 200); }
         return response()->json(['msg'=>'Code Duplicated','suggest'=> $generatedCode], 200);
     }
