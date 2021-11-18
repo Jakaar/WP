@@ -370,6 +370,12 @@
                                         <h6 class="menu-header-subtitle mt-0">{{ __('Choose Language') }}</h6>
                                     </div>
                                 </div>
+                                @foreach ($data['langs'] as $langs)
+                                <a href="/lang/{{ $langs->country_code }}" type="button" tabindex="0" class="dropdown-item">
+                                    <span class="me-3 opacity-8 flag large @if($langs->country_code == 'en') US @else {{ strtoupper($langs->country_code) }} @endif"></span>
+                                    {{ $langs->country }}
+                                </a>
+                                @endforeach
                             </div>
                             {{-- <h6 tabindex="-1" class="dropdown-header"> Popular Languages</h6> --}}
 
