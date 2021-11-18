@@ -1,6 +1,6 @@
 <div class="app-sidebar sidebar-shadow">
     <div class="app-header__logo">
-        <div class="logo-src"></div>
+        <div class="logo-src" style="background:url('{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}') "></div>
         <div class="header__pane ms-auto">
             <div>
                 <button type="button" class="hamburger close-sidebar-btn hamburger--elastic">

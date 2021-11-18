@@ -17,6 +17,7 @@ class CreateMainProducts extends Migration
             $table->id();
             $table->integer('category_id');
             $table->string('sku')->unique();
+            $table->text('name');
             $table->integer('showing_order');
             $table->integer('is_status');
             $table->integer('is_hit');
