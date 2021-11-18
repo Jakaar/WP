@@ -83,10 +83,9 @@ html:lang(kr) {
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .google-btn .google-icon-wrapper {
-    position: absolute;
-    margin: auto;
     width: 35px;
     height: 100%;
+    float: left;
     border-radius: 2px;
     background-color: #fff;
     display: flex;
@@ -99,12 +98,15 @@ html:lang(kr) {
 }
 .google-btn .btn-text {
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
     height: 100%;
     color: #fff;
-    font-size: 15px;
+    font-size: 12px;
     letter-spacing: 0.2px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-family: Roboto, sans-serif;
 }
 .google-btn:hover {
@@ -141,7 +143,7 @@ html:lang(kr) {
 }
 @media (max-width: 1919px) {
     .btn-text > b {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 @media (max-width: 1400px) {

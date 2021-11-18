@@ -416,7 +416,7 @@
             })
             $('#addProductButton').click(function() {
                 // console.log(thumbnail)
-                $('#thumbnail').val(thumbnail);
+                $('#thumbnail').val(json_stringify(thumbnail));
                 $('#addProduct').validate({
                     ignore: "",
                     rules: {
