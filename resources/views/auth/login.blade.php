@@ -13,14 +13,14 @@
         <meta property="og:url" content="{{asset('/login')}}">
         <meta property="og:title" content="wPanel | Sibizi">
         <meta property="og:description" content="sibizi developing CMS">
-        <meta property="og:image" content="">
+        <meta property="og:image" content="{{asset('aPanel/imgs/login_desc.png')}}">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{asset('/login')}}">
         <meta property="twitter:title" content="wPanel | Sibizi">
         <meta property="twitter:description" content="sibizi developing CMS">
-        <meta property="twitter:image" content="">
+        <meta property="twitter:image" content="{{asset('aPanel/imgs/login_desc.png')}}">
 
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
