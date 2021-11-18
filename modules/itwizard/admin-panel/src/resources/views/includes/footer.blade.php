@@ -365,7 +365,7 @@
                             <div class="dropdown-menu-header">
                                 <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
                                     <div class="menu-header-image opacity-05"
-                                        style="background-image: url('images/dropdown-header/city2.jpg');"></div>
+                                        style="background-image: url('/aPanel/imgs/city2.jpg');"></div>
                                     <div class="menu-header-content text-center text-white">
                                         <h6 class="menu-header-subtitle mt-0">{{ __('Choose Language') }}</h6>
                                     </div>
