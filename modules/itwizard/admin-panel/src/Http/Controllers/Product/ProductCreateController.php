@@ -37,15 +37,11 @@ class ProductCreateController extends Controller
             $have = DB::table('main_products')->where('sku', $rand)->count();
             if ($have)
             {
-                $rand = mt_rand(1000000000, 9999999999);
-                $have = DB::table('main_products')->where('sku', $rand)->count();
-                    if ($have)
-                    {
-                        $rand = 1232131231;
-                    }
+                $this->CreateItem($request);
             }
         }
         $this->SaveProduct($validated, $rand);
+        return back()->with('message', 'Successfully Saved');
     }
     public function ProductCodeCheck(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -57,7 +53,7 @@ class ProductCreateController extends Controller
     }
     public function SaveProduct($validated, $rand)
     {
-        dd($validated, $rand);
+//        dd($validated, $rand);
         return DB::table('main_products')->insertGetId([
             'category_id' => $validated['category_id'],
             'sku'=> $rand,

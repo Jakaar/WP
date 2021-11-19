@@ -16,6 +16,7 @@ class ProductController extends Controller
     }
     public function index()
     {
-        return view('Admin::pages.products.index');
+        $items = DB::table('main_products')->get();
+        return view('Admin::pages.products.index', compact('items'));
     }
 }
