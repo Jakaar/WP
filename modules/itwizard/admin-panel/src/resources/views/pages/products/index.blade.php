@@ -178,7 +178,7 @@
                             <label for="category_id" class="form-label fw-bold"> {{ __('Product Category') }} <span
                                     class="text-danger ">*</span> </label>
                             <select name="category_id" id="category_id" class="form-control form-select" required>
-                                <option value="a">gg </option>
+                                <option value="1">gg </option>
                             </select>
                         </div>
                         <div class="mb-3 col-6 ">
@@ -396,27 +396,22 @@
                 // $(this).parent().parent().prev('div').html('<img src="' +  + '">')
                 $(this).parent('.input-group').find('input[type=text]').val($(this).val())
 
-                for (const i in files) {
-                    console.log(files)
-                }
             })
-
-            let thumbnail = [];
+            const thumbnail = [];
             window.myBulkSelectCallback = function(data) {
                 $.each(data, function(i, v) {
-                    thumbnail[i] = v.absolute_url
                     $('#bulkImage').append('<img src="' + v.absolute_url +
                         '" style="width:150px; height:100px; object-fit:cover" class="rounded mb-3">'
                     )
+                    thumbnail.push(v.absolute_url);
                 })
             };
-
             $('.ModalShow').click(function() {
                 $('#staticBackdrop').modal('show')
             })
             $('#addProductButton').click(function() {
                 // console.log(thumbnail)
-                $('#thumbnail').val(json_stringify(thumbnail));
+                $('#thumbnail').val(JSON.stringify(thumbnail));
                 $('#addProduct').validate({
                     ignore: "",
                     rules: {
