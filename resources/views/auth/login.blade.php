@@ -151,11 +151,11 @@
                                             </div>
 
                                             @foreach ($data['langs'] as $langs)
-                                                <button type="button" tabindex="0" class="dropdown-item">
+                                                <a href="/lang/{{ $langs->country_code }}" tabindex="0" class="dropdown-item">
                                                     <span
                                                         class="me-3 opacity-8 flag large @if ($langs->country_code == 'en') US @else {{ strtoupper($langs->country_code) }} @endif "></span>
                                                     {{ $langs->country }}
-                                                </button>
+                                                </a>
                                             @endforeach
 
                                         </div>
