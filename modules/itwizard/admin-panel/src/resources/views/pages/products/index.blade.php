@@ -117,7 +117,8 @@
                                         <input class="status" type="checkbox">
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-outline-info">{{ __('Edit') }}</button>
+                                        <button class="btn btn-sm btn-outline-info editModal"
+                                            data-id="1">{{ __('Edit') }}</button>
                                         <button
                                             class="btn btn-sm btn-outline-danger opacity-5">{{ __('Delete') }}</button>
                                     </td>
@@ -327,9 +328,9 @@
     <script>
         $(document).ready(function() {
             $('#ProductTable').DataTable({
-                "paging":   false,
+                "paging": false,
                 "ordering": false,
-                "info":     false,
+                "info": false,
                 buttons: [
                     'copy', 'excel', 'pdf'
                 ]
@@ -457,7 +458,7 @@
                 }
             })
             $('.checkCode').click(function() {
-                const label =  $(this).parent('div').prev('label')
+                const label = $(this).parent('div').prev('label')
                 const buttonD = $(this)
                 const code = $(this).prev('input').val()
                 if (code.length == 10) {
@@ -466,17 +467,20 @@
                     }
                     Axios.post('/api/ProductCodeGenerate', data).then((resp) => {
                         console.log(resp)
-                        if(resp.data.msg == 'Code Non Duplicated'){
+                        if (resp.data.msg == 'Code Non Duplicated') {
                             label.removeClass('text-danger').addClass('text-dark')
-                            $(this).removeClass('btn-outline-primary btn-outline-danger').addClass('btn-outline-success')
-                            buttonD.text('{{__('Not Duplicated')}}').addClass('disabled')
-                            buttonD.prev('input').attr('readonly','true')
+                            $(this).removeClass('btn-outline-primary btn-outline-danger').addClass(
+                                'btn-outline-success')
+                            buttonD.text('{{ __('Not Duplicated') }}').addClass('disabled')
+                            buttonD.prev('input').attr('readonly', 'true')
                             $('#duplicated').html('')
-                        }
-                        else{
-                            $(this).removeClass('btn-outline-primary btn-outline-success').addClass('btn-outline-danger')
-                            buttonD.text('{{__('Duplicated')}}')
-                            $('#duplicated').html('<code class="d-block"> {{ __("Suggest Product Code") }} : '+resp.data.suggest+ "</code>")
+                        } else {
+                            $(this).removeClass('btn-outline-primary btn-outline-success').addClass(
+                                'btn-outline-danger')
+                            buttonD.text('{{ __('Duplicated') }}')
+                            $('#duplicated').html(
+                                '<code class="d-block"> {{ __('Suggest Product Code') }} : ' +
+                                resp.data.suggest + "</code>")
                             $(this).prev('input').val('');
                         }
                     }).catch((err) => {
@@ -485,10 +489,31 @@
                             title: err
                         });
                     })
+                } else {
+                    label.addClass('text-danger')
                 }
-                else{
-                   label.addClass('text-danger')
+            })
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.editModal').click(function() {
+                const id = $(this).data('id')
+                const data = {
+                    id: id,
                 }
+                Axios.post('/api/product/getData', data).then((resp) => {
+                    console.log(resp)
+                    $('#staticBackdrop').modal('show')
+                    $('#productLabel').html('{{ __("Edit Product") }}')
+                    
+                }).catch((err) => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err
+                    });
+                })
+
             })
         })
     </script>
