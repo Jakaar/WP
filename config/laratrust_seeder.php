@@ -24,10 +24,19 @@ return [
             'mail' => 'c,r,u,d',
             'userMenu' => 'c,r,u,d',
             'categoryProduct' => 'c,r,u,d',
+            'dashBoard' => 'c,r,u,d',
         ],
         'admin' => [
             'member' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'profile' => 'r,u',
+            'banner' => 'c,r,u',
+            'product' => 'c,r,u',
+            'page' => 'c,r,u',
+            'noticeBoard' => 'c,r,u',
+            'mail' => 'c,r,u',
+            'userMenu' => 'c,r,u',
+            'categoryProduct' => 'c,r,u',
+            'dashBoard' => 'c,r,u',
         ],
         'user' => [
             'profile' => 'r,u',
