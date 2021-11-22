@@ -109,6 +109,8 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('/product/getData',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'getData']);
     Route::post('/product/status/{id}',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'statusChanger']);
+    Route::post('/product/delete/{id}',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'DeleteItem']);
+    Route::post('/product/multiple/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'MultipleDelete']);
 
     Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 

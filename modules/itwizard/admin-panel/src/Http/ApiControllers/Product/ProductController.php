@@ -33,4 +33,18 @@ class ProductController extends Controller
         }
         return response()->json(['msg'=> $msg], 200);
     }
+    public function DeleteItem($id)
+    {
+        $name = DB::table('main_products')->where('id', $id)->first();
+//        DB::table('main_products')->where('id', $id)->delete();
+        return response()->json(['msg'=> __(':Name Item Has Been Deleted', ['name'=>$name->name])], 200);
+    }
+    public function MultipleDelete(Request $request)
+    {
+        foreach ($request->all() as $item)
+        {
+//            DB::table('main_products')->where('id', $item)->delete();
+        }
+        return response()->json(['msg'=> __('Selected Items Has Been Deleted')], 200);
+    }
 }

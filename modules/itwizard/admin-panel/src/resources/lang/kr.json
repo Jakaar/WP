@@ -696,5 +696,11 @@
     "Duplicated": "중복됨",
     "Suggest Product Code": "제안 상품 코드",
     ":Name Item Disabled": ":Name 상품이 비노출되었습니다.",
-    ":Name Item Enabled": ":Name 상품이 노출되었습니다."
+    ":Name Item Enabled": ":Name 상품이 노출되었습니다.",
+    ":Name Item Has Been Deleted": ":Name 상품이 삭제되었습니다.",
+    "You wont be able to revert this!": "삭제 후에 복귀할 수 없습니다.",
+    "Are you sure?": "삭제하시겠습니가?",
+    "Yes, Delete it!": "예",
+    "Cancel": "취소",
+    "Ok": "확인"
 }

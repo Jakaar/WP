@@ -16,7 +16,7 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $items = DB::table('main_products')->get();
+        $items = DB::table('main_products')->paginate(20);
         return view('Admin::pages.products.index', compact('items'));
     }
 }

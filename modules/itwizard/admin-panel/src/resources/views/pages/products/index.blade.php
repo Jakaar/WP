@@ -24,7 +24,7 @@
                     {{ __('Add Product') }}
                 </button>
                 <button class="btn btn-outline-info opa">{{ __('Copy') }}</button>
-                <button class="btn btn-outline-light opacity-3">{{ __('Delete') }}</button>
+                <button class="btn btn-outline-light opacity-3 multipleDelete">{{ __('Delete') }}</button>
             </div>
         </div>
     </div>
@@ -78,15 +78,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($items as $item)
-                                    <tr class="border-custom">
+                                    <tr class="border-custom remover-{{$item->id}}" key="{{$item->id}}">
                                         <td>
-                                            <input type="checkbox" class="form-check-input">
+                                            <input type="checkbox" class="form-check-input selectItem" key="{{$item->id}}">
                                         </td>
                                         <td>
                                             <div class="avatar-icon-wrapper avatar-icon-lg">
                                                 <div class="avatar-icon rounded">
-                                                    <img src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTE2RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTE1RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJENDFFMzk5RUI1NDJFOUFCNzIzNzUzMDQ3QkJEMkQ3OSIgc3RSZWY6ZG9jdW1lbnRJRD0iRDQxRTM5OUVCNTQyRTlBQjcyMzc1MzA0N0JCRDJENzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwM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"
-                                                        alt="">
+                                                    <img src="{{$item->main_img}}" alt="">
                                                 </div>
                                             </div>
                                         </td>
@@ -106,10 +105,8 @@
                                             <input class="status enabler" type="checkbox" @if ($item->is_status) checked @endif key="{{$item->id}}">
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-outline-info editModal"
-                                                data-id="{{ $item->id }}">{{ __('Edit') }}</button>
-                                            <button
-                                                class="btn btn-sm btn-outline-danger opacity-5">{{ __('Delete') }}</button>
+                                            <button class="btn btn-sm btn-outline-info editModal" data-id="{{ $item->id }}">{{ __('Edit') }}</button>
+                                            <button class="btn btn-sm btn-outline-danger opacity-5 SingleDelete" key="{{$item->id}}">{{ __('Delete') }}</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -120,37 +117,8 @@
             </div>
         </div>
     </div>
-    <nav class="float-end" aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a href="javascript:void(0);" class="page-link" aria-label="Previous">
-                    <span aria-hidden="true">«</span>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">1</a>
-            </li>
-            <li class="page-item active">
-                <a href="javascript:void(0);" class="page-link">2</a>
-            </li>
-            <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">3</a>
-            </li>
-            <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">4</a>
-            </li>
-            <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">5</a>
-            </li>
-            <li class="page-item">
-                <a href="javascript:void(0);" class="page-link" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                    <span class="visually-hidden">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    {{$items->links('Admin::components.paginator')}}
+
 @endsection
 @section('modal')
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -319,6 +287,49 @@
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {
+            localStorage.removeItem('items')
+            $('.multipleDelete').on('click', function (){
+                if (JSON.parse(localStorage.getItem('items')))
+                {
+                    Swal.fire({
+                        title: '{{__('Are you sure?')}}',
+                        html: '{{__('Total Deleting Items')}} :'+JSON.parse(localStorage.getItem('items')).length,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: '{{__('Cancel')}}',
+                        confirmButtonText: '{{__('Yes, Delete it!')}}'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Axios.post('/api/product/multiple/delete', JSON.parse(localStorage.getItem('items'))).then((resp) => {
+                                Swal.fire(
+                                    '{{__('Deleted')}}',
+                                    resp.data.msg,
+                                    'success'
+                                )
+                                $.each(JSON.parse(localStorage.getItem('items')), function (i,v){
+                                   $('.remover-'+v).fadeOut();
+                                });
+                            })
+                        }
+                    })
+                }else{
+                    alert('not seleceted')
+                }
+                // console.log(JSON.parse(localStorage.getItem('items')).length)
+            });
+            $('.selectItem').change(function (){
+                const items = [];
+                $('.selectItem').each(function (i,v){
+                   if ($(this).is(':checked'))
+                   {
+                       items[i] = $(this).attr('key')
+                   }
+                });
+                localStorage.setItem('items',JSON.stringify(items));
+            })
+
             $('.enabler').change(function() {
                 Axios.post('/api/product/status/'+$(this).attr('key')).then((resp) => {
                     Toast.fire({
@@ -327,7 +338,30 @@
                         title: resp.data.msg
                     })
                 })
-            })
+            });
+            $('.SingleDelete').on('click',function() {
+                Swal.fire({
+                    title: '{{__('Are you sure?')}}',
+                    text: "{{__('You wont be able to revert this!')}}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: '{{__('Cancel')}}',
+                    confirmButtonText: '{{__('Yes, Delete it!')}}'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            Axios.post('/api/product/delete/'+$(this).attr('key')).then((resp) => {
+                            Swal.fire(
+                                '{{__('Deleted')}}',
+                                resp.data.msg,
+                                'success'
+                            )
+                            $(this).closest('tr').fadeOut();
+                        })
+                    }
+                })
+            });
             $('#ProductTable').DataTable({
                 "paging": false,
                 "ordering": false,
