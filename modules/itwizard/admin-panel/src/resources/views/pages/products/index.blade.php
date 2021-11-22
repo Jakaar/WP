@@ -42,6 +42,18 @@
                 </div>
                 <div class="mt-5 row justify-content-center">
                     <div class="col-12">
+                        @if(session()->has('message'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                                {{ __(session()->get('message')) }}
+                            </div>
+                        @endif
+                            @if(session()->has('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                                    {{ __(session()->get('message')) }}
+                                </div>
+                            @endif
                         <table style="width: 100%;" id="ProductTable" class="table table-hover table-striped">
                             <thead>
                                 <tr>
