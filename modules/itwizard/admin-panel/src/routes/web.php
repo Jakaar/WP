@@ -81,6 +81,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
 
     Route::get('/products/index',[ProductCreateController::class, 'index']);
+    Route::get('/categories',[\Itwizard\Adminpanel\Http\Controllers\Product\CategoryController::class,'index']);
 
 
 
