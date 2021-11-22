@@ -103,7 +103,7 @@
                                             {{ $item->showing_order }}
                                         </td>
                                         <td>
-                                            <input class="status" type="checkbox" @if ($item->is_status) checked @endif>
+                                            <input class="status enabler" type="checkbox" @if ($item->is_status) checked @endif key="{{$item->id}}">
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-info editModal"
@@ -319,6 +319,15 @@
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('.enabler').change(function() {
+                Axios.post('/api/product/status/'+$(this).attr('key')).then((resp) => {
+                    Toast.fire({
+                        icon: 'success',
+                        position: 'top-end',
+                        title: resp.data.msg
+                    })
+                })
+            })
             $('#ProductTable').DataTable({
                 "paging": false,
                 "ordering": false,

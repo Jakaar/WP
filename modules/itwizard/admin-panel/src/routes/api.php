@@ -106,8 +106,9 @@ Route::group(['prefix' => 'api'], function () {
 
 
     Route::post('/ProductCodeGenerate', [\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class, 'ProductCodeCheck']);
-    
+
     Route::post('/product/getData',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'getData']);
+    Route::post('/product/status/{id}',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'statusChanger']);
 
     Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 

@@ -694,5 +694,7 @@
     "Check": "확인",
     "Not Duplicated": "중복되지 않음",
     "Duplicated": "중복됨",
-    "Suggest Product Code": "제안 상품 코드"
+    "Suggest Product Code": "제안 상품 코드",
+    ":Name Item Disabled": ":Name 상품이 비노출되었습니다.",
+    ":Name Item Enabled": ":Name 상품이 노출되었습니다."
 }

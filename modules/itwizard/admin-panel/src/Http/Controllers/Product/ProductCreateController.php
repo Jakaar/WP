@@ -130,7 +130,7 @@ class ProductCreateController extends Controller
             'description' => $validated['description'],
             'other_photos' => $validated['thumbnail'],
         ]);
-        return back()->with('updated',$request->sku.' '.$validated->name.' Item Has Been Updated');
+        return back()->with('updated',$request->sku.' '.$validated['name'].' Item Has Been Updated');
     }
 
 }
