@@ -42,24 +42,27 @@
                 </div>
                 <div class="mt-5 row justify-content-center">
                     <div class="col-12">
-                        @if(session()->has('message'))
+                        @if (session()->has('message'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                                <button type="button" class="btn-close" aria-label="Close"
+                                    data-bs-dismiss="alert"></button>
                                 {{ __(session()->get('message')) }}
                             </div>
                         @endif
-                        @if(session()->has('errorA'))
+                        @if (session()->has('errorA'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                                <button type="button" class="btn-close" aria-label="Close"
+                                    data-bs-dismiss="alert"></button>
                                 {{ __(session()->get('errorA')) }}
                             </div>
                         @endif
-                            @if(session()->has('updated'))
-                                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
-                                    {{ __(session()->get('updated')) }}
-                                </div>
-                            @endif
+                        @if (session()->has('updated'))
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" aria-label="Close"
+                                    data-bs-dismiss="alert"></button>
+                                {{ __(session()->get('updated')) }}
+                            </div>
+                        @endif
                         <table style="width: 100%;" id="ProductTable" class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -94,13 +97,13 @@
                                             {{ $item->name }}
                                         </td>
                                         <td>
-                                            ₩ {{number_format($item->price)}}
+                                            ₩ {{ number_format($item->price) }}
                                         </td>
                                         <td>
-                                            {{ $item->showing_order}}
+                                            {{ $item->showing_order }}
                                         </td>
                                         <td>
-                                            <input class="status" type="checkbox" @if($item->is_status) checked @endif>
+                                            <input class="status" type="checkbox" @if ($item->is_status) checked @endif>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-info editModal"
@@ -352,12 +355,13 @@
 
             window.myBulkSelectCallback = function(data) {
                 $.each(data, function(i, v) {
-                    $('#thumbnails').append('<div class="col-lg-3 position-relative"><img src="' + v.absolute_url +
-                            '"style="height:100px; object-fit:cover" class="mb-3 w-100"><button class="btn btn-outline-danger deleteImage position-absolute btn-sm" style="right:12px;"><i class="fa fa-trash"></i></button></div>'
+                    $('#thumbnails').append('<div class="col-lg-3 position-relative"><img src="' + v
+                        .absolute_url +
+                        '"style="height:100px; object-fit:cover" class="mb-3 w-100"><button class="btn btn-outline-danger deleteImage position-absolute btn-sm" style="right:12px;"><i class="fa fa-trash"></i></button></div>'
                     )
                     thumbnail.push(v.absolute_url);
                 })
-
+                // console.log(thumbnail)
             };
             $('.ModalShow').click(function() {
                 $('#staticBackdrop').modal('show')
@@ -407,13 +411,20 @@
                 });
                 if ($('#addProduct').valid()) {
                     $('#addProduct').submit()
-                    $('#editProductButton').submit()
+
+                }
+
+            })
+            $('#editProductButton').click(function() {
+                if ($('#editProductButton').valid()) {
+                    $('#thumbnail').val(JSON.stringify(thumbnail));
+                    $('#addProduct').submit()
                 }
             })
             $('.checkCode').click(function() {
                 const label = $(this).parent('div').prev('label')
                 const buttonD = $(this)
-                const code = $(this).prev('input').val()
+                const code = $('#sku').val()
                 if (code.length == 10) {
                     const data = {
                         code: code
@@ -449,14 +460,15 @@
         })
     </script>
     <script>
-
         $(document).ready(function() {
             $('.ModalShow').click(function() {
                 $('#editProductButton').addClass('d-none')
                 $('#addProductButton').removeClass('d-none')
                 $('#productLabel').html('{{ __('Create Product') }}')
                 $('#addProduct')[0].reset()
-
+                $('#sku').removeAttr('readonly')
+                $('#sku').val("")
+                $('.checkCode').removeClass('disabled btn-outline-success').html('Check').addClass('btn-outline-primary')
                 $('#main-photo-preview').attr('src', '')
                 $('#thumbnails').html('')
                 $('#hit').prop('checked', 0)
@@ -500,10 +512,10 @@
                     $('#thumbnails').html('')
                     // console.log(JSON.parse(data.other_photos))
 
-                    $.each(JSON.parse(data.other_photos), function(index, item){
+                    $.each(JSON.parse(data.other_photos), function(index, item) {
                         thumbnail.push(item)
                     })
-
+                    console.log(thumbnail)
                     $.each(JSON.parse(data.other_photos), function(i, v) {
                         $('#thumbnails').prepend(
                             '<div class="col-lg-3 position-relative"><img src="' + v +
