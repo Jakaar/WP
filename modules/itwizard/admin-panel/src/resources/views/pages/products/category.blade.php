@@ -174,7 +174,7 @@
                 $('#parent_id').val('')
 
             })
-            $('a').click(function() {
+            $('.vertical-nav-menu li a').click(function() {
                 const data = {
                     id: $(this).data('key')
                 }
