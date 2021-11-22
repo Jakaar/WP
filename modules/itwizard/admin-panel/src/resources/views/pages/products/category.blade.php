@@ -101,7 +101,7 @@
                         <div class="mb-3">
                             <label class="form-label fw-bold"> {{ __('Category Name') }} </label>
                             <input type="text" class="form-control" placeholder="{{ __('Category Name') }}"
-                                id="e_category_name">
+                                id="e_category_name" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-bold"> {{ __('Parent Category') }} </label>
@@ -120,7 +120,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-bold"> {{ __('Priority') }} </label>
-                            <input type="number" value="1" id="e_order" class="form-control">
+                            <input type="number" value="1" id="e_order" class="form-control" required>
                         </div>
                     </form>
                 </div>
@@ -139,12 +139,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
+                    <form action="#" id="createCategory">
                         <input type="hidden" id="parent_id">
                         <div class="mb-3">
                             <label for="category_id" class="form-label fw-bold"> {{ __('Category Name') }} </label>
                             <input type="text" name="category_name" id="category_name" class="form-control"
-                                placeholder="{{ __('Category Name') }}">
+                                placeholder="{{ __('Category Name') }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="is_active" class="form-label fw-bold"> {{ __('Is Active') }} </label>
@@ -178,6 +178,7 @@
                 const data = {
                     id: $(this).data('key')
                 }
+
                 $('#editForm').removeClass('d-none')
                 Axios.post('/api/category/getData', data).then((resp) => {
                     // console.log(resp)
@@ -239,28 +240,53 @@
             })
 
             $('.saveCategory').click(function() {
+                $('#createCategory').validate({
+                    ignore: "",
+                    errorPlacement: function(error, element) {
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        if (element.prop("type") === "checkbox") {
+                            // error.insertAfter(element.next("label"));
+                        } else {
+                            // error.insertAfter(element);
+                        }
+                    },
+                    highlight: function(element, errorClass, validClass) {
+
+                        $(element).addClass("is-invalid").removeClass("is-valid");
+                        // const parantId = $(element).attr('data-parent-id');
+                        // $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        // const parantId = $(element).attr('data-parent-id');
+                        // $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                        // $(element).addClass("is-valid").removeClass("is-invalid");
+                    },
+                });
                 const data = {
                     name: $('#category_name').val(),
                     is_active: $('#is_active').val(),
                     parent_id: $('#parent_id').val(),
                 }
                 // console.log(data)
-                Axios.post('/api/category/create', data).then((resp) => {
-                    $('#staticBackdrop').modal('hide')
-                    Swal.fire({
-                        title: "Success",
-                        icon: 'success'
-                    })
+                if ($('#createCategory').valid()) {
+                    Axios.post('/api/category/create', data).then((resp) => {
+                        $('#staticBackdrop').modal('hide')
+                        Swal.fire({
+                            title: "Success",
+                            icon: 'success'
+                        })
 
-                    setInterval(() => {
-                        window.location.reload()
-                    }, 1000);
-                }).catch((error) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: error
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1000);
+                    }).catch((error) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error
+                        });
                     });
-                });
+                }
             })
             $('#edit_menu').click(function() {
                 $('#save_menu').toggleClass('d-none')
@@ -277,7 +303,29 @@
             }
 
             $('#save_menu').click(function() {
+                $('#editForm').validate({
+                    ignore: "",
+                    errorPlacement: function(error, element) {
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        if (element.prop("type") === "checkbox") {
+                            // error.insertAfter(element.next("label"));
+                        } else {
+                            // error.insertAfter(element);
+                        }
+                    },
+                    highlight: function(element, errorClass, validClass) {
 
+                        $(element).addClass("is-invalid").removeClass("is-valid");
+                        // const parantId = $(element).attr('data-parent-id');
+                        // $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        // const parantId = $(element).attr('data-parent-id');
+                        // $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                        // $(element).addClass("is-valid").removeClass("is-invalid");
+                    },
+                });
                 let parent = getId();
                 const data = {
                     id: $('#e_id').val(),
@@ -287,20 +335,22 @@
                     is_active: $('#e_is_active').val(),
                 }
                 // console.log(data)
-                Axios.post('/api/category/update', data).then((resp) => {
-                    Swal.fire({
-                        title: "Success",
-                        icon: 'success'
-                    })
-                    setInterval(() => {
-                        window.location.reload()
-                    }, 1000);
-                }).catch((error) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: error
+                if ($('#editForm').valid()) {
+                    Axios.post('/api/category/update', data).then((resp) => {
+                        Swal.fire({
+                            title: "Success",
+                            icon: 'success'
+                        })
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1000);
+                    }).catch((error) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: error
+                        });
                     });
-                });
+                }
 
             })
         })
