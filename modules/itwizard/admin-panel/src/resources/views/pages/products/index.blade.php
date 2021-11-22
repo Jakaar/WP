@@ -48,10 +48,16 @@
                                 {{ __(session()->get('message')) }}
                             </div>
                         @endif
-                            @if(session()->has('error'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @if(session()->has('errorA'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                                {{ __(session()->get('errorA')) }}
+                            </div>
+                        @endif
+                            @if(session()->has('updated'))
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
                                     <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
-                                    {{ __(session()->get('message')) }}
+                                    {{ __(session()->get('updated')) }}
                                 </div>
                             @endif
                         <table style="width: 100%;" id="ProductTable" class="table table-hover table-striped">
@@ -85,16 +91,16 @@
                                             {{ $item->sku }}
                                         </td>
                                         <td>
-                                            iphone 13 Pro Max
+                                            {{ $item->name }}
                                         </td>
                                         <td>
-                                            1,500,000
+                                            ₩ {{number_format($item->price)}}
                                         </td>
                                         <td>
-                                            10
+                                            {{ $item->showing_order}}
                                         </td>
                                         <td>
-                                            <input class="status" type="checkbox">
+                                            <input class="status" type="checkbox" @if($item->is_status) checked @endif>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-info editModal"
@@ -343,7 +349,7 @@
             CKEDITOR.replace('description', {
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
             });
-            
+
             window.myBulkSelectCallback = function(data) {
                 $.each(data, function(i, v) {
                     $('#thumbnails').append('<div class="col-lg-3 position-relative"><img src="' + v.absolute_url +
@@ -493,7 +499,7 @@
                     $('#main-photo-preview').attr('src', data.main_img)
                     $('#thumbnails').html('')
                     // console.log(JSON.parse(data.other_photos))
-                    
+
                     $.each(JSON.parse(data.other_photos), function(index, item){
                         thumbnail.push(item)
                     })
@@ -529,7 +535,7 @@
                 $(this).parent().remove()
                 thumbnail.remove($(this).prev('img').attr('src'))
                 $('#thumbnail').val(JSON.stringify(thumbnail))
-                console.log(thumbnail)
+                // console.log(thumbnail)
             })
         })
     </script>

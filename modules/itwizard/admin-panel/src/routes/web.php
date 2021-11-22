@@ -65,7 +65,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/member_management/settings', [PermissionController::class, 'settings'])->middleware(['permission:permission-read']);
 
     Route::get('/banner',[BannerController::class, 'index']);
-   
+
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
 
@@ -77,6 +77,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/products',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'index']);
     Route::post('/product/create',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'CreateItem']);
+    Route::post('/product/update/{id}',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'UpdateItem']);
 
 
     Route::get('/products/index',[ProductCreateController::class, 'index']);
