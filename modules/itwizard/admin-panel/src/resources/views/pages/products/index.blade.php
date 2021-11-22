@@ -509,7 +509,8 @@
                     $('#is_new').prop('checked', data.is_new)
                     $('#is_trend').prop('checked', data.is_trend)
                     $('#is_sale').prop('checked', data.is_sale)
-
+                    $('#sku').attr('readonly',true)
+                    $('.checkCode').addClass('disabled').removeClass('btn-outline-primary').addClass('btn-outline-success').html('{{ __("Not Duplicated") }}')
                     $('#manufacturer').val(data.manufacturer)
                     $('input[name=created_country]').val(data.created_county)
                     $('#brand_name').val(data.brand_name)
