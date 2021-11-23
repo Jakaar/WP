@@ -403,7 +403,7 @@
                     $('.opa').addClass(' disabled')
                 }
             })
-            
+
         })
     </script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
@@ -623,5 +623,8 @@
                 // console.log(thumbnail)
             })
         })
+        $('#reload_page').click(function() {
+            location.reload(true);
+        });
     </script>
 @endsection
