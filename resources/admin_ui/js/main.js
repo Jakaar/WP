@@ -3,7 +3,6 @@
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
-
 import * as bootstrap from './../vendors/bootstrap';
 window.bootstrap = bootstrap;
 // import moment "../vendors/moment";
@@ -36,6 +35,7 @@ window.Swal = Swal;
 window.Axios = Axios;
 
 import "../vendors/jquery-validation/dist/jquery.validate";
+
 window.Toast = Swal.mixin({
     toast: true,
     position: 'mid-center',
@@ -62,3 +62,5 @@ require('./customs/count-up')
 require('./customs/ckeditor')
 require('./charts/chartjs')
 require('./customs/tree.jquery')
+// require('./form-components/form-builder.min')
+// require('./form-components/form-render.min')

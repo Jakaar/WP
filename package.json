@@ -63,6 +63,7 @@
         "datatables.net-responsive-bs4": "^2.2.6",
         "daterangepicker": "^3.1.0",
         "flagkit-web": "0.0.3",
+        "formBuilder": "^3.7.3",
         "froala-editor": "^4.0.6",
         "fullcalendar": "^5.9.0",
         "gmaps": "^0.4.25",
