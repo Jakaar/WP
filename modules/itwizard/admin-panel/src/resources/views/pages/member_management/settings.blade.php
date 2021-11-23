@@ -211,7 +211,7 @@
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Permission name') }} </label>
                             <input type="text" class="form-control" placeholder="{{ __('Role name') }}"
-                                name="role_name" id="role_name">
+                                name="role_name" id="role_name" >
                         </div>
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Display Name') }} </label>
@@ -252,18 +252,14 @@
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Role name') }} </label>
                             <input type="text" class="form-control" placeholder="{{ __('Role name') }}"
-                                name="u_role_name" id="u_role_name">
+                                name="u_role_name" id="u_role_name" readonly="true">
                         </div>
                         <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Display Name') }} </label>
                             <input type="text" class="form-control" placeholder="{{ __('Display Name') }}"
                                 name="u_display_name" id="u_display_name">
                         </div>
-                        <div class="mb-3 col-12">
-                            <label class="form-label"> {{ __('Menu Url') }} </label>
-                            <input type="text" class="form-control" placeholder="{{ __('Menu Url') }}"
-                                name="u_menu_url" id="u_menu_url">
-                        </div>
+                       
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{ __('Description') }} </label>
                             <textarea name="description" id="u_description" cols="10" rows="5"
