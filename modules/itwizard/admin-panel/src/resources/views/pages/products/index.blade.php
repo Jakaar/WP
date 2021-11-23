@@ -23,7 +23,7 @@
                     </span>
                     {{ __('Add Product') }}
                 </button>
-                <button class="btn btn-outline-info opa">{{ __('Copy') }}</button>
+                <button class="btn btn-outline-info opa disabled">{{ __('Copy') }}</button>
                 <button class="btn btn-outline-light opacity-3 multipleDelete">{{ __('Delete') }}</button>
             </div>
         </div>
@@ -392,7 +392,20 @@
             });
         })
     </script>
-
+    <script>
+        $(document).ready(function(){
+            $('.selectItem').change(function(){
+                console.log(localStorage.getItem('items'))
+                if(JSON.parse(localStorage.getItem('items')).length == 1){
+                    $('.opa').removeClass('disabled')
+                }
+                else{
+                    $('.opa').addClass(' disabled')
+                }
+            })
+            
+        })
+    </script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         const thumbnail = [];
