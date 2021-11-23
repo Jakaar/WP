@@ -12,7 +12,7 @@
             z-index: 1072 !important;
         }
         .form-builder-overlay{
-            z-index: 1071 !important;
+            z-index: 1070!important;
         }
     </style>
     <div class="app-page-title">
@@ -84,7 +84,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-4">
-                            <label for="form_name" class="form-check-label fw-bold mb-2">Form Name</label>
+                            <label for="form_name" class="form-check-label fw-bold mb-2">{{__('Form Name')}}</label>
                             <input id="form_name" type="text" class="form-control" placeholder="Form name">
                         </div>
                         <div class="mb-3 col-4">
@@ -103,11 +103,13 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row bg-light">
                         <div class="divider"></div>
-                        <h3>Build the Form</h3>
+                        <h3>{{__('Build the Form')}}</h3>
                         <div class="col-12">
-                            <div id="fb-editor" style="min-width: 150px;"></div>
+                            <div class="">
+                                <div id="fb-editor"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
