@@ -117,6 +117,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/product/status/{id}',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'statusChanger']);
     Route::post('/product/delete/{id}',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'DeleteItem']);
     Route::post('/product/multiple/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'MultipleDelete']);
+    Route::post('/product/copy',[\Itwizard\Adminpanel\Http\ApiControllers\Product\ProductController::class, 'copy']);
 
     Route::post('/category/create',[\Itwizard\Adminpanel\Http\ApiControllers\Product\CategoryController::class, 'create']);
     Route::post('/category/delete',[\Itwizard\Adminpanel\Http\ApiControllers\Product\CategoryController::class, 'delete']);
@@ -126,5 +127,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
     Route::post('/reset/password',[\App\Http\Controllers\Auth\PasswordResetController::class, 'ResetRequest' ])->name('reset.password');
+    Route::post('/reset/checker',[\App\Http\Controllers\Auth\PasswordResetController::class, 'checker' ]);
+    Route::post('/reset/updatePassword',[\App\Http\Controllers\Auth\PasswordResetController::class, 'updatePassword' ]);
     Route::post('/validate/token',[\App\Http\Controllers\Auth\PasswordResetController::class, 'validateToken' ])->name('validate.token');
+
+    Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
 });

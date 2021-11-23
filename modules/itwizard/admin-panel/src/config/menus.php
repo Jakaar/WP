@@ -499,7 +499,7 @@ return [
                         'child' => null
                     ],
                     [
-                        'url'=>'cms/suppliers/create_form_mail',
+                        'url'=>'cms/suppliers/create',
                         'icon'=>'',
                         'name'=>'Create a Form Mail',
                         'child' => null
