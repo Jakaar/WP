@@ -45,7 +45,6 @@
 <div class="row">
     <div class="col-12">
         <div id="fb-editor"></div>
-
     </div>
 </div>
 <div class="card card-btm-border border-primary">
@@ -240,8 +239,6 @@
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
             });
 
-
-           $(document.getElementById('fb-editor')).formBuilder();
         });
 
         $(document).ready(function() {

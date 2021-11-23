@@ -1,6 +1,20 @@
 @extends('Admin::layouts.master')
 @section('content')
-
+    <style>
+        .form-wrap.form-builder .frmb{
+            min-height: 520px !important;
+        }
+        .form-builder-dialog.data-dialog{
+            z-index: 1070 !important;
+        }
+        .form-builder-dialog.positioned
+        {
+            z-index: 1072 !important;
+        }
+        .form-builder-overlay{
+            z-index: 1071 !important;
+        }
+    </style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -17,10 +31,14 @@
                     class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <i class="fa fa-plus"></i>
-                    {{ __('Create a Form Mail') }}
-                </button>
+                <div class="d-inline-block dropdown">
+                    <button type="button" class="search-icon btn-shadow btn btn-success CreateModalShow">
+                      <span class="btn-icon-wrapper pe-2 opacity-7">
+                      <i class="pe-7s-plus"></i>
+                      </span>
+                        {{__('Create')}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -57,131 +75,77 @@
 @section('modal')
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header bg-white shadow shadow-sm">
                     <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Create a Form Mail') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <small>
-                        <ul class="todo-list-wrapper list-group list-group-flush">
-                            <div class="card-title"> {{ __('Checklist') }} </div>
-                            <li class="list-group-item">
-                                <div class="todo-indicator bg-info"></div>
-                                <ul>
-                                    <li>The e-mail is sent with the values ​​entered in the same name (Co.) > Basic Settings
-                                        > Site Information > "Site Name" and "Administrator E-mail"</li>
-                                    <li> E-mails can be received by multiple people at the same time. Enter the emails you
-                                        want to receive, separated by commas (,). </li>
-                                    <li> 예) test@test.com,tago@tago.com / 010-1234-5678.010-2512-5232 </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </small>
-                    <div class="divider"></div>
-                    <form action="#" class="row">
-                        <div class="mb-3 col-lg-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Form Mail Name') }} </label>
-                            <input type="text" class="form-control">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="form_name" class="form-check-label fw-bold mb-2">Form Name</label>
+                            <input id="form_name" type="text" class="form-control" placeholder="Form name">
                         </div>
-
-                        <div class="mb-3 col-lg-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Form Mail Code') }} </label>
-                            <input type="text" class="form-control">
+                        <div class="mb-3 col-4">
+                            <label for="is_status" class="form-check-label fw-bold mb-2">
+                                {{__('Status')}}
+                            </label>
+                            <div class="clearfix"></div>
+                            <input type="checkbox" data-toggle="toggle" name="is_status" id="is_status" data-size="sm">
                         </div>
-                        <div class="mb-3 col-lg-12">
-                            <label for="" class="form-label fw-bold"> {{ __('Terms and Conditions') }} </label>
-
-                            <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
-                            <div class="form-check d-inline-block float-end fw-bold"><input type="checkbox" id="receive"
-                                    class="form-check-input"><label for="receive" class="form-check-label">
-                                    {{ __('Used') }} </label></div>
+                        <div class="mb-3 col-4">
+                            <label class="form-check-label fw-bold mb-2">
+                                {{__('Receive Email')}}
+                            </label>
+                            <div class="clearfix"></div>
+                            <input type="checkbox" data-toggle="toggle" name="receive_email" id="receive_email" data-size="sm">
                         </div>
-                        <div class="mb-3 col-lg-12">
-                            <label for="" class="form-label fw-bold"> {{ __('Receive Settings') }} </label>
+                    </div>
 
-                            <input type="text" class="form-control">
-                            <div class="form-check d-inline-block float-end fw-bold"><input type="checkbox" id="receive"
-                                    class="form-check-input"><label for="receive" class="form-check-label">
-                                    {{ __('receive email') }} </label></div>
+                    <div class="row">
+                        <div class="divider"></div>
+                        <h3>Build the Form</h3>
+                        <div class="col-12">
+                            <div id="fb-editor" style="min-width: 150px;"></div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
-                    <button type="button" class="btn btn-success"> {{ __('Create a Form Mail') }} </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="EditMail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-white shadow shadow-sm">
-                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Edit a Form Mail') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <small>
-                        <ul class="todo-list-wrapper list-group list-group-flush">
-                            <div class="card-title"> {{ __('Checklist') }} </div>
-                            <li class="list-group-item">
-                                <div class="todo-indicator bg-info"></div>
-                                <ul>
-                                    <li>The e-mail is sent with the values ​​entered in the same name (Co.) > Basic Settings
-                                        > Site Information > "Site Name" and "Administrator E-mail"</li>
-                                    <li> E-mails can be received by multiple people at the same time. Enter the emails you
-                                        want to receive, separated by commas (,). </li>
-                                    <li> 예) test@test.com,tago@tago.com / 010-1234-5678.010-2512-5232 </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </small>
-                    <div class="divider"></div>
-                    <form action="#" class="row">
-                        <div class="mb-3 col-lg-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Form Mail Name') }} </label>
-                            <input type="text" class="form-control">
-                        </div>
-
-                        <div class="mb-3 col-lg-6">
-                            <label for="" class="form-label fw-bold"> {{ __('Form Mail Code') }} </label>
-                            <input type="text" class="form-control">
-                        </div>
-
-                        <div class="mb-3 col-lg-12">
-                            <label for="" class="form-label fw-bold"> {{ __('Terms and Conditions') }} </label>
-
-                            <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
-                            <div class="form-check d-inline-block float-end fw-bold"><input type="checkbox" id="receive"
-                                    class="form-check-input"><label for="receive" class="form-check-label">
-                                    {{ __('Used') }} </label></div>
-                        </div>
-                        <div class="mb-3 col-lg-12">
-                            <label for="" class="form-label fw-bold"> {{ __('Receive Settings') }} </label>
-
-                            <input type="text" class="form-control">
-                            <div class="form-check d-inline-block float-end fw-bold"><input type="checkbox" id="receive"
-                                    class="form-check-input"><label for="receive" class="form-check-label">
-                                    {{ __('receive email') }} </label></div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer card-btm-border card-shadow-success border-success">
-                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
-                    <button type="button" class="btn btn-success"> {{ __('Save Changes') }} </button>
+                    <button type="button" class="btn btn-success Create"> {{ __('Create') }} </button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <script>
+    $(document).ready(function (){
+       $('.CreateModalShow').on('click', function (){
+           $('#staticBackdrop').modal('show')
+       })
+        const formBuilder = $('#fb-editor').formBuilder({
+            disabledActionButtons: ['save']
+        });
+        $('.Create').on('click', function (){
+            Axios.post('/api/form/create', {
+                name:$('#form_name').val(),
+                status:$("input[name='receive_email']:checked").val(),
+                receive_email:$("input[name='is_status']:checked").val(),
+                data: formBuilder.actions.getData(),
+            }).then((resp)=>{
+                console.log(resp)
+            }).catch((err) => {
+                console.log(err)
+            })
+        });
+
+
+    });
     $('#reload_page').click(function () {
         location.reload(true);
     });

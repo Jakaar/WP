@@ -121,4 +121,6 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('/reset/password',[\App\Http\Controllers\Auth\PasswordResetController::class, 'ResetRequest' ])->name('reset.password');
     Route::post('/validate/token',[\App\Http\Controllers\Auth\PasswordResetController::class, 'validateToken' ])->name('validate.token');
+
+    Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
 });

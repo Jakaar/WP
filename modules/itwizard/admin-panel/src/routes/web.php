@@ -68,6 +68,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
+    Route::get('/suppliers/create',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'CreateShow']);
 
     Route::get('/basic_setting/adminSettings',[PermissionController::class, 'adminSettings']);
     Route::get('/member_management/secessionist',[PermissionController::class, 'secessionist']);
