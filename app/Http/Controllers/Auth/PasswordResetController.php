@@ -34,7 +34,7 @@ class PasswordResetController extends Controller
         }
         $maildetails = [
             'subject' => 'Testing Application OTP',
-            'body' => 'Your OTP is : '. $token
+            'body' => 'One-time authorization code is : '. $token
         ];
 
         Mail::to($request->email)->send(new sendEmail($maildetails));
@@ -144,6 +144,6 @@ class PasswordResetController extends Controller
                 ]);
         } catch (\Exception $e) {
             return response()->json(['icon' => 'error', 'msg'=> __('error')]);
-        }        
+        }
     }
 }
