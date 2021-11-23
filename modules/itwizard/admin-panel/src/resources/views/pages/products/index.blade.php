@@ -78,14 +78,15 @@
                             </thead>
                             <tbody>
                                 @foreach ($items as $item)
-                                    <tr class="border-custom remover-{{$item->id}}" key="{{$item->id}}">
+                                    <tr class="border-custom remover-{{ $item->id }}" key="{{ $item->id }}">
                                         <td>
-                                            <input type="checkbox" class="form-check-input selectItem" key="{{$item->id}}">
+                                            <input type="checkbox" class="form-check-input selectItem"
+                                                key="{{ $item->id }}">
                                         </td>
                                         <td>
                                             <div class="avatar-icon-wrapper avatar-icon-lg">
                                                 <div class="avatar-icon rounded">
-                                                    <img src="{{$item->main_img}}" alt="">
+                                                    <img src="{{ $item->main_img }}" alt="">
                                                 </div>
                                             </div>
                                         </td>
@@ -102,11 +103,14 @@
                                             {{ $item->showing_order }}
                                         </td>
                                         <td>
-                                            <input class="status enabler" type="checkbox" @if ($item->is_status) checked @endif key="{{$item->id}}">
+                                            <input class="status enabler" type="checkbox" @if ($item->is_status) checked @endif
+                                                key="{{ $item->id }}">
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-outline-info editModal" data-id="{{ $item->id }}">{{ __('Edit') }}</button>
-                                            <button class="btn btn-sm btn-outline-danger opacity-5 SingleDelete" key="{{$item->id}}">{{ __('Delete') }}</button>
+                                            <button class="btn btn-sm btn-outline-info editModal"
+                                                data-id="{{ $item->id }}">{{ __('Edit') }}</button>
+                                            <button class="btn btn-sm btn-outline-danger opacity-5 SingleDelete"
+                                                key="{{ $item->id }}">{{ __('Delete') }}</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -117,7 +121,7 @@
             </div>
         </div>
     </div>
-    {{$items->links('Admin::components.paginator')}}
+    {{ $items->links('Admin::components.paginator') }}
 
 @endsection
 @section('modal')
@@ -288,50 +292,51 @@
     <script>
         $(document).ready(function() {
             localStorage.removeItem('items')
-            $('.multipleDelete').on('click', function (){
-                if (JSON.parse(localStorage.getItem('items')))
-                {
+            $('.multipleDelete').on('click', function() {
+                if (JSON.parse(localStorage.getItem('items'))) {
                     Swal.fire({
-                        title: '{{__('Are you sure?')}}',
-                        html: '{{__('Total Deleting Items')}} :'+JSON.parse(localStorage.getItem('items')).length,
+                        title: '{{ __('Are you sure?') }}',
+                        html: '{{ __('Total Deleting Items') }} :' + JSON.parse(localStorage
+                            .getItem('items')).length,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        cancelButtonText: '{{__('Cancel')}}',
-                        confirmButtonText: '{{__('Yes, Delete it!')}}'
+                        cancelButtonText: '{{ __('Cancel') }}',
+                        confirmButtonText: '{{ __('Yes, Delete it!') }}'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            Axios.post('/api/product/multiple/delete', JSON.parse(localStorage.getItem('items'))).then((resp) => {
+                            Axios.post('/api/product/multiple/delete', JSON.parse(localStorage
+                                .getItem('items'))).then((resp) => {
                                 Swal.fire(
-                                    '{{__('Deleted')}}',
+                                    '{{ __('Deleted') }}',
                                     resp.data.msg,
                                     'success'
                                 )
-                                $.each(JSON.parse(localStorage.getItem('items')), function (i,v){
-                                   $('.remover-'+v).fadeOut();
+                                $.each(JSON.parse(localStorage.getItem('items')), function(
+                                    i, v) {
+                                    $('.remover-' + v).fadeOut();
                                 });
                             })
                         }
                     })
-                }else{
+                } else {
                     alert('not seleceted')
                 }
                 // console.log(JSON.parse(localStorage.getItem('items')).length)
             });
-            $('.selectItem').change(function (){
+            $('.selectItem').change(function() {
                 const items = [];
-                $('.selectItem').each(function (i,v){
-                   if ($(this).is(':checked'))
-                   {
-                       items[i] = $(this).attr('key')
-                   }
+                $('.selectItem').each(function(i, v) {
+                    if ($(this).is(':checked')) {
+                        items[i] = $(this).attr('key')
+                    }
                 });
-                localStorage.setItem('items',JSON.stringify(items));
+                localStorage.setItem('items', JSON.stringify(items));
             })
 
             $('.enabler').change(function() {
-                Axios.post('/api/product/status/'+$(this).attr('key')).then((resp) => {
+                Axios.post('/api/product/status/' + $(this).attr('key')).then((resp) => {
                     Toast.fire({
                         icon: 'success',
                         position: 'top-end',
@@ -339,21 +344,21 @@
                     })
                 })
             });
-            $('.SingleDelete').on('click',function() {
+            $('.SingleDelete').on('click', function() {
                 Swal.fire({
-                    title: '{{__('Are you sure?')}}',
-                    text: "{{__('You wont be able to revert this!')}}",
+                    title: '{{ __('Are you sure?') }}',
+                    text: "{{ __('You wont be able to revert this!') }}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    cancelButtonText: '{{__('Cancel')}}',
-                    confirmButtonText: '{{__('Yes, Delete it!')}}'
+                    cancelButtonText: '{{ __('Cancel') }}',
+                    confirmButtonText: '{{ __('Yes, Delete it!') }}'
                 }).then((result) => {
-                        if (result.isConfirmed) {
-                            Axios.post('/api/product/delete/'+$(this).attr('key')).then((resp) => {
+                    if (result.isConfirmed) {
+                        Axios.post('/api/product/delete/' + $(this).attr('key')).then((resp) => {
                             Swal.fire(
-                                '{{__('Deleted')}}',
+                                '{{ __('Deleted') }}',
                                 resp.data.msg,
                                 'success'
                             )
@@ -413,7 +418,7 @@
                 // console.log(thumbnail)
                 $('#thumbnail').val(JSON.stringify(thumbnail));
                 $('#addProduct').validate({
-                    ignore: "",
+                    ignore: [],
                     rules: {
                         description: {
                             required: function() {
@@ -441,15 +446,15 @@
                         }
                     },
                     highlight: function(element, errorClass, validClass) {
-                        // console.log(element)
-                        $(element).prev('label').addClass("text-danger").removeClass(
+                        console.log(element)
+                        $(element).parent().find('label').addClass("text-danger").removeClass(
                             "is-valid");
 
                         // $('#' + parantId).addClass("text-danger").removeClass("text-success");
                     },
                     unhighlight: function(element, errorClass, validClass) {
                         // console.log(element)
-                        $(element).prev('label').addClass("text-dark").removeClass("is-valid");
+                        $(element).parent().find('label').addClass("text-dark").removeClass("is-valid");
                     },
                 });
                 if ($('#addProduct').valid()) {
@@ -511,7 +516,8 @@
                 $('#addProduct')[0].reset()
                 $('#sku').removeAttr('readonly')
                 $('#sku').val("")
-                $('.checkCode').removeClass('disabled btn-outline-success').html('Check').addClass('btn-outline-primary')
+                $('.checkCode').removeClass('disabled btn-outline-success').html('Check').addClass(
+                    'btn-outline-primary')
                 $('#main-photo-preview').attr('src', '')
                 $('#thumbnails').html('')
                 $('#hit').prop('checked', 0)
@@ -543,13 +549,23 @@
                     $('#is_new').prop('checked', data.is_new)
                     $('#is_trend').prop('checked', data.is_trend)
                     $('#is_sale').prop('checked', data.is_sale)
-                    $('#sku').attr('readonly',true)
-                    $('.checkCode').addClass('disabled').removeClass('btn-outline-primary').addClass('btn-outline-success').html('{{ __("Not Duplicated") }}')
+                    $('#sku').attr('readonly', true)
+                    $('.checkCode').addClass('disabled').removeClass('btn-outline-primary')
+                        .addClass('btn-outline-success').html('{{ __('Not Duplicated') }}')
                     $('#manufacturer').val(data.manufacturer)
                     $('input[name=created_country]').val(data.created_county)
                     $('#brand_name').val(data.brand_name)
                     $('input[name=model_name]').val(data.model_name)
                     $('#price').val(data.price)
+
+                    if (data.is_status == 0) {
+                        $('.switcher').bootstrapToggle('off')
+                    } else {
+                        $('.switcher').bootstrapToggle('on')
+                    }
+
+
+
                     CKEDITOR.instances.description.setData(data.description)
                     $('#addProduct').attr("action", '/cms/product/update/' + data.id)
                     $('#main-photo-preview').attr('src', data.main_img)
