@@ -623,6 +623,9 @@
                 // console.log(thumbnail)
             })
         })
+        $('#reload_page').click(function() {
+            location.reload(true);
+        });
     </script>
     <script>
         $(document).ready(function() {
