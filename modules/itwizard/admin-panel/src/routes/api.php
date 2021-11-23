@@ -119,4 +119,6 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
+    Route::post('/reset/password',[\App\Http\Controllers\Auth\PasswordResetController::class, 'ResetRequest' ])->name('reset.password');
+    Route::post('/validate/token',[\App\Http\Controllers\Auth\PasswordResetController::class, 'validateToken' ])->name('validate.token');
 });
