@@ -32,11 +32,14 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+
+            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{ __('Refresh') }}" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                 <i class="pe-7s-refresh-2"></i>
             </button>
-            <button class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <i class="fa fa-plus"></i>
+            <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <span class="btn-icon-wrapper pe-2 opacity-7">
+                    <i class="pe-7s-plus"></i>
+                </span>
                 {{ __('Create a Form Mail') }}
             </button>
         </div>
@@ -120,9 +123,8 @@
 <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-white shadow shadow-sm">
                 <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
-
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -141,13 +143,10 @@
                     </div>
                 </form>
             </div>
-
-            <div class="modal-footer  card-btm-border card-shadow-success border-success">
+            <div class="modal-footer card-btm-border card-shadow-primary border-primary ">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success updateMail">{{__('Save Changes')}}</button>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -155,45 +154,36 @@
 <div class="modal fade staticBackdropSent " id="staticBackdropSent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg ">
         <div class="modal-content  ">
-            <div class="modal-header">
+            <div class="modal-header bg-white shadow shadow-sm">
                 <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
-
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body ">
                 <form action="" class="row">
-
-
-
                     <input type="hidden" id="idMail">
                     <div class="mb-3 col-lg-1">
                             <div class="form-check d-inline-block  fw-bold">
                             <input type="checkbox" value="all_checked" id="all_name"  class="form-check-input" checked>
                             <label for="all_name" class="form-check-label"> {{__('All')}} </label></div>
                     </div>
-
-
                     <div class=" mb-3 col-lg-11 form-check">
                         <div class="form-group">
                             <label for="roleMultiSelect" class="fw-bold">{{__('Multiple select email')}}</label>
                             <select multiple="multiple" class="form-control select2 w-100 roleMultiSelect " id="roleMultiSelect" disabled>
-                                            @foreach ($datas['roles'] as $item)
-                                                <optgroup label={{$item->name}}>
-                                                    @foreach($item->roles as $user)
-                                                        <option value="{{$user->email}}">{{$user->email ?? ''}}</option>
-                                                    @endforeach
-                                                </optgroup>
-                                            @endforeach
-
+                                @foreach ($datas['roles'] as $item)
+                                    <optgroup label={{$item->name}}>
+                                        @foreach($item->roles as $user)
+                                            <option value="{{$user->email}}">{{$user->email ?? ''}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-
                     <div class="mb-3 col-lg-12">
                         <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Email')}}</label>
                         <input id="inputEmail" type="email" class="form-control" placeholder="example@example.com">
                     </div>
-
                     <!-- subsribe -->
                     <div class="mb-3 col-lg-12">
                         <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Mailing')}}</label>
@@ -201,19 +191,13 @@
                                 <option value="1">Only members who have agreed to receive</option>
                                 <option value="2">All</option>
                             </select>
-
                     </div>
-
-
                 </form>
             </div>
-
-            <div class="modal-footer card-btm-border card-shadow-success border-success">
+            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success sendMail1  " >{{__('Send')}}</button>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -222,13 +206,17 @@
 @endsection
 @section('script')
 
-
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
     <script>
+        // refresh button
+        $('#reload_page').click(function() {
+            location.reload(true);
+        });
+
         $(document).ready(function() {
             $('.select2').select2({
                 dropdownParent: $('#staticBackdropSent')
@@ -239,13 +227,10 @@
             CKEDITOR.replace('ckeditor1', {
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
             });
-
-
            $(document.getElementById('fb-editor')).formBuilder();
         });
 
         $(document).ready(function() {
-
             $('.create_mail').click(function() {
                 data = {
                     title: $("#mailTitle").val(),
@@ -274,15 +259,14 @@
         $(document).ready(function() {
 
             var data_id = 0;
-            var allMail= $('#all_name').val() ; // 0s ylgaatai utga opj ipwel buh mail hayg ru ywna
+            var allMail= $('#all_name').val() ; 
             var subscribe = 0;
             $('.getSendData').click(function() {
                 data_id = $(this).data('id'); //form mail id
             })
 
-            // all checked selected and unchecked
+            // all checked selected 
             $(document).on('click', '#all_name', function() {
-
                 if ($('#all_name').is(':checked')) {
                     allMail = $('#all_name').val();
                     $('#roleMultiSelect').attr('disabled', 'disabled');
@@ -298,7 +282,7 @@
                 }
             });
 
-            // multiple selected and unselected
+            // multiple selected 
             $(".select2").on('select2:unselect',function(){
                 $('#all_name').removeAttr('disabled');
                 $('#subscribe').removeAttr('disabled');
@@ -364,8 +348,6 @@
         });
     </script>
 
-
-
     <script>
         $(document).ready(function() {
             $('.deleteMail').click(function() {
@@ -400,10 +382,9 @@
             })
         })
     </script>
+
     <script>
         $(document).ready(function() {
-
-
             $('.editMail').click(function() {
                 const main_edit_id = $(this).attr('data-id');
                 const data = {
@@ -444,9 +425,6 @@
 
                 });
             })
-
-
-
         })
     </script>
 @endsection

@@ -37,7 +37,9 @@ class PermissionController extends Controller
 
     public function Members(){
         $users = \App\User::with('roles')->orderby('id','DESC')
+             ->where('isEnabled', 1)
             ->get();
+            // dd($users);
             $role = \App\Models\Role::get();
         return view('Admin::pages.settings.users', [
             'users' => $users,
@@ -61,9 +63,18 @@ class PermissionController extends Controller
     }
 
     public function adminSettings(){
-        $model = DB::table('users')
-        ->where('isEnabled', 1)
-        ->get();
+        // $model = DB::table('users')
+        // ->where('isEnabled', 1)
+        // ->get();
+
+        $model = DB::table('role_user')
+        ->select('role_user.user_id','users.*')
+                ->rightJoin('users', 'role_user.user_id', '=', 'users.id')
+                ->where('role_user.role_id', '!=', 3)
+                ->where('users.isEnabled', 1)
+                ->get();
+
+// dd($model);
         return view('Admin::pages.basic_setting.adminSettings', [
             'model' => $model
         ]);
