@@ -661,6 +661,8 @@
                     
                     $('.checkCode').removeClass('disabled').removeClass('btn-outline-success')
                         .addClass('btn-outline-primary').html('{{ __('check') }}')
+                    $('#sku').removeAttr('readonly')
+                    $('#sku').val('')
                     $('#manufacturer').val(data.manufacturer)
                     $('input[name=created_country]').val(data.created_county)
                     $('#brand_name').val(data.brand_name)
