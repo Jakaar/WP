@@ -43,8 +43,9 @@ class MailController extends Controller
         return view('Admin::pages.suppliers.index', compact('datas'));
 
     }
-
-  
-
+    public function CreateShow()
+    {
+        return view('Admin::pages.suppliers.create_form_mail');
+    }
 
 }
