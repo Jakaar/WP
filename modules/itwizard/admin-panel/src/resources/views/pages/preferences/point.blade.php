@@ -1,5 +1,13 @@
 @extends('Admin::layouts.master')
 @section('content')
+    <style>
+.text1{
+    width: 137px;
+}
+.text2{
+    width: 300px;
+}
+    </style>
 <div class="app-main__inner p-0">
         <div class="app-inner-layout">
 
@@ -24,32 +32,47 @@
                     </div>
                 </div>
             </div>
+            <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border ">
+                <div class=" row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="page-title-heading fsize-2 text-capitalize fw-normal">{{ __('POINT Management') }}</div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="d-inline-block float-end">
+                            <button class=" btn btn-success d-none" id="save_menu"> {{ __('Save') }}
+                            </button>
+                            <button class=" btn btn-primary" id="edit_menu"> {{ __('Edit') }} </button>
 
-            <div class="card">
-                <div class="card-header">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="ContentData">
+                <!-- <div class="card-header">
                     <div class="text-right">
                     {{__('This is the screen to set the reserve amount.')}}
                     </div>
-                </div>
+                </div> -->
                 <div class="card-body">
+              
                     <form action=""  class="row">
 
-                        <div class="col-lg-12 mb-3">
+                        <!-- <div class="col-lg-12 mb-3">
                             <h4><label for="" class="form-label fw-bold"> {{__('Basic deposit payment')}} </label></h4>
                             <div class="clearfix"></div>
-                        </div>
+                        </div> -->
 
 
                         <div class="col-lg-12 mb-3">
                             <label for="" class="form-label fw-bold"> {{__('Member sign-up points')}}</label>
 
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">{{__('Points earned when registering as a member')}}</span>
+                                <div class="input-group-prepend text2">
+                                    <span class="input-group-text ">{{__('Points earned when registering as a member')}}</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">{{__('Won payment')}}</span>
+                                <div class="input-group-append text1">
+                                    <span class="input-group-text ">{{__('Won payment')}}</span>
                                 </div>
                             </div>
 
@@ -59,11 +82,11 @@
                         <div class="col-lg-12 mb-3">
                             <label for="" class="form-label fw-bold">{{__('Reviews')}}</label>
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend text2">
                                     <span class="input-group-text">{{__('Points earned when writing a review')}}</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <div class="input-group-append">
+                                <div class="input-group-append text1">
                                     <span class="input-group-text">{{__('Won payment')}}</span>
                                 </div>
                             </div>
@@ -102,12 +125,12 @@
                                 <span class="input-group-text" id="basic-addon1">
                                   <input id="paymentDisabled" type="radio" name="flexRadioDisabled">
                                 </span>
-                                    <span class="input-group-text">{{__('of payment')}}</span>
+                                    <span class="input-group-text text1 ">{{__('of payment')}}</span>
 
                                     <input id="disabledInput1" type="number"  class="form-control" aria-label="Amount (to the nearest dollar)" disabled >
 
                                     <div class="input-group-append">
-                                        <span class="input-group-text">{{__('% Payments')}}</span>
+                                        <span class="input-group-text text1">{{__('% Payments')}}</span>
                                     </div>
                             </div>
 
@@ -115,11 +138,11 @@
                                 <span class="input-group-text" id="basic-addon1">
                                   <input id="saleDisabled" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" >
                                 </span>
-                                    <span class="input-group-text" id="basic-addon1">{{__('of sale price')}}</span>
+                                    <span class="input-group-text text1" id="basic-addon1">{{__('of sale price')}}</span>
 
                                     <input id="disabledInput2"  type="number"   class="form-control" aria-label="Amount (to the nearest dollar)" disabled >
                                     <div class="input-group-append">
-                                        <span class="input-group-text">{{__('% Payments')}}</span>
+                                        <span class="input-group-text text1">{{__('% Payments')}}</span>
                                     </div>
                             </div>
 
@@ -127,11 +150,11 @@
                                 <span class="input-group-text" id="basic-addon1">
                                   <input id="perDisabled" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" >
                                 </span>
-                                    <span class="input-group-text" id="basic-addon1">{{__('per rental day')}}</span>
+                                    <span class="input-group-text text1" id="basic-addon1">{{__('per rental day')}}</span>
 
                                     <input id="disabledInput3" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" disabled>
                                     <div class="input-group-append">
-                                        <span class="input-group-text">{{__('Won payment')}}</span>
+                                        <span class="input-group-text text1">{{__('Won payment')}}</span>
                                     </div>
                             </div>
                         </div>
@@ -145,11 +168,11 @@
                             <label for="" class="form-label fw-bold"> {{__('Minimum Available Points')}}</label>
 
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend text1">
                                     <span class="input-group-text">{{__('Reserves')}}</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <div class="input-group-append">
+                                <div class="input-group-append text1">
                                     <span class="input-group-text">{{__('use more than one')}}</span>
                                 </div>
                             </div>
@@ -159,11 +182,11 @@
                             <label for="" class="form-label fw-bold"> {{__('Maximum points available')}}</label>
 
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">{{__('Reserves')}}</span>
+                                <div class="input-group-prepend text1">
+                                    <span class="input-group-text ">{{__('Reserves')}}</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <div class="input-group-append">
+                                <div class="input-group-append text1">
                                     <span class="input-group-text">{{__('use less than KRW')}}</span>
                                 </div>
                             </div>
@@ -171,10 +194,10 @@
                         </div>
 
 
-                        <div class="col-lg-12 mb-3">
+                        <!-- <div class="col-lg-12 mb-3">
                             <button class="btn btn-success CreateBoard">{{__('save')}} </button>
                             <button class="btn btn-outline-info"  data-bs-dismiss="modal">{{__('cancel')}}</button>
-                        </div>
+                        </div> -->
 
 
 
@@ -184,7 +207,7 @@
             </div>
 
         </div>
-
+</div>
 @endsection
 
 @section('script')
@@ -192,6 +215,15 @@
     $('#reload_page').click(function () {
         location.reload(true);
     });
+
+    $('#ContentData input, #ContentData select').attr('disabled','disabled');
+    $('#edit_menu').click(function() {
+                    $('#save_menu').toggleClass('d-none')
+                    $('#ContentData input, #ContentData select').attr('disabled',
+                        function(index, attr) {
+                            return attr === 'disabled' ? null : ''
+                        })
+                })
 
 $(document).on('click', '#paymentDisabled', function() {
     $('#disabledInput1').removeAttr('disabled');
