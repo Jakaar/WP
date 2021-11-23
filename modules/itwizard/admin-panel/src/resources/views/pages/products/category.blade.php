@@ -56,9 +56,8 @@
                                             </span>
                                         </a>
                                         <ul class="mm-collapse" style="height: 7.04px;">
-                                            @if ($item->child != null)
+                                            @if ($item->child->count() != 0)
                                                 @foreach ($item->child as $childCategory)
-
                                                     @include('Admin::pages.products.child_category', ['child_category' =>
                                                     $childCategory])
                                                 @endforeach
@@ -203,9 +202,8 @@
                         )
                     }
 
-                    $(document).on(function() {
                         $('#e_parent_id').val(resp.data.data.parent_id).change()
-                    })
+                  
 
                 }).catch((error) => {
                     Toast.fire({

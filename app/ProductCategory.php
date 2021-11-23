@@ -17,6 +17,6 @@ class ProductCategory extends Model
     }
 
     public function child(){
-        return $this->hasMany('\App\ProductCategory','parent_id','id')->where('is_active','!=',2);
+        return $this->hasMany('\App\ProductCategory','parent_id','id')->where('is_active','!=',2)->orderby('order','ASC');
     }
 }
