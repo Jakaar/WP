@@ -32,7 +32,7 @@ class CreateMainProducts extends Migration
             $table->bigInteger('price')->nullable();
             $table->string('description')->nullable();
             $table->string('main_img');
-            $table->string('other_photos')->nullable();
+            $table->longtext('other_photos')->nullable();
             $table->timestamps();
         });
     }
