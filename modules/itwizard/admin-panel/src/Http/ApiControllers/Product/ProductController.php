@@ -47,4 +47,13 @@ class ProductController extends Controller
         }
         return response()->json(['msg'=> __('Selected Items Has Been Deleted')], 200);
     }
+
+    public function copy(Request $request){
+        $gg = json_decode(json_encode($request->item), TRUE)[2];
+        $model = \App\Product::where('id',$gg)->first();
+        return response()->json([
+            'msg' => 'Success',
+            'data' => $model,
+        ]);
+    }
 }
