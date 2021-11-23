@@ -96,7 +96,7 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #506bec; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px;"><strong><span style="font-size:38px;">암호 복구 번호를 보냅니다</span></strong></p>
+                                                        <p style="margin: 0; font-size: 14px;"><strong><span style="font-size:28px;">비밀번호 복귀 인증 번호를 보냅니다.</span></strong></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -186,7 +186,7 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #97a2da; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px; text-align: center;">1599-6369</p>
+                                                        <p style="margin: 0; font-size: 14px; text-align: center;"> TEL: 1599-6369</p>
                                                     </div>
                                                 </div>
                                             </td>
