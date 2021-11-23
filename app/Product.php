@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $table = "wpanel_product_manage";
+    protected $table = "main_products";
 
-    public function category(){
-        return $this->belongsTo('\App\ProductCategory','product_classification');
-    }
 
 }
