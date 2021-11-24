@@ -81,7 +81,7 @@
                                         </div>
                                             <div class="col-lg-12">
                                                 <div class="mb-3 mt-3">
-                                                    <div class="card-title text-uppercase mb-3">Terms of Service</div>
+                                                    <div class="card-title text-uppercase mb-3">{{ __('Terms of Service') }}</div>
                                                     <div class="c_product_editor" id="{{$lang->country_code}}" name="c_product_editor">
                                                         {!! json_decode($site_info->terms_of_condition, TRUE)[$lang->country_code] !!}
                                                     </div>
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="mb-3 mt-3">
-                                                    <div class="card-title text-uppercase mb-3">Privacy Policy</div>
+                                                    <div class="card-title text-uppercase mb-3">{{ __('Privacy Policy') }}</div>
                                                     <div class="e_product_editor" id="{{$lang->country_code}}" name="e_product_editor">
                                                         {!! json_decode($site_info->privacy, TRUE)[$lang->country_code] !!}
                                                     </div>

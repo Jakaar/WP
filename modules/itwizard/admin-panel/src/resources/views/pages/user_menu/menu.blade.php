@@ -163,7 +163,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="" class="form-label fw-bold"> {{ __('Window') }} </label>
+                                <label for="" class="form-label fw-bold"> {{ __('WINDOW') }} </label>
                                 <div class="clearfix"></div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" id="blank" name="target" value="1">
@@ -175,7 +175,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-12">
-                                <label for="" class="form-label fw-bold"> {{ __('Menu Url') }} </label>
+                                <label for="" class="form-label fw-bold"> {{ __('Menu URL') }} </label>
                                 <input type="text" class="form-control" id="m_menu_url">
                             </div>
                         </form>

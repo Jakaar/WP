@@ -51,7 +51,7 @@
                 <div class="col-lg-4">
                     <div class="main-card mb-3 card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $roles->display_name }}</h5>
+                            <h5 class="card-title">{{ __($roles->display_name) }}</h5>
                             <div class="text-center">
                                 <h3>
                                     <small><i class="lnr-user icon-gradient bg-happy-fisher"></i></small>
@@ -88,7 +88,7 @@
                                 <td class="">
                                     <div class="mb-3 badgeroles">
                                         @foreach ($user->roles as $roled)
-                                            <span class="badge bg-success me-2">{{ $roled->display_name }}
+                                            <span class="badge bg-success me-2">{{ __($roled->display_name) }}
                                                 @permission('role-delete')
                                                     <a class="text-danger border-0 ps-2 remove-role" href="javascript:;"
                                                         data-user="{{ $user->id }}" data-role="{{ $roled->id }}"> <i
@@ -101,7 +101,7 @@
                                             <select name="roles" class="form-control form-control-xs roles">
                                                 @foreach ($role as $roles)
                                                     <option value="{{ $roles->id }}" data-id="{{ $user->id }}">
-                                                        {{ $roles->display_name }}</option>
+                                                        {{ __($roles->display_name) }}</option>
                                                 @endforeach
                                             </select>
                                             <button class="btn btn-success btn-sm change-role-success"> <i
