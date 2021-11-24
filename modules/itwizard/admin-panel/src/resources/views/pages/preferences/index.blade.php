@@ -274,7 +274,7 @@
             </form>
         </div>
     </div>
-    <div class="card mb-3 border-primary">
+    {{-- <div class="card mb-3 border-primary">
         <div class="card-body">
             <ul class="nav tabs-animated">
                 @foreach ($data['langs'] as $key => $lang)
@@ -287,7 +287,7 @@
                 @endforeach
             </ul>
         </div>
-    </div>
+    </div> --}}
 
 
 
@@ -304,8 +304,8 @@
                                     role="tabpanel">
 
                                     <label for="" class="fw-bold form-label"> {{ __('Name') }} </label>
-                                    <input type="text" name="info_name{{ $lang->country_code }}" class="form-control"
-                                        placeholder="Name" id="info_name{{ $lang->country_code }}" required
+                                    <input type="text" name="info_name" class="form-control"
+                                        placeholder="Name" id="info_name" required
                                         data-msg-required=" {{ __('This Field is Required') }} "
                                         data-parent-id="tab-c1-{{ $lang->id }}">
 
@@ -537,15 +537,15 @@
                     },
                 });
 
-                let item_name = {};
+                // let item_name = {};
 
-                $.each(langs, function(i, v) {
-                    const code = v.country_code;
-                    item_name[code] = $('#info_name' + v.country_code).val();
-                })
+                // $.each(langs, function(i, v) {
+                //     const code = v.country_code;
+                //     item_name[code] = $('#info_name' + v.country_code).val();
+                // })
 
                 const data = {
-                    name: JSON.stringify(item_name),
+                    name: $('#info_name').val(),
                     key: $('#info_group').val() + '_' + $('#info_key').val(),
                     type: $('#info_type').val(),
                     group: $('#info_group').val(),

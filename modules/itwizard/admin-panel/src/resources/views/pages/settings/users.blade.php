@@ -19,7 +19,8 @@
                 </button>
                 @permission('member-create')
 
-                    <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
                         <span class="btn-icon-wrapper pe-2 opacity-7">
                             <i class="pe-7s-plus"></i>
                         </span>
@@ -64,7 +65,7 @@
         </div>
         <div class=" mb-3 card card-btm-border border-primary">
             <div class="card-body">
-                <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
+                <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered text-center">
                     <thead>
                         <tr>
                             <th>{{ __('ID') }}</th>
@@ -72,7 +73,7 @@
                             <th>{{ __('lastname') }}</th>
                             <th>{{ __('Email') }}</th>
                             <th>{{ __('Roles') }}</th>
-                            <th>{{ __('Status') }}</th>
+                            {{-- <th>{{ __('Status') }}</th> --}}
                             <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
@@ -92,27 +93,28 @@
                                                     <a class="text-danger border-0 ps-2 remove-role" href="javascript:;"
                                                         data-user="{{ $user->id }}" data-role="{{ $roled->id }}"> <i
                                                             class="fa fa-times"></i> </a>
-                                                @endpermission
-                                            </span>
+                                                    @endpermission
+                                                </span>
                                             @endforeach
                                         </div>
                                         <div class="input-group d-none change-role" data-id="{{ $user->id }}">
-                                            <select name="roles" class="form-control form-control-sm roles">
+                                            <select name="roles" class="form-control form-control-xs roles">
                                                 @foreach ($role as $roles)
                                                     <option value="{{ $roles->id }}" data-id="{{ $user->id }}">
                                                         {{ $roles->display_name }}</option>
                                                 @endforeach
                                             </select>
                                             <button class="btn btn-success btn-sm change-role-success"> <i
-                                                    class="fa fa-check"></i> </button>
+                                                    class="pe-7s-check"></i> </button>
+                                            <button class="btn btn-danger btn-sm cancel-role"> <i class="pe-7s-close"></i> </button>
                                         </div>
                                     </td>
-                                    <td>
-                                        {{-- <div class="form-check form-switch">
+                                    {{-- <td>
+                                        <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                </div> --}}
-                                    </td>
-                                    <td class="">
+                                </div>
+                                    </td> --}}
+                                    <td class="text-center">
                                         <div class="">
                                             @permission('member-update')
                                                 <div class="widget-content-right widget-content-actions">
@@ -178,13 +180,13 @@
                         </style>
                     @endsection
                     @section('modal')
-{{-- Create member modal --}}
+                        {{-- Create member modal --}}
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header bg-white shadow shadow-sm">
-                                        
+
                                         <h5 class="modal-title" id="staticBackdropLabel">{{ __('Create new member') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
@@ -227,7 +229,7 @@
                                 </div>
                             </div>
                         </div>
-{{-- Edit Member Modal --}}
+                        {{-- Edit Member Modal --}}
                         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document" style="z-index: 99;">
@@ -544,15 +546,18 @@
                                     },
                                     showDenyButton: true,
                                     showCancelButton: false,
-                                    confirmButtonText: "{{__('Ok')}}",
-                                    denyButtonText: `{{__('Cancel')}}`,
+                                    confirmButtonText: "{{ __('Ok') }}",
+                                    denyButtonText: `{{ __('Cancel') }}`,
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         const data = {
                                             user_id: user_id,
                                         }
                                         if (result.value) {
-                                            Axios.post('/api/member/update', {reason: result.value, user_id : user_id});
+                                            Axios.post('/api/member/update', {
+                                                reason: result.value,
+                                                user_id: user_id
+                                            });
                                         }
                                         Axios.post('/api/user/delete', data).then((resp) => {
                                             $('tr[key=' + user_id + ']').remove()
@@ -619,6 +624,9 @@
                                 $(this).parent().parent().find('.change-role').addClass('d-none')
                                 $(this).parent().parent().find('.role-switcher').removeClass('d-none')
                                 $(this).parent().parent().find('.role-switcher').html(text)
+                            })
+                            $('.cancel-role').click(function(){
+                                $(this).parent().addClass('d-none')
                             })
                             //Role update End
                         </script>
