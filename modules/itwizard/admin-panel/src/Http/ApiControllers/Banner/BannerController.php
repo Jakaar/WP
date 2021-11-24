@@ -7,7 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use App\Helper\LogActivity;
 /**
  *
  */
@@ -27,6 +27,7 @@ class BannerController extends Controller
      */
     public function addbanner(Request $request)
     {
+        LogActivity::addToLog('Created Banner');
         DB::table('wpanel_banners')->insert([
             'group_name'=>$request->group_name,
             'code'=>$request->code,
@@ -49,6 +50,7 @@ class BannerController extends Controller
      */
     public function DeleteBanner($id)
     {
+        LogActivity::addToLog('Deleted Banner');
         DB::table('wpanel_banners')->where('id', $id)->update([
             'isEnabled' => 'deleted'
         ]);
@@ -61,6 +63,7 @@ class BannerController extends Controller
      */
     public function editbanner($id)
     {
+        LogActivity::addToLog('Edit Banner');
         $banner=DB::table('wpanel_banners')->find($id);
         return response()->json($banner);
     }
@@ -70,12 +73,13 @@ class BannerController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateBanner(Request $request){
+        LogActivity::addToLog('Updated Banner');
         DB::table('wpanel_banners')->where('id',$request->banner_id)->update([
             'group_name' => $request->group_name1,
             'code' => $request->code1,
             'banner_content'=>$request->ckeditor1,
             'priority'=>$request->priority1,
-            'daterange'=>$request->daterange1,
+            'daterange'=>$request->daterange,
             'isEnabled'=>$request->isEnabled1,
             'target_type'=>$request->target_type1,
             'type'=>$request->type1,

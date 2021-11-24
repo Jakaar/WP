@@ -17,7 +17,6 @@ class CreateWpanelAvailableLanguage extends Migration
             $table->id();
             $table->string('country');
             $table->string('country_code');
-            $table->integer('isEnabled')->default(1);
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
 use Itwizard\Adminpanel\Http\Controllers\Preferences\PreferencesController;
 use Itwizard\Adminpanel\Http\Controllers\Banner\BannerController;
 use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
+use Itwizard\Adminpanel\Http\Controllers\Language\LanguageController;
 use App\Http\Controllers\Auth\GoogleController;
 
 //Route::get('/', function (){
@@ -26,7 +27,11 @@ Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function()
     Route::get('/preferences/logger',[PreferencesController::class, 'logger']);
     Route::get('/preferences/menu',[PreferencesController::class, 'menu']);
     Route::get('/preferences/static_file',[StaticFileController::class, 'index']);
+    Route::get('/preferences/language',[LanguageController::class, 'index']);
 });
+
+
+
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){

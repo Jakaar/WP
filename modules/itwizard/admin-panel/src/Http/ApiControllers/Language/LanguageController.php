@@ -21,7 +21,6 @@ class LanguageController extends Controller
             DB::table('wpanel_available_language')->insert([
                 'country'=>$request->country,
                 'country_code'=>$request->country_code,
-                'isEnabled'=> 1,
                 'created_at'=> \Carbon\Carbon::now(),
             ]);
             return response()->json(['msg'=>__('success')] , 200);
@@ -29,16 +28,12 @@ class LanguageController extends Controller
 
     public function deleteLanguage(Request $request)
     {
-        // return $request->delete_id;
-        DB::table('wpanel_available_language')->where('id', $request->delete_id)->update([
-            'isEnabled' => 0
-        ]);
+        DB::table('wpanel_available_language')->where('id', $request->delete_id)->delete();
         return response()->json(200,200);
     }
 
     public function editLanguage(Request $request)
     {
-        // return ($request->edit_language_id);
         $data = DB::table('wpanel_available_language')->where('id',$request->edit_language_id)->first();
         return response()->json(['msg' => __('success'),'data' => $data],200);
     }
@@ -47,7 +42,6 @@ class LanguageController extends Controller
         DB::table('wpanel_available_language')->where('id',$request->id)->update([
             'country'=>$request->country,
             'country_code'=>$request->country_code,
-            'isEnabled'=>1,
             'updated_at'=> \Carbon\Carbon::now(),
         ]);
         return response()->json(['msg'=>__('success')] , 200);

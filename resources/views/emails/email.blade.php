@@ -96,7 +96,7 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #506bec; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px;"><strong><span style="font-size:28px;">비밀번호 복귀 인증 번호를 보냅니다.</span></strong></p>
+                                                        <p style="margin: 0; font-size: 14px;"><strong><span style="font-size:28px;">{{__('Password recovery') }}</span></strong></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -107,7 +107,7 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #40507a; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px;"><span style="font-size:17px;">우리는 계정 비밀번호 재설정 요청을 받았습니다. 비밀번호 재설정하려면 확인 번호 필드에 다음 번호를 입력하세요.</span></p>
+                                                        <p style="margin: 0; font-size: 14px;"><span style="font-size:17px;">{{ __('Hey, we received a request to reset your password.') }}</span></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -117,7 +117,7 @@
                                         <tr>
                                             <td style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:20px;text-align:center;">
                                                 <div align="center">
-                                                    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://www.example.com/" style="height:52px;width:99px;v-text-anchor:middle;" arcsize="31%" stroke="false" fillcolor="#506bec"><w:anchorlock/><v:textbox inset="5px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:18px"><![endif]--><a target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#506bec;border-radius:16px;width:auto;border-top:0px solid TRANSPARENT;border-right:0px solid TRANSPARENT;border-bottom:0px solid TRANSPARENT;border-left:0px solid TRANSPARENT;padding-top:8px;padding-bottom:8px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:25px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><span style="font-size: 18px; line-height: 36px;" data-mce-style="font-size: 18px; line-height: 36px;"><strong>{{$maildetails['body']}}</strong></span></span></span></a>
+                                                    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://www.example.com/" style="height:52px;width:99px;v-text-anchor:middle;" arcsize="31%" stroke="false" fillcolor="#506bec"><w:anchorlock/><v:textbox inset="5px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:18px"><![endif]--><a target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#64a59d;border-radius:16px;width:auto;border-top:0px solid TRANSPARENT;border-right:0px solid TRANSPARENT;border-bottom:0px solid TRANSPARENT;border-left:0px solid TRANSPARENT;padding-top:8px;padding-bottom:8px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:25px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><span style="font-size: 18px; line-height: 36px;" data-mce-style="font-size: 18px; line-height: 36px;"><strong>{{$maildetails['body']}}</strong></span></span></span></a>
                                                     <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
                                                 </div>
                                             </td>
@@ -128,8 +128,8 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #40507a; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 17px;"><span style="font-size:17px;">안부를 전하며,</span></p>
-                                                        <p style="margin: 0; font-size: 17px;"><span style="font-size:17px;"> (주)십이지</span></p>
+                                                        <p style="margin: 0; font-size: 17px;"><span style="font-size:17px;">{{ __('안부를 전하며') }},</span></p>
+                                                        <p style="margin: 0; font-size: 17px;"><span style="font-size:17px;"> {{ __('주)십이지') }}</span></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -197,7 +197,7 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #97a2da; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px; text-align: center;">언제든지  email@yourbrand.com 이메일 주소로 문의해 주세요. <br>COPYRIGHT 2021 ©SIBIZI CORP. ALL RIGHT RESERVED. </p>
+                                                        <p style="margin: 0; font-size: 14px; text-align: center;">{{ __('Please feel free to contact us at email@yourbrand.com.')}} <br>{{(__'COPYRIGHT 2021 ©SIBIZI CORP.ALL RIGHT RESERVED.')}} </p>
                                                     </div>
                                                 </div>
                                             </td>

@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="main-card mb-3 card">
+        <div class="main-card mb-3 card card-btm-border border-primary">
             <div class="card-body">
                 <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped ">
                     <thead>
@@ -252,7 +252,7 @@
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header bg-white shadow shadow-sm">
                                 <h5 class="modal-title" id="staticBackdropLabel">{{ __('Edit role') }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
@@ -286,8 +286,8 @@
                                     @endforeach
                                 </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
+                                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                                 <button type="button" class="btn btn-success update-role">{{ __('Save Changes') }}</button>
                             </div>
                         </div>
@@ -300,7 +300,7 @@
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header bg-white shadow shadow-sm">
                                 <h5 class="modal-title" id="staticBackdropLabel">{{ __('Create new role') }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
@@ -333,8 +333,8 @@
                                     @endforeach
                                 </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <div class="modal-footer card-btm-border card-shadow-success border-success">
+                                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                                 <button type="button" class="btn btn-success" id="create_role">{{ __('Create role') }}</button>
                             </div>
                         </div>

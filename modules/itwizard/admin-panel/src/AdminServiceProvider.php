@@ -46,7 +46,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         $data['langs'] = DB::table('wpanel_available_language')->get();
 //        dd($data['langs']);
-
+        $data['menu'] = \App\AdminMenu::where('parent_id',null)->orderBy("order","ASC")->get()->sort();
         $data['logo'] = DB::table('wpanel_site_info')
             ->select('logo')
             ->first();

@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Helper\LogActivity;
 
 class StaticFileController extends Controller
 {
@@ -16,6 +17,7 @@ class StaticFileController extends Controller
     } 
     public function addfile(Request $request)
     {
+        LogActivity::addToLog('Created File');
         $type=$request->upload_file->getClientOriginalExtension();
         $typeget = DB::table('client_static_file_type')->where('type_name', $type)->first();
         if($typeget != null)
@@ -61,6 +63,7 @@ class StaticFileController extends Controller
     }
     public function DeleteStaticFile($id)
     {
+        LogActivity::addToLog('Deleted File');
         DB::table('client_static_file')->where('id', $id)->update([
             'status' => '0'
         ]);
@@ -68,18 +71,20 @@ class StaticFileController extends Controller
     }
     public function editStaticFile($id)
     {
+        LogActivity::addToLog('Edit File');
         $banner=DB::table('client_static_file')->find($id);
         return response()->json($banner);
     }
     public function updateStaticFile(Request $request){
         //return $request->all();
+        LogActivity::addToLog('Updated File');
         $updated = DB::table('client_static_file')->where('id', $request->file_id);
         
         
         if ($request->file('upload_file1')) 
         {
             $type=$request->upload_file1->getClientOriginalExtension();
-            $typeget = DB::table('static_file_type')->where('type_name', $type)->first();
+            $typeget = DB::table('client_static_file_type')->where('type_name', $type)->first();
             if($typeget != null)
             {
                 
