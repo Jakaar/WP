@@ -393,10 +393,20 @@
         })
     </script>
     <script>
+        let selected_item = [];
         $(document).ready(function() {
             $('.selectItem').change(function() {
-                // console.log(localStorage.getItem('items'))
-                if (JSON.parse(localStorage.getItem('items')).length == 1) {
+                if($(this).prop('checked') == true){
+                    let id = $(this).attr('key');
+                    selected_item.push(id)
+                }
+                else{
+                    let id = $(this).attr('key');
+                    selected_item.remove(id)
+                }
+                
+                // console.log(selected_item)
+                if (selected_item.length == 1) {
                     $('.opa').removeClass('disabled')
                 } else {
                     $('.opa').addClass(' disabled')
@@ -407,7 +417,7 @@
     </script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
-        const thumbnail = [];
+        let thumbnail = [];
         $(document).ready(function() {
             CKEDITOR.replace('description', {
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
@@ -542,6 +552,7 @@
                 $('#addProduct').attr('action', '/cms/product/create');
             })
             $('.editModal').click(function() {
+ 
                 const id = $(this).data('id')
                 const data = {
                     id: id,
@@ -551,7 +562,7 @@
                     $('#addProductButton').addClass('d-none')
 
                     const data = resp.data.data;
-                    console.log(data)
+                    // console.log(data)
                     $('#staticBackdrop').modal('show')
                     $('#productLabel').html('{{ __('Edit Product') }}')
                     $('#sku').val(data.sku)
@@ -576,19 +587,16 @@
                     } else {
                         $('.switcher').bootstrapToggle('on')
                     }
-
-
-
                     CKEDITOR.instances.description.setData(data.description)
                     $('#addProduct').attr("action", '/cms/product/update/' + data.id)
                     $('#main-photo-preview').attr('src', data.main_img)
                     $('#thumbnails').html('')
                     // console.log(JSON.parse(data.other_photos))
-
+                    thumbnail = []
                     $.each(JSON.parse(data.other_photos), function(index, item) {
                         thumbnail.push(item)
                     })
-                    console.log(thumbnail)
+                    // console.log(thumbnail)
                     $.each(JSON.parse(data.other_photos), function(i, v) {
                         $('#thumbnails').prepend(
                             '<div class="col-lg-3 position-relative"><img src="' + v +
@@ -630,7 +638,7 @@
     <script>
         $(document).ready(function() {
             $('.opa').click(function() {
-                const item = localStorage.getItem('items')
+                const item = selected_item
                 const data = {
                     item: item,
                 }
@@ -640,7 +648,7 @@
                     $('#addProduct').attr('action', '/cms/product/create');
 
                     const data = resp.data.data;
-                    console.log(data)
+                    // console.log(data)
                     $('#staticBackdrop').modal('show')
                     $('#productLabel').html('{{ __('Copy Product') }}')
                     $('#product_name').val(data.name)
@@ -653,6 +661,8 @@
                     
                     $('.checkCode').removeClass('disabled').removeClass('btn-outline-success')
                         .addClass('btn-outline-primary').html('{{ __('check') }}')
+                    $('#sku').removeAttr('readonly')
+                    $('#sku').val('')
                     $('#manufacturer').val(data.manufacturer)
                     $('input[name=created_country]').val(data.created_county)
                     $('#brand_name').val(data.brand_name)
@@ -671,19 +681,17 @@
                     $('#main-photo').val(data.main_img)
                     $('#thumbnails').html('')
                     // console.log(JSON.parse(data.other_photos))
-
+                    thumbnail = []
                     $.each(JSON.parse(data.other_photos), function(index, item) {
                         thumbnail.push(item)
                     })
-                    console.log(thumbnail)
+                    // console.log(thumbnail)
                     $.each(JSON.parse(data.other_photos), function(i, v) {
                         $('#thumbnails').prepend(
                             '<div class="col-lg-3 position-relative"><img src="' + v +
                             '"style="height:100px; object-fit:cover" class="mb-3 w-100"><button class="btn btn-outline-danger deleteImage position-absolute btn-sm" style="right:12px;"><i class="fa fa-trash"></i></button></div>'
                         )
                     })
-
-
                 }).catch((error) => {
                     console.log(error)
                 })

@@ -49,7 +49,7 @@ class ProductController extends Controller
     }
 
     public function copy(Request $request){
-        $gg = json_decode(json_encode($request->item), TRUE)[2];
+        $gg = $request->item[0];
         $model = \App\Product::where('id',$gg)->first();
         return response()->json([
             'msg' => 'Success',

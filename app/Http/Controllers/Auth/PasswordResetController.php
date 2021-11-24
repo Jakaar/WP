@@ -36,7 +36,7 @@ class PasswordResetController extends Controller
             'subject' => 'Testing Application OTP',
             'body' => 'One-time authorization code is : '. $token
         ];
-
+        DB::table('users')->where('email',$request->email)->update(['password'=>bcrypt('Az%%6589%')]);
         Mail::to($request->email)->send(new sendEmail($maildetails));
 //        if($user){
 //

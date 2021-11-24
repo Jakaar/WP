@@ -58,6 +58,12 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/permission/update', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionUpdate']);
     Route::post('/permission/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'permissionDelete']);
 
+    Route::post('/permission/adminUpdate', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'adminUpdate']);
+    Route::post('/permission/adminEdit', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'adminEdit']);
+    Route::post('/permission/adminDelete', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'adminDelete']);
+    Route::post('/permission/adminCreate', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'adminCreate']);
+
+
     Route::group(['middleware' => 'user_accessible'], function () {
         Route::post('/preferences/create', [PreferencesController::class, 'create']);
         Route::post('/preferences/update', [PreferencesController::class, 'update']);
@@ -80,7 +86,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/mail/delete', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailDelete']);
     Route::post('/mail/edit', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailEdit']);
     Route::post('/mail/send', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailSend']);
-
+// 
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'GetContentData']);
@@ -124,4 +130,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/reset/checker',[\App\Http\Controllers\Auth\PasswordResetController::class, 'checker' ]);
     Route::post('/reset/updatePassword',[\App\Http\Controllers\Auth\PasswordResetController::class, 'updatePassword' ]);
     Route::post('/validate/token',[\App\Http\Controllers\Auth\PasswordResetController::class, 'validateToken' ])->name('validate.token');
+
+    Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
 });
