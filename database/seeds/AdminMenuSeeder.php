@@ -22,7 +22,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'title' =>  '{"mn":"Тохиргоо","en":"Configuration","kr":"구성"}',
+                'title' =>  '{"mn":"Тохиргоо","en":"Configuration","kr":"환경설정"}',
                 'url' =>  '/cms/preferences',
                 'parent_id' => 1,
                 'order' => '1-1',
@@ -38,7 +38,7 @@ class AdminMenuSeeder extends Seeder
            ],
            [
                'id' => 4,
-               'title' =>  '{"mn":"Лог","en":"Logger","kr":"로그"}',
+               'title' =>  '{"mn":"Лог","en":"Logger","kr":"로거"}',
                'url' =>  '/cms/preferences/logger',
                'parent_id' => 1,
                'order' => '1-3',
@@ -46,7 +46,7 @@ class AdminMenuSeeder extends Seeder
            ],
            [
                 'id' => 5,
-                'title' =>  '{"mn":"Боломжит хэл","en":"Available Language","kr":"사용자 메뉴"}',
+                'title' =>  '{"mn":"Боломжит хэл","en":"Available Language","kr":"언어 선택"}',
                 'url' =>  '/cms/preferences/language',
                 'parent_id' => 1,
                 'order' => '1-4',
@@ -54,7 +54,7 @@ class AdminMenuSeeder extends Seeder
            ],
            [
                 'id' => 6,
-                'title' =>  '{"mn":"Тогтмол Файл","en":"Static File","kr":"사용자 메뉴"}',
+                'title' =>  '{"mn":"Тогтмол Файл","en":"Static File","kr":"정적 파일"}',
                 'url' =>  '/cms/preferences/static_file',
                 'parent_id' => 1,
                 'order' => '1-5',
@@ -102,7 +102,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 11,
-                'title' => '{"mn":"Хэрэглэгчийн эрх","en":"Member role management","kr":"맴버 레이팅 관리"}',
+                'title' => '{"mn":"Хэрэглэгчийн эрх","en":"Member role management","kr":"회원 레이팅 관리"}',
                 'url' => '/cms/member_management/permission',
                 'parent_id' => 10,
                 'order' => '1-1',
@@ -110,7 +110,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 12,
-                'title' => '{"mn":"Гарсан гишүүн","en":"Withdrawal member","kr":"달퇴 맴버"}',
+                'title' => '{"mn":"Гарсан гишүүн","en":"Withdrawal member","kr":"탈퇴 회원"}',
                 'url' => '/cms/member_management/secessionist',
                 'parent_id' => 10,
                 'order' => '1-2',
