@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Hash;
+use Carbon\Carbon;
 
 class MemberController extends Controller
 {
@@ -13,14 +14,21 @@ class MemberController extends Controller
     {
         try {
             $model = \App\User::find($request->user_id);
-            $model->firstname = $request->firstname;
-            $model->lastname = $request->lastname;
-            $model->email = $request->email;
+
+            if ($request->firstname!= Null || $request->lastname!= Null || $request->email != Null  ) {
+                $model->firstname = $request->firstname;
+                $model->lastname = $request->lastname;
+                $model->email = $request->email;
+            }
             if ($request->hasFile('avatar')) {
                 $model->avatar = $request->file('avatar')->store('avatar', 'public');
             }
             if ($request->input('password') != null) {
                 $model->password = Hash::make($request->password);
+            }
+            if ($request->reason!= Null) {
+                $model->reason = $request->reason;
+                $model->deleted_at = \Carbon\Carbon::now();
             }
             $model->save();
             return response()->json(['icon' => 'success', 'msg' => 'success'], 200);
@@ -28,11 +36,15 @@ class MemberController extends Controller
             return $e;
         }
     }
+    // 
 
     public function delete(Request $request)
     {
-        $model = \App\User::where('id', $request->user_id);
-        $model->delete();
+        // $model = \App\User::where('id', $request->user_id);
+        // $model->delete();
+        DB::table('users')->where('id', $request->user_id)->update([
+            'isEnabled' => 0
+        ]);
         return response()->json(['msg' => 'success', 'data' => $request->all()], 200);
     }
 

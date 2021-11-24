@@ -180,7 +180,6 @@
                 $('#modalname').text('{{ __('Create Menu') }}')
                 $('#action').removeClass('d-none')
                 $('#updateAction').addClass('d-none')
-                $('#modal_footer').addClass('card-shadow-success border-success')
                 $('#menu_url').val('')
                 $('#menu_icon').val('')
 
@@ -197,8 +196,6 @@
                 $('#modalname').text('{{ __('Edit Modal') }}')
                 $('#updateAction').removeClass('d-none')
                 $('#action').addClass('d-none')
-                $('#modal_footer').removeClass('card-shadow-success border-success')
-                $('#modal_footer').addClass('card-shadow-primary border-primary')
 
                 Axios.post('/api/preferences/menu/single', data).then((resp) => {
 
@@ -378,7 +375,7 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-white shadow shadow-sm">
+                <div class="modal-header">
                     <h5 class="modal-title" id="modalname">Create Menu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -1650,11 +1647,10 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer card-btm-border" id="modal_footer">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                    <button type="button" class="btn btn-success d-none" id="updateAction"> {{ __('Update') }} </button>
+                    <button type="button" class="btn btn-success  d-none" id="updateAction"> {{ __('Update') }} </button>
                     <button type="button" class="btn btn-success" id="action"> {{ __('Save') }} </button>
-        
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWpanelAvailableLanguage extends Migration
+class CreateFormBuilded extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateWpanelAvailableLanguage extends Migration
      */
     public function up()
     {
-        Schema::create('wpanel_available_language', function (Blueprint $table) {
+        Schema::create('form_builded', function (Blueprint $table) {
             $table->id();
-            $table->string('country');
-            $table->string('country_code');
+            $table->text('form_name');
+            $table->integer('is_status');
+            $table->integer('receive_email');
+            $table->json('data');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateWpanelAvailableLanguage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wpanel_available_language');
+        Schema::dropIfExists('form_builded');
     }
 }

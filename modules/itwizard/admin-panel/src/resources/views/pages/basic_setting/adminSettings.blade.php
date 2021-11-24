@@ -2,8 +2,6 @@
 @section('content')
 <div class="app-main__inner p-0 ">
     <div class="app-inner-layout ">
-
-
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
@@ -14,15 +12,10 @@
                         {{__('Administrator Settings')}}
                     </div>
                 </div>
-
-              
-
-
                 <div class="page-title-actions">
-                    <button type="button" data-bs-toggle="tooltip" title="{{ __('Refresh') }}"  class="btn-shadow me-3 btn btn-info">
+                    <button id="reload_page" type="button" data-bs-toggle="tooltip" title="{{ __('Refresh') }}"  class="btn-shadow me-3 btn btn-info">
                         <i class="pe-7s-refresh-2"></i>
                     </button>
-
                     <div class="d-inline-block dropdown">
                         <button type="button" class="search-icon btn-shadow btn btn-success ModalShow" >
                             <span class="btn-icon-wrapper pe-2 opacity-7">
@@ -31,21 +24,13 @@
                             {{__('Create')}}
                         </button>
                     </div>
-
                 </div>
-
-
-
-
             </div>
         </div>
-
-
-        <div class="main-card mb-3 card card-btm-border border-primary mb-3">
-
+        <div class="card card-btm-border border-primary">
             <div class="card-body">
                 <h5 class="card-title">{{__('Administrator Settings')}}</h5>
-                <table id="noControlledTable1" style="width: 100%;" class="table table-hover table-striped table-bordered">
+                <table id=""  class="table table-hover table-striped ">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -62,10 +47,8 @@
                             <td>{{ $data_admin-> id}}</td>
                             <td>{{ $data_admin-> firstname}}</td>
                             <td>{{ $data_admin-> lastname}}</td>
-                            
                             <td>{{ $data_admin-> email}}</td>
                             <td>{{ $data_admin-> created_at}}</td>
-
                             <td>
                                 <button class="btn-outline-primary btn ModalEdit edit_admin" data-id="{{$data_admin->id}}">
                                     {{ ('Edit') }}
@@ -74,22 +57,22 @@
                                     {{ ('Delete') }}
                                 </button>
                             </td>
-                         
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-
-
     </div>
 </div>
 
 @endsection
 @section('script')
-
 <script>
+    $('#reload_page').click(function() {
+        location.reload(true);
+    });
+
     $(document).ready(function() {
         $('.ModalShow').click(function() {
             $('#adminAddModal').modal('show')
@@ -105,13 +88,12 @@
                 password: $('#adminPassword').val(),
                 email: $('#adminEmail').val(),
             };
-            Axios.post('/api/permission/settingsCreate', data).then((resp) => {
+            Axios.post('/api/permission/adminCreate', data).then((resp) => {
                 // console.log(data);
                 Toast.fire({
                         icon: 'success',
                         title: resp.data.msg
                     });
-                   
                     $('#adminAddModal').modal('hide').removeAttr('key');
                         setTimeout(function (){
                             location.reload()
@@ -123,8 +105,6 @@
                     });
                 });
         })
-
-
     });
 </script>
 <script>
@@ -142,7 +122,6 @@
                     inputAttributes: {
                         'aria-label': 'Type your message here'
                     },
-           
                     showDenyButton: true,
                     showCancelButton: false,
                     confirmButtonText: "{{__('Ok')}}",
@@ -152,7 +131,7 @@
                         if (result.value) {
                             Axios.post('/api/permission/adminUpdate', {reason: result.value, id : delete_id});
                         }
-                        Axios.post('/api/permission/settingsDelete', data).then((resp) => {
+                        Axios.post('/api/permission/adminDelete', data).then((resp) => {
                         //  console.log(delete_id);
                             Swal.fire('Deleted!', '', 'success')
                             $('tr[key=' + delete_id+ ']').remove()
@@ -167,12 +146,11 @@
                                 });
                             })
                         }
-                        })
-
+                    })
                 })
         })
-    </script>
-      <script>
+</script>
+    <script>
         $(document).ready(function(){
 
             $('.edit_admin').click(function(){
@@ -231,15 +209,13 @@
 <div class="modal fade" id="adminAddModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title " id="staticBackdropLabel">Admin Settings</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Admin Settings</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="" class="row">
                 <input type="hidden"  id="editIdAdmin">
-
-                   
                     <div class="col-lg-12 mb-3">
                         <label for="exampleFormControlInput1" class="form-label">{{__('Firstname')}}</label>
                         <input type="text" class="form-control" name="firstname" id="adminFirstName" placeholder="firstname">
@@ -256,12 +232,11 @@
                         <label for="exampleFormControlInput1" class="form-label">{{__('Email')}}</label>
                         <input type="email" class="form-control" name="email" id="adminEmail" placeholder="email">
                     </div>
-
                 </form>
             </div>
 
-            <div class="modal-footer card-btm-border card-shadow-success border-success">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success create_admin" >{{__('Save Changes')}}</button>
             </div>
         </div>
@@ -272,15 +247,13 @@
 <div class="modal fade" id="adminEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-white shadow shadow-sm">
+            <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Admin Settings</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="" class="row">
-                    
                     <!-- <input type="hidden"  id="editIdAdmin"> -->
-
                     <div class="col-lg-12 mb-3">
                         <label for="exampleFormControlInput1" class="form-label">{{__('Firstname')}}</label>
                         <input type="text" class="form-control" id="editAdminFirstName" placeholder="firstname">
@@ -297,12 +270,10 @@
                         <label for="exampleFormControlInput1" class="form-label">{{__('Email')}}</label>
                         <input type="email" class="form-control" id="editAdminEmail" placeholder="email">
                     </div>
-
                 </form>
             </div>
-
-            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success adminUpdate" >{{__('Save Changes')}}</button>
             </div>
         </div>

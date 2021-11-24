@@ -5,6 +5,7 @@
     .ck-editor__editable {
         min-height: 200px;
     }
+  
 </style>
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -53,6 +54,7 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-6">
                             <div class="tab-content">
+
                                 @foreach($data['langs'] as $key => $lang)
                                     <div class="tab-pane fade @if($key === 0) active show @endif" id="c_tab-animated1-{{$lang->id}}">
                                         <div class="card-title text-uppercase ">{{__('Company Name')}}</div>

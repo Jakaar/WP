@@ -65240,7 +65240,8 @@ __webpack_require__(/*! ./customs/ckeditor */ "./resources/admin_ui/js/customs/c
 
 __webpack_require__(/*! ./charts/chartjs */ "./resources/admin_ui/js/charts/chartjs.js");
 
-__webpack_require__(/*! ./customs/tree.jquery */ "./resources/admin_ui/js/customs/tree.jquery.js");
+__webpack_require__(/*! ./customs/tree.jquery */ "./resources/admin_ui/js/customs/tree.jquery.js"); // require('./form-components/form-builder.min')
+// require('./form-components/form-render.min')
 
 /***/ }),
 
@@ -88523,8 +88524,8 @@ if (typeof this !== 'undefined' && this.Sweetalert2) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\WP\resources\admin_ui\js\main.js */"./resources/admin_ui/js/main.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\WP\resources\admin_ui\sass\app.scss */"./resources/admin_ui/sass/app.scss");
+__webpack_require__(/*! C:\Users\itwizard\Documents\GitHub\WP\resources\admin_ui\js\main.js */"./resources/admin_ui/js/main.js");
+module.exports = __webpack_require__(/*! C:\Users\itwizard\Documents\GitHub\WP\resources\admin_ui\sass\app.scss */"./resources/admin_ui/sass/app.scss");
 
 
 /***/ })

@@ -18,9 +18,15 @@
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                 @permission('member-create')
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="fa fa-plus"></i> {{ __('Create new member') }}
+
+                    <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <span class="btn-icon-wrapper pe-2 opacity-7">
+                            <i class="pe-7s-plus"></i>
+                        </span>
+                        {{ __('Create new member') }}
                     </button>
+
+
                     @endpermission
                 </div>
             </div>
@@ -56,7 +62,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="mb-3 card card-btm-border border-primary">
+        <div class=" mb-3 card card-btm-border border-primary">
             <div class="card-body">
                 <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
                     <thead>
@@ -178,6 +184,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header bg-white shadow shadow-sm">
+                                        
                                         <h5 class="modal-title" id="staticBackdropLabel">{{ __('Create new member') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
@@ -276,9 +283,9 @@
                                         </p>
                                     </div>
                                     <div class="modal-footer card-btm-border card-shadow-primary border-primary">
-                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal" id="testgg">{{ __('Close') }}</button>
-                                        <button type="button" class="btn btn-success update-role" id="save_c">{{ __('Save') }}</button>
-                            
+                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"
+                                            id="testgg">{{ __('Close') }}</button>
+                                        <a class="btn btn-success" id="save_c">{{ __('Save changes') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -528,15 +535,24 @@
                             $('.delete_user').click(function() {
                                 const user_id = $(this).attr('data-id');
                                 Swal.fire({
-                                    title: 'Do you want to delete a user?',
+                                    title: 'Reason',
+                                    input: 'textarea',
+                                    // inputLabel: 'Reason',
+                                    inputPlaceholder: 'Type your message here...',
+                                    inputAttributes: {
+                                        'aria-label': 'Type your message here'
+                                    },
                                     showDenyButton: true,
                                     showCancelButton: false,
-                                    confirmButtonText: "{{ __('Delete') }}",
-                                    denyButtonText: `{{ __('Cancel') }}`,
+                                    confirmButtonText: "{{__('Ok')}}",
+                                    denyButtonText: `{{__('Cancel')}}`,
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         const data = {
                                             user_id: user_id,
+                                        }
+                                        if (result.value) {
+                                            Axios.post('/api/member/update', {reason: result.value, user_id : user_id});
                                         }
                                         Axios.post('/api/user/delete', data).then((resp) => {
                                             $('tr[key=' + user_id + ']').remove()
