@@ -164,12 +164,13 @@ class AdminMenuSeeder extends Seeder
                 'order' => '10',
                 'is_active' => 1,
             ],
+           
             [
                 'id' => 22,
                 'title' =>  '{"mn":"Категорийн удирдлага","en":"Category Management","kr":"카테고리 관리"}',
                 'url' =>  '/cms/categories',
                 'parent_id' => 21,
-                'order' => '1-1',
+                'order' => '1-2',
                 'is_active' => 1,
             ],
             [
@@ -185,6 +186,14 @@ class AdminMenuSeeder extends Seeder
                 'title' =>  '{"mn":"Сайтын мэдээлэл","en":"Site Information","kr":"사이트 정보"}',
                 'url' =>  '/cms/basic_setting',
                 'parent_id' => 23,
+                'order' => '1-1',
+                'is_active' => 1,
+            ],
+            [
+                'id' => 25,
+                'title' =>  '{"mn":"Бүтээгдэхүүний удирдлага","en":"Product Management","kr":"상품 관리"}',
+                'url' =>  '/cms/products',
+                'parent_id' => 21,
                 'order' => '1-1',
                 'is_active' => 1,
             ],
