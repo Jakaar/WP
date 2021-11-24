@@ -734,18 +734,18 @@
     "Delete Mail": "이메일 삭제",
     "Delete UserMenu": "사용자 메뉴 삭제",
     "Delete CategoryProduct": "상품 카테고리 삭제",
-    "Delete DashBoard": "대시보드 삭제",
+    "Delete Dashboard": "대시보드 삭제",
     "Update Member": "회원 업데이트",
     "Update Role": "역할 업데이트",
     "Update Permission": "권한 업데이트",
-    "Update DashBoard": "권한 업데이트",
+    "Update Dashboard": "권한 업데이트",
     "Create Banner": "배너 생성",
     "Create Product": "상품 추가",
     "Create NoticeBoard": "게시판 생성",
     "Create Mail": "이메일 생성",
     "Create UserMenu": "사용자 메뉴 생성",
     "Create CategoryProduct": "상품 카테고리 생성",
-    "Create DashBoard": "대시보드 생성",
+    "Create Dashboard": "대시보드 생성",
     "Delete Member": "회원 삭제",
     "Delete Role": "역할 삭제",
     "Delete Permission": "권한 삭제",
@@ -756,5 +756,5 @@
     "Read Mail": "이메일 읽기",
     "Read UserMenu": "사용자 메뉴 읽기",
     "Read CategoryProduct": "상품 카테고리 읽기",
-    "Read DashBoard": "대시보드 읽기"
+    "Read Dashboard": "대시보드 읽기"
 }
