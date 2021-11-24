@@ -12,8 +12,8 @@ class NoticeBoardSeeder extends Seeder
     public function run()
     {
         $data = [];
-        $data[0] = ['HTML'];
-        $data[1] = ['YOUTUBE'];
+        $data[0] = ['SinglePage'];
+        $data[1] = ['Category'];
         foreach($data as $item)
         {
         DB::table('wpanel_board_type')
