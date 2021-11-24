@@ -702,5 +702,9 @@
     "Are you sure?": "삭제하시겠습니가?",
     "Yes, Delete it!": "예",
     "Cancel": "취소",
-    "Ok": "확인"
+    "Ok": "확인",
+    "Password does not match":"비밀번호가 일치하지 않습니다.",
+    "OTP does not match":"정확한 인증번호를 입력해 주세요",
+    "Success":"성공",
+    "Successfully Password Reset":"비밀번호가 변경되었습니다"
 }
