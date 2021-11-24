@@ -702,5 +702,9 @@
     "Are you sure?": "삭제하시겠습니가?",
     "Yes, Delete it!": "예",
     "Cancel": "취소",
-    "Ok": "확인"
+    "Ok": "확인",
+    "Create Product": "상품 생성",
+    "Menu list": "메뉴 목록",
+    "Reason": "이유",
+    "Total Deleting Items":"총 삭제 항목 수"
 }
