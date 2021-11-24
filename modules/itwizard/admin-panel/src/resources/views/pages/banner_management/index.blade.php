@@ -34,12 +34,14 @@
                     class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
+                @permission('banner-create')
                 <button type="button" class="search-icon btn-shadow btn btn-success ModalShow">
                     <span class="btn-icon-wrapper pe-2 opacity-7">
                         <i class="pe-7s-plus"></i>
                     </span>
                     {{ __('Create') }}
                 </button>
+                @endpermission
             </div>
         </div>
     </div>
@@ -50,12 +52,10 @@
                 <div class="card mb-3 card-btm-border border-primary">
                     <div class="card-body">
                         <div class="card-title mb-3"> {{ $group->group_name }} </div>
-                        <table style="width: 100%;" id="new_table_{{ $key + 1 }}"
-                            class="table table-hover table-striped table-bordered">
+                        <table style="width: 100%;" id="new_table_{{ $key + 1 }}" class="table table-hover table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th> {{ __('Code') }} </th>
-                                    <th> {{ __('Date Range') }} </th>
                                     <th> {{ __('Priority') }} </th>
                                     <th> {{ __('Active') }} </th>
                                     <th>{{ __('Edit/Delete') }}</th>
@@ -66,18 +66,22 @@
                                     @if ($group->group_name == $banner->group_name)
                                         <tr>
                                             <td>{{ $banner->code }} </td>
-                                            <td>{{ $banner->daterange }} </td>
                                             <td>{{ $banner->priority }}</td>
                                             <td>{{ $banner->isEnabled }}</td>
                                             <td>
+                                                @permission('banner-edit')
                                                 <button class="btn-outline-primary btn ModalShowEdit editbtn"
                                                     value="{{ $banner->id }}">
                                                     {{ __('Edit') }}
                                                 </button>
+                                                @endpermission
+                                                @permission('banner-delete')
                                                 <button class="btn-outline-danger btn-link btn DeleteBanner"
                                                     key="{{ $banner->id }}">
                                                     {{ __('Delete') }}
                                                 </button>
+                                                @endpermission
+                                                
                                             </td>
                                         </tr>
                                     @endif
@@ -113,6 +117,7 @@
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
             });            
             $('#createForm').validate({
+                
                 errorPlacement: function(error, element) {
                     // Add the `invalid-feedback` class to the error element
                     error.addClass("invalid-feedback");
@@ -134,6 +139,7 @@
                 },
             });
             $('#updateForm').validate({
+              
                 errorPlacement: function(error, element) {
                     // Add the `invalid-feedback` class to the error element
                     error.addClass("invalid-feedback");
@@ -167,7 +173,7 @@
                         target_type: $('#target_type').val(),
                         type: $('#type').val(),
                     }
-                    console.log(data);
+
                     const headers = {
                         'Content-Type': 'multipart/form-data',
                         'Content-Type': 'Application/json'
@@ -182,7 +188,7 @@
                         )
                         setTimeout(function() {
                             location.reload()
-                        }, 1000);
+                        }, 2000);
                     }).catch((err) => {
                         Toast.fire({
                             icon: 'error',
@@ -209,9 +215,7 @@
                                 'Your file has been deleted.',
                                 'success'
                             )
-                            setTimeout(function() {
-                                location.reload()
-                            }, 1000);
+                            $(this).closest('tr').fadeOut();
                         });
                     }
                 })
@@ -226,7 +230,7 @@
                     $('#group_name1').val(resp.data.group_name);
                     $('#isEnabled1').val(resp.data.isEnabled);
                     $('#priority1').val(resp.data.priority);
-                    $('#daterange1').val(resp.data.daterange);
+                    $('#daterange').val(resp.data.daterange);
                     $('#target_type1').val(resp.data.target_type);
                     $('#type1').val(resp.data.type);
                     CKEDITOR.instances.ckeditor1.setData(resp.data.banner_content);                
@@ -242,7 +246,7 @@
                         ckeditor1: CKEDITOR.instances.ckeditor1.getData(),
                         priority1: $('#priority1').val(),
                         isEnabled1: $('#isEnabled1').val(),
-                        daterange1: $('#daterange1').val(),
+                        daterange: $('#daterange').val(),
                         target_type1: $('#target_type1').val(),
                         type1: $('#type1').val(),
                     }
@@ -260,7 +264,7 @@
                         )
                         setTimeout(function() {
                             location.reload()
-                        }, 1000);
+                        }, 2000);
                     }).catch((err) => {
                         Toast.fire({
                             icon: 'error',
@@ -273,7 +277,7 @@
             $('#reload_page').click(function() {
                 location.reload(true);
             });
-
+         
             $('input[name="daterange"]').daterangepicker({
                 startDate: moment().startOf("month"),
                 endDate: moment().startOf("day").add(32, "day"),
@@ -315,7 +319,7 @@
     <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-white shadow shadow-sm">
                     <h5 class="modal-title" id="staticBackdropLabel">{{ __('Add Banner') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -332,8 +336,8 @@
                             <div class="mb-3 col-lg-6">
                                 <label for="exampleCity" class="form-label">{{ __('Is Used') }}</label>
                                 <select name="isEnabled" id="isEnabled" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="">{{ __('Select') }}</option>
-                                    <option value="{{ __('Used') }}">{{ __('Used') }}</option>
+                                    <option value="" >{{ __('Select') }}</option>
+                                    <option value="{{ __('Used') }}" >{{ __('Used') }}</option>
                                     <option value="{{ __('Not Used') }}">{{ __('Not Used') }}</option>
                                 </select>
                             </div>
@@ -392,7 +396,7 @@
                                     <div class="input-group-text datepicker-trigger">
                                         <i class="fa fa-calendar-alt"></i>
                                     </div>
-                                    <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required readonly >
                                 </div>
                             </div>
 
@@ -405,7 +409,7 @@
                     </div>
 
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                     <button type="button" class="btn btn-success update-role" id="add_banner">{{ __('Save') }}</button>
                 </div>
@@ -418,7 +422,7 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-white shadow shadow-sm">
                     <h5 class="modal-title">{{ __('Edit Banner') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -494,7 +498,7 @@
                                 <div class="input-group-text datepicker-trigger">
                                     <i class="fa fa-calendar-alt"></i>
                                 </div>
-                                <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange1" id="daterange1" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required>
+                                <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required readonly>
                             </div>
                         </div>
                         
@@ -504,7 +508,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                     <button type="button" class="btn btn-success update-role" id="update_banner">{{ __('Save') }}</button>
                 </div>

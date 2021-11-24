@@ -56,7 +56,7 @@
                 </div>
             @endforeach
         </div>
-        <div class=" mb-3 card card-btm-border border-primary">
+        <div class="mb-3 card card-btm-border border-primary">
             <div class="card-body">
                 <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered">
                     <thead>
@@ -177,7 +177,7 @@
                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header bg-light">
+                                    <div class="modal-header bg-white shadow shadow-sm">
                                         <h5 class="modal-title" id="staticBackdropLabel">{{ __('Create new member') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
@@ -213,8 +213,8 @@
 
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                                    <div class="modal-footer card-btm-border card-shadow-success border-success">
+                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                                         <button type="button" class="btn btn-success" id="create_member">{{ __('Create member') }}</button>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document" style="z-index: 99;">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-white shadow shadow-sm">
                                         <h5 class="modal-title" id="exampleModalLabel">{{ __('Edit Profile') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                         </button>
@@ -275,10 +275,10 @@
                                         </form>
                                         </p>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                            id="testgg">{{ __('Close') }}</button>
-                                        <a class="btn btn-primary" id="save_c">{{ __('Save changes') }}</a>
+                                    <div class="modal-footer card-btm-border card-shadow-primary border-primary">
+                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal" id="testgg">{{ __('Close') }}</button>
+                                        <button type="button" class="btn btn-success update-role" id="save_c">{{ __('Save') }}</button>
+                            
                                     </div>
                                 </div>
                             </div>

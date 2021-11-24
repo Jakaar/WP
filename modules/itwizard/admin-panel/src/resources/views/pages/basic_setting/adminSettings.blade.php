@@ -41,7 +41,7 @@
         </div>
 
 
-        <div class="main-card mb-3 card">
+        <div class="main-card mb-3 card card-btm-border border-primary mb-3">
 
             <div class="card-body">
                 <h5 class="card-title">{{__('Administrator Settings')}}</h5>
@@ -231,8 +231,8 @@
 <div class="modal fade" id="adminAddModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Admin Settings</h5>
+            <div class="modal-header bg-white shadow shadow-sm">
+                <h5 class="modal-title " id="staticBackdropLabel">Admin Settings</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -260,8 +260,8 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+            <div class="modal-footer card-btm-border card-shadow-success border-success">
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 <button type="button" class="btn btn-success create_admin" >{{__('Save Changes')}}</button>
             </div>
         </div>
@@ -272,7 +272,7 @@
 <div class="modal fade" id="adminEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-white shadow shadow-sm">
                 <h5 class="modal-title" id="staticBackdropLabel">Admin Settings</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -301,8 +301,8 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 <button type="button" class="btn btn-success adminUpdate" >{{__('Save Changes')}}</button>
             </div>
         </div>

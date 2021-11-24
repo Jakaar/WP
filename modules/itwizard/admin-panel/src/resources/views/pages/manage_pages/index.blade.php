@@ -1,4 +1,1 @@
 @extends('Admin::layouts.master')
-
-
-

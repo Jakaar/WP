@@ -34,12 +34,14 @@
                     class="btn-shadow me-3 btn btn-info">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
+                @permission('file-create')
                 <button type="button" class="search-icon btn-shadow btn btn-success ModalShow">
                     <span class="btn-icon-wrapper pe-2 opacity-7">
                         <i class="pe-7s-plus"></i>
                     </span>
                     {{ __('Create') }}
                 </button>
+                @endpermission
             </div>
         </div>
     </div>
@@ -77,11 +79,15 @@
                                     <td>{{$static_file->created_at}}</td>
                                     <td>{{$static_file->updated_at}}</td>
                                     <td>
+                                        @permission('file-edit')
                                         <button class="btn-outline-primary btn ModalShowEdit editbtn" value="{{ $static_file->id }}">{{ __('Edit') }}</button>
+                                        @endpermission
+                                        @permission('file-delete')
                                         <button class="btn-outline-danger btn-link btn DeleteFile"
                                             key="{{ $static_file->id }}">
                                             {{ __('Delete') }}
                                         </button>
+                                        @endpermission
                                     </td>
                                 </tr>
                                 @endforeach
@@ -161,7 +167,6 @@
                         'Content-Type': 'multipart/form-data',
                         'Content-Type': 'Application/json'
                     }
-                    console.log(data);
                     
                     Axios.post('/api/addfile',data, { 
                         headers: headers
@@ -173,7 +178,7 @@
                         )
                         setTimeout(function() {
                             location.reload()
-                        }, 1000);
+                        }, 2000);
                     }).catch((err) => {
                         Toast.fire({
                             icon: 'error',
@@ -194,7 +199,6 @@
                         'Content-Type': 'multipart/form-data',
                         'Content-Type': 'Application/json'
                     }
-                    console.log(data);
                     
                     Axios.post('/api/updatefile',data, { 
                         headers: headers
@@ -206,7 +210,7 @@
                         )
                         setTimeout(function() {
                             location.reload()
-                        }, 1000);
+                        }, 2000);
                     }).catch((err) => {
                         Toast.fire({
                             icon: 'error',
@@ -233,9 +237,7 @@
                                 'Your file has been deleted.',
                                 'success'
                             )
-                            setTimeout(function() {
-                                location.reload()
-                            }, 1000);
+                            $(this).closest('tr').fadeOut();
                         });
                     }
                 })
@@ -265,7 +267,7 @@
     <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-white shadow shadow-sm">
                     <h5 class="modal-title" id="staticBackdropLabel">{{ __('Add Static File') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -294,7 +296,7 @@
                     </div>
 
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                     <button type="button" class="btn btn-success update-role" id="add_file">{{ __('Save') }}</button>
                 </div>
@@ -307,7 +309,7 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-white shadow shadow-sm">
                     <h5 class="modal-title">{{ __('Edit Static File') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -329,7 +331,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                     <button type="button" class="btn btn-success update-role" id="update_file">{{ __('Save') }}</button>
                 </div>

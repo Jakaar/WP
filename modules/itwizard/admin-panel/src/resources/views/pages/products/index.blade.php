@@ -24,7 +24,7 @@
                     {{ __('Add Product') }}
                 </button>
                 <button class="btn btn-outline-info opa disabled">{{ __('Copy') }}</button>
-                <button class="btn btn-outline-light opacity-3 multipleDelete">{{ __('Delete') }}</button>
+                <button class="btn btn-outline-danger multipleDelete">{{ __('Delete') }}</button>
             </div>
         </div>
     </div>
@@ -131,7 +131,7 @@
             <div class="modal-content">
                 <form action="/cms/product/create" method="POST" id="addProduct">
                     @csrf
-                    <div class="modal-header">
+                    <div class="modal-header bg-white shadow shadow-sm">
                         <h5 class="modal-title" id="productLabel">{{ __('Create Product') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -272,7 +272,7 @@
                         </div> --}}
 
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer card-btm-border" id="modal_footer">
                         <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">
                             {{ __('Close') }}
                         </button>
@@ -524,6 +524,7 @@
         $(document).ready(function() {
             $('.ModalShow').click(function() {
                 $('#editProductButton').addClass('d-none')
+                $('#modal_footer').addClass('card-shadow-success border-success')
                 $('#addProductButton').removeClass('d-none')
                 $('#productLabel').html('{{ __('Create Product') }}')
                 $('#addProduct')[0].reset()
@@ -549,6 +550,8 @@
                 Axios.post('/api/product/getData', data).then((resp) => {
                     $('#editProductButton').removeClass('d-none')
                     $('#addProductButton').addClass('d-none')
+                    $('#modal_footer').removeClass('card-shadow-success border-success')
+                    $('#modal_footer').addClass('card-shadow-primary border-primary')
 
                     const data = resp.data.data;
                     console.log(data)
