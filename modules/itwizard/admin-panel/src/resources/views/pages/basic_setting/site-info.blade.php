@@ -18,13 +18,14 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <div class="d-inline-block">
-                <button id="siteInfoSaveBtn" type="button" class="btn btn-success siteInfoSubmit invisible">{{__('Save')}}</button>
-                <button id="siteInfoEditBtn" type="button" class="btn btn-primary disabler">{{__('Edit')}}</button>
-            </div>
+            
                 <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
+                <div class="d-inline-block">
+                    <button id="siteInfoSaveBtn" type="button" class="btn btn-success siteInfoSubmit invisible">{{__('Save')}}</button>
+                    <button id="siteInfoEditBtn" type="button" class="btn btn-primary disabler">{{__('Edit')}}</button>
+                </div>
         </div>
     </div>
 </div>
