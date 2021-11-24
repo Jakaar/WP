@@ -259,7 +259,6 @@
     "Last name": "성",
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
-    "Change Role" : "롤 변경",
     "Profile": "프로필",
     "Messages": "메시지",
     "Update": "업데이트",
@@ -269,7 +268,6 @@
     "Percent": "퍼센트",
     "My Account": "나의 계정",
     "Layout Options": "레이아웃 옵션",
-    "Options": "옵션",
     "Fixed Header": "헤더 고정",
     "Fixed Sidebar": "사이드바 고정",
     "Fixed Footer": "푸터 고정",
@@ -655,7 +653,7 @@
     "Details": "세부 사항",
     "User does not have any of the necessary access rights.": "엑세스 권한이 없습니다.",
     "Copy": "복사",
-    "Send": "보내기",
+    "Send": "발송",
     "Mail title": "메일 제목",
     "Mail content": "메일 내용",
     "Mail list": "메일 목록",
@@ -705,9 +703,8 @@
     "Yes, Delete it!": "예",
     "Cancel": "취소",
     "Ok": "확인",
-    "Do you want to delete this settings?": "삭제를 하시겠습니까? ",
-    "Changes are not saved": "변경하지 않았습니다.",
-    "Changed!": "변경하였습니다!",
-    "Do you want to change group?": "그룹을 변경하시겠습니까?",
-    "Create New Permission": "권한 추가"
+    "Password does not match":"비밀번호가 일치하지 않습니다.",
+    "OTP does not match":"정확한 인증번호를 입력해 주세요",
+    "Success":"성공",
+    "Successfully Password Reset":"비밀번호가 변경되었습니다"
 }

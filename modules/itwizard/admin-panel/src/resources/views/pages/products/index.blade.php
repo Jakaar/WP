@@ -156,7 +156,7 @@
                             <label for="sku" class="form-label fw-bold"> {{ __('Product Code') }} </label>
                             <div class="input-group">
                                 <input type="text" minlength="10" maxlength="10" class="form-control" id="sku"
-                                    placeholder="{{ __('Product Code') }}" name="sku">
+                                    placeholder="{{ __('Product Code') }}" name="sku" required>
                                 <button type="button" class="btn btn-outline-primary checkCode"> {{ __('Check') }}
                                 </button>
                             </div>
@@ -393,22 +393,31 @@
         })
     </script>
     <script>
-        $(document).ready(function(){
-            $('.selectItem').change(function(){
-                console.log(localStorage.getItem('items'))
-                if(JSON.parse(localStorage.getItem('items')).length == 1){
-                    $('.opa').removeClass('disabled')
+        let selected_item = [];
+        $(document).ready(function() {
+            $('.selectItem').change(function() {
+                if($(this).prop('checked') == true){
+                    let id = $(this).attr('key');
+                    selected_item.push(id)
                 }
                 else{
+                    let id = $(this).attr('key');
+                    selected_item.remove(id)
+                }
+                
+                // console.log(selected_item)
+                if (selected_item.length == 1) {
+                    $('.opa').removeClass('disabled')
+                } else {
                     $('.opa').addClass(' disabled')
                 }
             })
-            
+
         })
     </script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
-        const thumbnail = [];
+        let thumbnail = [];
         $(document).ready(function() {
             CKEDITOR.replace('description', {
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
@@ -467,7 +476,8 @@
                     },
                     unhighlight: function(element, errorClass, validClass) {
                         // console.log(element)
-                        $(element).parent().find('label').addClass("text-dark").removeClass("is-valid");
+                        $(element).parent().find('label').addClass("text-dark").removeClass(
+                            "is-valid");
                     },
                 });
                 if ($('#addProduct').valid()) {
@@ -542,6 +552,7 @@
                 $('#addProduct').attr('action', '/cms/product/create');
             })
             $('.editModal').click(function() {
+ 
                 const id = $(this).data('id')
                 const data = {
                     id: id,
@@ -551,7 +562,7 @@
                     $('#addProductButton').addClass('d-none')
 
                     const data = resp.data.data;
-                    console.log(data)
+                    // console.log(data)
                     $('#staticBackdrop').modal('show')
                     $('#productLabel').html('{{ __('Edit Product') }}')
                     $('#sku').val(data.sku)
@@ -576,19 +587,16 @@
                     } else {
                         $('.switcher').bootstrapToggle('on')
                     }
-
-
-
                     CKEDITOR.instances.description.setData(data.description)
                     $('#addProduct').attr("action", '/cms/product/update/' + data.id)
                     $('#main-photo-preview').attr('src', data.main_img)
                     $('#thumbnails').html('')
                     // console.log(JSON.parse(data.other_photos))
-
+                    thumbnail = []
                     $.each(JSON.parse(data.other_photos), function(index, item) {
                         thumbnail.push(item)
                     })
-                    console.log(thumbnail)
+                    // console.log(thumbnail)
                     $.each(JSON.parse(data.other_photos), function(i, v) {
                         $('#thumbnails').prepend(
                             '<div class="col-lg-3 position-relative"><img src="' + v +
@@ -621,6 +629,72 @@
                 thumbnail.remove($(this).prev('img').attr('src'))
                 $('#thumbnail').val(JSON.stringify(thumbnail))
                 // console.log(thumbnail)
+            })
+        })
+        $('#reload_page').click(function() {
+            location.reload(true);
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.opa').click(function() {
+                const item = selected_item
+                const data = {
+                    item: item,
+                }
+                Axios.post('/api/product/copy', data).then((resp) => {
+                    $('#addProductButton').removeClass('d-none')
+                    $('#editProductButton').addClass('d-none')
+                    $('#addProduct').attr('action', '/cms/product/create');
+
+                    const data = resp.data.data;
+                    // console.log(data)
+                    $('#staticBackdrop').modal('show')
+                    $('#productLabel').html('{{ __('Copy Product') }}')
+                    $('#product_name').val(data.name)
+                    $('#order').val(data.showing_order)
+                    $('#hit').prop('checked', data.is_hit)
+                    $('#is_suggest').prop('checked', data.is_suggest)
+                    $('#is_new').prop('checked', data.is_new)
+                    $('#is_trend').prop('checked', data.is_trend)
+                    $('#is_sale').prop('checked', data.is_sale)
+                    
+                    $('.checkCode').removeClass('disabled').removeClass('btn-outline-success')
+                        .addClass('btn-outline-primary').html('{{ __('check') }}')
+                    $('#sku').removeAttr('readonly')
+                    $('#sku').val('')
+                    $('#manufacturer').val(data.manufacturer)
+                    $('input[name=created_country]').val(data.created_county)
+                    $('#brand_name').val(data.brand_name)
+                    $('input[name=model_name]').val(data.model_name)
+                    $('#price').val(data.price)
+
+                    if (data.is_status == 0) {
+                        $('.switcher').bootstrapToggle('off')
+                    } else {
+                        $('.switcher').bootstrapToggle('on')
+                    }
+
+                    CKEDITOR.instances.description.setData(data.description)
+                    $('#addProduct').attr("action", '/cms/product/create')
+                    $('#main-photo-preview').attr('src', data.main_img)
+                    $('#main-photo').val(data.main_img)
+                    $('#thumbnails').html('')
+                    // console.log(JSON.parse(data.other_photos))
+                    thumbnail = []
+                    $.each(JSON.parse(data.other_photos), function(index, item) {
+                        thumbnail.push(item)
+                    })
+                    // console.log(thumbnail)
+                    $.each(JSON.parse(data.other_photos), function(i, v) {
+                        $('#thumbnails').prepend(
+                            '<div class="col-lg-3 position-relative"><img src="' + v +
+                            '"style="height:100px; object-fit:cover" class="mb-3 w-100"><button class="btn btn-outline-danger deleteImage position-absolute btn-sm" style="right:12px;"><i class="fa fa-trash"></i></button></div>'
+                        )
+                    })
+                }).catch((error) => {
+                    console.log(error)
+                })
             })
         })
     </script>

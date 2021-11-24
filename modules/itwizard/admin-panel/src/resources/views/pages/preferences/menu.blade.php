@@ -1648,9 +1648,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary d-none" id="updateAction"> {{ __('Update') }} </button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-success  d-none" id="updateAction"> {{ __('Update') }} </button>
                     <button type="button" class="btn btn-success" id="action"> {{ __('Save') }} </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
                 </div>
             </div>
         </div>

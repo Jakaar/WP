@@ -53,33 +53,34 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-6">
                             <div class="tab-content">
+
                                 @foreach($data['langs'] as $key => $lang)
                                     <div class="tab-pane fade @if($key === 0) active show @endif" id="c_tab-animated1-{{$lang->id}}">
                                         <div class="card-title text-uppercase ">{{__('Company Name')}}</div>
                                         <div>
-                                            <input type="text" class="form-control mb-3" id="companyName{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="companyName" maxlength="110" value="{{json_decode($site_info->company_name, TRUE)[$lang->country_code]}}">
+                                            <input type="text" class="form-control mb-3" id="companyName{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="companyName" maxlength="110" value="{{json_decode($site_info->company_name, TRUE)}}">
                                         </div>
                                         <div class="card-title text-uppercase">{{__('Site Name')}}</div>
                                         <div>
-                                            <input type="text" class="form-control mb-3" id="siteName{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="siteName" maxlength="110" value="{{json_decode($site_info->site_name, TRUE)[$lang->country_code]}}">
+                                            <input type="text" class="form-control mb-3" id="siteName{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="siteName" maxlength="110" value="{{json_decode($site_info->site_name, TRUE)}}">
                                         </div>
                                         <div class="card-title text-uppercase">{{__('Copyright')}}</div>
                                         <div>
-                                            <input type="text" class="form-control mb-3" id="copyright{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="copyright" maxlength="110" value="{{json_decode($site_info->site_copyright, TRUE)[$lang->country_code]}}">
+                                            <input type="text" class="form-control mb-3" id="copyright{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="copyright" maxlength="110" value="{{json_decode($site_info->site_copyright, TRUE)}}">
                                         </div>
                                         <div class="card-title text-uppercase">{{__('Personal Information Manager')}}</div>
                                         <div>
-                                            <input type="text" class="form-control mb-3" id="personalInformation{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="personalInformation" maxlength="50" value="{{json_decode($site_info->personal_information_manager, TRUE)[$lang->country_code] ?? ''}}">
+                                            <input type="text" class="form-control mb-3" id="personalInformation{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="personalInformation" maxlength="50" value="{{json_decode($site_info->personal_information_manager, TRUE) ?? ''}}">
                                         </div>
                                         <div class="card-title text-uppercase">{{__('Bussiness Address')}}</div>
                                         <div>
-                                            <input type="text" class="form-control mb-3" id="address{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="address" maxlength="110" value="{{json_decode($site_info->address, TRUE)[$lang->country_code]}}">
+                                            <input type="text" class="form-control mb-3" id="address{{$lang->country_code}}" data-parent-id="tab-c1-{{$lang->id}}" name="address" maxlength="110" value="{{json_decode($site_info->address, TRUE)}}">
                                         </div>
                                             <div class="col-lg-12">
                                                 <div class="mb-3 mt-3">
                                                     <div class="card-title text-uppercase mb-3">Terms of Service</div>
                                                     <div class="c_product_editor" id="{{$lang->country_code}}" name="c_product_editor">
-                                                        {!! json_decode($site_info->terms_of_condition, TRUE)[$lang->country_code] !!}
+                                                        {!! json_decode($site_info->terms_of_condition, TRUE) !!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,7 +88,7 @@
                                                 <div class="mb-3 mt-3">
                                                     <div class="card-title text-uppercase mb-3">Privacy Policy</div>
                                                     <div class="e_product_editor" id="{{$lang->country_code}}" name="e_product_editor">
-                                                        {!! json_decode($site_info->privacy, TRUE)[$lang->country_code] !!}
+                                                        {!! json_decode($site_info->privacy, TRUE) !!}
                                                     </div>
                                                 </div>
                                             </div>

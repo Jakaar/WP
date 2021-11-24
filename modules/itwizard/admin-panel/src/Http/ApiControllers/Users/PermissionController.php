@@ -107,7 +107,7 @@ class PermissionController extends Controller
       
     }
 
-    public function userSettingsCreate(Request $request){
+    public function adminCreate(Request $request){
         // return $request->all();
             DB::table('users')->insert([
                 'firstname'=>$request->firstname,
@@ -123,9 +123,8 @@ class PermissionController extends Controller
             return response()->json(['msg'=>__('success')] , 200);
     }
 
-    public function userSettingsDelete(Request $request)
+    public function adminDelete(Request $request)
     {
-        // dd( $request->delete_id);
         DB::table('users')->where('id', $request->delete_id)->update([
             'isEnabled' => 0
         ]);
@@ -133,7 +132,6 @@ class PermissionController extends Controller
     }
     
     public function adminEdit(Request $request){
-        
             $data = DB::table('users')->where('id',$request->admin_edit_id)->first();
              return response()->json(['msg' => __('sucess'),'data' => $data],200);
     }
@@ -141,9 +139,9 @@ class PermissionController extends Controller
 
 
     public function adminUpdate(Request $request){
-    //   dd($request->reason);
-            $updated = DB::table('users')->where('id', $request->id);
 
+
+            $updated = DB::table('users')->where('id', $request->id);
             if ($request->firstname!= Null || $request->lastname!= Null || $request->email != Null  ) {
                 $updated->update([
                     'firstname'=>$request->firstname,
@@ -154,24 +152,24 @@ class PermissionController extends Controller
                     'remember_token'=>NULL,
                     'isEnabled' => 1,
                     'updated_at'=> \Carbon\Carbon::now(),
-
                 ]);
             }
-
             if ($request->password!= Null) {
                     $updated->update([
                         'password'=> Hash::make($request->password),
                     ]);
                 }
-
             if ($request->reason!= Null) {
                 $updated->update([
                     'reason'=> $request->reason,
-                    'date'=> \Carbon\Carbon::now(),
+                    'deleted_at'=> \Carbon\Carbon::now(),
                 ]); 
-
             }
             return response()->json(['msg'=>__('success')] , 200);
+            
+
+
+
             
     }
 }
