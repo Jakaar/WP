@@ -19,6 +19,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '1',
                 'is_active' => 1,
+                'icon' => 'pe-7s-display1',
             ],
             [
                 'id' => 2,
@@ -27,6 +28,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 1,
                 'order' => '1-1',
                 'is_active' => 1,
+                'icon' => 'pe-7s-settings',
             ],
             [
                'id' => 3,
@@ -35,6 +37,7 @@ class AdminMenuSeeder extends Seeder
                'parent_id' => 1,
                'order' => '1-2',
                'is_active' => 1,
+               'icon' => 'pe-7s-graph',
            ],
            [
                'id' => 4,
@@ -43,6 +46,7 @@ class AdminMenuSeeder extends Seeder
                'parent_id' => 1,
                'order' => '1-3',
                'is_active' => 1,
+               'icon' => 'pe-7s-news-paper',
            ],
            [
                 'id' => 5,
@@ -51,6 +55,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 1,
                 'order' => '1-4',
                 'is_active' => 1,
+                'icon' => 'pe-7s-global',
            ],
            [
                 'id' => 6,
@@ -59,6 +64,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 1,
                 'order' => '1-5',
                 'is_active' => 1,
+                'icon' => 'pe-7s-folder',
             ],
             [
                 'id' => 7,
@@ -67,6 +73,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 1,
                 'order' => '1-6',
                 'is_active' => 1,
+                'icon' => 'pe-7s-menu',
             ],
             [
                 'id' => 8,
@@ -75,6 +82,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '2',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 9,
@@ -83,6 +91,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '3',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 10,
@@ -91,6 +100,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '4',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 20,
@@ -99,6 +109,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 10,
                 'order' => '1-1',
                 'is_active' => 1,
+                'icon' => 'pe-7s-users',
             ],
             [
                 'id' => 11,
@@ -107,6 +118,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 10,
                 'order' => '1-1',
                 'is_active' => 1,
+                'icon' => 'pe-7s-way',
             ],
             [
                 'id' => 12,
@@ -115,6 +127,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 10,
                 'order' => '1-2',
                 'is_active' => 1,
+                'icon' => 'pe-7s-delete-user',
             ],
             [
                 'id' => 15,
@@ -123,6 +136,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 10,
                 'order' => '1-5',
                 'is_active' => 1,
+                'icon' => 'pe-7s-settings',
             ],
             [
                 'id' => 16,
@@ -131,6 +145,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '6',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 17,
@@ -139,6 +154,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '7',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 18,
@@ -147,6 +163,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '8',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 19,
@@ -155,6 +172,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '9',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 21,
@@ -163,6 +181,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '10',
                 'is_active' => 1,
+                'icon' => null,
             ],
            
             [
@@ -172,6 +191,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 21,
                 'order' => '1-2',
                 'is_active' => 1,
+                'icon' => 'pe-7s-note2'
             ],
             [
                 'id' => 23,
@@ -180,6 +200,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => null,
                 'order' => '11',
                 'is_active' => 1,
+                'icon' => null,
             ],
             [
                 'id' => 24,
@@ -188,6 +209,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 23,
                 'order' => '1-1',
                 'is_active' => 1,
+                'icon' => 'pe-7s-info',
             ],
             [
                 'id' => 25,
@@ -196,7 +218,26 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 21,
                 'order' => '1-1',
                 'is_active' => 1,
+                'icon' => 'pe-7s-box2',
             ],
+            [
+                'id' => 26,
+                'title' =>  '{"mn":"Форм үүсгэх","en":"Form Create","kr":"생성에서"}',
+                'url' =>  '/cms/suppliers/create',
+                'parent_id' => 17,
+                'order' => '1-2',
+                'is_active' => 1,
+                'icon' => 'pe-7s-browser',
+            ],
+            [
+                'id' => 27,
+                'title' =>  '{"mn":"И-Мейл удирдах","en":"Form Mail Manage","kr":"폼메일 관리"}',
+                'url' =>  '/cms/suppliers',
+                'parent_id' => 17,
+                'order' => '1-1',
+                'is_active' => 1,
+                'icon' => 'pe-7s-mail',
+            ]
         ]);
     }
 }
