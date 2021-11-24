@@ -18,12 +18,14 @@
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                 <div class="d-inline-block dropdown">
+                    @permission('userMenu-create')
                     <button type="button" class="search-icon btn-shadow btn btn-success ModalShow">
                         <span class="btn-icon-wrapper pe-2 opacity-7">
                             <i class="pe-7s-plus"></i>
                         </span>
                         {{ __('Create Main Menu') }}
                     </button>
+                    @endpermission
                 </div>
             </div>
         </div>

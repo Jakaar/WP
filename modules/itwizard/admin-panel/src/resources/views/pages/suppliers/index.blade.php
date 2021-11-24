@@ -36,12 +36,14 @@
                 <i class="pe-7s-refresh-2"></i>
             </button>
            
+            @permission('mail-create')
             <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal"  data-bs-target="#staticBackdrop" >
                 <span class="btn-icon-wrapper pe-2 opacity-7">
                     <i class="pe-7s-plus"></i>
                 </span>
                 {{ __('Create a Form Mail') }}
             </button>
+            @endpermission
         </div>
     </div>
 </div>
@@ -73,12 +75,16 @@
                         </button>
                     </td>
                     <td>
+                        @permission('mail-edit')
                         <button class="btn-outline-primary btn editMail" data-id="{{$data_mail->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
                             {{ ('Edit') }}
                         </button>
+                        @endpermission
+                        @permission('mail-delete')
                         <button class="btn-outline-danger btn-link btn deleteMail" data-id="{{$data_mail->id}}">
                             {{ ('Delete') }}
                         </button>
+                        @endpermission
                     </td>
                 </tr>
                 @endforeach

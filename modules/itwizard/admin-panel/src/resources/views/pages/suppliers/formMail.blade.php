@@ -16,10 +16,12 @@
             <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                 <i class="pe-7s-refresh-2"></i>
             </button>
+            
             <button class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdropAdd">
                 <i class="fa fa-plus"></i>
                 {{ __('Create a Form Mail') }}
             </button>
+            
         </div>
     </div>
 </div>
@@ -40,14 +42,13 @@
                <tr>
                     <td>{{$maildata->id}}</td>
                     <td>{{$maildata->title}}</td>
-                
-                
                     <td>
-                       
+                        
                         <button class="btn-outline-primary btn ModalShowEdit editbtn"
                             value="{{ $maildata->id }}">
                             {{ __('Edit') }}
                         </button>
+                        
                         <button class="btn-outline-danger btn-link btn deleteFormMail" data-id="2">
                             {{ ('Delete') }}
                         </button>
@@ -55,9 +56,6 @@
                 </tr>
                @endforeach
             
-                
-              
-
             </tbody>
         </table>
     </div>
@@ -79,7 +77,6 @@
                     <div class="container" id="dynamicForm">
                         <div class="row">
                             <div class="mb-3 col-lg-12">
-                            
                                 <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail title')}}</label>
                                 <input id="title" name="title" type="text" class="form-control" disabled>
                             </div>
@@ -119,12 +116,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
-                 
-                    
-                  
                 </form>
             </div>
 

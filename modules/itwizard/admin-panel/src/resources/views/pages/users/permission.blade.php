@@ -280,7 +280,7 @@
                                             <label class="form-label form-check-label" for="input{{ $permission->id }}">
                                                 <input type="checkbox" class="form-check-input" name="permission"
                                                     id="input{{ $permission->id }}" value="{{ $permission->id }}">
-                                                {{ $permission->display_name }}
+                                                {{ __($permission->display_name) }}
                                             </label>
                                         </div>
                                     @endforeach
@@ -327,7 +327,7 @@
                                             <label class="form-label form-check-label" for="cinput{{ $permission->id }}">
                                                 <input type="checkbox" class="form-check-input" name="c_permission"
                                                     id="cinput{{ $permission->id }}" value="{{ $permission->id }}">
-                                                {{ $permission->display_name }}
+                                                    {{ __($permission->display_name) }}
                                             </label>
                                         </div>
                                     @endforeach

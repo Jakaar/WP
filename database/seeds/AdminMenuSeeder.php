@@ -102,7 +102,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 11,
-                'title' => '{"mn":"Хэрэглэгчийн эрх","en":"Member role management","kr":"회원 레이팅 관리"}',
+                'title' => '{"mn":"Хэрэглэгчийн эрх","en":"Member role management","kr":"회원 역할 관리"}',
                 'url' => '/cms/member_management/permission',
                 'parent_id' => 10,
                 'order' => '1-1',
