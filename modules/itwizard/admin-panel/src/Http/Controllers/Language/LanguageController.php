@@ -16,10 +16,10 @@ class LanguageController extends Controller
     public function index()
     {
         $language=DB::table('wpanel_available_language')
-        ->where('isEnabled', 1)
         ->get();
         return view('Admin::pages.preferences.language',compact('language'));
     }
 }
+// 
 
 

@@ -35,8 +35,11 @@
             <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                 <i class="pe-7s-refresh-2"></i>
             </button>
-            <button class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <i class="fa fa-plus"></i>
+           
+            <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal"  data-bs-target="#staticBackdrop" >
+                <span class="btn-icon-wrapper pe-2 opacity-7">
+                    <i class="pe-7s-plus"></i>
+                </span>
                 {{ __('Create a Form Mail') }}
             </button>
         </div>
@@ -119,7 +122,7 @@
 <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-white shadow shadow-sm">
                 <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -141,7 +144,7 @@
                 </form>
             </div>
 
-            <div class="modal-footer  card-btm-border card-shadow-success border-success">
+            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success updateMail">{{__('Save Changes')}}</button>
             </div>
@@ -154,7 +157,7 @@
 <div class="modal fade staticBackdropSent " id="staticBackdropSent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg ">
         <div class="modal-content  ">
-            <div class="modal-header">
+            <div class="modal-header bg-white shadow shadow-sm">
                 <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -207,7 +210,7 @@
                 </form>
             </div>
 
-            <div class="modal-footer card-btm-border card-shadow-success border-success">
+            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success sendMail1  " >{{__('Send')}}</button>
             </div>
@@ -228,6 +231,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
     <script>
+          $('#reload_page').click(function() {
+                location.reload(true);
+            });
+
         $(document).ready(function() {
             $('.select2').select2({
                 dropdownParent: $('#staticBackdropSent')
