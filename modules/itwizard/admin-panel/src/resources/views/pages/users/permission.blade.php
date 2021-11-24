@@ -19,7 +19,9 @@
                 </button>
                 @permission('role-create')
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="fa fa-plus"></i> {{ __('Create new role') }}
+                        <span class="btn-icon-wrapper pe-2 opacity-7">
+                            <i class="pe-7s-plus"></i>
+                        </span> {{ __('Create new role') }}
                     </button>
                     @endpermission
                 </div>

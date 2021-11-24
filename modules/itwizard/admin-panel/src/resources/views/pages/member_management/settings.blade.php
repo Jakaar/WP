@@ -21,7 +21,9 @@
                         </button>
                         @permission('permission-create')
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createPermission">
-                            <i class="fa fa-plus"></i> Create New Permission
+                            <span class="btn-icon-wrapper pe-2 opacity-7">
+                                <i class="pe-7s-plus"></i>
+                            </span>  Create New Permission
                         </button>
                         @endpermission
                     </div>

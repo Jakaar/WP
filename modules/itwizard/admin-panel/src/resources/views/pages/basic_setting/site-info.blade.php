@@ -18,14 +18,15 @@
             </div>
         </div>
         <div class="page-title-actions">
-            
-                <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
-                    <i class="pe-7s-refresh-2"></i>
-                </button>
-                <div class="d-inline-block">
-                    <button id="siteInfoSaveBtn" type="button" class="btn btn-success siteInfoSubmit invisible">{{__('Save')}}</button>
-                    <button id="siteInfoEditBtn" type="button" class="btn btn-primary disabler">{{__('Edit')}}</button>
-                </div>
+            <button type="button" data-bs-toggle="tooltip" title="{{__('Refresh')}}" class="btn-shadow me-3 btn btn-info" id="reload_page">
+                <i class="pe-7s-refresh-2"></i>
+            </button>
+            <div class="d-inline-block">
+                <button id="siteInfoEditBtn" type="button" class="btn btn-primary disabler">{{__('Edit')}}</button>
+                <button id="siteInfoSaveBtn" type="button" class="btn btn-success siteInfoSubmit invisible d-none">{{__('Save')}}</button>
+                
+            </div>
+                
         </div>
     </div>
 </div>
@@ -137,6 +138,12 @@
 <script>
     $(document).ready(function() {
 
+        $('#siteInfoEditBtn').click(function() {
+            $(this).toggleClass('d-none')
+            $('#s_settings input, #s_settings select, #s_settings textarea, #s_settings button').removeAttr(
+                'disabled')
+            $('#siteInfoSaveBtn').toggleClass('d-none')
+        })
 
         let c_editor = [];
         var allEditors = document.querySelectorAll('.c_product_editor');
@@ -245,7 +252,9 @@
             };
 
             Axios.post('/api/settings/siteinfo/update', data).then((resp) => {
-                $('#siteInfoSaveBtn').addClass('invisible');
+
+                $('#siteInfoSaveBtn').toggleClass('d-none')
+                $('#siteInfoEditBtn').toggleClass('d-none')
                 $('#fldst').attr('disabled', 'disabled');
                 const Toast = Swal.mixin({
                     toast: true,
