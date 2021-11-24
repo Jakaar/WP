@@ -23,7 +23,7 @@
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createPermission">
                             <span class="btn-icon-wrapper pe-2 opacity-7">
                                 <i class="pe-7s-plus"></i>
-                            </span>  Create New Permission
+                            </span>  {{__('Create New Permission')}}
                         </button>
                         @endpermission
                     </div>
@@ -204,7 +204,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-white shadow shadow-sm">
-                    <h5 class="modal-title" id="staticBackdropLabel"> {{ __('Create New Permission') }} </h5>
+                    <h5 class="modal-title" id="staticBackdropLabel"> {{__('Create New Permission')}} </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -234,7 +234,7 @@
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="button" class="btn btn-success" id="permission_save">{{ __('Save Changes') }}</button>
+                    <button type="button" class="btn btn-success" id="permission_save">{{ __('Create') }}</button>
                 </div>
             </div>
         </div>
@@ -271,7 +271,7 @@
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="button" class="btn btn-success" id="permission_update">{{ __('Save Changes') }}</button>
+                    <button type="button" class="btn btn-success" id="permission_update">{{ __('Save') }}</button>
                 </div>
             </div>
         </div>
