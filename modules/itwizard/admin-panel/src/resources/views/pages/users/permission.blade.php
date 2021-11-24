@@ -7,7 +7,7 @@
                     <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
                 </div>
                 <div>
-                    {{ __('User Role ') }}
+                    {{ __('User Role') }}
                     <div class="page-title-subheading">{{ __('User roles manage') }}</div>
                 </div>
             </div>
