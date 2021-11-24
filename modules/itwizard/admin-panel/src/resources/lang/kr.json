@@ -466,7 +466,7 @@
     "Admin name": "관리자 이름",
     "Signup Image": "가입 이미지",
     "My Page Image": "나의 페이지 이미지",
-    "Top Menu": "상위 메뉴",
+    "top menu": "상위 메뉴",
     "NUMBER": "번호",
     "TITLE": "제목",
     "PAGE ADDRESS": "페이지 주소",
@@ -723,7 +723,6 @@
     "Update Mail": "이메일 업데이트",
     "Update UserMenu": "사용자 메뉴 업데이트",
     "Update CategoryProduct": "상품 카테고리 업데이트",
-    "Update Dashboard": "대시보드 업데이트",
     "Read Member": "회원 읽기",
     "Read Role": "역할 읽기",
     "Read Permission": "권한 읽기",
@@ -757,9 +756,9 @@
     "Read UserMenu": "사용자 메뉴 읽기",
     "Read CategoryProduct": "상품 카테고리 읽기",
     "Read Dashboard": "대시보드 읽기",
-    "On/Off":"노출 / 비노출",
-    "Owner":"슈퍼 관리자",
-    "Change Role":"역할 변경",
-    "Choose":"선택",
-    "Send": "발송"
+    "Reason": "이유",
+    "Deleted date": "삭제된 날짜",
+    "Create New Permission": "새 역할 생성",
+    "Permission name": "권한 이름",
+    "Add Banner": "배너 추가"
 }

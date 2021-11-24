@@ -18,19 +18,7 @@ class PageManageController extends Controller
 
     public function index()
     {
-        $content['data'] = DB::table('categories')
-            ->whereNull('category_id')
-            ->where('isEnabled', 1)
-            ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')
-//            ->leftJoin('')
-            ->select(
-                'categories.id',
-                'categories.name',
-                'wpanel_board_master.id as Bid',
-                'wpanel_board_master.board_type',
-            )
-            ->get();
-
+        $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
 //        $isCategory = DB::table('');
 //        dd($categories[0]->board_type);
         $content['detail'] = 0;
@@ -38,10 +26,12 @@ class PageManageController extends Controller
     }
     public function page_content($id)
     {
-        $content['data'] = DB::table('categories')
-            ->whereNull('category_id')
-            ->where('isEnabled', 1)
-            ->get();
+        // $content['data'] = DB::table('categories as firstcat')
+        //     ->where('firstcat.category_id','=',null)
+        //     ->where('firstcat.isEnabled', 1)
+        //     ->join('categories as cat','cat.category_id','firstcat.id')
+        //     ->get();
+        $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 1;
         $content['type'] = DB::table('categories')
             ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')

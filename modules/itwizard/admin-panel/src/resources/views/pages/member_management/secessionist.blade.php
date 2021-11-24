@@ -9,7 +9,7 @@
                             <i class="pe-7s-plug icon-gradient bg-mixed-hopes"></i>
                         </div>
                         <div>
-                            {{__('Secessionist')}}
+                            {{__('Withdrawal')}}
                             <div class="page-title-subheading"></div>
                         </div>
                     </div>

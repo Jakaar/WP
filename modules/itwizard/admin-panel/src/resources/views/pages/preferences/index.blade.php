@@ -356,7 +356,9 @@
                             <a href="javascript:;" id="open_options" class="me-2"> Options <i
                                     class="fa fa-angle-double-down" id="openclose" aria-hidden="true"></i> </a>
                             <button type="button" class="btn btn-success" id="add_new_setting">
-                                <i class="fa fa-plus"></i>
+                                <span class="btn-icon-wrapper pe-2 opacity-7">
+                                    <i class="pe-7s-plus"></i>
+                                </span>
                                 {{ __('Add new setting') }}
                             </button>
                         </div>

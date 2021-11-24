@@ -69,7 +69,7 @@
                                             <td>{{ $banner->priority }}</td>
                                             <td>{{ $banner->isEnabled }}</td>
                                             <td>
-                                                @permission('banner-edit')
+                                                @permission('banner-update')
                                                 <button class="btn-outline-primary btn ModalShowEdit editbtn"
                                                     value="{{ $banner->id }}">
                                                     {{ __('Edit') }}
