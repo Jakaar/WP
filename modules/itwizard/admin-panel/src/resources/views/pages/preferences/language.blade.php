@@ -83,16 +83,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" class="row">
+                <form action="#" class="row" id="createForm">
                     <input type="hidden" id="hiddenIdLanguage">
                     <div class="mb-3 col-lg-12">
                         <label class="form-label fw-bold" for="">{{__('Country')}}</label>
-                        <input id="country" name="country" type="text" class="form-control">
+                        <input id="country" name="country" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <div class="mb-3 col-lg-12">
                         <label class="form-label fw-bold" for="">{{__('Country_code')}}</label>
-                        <input id="country_code" name="country_code" type="text" class="form-control">
+                        <input id="country_code" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
 
                     </div>
                 </form>
@@ -113,16 +113,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" class="row">
+                <form action="" class="row" id="updateForm">
                     <input type="hidden" id="hiddenIdLanguage">
                     <div class="mb-3 col-lg-12">
                         <label class="form-label fw-bold" for="">{{__('Country')}}</label>
-                        <input id="editCountryName" name="country" type="text" class="form-control">
+                        <input id="editCountryName" name="country" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <div class="mb-3 col-lg-12">
                         <label class="form-label fw-bold" for="">{{__('Country_code')}}</label>
-                        <input id="editCountryCode" name="country_code" type="text" class="form-control">
+                        <input id="editCountryCode" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
                 </form>
             </div>
@@ -146,6 +146,55 @@
     });
 
      $('#new_table').DataTable({})
+     
+    $(document).ready(function() {
+        $('#createForm').validate({
+            
+            errorPlacement: function(error, element) {
+                // Add the `invalid-feedback` class to the error element
+                error.addClass("invalid-feedback");
+                if (element.prop("type") === "checkbox") {
+                    // error.insertAfter(element.next("label"));
+                } else {
+                    // error.insertAfter(element);
+                }
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+                const parantId = $(element).attr('data-parent-id');
+                $('#' + parantId).addClass("text-danger").removeClass("text-success");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                const parantId = $(element).attr('data-parent-id');
+                $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            },
+        });
+        $('#updateForm').validate({
+              
+              errorPlacement: function(error, element) {
+                  // Add the `invalid-feedback` class to the error element
+                  error.addClass("invalid-feedback");
+                  if (element.prop("type") === "checkbox") {
+                      // error.insertAfter(element.next("label"));
+                  } else {
+                      // error.insertAfter(element);
+                  }
+              },
+              highlight: function(element, errorClass, validClass) {
+                  $(element).addClass("is-invalid").removeClass("is-valid");
+                  const parantId = $(element).attr('data-parent-id');
+                  $('#' + parantId).addClass("text-danger").removeClass("text-success");
+              },
+              unhighlight: function(element, errorClass, validClass) {
+                  const parantId = $(element).attr('data-parent-id');
+                  $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                  $(element).addClass("is-valid").removeClass("is-invalid");
+
+              },
+          });
+    });
+     
 </script>
 
 <script>
@@ -188,25 +237,27 @@
     $(document).ready(function() {
 
         $('.createLanguage').click(function() {
-            data = {
-                country: $('#country').val(),
-                country_code: $('#country_code').val(),
-            };
-            Axios.post('/api/preferences/language/create', data).then((resp) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: resp.data.msg
+            if ($('#createForm').valid()) {
+                data = {
+                    country: $('#country').val(),
+                    country_code: $('#country_code').val(),
+                };
+                Axios.post('/api/preferences/language/create', data).then((resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: resp.data.msg
+                    });
+                    // $('#adminAddModal').modal('hide').removeAttr('key');
+                    setTimeout(function() {
+                        location.reload()
+                    }, 2000);
+                }).catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: err
+                    });
                 });
-                // $('#adminAddModal').modal('hide').removeAttr('key');
-                setTimeout(function() {
-                    location.reload()
-                }, 2000);
-            }).catch((err) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: err
-                });
-            });
+            }
         });
 
 
@@ -230,25 +281,27 @@
         })
 
         $('.updateLanguage').click(function() {
-            let data = {
-                id: $('#hiddenIdLanguage').val(),
-                country: $('#editCountryName').val(),
-                country_code: $('#editCountryCode').val(),
-            }
-            Axios.post('/api/preferences/language/update', data).then((resp) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: resp.data.msg
-                });
-                window.location.reload()
+            if ($('#updateForm').valid()) {
+                let data = {
+                    id: $('#hiddenIdLanguage').val(),
+                    country: $('#editCountryName').val(),
+                    country_code: $('#editCountryCode').val(),
+                }
+                Axios.post('/api/preferences/language/update', data).then((resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: resp.data.msg
+                    });
+                    window.location.reload()
 
-            }).catch((err) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: err
-                });
+                }).catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: err
+                    });
 
-            });
+                });
+             }
         })
 
 

@@ -133,7 +133,7 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-white shadow shadow-sm">
                     <h5 class="modal-title" id="staticBackdropLabel"> {{ __('Create New Product Category') }} </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -154,7 +154,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }}
                     </button>
                     <button type="button" class="btn btn-success saveCategory"> {{ __('Save') }} </button>
