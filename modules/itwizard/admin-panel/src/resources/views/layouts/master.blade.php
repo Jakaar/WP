@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="{{ Session::get('locale') }}">
+@inject('t','App\Helper\Helper')
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{{env('APP_NAME')}} | {{ env('ORG_NAME') }}</title>
+    <title>{{ env('APP_NAME') }} | {{ env('ORG_NAME') }}</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,12 +51,15 @@
                         <div class="col-12 mb-4">
                             <div class="card mb-3 text-wrap">
                                 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs nav">
-                                    @foreach (Config::get('Menu') as $menu => $menus)
+                                    {{-- {{ dd(Config::get('Menu')) }} --}}
+                                    @foreach ($data['menu'] as $menus)
                                         <li class="nav-item ml-2">
                                             <a role="tab"
-                                                class="nav-link {{ Request::is($menus['url'] . '*') ? 'active' : null }}"
-                                                href="/{{ $menus['url'] }}">
-                                                <span class="text-wrap">{{ __($menus['title']) }}</span>
+                                                class="nav-link {{ Request::getRequestUri() == $menus->url ? 'active' : null }}"
+                                                href="{{ $menus->url }}">
+
+                                                <span
+                                                    class="text-wrap">{{ $t->translateText($menus->title) }}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -524,6 +528,7 @@
                 }
             }
             getLocation();
+
             function showPosition(position) {
                 localStorage.setItem('latitude', position.coords.latitude)
                 localStorage.setItem('longitude', position.coords.longitude)
@@ -533,9 +538,9 @@
 
             let url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + q + '&days=7&lang=ko';
             let data;
-            if(localStorage.getItem('latitude') != null && localStorage.getItem('longitude') != null){
+            if (localStorage.getItem('latitude') != null && localStorage.getItem('longitude') != null) {
 
-                data = localStorage.getItem('latitude') + ','+ localStorage.getItem('longitude')
+                data = localStorage.getItem('latitude') + ',' + localStorage.getItem('longitude')
                 url = 'http://api.weatherapi.com/v1/forecast.json?key=' + key + '&q=' + data + '&days=7&lang=ko';
             }
             Axios.post(url)
@@ -575,8 +580,8 @@
                             ' </h5> <h5 class="fw-bold"> ' + item.day.maxtemp_c.toFixed(0) +
                             '℃ </h5> </div> </div> </div>');
                     })
-
-                    $('#weather-temp').text(current.temp_c + '℃')
+                   
+                    $('#weather-temp').text(current.temp_c.toFixed(0) + '℃')
                     $('#weather-icon').append('<img src=' + current.condition.icon + '>')
                     $('#weather-type').text(current.condition.text)
                     $("#weather-wind").text(current.wind_kph + 'km/h')

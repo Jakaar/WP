@@ -1,6 +1,7 @@
 <div class="app-sidebar sidebar-shadow">
     <div class="app-header__logo">
-        <div class="logo-src" style="background:url('{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}') "></div>
+        <div class="logo-src"
+            style="background:url('{{ Config::get('setting.Admin_logo') ?? '/aPanel/imgs/logo.png' }}') "></div>
         <div class="header__pane ms-auto">
             <div>
                 <button type="button" class="hamburger close-sidebar-btn hamburger--elastic">
@@ -31,39 +32,94 @@
     </div>
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
-            <ul class="vertical-nav-menu">
-                @foreach(Config::get('Menu') as $menu=>$menus)
-                    @if(Request::is($menus['url'].'*') == $menus['url'])
-                        <li class="app-sidebar__heading">{{__($menus['title'])}}</li>
-                        @foreach($menus['menus'] as $mainmenu)
-                            @if($mainmenu['child'])
-                                <li class="{{Request::is($mainmenu['url'].'/*') ? 'mm-active' : null }}">
-                                    <a href="#" aria-expanded="{{Request::is($mainmenu['url'].'/*') ? 'true' : null }}">
-                                        <i class="metismenu-icon {{$mainmenu['icon']}} {{$mainmenu['colorClass'] ?? ''}}"></i>
-                                        {{__($mainmenu['name'])}}
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul class="{{Request::is($mainmenu['url']) ? 'mm-collapse mm-show' : null }}" style="">
-                                        @foreach($mainmenu['child'] as $child)
+            <ul class="vertical-nav-menu metismenu">
+                @foreach ($data['menu'] as $index)
+                    @if ($index->url == Request::getRequestUri())
+                        <li class="app-sidebar__heading">{{ $t->translateText($index->title) }} </li>
+                        @foreach ($index->child as $child)
+                            <li class=" @if (Request::getRequestUri() == $child->url)  mm-active  @endif">
+                                <a href="{{ $child->url }}" aria-expanded="true">
+                                    <i class="metismenu-icon {{ $child->icon ?? 'pe-7s-menu' }}"></i>
+                                    {{ $t->translateText($child->title) }}
+                                    @if ($child->child->count() != 0)
+                                        <i class="metismenu-state-icon pe-7s-angle-up caret-left"></i>
+                                    @endif
+                                </a>
+
+                                @if ($child->child->count() != 0)
+                                    <ul class="mm-collapse">
+                                        @foreach ($child->child as $subchild)
                                             <li>
-                                                <a href="/{{__($child['url'])}}" class="{{Request::is($child['url']) ? 'mm-active' : null }}">
-                                                    {{--                                                    <i class="metismenu-icon"></i>--}}
-                                                    {{__($child['name'])}}
-                                                </a>
+                                                <a href="{{ $subchild->url }}">
+                                                    {{ $t->translateText($subchild->title) }} </a>
                                             </li>
                                         @endforeach
                                     </ul>
-                                </li>
-                            @else
-                                <li>
-                                    <a href="/{{$mainmenu['url']}}" class="{{Request::is($mainmenu['url']) ? 'mm-active' : null }}">
-                                        <i class="metismenu-icon {{$mainmenu['icon']}} {{$mainmenu['colorClass'] ?? ''}}"></i>
-                                        {{__($mainmenu['name'])}}
-                                    </a>
-                                </li>
+                                @endif
+                            </li>
+                        @endforeach
+                    @else
+                        @foreach ($index->child as $childs)
+                            {{-- {{ dd($child) }} --}}
+                            @if (Request::getRequestUri() == $childs->url)
+                                <li class="app-sidebar__heading">{{ $t->translateText($childs->parent->title) }} </li>
+                                @foreach ($childs->parent->child as $sub)
+                                    <li class=" @if (Request::getRequestUri() == $sub->url)  mm-active  @endif">
+                                        <a href="{{ $sub->url }}" aria-expanded="true">
+                                            <i class="metismenu-icon {{ $sub->icon ?? 'pe-7s-menu' }}"></i>
+                                            {{ $t->translateText($sub->title) }}
+                                            @if ($sub->child->count() != 0)
+                                            <i class="metismenu-state-icon pe-7s-angle-up caret-left"></i>
+                                            @endif
+                                        </a>
+                                        @if ($sub->child->count() != 0)
+                                            <ul class="mm-collapse mm-show">
+                                                @foreach ($sub->child as $subchild)
+                                                    <li>
+                                                        <a href="{{ $subchild->url }}">
+                                                            {{ $t->translateText($subchild->title) }} </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
                             @endif
+
+                            @foreach ($childs->child as $ach)
+
+                                @if (Request::getRequestUri() == $ach->url)
+                                    <li class="app-sidebar__heading">
+                                        {{ $t->translateText($ach->parent->parent->title) }}
+                                    </li>
+                                    @foreach ($ach->parent->parent->child as $sub)
+                                        <li class=" @if (Request::getRequestUri() == $sub->url)  mm-active  @endif">
+                                            <a href="{{ $sub->url }}" aria-expanded="true">
+                                                <i class="metismenu-icon {{ $sub->icon ?? 'pe-7s-menu' }}"></i>
+                                                {{ $t->translateText($sub->title) }}
+                                                @if ($sub->child->count() != 0)
+                                                    <i class="metismenu-state-icon pe-7s-angle-up caret-left"></i>
+                                                @endif
+                                            </a>
+                                            @if ($sub->child->count() != 0)
+                                                <ul class="mm-collapse mm-show">
+                                                    @foreach ($sub->child as $subchild)
+                                                        <li class=" @if (Request::getRequestUri() == $subchild->url)  mm-active  @endif" >
+                                                            <a href="{{ $subchild->url }}">
+                                                                {{ $t->translateText($subchild->title) }} </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
+
+                                @endif
+                            @endforeach
+
                         @endforeach
                     @endif
+
                 @endforeach
             </ul>
         </div>
