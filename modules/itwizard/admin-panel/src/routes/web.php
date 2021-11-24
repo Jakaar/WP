@@ -69,7 +69,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);
     Route::get('/member_management/settings', [PermissionController::class, 'settings'])->middleware(['permission:permission-read']);
 
-    Route::get('/banner',[BannerController::class, 'index']);
+    Route::get('/banner',[BannerController::class, 'index'])->middleware(['permission:banner-read']);
 
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
@@ -92,7 +92,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
 
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
-    Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus']);
+    Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus'])->middleware(['permission:userMenu-read']);
 
 //    Route::get('/{slug}/{view}', function ($slug, $view){
 //
