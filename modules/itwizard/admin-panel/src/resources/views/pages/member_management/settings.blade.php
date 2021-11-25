@@ -123,7 +123,7 @@
                 Axios.post('/api/permission/settings/update', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg,
+                        title:'{{__('Success')}}',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -152,7 +152,7 @@
                 Axios.post('/api/permission/settings/create', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg,
+                        title:'{{__('Success')}}',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -174,7 +174,7 @@
                 Axios.post('/api/permission/settings/delete', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg,
+                        title:'{{__('Success')}}',
                         showConfirmButton: false,
                         timer: 1500
                     })

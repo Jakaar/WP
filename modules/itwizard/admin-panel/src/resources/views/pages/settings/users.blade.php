@@ -350,13 +350,13 @@
                                             },
                                         },
                                         messages: {
-                                            firstname: "Please enter your firstname",
-                                            lastname: "Please enter your lastname",
+                                            firstname: "{{__('Please enter your firstname')}}",
+                                            lastname: "{{__('Please enter your lastname')}}",
                                             password: {
-                                                required: "Please provide a password",
-                                                minlength: "Your password must be at least 6 characters long",
+                                                required: "{{__('Please provide a password')}}",
+                                                minlength: "{{__('Your password must be at least 6 characters long')}}",
                                             },
-                                            email: "Please enter a valid email address",
+                                            email: "{{__('Please enter a valid email address')}}",
                                         },
                                         errorElement: "em",
                                         errorPlacement: function(error, element) {
@@ -398,9 +398,9 @@
                                             console.log(resp)
                                             Swal.fire({
                                                 icon: resp.data.icon,
-                                                title: resp.data.msg,
+                                                title: '{{__('Success')}}',
                                                 showConfirmButton: false,
-                                                timer: 1500
+                                                timer: 4000
                                             });
                                         }).catch((err) => {
                                             Swal.fire({
@@ -429,11 +429,12 @@
                                     let badge = $(this)
 
                                     Swal.fire({
-                                        title: 'Do you want to delete role?',
+                                        title: '{{__('Do you want to delete role?')}}',
                                         cancelButtonColor: '#212529',
                                         confirmButtonColor: '#dc3545',
                                         showCancelButton: true,
-                                        confirmButtonText: 'Delete',
+                                        confirmButtonText: '{{__('Delete')}}',
+                                        cancelButtonText: '{{__('Cancel')}}'
                                     }).then((result) => {
                                         /* Read more about isConfirmed, isDenied below */
                                         if (result.isConfirmed) {
@@ -444,13 +445,13 @@
 
                                             }).catch((err) => {
                                                 Toast.fire({
-                                                    icon: resp.data.icon,
+                                                    icon: resp.data.icon.msg,
                                                     title: err
                                                 });
                                             });
-                                            Swal.fire('Deleted!', '', 'success')
+                                            Swal.fire('{{__('Deleted!')}}', '', 'success')
                                         } else if (result.isDenied) {
-                                            Swal.fire('Changes are not saved', '', 'info')
+                                            Swal.fire('{{__('Changes are not saved')}}', '', 'info')
                                         }
                                     })
 
@@ -475,13 +476,13 @@
                                         },
                                     },
                                     messages: {
-                                        firstname: "Please enter your firstname",
-                                        lastname: "Please enter your lastname",
+                                        firstname: "{{__('Please enter your firstname')}}",
+                                        lastname: "{{__('Please enter your lastname')}}",
                                         password: {
-                                            required: "Please enter your a password",
-                                            minlength: "Your password must be at least 6 characters long",
+                                            required: "{{__('Please enter your a password')}}",
+                                            minlength: "{{__('Your password must be at least 6 characters long')}}",
                                         },
-                                        email: "Please enter a valid email address",
+                                        email: "{{__('Please enter a valid email address')}}",
                                     },
                                     errorElement: "em",
                                     errorPlacement: function(error, element) {
@@ -515,17 +516,17 @@
                                         Axios.post('/api/member/create', data).then((resp) => {
                                             window.location.reload();
                                             Swal.fire({
-                                                icon: 'success',
-                                                title: resp.data.msg,
+                                                icon: resp.data.icon,
+                                                title: '{{__('Success')}}',
                                                 showConfirmButton: false,
-                                                timer: 1500
+                                                timer: 4000
                                             });
                                         }).catch((err) => {
                                             Swal.fire({
                                                 icon: 'error',
                                                 title: err,
                                                 showConfirmButton: false,
-                                                timer: 1500
+                                                timer: 2000
                                             });
                                         });
                                     }
@@ -537,10 +538,10 @@
                             $('.delete_user').click(function() {
                                 const user_id = $(this).attr('data-id');
                                 Swal.fire({
-                                    title: 'Reason',
+                                    title: '{{__('Reason')}}',
                                     input: 'textarea',
                                     // inputLabel: 'Reason',
-                                    inputPlaceholder: 'Type your message here...',
+                                    inputPlaceholder: '{{__('Type your message here...')}}',
                                     inputAttributes: {
                                         'aria-label': 'Type your message here'
                                     },
@@ -561,21 +562,21 @@
                                         }
                                         Axios.post('/api/user/delete', data).then((resp) => {
                                             $('tr[key=' + user_id + ']').remove()
-                                            Swal.fire('Deleted!', '', 'success')
+                                            Swal.fire('{{__('Deleted!')}}', '', 'success')
                                             setTimeout(function() {
                                                 location.reload()
-                                            }, 1500);
+                                            }, 3000);
                                         }).catch((err) => {
                                             Swal.fire({
                                                 icon: 'error',
                                                 title: err,
                                                 showConfirmButton: false,
-                                                timer: 1500
+                                                timer: 2000
                                             });
                                         });
 
                                     } else if (result.isDenied) {
-                                        Swal.fire('Changes are not saved', '', 'info')
+                                        Swal.fire('{{__('Cancelled')}}', '', 'info')
                                     }
                                 })
                             })
@@ -606,7 +607,7 @@
                                         icon: resp.data.icon,
                                         title: resp.data.msg,
                                         showConfirmButton: false,
-                                        timer: 1500
+                                        timer: 3000
                                     });
                                     if (resp.data.icon == 'error') {
 
@@ -620,7 +621,7 @@
                                         icon: 'error',
                                         title: err,
                                         showConfirmButton: false,
-                                        timer: 1500
+                                        timer: 3000
                                     });
                                 });
 

@@ -348,7 +348,7 @@
                         },
                     },
                     messages: {
-                        firstname: "Please enter your firstname",
+                        firstname: "{{__('Please enter your firstname')}}",
                         lastname: "Please enter your lastname",
                         password: {
                             required: "Please provide a password",
@@ -455,7 +455,7 @@
                     },
                 },
                 messages: {
-                    firstname: "Please enter your firstname",
+                    firstname: "{{__('Please enter your firstname')}}",
                     lastname: "Please enter your lastname",
                     password: {
                         required: "Please enter your a password",
@@ -534,7 +534,7 @@
                     });
 
                 } else if (result.isDenied) {
-                    Swal.fire('Changes are not saved', '', 'info')
+                    Swal.fire('{{__('Changes are not saved')}}', '', 'info')
                 }
             })
         })

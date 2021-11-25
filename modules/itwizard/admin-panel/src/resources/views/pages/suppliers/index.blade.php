@@ -264,7 +264,8 @@
                 Axios.post('/api/mail/create', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg
+                        title:'{{__('Success')}}',
+                        showConfirmButton: false
                     });
                     $('#adminAddModal').modal('hide').removeAttr('key');
                     setTimeout(function() {
@@ -357,7 +358,8 @@
                 Axios.post('/api/mail/send', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg,
+                        title:'{{__('Success')}}',
+                        showConfirmButton: false
                     });
                     setTimeout(function() {
                         location.reload()
@@ -384,7 +386,7 @@
                     delete_id: delete_id
                 }
                 Swal.fire({
-                    title: 'Are you sure?',
+                    title: '{{__('Are you sure?')}}',
                     showDenyButton: true,
                     showCancelButton: false,
                     confirmButtonText: "{{__('Ok')}}",
@@ -392,7 +394,10 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/mail/delete', data).then((resp) => {
-                            Swal.fire('Deleted!', '', 'success')
+                            Swal.fire({
+                                icon: 'success',
+                                title: '{{__('Deleted!')}}',
+                                showConfirmButton: false})
                             $('tr[key=' + delete_id + ']').remove()
                             setTimeout(function() {
                                 location.reload()
@@ -442,7 +447,8 @@
                 Axios.post('/api/mail/update', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: resp.data.msg
+                        title: '{{__('Success')}}',
+                        showConfirmButton: false
                     });
                     window.location.reload()
 

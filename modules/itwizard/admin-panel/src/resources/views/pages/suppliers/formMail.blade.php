@@ -50,7 +50,7 @@
                         </button>
                         
                         <button class="btn-outline-danger btn-link btn deleteFormMail" data-id="2">
-                            {{ ('Delete') }}
+                            {{__('Delete') }}
                         </button>
                     </td>
                 </tr>

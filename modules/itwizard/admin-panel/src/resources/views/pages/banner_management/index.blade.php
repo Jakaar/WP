@@ -181,11 +181,11 @@
                     Axios.post('/api/addbanner', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire(
-                            'Added!',
-                            'Your banner has been added.',
-                            'success'
-                        )
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Added!')}}',
+                            showConfirmButton: false
+                        })
                         setTimeout(function() {
                             location.reload()
                         }, 2000);
@@ -206,15 +206,15 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     cancelButtonText: '{{ __('Cancel') }}',
-                    confirmButtonText: '{{ __('Yes Delete It!') }}'
+                    confirmButtonText: '{{ __('Delete') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteBanner/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Deleted!')}}',
+                            showConfirmButton: false
+                        })
                             $(this).closest('tr').fadeOut();
                         });
                     }
@@ -257,11 +257,11 @@
                     Axios.post('/api/updatebanner', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire(
-                            'Updated!',
-                            'Your banner has been updated.',
-                            'success'
-                        )
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Updated!')}}',
+                            showConfirmButton: false
+                        })
                         setTimeout(function() {
                             location.reload()
                         }, 2000);
