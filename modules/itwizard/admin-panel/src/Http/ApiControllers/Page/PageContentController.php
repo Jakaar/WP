@@ -109,4 +109,24 @@ class PageContentController extends Controller
             }
         }
     }
+    public function GalleryGetContent($id)
+    {
+        $data = DB::table('main__gallery__photos')
+            ->where('gallery_id', $id)
+            ->first();
+        if ($data)
+        {
+            return response()->json(['msg'=>'success', 'data'=>$data], 200);
+        }
+        return response()->json(['msg'=>'success', 'data'=> null], 200);
+
+    }
+    public function GalleryCreateContent(Request $request, $id)
+    {
+        DB::table('main__gallery__photos')->updateOrInsert(['gallery_id'=>$id],[
+            'photos'=> $request->data,
+        ]);
+        return response()->json(['msg'=>'success'], 200);
+
+    }
 }
