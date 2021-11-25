@@ -38,8 +38,8 @@
                                 <tr>
                                     <th> {{__('ID')}} </th>
                                     <th> {{__('Country')}} </th>
-                                    <th> {{__('Country_code')}} </th>
-                                    <th> {{__('Created_at')}} </th>
+                                    <th> {{__('Country Code')}} </th>
+                                    <th> {{__('Created at')}} </th>
                                     <th> {{__('Action')}} </th>
                                 </tr>
                             </thead>
@@ -52,10 +52,10 @@
                                         <td>{{ $language-> created_at}}</td>
                                         <td>
                                             <button class="btn-outline-primary btn editLanguage" data-id="{{$language->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-                                                {{ ('Edit') }}
+                                                {{__('Edit') }}
                                             </button>
                                             <button class="btn-outline-danger btn-link btn deleteLanguage" data-id="{{$language->id}}">
-                                                {{ ('Delete') }}
+                                                {{__('Delete') }}
                                             </button>
                                         </td>
                                     </tr>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country_code')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Country Code')}}</label>
                         <input id="country_code" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
 
                     </div>
@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country_code')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Country Code')}}</label>
                         <input id="editCountryCode" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
                 </form>
@@ -207,7 +207,7 @@
             // console.log(data);
 
             Swal.fire({
-                title: 'Are you sure?',
+                title: '{{__('Are you sure?')}}',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "{{__('Ok')}}",
@@ -215,11 +215,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Axios.post('/api/preferences/language/delete', data).then((resp) => {
-                            Swal.fire('Deleted!', '', 'success')
+                            Swal.fire('{{__('Deleted!')}}', '', 'success')
                             $('tr[key=' + delete_id + ']').remove()
                             setTimeout(function() {
                                 location.reload()
-                            }, 2000);
+                            }, 4000);
                         })
                         .catch((err) => {
                             Swal.fire({

@@ -390,7 +390,7 @@
                 group: group
             }
             Swal.fire({
-                title: 'Do you want to change group?',
+                title: '{{__('Do you want to change group?')}}',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "{{ __('Yes') }}",
@@ -425,7 +425,7 @@
                 id: settings_id
             }
             Swal.fire({
-                title: 'Do you want to delete this settings?',
+                title: '{{__('Do you want to delete this settings?')}}',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "{{ __('Delete') }}",
@@ -433,7 +433,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Axios.post('/api/preferences/delete', data).then((resp) => {
-                        Swal.fire('Deleted!', '', 'success')
+                        Swal.fire('{{__('Deleted!')}}', '', 'success')
                         console.log(resp)
                         setInterval(() => {
                             window.location.reload()
@@ -499,7 +499,7 @@
             $('#s_edit_settings').toggleClass('d-none')
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
+                title: '{{__('Success')}}',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -560,7 +560,7 @@
                     Axios.post('/api/preferences/create', data).then((resp) => {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Success',
+                            title: '{{__('Success')}}',
                             showConfirmButton: false,
                             timer: 1500
                         })
