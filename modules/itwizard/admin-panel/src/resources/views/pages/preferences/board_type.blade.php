@@ -11,7 +11,7 @@
                             </div>
                             
                             <div>
-                                {{__('Language')}}
+                                {{__('Board type')}}
                                 <div class="page-title-subheading"></div>
                             </div>
                         </div>
@@ -37,24 +37,20 @@
                             <thead>
                                 <tr>
                                     <th> {{__('ID')}} </th>
-                                    <th> {{__('Country')}} </th>
-                                    <th> {{__('Country code')}} </th>
+                                    <th> {{__('Key')}} </th>
                                     <th> {{__('Created at')}} </th>
                                     <th> {{__('Action')}} </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                   @foreach ($language as $language)
+                                   @foreach ($board_type as $board_type)
                                     <tr>
-                                        <td>{{ $language-> id}}</td>
-                                        <td>{{ $language-> country}}</td>
-                                        <td>{{ $language-> country_code}}</td>
-                                        <td>{{ $language-> created_at}}</td>
+                                        <td>{{ $board_type-> id}}</td>
+                                        <td>{{ $board_type-> key}}</td>
+                                        <td>{{ $board_type-> created_at}}</td>
                                         <td>
-                                            <button class="btn-outline-primary btn editLanguage" data-id="{{$language->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-                                                {{__('Edit')}}
-                                            </button>
-                                            <button class="btn-outline-danger btn-link btn deleteLanguage" data-id="{{$language->id}}">
+                                          
+                                            <button class="btn-outline-danger btn-link btn delete_board_type" data-id="{{$board_type->id}}">
                                                 {{__('Delete')}}
                                             </button>
                                         </td>
@@ -79,62 +75,32 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title card-title " id="staticBackdropLabel">{{ __('Create Language') }}</h5>
+                <h5 class="modal-title card-title " id="staticBackdropLabel">{{__('Create Board type')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="#" class="row" id="createForm">
                     <input type="hidden" id="hiddenIdLanguage">
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country')}}</label>
-                        <input id="country" name="country" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
+                        <label class="form-label fw-bold" for="">{{__('Key')}}</label>
+                        <input id="key" name="key" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
-                    <div class="mb-3 col-lg-12">
+                    <!-- <div class="mb-3 col-lg-12">
                         <label class="form-label fw-bold" for="">{{__('Country code')}}</label>
                         <input id="country_code" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
 
-                    </div>
+                    </div> -->
                 </form>
             </div>
             <div class="modal-footer card-btm-border card-shadow-success border-success">
                 <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
-                <button type="button" class="btn btn-success createLanguage"> {{ __('Confirm') }} </button>
+                <button type="button" class="btn btn-success createBoardType"> {{ __('Confirm') }} </button>
             </div>
         </div>
     </div>
 </div>
-<!-- edit modal -->
-<div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title card-title" id="staticBackdropLabel">{{__('Edit Language')}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="" class="row" id="updateForm">
-                    <input type="hidden" id="hiddenIdLanguage">
-                    <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country')}}</label>
-                        <input id="editCountryName" name="country" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                    </div>
 
-                    <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country code')}}</label>
-                        <input id="editCountryCode" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
-                <button type="button" class="btn btn-success updateLanguage">{{__('Save Changes')}}</button>
-            </div>
-           
-        </div>
-    </div>
-</div>
 @endsection
 
 
@@ -170,41 +136,18 @@
                 $(element).addClass("is-valid").removeClass("is-invalid");
             },
         });
-        $('#updateForm').validate({
-              
-              errorPlacement: function(error, element) {
-                  // Add the `invalid-feedback` class to the error element
-                  error.addClass("invalid-feedback");
-                  if (element.prop("type") === "checkbox") {
-                      // error.insertAfter(element.next("label"));
-                  } else {
-                      // error.insertAfter(element);
-                  }
-              },
-              highlight: function(element, errorClass, validClass) {
-                  $(element).addClass("is-invalid").removeClass("is-valid");
-                  const parantId = $(element).attr('data-parent-id');
-                  $('#' + parantId).addClass("text-danger").removeClass("text-success");
-              },
-              unhighlight: function(element, errorClass, validClass) {
-                  const parantId = $(element).attr('data-parent-id');
-                  $('#' + parantId).addClass("text-success").removeClass("text-danger");
-                  $(element).addClass("is-valid").removeClass("is-invalid");
-
-              },
-          });
+    
     });
      
 </script>
 
 <script>
     $(document).ready(function() {
-        $('.deleteLanguage').click(function() {
+        $('.delete_board_type').click(function() {
             const delete_id = $(this).attr('data-id')
             const data = {
                 delete_id: delete_id
             }
-            // console.log(data);
 
             Swal.fire({
                 title: "{{__('Are you sure?')}}",
@@ -214,12 +157,10 @@
                 denyButtonText: `{{__('Cancel')}}`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Axios.post('/api/preferences/language/delete', data).then((resp) => {
+                    Axios.post('/api/preferences/board_type/delete', data).then((resp) => {
                             Swal.fire("{{__('Deleted!')}}", '', 'success')
                             $('tr[key=' + delete_id + ']').remove()
-                            setTimeout(function() {
                                 location.reload()
-                            }, 2000);
                         })
                         .catch((err) => {
                             Swal.fire({
@@ -236,74 +177,31 @@
 <script>
     $(document).ready(function() {
 
-        $('.createLanguage').click(function() {
+        $('.createBoardType').click(function() {
             if ($('#createForm').valid()) {
                 data = {
-                    country: $('#country').val(),
-                    country_code: $('#country_code').val(),
+                    key: $('#key').val(),
                 };
-                Axios.post('/api/preferences/language/create', data).then((resp) => {
+                Axios.post('/api/preferences/board_type/create', data).then((resp) => {
                     window.location.reload();
-                   
-                    Swal.fire({
-                        icon: 'success',
-                        title: resp.data.msg
-                    });
-                   
+                    Swal.fire(
+                        "{{__('Added!')}}",
+                        {
+                            icon: resp.data.icon,
+                            title: resp.data.msg,
+                        
+                        });
+                 
                 }).catch((err) => {
                     Swal.fire({
-                        icon: 'error',
-                        title: err
+                        icon: resp.data.icon,
+                        title: err,
+                      
                     });
                 });
+
             }
         });
-
-
-        $('.editLanguage').click(function() {
-            const edit_language_id = $(this).attr('data-id');
-            const data = {
-                edit_language_id: edit_language_id,
-            }
-
-            Axios.post('/api/preferences/language/edit', data).then((resp) => {
-                $('#hiddenIdLanguage').val(resp.data.data.id)
-                $('#editCountryName').val(resp.data.data.country)
-                $('#editCountryCode').val(resp.data.data.country_code)
-
-            }).catch((err) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: err
-                });
-            });
-        })
-
-        $('.updateLanguage').click(function() {
-            if ($('#updateForm').valid()) {
-                let data = {
-                    id: $('#hiddenIdLanguage').val(),
-                    country: $('#editCountryName').val(),
-                    country_code: $('#editCountryCode').val(),
-                }
-                Axios.post('/api/preferences/language/update', data).then((resp) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: resp.data.msg
-                    });
-                    window.location.reload()
-
-                }).catch((err) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: err
-                    });
-
-                });
-             }
-        })
-
-
 
     })
 </script>

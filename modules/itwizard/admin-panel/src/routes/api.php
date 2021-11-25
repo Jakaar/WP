@@ -75,7 +75,12 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/menu/updates',[PreferencesController::class, 'menuUpdates']);
         Route::post('/preferences/menu/single',[PreferencesController::class, 'menuSingle']);
         Route::post('/preferences/menu/delete',[PreferencesController::class, 'menuDelete']);
+
     });
+
+    Route::post('/preferences/board_type/create', [PreferencesController::class, 'createBoardType']);
+    Route::post('/preferences/board_type/delete',[PreferencesController::class, 'deleteBoardType']);
+
     Route::post('/preferences/language/create', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'createLanguage']);
     Route::post('/preferences/language/update', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'updateLanguage']);
     Route::post('/preferences/language/delete', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'deleteLanguage']);

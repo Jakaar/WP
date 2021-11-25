@@ -42,4 +42,9 @@ class PreferencesController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function board_type() {
+        $board_type=DB::table('wpanel_board_type')->get();
+        return view('Admin::pages.preferences.board_type',compact('board_type'));
+    }
 }

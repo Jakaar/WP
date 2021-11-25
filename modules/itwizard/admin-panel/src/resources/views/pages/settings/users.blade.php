@@ -34,7 +34,7 @@
         </div>
         <div class="row">
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">{{ __('Total User') }}</h5>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             @foreach ($role as $roles)
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             <h5 class="card-title">{{ __($roles->display_name) }}</h5>
