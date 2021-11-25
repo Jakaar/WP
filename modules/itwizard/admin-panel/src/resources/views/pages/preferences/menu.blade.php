@@ -284,7 +284,7 @@
                         const parent = $(this).attr('data-id');
 
                         $(this).find(' ol:first > li').each(function(a, b) {
-                            $(this).attr('data-order', (i + 1) + '-' + (a + 1))
+                            $(this).attr('data-order', (a + 1))
                             data.push({
                                 id: $(this).attr('data-id'),
                                 order: $(this).attr('data-order'),
@@ -293,9 +293,7 @@
                             })
                             const parent_parent = $(this).data('id')
                             $(this).find('ol > li').each(function(x, z) {
-                                $(this).attr('data-order', (i + 1) + '-' + (a +
-                                        1) + '-' +
-                                    (x + 1))
+                                $(this).attr('data-order', (x + 1))
                                 data.push({
                                     id: $(this).attr('data-id'),
                                     order: $(this).attr('data-order'),
@@ -312,7 +310,7 @@
                         // Menu drag end drop success msg
                         Swal.fire({
                             icon: 'success',
-                            title: '{{__('Success') }}''
+                            title: '{{__('Success') }}'
                         });
                     }).catch((err) => {
                         console.log(err)

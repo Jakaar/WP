@@ -19,7 +19,7 @@ class CreateAdminMenusTable extends Migration
             $table->string('icon')->nullable();
             $table->string('url')->nullable();
             $table->integer('parent_id')->nullable();
-            $table->string('order')->nullable()->default(1);
+            $table->integer('order')->nullable()->default(1);
             $table->integer('is_active')->default(1);
             $table->timestamps();
         });
