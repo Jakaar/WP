@@ -2,16 +2,16 @@
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
-            
+
                 <div class="app-page-title">
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
                             <div class="page-title-icon">
                             <i class="pe-7s-diamond icon-gradient bg-strong-bliss"></i>
                             </div>
-                            
+
                             <div>
-                                {{__('Board type')}}
+                                {{__('Board Type')}}
                                 <div class="page-title-subheading"></div>
                             </div>
                         </div>
@@ -19,7 +19,7 @@
                             <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                                 <i class="pe-7s-refresh-2"></i>
                             </button>
-                            
+
                             <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal"  data-bs-target="#staticBackdropAdd" >
                                 <span class="btn-icon-wrapper pe-2 opacity-7">
                                     <i class="pe-7s-plus"></i>
@@ -29,8 +29,8 @@
                         </div>
                     </div>
                 </div>
-           
-            
+
+
                 <div class="main-card card">
                     <div class="card-body">
                         <table style="width: 100%;" id="new_table" class="table table-hover table-striped table-bordered">
@@ -49,19 +49,19 @@
                                         <td>{{ $board_type-> key}}</td>
                                         <td>{{ $board_type-> created_at}}</td>
                                         <td>
-                                          
+
                                             <button class="btn-outline-danger btn-link btn delete_board_type" data-id="{{$board_type->id}}">
                                                 {{__('Delete')}}
                                             </button>
                                         </td>
                                     </tr>
                                     @endforeach
-                             
+
                             </tbody>
                         </table>
                     </div>
                 </div>
-          
+
         </div>
     </div>
 
@@ -112,10 +112,10 @@
     });
 
      $('#new_table').DataTable({})
-     
+
     $(document).ready(function() {
         $('#createForm').validate({
-            
+
             errorPlacement: function(error, element) {
                 // Add the `invalid-feedback` class to the error element
                 error.addClass("invalid-feedback");
@@ -136,9 +136,9 @@
                 $(element).addClass("is-valid").removeClass("is-invalid");
             },
         });
-    
+
     });
-     
+
 </script>
 
 <script>
@@ -189,14 +189,14 @@
                         {
                             icon: resp.data.icon,
                             title: resp.data.msg,
-                        
+
                         });
-                 
+
                 }).catch((err) => {
                     Swal.fire({
                         icon: resp.data.icon,
                         title: err,
-                      
+
                     });
                 });
 
