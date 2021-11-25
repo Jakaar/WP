@@ -22,6 +22,9 @@ Route::group(['prefix' => 'api'], function () {
         return response()->json(['data' => DB::table('wpanel_available_language')->get()], 200);
     });
     Route::post('/board/create', [BoardMasterController::class, 'create']);
+    Route::post('/DeleteBoard/{id}', [BoardMasterController::class, 'DeleteBoard']);
+    Route::get('/editboard/{id}', [BoardMasterController::class, 'editBoard']);
+    Route::post('/updateboard', [BoardMasterController::class, 'updateboard']);
 
     Route::post('/profile/update', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'update']);
     Route::post('/profile/updatePassword', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'updatePassword']);

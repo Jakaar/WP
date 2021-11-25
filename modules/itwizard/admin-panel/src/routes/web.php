@@ -64,6 +64,8 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/myProfile', [MyProfileController::class, 'index']);
 
     Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
+    Route::get('/noticeboard/search', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'search']);
+    
 
     Route::get('/member_management/users', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
     Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);
