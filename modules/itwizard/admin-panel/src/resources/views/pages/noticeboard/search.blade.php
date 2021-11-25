@@ -99,16 +99,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($dataM['board_master'] as $board)
+                    @foreach($results as $result)
                         <tr>
                             <td></td>
-                            <td>{{$board->board_name}}</td>
-                            <td>{{$board->board_type}}</td>
-                            <td>{{$board->isComment}}</td>
-                            <td>{{$board->created_at}}</td>
+                            <td>{{$result->board_name}}</td>
+                            <td>{{$result->board_type}}</td>
+                            <td>{{$result->isComment}}</td>
+                            <td>{{$result->created_at}}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary EditModalShow editbtn" value="{{ $board->id }}">{{__('Edit')}}</button>
-                                <button class="btn btn-sm btn-outline-danger DeleteBoard" key="{{ $board->id }}">{{__('Delete')}}</button>
+                                <button class="btn btn-sm btn-outline-primary EditModalShow editbtn" value="{{ $result->id }}">{{__('Edit')}}</button>
+                                <button class="btn btn-sm btn-outline-danger DeleteBoard" key="{{ $result->id }}">{{__('Delete')}}</button>
                             </td>
                         </tr>
                     @endforeach

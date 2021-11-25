@@ -207,7 +207,7 @@
             // console.log(data);
 
             Swal.fire({
-                title: 'Are you sure?',
+                title: "{{__('Are you sure?')}}",
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "{{__('Ok')}}",
@@ -215,7 +215,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Axios.post('/api/preferences/language/delete', data).then((resp) => {
-                            Swal.fire('Deleted!', '', 'success')
+                            Swal.fire("{{__('Deleted!')}}", '', 'success')
                             $('tr[key=' + delete_id + ']').remove()
                             setTimeout(function() {
                                 location.reload()
@@ -243,14 +243,13 @@
                     country_code: $('#country_code').val(),
                 };
                 Axios.post('/api/preferences/language/create', data).then((resp) => {
+                    window.location.reload();
+                   
                     Swal.fire({
                         icon: 'success',
                         title: resp.data.msg
                     });
-                    // $('#adminAddModal').modal('hide').removeAttr('key');
-                    setTimeout(function() {
-                        location.reload()
-                    }, 2000);
+                   
                 }).catch((err) => {
                     Swal.fire({
                         icon: 'error',

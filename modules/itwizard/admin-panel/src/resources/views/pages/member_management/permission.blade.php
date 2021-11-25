@@ -137,7 +137,7 @@
                 data = $.extend({}, data, permission)
 
                 Axios.post('/api/permission/create', data).then((resp) => {
-                    Toast.fire({
+                    Swal.fire({
                         icon: resp.data.icon,
                         title: resp.data.msg
                     });
@@ -148,8 +148,9 @@
                     }
 
                 }).catch((err) => {
-                    Toast.fire({
-                        icon: 'error',
+                    Swal.fire({
+                        icon: '{{__('error')}}',
+                        '',
                         title: err
                     });
                 });
@@ -175,15 +176,15 @@
                     role_id: role_id
                 }
                 Swal.fire({
-                    title: 'Do you want to delete this row?',
+                    title: '{{__('Do you want to delete this row?')}}',
                     showDenyButton: true,
                     showCancelButton: false,
-                    confirmButtonText: "{{ __('Delete') }}",
-                    denyButtonText: `{{ __('Cancel') }}`,
+                    confirmButtonText: '{{ __('Delete') }}',
+                    denyButtonText: '{{ __('Cancel') }}',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/permission/delete', data).then((resp) => {
-                            Swal.fire('Deleted!', '', 'success')
+                            Swal.fire('{{__('Deleted!')}}', '', 'success')
                             $('tr[key=' + role_id + ']').remove()
                         }).catch((err) => {
                             Toast.fire({
@@ -231,7 +232,7 @@
                     })
 
                 }).catch((err) => {
-                    Toast.fire({
+                    Swal.fire({
                         icon: 'error',
                         title: err
                     });
@@ -259,12 +260,12 @@
                 Axios.post('/api/permission/update', data).then((resp) => {
                     // $("#EditRoleModal").modal('hide')
                     $('#EditRoleModal').modal('hide')
-                    Toast.fire({
+                    Swal.fire({
                         icon: resp.data.icon,
                         title: resp.data.msg
                     });
                 }).catch((err) => {
-                    Toast.fire({
+                    Swal.fire({
                         icon: 'error',
                         title: err
                     });

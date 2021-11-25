@@ -517,7 +517,7 @@
     <script>
         $(document).ready(function(){
             $.blockUI.defaults = {
-                // timeout: 2000,
+                 timeout: 2000,
                 // fadeIn: 200,
                 fadeOut: 400,
             };

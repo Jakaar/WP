@@ -22,6 +22,9 @@ Route::group(['prefix' => 'api'], function () {
         return response()->json(['data' => DB::table('wpanel_available_language')->get()], 200);
     });
     Route::post('/board/create', [BoardMasterController::class, 'create']);
+    Route::post('/DeleteBoard/{id}', [BoardMasterController::class, 'DeleteBoard']);
+    Route::get('/editboard/{id}', [BoardMasterController::class, 'editBoard']);
+    Route::post('/updateboard', [BoardMasterController::class, 'updateboard']);
 
     Route::post('/profile/update', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'update']);
     Route::post('/profile/updatePassword', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'updatePassword']);
@@ -75,7 +78,12 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/menu/updates',[PreferencesController::class, 'menuUpdates']);
         Route::post('/preferences/menu/single',[PreferencesController::class, 'menuSingle']);
         Route::post('/preferences/menu/delete',[PreferencesController::class, 'menuDelete']);
+
     });
+
+    Route::post('/preferences/board_type/create', [PreferencesController::class, 'createBoardType']);
+    Route::post('/preferences/board_type/delete',[PreferencesController::class, 'deleteBoardType']);
+
     Route::post('/preferences/language/create', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'createLanguage']);
     Route::post('/preferences/language/update', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'updateLanguage']);
     Route::post('/preferences/language/delete', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'deleteLanguage']);
