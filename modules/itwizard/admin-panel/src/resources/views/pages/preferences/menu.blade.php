@@ -147,11 +147,11 @@
                     id: $(this).data('id'),
                 }
                 Swal.fire({
-                    title: 'Do you want to delete the menu?',
+                    title: '{{__('Do you want to delete the menu?')}}',
                     showDenyButton: true,
                     showCancelButton: false,
-                    confirmButtonText: 'Delete',
-                    denyButtonText: `Cancel`,
+                    confirmButtonText: '{{__('Delete')}}',
+                    denyButtonText: '{{__('Cancel')}}',
 
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
@@ -165,12 +165,12 @@
                                 title: err
                             });
                         });
-                        Swal.fire('Deleted!', '', 'success')
+                        Swal.fire('{{__('Deleted!')}}', '', 'success')
                         setInterval(() => {
                             window.location.reload()
                         }, 1000);
                     } else if (result.isDenied) {
-                        Swal.fire('Changes are not saved', '', 'info')
+                        Swal.fire('{{__('Changes are not saved')}}', '', 'info')
                     }
                 })
             })
@@ -240,7 +240,7 @@
                     Axios.post('/api/preferences/menu/updates', data).then((resp) => {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Success',
+                            title: '{{__('Success')}}',
                         })
                         $('#staticBackdrop').modal('hide')
                         setInterval(() => {
@@ -312,7 +312,7 @@
                         // Menu drag end drop success msg
                         Swal.fire({
                             icon: 'success',
-                            title: "{{ __('success') }}"
+                            title: '{{__('Success') }}''
                         });
                     }).catch((err) => {
                         console.log(err)
@@ -353,10 +353,11 @@
                     })) {
                     Axios.post('/api/preferences/menu/create', data).then((resp) => {
                         $('#staticBackdrop').modal('hide')
-                        Swal.fire({
-                            icon: 'success',
-                            title: resp.data.msg
-                        });
+                        Swal.fire(
+                            '{{__('success')}}',
+                            '',
+                            resp.data.msg
+                            );
                         setInterval(() => {
                             window.location.reload()
                         }, 1500);
