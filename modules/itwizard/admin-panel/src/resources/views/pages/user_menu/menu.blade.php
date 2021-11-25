@@ -353,10 +353,11 @@
                                 function (index, attr) {
                                     return attr == 'disabled' ? null : ''
                                 })
-                            Toast.fire({
+                            Swal.fire({
                                 icon: 'success',
-                                title: resp.data.msg
-                            });
+                                title: '{{__('Success')}}',
+                                showConfirmButton: false
+                                })
                             window.location.reload()
                         }).catch((error) => {
                             Toast.fire({
@@ -423,9 +424,10 @@
 
                             Axios.post('/api/CreateMenu', data).then((resp) => {
                                 console.log(resp);
-                                Toast.fire({
+                                Swal.fire({
                                     icon: 'success',
-                                    title: resp.data.msg
+                                    title: '{{__('Success')}}',
+                                    showConfirmButton: false
                                 });
                                 $('#CreateMenuModal').modal('hide').removeAttr('key');
                                 setTimeout(function (){
@@ -444,15 +446,15 @@
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         cancelButtonText: '{{__('Cancel')}}',
-                        confirmButtonText: '{{__('Yes Delete It!')}}'
+                        confirmButtonText: '{{__('Delete')}}'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Axios.post('/api/DeleteMenu/' + $(this).attr('key')).then((resp) => {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '{{__('Deleted!')}}',
+                                    showConfirmButton: false
+                                })
                                 setTimeout(function (){
                                     location.reload()
                                 },2000);

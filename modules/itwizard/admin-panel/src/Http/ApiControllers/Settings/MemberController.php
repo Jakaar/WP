@@ -98,6 +98,6 @@ class MemberController extends Controller
         $user->save();
         $user->attachRole('user');
 
-        return response()->json(['msg' => 'success'], 200);
+        return response()->json(['icon'=> 'success', 'msg' => 'success'], 200);
     }
 }

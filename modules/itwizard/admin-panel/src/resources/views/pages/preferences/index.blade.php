@@ -393,7 +393,7 @@
                 title: '{{__('Do you want to change group?')}}',
                 showDenyButton: true,
                 showCancelButton: false,
-                confirmButtonText: "{{ __('Yes') }}",
+                confirmButtonText: '{{ __('Yes') }}',
                 denyButtonText: `{{ __('No') }}`,
             }).then((result) => {
                 if (result.isConfirmed) {
