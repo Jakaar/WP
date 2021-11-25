@@ -55,7 +55,13 @@
                                     @foreach ($data['menu'] as $menus)
                                         <li class="nav-item ml-2">
                                             <a role="tab"
-                                                class="nav-link {{ Request::getRequestUri() == $menus->url ? 'active' : null }}"
+                                                class="nav-link {{ Request::getRequestUri() == $menus->url ? 'active' : null }} 
+                                                @foreach ($menus->child as $child)
+                                                    @include('Admin::layouts.checker',[
+                                                        'checker' => $child
+                                                    ])
+                                                @endforeach 
+                                                "
                                                 href="{{ $menus->url }}">
 
                                                 <span

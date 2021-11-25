@@ -562,6 +562,9 @@
                                         Axios.post('/api/user/delete', data).then((resp) => {
                                             $('tr[key=' + user_id + ']').remove()
                                             Swal.fire('Deleted!', '', 'success')
+                                            setTimeout(function() {
+                                                location.reload()
+                                            }, 1500);
                                         }).catch((err) => {
                                             Swal.fire({
                                                 icon: 'error',
