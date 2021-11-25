@@ -234,6 +234,9 @@
                                             <option value="{{$board->id}}">{{$board->board_name}}</option>
                                         @endforeach
                                     </select>
+                                    @if(count($main['board']) == 0)
+                                    <small class="text-danger"> {{ __('Notice Board page is not created.') }}  <a href="/cms/noticeboard">{{ __('Click here') }}</a> </small>
+                                    @endif
                                 </div>
                             </div>
                             <hr class="text-primary">

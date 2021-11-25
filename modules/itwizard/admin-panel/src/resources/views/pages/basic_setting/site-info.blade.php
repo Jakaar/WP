@@ -267,9 +267,10 @@
                         toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
                 })
-                Toast.fire({
+                Swal.fire({
                     icon: 'success',
-                    title: resp.data.msg
+                    title: resp.data.msg,
+                    showConfirmButton: false, timer: 1500 
                 })
             }).catch((err) => {
                 console.log(err);
