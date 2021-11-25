@@ -100,9 +100,9 @@
                             Axios.post('/api/permission/create', data).then((resp) => {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Success',
+                                    title: '{{__('Success')}}',
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 3000
                                 })
 
                                 if (resp.data.icon == 'success') {
@@ -140,7 +140,7 @@
                                 role_id: role_id
                             }
                             Swal.fire({
-                                title: 'Do you want to delete this row?',
+                                title: '{{__('Do you want to delete this role?')}}',
                                 showDenyButton: true,
                                 showCancelButton: false,
                                 confirmButtonText: "{{ __('Delete') }}",
@@ -148,14 +148,14 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     Axios.post('/api/permission/delete', data).then((resp) => {
-                                        Swal.fire('Deleted!', '', 'success')
+                                        Swal.fire('{{__('Deleted!')}}', '', 'success')
                                         $('tr[key=' + role_id + ']').remove()
                                     }).catch((err) => {
                                         Swal.fire({
                                             icon: 'error',
                                             title: err,
                                             showConfirmButton: false,
-                                            timer: 1500
+                                            timer: 3000
                                         })
                                     })
                                 } else if (result.isDenied) {
@@ -202,7 +202,7 @@
                                     icon: 'error',
                                     title: err,
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 3000
                                 })
                             });
 
@@ -230,9 +230,9 @@
                                 $('#EditRoleModal').modal('hide')
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Success',
+                                    title: '{{__('Success')}}',
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 2000
                                 })
                             }).catch((err) => {
                                 Swal.fire({

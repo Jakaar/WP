@@ -62,7 +62,7 @@ class PreferencesController extends Controller
 
     public function menuCreate(Request $request)
     {
-        
+        // 
         try {
             $model = new \App\AdminMenu;
             $model->title = $request->title;
@@ -122,5 +122,24 @@ class PreferencesController extends Controller
         $model->save();
         return response()->json(['msg' => 'success'], 200);
     }
+
+    public function createBoardType(Request $request)
+    {
+        // dd(12);
+        LogActivity::addToLog('Created Board Type');
+            DB::table('wpanel_board_type')->insert([
+                'key'=>$request->key,
+                'created_at'=> \Carbon\Carbon::now(),
+            ]);
+            return response()->json(['msg'=>__('success')] , 200);
+    }
+
+    public function deleteBoardType(Request $request)
+    {
+        LogActivity::addToLog('Deleted Board Type');
+        DB::table('wpanel_board_type')->where('id', $request->delete_id)->delete();
+        return response()->json(200,200);
+    }
+
 
 }

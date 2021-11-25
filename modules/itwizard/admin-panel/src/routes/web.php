@@ -28,10 +28,9 @@ Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function()
     Route::get('/preferences/menu',[PreferencesController::class, 'menu']);
     Route::get('/preferences/static_file',[StaticFileController::class, 'index']);
     Route::get('/preferences/language',[LanguageController::class, 'index']);
+    Route::get('/preferences/board_type',[PreferencesController::class, 'board_type']);
+
 });
-
-
-
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){

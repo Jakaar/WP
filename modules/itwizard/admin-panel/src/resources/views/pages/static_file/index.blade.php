@@ -39,7 +39,7 @@
                     <span class="btn-icon-wrapper pe-2 opacity-7">
                         <i class="pe-7s-plus"></i>
                     </span>
-                    {{ __('Create') }}
+                    {{ __('Add File') }}
                 </button>
 
             </div>
@@ -173,8 +173,8 @@
                         headers: headers
                     }).then((resp) => {
                         Swal.fire(
-                            'Added!',
-                            'Your file has been added.',
+                            '{{__('Added!')}}',
+                            '',
                             'success'
                         )
                         setTimeout(function() {
@@ -205,8 +205,8 @@
                         headers: headers
                     }).then((resp) => {
                         Swal.fire(
-                            'Updated!',
-                            'Your file has been updated.',
+                            '{{__('Success')}}',
+                            '{{__('Your file has been updated.')}}',
                             'success'
                         )
                         setTimeout(function() {
@@ -229,16 +229,19 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     cancelButtonText: '{{ __('Cancel') }}',
-                    confirmButtonText: '{{ __('Yes Delete It!') }}'
+                    confirmButtonText: '{{ __('Confirm') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteFile/' + $(this).attr('key')).then((resp) => {
                             Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
+                                '{{__('Deleted!')}}',
+                                '',
                                 'success'
                             )
                             $(this).closest('tr').fadeOut();
+                            setTimeout(function() {
+                                location.reload()
+                            }, 4000);
                         });
                     }
                 })

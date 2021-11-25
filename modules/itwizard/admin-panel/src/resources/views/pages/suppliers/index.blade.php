@@ -71,18 +71,18 @@
                     <td>{{ $data_mail-> created_at}}</td>
                     <td>
                         <button class="btn-outline-primary btn getSendData" data-id="{{$data_mail->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropSent">
-                            {{ ('Send') }}
+                            {{ __('Send') }}
                         </button>
                     </td>
                     <td>
                         @permission('mail-edit')
                         <button class="btn-outline-primary btn editMail" data-id="{{$data_mail->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-                            {{ ('Edit') }}
+                            {{ __('Edit') }}
                         </button>
                         @endpermission
                         @permission('mail-delete')
                         <button class="btn-outline-danger btn-link btn deleteMail" data-id="{{$data_mail->id}}">
-                            {{ ('Delete') }}
+                            {{ __('Delete') }}
                         </button>
                         @endpermission
                     </td>

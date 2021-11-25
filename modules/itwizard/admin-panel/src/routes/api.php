@@ -78,7 +78,12 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/menu/updates',[PreferencesController::class, 'menuUpdates']);
         Route::post('/preferences/menu/single',[PreferencesController::class, 'menuSingle']);
         Route::post('/preferences/menu/delete',[PreferencesController::class, 'menuDelete']);
+
     });
+
+    Route::post('/preferences/board_type/create', [PreferencesController::class, 'createBoardType']);
+    Route::post('/preferences/board_type/delete',[PreferencesController::class, 'deleteBoardType']);
+
     Route::post('/preferences/language/create', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'createLanguage']);
     Route::post('/preferences/language/update', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'updateLanguage']);
     Route::post('/preferences/language/delete', [Itwizard\Adminpanel\Http\ApiControllers\Language\LanguageController::class,  'deleteLanguage']);
@@ -89,7 +94,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/mail/delete', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailDelete']);
     Route::post('/mail/edit', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailEdit']);
     Route::post('/mail/send', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailSend']);
-// 
+//
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'GetContentData']);
@@ -135,4 +140,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/validate/token',[\App\Http\Controllers\Auth\PasswordResetController::class, 'validateToken' ])->name('validate.token');
 
     Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
+
+    Route::post('/FAQ/create', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'create']);
 });
