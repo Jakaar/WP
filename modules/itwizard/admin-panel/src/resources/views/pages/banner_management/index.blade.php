@@ -180,15 +180,15 @@
                     }
                     Axios.post('/api/addbanner', data, {
                         headers: headers
+                        
                     }).then((resp) => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '{{__('Added!')}}',
-                            showConfirmButton: false
-                        })
-                        setTimeout(function() {
-                            location.reload()
-                        }, 2000);
+                        window.location.reload();
+                        Swal.fire(
+                            'Added!',
+                            'Your banner has been added.',
+                            'success'
+                        )
+                        
                     }).catch((err) => {
                         Toast.fire({
                             icon: 'error',
@@ -206,15 +206,15 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     cancelButtonText: '{{ __('Cancel') }}',
-                    confirmButtonText: '{{ __('Delete') }}'
+                    confirmButtonText: '{{ __('Yes Delete It!') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteBanner/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire({
-                            icon: 'success',
-                            title: '{{__('Deleted!')}}',
-                            showConfirmButton: false
-                        })
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
                             $(this).closest('tr').fadeOut();
                         });
                     }
@@ -257,11 +257,11 @@
                     Axios.post('/api/updatebanner', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '{{__('Updated!')}}',
-                            showConfirmButton: false
-                        })
+                        Swal.fire(
+                            'Updated!',
+                            'Your banner has been updated.',
+                            'success'
+                        )
                         setTimeout(function() {
                             location.reload()
                         }, 2000);

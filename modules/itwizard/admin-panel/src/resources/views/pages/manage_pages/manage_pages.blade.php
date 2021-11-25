@@ -1,6 +1,7 @@
 @extends('Admin::layouts.master')
 @inject('t','App\Helper\Helper')
 @section('content')
+{{--    @php dd($content) @endphp--}}
     <style>
         .ck-editor__editable {
             min-height: 200px;

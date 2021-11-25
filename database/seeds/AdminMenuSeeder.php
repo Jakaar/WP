@@ -78,7 +78,7 @@ class AdminMenuSeeder extends Seeder
 
             [
                 'id' => 28,
-                'title' =>  '{"mn":"Хавтасны төрөл","en":"Board Type","kr":"орчуулга нь байхгүй"}',
+                'title' =>  '{"mn":"Хавтасны төрөл","en":"Board Type","kr":"보드형"}',
                 'url' =>  '/cms/preferences/board_type',
                 'parent_id' => 1,
                 'order' => 7,
@@ -194,7 +194,7 @@ class AdminMenuSeeder extends Seeder
                 'is_active' => 1,
                 'icon' => null,
             ],
-           
+
             [
                 'id' => 22,
                 'title' =>  '{"mn":"Категорийн удирдлага","en":"Category Management","kr":"카테고리 관리"}',

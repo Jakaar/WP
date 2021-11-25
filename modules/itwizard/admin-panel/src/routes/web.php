@@ -28,10 +28,9 @@ Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function()
     Route::get('/preferences/menu',[PreferencesController::class, 'menu']);
     Route::get('/preferences/static_file',[StaticFileController::class, 'index']);
     Route::get('/preferences/language',[LanguageController::class, 'index']);
+    Route::get('/preferences/board_type',[PreferencesController::class, 'board_type']);
+
 });
-
-
-
 
 Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/', function (){
@@ -58,12 +57,18 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/settings/GetUsers', [PermissionController::class, 'GetUsers']);
 
     Route::get('/manage_pages', [\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'index']);
-    Route::get('/manage_pages/{slug}/page_content',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content']);
+//    Route::get('/manage_pages/{slug}/page_content',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content']);
+    Route::get('/manage_pages/{id}/{board}',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'detector']);
+
     Route::get('/manage_pages/{slug}/page_content/{id}',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content_details'])
     ->name('page_content');
+
+
     Route::get('/myProfile', [MyProfileController::class, 'index']);
 
     Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
+    Route::get('/noticeboard/search', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'search']);
+    
 
     Route::get('/member_management/users', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
     Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);
