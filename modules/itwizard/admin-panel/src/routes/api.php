@@ -86,7 +86,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/mail/delete', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailDelete']);
     Route::post('/mail/edit', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailEdit']);
     Route::post('/mail/send', [Itwizard\Adminpanel\Http\ApiControllers\Mail\MailController::class,  'mailSend']);
-// 
+//
 
     Route::post('/cM', [Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'show']);
     Route::post('/GetContentData', [\Itwizard\Adminpanel\Http\ApiControllers\Content\ContentController::class, 'GetContentData']);
@@ -132,4 +132,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/validate/token',[\App\Http\Controllers\Auth\PasswordResetController::class, 'validateToken' ])->name('validate.token');
 
     Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
+
+    Route::post('/FAQ/create', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'create']);
 });
