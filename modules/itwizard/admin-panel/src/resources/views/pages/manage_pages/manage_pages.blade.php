@@ -27,7 +27,7 @@
                     <i class="pe-7s-refresh-2"></i>
                 </button>
                 <div class="d-inline-block dropdown">
-                    <button type="button" class="search-icon btn-shadow btn btn-success save">
+                    <button type="button" class="search-icon btn-shadow btn btn-success save ShowModal">
                         <span class="btn-icon-wrapper pe-2 opacity-7">
                             <i class="pe-7s-plus"></i>
                         </span>

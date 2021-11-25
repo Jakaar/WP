@@ -24,7 +24,7 @@
                                 <span class="btn-icon-wrapper pe-2 opacity-7">
                                     <i class="pe-7s-plus"></i>
                                 </span>
-                                {{ __('Create Language') }}
+                                {{ __('Create') }}
                             </button>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                                 <tr>
                                     <th> {{__('ID')}} </th>
                                     <th> {{__('Country')}} </th>
-                                    <th> {{__('Country Code')}} </th>
+                                    <th> {{__('Country code')}} </th>
                                     <th> {{__('Created at')}} </th>
                                     <th> {{__('Action')}} </th>
                                 </tr>
@@ -52,10 +52,10 @@
                                         <td>{{ $language-> created_at}}</td>
                                         <td>
                                             <button class="btn-outline-primary btn editLanguage" data-id="{{$language->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-                                                {{__('Edit') }}
+                                                {{__('Edit')}}
                                             </button>
                                             <button class="btn-outline-danger btn-link btn deleteLanguage" data-id="{{$language->id}}">
-                                                {{__('Delete') }}
+                                                {{__('Delete')}}
                                             </button>
                                         </td>
                                     </tr>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country Code')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Country code')}}</label>
                         <input id="country_code" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
 
                     </div>
@@ -109,7 +109,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Edit Language') }}</h5>
+                <h5 class="modal-title card-title" id="staticBackdropLabel">{{__('Edit Language')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country Code')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Country code')}}</label>
                         <input id="editCountryCode" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
                 </form>
@@ -207,7 +207,7 @@
             // console.log(data);
 
             Swal.fire({
-                title: '{{__('Are you sure?')}}',
+                title: 'Are you sure?',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "{{__('Ok')}}",
@@ -215,11 +215,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Axios.post('/api/preferences/language/delete', data).then((resp) => {
-                            Swal.fire('{{__('Deleted!')}}', '', 'success')
+                            Swal.fire('Deleted!', '', 'success')
                             $('tr[key=' + delete_id + ']').remove()
                             setTimeout(function() {
                                 location.reload()
-                            }, 4000);
+                            }, 2000);
                         })
                         .catch((err) => {
                             Swal.fire({

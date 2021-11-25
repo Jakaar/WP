@@ -515,14 +515,14 @@
     </div>
     <script type="text/javascript" src="{{ asset('aPanel/js/main.js') }}"></script>
     <script>
-        // $(document).ready(function(){
-        //     $.blockUI.defaults = {
-        //          timeout: 2000,
-        //         fadeIn: 200,
-        //         fadeOut: 400,
-        //     };
-        //     $.blockUI({ message: $(".body-block-example-1") });
-        // })
+        $(document).ready(function(){
+            $.blockUI.defaults = {
+                // timeout: 2000,
+                // fadeIn: 200,
+                fadeOut: 400,
+            };
+            $.blockUI({ message: $(".body-block-example-1") });
+        })
     </script>
     <script>
         $(document).ready(function() {
@@ -586,7 +586,7 @@
                             ' </h5> <h5 class="fw-bold"> ' + item.day.maxtemp_c.toFixed(0) +
                             '℃ </h5> </div> </div> </div>');
                     })
-                   
+
                     $('#weather-temp').text(current.temp_c.toFixed(0) + '℃')
                     $('#weather-icon').append('<img src=' + current.condition.icon + '>')
                     $('#weather-type').text(current.condition.text)
