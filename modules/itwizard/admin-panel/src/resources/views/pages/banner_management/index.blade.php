@@ -180,15 +180,15 @@
                     }
                     Axios.post('/api/addbanner', data, {
                         headers: headers
+                        
                     }).then((resp) => {
+                        window.location.reload();
                         Swal.fire(
                             'Added!',
                             'Your banner has been added.',
                             'success'
                         )
-                        setTimeout(function() {
-                            location.reload()
-                        }, 2000);
+                        
                     }).catch((err) => {
                         Toast.fire({
                             icon: 'error',
