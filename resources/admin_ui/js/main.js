@@ -13,8 +13,6 @@ import "jquery-circle-progress";
 // import "perfect-scrollbar"
 import PerfectScrollbar from 'perfect-scrollbar';
 window.PerfectScrollbar = PerfectScrollbar;
-// import "toastr";
-// import "jquery.fancytree";
 import ApexCharts from 'apexcharts';
 window.ApexCharts = ApexCharts;
 import "bootstrap-table";
@@ -25,6 +23,7 @@ import "datatables.net-responsive-bs4";
 import "../vendors/chart.js/dist/Chart.min"
 import "../vendors/@chenfengyuan/datepicker"
 import "../vendors/daterangepicker"
+import "jquery-cropper"
 
 import "slick-carousel";
 import  CountUp  from  "./../vendors/countup.js/dist/countUp";
@@ -54,13 +53,9 @@ require('./charts/apex-charts');
 require('./circle-progress')
 require('./demo');
 require('./scrollbar');
-// require('./toastr');
-// require('./treeview');
 require('./customs/tables');
 require('./carousel-slider');
 require('./customs/count-up')
 require('./customs/ckeditor')
 require('./charts/chartjs')
 require('./customs/tree.jquery')
-// require('./form-components/form-builder.min')
-// require('./form-components/form-render.min')

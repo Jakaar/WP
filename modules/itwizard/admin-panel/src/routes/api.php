@@ -134,4 +134,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
 
     Route::post('/FAQ/create', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'create']);
+    Route::post('/FAQ/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'delete']);
 });

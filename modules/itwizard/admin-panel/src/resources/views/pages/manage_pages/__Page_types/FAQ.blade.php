@@ -1,41 +1,41 @@
 <div class="main-card mb-3 card-btm-border border-primary card">
     <div class="card-body">
+        @if (session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" aria-label="Close"
+                        data-bs-dismiss="alert"></button>
+                {{ __(session()->get('message')) }}
+            </div>
+        @endif
         <h5 class="card-title">{{__('FAQ')}}</h5>
         <div class="vertical-time-icons vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
-            <div class="vertical-timeline-item vertical-timeline-element">
-                <div>
-                    <div class="vertical-timeline-element-icon bounce-in">
-                        <div class="timeline-icon border-primary">
-                            <i class=" icon-gradient bg-night-fade ion-android-bulb"></i>
+            @foreach($FAQ as $item)
+                <div class="vertical-timeline-item vertical-timeline-element" id="FAQRemover-{{$item->id}}">
+                    <div>
+                        <div class="vertical-timeline-element-icon bounce-in">
+                            <div class="timeline-icon border-primary">
+                                <i class=" icon-gradient bg-night-fade ion-android-bulb"></i>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-element-content bounce-in">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h4 class="timeline-title">{{$item->question}}</h4>
+                                    <p>
+                                        {{$item->answer}}
+                                    </p>
+
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-outline-danger btn-sm FAQDelete" key="{{$item->id}}"><i class="pe-7s-trash"></i></button>
+                                    <button class="btn btn-outline-info btn-sm"><i class="pe-7s-pen"></i></button>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
                         </div>
                     </div>
-                    <div class="vertical-timeline-element-content bounce-in">
-                        <h4 class="timeline-title">All Hands Meeting</h4>
-                        <p>
-                            Lorem ipsum dolor sic amet, today at
-                            <a href="javascript:void(0);">12:00 PM</a>
-                        </p>
-                        <div class="divider"></div>
-                    </div>
                 </div>
-            </div>
-            <div class="vertical-timeline-item vertical-timeline-element">
-                <div>
-                    <div class="vertical-timeline-element-icon bounce-in">
-                        <div class="timeline-icon border-primary">
-                            <i class=" icon-gradient bg-night-fade ion-android-bulb"></i>
-                        </div>
-                    </div>
-                    <div class="vertical-timeline-element-content bounce-in">
-                        <h4 class="timeline-title">All Hands Meeting</h4>
-                        <p>
-                            Lorem ipsum dolor sic amet, today at
-                            <a href="javascript:void(0);">12:00 PM</a>
-                        </p>
-                        <div class="divider"></div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <form id="FAQForm" method="POST" action="/api/FAQ/create">
+                        <form id="FAQForm" method="POST" action="/api/FAQ/create" autocomplete="off">
                             <input type="hidden" name="url" value="{{url()->full()}}">
                             <input type="hidden" name="board_master_id" value="{{$content['type']->board_master_id}}">
                             @csrf
@@ -102,6 +102,22 @@
                {
                    $('#FAQForm').submit();
                }
+            });
+            $('.FAQDelete').on('click', function (){
+               Axios.post('/api/FAQ/delete/'+ $(this).attr('key')).then((resp)=>{
+                   $('#FAQRemover-'+$(this).attr('key')).fadeOut();
+                   Toast.fire({
+                       icon: 'success',
+                       position:'top-end',
+                       title: '{{__('FAQ Deleted')}}'
+                   })
+               }).catch((err)=>{
+                   Toast.fire({
+                       icon: 'error',
+                       position:'top-end',
+                       title: '{{__('FAQ Deleting Error')}}'
+                   })
+               });
             });
         })
     </script>
