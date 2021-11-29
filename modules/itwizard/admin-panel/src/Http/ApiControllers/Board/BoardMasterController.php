@@ -14,13 +14,22 @@ class BoardMasterController extends Controller
     }
     public function create(Request $request)
     {
-//        try {
-            DB::table('wpanel_board_master')->insert($request->all(),);
-            return response()->json(['msg'=>__('Board Successfully Created')], 201);
-//        }catch (\Exception $exception)
-//        {
-//            return response()->json(['msg'=> __('error')], 422);
-//        }
+        DB::table('wpanel_board_master')->insert([
+            'board_name' => $request->BoardName,
+            'board_type' => $request->BoardType,
+            'isComment'=>$request->isComment,
+            'isReply'=>$request->isReply,
+            'isRegister'=>$request->isRegister,
+            'isRating'=>$request->isRating,
+            'isFile'=>$request->isFile,
+            'isBoard'=>$request->isBoard,
+            'isCategory'=>$request->isCategory,
+            'isEnabled'=>$request->isEnabled,
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now(),
+        ]);
+        return response()->json(['msg'=>__('Board Successfully Created')], 201);
+
     }
     public function editboard($id)
     {
@@ -29,12 +38,12 @@ class BoardMasterController extends Controller
     }
     public function DeleteBoard($id)
     {
-        DB::table('wpanel_board_master')->where('id', $id)->delete();
-        return response()->json(200,200);
+        // DB::table('wpanel_board_master')->where('id', $id)->delete();
+        // return response()->json(200,200);
 
-        // DB::table('wpanel_board_master')->where('id', $id)->update([
-        //     'isEnabled' => '0'
-        // ]);
+        DB::table('wpanel_board_master')->where('id', $id)->update([
+            'isEnabled' => '0'
+        ]);
         return response()->json(200,200);
     }
     public function updateBoard(Request $request){
