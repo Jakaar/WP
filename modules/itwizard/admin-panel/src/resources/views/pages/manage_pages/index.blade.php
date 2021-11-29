@@ -74,7 +74,6 @@
             </div>
         @endforeach
     </div>
-
     @if (isset($board))
         @include('Admin::pages.manage_pages.__Page_types.'.$board->board_type)
     @endif

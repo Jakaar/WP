@@ -1,5 +1,7 @@
 @extends('Admin::layouts.master')
-@section('title'){{__('Analys')}} @endsection
+
+@section('title'){{__('Analyse')}} @endsection
+
 @section('content')
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
     <div class="card-header-title fsize-2 text-capitalize fw-normal">Product</div>

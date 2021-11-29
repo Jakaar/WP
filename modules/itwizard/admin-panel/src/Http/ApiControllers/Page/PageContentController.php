@@ -129,4 +129,33 @@ class PageContentController extends Controller
         return response()->json(['msg'=>'success'], 200);
 
     }
+    public function SinglePageCreate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "editor"    => "required|array",
+            "editor.*"  => "required",
+        ]);
+
+        if ($validator->fails())
+        {
+            $langs = [];
+            foreach (array_keys($validator->errors()->getMessages()) as $errors)
+            {
+                $errors = DB::table('wpanel_available_language')->where('country_code',explode('.',$errors)[1])->first();
+                array_push($langs, $errors->country);
+            }
+            return back()->withErrors($langs);
+        }
+        if ($validator->passes())
+        {
+            $data = json_encode($validator->validated()['editor'], true);
+            DB::table('main__single_page_data')->updateOrInsert(['category_id'=> explode('/',$request->url)[5]], [
+                'board_master_id' => $request->board_master_id,
+                'category_id' => explode('/',$request->url)[5],
+                'is_enable' => 1,
+                'data' => $data
+            ]);
+            return back()->with('message', 'Successfully Saved');
+        }
+    }
 }

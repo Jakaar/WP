@@ -32,16 +32,16 @@
                         </div>
                     @endif
 
-                <form id="addNewItemForm" name="addNewItemForm" action="{{route('save.content')}}" method="POST">
+                <form id="addNewItemForm" name="addNewItemForm" action="/api/SinglePage/create" method="POST">
                     @csrf
-                    <input type="hidden" value="{{url()->full()}}" name="option">
-                    <input type="hidden" value="{{$content['type']->board_type}}" name="type">
+                    <input type="hidden" name="url" value="{{url()->full()}}">
+                    <input type="hidden" name="board_master_id" value="{{$content['type']->board_master_id}}">
                     <div class="tab-content contentEditor">
                         @foreach($data['langs'] as $lang)
                             <div class="tab-pane fade @if($n == 1) active show @endif" id="tab-eg5-{{$lang->id}}" role="tabpanel">
                                 <h1>{{$lang->country}}</h1>
                                 <textarea name="editor[{{$lang->country_code}}]" id="editor{{$lang->country_code}}" value="" required="required">
-                                    {{ $content['PageData']->content[$lang->country_code] ?? '' }}
+                                    {{ $SinglePageData->data[$lang->country_code] ?? '' }}
                                 </textarea>
                             </div>
                             @php $n++; @endphp
