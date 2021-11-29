@@ -25,30 +25,16 @@ class AnalyticController extends Controller
     public function GetContentData ()
     {
         $today = Carbon::now('m');
-        $startMonth = $today->startOfYear()->format('M');
-        $endMonth = $today->endOfYear()->format('M');
         $thisYear = $today->format('y');
-//        dd($thisYear);
         $months = [];
         $PostData = [];
-//Get start and end of all months
-
         for($i = 1; $i <= 12; $i++){
             $array = Carbon::create()->month($i)->format('M '.$thisYear);
-            $temp = Carbon::create()->month($i)->format('M');
-            $tempEnd = Carbon::create()->month($i)->addMonth()->format('M');
             array_push($months, $array);
             if (Carbon::now()->format('m') === Carbon::create()->month($i)->format('m'))
             {
                 $Post = DB::table('wpanel_banners')
-                    ->whereBetween('created_at',
-                        [
-//                        Carbon::parse($today->month($i)->startOfMonth())->toDateTimeString(),
-//                        Carbon::parse($today->month($i)->endOfMonth())->toDateTimeString()
-                            '2021-11-1',
-                            '2021-11-31',
-                        ]
-                    )
+                    ->where('created_at', Carbon::now()->format('m'))
                     ->get()
                     ->count();
             }else{
@@ -57,7 +43,6 @@ class AnalyticController extends Controller
                         [
                             Carbon::parse($today->month($i)->startOfMonth())->toDateTimeString(),
                             Carbon::parse($today->month($i)->endOfMonth())->toDateTimeString()
-
                         ]
                     )
                     ->get()
