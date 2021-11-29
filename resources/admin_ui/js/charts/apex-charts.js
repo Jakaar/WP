@@ -606,64 +606,9 @@ var chartBarLg = new ApexCharts(document.querySelector('#bar-vertical-candle-lg'
 
 // 3Cols
 
-var options3col1 = {
-    chart: {
-        height: 200,
-        type: 'bar',
-        sparkline: {
-            enabled: true
-        }
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            endingShape: 'rounded',
-            columnWidth: '55%',
-        },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-    },
-    series: [{
-        name: 'Net Profit',
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-        name: 'Revenue',
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-        name: 'Free Cash Flow',
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-    }],
-    xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-    },
-    yaxis: {
-        title: {
-            text: '$ (thousands)'
-        }
-    },
-    fill: {
-        opacity: 1
 
-    },
-    tooltip: {
-        y: {
-            formatter: function (val) {
-                return "$ " + val + " thousands";
-            }
-        }
-    }
-};
 
-var col3Chart1 = new ApexCharts(
-    document.querySelector("#chart-col-1"),
-    options3col1
-);
+
 
 
 var options3col2 = {
@@ -781,49 +726,7 @@ var col3Chart3 = new ApexCharts(
 
 // Combined
 
-var options777 = {
-    chart: {
-        height: 397,
-        type: 'line',
-        toolbar: {
-            show: false,
-        }
-    },
-    series: [{
-        name: 'Website Blog',
-        type: 'column',
-        data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
-    }, {
-        name: 'Social Media',
-        type: 'line',
-        data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
-    }],
-    stroke: {
-        width: [0, 4]
-    },
-    // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
-    xaxis: {
-        type: 'datetime'
-    },
-    yaxis: [{
-        title: {
-            text: 'Website Blog',
-        },
 
-    }, {
-        opposite: true,
-        title: {
-            text: 'Social Media'
-        }
-    }]
-
-};
-
-var chart777 = new ApexCharts(
-    document.querySelector("#chart-combined"),
-    options777
-);
 
 
 // Area
