@@ -141,6 +141,19 @@ class PageManageController extends Controller
 //            dd($Groups);
             return view('Admin::pages.manage_pages.index',compact('content','board','Groups'));
         }
+        if ($board->board_type === 'SinglePage')
+        {
+            $content['categories'] = ContentCategory::whereNull('content_category_id')
+                ->where(['board_master_id' => $id])
+                ->with('subCategories')
+                ->get();
+            $SinglePageData = DB::table('main__single_page_data')
+                ->where('category_id', $id)
+                ->first();
+            $SinglePageData->data = json_decode($SinglePageData->data, true);
+//            dd($SinglePageData->data['en']);
+            return view('Admin::pages.manage_pages.index',compact('content','board','SinglePageData'));
+        }
 
     }
 

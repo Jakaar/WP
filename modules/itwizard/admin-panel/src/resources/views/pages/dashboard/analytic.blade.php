@@ -1,5 +1,7 @@
 @extends('Admin::layouts.master')
-@section('title'){{__('Analys')}} @endsection
+
+@section('title'){{__('Analyse')}} @endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-lg-3">
