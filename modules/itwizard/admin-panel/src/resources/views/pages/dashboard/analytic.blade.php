@@ -959,69 +959,58 @@
 
     $(document).ready(function (){
          Axios.post('/api/dashboard/GetContent').then((resp)=>{
+             const labelsData = resp.data.labels;
+             const GraphicData = resp.data.Cdata;
+             // const data = [440, 505];
+            console.log(labelsData[0])
+             const options777 = {
+                 chart: {
+                     height: 397,
+                     type: 'line',
+                     // toolbar: {
+                     //     show: false,
+                     // }
+                 },
+                 series: [{
+                     name: 'Content',
+                     type: 'column',
+                     data: [
+                         100,
+                         110,
+                         120,
+                         130,
+                         140,
+                         150,
+                         160,
+                         170,
+                         0,
+                         0,
+                         0,
+                         0,
+                     ]
+                 }],
+                 stroke: {
+                     width: [0, 4]
+                 },
+                 // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                 labels: resp.data.labels,
 
-              // window.asd = resp.data.labels
-             const getData = async () => {
-                  var GG = resp.data.labels;
-                  return GG;
-             }
-             getData().then(GG=> console.log(GG))
-             // return asd;
+                 yaxis: [{
+                     title: {
+                         text: 'Content',
+                     },
+                 }]
+             };
 
+
+             const chart777 = new ApexCharts(
+                 document.querySelector("#chart-combined"),
+                 options777
+             );
+             chart777.render();
          }).catch((err)=>{
 
          })
-        const data = [440, 505];
-        const options777 = {
-            chart: {
-                height: 397,
-                type: 'line',
-                // toolbar: {
-                //     show: false,
-                // }
-            },
-            series: [{
-                name: 'Content',
-                type: 'column',
-                data: data
-            }],
-            stroke: {
-                width: [0, 4]
-            },
-            // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-             labels: [
-                '01 Jan 2001',
-                '02 Jan 2001',
-                '03 Jan 2001',
-                '04 Jan 2001',
-                '05 Jan 2001',
-                '06 Jan 2001',
-                '07 Jan 2001',
-                '08 Jan 2001',
-                '09 Jan 2001',
-                '10 Jan 2001',
-                '11 Jan 2001',
-                '12 Jan 2001'
-            ],
-
-            xaxis: {
-                type: 'datetime'
-            },
-            yaxis: [{
-                title: {
-                    text: 'Content',
-                },
-
-            }]
-
-        };
-
-
-        const chart777 = new ApexCharts(
-            document.querySelector("#chart-combined"),
-            options777
-        );
-        chart777.render();
     })
 </script>
 @endsection
