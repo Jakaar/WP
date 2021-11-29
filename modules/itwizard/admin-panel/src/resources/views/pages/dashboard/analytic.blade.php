@@ -976,20 +976,7 @@
                  series: [{
                      name: 'Content',
                      type: 'column',
-                     data: [
-                         100,
-                         110,
-                         120,
-                         130,
-                         140,
-                         150,
-                         160,
-                         170,
-                         0,
-                         0,
-                         0,
-                         0,
-                     ]
+                     data: resp.data.Cdata,
                  }],
                  stroke: {
                      width: [0, 4]
