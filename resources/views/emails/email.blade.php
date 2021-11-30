@@ -197,7 +197,7 @@
                                             <td>
                                                 <div style="font-family: sans-serif">
                                                     <div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #97a2da; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px; text-align: center;">{{ __('Please feel free to contact us at email@yourbrand.com.')}} <br>{{(__'COPYRIGHT 2021 ©SIBIZI CORP.ALL RIGHT RESERVED.')}} </p>
+                                                        <p style="margin: 0; font-size: 14px; text-align: center;">{{ __('Please feel free to contact us at email@yourbrand.com.')}} <br>COPYRIGHT 2021 ©SIBIZI CORP.ALL RIGHT RESERVED </p>
                                                     </div>
                                                 </div>
                                             </td>
