@@ -1,11 +1,13 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Categories Management')}} @endsection
+
 @inject('t','App\Helper\Helper')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
+                    <i class="pe-7s-note2 icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div style="color: #222222;">
                     {{ __('Product Categories') }}
@@ -35,7 +37,7 @@
                     <div class="card-title"></div>
                     <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
-                            <ul class="vertical-nav-menu">
+                            <ul class="vertical-nav-menu" id="categoryDropdown">
                                 @foreach ($items as $item)
                                     <li>
                                         <a href="#" aria-expanded="false" data-key="{{ $item->id }}">
@@ -173,7 +175,7 @@
                 $('#parent_id').val('')
 
             })
-            $('.vertical-nav-menu li a').click(function() {
+            $('#categoryDropdown li a').click(function() {
                 const data = {
                     id: $(this).data('key')
                 }

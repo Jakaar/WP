@@ -1,11 +1,14 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Product Management')}} @endsection
+
+
 @inject('t','App\Helper\Helper')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
+                    <i class="pe-7s-box2 icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div style="color: #222222;">
                     {{ __('Product Manage') }}
@@ -140,8 +143,20 @@
                         <div class="mb-3 col-6">
                             <label for="category_id" class="form-label fw-bold"> {{ __('Product Category') }} <span
                                     class="text-danger ">*</span> </label>
-                            <select name="category_id" id="category_id" class="form-control form-select" required>
-                                <option value="1">gg </option>
+                            <select name="category_id" id="category_id" class="form-select select2 form-control border"
+                                required style="width:100% !important;">
+                                {{-- <option disabled selected> {{ __('Select Category') }} </option> --}}
+                                @foreach ($category as $categories)
+                                <option value="{{ $categories->id }}"> {{ $categories->name }} </option>
+                                    @if ($categories->child->count() != 0)
+                                            @foreach ($categories->child as $child)
+                                                @include('Admin::pages.products.categoryDropdown',[
+                                                'children' => $child,
+                                                'parent' => $categories->name
+                                                ])
+                                            @endforeach
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3 col-6 ">
@@ -396,15 +411,14 @@
         let selected_item = [];
         $(document).ready(function() {
             $('.selectItem').change(function() {
-                if($(this).prop('checked') == true){
+                if ($(this).prop('checked') == true) {
                     let id = $(this).attr('key');
                     selected_item.push(id)
-                }
-                else{
+                } else {
                     let id = $(this).attr('key');
                     selected_item.remove(id)
                 }
-                
+
                 // console.log(selected_item)
                 if (selected_item.length == 1) {
                     $('.opa').removeClass('disabled')
@@ -549,11 +563,12 @@
                 $('#is_new').prop('checked', 0)
                 $('#is_trend').prop('checked', 0)
                 $('#is_sale').prop('checked', 0)
+                $('#category_id').val('').change()
                 CKEDITOR.instances.description.setData('')
                 $('#addProduct').attr('action', '/cms/product/create');
             })
             $('.editModal').click(function() {
- 
+
                 const id = $(this).data('id')
                 const data = {
                     id: id,
@@ -565,10 +580,11 @@
                     $('#modal_footer').addClass('card-shadow-primary border-primary')
 
                     const data = resp.data.data;
-                    // console.log(data)
+                    console.log(data)
                     $('#staticBackdrop').modal('show')
                     $('#productLabel').html('{{ __('Edit Product') }}')
                     $('#sku').val(data.sku)
+                    $('#category_id').val(data.category_id).change()
                     $('#product_name').val(data.name)
                     $('#order').val(data.showing_order)
                     $('#hit').prop('checked', data.is_hit)
@@ -661,7 +677,8 @@
                     $('#is_new').prop('checked', data.is_new)
                     $('#is_trend').prop('checked', data.is_trend)
                     $('#is_sale').prop('checked', data.is_sale)
-                    
+                    $('#category_id').val(data.category_id).change()
+
                     $('.checkCode').removeClass('disabled').removeClass('btn-outline-success')
                         .addClass('btn-outline-primary').html('{{ __('check') }}')
                     $('#sku').removeAttr('readonly')
@@ -700,5 +717,22 @@
                 })
             })
         })
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                dropdownParent: $('#staticBackdrop'),
+                placeholder : '{{ __("Select Category") }}',
+                containerCssClass: "select2--small", // For Select2 v4.0
+                selectionCssClass: "select2--small", // For Select2 v4.1
+                dropdownCssClass: "select2--small",
+                theme: "bootstrap-5",
+            });
+        });
     </script>
 @endsection

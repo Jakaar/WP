@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Permission Settings')}} @endsection
+
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
@@ -7,7 +9,7 @@
                 <div class="page-title-wrapper">
                     <div class="page-title-heading">
                         <div class="page-title-icon">
-                            <i class="pe-7s-unlock icon-gradient bg-mixed-hopes"></i>
+                            <i class="pe-7s-settings icon-gradient bg-mixed-hopes"></i>
                         </div>
                         <div>
                             {{ __('Permission Settings') }}
