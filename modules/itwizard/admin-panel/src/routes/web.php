@@ -89,9 +89,9 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 //    Route::get('/product_management/manageCategory',[\Itwizard\Adminpanel\Http\Controllers\Product\manageCategoryController::class, 'index']);
 //    Route::get('/product_management/productManage',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCategoryController::class, 'index']);
 
-    Route::get('/products',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'index']);
-    Route::post('/product/create',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'CreateItem']);
-    Route::post('/product/update/{id}',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'UpdateItem']);
+    Route::get('/products',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductController::class,'index'])->middleware(['permission:product-read']);
+    Route::post('/product/create',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'CreateItem'])->middleware(['permission:product-create']);;
+    Route::post('/product/update/{id}',[\Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController::class,'UpdateItem'])->middleware(['permission:product-update']);;
 
 
     Route::get('/products/index',[ProductCreateController::class, 'index']);
