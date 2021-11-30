@@ -1,11 +1,13 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('User menu')}} @endsection
+
 @inject('t','App\Helper\Helper')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
+                    <i class="pe-7s-menu icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
                     {{ __('Content & Menu') }}
@@ -163,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="" class="form-label fw-bold"> {{ __('WINDOW') }} </label>
+                                <label for="" class="form-label fw-bold"> {{__('WINDOW') }} </label>
                                 <div class="clearfix"></div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" id="blank" name="target" value="1">
@@ -242,7 +244,7 @@
                             <hr class="text-primary">
                             <div class="row mt-2">
                                 <div class="col-6">
-                                    <h5 class="card-title">{{ __('Window') }}</h5>
+                                    <h5 class="card-title">{{ __('WINDOW') }}</h5>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-check form-check-inline">

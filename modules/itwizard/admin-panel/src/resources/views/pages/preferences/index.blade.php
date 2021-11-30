@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Configuration')}} @endsection
+
 @inject('t','App\Helper\Helper')
 
 @section('content')

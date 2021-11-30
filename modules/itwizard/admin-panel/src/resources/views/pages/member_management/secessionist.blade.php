@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Withdrawal member')}} @endsection
+
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
@@ -6,7 +8,7 @@
                 <div class="page-title-wrapper">
                     <div class="page-title-heading">
                         <div class="page-title-icon">
-                            <i class="pe-7s-plug icon-gradient bg-mixed-hopes"></i>
+                            <i class="pe-7s-delete-user icon-gradient bg-mixed-hopes"></i>
                         </div>
                         <div>
                             {{__('Withdrawal')}}

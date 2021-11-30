@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Form Create')}} @endsection
+
 @section('content')
     <style>
         .form-wrap.form-builder .frmb{

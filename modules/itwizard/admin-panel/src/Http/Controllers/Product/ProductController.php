@@ -17,6 +17,11 @@ class ProductController extends Controller
     public function index()
     {
         $items = DB::table('main_products')->paginate(20);
-        return view('Admin::pages.products.index', compact('items'));
+        $category = \App\ProductCategory::whereNull('parent_id')->where('is_active',1)->get();
+
+        return view('Admin::pages.products.index', [
+            'items' => $items,
+            'category' => $category
+        ]);
     }
 }
