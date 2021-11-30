@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Board Type')}} @endsection
+
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
@@ -7,7 +9,7 @@
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
                             <div class="page-title-icon">
-                            <i class="pe-7s-diamond icon-gradient bg-strong-bliss"></i>
+                            <i class="pe-7s-photo-gallery icon-gradient bg-strong-bliss"></i>
                             </div>
 
                             <div>

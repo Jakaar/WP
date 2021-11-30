@@ -1,12 +1,6 @@
 {
     "Title": "제목",
     "settings": "설정",
-    "Choose Language":"언어 선택",
-    "Edit Language": "언어 수정",
-    "Country": "국가",
-    "Country code": "국가 코드",
-    "Create Board type": "보드형 생성",
-    "Create Board": "보드 생성",
     "Welcome back":"환영합니다",
     "Welcome":"환영합니다",
     "Please sign in to your account.":"계정에 로그인하세요.",
@@ -797,5 +791,15 @@
     "Updated!": "업데이트 되었습니다",
     "Notice Board page is not created.": "게시판이 생성되지 않은 상태입니다.",
     "Click here": "클릭",
-    "Choose": "선택"
+    "Choose": "선택",
+    "Choose Language":"언어 선택",
+    "Edit Language": "언어 수정",
+    "Country": "국가",
+    "Country code": "국가 코드",
+    "Create Board type": "보드형 생성",
+    "Create Board": "보드 생성",
+    "Available Language": "Боломжит Хэл",
+    "Form Create": "Форм үүсгэх ",
+    "Product Categories": "Бүтээгдэхүүний ангилал",
+    "Categories Management": "Категорийн удирдлага"
    }

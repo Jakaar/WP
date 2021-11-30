@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Available Language')}} @endsection
+
 @section('content')
     <div class="app-main__inner p-0">
         <div class="app-inner-layout">
@@ -7,11 +9,11 @@
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
                             <div class="page-title-icon">
-                            <i class="pe-7s-diamond icon-gradient bg-strong-bliss"></i>
+                            <i class="pe-7s-global icon-gradient bg-strong-bliss"></i>
                             </div>
                             
                             <div>
-                                {{__('Language')}}
+                                {{__('Available Language')}}
                                 <div class="page-title-subheading"></div>
                             </div>
                         </div>

@@ -1,11 +1,14 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Product Management')}} @endsection
+
+
 @inject('t','App\Helper\Helper')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
+                    <i class="pe-7s-box2 icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div style="color: #222222;">
                     {{ __('Product Manage') }}

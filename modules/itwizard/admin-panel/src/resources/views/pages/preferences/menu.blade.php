@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Admin Menu')}} @endsection
+
 @inject('t','App\Helper\Helper')
 @section('content')
     <style>
