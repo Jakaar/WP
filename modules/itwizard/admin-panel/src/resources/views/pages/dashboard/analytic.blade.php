@@ -5,18 +5,18 @@
 
 @section('content')
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-    <div class="card-header-title fsize-2 text-capitalize fw-normal">Product</div>
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Product')}}</div>
 </div>
 <div class="row">
     <div class="col-md-6 col-lg-3">
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('Total Products')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('Total Products')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
-                                <div class="fsize-4 text-success">
+                                <div class="fsize-4">
 <!--                                    <small class="opacity-5">+</small>-->
                                     {{$dataC['total_product'] }}
                                 </div>
@@ -36,11 +36,11 @@
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('New Products')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('New Products')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
-                                <div class="fsize-4 text-danger">
+                                <div class="fsize-4">
 <!--                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>-->
                                     {{$dataC['new_product'] }}
                                 </div>
@@ -65,7 +65,7 @@
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('Active Status Product')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('Active Status Product')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
@@ -97,7 +97,7 @@
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('Inactive Product')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('Inactive Product')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
@@ -119,7 +119,7 @@
     </div>
 </div>
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-    <div class="card-header-title fsize-2 text-capitalize fw-normal">User</div>
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('User')}}</div>
 </div>
 <div class="row">
 
@@ -182,7 +182,7 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                <small class="text-success pe-1">+</small>
+<!--                                <small class="text-success pe-1">+</small>-->
                                 {{$dataC['total_admin'] }}
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
@@ -778,7 +778,7 @@
                                     <span class="me-2 opacity-7">
                                         <i class="fa fa-cog fa-spin"></i>
                                     </span>
-                <span class="me-1">View Complete Report</span>
+                <span class="me-1">{{__('View Complete Report')}}</span>
             </button>
         </div>
     </div>
@@ -853,12 +853,12 @@
                      // }
                  },
                  series: [{
-                     name: 'Banner',
+                     name: '{{__('Banner')}}',
                      type: 'column',
                      data: resp.data.bData,
                  },
              {
-                 name: 'Content',
+                 name: '{{__('Content')}}',
                      type: 'line',
                  data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
              }],
@@ -912,7 +912,7 @@
                  },
                  yaxis: {
                      title: {
-                         text: ' ({{__('Post')}})'
+                         text: ' ({{__('Posts')}})'
                      }
                  },
                  fill: {
@@ -922,7 +922,7 @@
                  tooltip: {
                      y: {
                          formatter: function (val) {
-                             return "$ " + val + " thousands";
+                             return  + val + " {{__('Posts')}}";
                          }
                      }
                  }
