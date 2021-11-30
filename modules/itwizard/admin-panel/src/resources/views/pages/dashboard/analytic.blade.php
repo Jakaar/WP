@@ -838,7 +838,7 @@
     $(document).ready(function (){
          Axios.post('/api/dashboard/GetContent').then((resp)=>{
              const labelsData = resp.data.labels;
-             const GraphicData = resp.data.Cdata;
+             const GraphicData = resp.data.bData;
              // const data = [440, 505];
             console.log(labelsData[0])
              const options777 = {
@@ -852,7 +852,7 @@
                  series: [{
                      name: 'Banner',
                      type: 'column',
-                     data: resp.data.Cdata,
+                     data: resp.data.bData,
                  },
              {
                  name: 'Content',
@@ -893,15 +893,17 @@
                      colors: ['transparent']
                  },
                  series: [{
-                     name: 'Banner',
-                     data: resp.data.Cdata
+                     name: '{{__('Banner')}}',
+                     data: resp.data.bData
                  }, {
-                     name: 'Content',
-                     data: [6, 5, 1, 8, 7, 5, 1, 4, 4, 4, 5, 7,]
-                 }, {
-                     name: 'Free Cash Flow',
-                     data: [5, 1, 6, 6, 5, 8, 2, 3, 1, 4, 5, 7,]
-                 }],
+                     name: '{{__('Page Content')}}',
+                     data: resp.data.cData
+                 },
+                 //     {
+                 //     name: 'Free Cash Flow',
+                 //     data: [5, 1, 6, 6, 5, 8, 2, 3, 1, 4, 5, 7,]
+                 // }
+                 ],
                  xaxis: {
                      categories:  resp.data.labels,
                  },
