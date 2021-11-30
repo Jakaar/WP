@@ -50,7 +50,7 @@ class AdminMenuSeeder extends Seeder
            ],
            [
                 'id' => 5,
-                'title' =>  '{"mn":"Боломжит хэл","en":"Available Language","kr":"언어 선택"}',
+                'title' =>  '{"mn":"Боломжит хэл","en":"Available Language","kr":"언어 추가"}',
                 'url' =>  '/cms/preferences/language',
                 'parent_id' => 1,
                 'order' => 4,
@@ -248,6 +248,15 @@ class AdminMenuSeeder extends Seeder
                 'order' => 1,
                 'is_active' => 1,
                 'icon' => 'pe-7s-mail',
+            ],
+            [
+                'id' => 29,
+                'title' =>  '{"mn":"Нэвтрэх оролдлого","en":"Log","kr":"로그인 시도"}',
+                'url' =>  '/cms/User/LogViewer',
+                'parent_id' => null,
+                'order' => 13,
+                'is_active' => 1,
+                'icon' => 'pe-7s-note2',
             ]
         ]);
     }
