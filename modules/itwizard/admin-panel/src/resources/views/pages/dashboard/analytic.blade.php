@@ -1,6 +1,7 @@
 @extends('Admin::layouts.master')
 
-@section('title'){{__('Analyse')}} @endsection
+@section('title'){{__('Dashboard')}} @endsection
+
 
 @section('content')
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">

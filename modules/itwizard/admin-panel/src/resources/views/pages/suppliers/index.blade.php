@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Form Mail Manage')}} @endsection
+
 @section('content')
 <style>
     .ck-editor__editable {
