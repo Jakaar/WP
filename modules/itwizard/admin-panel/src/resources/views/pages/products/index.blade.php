@@ -145,19 +145,16 @@
                                     class="text-danger ">*</span> </label>
                             <select name="category_id" id="category_id" class="form-select select2 form-control border"
                                 required style="width:100% !important;">
-                                <option disabled selected> {{ __('Select Category') }} </option>
+                                {{-- <option disabled selected> {{ __('Select Category') }} </option> --}}
                                 @foreach ($category as $categories)
-
+                                <option value="{{ $categories->id }}"> {{ $categories->name }} </option>
                                     @if ($categories->child->count() != 0)
-                                        <optgroup label="{{ $categories->name }}">
                                             @foreach ($categories->child as $child)
                                                 @include('Admin::pages.products.categoryDropdown',[
-                                                'children' => $child
+                                                'children' => $child,
+                                                'parent' => $categories->name
                                                 ])
                                             @endforeach
-                                        </optgroup>
-                                    @else
-                                        <option value="{{ $categories->id }}"> {{ $categories->name }} </option>
                                     @endif
                                 @endforeach
                             </select>
@@ -730,7 +727,7 @@
         $(document).ready(function() {
             $('.select2').select2({
                 dropdownParent: $('#staticBackdrop'),
-                width: 'resolve',
+                placeholder : '{{ __("Select Category") }}',
                 containerCssClass: "select2--small", // For Select2 v4.0
                 selectionCssClass: "select2--small", // For Select2 v4.1
                 dropdownCssClass: "select2--small",

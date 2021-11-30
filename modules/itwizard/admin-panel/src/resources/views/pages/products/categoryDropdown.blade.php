@@ -1,11 +1,13 @@
+<option value="{{ $children->id }}"> {{ $parent }} -> {{ $children->name }} </option>
 @if($children->child->count() != 0)
-<optgroup label=" - {{ $children->name }} - ">
+    @php
+        $parents = $parent . ' -> ' . $children->name
+    @endphp
     @foreach ($children->child as $sub)
         @include('Admin::pages.products.categoryDropdown',[
             'children' => $sub,
+            'parent' => $parents,
         ])
     @endforeach
- </optgroup>
  @else
- <option value="{{ $children->id }}"> {{ $children->name }} </option>
  @endif
