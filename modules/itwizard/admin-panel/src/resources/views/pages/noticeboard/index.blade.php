@@ -141,7 +141,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h5 class="card-title">{{__('Board Type')}}</h5>
-                                <select id="BoardType" name="BoardType" class="multiselect-dropdown form-control">
+                                <select id="BoardType" name="BoardType" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="" selected disabled>{{__('Choose')}}</option>
                                     @foreach($dataM['board_type'] as $type)
                                         <option value="{{$type->key}}">{{$type->key}}</option>
@@ -156,11 +156,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1">
+                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesComment" name="isComment" value="0">
+                                    <input class="form-check-input" type="radio" id="yesComment" name="isComment" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesComment">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -172,11 +172,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesReply" name="isReply" value="1" checked>
+                                    <input class="form-check-input" type="radio" id="yesReply" name="isReply" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesReply">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noReply" name="isReply" value="0">
+                                    <input class="form-check-input" type="radio" id="noReply" name="isReply" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noReply">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -188,11 +188,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesRegister" name="isRegister" value="1">
+                                    <input class="form-check-input" type="radio" id="yesRegister" name="isRegister" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesRegister">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noRegister" name="isRegister" value="0" checked>
+                                    <input class="form-check-input" type="radio" id="noRegister" name="isRegister" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noRegister">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -204,11 +204,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesRating" name="isRating" value="1" checked>
+                                    <input class="form-check-input" type="radio" id="yesRating" name="isRating" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesRating">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noRating" name="isRating" value="0">
+                                    <input class="form-check-input" type="radio" id="noRating" name="isRating" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noRating">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -220,11 +220,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesFile" name="isFile" value="1">
+                                    <input class="form-check-input" type="radio" id="yesFile" name="isFile" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesFile">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noFile" name="isFile" value="0" checked>
+                                    <input class="form-check-input" type="radio" id="noFile" name="isFile" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noFile">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -236,11 +236,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesBoard" name="isBoard" value="1">
+                                    <input class="form-check-input" type="radio" id="yesBoard" name="isBoard" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesBoard">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noBoard" name="isBoard" value="0" checked>
+                                    <input class="form-check-input" type="radio" id="noBoard" name="isBoard" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noBoard">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -252,11 +252,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesCategory" name="isCategory" value="1">
+                                    <input class="form-check-input" type="radio" id="yesCategory" name="isCategory" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesCategory">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noCategory" name="isCategory" value="0" checked>
+                                    <input class="form-check-input" type="radio" id="noCategory" name="isCategory" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noCategory">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -268,11 +268,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesEnabled" name="isEnabled" value="2" checked>
+                                    <input class="form-check-input" type="radio" id="yesEnabled" name="isEnabled" value="2" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noEnabled" name="isEnabled" value="1">
+                                    <input class="form-check-input" type="radio" id="noEnabled" name="isEnabled" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -324,11 +324,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesComment1" name="isComment1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesComment1" name="isComment1" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noComment1" name="isComment1" value="0">
+                                    <input class="form-check-input" type="radio" id="noComment1" name="isComment1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesComment">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -340,11 +340,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesReply1" name="isReply1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesReply1" name="isReply1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesReply">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noReply1" name="isReply1" value="0">
+                                    <input class="form-check-input" type="radio" id="noReply1" name="isReply1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noReply">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -356,11 +356,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesRegister1" name="isRegister1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesRegister1" name="isRegister1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesRegister">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noRegister1" name="isRegister1" value="0">
+                                    <input class="form-check-input" type="radio" id="noRegister1" name="isRegister1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noRegister">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -372,11 +372,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesRating1" name="isRating1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesRating1" name="isRating1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesRating">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noRating1" name="isRating1" value="0">
+                                    <input class="form-check-input" type="radio" id="noRating1" name="isRating1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noRating">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -388,11 +388,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesFile1" name="isFile1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesFile1" name="isFile1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesFile">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noFile1" name="isFile1" value="0">
+                                    <input class="form-check-input" type="radio" id="noFile1" name="isFile1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noFile">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -404,11 +404,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesBoard1" name="isBoard1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesBoard1" name="isBoard1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesBoard">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noBoard1" name="isBoard1" value="0">
+                                    <input class="form-check-input" type="radio" id="noBoard1" name="isBoard1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noBoard">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -420,11 +420,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesCategory1" name="isCategory1" value="1">
+                                    <input class="form-check-input" type="radio" id="yesCategory1" name="isCategory1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesCategory">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noCategory1" name="isCategory1" value="0">
+                                    <input class="form-check-input" type="radio" id="noCategory1" name="isCategory1" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noCategory">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -436,11 +436,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesEnabled1" name="isEnabled1" value="2">
+                                    <input class="form-check-input" type="radio" id="yesEnabled1" name="isEnabled1" value="2" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noEnabled1" name="isEnabled1" value="1">
+                                    <input class="form-check-input" type="radio" id="noEnabled1" name="isEnabled1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
                                 </div>
                             </div>

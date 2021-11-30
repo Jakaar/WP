@@ -127,6 +127,7 @@
 {{--                            <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i>--}}
                         {{__('Create Board')}}
                     </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="CrtBrd">
@@ -139,8 +140,8 @@
                         </div>
                         <div class="col-md-6">
                             <h5 class="card-title">{{__('Board Type')}}</h5>
-                            <select id="BoardType" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
+                            <select id="BoardType" name="BoardType" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <option value="" selected disabled>{{__('Choose')}}</option>
                                 @foreach($dataM['board_type'] as $type)
                                     <option value="{{$type->key}}">{{$type->key}}</option>
                                 @endforeach
@@ -153,11 +154,14 @@
                             <h5 class="card-title">{{__('Use Comment')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isComment" name="isComment" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1" selected>{{__('Yes')}}</option>
-                                <option value="0">{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesComment" name="isComment" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesComment">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
@@ -166,11 +170,14 @@
                             <h5 class="card-title">{{__('Use Comment Reply')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isReply" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1" selected>{{__('Yes')}}</option>
-                                <option value="0">{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesReply" name="isReply" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesReply">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noReply" name="isReply" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noReply">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
@@ -179,11 +186,14 @@
                             <h5 class="card-title">{{__('Use Register Button')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isRegister" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1">{{__('Yes')}}</option>
-                                <option value="0" selected>{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesRegister" name="isRegister" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesRegister">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noRegister" name="isRegister" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noRegister">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
@@ -192,11 +202,14 @@
                             <h5 class="card-title">{{__('Use Rating')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isRating" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1" selected>{{__('Yes')}}</option>
-                                <option value="0">{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesRating" name="isRating" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesRating">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noRating" name="isRating" value="0" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noRating">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
@@ -205,11 +218,14 @@
                             <h5 class="card-title">{{__('Use File Input')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isFile" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1">{{__('Yes')}}</option>
-                                <option value="0" selected>{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesFile" name="isFile" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesFile">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noFile" name="isFile" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noFile">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
@@ -218,11 +234,14 @@
                             <h5 class="card-title">{{__('Use Board')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isBoard" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1">{{__('Yes')}}</option>
-                                <option value="0" selected>{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesBoard" name="isBoard" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesBoard">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noBoard" name="isBoard" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noBoard">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
@@ -231,24 +250,30 @@
                             <h5 class="card-title">{{__('Use Category')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isCategory" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1">{{__('Yes')}}</option>
-                                <option value="0" selected>{{__('No')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesCategory" name="isCategory" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesCategory">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noCategory" name="isCategory" value="0" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noCategory">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                     <hr class="text-primary">
                     <div class="row mt-2">
                         <div class="col-6">
-                            <h5 class="card-title">{{__('Is Used')}}</h5>
+                            <h5 class="card-title">{{__('Is Enabled')}}</h5>
                         </div>
                         <div class="col-6">
-                            <select id="isEnabled" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="" disabled>{{__('Choose')}}</option>
-                                <option value="1" selected>{{__('Active')}}</option>
-                                <option value="0">{{__('In Active')}}</option>
-                            </select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="yesEnabled" name="isEnabled" value="2" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="noEnabled" name="isEnabled" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
+                            </div>
                         </div>
                     </div>
                 </form>
