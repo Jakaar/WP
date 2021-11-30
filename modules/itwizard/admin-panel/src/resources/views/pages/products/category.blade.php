@@ -37,7 +37,7 @@
                     <div class="card-title"></div>
                     <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
-                            <ul class="vertical-nav-menu">
+                            <ul class="vertical-nav-menu" id="categoryDropdown">
                                 @foreach ($items as $item)
                                     <li>
                                         <a href="#" aria-expanded="false" data-key="{{ $item->id }}">
@@ -175,7 +175,7 @@
                 $('#parent_id').val('')
 
             })
-            $('.vertical-nav-menu li a').click(function() {
+            $('#categoryDropdown li a').click(function() {
                 const data = {
                     id: $(this).data('key')
                 }
