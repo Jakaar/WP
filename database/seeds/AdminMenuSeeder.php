@@ -83,7 +83,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 1,
                 'order' => 7,
                 'is_active' => 1,
-                'icon' => 'pe-7s-menu',
+                'icon' => 'pe-7s-tools',
             ],
 
             [
