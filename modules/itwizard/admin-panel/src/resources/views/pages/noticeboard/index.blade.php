@@ -1,10 +1,11 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Notice Board Management')}} @endsection
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
+                    <i class="pe-7s-display2  icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
                     {{__('Bulletin Board Manage')}}
@@ -54,10 +55,10 @@
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <h5 class="card-title">{{__('Use or Not Unused')}}</h5>
-                            <div class="form-check form-check-inline">
+                            {{-- <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="isEnabled" id="inlineRadio1" value="">
                                 <label class="form-check-label" for="inlineRadio1">{{__('All')}}</label>
-                            </div>
+                            </div> --}}
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="isEnabled" id="inlineRadio2" value="2">
                                 <label class="form-check-label" for="inlineRadio2">{{__('Active')}}</label>
@@ -113,16 +114,7 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>#</th>
-                    <th>{{__('Board Name')}}</th>
-                    <th>{{__('Board Type')}}</th>
-                    <th>{{__('Use Comment')}}</th>
-                    <th>{{__('Created At')}}</th>
-                    <th>{{__('Action')}}</th>
-                </tr>
-                </tfoot>
+
             </table>
         </div>
     </div>
@@ -136,6 +128,7 @@
 {{--                            <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i>--}}
                             {{__('Create Board')}}
                         </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="CrtBrd">
@@ -143,12 +136,12 @@
                             <div class="col-md-6">
                                 <div class="position-relative mb-3">
                                     <h5 class="card-title">{{__('Name')}}</h5>
-                                    <input name="" id="BoardName" placeholder="" type="email" class="form-control">
+                                    <input name="BoardName" id="BoardName" placeholder="" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="card-title">{{__('Board Type')}}</h5>
-                                <select id="BoardType" class="multiselect-dropdown form-control">
+                                <select id="BoardType" name="BoardType" class="multiselect-dropdown form-control">
                                     <option value="" selected disabled>{{__('Choose')}}</option>
                                     @foreach($dataM['board_type'] as $type)
                                         <option value="{{$type->key}}">{{$type->key}}</option>
@@ -163,7 +156,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1" checked>
+                                    <input class="form-check-input" type="radio" id="noComment" name="isComment" value="1">
                                     <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -271,14 +264,17 @@
                         <hr class="text-primary">
                         <div class="row mt-2">
                             <div class="col-6">
-                                <h5 class="card-title">{{__('Is Used')}}</h5>
+                                <h5 class="card-title">{{__('Is Enabled')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isEnabled" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="2">{{__('Active')}}</option>
-                                    <option value="1">{{__('In Active')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesEnabled" name="isEnabled" value="2" checked>
+                                    <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noEnabled" name="isEnabled" value="1">
+                                    <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -299,6 +295,7 @@
 {{--                            <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i>--}}
                             {{__('Edit Board')}}
                         </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="updateForm">
@@ -312,7 +309,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h5 class="card-title">{{__('Board Type')}}</h5>
-                                <select id="board_type1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <select id="board_type1" name="board_type1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="" selected disabled>{{__('Choose')}}</option>
                                     @foreach($dataM['board_type'] as $type)
                                         <option value="{{$type->key}}">{{$type->key}}</option>
@@ -326,11 +323,14 @@
                                 <h5 class="card-title">{{__('Use Comment')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isComment1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesComment1" name="isComment1" value="1">
+                                    <label class="form-check-label" for="noComment">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noComment1" name="isComment1" value="0">
+                                    <label class="form-check-label" for="yesComment">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
@@ -339,11 +339,14 @@
                                 <h5 class="card-title">{{__('Use Comment Reply')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isReply1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesReply1" name="isReply1" value="1">
+                                    <label class="form-check-label" for="yesReply">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noReply1" name="isReply1" value="0">
+                                    <label class="form-check-label" for="noReply">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
@@ -352,11 +355,14 @@
                                 <h5 class="card-title">{{__('Use Register Button')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isRegister1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesRegister1" name="isRegister1" value="1">
+                                    <label class="form-check-label" for="yesRegister">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noRegister1" name="isRegister1" value="0">
+                                    <label class="form-check-label" for="noRegister">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
@@ -365,11 +371,14 @@
                                 <h5 class="card-title">{{__('Use Rating')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isRating1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesRating1" name="isRating1" value="1">
+                                    <label class="form-check-label" for="yesRating">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noRating1" name="isRating1" value="0">
+                                    <label class="form-check-label" for="noRating">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
@@ -378,11 +387,14 @@
                                 <h5 class="card-title">{{__('Use File Input')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isFile1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesFile1" name="isFile1" value="1">
+                                    <label class="form-check-label" for="yesFile">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noFile1" name="isFile1" value="0">
+                                    <label class="form-check-label" for="noFile">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
@@ -391,11 +403,14 @@
                                 <h5 class="card-title">{{__('Use Board')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isBoard1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesBoard1" name="isBoard1" value="1">
+                                    <label class="form-check-label" for="yesBoard">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noBoard1" name="isBoard1" value="0">
+                                    <label class="form-check-label" for="noBoard">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
@@ -404,24 +419,30 @@
                                 <h5 class="card-title">{{__('Use Category')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isCategory1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="1">{{__('Yes')}}</option>
-                                    <option value="0">{{__('No')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesCategory1" name="isCategory1" value="1">
+                                    <label class="form-check-label" for="yesCategory">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noCategory1" name="isCategory1" value="0">
+                                    <label class="form-check-label" for="noCategory">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                         <hr class="text-primary">
                         <div class="row mt-2">
                             <div class="col-6">
-                                <h5 class="card-title">{{__('Is Used')}}</h5>
+                                <h5 class="card-title">{{__('Is Enabled')}}</h5>
                             </div>
                             <div class="col-6">
-                                <select id="isEnabled1" class="multiselect-dropdown form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="" selected disabled>{{__('Choose')}}</option>
-                                    <option value="2">{{__('Active')}}</option>
-                                    <option value="1">{{__('In Active')}}</option>
-                                </select>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="yesEnabled1" name="isEnabled1" value="2">
+                                    <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noEnabled1" name="isEnabled1" value="1">
+                                    <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -455,18 +476,20 @@
                 $('#EditBoardModal').modal('show');
             });
             $('.CreateBoard').on('click', function (){
+                if ($('#CrtBrd').valid()) {
+
                const data = {
-                   board_name: $('#BoardName').val(),
-                   board_type: $('#BoardType').val(),
-                   isEnabled: $('#isEnabled').val(),
-                   isComment: $('input[name="isComment"]:checked').val(),
-                   isReply: $('input[name="isReply"]:checked').val(),
-                   isRegister: $('input[name="isRegister"]:checked').val(),
-                   isRating: $('input[name="isRating"]:checked').val(),
-                   isFile: $('input[name="isFile"]:checked').val(),
-                   isBoard: $('input[name="isBoard"]:checked').val(),
-                   isCategory: $('input[name="isCategory"]:checked').val()
-                   
+                    BoardName: $('#BoardName').val(),
+                    BoardType: $('#BoardType').val(),
+                    isComment: $('input[name="isComment"]:checked').val(),
+                    isReply: $('input[name="isReply"]:checked').val(),
+                    isRegister: $('input[name="isRegister"]:checked').val(),
+                    isRating: $('input[name="isRating"]:checked').val(),
+                    isFile: $('input[name="isFile"]:checked').val(),
+                    isBoard: $('input[name="isBoard"]:checked').val(),
+                    isCategory: $('input[name="isCategory"]:checked').val(), 
+                    isEnabled: $('input[name="isEnabled"]:checked').val()                
+                              
 
                }
                Axios.post('/api/board/create', data).then((resp) => {
@@ -485,6 +508,7 @@
                        title: err.response.data.msg
                    })
                })
+                }
             });
             $('.DeleteBoard').on('click', function() {
                 Swal.fire({
@@ -515,14 +539,39 @@
                     $('#board_id').val(resp.data.id);
                     $('#board_name1').val(resp.data.board_name);
                     $('#board_type1').val(resp.data.board_type);
-                    $('#isComment1').val(resp.data.isComment);
-                    $('#isReply1').val(resp.data.isReply);
-                    $('#isRegister1').val(resp.data.isRegister);
-                    $('#isRating1').val(resp.data.isRating); 
-                    $('#isFile1').val(resp.data.isFile);
-                    $('#isBoard1').val(resp.data.isBoard);   
-                    $('#isCategory1').val(resp.data.isCategory);
-                    $('#isEnabled1').val(resp.data.isEnabled);              
+                   if(resp.data.isComment==1)
+                    {$('#yesComment1').prop('checked', true);}
+                    else
+                    {$('#noComment1').prop('checked', true);}
+                    if(resp.data.isReply==1)
+                    {$('#yesReply1').prop('checked', true);}
+                    else
+                    {$('#noReply1').prop('checked', true);}
+                    if(resp.data.isRegister==1)
+                    {$('#yesRegister1').prop('checked', true);}
+                    else
+                    {$('#noRegister1').prop('checked', true);}
+                    if(resp.data.isRating==1)
+                    {$('#yesRating1').prop('checked', true);}
+                    else
+                    {$('#noRating1').prop('checked', true);}
+                    if(resp.data.isFile==1)
+                    {$('#yesFile1').prop('checked', true);}
+                    else
+                    {$('#noFile1').prop('checked', true);}
+                    if(resp.data.isBoard==1)
+                    {$('#yesBoard1').prop('checked', true);}
+                    else
+                    {$('#noBoard1').prop('checked', true);}
+                    if(resp.data.isCategory==1)
+                    {$('#yesCategory1').prop('checked', true);}
+                    else
+                    {$('#noCategory1').prop('checked', true);}
+                    if(resp.data.isEnabled==2)
+                    {$('#yesEnabled1').prop('checked', true);}
+                    else
+                    {$('#noEnabled1').prop('checked', true);}       
+                         
                 });
             });
             $('#update_board').on('click', function() {
@@ -531,14 +580,14 @@
                         board_id: $('#board_id').val(),
                         board_name1: $('#board_name1').val(),
                         board_type1: $('#board_type1').val(),
-                        isComment1: $('#isComment1').val(),
-                        isReply1: $('#isReply1').val(),
-                        isRegister1: $('#isRegister1').val(),
-                        isRating1: $('#isRating1').val(),
-                        isFile1: $('#isFile1').val(),
-                        isBoard1: $('#isBoard1').val(),
-                        isCategory1: $('#isCategory1').val(),
-                        isEnabled1: $('#isEnabled1').val(),
+                        isComment1: $('input[name="isComment1"]:checked').val(),
+                        isReply1: $('input[name="isReply1"]:checked').val(),
+                        isRegister1: $('input[name="isRegister1"]:checked').val(),
+                        isRating1: $('input[name="isRating1"]:checked').val(),
+                        isFile1: $('input[name="isFile1"]:checked').val(),
+                        isBoard1: $('input[name="isBoard1"]:checked').val(),
+                        isCategory1: $('input[name="isCategory1"]:checked').val(), 
+                        isEnabled1: $('input[name="isEnabled1"]:checked').val() 
                     }
                     const headers = {
                         'Content-Type': 'multipart/form-data',
@@ -563,7 +612,7 @@
                     });
                 }
             })
-            $('#createForm').validate({
+            $('#CrtBrd').validate({
                 
                 errorPlacement: function(error, element) {
                     // Add the `invalid-feedback` class to the error element

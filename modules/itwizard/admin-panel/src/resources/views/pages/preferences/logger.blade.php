@@ -1,10 +1,12 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Logger')}} @endsection
+
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-display2 icon-gradient bg-tempting-azure"></i>
+                    <i class="pe-7s-news-paper icon-gradient bg-tempting-azure"></i>
                 </div>
                 <div>
                     {{ __('Logger') }}

@@ -1,6 +1,7 @@
 @extends('Admin::layouts.master')
 
-@section('title'){{__('Analyse')}} @endsection
+@section('title'){{__('Dashboard')}} @endsection
+
 
 @section('content')
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
@@ -20,9 +21,9 @@
                                     {{$dataC['total_product'] }}
                                 </div>
                                 <div class="ms-auto">
-                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
-                                        <span class="text-success ps-2">+14%</span>
-                                    </div>
+<!--                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
+<!--                                        <span class="text-success ps-2">+14%</span>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -32,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+        <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
                     <h6 class="widget-subheading">{{__('New Products')}}</h6>
@@ -45,12 +46,12 @@
                                 </div>
                                 <div class="ms-auto">
                                     <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
-                                        <span class="text-danger ps-2">
-                                            <span class="pe-1">
-                                                <i class="fa fa-angle-up"></i>
-                                            </span>
-                                            8%
-                                        </span>
+<!--                                        <span class="text-danger ps-2">-->
+<!--                                            <span class="pe-1">-->
+<!--                                                <i class="fa fa-angle-up"></i>-->
+<!--                                            </span>-->
+<!--                                            8%-->
+<!--                                        </span>-->
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +62,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+        <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
                     <h6 class="widget-subheading">{{__('Active Status Product')}}</h6>
@@ -77,12 +78,12 @@
                                 </div>
                                 <div class="ms-auto">
                                     <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
-                                        <span class="text-success ps-2">
-                                            <span class="pe-1">
-                                                <i class="fa fa-angle-down"></i>
-                                            </span>
-                                            15%
-                                        </span>
+<!--                                        <span class="text-success ps-2">-->
+<!--                                            <span class="pe-1">-->
+<!--                                                <i class="fa fa-angle-down"></i>-->
+<!--                                            </span>-->
+<!--                                            15%-->
+<!--                                        </span>-->
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +94,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card">
+        <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
                     <h6 class="widget-subheading">{{__('Inactive Product')}}</h6>
@@ -105,9 +106,9 @@
                                     {{$dataC['inactive_product'] }}
                                 </div>
                                 <div class="ms-auto">
-                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
-                                        <span class="text-warning ps-2">+76%</span>
-                                    </div>
+<!--                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
+<!--                                        <span class="text-warning ps-2">+76%</span>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -117,131 +118,6 @@
         </div>
     </div>
 </div>
-    <div class="col-md-12 col-lg-12 mb-3">
-        <div class="card ">
-            <div class="card-body">
-                <div class="tab-content">
-                    <div class="tab-pane active fade show" id="tab-content-income" role="tabpanel">
-                        <h5 class="menu-header-title">Target Sales</h5>
-                        <h6 class="menu-header-subtitle opacity-6">Total performance for this month</h6>
-                        <div class="mt-3 row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="card-border mb-sm-3 mb-md-0 border-light no-shadow card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left">
-                                                    <div class="widget-heading">Orders</div>
-                                                </div>
-                                                <div class="widget-content-right">
-                                                    <div class="widget-numbers line-height-1 text-primary">
-                                                        <span>366</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-progress-wrapper mt-1">
-                                                <div class="progress-bar-xs progress">
-                                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100" style="width: 76%;">
-                                                    </div>
-                                                </div>
-                                                <div class="progress-sub-label">
-                                                    <div class="sub-label-left">Monthly Target</div>
-                                                    <div class="sub-label-right">100%</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="card-border border-light no-shadow card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left">
-                                                    <div class="widget-heading">Income</div>
-                                                </div>
-                                                <div class="widget-content-right">
-                                                    <div class="widget-numbers line-height-1 text-success">
-                                                        <span>$2797</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-progress-wrapper mt-1">
-                                                <div class="progress-bar-xs progress-bar-animated progress">
-                                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;">
-                                                    </div>
-                                                </div>
-                                                <div class="progress-sub-label">
-                                                    <div class="sub-label-left">Monthly Target</div>
-                                                    <div class="sub-label-right">100%</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-content-expenses" role="tabpanel">
-                        <h5 class="menu-header-title">Tabbed Content</h5>
-                        <h6 class="menu-header-subtitle opacity-6">
-                            Example of various options built with
-                            ArchitectUI
-                        </h6>
-                        <div class="mt-3 row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="card-hover-shadow-2x mb-sm-3 mb-md-0 widget-chart widget-chart2 bg-premium-dark text-start card">
-                                    <div class="widget-chart-content text-white">
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-title">Sales</div>
-                                            <div class="widget-subtitle opacity-7">Monthly Goals</div>
-                                        </div>
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-numbers text-success">
-                                                <small>$</small>
-                                                976
-                                                <small class="opacity-8 ps-2">
-                                                    <i class="fa fa-angle-up"></i>
-                                                </small>
-                                            </div>
-                                            <div class="widget-description ms-auto opacity-7">
-                                                <i class="fa fa-angle-up"></i>
-                                                <span class="ps-1">175%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="card-hover-shadow-2x widget-chart widget-chart2 bg-premium-dark text-start card">
-                                    <div class="widget-chart-content text-white">
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-title">Clients</div>
-                                            <div class="widget-subtitle text-warning">Returning</div>
-                                        </div>
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-numbers text-warning">
-                                                84
-                                                <small>%</small>
-                                                <small class="opacity-8 ps-2">
-                                                    <i class="fa fa-angle-down"></i>
-                                                </small>
-                                            </div>
-                                            <div class="widget-description ms-auto text-warning">
-                                                <span class="pe-1">45</span>
-                                                <i class="fa fa-angle-up"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
     <div class="card-header-title fsize-2 text-capitalize fw-normal">User</div>
 </div>
@@ -321,7 +197,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-success border-success card">
+        <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-success border-success card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
                     <div class="widget-title opacity-5 text-uppercase">{{__('This week visited')}}</div>
@@ -356,7 +232,7 @@
                     </div>
                 </div>
                 <div class="pt-0 card-body">
-                    <div id="chart-combined"></div>
+                    <div id="chart-col-1"></div>
                 </div>
             </div>
         </div>
@@ -557,7 +433,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="chart-col-1"></div>
+                    <div id="chart-combined"></div>
                 </div>
                 <div class="p-0 d-block card-footer">
                     <div class="grid-menu grid-menu-2col">
@@ -961,69 +837,112 @@
 
     $(document).ready(function (){
          Axios.post('/api/dashboard/GetContent').then((resp)=>{
+             const labelsData = resp.data.labels;
+             const GraphicData = resp.data.Cdata;
+             // const data = [440, 505];
+            console.log(labelsData[0])
+             const options777 = {
+                 chart: {
+                     height: 187,
+                     type: 'line',
+                     // toolbar: {
+                     //     show: false,
+                     // }
+                 },
+                 series: [{
+                     name: 'Banner',
+                     type: 'column',
+                     data: resp.data.Cdata,
+                 },
+             {
+                 name: 'Content',
+                     type: 'line',
+                 data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+             }],
+                 stroke: {
+                     width: [0, 4]
+                 },
+                 // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                 labels: resp.data.labels,
 
-              // window.asd = resp.data.labels
-             const getData = async () => {
-                  var GG = resp.data.labels;
-                  return GG;
-             }
-             getData().then(GG=> console.log(GG))
-             // return asd;
+                 yaxis: [{
+                     title: {
+                         text: 'Content',
+                     },
+                 }]
+             };
 
+
+             const chart777 = new ApexCharts(
+                 document.querySelector("#chart-combined"),
+                 options777
+             );
+             chart777.render();
          }).catch((err)=>{
 
          })
-        const data = [440, 505];
-        const options777 = {
-            chart: {
-                height: 397,
-                type: 'line',
-                // toolbar: {
-                //     show: false,
-                // }
-            },
-            series: [{
-                name: 'Content',
-                type: 'column',
-                data: data
-            }],
-            stroke: {
-                width: [0, 4]
-            },
-            // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-             labels: [
-                '01 Jan 2001',
-                '02 Jan 2001',
-                '03 Jan 2001',
-                '04 Jan 2001',
-                '05 Jan 2001',
-                '06 Jan 2001',
-                '07 Jan 2001',
-                '08 Jan 2001',
-                '09 Jan 2001',
-                '10 Jan 2001',
-                '11 Jan 2001',
-                '12 Jan 2001'
-            ],
-
-            xaxis: {
-                type: 'datetime'
-            },
-            yaxis: [{
-                title: {
-                    text: 'Content',
-                },
-
-            }]
-
-        };
-
-
-        const chart777 = new ApexCharts(
-            document.querySelector("#chart-combined"),
-            options777
-        );
-        chart777.render();
     })
+
+
+    var options3col1 = {
+        chart: {
+            height: 397,
+            type: 'bar',
+            sparkline: {
+                enabled: true
+            },
+            toolbar:{
+                show:true,
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                endingShape: 'rounded',
+                columnWidth: '55%',
+            },
+        },
+        dataLabels: {
+            enabled: true
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Net Profit',
+            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        }, {
+            name: 'Revenue',
+            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+        }, {
+            name: 'Free Cash Flow',
+            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        }],
+        xaxis: {
+            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        },
+        yaxis: {
+            title: {
+                text: '$ (thousands)'
+            }
+        },
+        fill: {
+            opacity: 1
+
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "$ " + val + " thousands";
+                }
+            }
+        }
+    };
+    const col3Chart1 = new ApexCharts(
+        document.querySelector("#chart-col-1"),
+        options3col1
+    );
 </script>
 @endsection

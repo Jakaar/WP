@@ -1,4 +1,6 @@
 @extends('Admin::layouts.master')
+@section('title') {{__('Member Management')}} @endsection
+
 @section('content')
 
     <div class="app-page-title">

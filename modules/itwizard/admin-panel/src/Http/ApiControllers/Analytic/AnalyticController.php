@@ -25,20 +25,35 @@ class AnalyticController extends Controller
     public function GetContentData ()
     {
         $today = Carbon::now('m');
-        $startMonth = $today->startOfYear()->format('M');
-        $endMonth = $today->endOfYear()->format('M');
+        $thisYear = $today->format('y');
         $months = [];
-//Get start and end of all months
+        $PostData = [];
         for($i = 1; $i <= 12; $i++){
-            $array = [];
-            $array = Carbon::create()->month($i)->startOfMonth()->format('d M Y');
-//            $array['end'] = Carbon::create()->month($i)->endOfMonth()->format('d/m/y');
+            $array = Carbon::create()->month($i)->format('M '.$thisYear);
             array_push($months, $array);
+            if (Carbon::now()->format('m') === Carbon::create()->month($i)->format('m'))
+            {
+                $Post = DB::table('wpanel_banners')
+                    ->where('created_at', Carbon::now()->format('m'))
+                    ->get()
+                    ->count();
+            }else{
+                $Post = DB::table('wpanel_banners')
+                    ->whereBetween('created_at',
+                        [
+                            Carbon::parse($today->month($i)->startOfMonth())->toDateTimeString(),
+                            Carbon::parse($today->month($i)->endOfMonth())->toDateTimeString()
+                        ]
+                    )
+                    ->get()
+                    ->count();
+            }
+            array_push($PostData, $Post);
+//            dump(Carbon::parse($today->month($i)->endOfMonth())->toDateTimeString());
         }
-        $Cdata['banner'] = DB::table('wpanel_banners')->whereBetween('created_at',[$startMonth,$endMonth])->count();
+//        dd($PostData);
+//        $Cdata['page_manage'] = DB::table('wpanel_page_manage')->whereBetween('created_at',[$startMonth,$endMonth])->count();
 
-        $Cdata['page_manage'] = DB::table('wpanel_page_manage')->whereBetween('created_at',[$startMonth,$endMonth])->count();
-
-        return response()->json(['Cdata'=>$Cdata,'labels'=>$months], 200);
+        return response()->json(['Cdata'=>$PostData,'labels'=>$months], 200);
     }
 }
