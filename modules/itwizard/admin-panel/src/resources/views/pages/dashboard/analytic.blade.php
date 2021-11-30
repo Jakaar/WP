@@ -226,9 +226,9 @@
                     <div class="card-header-title font-size-lg text-capitalize fw-normal">
                         {{__('Traffic Sources')}}
                     </div>
-                    <div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn btn-warning">{{__('Actions')}}</button>
-                    </div>
+<!--                    <div class="btn-actions-pane-right text-capitalize">-->
+<!--                        <button class="btn btn-warning">{{__('Actions')}}</button>-->
+<!--                    </div>-->
                 </div>
                 <div class="pt-0 card-body">
                     <div id="chart-col-1"></div>
@@ -872,6 +872,60 @@
              };
 
 
+             const options333 = {
+                 chart: {
+                     height: 350,
+                     type: 'bar',
+                 },
+                 plotOptions: {
+                     bar: {
+                         horizontal: false,
+                         columnWidth: '35%',
+                     },
+                 },
+                 dataLabels: {
+                     enabled: false
+                 },
+                 stroke: {
+                     show: true,
+                     width: 2,
+                     colors: ['transparent']
+                 },
+                 series: [{
+                     name: 'Banner',
+                     data: resp.data.Cdata
+                 }, {
+                     name: 'Content',
+                     data: [6, 5, 1, 8, 7, 5, 1, 4, 4, 4, 5, 7,]
+                 }, {
+                     name: 'Free Cash Flow',
+                     data: [5, 1, 6, 6, 5, 8, 2, 3, 1, 4, 5, 7,]
+                 }],
+                 xaxis: {
+                     categories:  resp.data.labels,
+                 },
+                 yaxis: {
+                     title: {
+                         text: '$ (thousands)'
+                     }
+                 },
+                 fill: {
+                     opacity: 1
+
+                 },
+                 tooltip: {
+                     y: {
+                         formatter: function (val) {
+                             return "$ " + val + " thousands";
+                         }
+                     }
+                 }
+             };
+             const col3Chart1 = new ApexCharts(
+                 document.querySelector("#chart-col-1"),
+                 options333
+             );
+             col3Chart1.render();
              const chart777 = new ApexCharts(
                  document.querySelector("#chart-combined"),
                  options777
@@ -883,65 +937,6 @@
     })
 
 
-    var options3col1 = {
-        chart: {
-            height: 397,
-            type: 'bar',
-            sparkline: {
-                enabled: true
-            },
-            toolbar:{
-                show:true,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                endingShape: 'rounded',
-                columnWidth: '55%',
-            },
-        },
-        dataLabels: {
-            enabled: true
-        },
-        stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-        },
-        series: [{
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        }, {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        }, {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }],
-        xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        },
-        yaxis: {
-            title: {
-                text: '$ (thousands)'
-            }
-        },
-        fill: {
-            opacity: 1
 
-        },
-        tooltip: {
-            y: {
-                formatter: function (val) {
-                    return "$ " + val + " thousands";
-                }
-            }
-        }
-    };
-    const col3Chart1 = new ApexCharts(
-        document.querySelector("#chart-col-1"),
-        options3col1
-    );
 </script>
 @endsection

@@ -2236,9 +2236,6 @@ $(document).ready(() => {
         if (document.getElementById('chart-apex-stacked')) {
             chart4.render();
         }
-        if (document.getElementById('chart-col-1')) {
-            col3Chart1.render();
-        }
         if (document.getElementById('chart-col-2')) {
             col3Chart2.render();
         }

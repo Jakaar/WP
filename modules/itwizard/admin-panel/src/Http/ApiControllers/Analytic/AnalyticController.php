@@ -24,36 +24,27 @@ class AnalyticController extends Controller
     }
     public function GetContentData ()
     {
-        $today = Carbon::now('m');
-        $thisYear = $today->format('y');
+        $allMonths = (12);
+        $today = Carbon::now();
+        $thisYear = $today->format('Y');
+        $thisMonth = $today->format('m');
         $months = [];
         $PostData = [];
-        for($i = 1; $i <= 12; $i++){
-            $array = Carbon::create()->month($i)->format('M '.$thisYear);
-            array_push($months, $array);
-            if (Carbon::now()->format('m') === Carbon::create()->month($i)->format('m'))
-            {
-                $Post = DB::table('wpanel_banners')
-                    ->where('created_at', Carbon::now()->format('m'))
-                    ->get()
-                    ->count();
-            }else{
-                $Post = DB::table('wpanel_banners')
-                    ->whereBetween('created_at',
-                        [
-                            Carbon::parse($today->month($i)->startOfMonth())->toDateTimeString(),
-                            Carbon::parse($today->month($i)->endOfMonth())->toDateTimeString()
-                        ]
-                    )
-                    ->get()
-                    ->count();
-            }
-            array_push($PostData, $Post);
-//            dump(Carbon::parse($today->month($i)->endOfMonth())->toDateTimeString());
-        }
-//        dd($PostData);
-//        $Cdata['page_manage'] = DB::table('wpanel_page_manage')->whereBetween('created_at',[$startMonth,$endMonth])->count();
+        $ContentData = [];
+        for($i = 0; $i <= 11; $i++){
 
+//            $months[$i] = Carbon::create()->month($i)->format('M '.$thisYear);
+            $months[$i] = Carbon::now()->startOfYear()->startOfMonth()->addMonth($i)->format('M y');
+//            array_push($months, $array);
+            $PostData[$i] = DB::table('wpanel_banners')
+                ->whereBetween('created_at', [Carbon::now()->startOfYear()->startOfMonth()->addMonth($i),Carbon::now()->startOfYear()->addMonth($i)->endOfMonth()])
+                ->get()
+                ->count();
+//            dump($PostData);
+        }
+        
+//        dd('e');
+//        $Cdata['page_manage'] = DB::table('wpanel_page_manage')->whereBetween('created_at',[$startMonth,$endMonth])->count();
         return response()->json(['Cdata'=>$PostData,'labels'=>$months], 200);
     }
 }
