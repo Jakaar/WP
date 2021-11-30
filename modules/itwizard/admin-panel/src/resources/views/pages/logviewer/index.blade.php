@@ -30,7 +30,7 @@
            
             
                 <div class="col-lg-12">
-                    <div class="main-card mb-3 card">
+                    <div class="main-card mb-3 card" style="height: 450px;">
                         
                         <div class="card-header">
                             <!-- <i class="header-icon lnr-laptop-phone icon-gradient bg-plum-plate"></i> -->

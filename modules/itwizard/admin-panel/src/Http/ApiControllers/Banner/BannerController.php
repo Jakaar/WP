@@ -39,6 +39,8 @@ class BannerController extends Controller
             'target_type'=>$request->target_type,
             'type'=>$request->type,
             'isEnabled'=>$request->isEnabled,
+            "created_at" =>  \Carbon\Carbon::now(), 
+            "updated_at" => \Carbon\Carbon::now(), 
         ]);
         return response()->json(['icon'=>__('success')] , 200);
     }
