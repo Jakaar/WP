@@ -251,7 +251,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 29,
-                'title' =>  '{"mn":"Нэвтрэх оролдлого","en":"Log","kr":"Орчуулаггүй"}',
+                'title' =>  '{"mn":"Нэвтрэх оролдлого","en":"Log","kr":"로그인 시도"}',
                 'url' =>  '/cms/User/LogViewer',
                 'parent_id' => null,
                 'order' => 13,
