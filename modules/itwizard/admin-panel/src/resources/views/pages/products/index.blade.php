@@ -619,7 +619,7 @@
                     $.each(JSON.parse(data.other_photos), function(i, v) {
                         $('#thumbnails').prepend(
                             '<div class="col-lg-3 position-relative"><img src="' + v +
-                            '"style="height:100px; object-fit:cover" class="mb-3 w-100"><button class="btn btn-outline-danger deleteImage position-absolute btn-sm" style="right:12px;"><i class="fa fa-trash"></i></button></div>'
+                            '"style="height:100px; object-fit:cover" class="mb-3 w-100"><button class="btn btn-outline-danger deleteImage position-absolute btn-sm m-1" style="right:12px;"><i class="fa fa-trash"></i></button></div>'
                         )
                     })
 

@@ -301,7 +301,6 @@
     "Yes": "네",
     "No": "아니오",
     "Close": "닫기",
-    "Create Board": "보드 생성",
     "Top 10 Viewed pages": "가장 많이 본 페이지 10개",
     "Last 10 News": "지난 10가지 뉴스",
     "Quickly Create": "신속 생성",
@@ -801,5 +800,18 @@
     "Available Language": "Боломжит Хэл",
     "Form Create": "Форм үүсгэх ",
     "Product Categories": "Бүтээгдэхүүний ангилал",
-    "Categories Management": "Категорийн удирдлага"
+    "Categories Management": "Категорийн удирдлага",
+    "Jan :Year": "Jan :Year",
+    "Feb :Year": "Feb :Year",
+    "Mar :Year": "Mar :Year",
+    "Apr :Year": "Apr :Year",
+    "May :Year": "May :Year",
+    "Jun :Year": "Jun :Year",
+    "Jul :Year": "Jul :Year",
+    "Aug :Year": "Aug :Year",
+    "Sep :Year": "Sep :Year",
+    "Oct :Year": "Oct :Year",
+    "Nov :Year": "Nov :Year",
+    "Dec :Year": "Dec :Year"
+
    }
