@@ -17,7 +17,7 @@
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4 text-success">
-                                    <small class="opacity-5">+</small>
+<!--                                    <small class="opacity-5">+</small>-->
                                     {{$dataC['total_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -41,7 +41,7 @@
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4 text-danger">
-                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>
+<!--                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>-->
                                     {{$dataC['new_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -71,9 +71,9 @@
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
                                     <span class="text-success pe-2">
-                                        <i class="fa fa-angle-down"></i>
+<!--                                        <i class="fa fa-angle-down"></i>-->
                                     </span>
-                                    <small class="opacity-5">$</small>
+<!--                                    <small class="opacity-5">$</small>-->
                                     {{$dataC['active_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -102,7 +102,7 @@
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
-                                    <small class="opacity-5">$</small>
+<!--                                    <small class="opacity-5">$</small>-->
                                     {{$dataC['inactive_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -131,12 +131,12 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                                        <span class="opacity-10 text-success pe-2">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </span>
+<!--                                                        <span class="opacity-10 text-success pe-2">-->
+<!--                                                            <i class="fa fa-angle-up"></i>-->
+<!--                                                        </span>-->
                                 {{-- {!! $data['users_count'] !!} --}}
                                 {{$dataC['users']}}
-                                <small class="opacity-5 ps-1">명</small>
+<!--                                <small class="opacity-5 ps-1">명</small>-->
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
                             <!--                                    <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">-->
@@ -157,11 +157,11 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                                        <span class="opacity-10 text-success pe-2">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </span>
+<!--                                                        <span class="opacity-10 text-success pe-2">-->
+<!--                                                            <i class="fa fa-angle-up"></i>-->
+<!--                                                        </span>-->
                                 {{ $dataC['new_user'] }}
-                                <small class="opacity-5 ps-1">명</small>
+<!--                                <small class="opacity-5 ps-1">명</small>-->
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
                             <!--                                    <div class="circle-progress circle-progress-danger-sm d-inline-block">-->
@@ -204,7 +204,7 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                <small class="text-success pe-1">+</small>
+<!--                                <small class="text-success pe-1">+</small>-->
                                 34
                                 <!--                                    <small class="opacity-5 ps-1">hires</small>-->
                             </div>
@@ -219,6 +219,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Content')}}</div>
 </div>
     <div class="row">
         <div class="col-sm-12 col-md-7 col-lg-8">
