@@ -811,5 +811,9 @@
     "Sep :Year": "9 сар :Year",
     "Oct :Year": "10 сар :Year",
     "Nov :Year": "11 сар :Year",
-    "Dec :Year": "12 сар :Year"
+    "Dec :Year": "12 сар :Year",
+    "Multiple select email":"Мэйл сонгох",
+    "Only members who have agreed to receive":"Мэйл хүлээн авахыг зөвшөөрсөн гишүүд ",
+    "Mailing":" Шуудангаар илгээх "
+
 }

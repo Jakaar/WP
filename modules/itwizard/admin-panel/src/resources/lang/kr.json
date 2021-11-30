@@ -814,7 +814,10 @@
     "Sep :Year": ":Year 구월",
     "Oct :Year": ":Year 시월",
     "Nov :Year": ":Year 십일월",
-    "Dec :Year": ":Year 십이월"
+    "Dec :Year": ":Year 십이월",
+    "Multiple select email":" Мэйл сонгох",
+    "Only members who have agreed to receive":" Мэйл хүлээн авахыг зөвшөөрсөн гишүүд",
+    "Mailing":"메일 보내기 "
 
 
    }
