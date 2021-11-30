@@ -38,7 +38,7 @@ class AnalyticController extends Controller
 //            array_push($months, $array);
             $PostData[$i] = DB::table('wpanel_banners')
                 ->whereBetween('created_at', [Carbon::now()->startOfYear()->startOfMonth()->addMonth($i),Carbon::now()->startOfYear()->addMonth($i)->endOfMonth()])
-                ->where('isEnabled', '=', 1)
+                ->where('isEnabled', '=', 'Used')
                 ->get()
                 ->count();
 //            dump($PostData);

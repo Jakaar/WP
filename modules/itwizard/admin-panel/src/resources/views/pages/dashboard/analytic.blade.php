@@ -912,7 +912,7 @@
                  },
                  yaxis: {
                      title: {
-                         text: '$ (thousands)'
+                         text: ' ({{__('Post')}})'
                      }
                  },
                  fill: {
