@@ -827,5 +827,10 @@
     "This Week Visited": "금주 접속자 수",
     "Persent": "퍼센트",
     "Posts": "게시물 수",
-    "Content": "콘텐츠"
+    "Content": "콘텐츠",
+    "Choose Type": "유형 선택",
+    "Text Box": "텍스트 박스",
+    "Text Area": "텍스트 영역",
+    "Admin edit & delete": "관리자 편집 및 삭제"
+    
     }
