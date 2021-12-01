@@ -532,7 +532,6 @@
     "Create new member": "새 회원 생성",
     "Create member": "회원 생성",
     "Total User": "총 사용자 수",
-    "Firstname": "명",
     "Lastname": "성",
     "lastname": "성",
     "Roles": "역할",
@@ -824,8 +823,9 @@
     "Active Status Product": "활성화 상태 상품",
     "Inactive Product": "비활성화 상품",
     "New User": "새 사용자",
-    // "Total User": "",
     "Total Admin": "총 관리자 수",
     "This Week Visited": "금주 접속자 수",
-    "Persent": "퍼센트"
+    "Persent": "퍼센트",
+    "Posts": "게시물 수",
+    "Content": "콘텐츠"
     }
