@@ -814,7 +814,17 @@
     "Sep :Year": "구월 :Year",
     "Oct :Year": "시월 :Year",
     "Nov :Year": "십일월 :Year",
-    "Dec :Year": "십이월 :Year"
-    
-
-   }
+    "Dec :Year": "십이월 :Year",
+    "Product": "상품",
+    "Total Products": "총 상품",
+    "New Products": "새 상품",
+    "Active Status Product": "활성화 상태 상품",
+    "Inactive Product": "비활성화 상품",
+    "New User": "새 사용자",
+    // "Total User": "",
+    "Total Admin": "총 관리자 수",
+    "This Week Visited": "금주 접속자 수",
+    "Persent": "",
+    "": "",
+    "": "",
+    }
