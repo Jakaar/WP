@@ -17,13 +17,13 @@
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
-<!--                                    <small class="opacity-5">+</small>-->
+                                    <!--                                    <small class="opacity-5">+</small>-->
                                     {{$dataC['total_product'] }}
                                 </div>
                                 <div class="ms-auto">
-<!--                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
-<!--                                        <span class="text-success ps-2">+14%</span>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
+                                    <!--                                        <span class="text-success ps-2">+14%</span>-->
+                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -41,17 +41,17 @@
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
-<!--                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>-->
+                                    <!--                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>-->
                                     {{$dataC['new_product'] }}
                                 </div>
                                 <div class="ms-auto">
                                     <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
-<!--                                        <span class="text-danger ps-2">-->
-<!--                                            <span class="pe-1">-->
-<!--                                                <i class="fa fa-angle-up"></i>-->
-<!--                                            </span>-->
-<!--                                            8%-->
-<!--                                        </span>-->
+                                        <!--                                        <span class="text-danger ps-2">-->
+                                        <!--                                            <span class="pe-1">-->
+                                        <!--                                                <i class="fa fa-angle-up"></i>-->
+                                        <!--                                            </span>-->
+                                        <!--                                            8%-->
+                                        <!--                                        </span>-->
                                     </div>
                                 </div>
                             </div>
@@ -73,17 +73,17 @@
                                     <span class="text-success pe-2">
 <!--                                        <i class="fa fa-angle-down"></i>-->
                                     </span>
-<!--                                    <small class="opacity-5">$</small>-->
+                                    <!--                                    <small class="opacity-5">$</small>-->
                                     {{$dataC['active_product'] }}
                                 </div>
                                 <div class="ms-auto">
                                     <div class="widget-title ms-auto font-size-lg fw-normal text-muted">
-<!--                                        <span class="text-success ps-2">-->
-<!--                                            <span class="pe-1">-->
-<!--                                                <i class="fa fa-angle-down"></i>-->
-<!--                                            </span>-->
-<!--                                            15%-->
-<!--                                        </span>-->
+                                        <!--                                        <span class="text-success ps-2">-->
+                                        <!--                                            <span class="pe-1">-->
+                                        <!--                                                <i class="fa fa-angle-down"></i>-->
+                                        <!--                                            </span>-->
+                                        <!--                                            15%-->
+                                        <!--                                        </span>-->
                                     </div>
                                 </div>
                             </div>
@@ -102,13 +102,13 @@
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
-<!--                                    <small class="opacity-5">$</small>-->
+                                    <!--                                    <small class="opacity-5">$</small>-->
                                     {{$dataC['inactive_product'] }}
                                 </div>
                                 <div class="ms-auto">
-<!--                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
-<!--                                        <span class="text-warning ps-2">+76%</span>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
+                                    <!--                                        <span class="text-warning ps-2">+76%</span>-->
+                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -155,18 +155,19 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-danger border-danger card widget-chart-hover">
+        <div
+            class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-danger border-danger card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
                     <div class="widget-title opacity-5 text-uppercase">{{__('New User')}}</div>
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-<!--                                                        <span class="opacity-10 text-success pe-2">-->
-<!--                                                            <i class="fa fa-angle-up"></i>-->
-<!--                                                        </span>-->
+                                <!--                                                        <span class="opacity-10 text-success pe-2">-->
+                                <!--                                                            <i class="fa fa-angle-up"></i>-->
+                                <!--                                                        </span>-->
                                 {{ $dataC['new_user'] }}
-<!--                                <small class="opacity-5 ps-1">명</small>-->
+                                <!--                                <small class="opacity-5 ps-1">명</small>-->
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
                             <!--                                    <div class="circle-progress circle-progress-danger-sm d-inline-block">-->
@@ -271,8 +272,11 @@
                     <!--                            <div class="text-muted opacity-6">{{__('Spendings Target')}}</div>-->
                     <!--                        </div>-->
                     <!--                    </div>-->
-                    <div class=" mt-3">
-                        <canvas id="polar-chart" height="200"></canvas>
+                    <!--                    <div class=" mt-3">-->
+                    <!--                        <canvas id="polar-chart" height="200"></canvas>-->
+                    <!--                    </div>-->
+                    <div class="pt-0 card-body">
+                        <div id="chart"></div>
                     </div>
                 </div>
             </div>
@@ -296,49 +300,17 @@
                 .html("<span>" + stepValue.toFixed(0) + "<span>");
         });
     // combined charts
-    var options777 = {
-        chart: {
-            height: 397,
-            type: 'line',
-            // toolbar: {
-            //     show: false,
-            // }
-        },
-        series: [{
-            name: 'Website Blog',
-            type: 'column',
-            data: [40, 5, 14, 71, 27, 13, 1, 52, 52, 20, 57, 60]
-        }, {
-            name: 'Social Media',
-            type: 'line',
-            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
-        }],
-        stroke: {
-            width: [0, 4]
-        },
-        // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        // labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
-        xaxis: {
-            type: 'datetime'
-        },
-        yaxis: [{
-            title: {
-                text: 'Website Blog',
-            },
-
-        }, {
-            opposite: true,
-            title: {
-                text: 'Social Media'
-            }
-        }]
-
-    };
-
     $(document).ready(function () {
         Axios.post('/api/dashboard/GetContent').then((resp) => {
             const labelsData = resp.data.labels;
             const GraphicData = resp.data.bData;
+            const Products = resp.data.Product;
+            let Name = [];
+            let Qty = [];
+            $.each(Products, (i,v)=>{
+                Name.push(v.name)
+                Qty.push(v.total)
+            })
             // const data = [440, 505];
             // console.log(labelsData[0])
             const options777 = {
@@ -424,74 +396,50 @@
                     }
                 }
             };
+
+
+
+            // Polar
+            const optionsPolar = {
+                series: Qty,
+                chart:
+                    {
+                        type: 'polarArea',
+                    },
+                labels: Name,
+                stroke:
+                    {
+                        colors: ['#fff']
+                    },
+                fill: {
+                    opacity: 0.8
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+            const chart = new ApexCharts(document.querySelector("#chart"), optionsPolar);
+            chart.render();
             const col3Chart1 = new ApexCharts(
                 document.querySelector("#chart-col-1"),
                 options333
             );
+
+
             col3Chart1.render();
             const chart777 = new ApexCharts(
                 document.querySelector("#chart-combined"),
                 options777
             );
             chart777.render();
-
-            // Polar
-            const randomScalingFactor = function () {
-                return GraphicData;
-            };
-            chartColors = {
-                red: "#dc3545",
-                orange: "#fd7e14",
-                yellow: "#ffc107",
-                green: "#28a745",
-                blue: "#007bff",
-                purple: "#6f42c1",
-                grey: "#6c757d",
-            };
-            const configPolar = {
-                data: {
-                    datasets: [
-                        {
-                            data: [
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                                randomScalingFactor(),
-                            ],
-                            backgroundColor: [
-                                color(chartColors.red).alpha(0.5).rgbString(),
-                                color(chartColors.orange).alpha(0.5).rgbString(),
-                                color(chartColors.yellow).alpha(0.5).rgbString(),
-                                color(chartColors.green).alpha(0.5).rgbString(),
-                                color(chartColors.blue).alpha(0.5).rgbString(),
-                            ],
-                            label: "My dataset", // for legend
-                        },
-                    ],
-                    labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
-                },
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: "right",
-                    },
-                    title: {
-                        display: false,
-                        text: "Chart.js Polar Area Chart",
-                    },
-                    scale: {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                        reverse: false,
-                    },
-                    animation: {
-                        animateRotate: false,
-                        animateScale: true,
-                    },
-                },
-            };
         }).catch((err) => {
 
         })
