@@ -24,6 +24,7 @@ class CreateWpanelBoardMaster extends Migration
             $table->integer('isFile');
             $table->integer('isBoard');
             $table->integer('isCategory');
+            $table->integer('isEnabled');
             $table->timestamps();
         });
     }

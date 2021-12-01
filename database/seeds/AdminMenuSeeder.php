@@ -30,15 +30,15 @@ class AdminMenuSeeder extends Seeder
                 'is_active' => 1,
                 'icon' => 'pe-7s-settings',
             ],
-            [
-               'id' => 3,
-               'title' =>  '{"mn":"Аналитик","en":"Analytic","kr":"분석"}',
-               'url' =>  '/cms/preferences/analystic',
-               'parent_id' => 1,
-               'order' => 2,
-               'is_active' => 1,
-               'icon' => 'pe-7s-graph',
-           ],
+        //     [
+        //        'id' => 3,
+        //        'title' =>  '{"mn":"Аналитик","en":"Analytic","kr":"분석"}',
+        //        'url' =>  '/cms/preferences/analystic',
+        //        'parent_id' => 1,
+        //        'order' => 2,
+        //        'is_active' => 1,
+        //        'icon' => 'pe-7s-graph',
+        //    ],
            [
                'id' => 4,
                'title' =>  '{"mn":"Лог","en":"Logger","kr":"로거"}',
@@ -83,7 +83,7 @@ class AdminMenuSeeder extends Seeder
                 'parent_id' => 1,
                 'order' => 7,
                 'is_active' => 1,
-                'icon' => 'pe-7s-menu',
+                'icon' => 'pe-7s-tools',
             ],
 
             [

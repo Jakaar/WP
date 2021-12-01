@@ -3,13 +3,38 @@
 
 @section('content')
 <style>
-    .ck-editor__editable {
+  .ck-editor__editable {
         min-height: 200px;
     }
     .select2-container--default .select2-selection--multiple{
-        width: 691px;
+        width: 625px;
     }
 
+    @media only screen and (max-width: 600px) {
+        .select2-container--default .select2-selection--multiple{
+        width: 308px;
+        }
+    }
+    @media only screen and (min-width: 600px) {
+        .select2-container--default .select2-selection--multiple{
+        width: 308px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        .select2-container--default .select2-selection--multiple{
+        width: 457px;
+        }
+    }
+    @media only screen and (min-width: 992px) {
+        .select2-container--default .select2-selection--multiple{
+        width: 476px;
+        }
+    }
+    @media only screen and (min-width: 1200px) {
+        .select2-container--default .select2-selection--multiple{
+        width: 625px;
+        }
+    }
     .select2-container--default.select2-container--focus .select2-selection--multiple{
 
         border: solid #ced4da 1px  !important;
@@ -20,6 +45,7 @@
     background-color: #e0f3ff  !important;
         border: 1px solid #94d5ff  !important;
     }
+
 
 </style>
 <div class="app-page-title">
@@ -106,11 +132,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" class="row">
+                <form action="#" class="row" id="validateForm">
                     <input type="hidden" id="idMail">
                     <div class="mb-3 col-lg-12">
                         <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail title')}}</label>
-                        <input id="mailTitle" name="mailTitle" type="text" class="form-control">
+                        <input id="mailTitle" name="mailTitle" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <div class="mb-3 col-lg-12">
@@ -136,13 +162,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" class="row">
+                <form action="" class="row" id="validateForm">
                     <input type="hidden" id="idMail">
 
                     <div class="mb-3 col-lg-12">
 
                         <label class="form-label fw-bold" for="flexSwitchCheckChecked">{{__('Mail title')}}</label>
-                        <input id="editMailTitle" name="editMailTitle" type="text" class="form-control">
+                        <input id="editMailTitle" name="editMailTitle" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <div class="mb-3 col-lg-12">
@@ -171,19 +197,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body ">
-                <form action="" class="row">
-
-
+                <form action="" class="row" id="validateForm">
 
                     <input type="hidden" id="idMail">
-                    <div class="mb-3 col-lg-1">
+                    <div class="mb-3 col-lg-2">
                             <div class="form-check d-inline-block  fw-bold">
-                            <input type="checkbox" value="all_checked" id="all_name"  class="form-check-input" checked>
+                            <input type="checkbox" value="all_checked" id="all_name"  class="form-check-input" checked data-msg-required="{{ __('This Field is Required') }}" required>
                             <label for="all_name" class="form-check-label"> {{__('All')}} </label></div>
                     </div>
 
 
-                    <div class=" mb-3 col-lg-11 form-check">
+                    <div class=" mb-3 col-lg-10 form-check">
                         <div class="form-group">
                             <label for="roleMultiSelect" class="fw-bold">{{__('Multiple select email')}}</label>
                             <select multiple="multiple" class="form-control select2 w-100 roleMultiSelect " id="roleMultiSelect" disabled>
@@ -201,15 +225,15 @@
 
                     <div class="mb-3 col-lg-12">
                         <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Email')}}</label>
-                        <input id="inputEmail" type="email" class="form-control" placeholder="example@example.com">
+                        <input id="inputEmail" type="email" class="form-control" placeholder="example@example.com" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <!-- subsribe -->
                     <div class="mb-3 col-lg-12">
                         <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Mailing')}}</label>
                             <select class="form-select" aria-label="Default " id="subscribe" disabled>
-                                <option value="1">Only members who have agreed to receive</option>
-                                <option value="2">All</option>
+                                <option value="1">{{__('Only members who have agreed to receive')}}</option>
+                                <option value="2">{{__('All')}}</option>
                             </select>
 
                     </div>
@@ -243,6 +267,31 @@
                 location.reload(true);
             });
 
+            $(document).ready(function() {
+                $('#validateForm').validate({
+                    
+                    errorPlacement: function(error, element) {
+                        // Add the `invalid-feedback` class to the error element
+                        error.addClass("invalid-feedback");
+                        if (element.prop("type") === "checkbox") {
+                            // error.insertAfter(element.next("label"));
+                        } else {
+                            // error.insertAfter(element);
+                        }
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass("is-invalid").removeClass("is-valid");
+                        const parantId = $(element).attr('data-parent-id');
+                        $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        const parantId = $(element).attr('data-parent-id');
+                        $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                        $(element).addClass("is-valid").removeClass("is-invalid");
+                    },
+                });
+            });
+            
         $(document).ready(function() {
             $('.select2').select2({
                 dropdownParent: $('#staticBackdropSent')
@@ -259,6 +308,8 @@
         $(document).ready(function() {
 
             $('.create_mail').click(function() {
+            if ($('#validateForm').valid()) {
+
                 data = {
                     title: $("#mailTitle").val(),
                     content: CKEDITOR.instances.ckeditor.getData(),
@@ -279,6 +330,7 @@
                         title: err
                     });
                 });
+            }
             })
         });
     </script>
@@ -440,27 +492,30 @@
             })
 
             $('.updateMail').click(function() {
-                let data = {
-                    id: $('#idMail').val(),
-                    title: $('#editMailTitle').val(),
-                    content: CKEDITOR.instances.ckeditor1.getData(),
+                if ($('#validateForm').valid()) {
 
+                    let data = {
+                        id: $('#idMail').val(),
+                        title: $('#editMailTitle').val(),
+                        content: CKEDITOR.instances.ckeditor1.getData(),
+
+                    }
+                    Axios.post('/api/mail/update', data).then((resp) => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Success')}}',
+                            showConfirmButton: false
+                        });
+                        window.location.reload()
+
+                    }).catch((err) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: err
+                        });
+
+                    });
                 }
-                Axios.post('/api/mail/update', data).then((resp) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '{{__('Success')}}',
-                        showConfirmButton: false
-                    });
-                    window.location.reload()
-
-                }).catch((err) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: err
-                    });
-
-                });
             })
 
 
