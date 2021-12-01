@@ -815,9 +815,17 @@
     "Oct :Year": ":Year 시월",
     "Nov :Year": ":Year 십일월",
     "Dec :Year": ":Year 십이월",
-    "Multiple select email":" Мэйл сонгох",
-    "Only members who have agreed to receive":" Мэйл хүлээн авахыг зөвшөөрсөн гишүүд",
-    "Mailing":"메일 보내기 "
-
-
-   }
+    "Multiple select email":"이메일 선택",
+    "Only members who have agreed to receive":"수신에 동의한 회원만 해당",
+    "Mailing":"메일 보내기",
+    "Product": "상품",
+    "Total Products": "총 상품",
+    "New Products": "새 상품",
+    "Active Status Product": "활성화 상태 상품",
+    "Inactive Product": "비활성화 상품",
+    "New User": "새 사용자",
+    // "Total User": "",
+    "Total Admin": "총 관리자 수",
+    "This Week Visited": "금주 접속자 수",
+    "Persent": "퍼센트"
+    }
