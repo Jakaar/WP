@@ -5,19 +5,19 @@
 
 @section('content')
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-    <div class="card-header-title fsize-2 text-capitalize fw-normal">Product</div>
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Product')}}</div>
 </div>
 <div class="row">
     <div class="col-md-6 col-lg-3">
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('Total Products')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('Total Products')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
-                                <div class="fsize-4 text-success">
-                                    <small class="opacity-5">+</small>
+                                <div class="fsize-4">
+<!--                                    <small class="opacity-5">+</small>-->
                                     {{$dataC['total_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -36,12 +36,12 @@
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('New Products')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('New Products')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
-                                <div class="fsize-4 text-danger">
-                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>
+                                <div class="fsize-4">
+<!--                                    <small class="opacity-5 text-muted"><i class="fa fa-angle-up"></i></small>-->
                                     {{$dataC['new_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -65,15 +65,15 @@
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('Active Status Product')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('Active Status Product')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
                                     <span class="text-success pe-2">
-                                        <i class="fa fa-angle-down"></i>
+<!--                                        <i class="fa fa-angle-down"></i>-->
                                     </span>
-                                    <small class="opacity-5">$</small>
+<!--                                    <small class="opacity-5">$</small>-->
                                     {{$dataC['active_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -97,12 +97,12 @@
         <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-start card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <h6 class="widget-subheading">{{__('Inactive Product')}}</h6>
+                    <h6 class="widget-title opacity-5 text-uppercase">{{__('Inactive Product')}}</h6>
                     <div class="widget-chart-flex">
                         <div class="widget-numbers mb-0 w-100">
                             <div class="widget-chart-flex">
                                 <div class="fsize-4">
-                                    <small class="opacity-5">$</small>
+<!--                                    <small class="opacity-5">$</small>-->
                                     {{$dataC['inactive_product'] }}
                                 </div>
                                 <div class="ms-auto">
@@ -119,7 +119,7 @@
     </div>
 </div>
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-    <div class="card-header-title fsize-2 text-capitalize fw-normal">User</div>
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('User')}}</div>
 </div>
 <div class="row">
 
@@ -131,12 +131,12 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                                        <span class="opacity-10 text-success pe-2">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </span>
+<!--                                                        <span class="opacity-10 text-success pe-2">-->
+<!--                                                            <i class="fa fa-angle-up"></i>-->
+<!--                                                        </span>-->
                                 {{-- {!! $data['users_count'] !!} --}}
                                 {{$dataC['users']}}
-                                <small class="opacity-5 ps-1">명</small>
+<!--                                <small class="opacity-5 ps-1">명</small>-->
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
                             <!--                                    <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">-->
@@ -157,11 +157,11 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                                        <span class="opacity-10 text-success pe-2">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </span>
+<!--                                                        <span class="opacity-10 text-success pe-2">-->
+<!--                                                            <i class="fa fa-angle-up"></i>-->
+<!--                                                        </span>-->
                                 {{ $dataC['new_user'] }}
-                                <small class="opacity-5 ps-1">명</small>
+<!--                                <small class="opacity-5 ps-1">명</small>-->
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
                             <!--                                    <div class="circle-progress circle-progress-danger-sm d-inline-block">-->
@@ -182,7 +182,7 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                <small class="text-success pe-1">+</small>
+<!--                                <small class="text-success pe-1">+</small>-->
                                 {{$dataC['total_admin'] }}
                             </div>
                             <!--                                <div class="widget-title ms-auto font-size-lg fw-normal text-muted">-->
@@ -204,7 +204,7 @@
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
-                                <small class="text-success pe-1">+</small>
+<!--                                <small class="text-success pe-1">+</small>-->
                                 34
                                 <!--                                    <small class="opacity-5 ps-1">hires</small>-->
                             </div>
@@ -219,6 +219,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Content')}}</div>
 </div>
     <div class="row">
         <div class="col-sm-12 col-md-7 col-lg-8">
@@ -240,37 +243,6 @@
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
                     <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Income')}}</div>
-                    <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-                        <div class="btn-group">
-                            <button type="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
-                                <i class="lnr-cog btn-icon-wrapper"></i>
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                 class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu dropdown-menu-right">
-                                <h6 tabindex="-1" class="dropdown-header">
-                                    {{__('Header')}}
-                                </h6>
-                                <button type="button" tabindex="0" class="dropdown-item">
-                                    <i class="dropdown-icon lnr-inbox"></i>
-                                    <span>{{__('Menus')}}</span>
-                                </button>
-                                <button type="button" tabindex="0" class="dropdown-item">
-                                    <i class="dropdown-icon lnr-file-empty"></i>
-                                    <span>{{__('Settings')}}</span>
-                                </button>
-                                <button type="button" tabindex="0" class="dropdown-item">
-                                    <i class="dropdown-icon lnr-book"></i>
-                                    <span>{{__('Actions')}}</span>
-                                </button>
-                                <div tabindex="-1" class="dropdown-divider"></div>
-                                <div class="p-1 text-end">
-                                    <button class="me-2 btn-shadow btn-sm btn btn-link">{{__('View Details')}}</button>
-                                    <button class="me-2 btn-shadow btn-sm btn btn-primary">{{__('Action')}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="p-0 card-body">
                     <div id="chart-radial"></div>
@@ -298,7 +270,7 @@
         </div>
     </div>
     <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-        <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Target Section')}}</div>
+        <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Optional')}}</div>
         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
             <button class="btn btn-link btn-sm">{{__('View Details')}}</button>
         </div>
@@ -402,35 +374,6 @@
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
                     <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Total Sales')}}</div>
-                    <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-                        <div class="btn-group dropdown">
-                            <button type="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
-                                <i class="lnr-cog btn-icon-wrapper"></i>
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                 class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
-                                <h6 tabindex="-1" class="dropdown-header">{{__('Header')}}</h6>
-                                <button type="button" tabindex="0" class="dropdown-item">
-                                    <i class="dropdown-icon lnr-inbox"></i>
-                                    <span>{{__('Menus')}}</span>
-                                </button>
-                                <button type="button" tabindex="0" class="dropdown-item">
-                                    <i class="dropdown-icon lnr-file-empty"></i>
-                                    <span>{{__('Settings')}}</span>
-                                </button>
-                                <button type="button" tabindex="0" class="dropdown-item">
-                                    <i class="dropdown-icon lnr-book"></i>
-                                    <span>{{__('Actions')}}</span>
-                                </button>
-                                <div tabindex="-1" class="dropdown-divider"></div>
-                                <div class="p-1 text-end">
-                                    <button class="me-2 btn-shadow btn-sm btn btn-link">{{__('View Details')}}</button>
-                                    <button class="me-2 btn-shadow btn-sm btn btn-primary">{{__('Action')}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div id="chart-combined"></div>
@@ -471,9 +414,6 @@
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
                     <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Daily Sales')}}</div>
-                    <div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn-wide btn-outline-2x btn btn-outline-focus btn-sm">{{__('View All')}}</button>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div id="chart-col-2"></div>
@@ -514,9 +454,6 @@
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
                     <div class="card-header-title font-size-lg text-capitalize fw-normal">{{__('Total Expenses')}}</div>
-                    <div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn-wide btn-outline-2x btn btn-outline-primary btn-sm">{{__('View All')}}</button>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div id="chart-col-3"></div>
@@ -554,231 +491,231 @@
             </div>
         </div>
     </div>
-    <div class="main-card mb-3 card">
-        <div class="card-header">
-            <div class="card-header-title font-size-lg text-capitalize fw-normal">
-                {{__('Company Agents Status')}}
-            </div>
-            <div class="btn-actions-pane-right">
-                <button type="button" class="btn-icon btn-wide btn-outline-2x btn btn-outline-focus btn-sm d-flex">
-                    {{__('Actions Menu')}}
-                    <span class="ps-2 align-middle opacity-7">
-                                            <i class="fa fa-angle-right"></i>
-                                        </span>
-                </button>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="align-middle text-truncate mb-0 table table-borderless table-hover">
-                <thead>
-                <tr>
-                    <th class="text-center">#</th>
-                    <th class="text-center">{{__('Avatar')}}</th>
-                    <th class="text-center">{{__('Name')}}</th>
-                    <th class="text-center">{{__('Company')}}</th>
-                    <th class="text-center">{{__('Status')}}</th>
-                    <th class="text-center">{{__('Due Date')}}</th>
-                    <th class="text-center">{{__('Target Achievement')}}</th>
-                    <th class="text-center">{{__('Actions')}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="text-center text-muted" style="width: 80px;">#54</td>
-                    <td class="text-center" style="width: 80px;">
+<!--    <div class="main-card mb-3 card">-->
+<!--        <div class="card-header">-->
+<!--            <div class="card-header-title font-size-lg text-capitalize fw-normal">-->
+<!--                {{__('Company Agents Status')}}-->
+<!--            </div>-->
+<!--            <div class="btn-actions-pane-right">-->
+<!--                <button type="button" class="btn-icon btn-wide btn-outline-2x btn btn-outline-focus btn-sm d-flex">-->
+<!--                    {{__('Actions Menu')}}-->
+<!--                    <span class="ps-2 align-middle opacity-7">-->
+<!--                                            <i class="fa fa-angle-right"></i>-->
+<!--                                        </span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="table-responsive">-->
+<!--            <table class="align-middle text-truncate mb-0 table table-borderless table-hover">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th class="text-center">#</th>-->
+<!--                    <th class="text-center">{{__('Avatar')}}</th>-->
+<!--                    <th class="text-center">{{__('Name')}}</th>-->
+<!--                    <th class="text-center">{{__('Company')}}</th>-->
+<!--                    <th class="text-center">{{__('Status')}}</th>-->
+<!--                    <th class="text-center">{{__('Due Date')}}</th>-->
+<!--                    <th class="text-center">{{__('Target Achievement')}}</th>-->
+<!--                    <th class="text-center">{{__('Actions')}}</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td class="text-center text-muted" style="width: 80px;">#54</td>-->
+<!--                    <td class="text-center" style="width: 80px;">-->
 <!--                        <img width="40" class="rounded-circle" src="/public/aPanel/imgs/1.jpg" alt="">-->
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Juan C. Cargill</a>
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Micro Electronics</a>
-                    </td>
-                    <td class="text-center">
-                        <div class="badge rounded-pill bg-danger">Canceled</div>
-                    </td>
-                    <td class="text-center">
-                        <span class="pe-2 opacity-6">
-                            <i class="fa fa-business-time"></i>
-                        </span>
-                        12 Dec
-                    </td>
-                    <td class="text-center" style="width: 200px;">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-outer">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left pe-2">
-                                        <div class="widget-numbers fsize-1 text-danger">71%</div>
-                                    </div>
-                                    <div class="widget-content-right w-100">
-                                        <div class="progress-bar-xs progress">
-                                            <div class="progress-bar bg-danger" role="progressbar"
-                                                 aria-valuenow="71" aria-valuemin="0"
-                                                 aria-valuemax="100" style="width: 71%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <button class="btn-shadow btn btn-primary">Hire</button>
-                            <button class="btn-shadow btn btn-primary">Fire</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center text-muted" style="width: 80px;">#55</td>
-                    <td class="text-center" style="width: 80px;">
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Juan C. Cargill</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Micro Electronics</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div class="badge rounded-pill bg-danger">Canceled</div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <span class="pe-2 opacity-6">-->
+<!--                            <i class="fa fa-business-time"></i>-->
+<!--                        </span>-->
+<!--                        12 Dec-->
+<!--                    </td>-->
+<!--                    <td class="text-center" style="width: 200px;">-->
+<!--                        <div class="widget-content p-0">-->
+<!--                            <div class="widget-content-outer">-->
+<!--                                <div class="widget-content-wrapper">-->
+<!--                                    <div class="widget-content-left pe-2">-->
+<!--                                        <div class="widget-numbers fsize-1 text-danger">71%</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="widget-content-right w-100">-->
+<!--                                        <div class="progress-bar-xs progress">-->
+<!--                                            <div class="progress-bar bg-danger" role="progressbar"-->
+<!--                                                 aria-valuenow="71" aria-valuemin="0"-->
+<!--                                                 aria-valuemax="100" style="width: 71%;">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div role="group" class="btn-group-sm btn-group">-->
+<!--                            <button class="btn-shadow btn btn-primary">Hire</button>-->
+<!--                            <button class="btn-shadow btn btn-primary">Fire</button>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="text-center text-muted" style="width: 80px;">#55</td>-->
+<!--                    <td class="text-center" style="width: 80px;">-->
 <!--                        <img width="40" class="rounded-circle" src="images/avatars/3.jpg" alt="">-->
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Johnathan Phelan</a>
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Hatchworks</a>
-                    </td>
-                    <td class="text-center">
-                        <div class="badge rounded-pill bg-info">On Hold</div>
-                    </td>
-                    <td class="text-center">
-                        <span class="pe-2 opacity-6">
-                            <i class="fa fa-business-time"></i>
-                        </span>
-                        15 Dec
-                    </td>
-                    <td class="text-center" style="width: 200px;">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-outer">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left pe-2">
-                                        <div class="widget-numbers fsize-1 text-warning">54%</div>
-                                    </div>
-                                    <div class="widget-content-right w-100">
-                                        <div class="progress-bar-xs progress">
-                                            <div class="progress-bar bg-warning"
-                                                 role="progressbar" aria-valuenow="54"
-                                                 aria-valuemin="0" aria-valuemax="100" style="width: 54%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <button class="btn-shadow btn btn-primary">Hire</button>
-                            <button class="btn-shadow btn btn-primary">Fire</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center text-muted" style="width: 80px;">#56</td>
-                    <td class="text-center" style="width: 80px;">
-<!--                        <img  width="40" class="rounded-circle" src="images/avatars/2.jpg" alt="">-->
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Darrell Lowe</a>
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Riddle Electronics</a>
-                    </td>
-                    <td class="text-center">
-                        <div class="badge rounded-pill bg-warning">In Progress</div>
-                    </td>
-                    <td class="text-center">
-                        <span class="pe-2 opacity-6">
-                            <i class="fa fa-business-time"></i>
-                        </span>
-                        6 Dec
-                    </td>
-                    <td class="text-center" style="width: 200px;">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-outer">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left pe-2">
-                                        <div class="widget-numbers fsize-1 text-success">97%</div>
-                                    </div>
-                                    <div class="widget-content-right w-100">
-                                        <div class="progress-bar-xs progress">
-                                            <div class="progress-bar bg-success"
-                                                 role="progressbar"  aria-valuenow="97"
-                                                 aria-valuemin="0" aria-valuemax="100" style="width: 97%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <button class="btn-shadow btn btn-primary">Hire</button>
-                            <button class="btn-shadow btn btn-primary">Fire</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center text-muted" style="width: 80px;">#56</td>
-                    <td class="text-center" style="width: 80px;">
-<!--                        <img width="40" class="rounded-circle" src="images/avatars/1.jpg" alt="">-->
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">George T. Cottrell</a>
-                    </td>
-                    <td class="text-center">
-                        <a href="javascript:void(0)">Pixelcloud</a>
-                    </td>
-                    <td class="text-center">
-                        <div class="badge rounded-pill bg-success">Completed</div>
-                    </td>
-                    <td class="text-center">
-                        <span class="pe-2 opacity-6">
-                            <i class="fa fa-business-time"></i>
-                        </span>
-                        19 Dec
-                    </td>
-                    <td class="text-center" style="width: 200px;">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-outer">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left pe-2">
-                                        <div class="widget-numbers fsize-1 text-info">88%</div>
-                                    </div>
-                                    <div class="widget-content-right w-100">
-                                        <div class="progress-bar-xs progress">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                 aria-valuenow="88" aria-valuemin="0"
-                                                 aria-valuemax="100" style="width: 88%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <button class="btn-shadow btn btn-primary">Hire</button>
-                            <button class="btn-shadow btn btn-primary">Fire</button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="d-block p-4 text-center card-footer">
-            <button class="btn-pill btn-shadow btn-wide fsize-1 btn btn-dark btn-lg">
-                                    <span class="me-2 opacity-7">
-                                        <i class="fa fa-cog fa-spin"></i>
-                                    </span>
-                <span class="me-1">View Complete Report</span>
-            </button>
-        </div>
-    </div>
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Johnathan Phelan</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Hatchworks</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div class="badge rounded-pill bg-info">On Hold</div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <span class="pe-2 opacity-6">-->
+<!--                            <i class="fa fa-business-time"></i>-->
+<!--                        </span>-->
+<!--                        15 Dec-->
+<!--                    </td>-->
+<!--                    <td class="text-center" style="width: 200px;">-->
+<!--                        <div class="widget-content p-0">-->
+<!--                            <div class="widget-content-outer">-->
+<!--                                <div class="widget-content-wrapper">-->
+<!--                                    <div class="widget-content-left pe-2">-->
+<!--                                        <div class="widget-numbers fsize-1 text-warning">54%</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="widget-content-right w-100">-->
+<!--                                        <div class="progress-bar-xs progress">-->
+<!--                                            <div class="progress-bar bg-warning"-->
+<!--                                                 role="progressbar" aria-valuenow="54"-->
+<!--                                                 aria-valuemin="0" aria-valuemax="100" style="width: 54%;">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div role="group" class="btn-group-sm btn-group">-->
+<!--                            <button class="btn-shadow btn btn-primary">Hire</button>-->
+<!--                            <button class="btn-shadow btn btn-primary">Fire</button>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="text-center text-muted" style="width: 80px;">#56</td>-->
+<!--                    <td class="text-center" style="width: 80px;">-->
+<!--                       <img  width="40" class="rounded-circle" src="images/avatars/2.jpg" alt="">-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Darrell Lowe</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Riddle Electronics</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div class="badge rounded-pill bg-warning">In Progress</div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <span class="pe-2 opacity-6">-->
+<!--                            <i class="fa fa-business-time"></i>-->
+<!--                        </span>-->
+<!--                        6 Dec-->
+<!--                    </td>-->
+<!--                    <td class="text-center" style="width: 200px;">-->
+<!--                        <div class="widget-content p-0">-->
+<!--                            <div class="widget-content-outer">-->
+<!--                                <div class="widget-content-wrapper">-->
+<!--                                    <div class="widget-content-left pe-2">-->
+<!--                                        <div class="widget-numbers fsize-1 text-success">97%</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="widget-content-right w-100">-->
+<!--                                        <div class="progress-bar-xs progress">-->
+<!--                                            <div class="progress-bar bg-success"-->
+<!--                                                 role="progressbar"  aria-valuenow="97"-->
+<!--                                                 aria-valuemin="0" aria-valuemax="100" style="width: 97%;">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div role="group" class="btn-group-sm btn-group">-->
+<!--                            <button class="btn-shadow btn btn-primary">Hire</button>-->
+<!--                            <button class="btn-shadow btn btn-primary">Fire</button>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="text-center text-muted" style="width: 80px;">#56</td>-->
+<!--                    <td class="text-center" style="width: 80px;">-->
+<!--                 <img width="40" class="rounded-circle" src="images/avatars/1.jpg" alt="">-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">George T. Cottrell</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <a href="javascript:void(0)">Pixelcloud</a>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div class="badge rounded-pill bg-success">Completed</div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <span class="pe-2 opacity-6">-->
+<!--                            <i class="fa fa-business-time"></i>-->
+<!--                        </span>-->
+<!--                        19 Dec-->
+<!--                    </td>-->
+<!--                    <td class="text-center" style="width: 200px;">-->
+<!--                        <div class="widget-content p-0">-->
+<!--                            <div class="widget-content-outer">-->
+<!--                                <div class="widget-content-wrapper">-->
+<!--                                    <div class="widget-content-left pe-2">-->
+<!--                                        <div class="widget-numbers fsize-1 text-info">88%</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="widget-content-right w-100">-->
+<!--                                        <div class="progress-bar-xs progress">-->
+<!--                                            <div class="progress-bar bg-info" role="progressbar"-->
+<!--                                                 aria-valuenow="88" aria-valuemin="0"-->
+<!--                                                 aria-valuemax="100" style="width: 88%;">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td class="text-center">-->
+<!--                        <div role="group" class="btn-group-sm btn-group">-->
+<!--                            <button class="btn-shadow btn btn-primary">Hire</button>-->
+<!--                            <button class="btn-shadow btn btn-primary">Fire</button>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--        <div class="d-block p-4 text-center card-footer">-->
+<!--            <button class="btn-pill btn-shadow btn-wide fsize-1 btn btn-dark btn-lg">-->
+<!--                                    <span class="me-2 opacity-7">-->
+<!--                                        <i class="fa fa-cog fa-spin"></i>-->
+<!--                                    </span>-->
+<!--                <span class="me-1">{{__('View Complete Report')}}</span>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
 @endsection
 @section('script')
 <script>
@@ -838,7 +775,7 @@
     $(document).ready(function (){
          Axios.post('/api/dashboard/GetContent').then((resp)=>{
              const labelsData = resp.data.labels;
-             const GraphicData = resp.data.Cdata;
+             const GraphicData = resp.data.bData;
              // const data = [440, 505];
             console.log(labelsData[0])
              const options777 = {
@@ -850,12 +787,12 @@
                      // }
                  },
                  series: [{
-                     name: 'Banner',
+                     name: '{{__('Banner')}}',
                      type: 'column',
-                     data: resp.data.Cdata,
+                     data: resp.data.bData,
                  },
              {
-                 name: 'Content',
+                 name: '{{__('Content')}}',
                      type: 'line',
                  data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
              }],
@@ -875,7 +812,7 @@
 
              const options333 = {
                  chart: {
-                     height: 350,
+                     height: 375,
                      type: 'bar',
                  },
                  plotOptions: {
@@ -893,21 +830,23 @@
                      colors: ['transparent']
                  },
                  series: [{
-                     name: 'Banner',
-                     data: resp.data.Cdata
+                     name: '{{__('Banner')}}',
+                     data: resp.data.bData
                  }, {
-                     name: 'Content',
-                     data: [6, 5, 1, 8, 7, 5, 1, 4, 4, 4, 5, 7,]
-                 }, {
-                     name: 'Free Cash Flow',
-                     data: [5, 1, 6, 6, 5, 8, 2, 3, 1, 4, 5, 7,]
-                 }],
+                     name: '{{__('Page Content')}}',
+                     data: resp.data.cData
+                 },
+                 //     {
+                 //     name: 'Free Cash Flow',
+                 //     data: [5, 1, 6, 6, 5, 8, 2, 3, 1, 4, 5, 7,]
+                 // }
+                 ],
                  xaxis: {
                      categories:  resp.data.labels,
                  },
                  yaxis: {
                      title: {
-                         text: '$ (thousands)'
+                         text: ' ({{__('Posts')}})'
                      }
                  },
                  fill: {
@@ -917,7 +856,7 @@
                  tooltip: {
                      y: {
                          formatter: function (val) {
-                             return "$ " + val + " thousands";
+                             return  + val + " {{__('Posts')}}";
                          }
                      }
                  }

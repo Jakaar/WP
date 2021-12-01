@@ -30,11 +30,11 @@
            
             
                 <div class="col-lg-12">
-                    <div class="main-card mb-3 card">
+                    <div class="main-card mb-3 card" style="height: 450px;">
                         
                         <div class="card-header">
                             <!-- <i class="header-icon lnr-laptop-phone icon-gradient bg-plum-plate"></i> -->
-                            {{__('Log Attempts')}}
+                            {{__('Login Attempts')}}
                             <!-- <div class="btn-actions-pane-right actions-icon-btn">
                                 <button class="btn-icon btn-icon-only btn btn-link">
                                     <i class="pe-7s-leaf btn-icon-wrapper"></i>

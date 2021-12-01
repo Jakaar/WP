@@ -34,17 +34,24 @@ class AnalyticController extends Controller
         for($i = 0; $i <= 11; $i++){
 
 //            $months[$i] = Carbon::create()->month($i)->format('M '.$thisYear);
-            $months[$i] = Carbon::now()->startOfYear()->startOfMonth()->addMonth($i)->format('M y');
+            $months[$i] = __(Carbon::now()->startOfYear()->startOfMonth()->addMonth($i)->format('M').' :Year', ['Year' => Carbon::now()->startOfYear()->startOfMonth()->addMonth($i)->format('y')]);
 //            array_push($months, $array);
             $PostData[$i] = DB::table('wpanel_banners')
                 ->whereBetween('created_at', [Carbon::now()->startOfYear()->startOfMonth()->addMonth($i),Carbon::now()->startOfYear()->addMonth($i)->endOfMonth()])
+                ->where('isEnabled', '=', 'Used')
                 ->get()
                 ->count();
 //            dump($PostData);
         }
-        
+        for ($i = 0; $i<=11; $i++){
+            $ContentData[$i] = DB::table('wpanel_page_manage')
+                ->whereBetween('created_at', [Carbon::now()->startOfYear()->startOfMonth()->addMonth($i),Carbon::now()->startOfYear()->addMonth($i)->endOfMonth()])
+                ->where('isEnable', '=', 1)
+                ->get()
+                ->count();
+        }
 //        dd('e');
 //        $Cdata['page_manage'] = DB::table('wpanel_page_manage')->whereBetween('created_at',[$startMonth,$endMonth])->count();
-        return response()->json(['Cdata'=>$PostData,'labels'=>$months], 200);
+        return response()->json(['bData'=>$PostData,'labels'=>$months,'cData'=>$ContentData], 200);
     }
 }

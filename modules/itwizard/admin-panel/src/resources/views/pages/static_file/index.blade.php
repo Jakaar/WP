@@ -69,7 +69,7 @@
                             @foreach ($static_files as $static_file)
                                 <tr>
                                     <td>{{ $static_file->type_name }} </td>
-                                    <td>client/static/{{ $static_file->type_name }}/{{ $static_file->file_absolute_path }}
+                                    <td>{{ $static_file->file_absolute_path }}
                                     </td>
                                     <td>
                                         @if ($static_file->status == '2')
