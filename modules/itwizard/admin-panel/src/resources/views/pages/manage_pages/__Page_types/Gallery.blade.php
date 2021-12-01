@@ -53,7 +53,7 @@
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{__('Close')}} </button>
-                    <button type="button" class="btn btn-success saveFAQ"> {{__('Create')}} </button>
+                    <button type="button" class="btn btn-success UpdateOrCreate"> {{__('Create')}} </button>
                 </div>
             </div>
         </div>
@@ -123,6 +123,19 @@
                         title: '{{__('Successfully')}}'
                     })
                 })
+            })
+            $('.GalleryCreate').on('click', ()=>{
+                Axios.post('/api/Gallery/CreateContent' ,{
+                    data: $editor.getData(),
+                })
+                    .then((resp) => {
+                        $('#GalleryInPhotos').modal('hide')
+                        Toast.fire({
+                            icon: 'success',
+                            position: 'top-end',
+                            title: '{{__('Successfully')}}'
+                        })
+                    })
             })
         })
     </script>

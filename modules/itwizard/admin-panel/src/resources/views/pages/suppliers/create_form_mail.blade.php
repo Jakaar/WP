@@ -133,7 +133,11 @@
            $('#staticBackdrop').modal('show')
        })
         const formBuilder = $('#fb-editor').formBuilder({
-            disabledActionButtons: ['save']
+            disabledActionButtons: ['save'],
+            i18n: {
+                locale: 'kr',
+                override: { }
+            },
         });
         $('.Create').on('click', function (){
             Axios.post('/api/form/create', {

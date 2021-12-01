@@ -157,5 +157,11 @@ class PageContentController extends Controller
             ]);
             return back()->with('message', 'Successfully Saved');
         }
+//        return response()->json(true, 200);
+    }
+
+    public function CategoryCreate(Request $request)
+    {
+        dd($request->all());
     }
 }

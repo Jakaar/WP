@@ -121,14 +121,23 @@ class PageManageController extends Controller
                 ->get();
             return view('Admin::pages.manage_pages.index',compact('content','board','FAQ'));
         }
+
+
         if ($board->board_type === 'Category')
         {
             $content['categories'] = ContentCategory::whereNull('content_category_id')
                 ->where(['board_master_id' => $id])
                 ->with('subCategories')
                 ->get();
-            return view('Admin::pages.manage_pages.index',compact('content','board'));
+
+            $Groups = DB::table('main__category')
+                ->where('category_id', $id)
+                ->get();
+
+            return view('Admin::pages.manage_pages.index',compact('content','board','Groups'));
         }
+
+
         if ($board->board_type === 'Gallery')
         {
             $content['categories'] = ContentCategory::whereNull('content_category_id')
@@ -150,7 +159,10 @@ class PageManageController extends Controller
             $SinglePageData = DB::table('main__single_page_data')
                 ->where('category_id', $id)
                 ->first();
-            $SinglePageData->data = json_decode($SinglePageData->data, true);
+            if (isset($SinglePageData))
+            {
+                $SinglePageData->data = json_decode($SinglePageData->data, true);
+            }
 //            dd($SinglePageData->data['en']);
             return view('Admin::pages.manage_pages.index',compact('content','board','SinglePageData'));
         }
