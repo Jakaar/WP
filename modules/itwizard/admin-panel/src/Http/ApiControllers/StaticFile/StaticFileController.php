@@ -29,7 +29,7 @@ class StaticFileController extends Controller
             $file->move(public_path('client/static/'.$fileExt),$saveName.'.'.$fileExt);
             DB::table('client_static_file')->insert([
                 'type_id'=>$typeget->id,
-                'file_absolute_path'=>$lastName,
+                'file_absolute_path'=>'client/static/'.$fileExt.'/'.$lastName,
                 'status'=>$request->status,
                 "created_at" =>  \Carbon\Carbon::now(), 
                 "updated_at" => \Carbon\Carbon::now(), 
@@ -53,7 +53,7 @@ class StaticFileController extends Controller
             $file->move(public_path('client/static/'.$fileExt),$saveName.'.'.$fileExt);
             DB::table('client_static_file')->insert([
                 'type_id'=>$insert_id1,
-                'file_absolute_path'=>$lastName,
+                'file_absolute_path'=>'client/static/'.$fileExt.'/'.$lastName,
                 'status'=>$request->status,
                 "created_at" =>  \Carbon\Carbon::now(), 
                 "updated_at" => \Carbon\Carbon::now(), 
@@ -99,7 +99,7 @@ class StaticFileController extends Controller
                 $file->move(public_path('client/static/'.$fileExt),$saveName.'.'.$fileExt);
                 $updated->update([
                     'type_id'=>$insert_id,
-                    'file_absolute_path' => $lastName,
+                    'file_absolute_path'=>'client/static/'.$fileExt.'/'.$lastName,
                     'status' => $request->status1,
                 ]);
                 return response()->json(['icon'=>__('success')] , 200);     
@@ -123,7 +123,7 @@ class StaticFileController extends Controller
                 $file->move(public_path('client/static/'.$fileExt),$saveName.'.'.$fileExt);
                 $updated->update([
                     'type_id'=>$insert_id,
-                    'file_absolute_path' => $lastName,
+                    'file_absolute_path'=>'client/static/'.$fileExt.'/'.$lastName,
                     'status' => $request->status1,
                 ]);
                 return response()->json(['icon'=>__('success')] , 200);     
