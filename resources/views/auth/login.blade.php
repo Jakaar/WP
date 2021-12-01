@@ -209,66 +209,68 @@
                                         </div>
                                         <div class="position-relative form-check mb-3">
                                             <input name="remember" id="remember" type="checkbox"
-                                                class="form-check-input">
+                                                   class="form-check-input">
                                             <label for="remember"
-                                                class="form-label form-check-label">{{ __('Keep me logged in') }}</label>
+                                                   class="form-label form-check-label">{{ __('Keep me logged in')
+                                                }}</label>
                                         </div>
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
                                             <div class="ms-auto">
                                                 <a href="#" class="btn-lg btn btn-link" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal">{{ __('Recover Password') }}</a>
+                                                   data-bs-target="#exampleModal">{{ __('Recover Password') }}</a>
                                                 <button class="btn btn-outline-info btn-lg"
-                                                    type="submit">{{ __('Login') }}</button>
+                                                        type="submit">{{ __('Login') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-lg-6 col-12 col-md-12 col-sm-12">
-                                    <div class="col-md-12">
-                                        @if ($errors->all())
-                                            <!--                                            <button data-swal-template="#my-template">-->
-                                            <!--                                                Trigger modal-->
-                                            <!--                                            </button>-->
-                                        @endif
-                                        <h5 class="card-title text-center">{{ __('Social Login') }}</h5>
-                                        <div class="row mt-3 justify-content-md-center">
-                                            <div class="col-lg-12 col-xl-6 col-12 mb-3">
-                                                <div class="google-btn bg-google">
-                                                    <div class="google-icon-wrapper ">
-                                                        <img class="google-icon"
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                                                            alt="" />
-                                                    </div>
-                                                    <a href="{{ route('google.login') }}"
-                                                        class="btn-text "><b>Sign in with Google</b></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-xl-6 col-12 mb-3">
-                                                <div class="google-btn bg-naver">
-                                                    <div class="google-icon-wrapper ">
-                                                        <img class="google-icon"
-                                                            src="{{ asset('aPanel/imgs/naver_green.svg') }}"
-                                                            alt="" />
-                                                    </div>
-                                                    <a href="#" class="btn-text"><b
-                                                            class="roboto">{{ __('Sign in with Naver') }}</b></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-xl-12 col-12 mb-3">
-                                                <div class="google-btn bg-kakao">
-                                                    <div class="google-icon-wrapper ">
-                                                        <img class="google-icon "
-                                                            src="{{ asset('aPanel/imgs/KakaoTalk_logo.svg') }}"
-                                                            alt="" />
-                                                    </div>
-                                                    <a href="javascript:kakaoLogin();" class="btn-text text-dark"><b
-                                                            class="roboto">{{ __('Sign in with Kakao') }}</b></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--                                <div class="col-lg-6 col-12 col-md-12 col-sm-12">-->
+                                <!--                                    <div class="col-md-12">-->
+                                <!--                                        @if ($errors->all())-->
+                                <!--                                                                                        <button data-swal-template="#my-template">-->
+                                <!--                                                                                            Trigger modal-->
+                                <!--                                                                                        </button>-->
+                                <!--                                        @endif-->
+                                <!--                                        <h5 class="card-title text-center">{{ __('Social Login') }}</h5>-->
+                                <!--                                        <div class="row mt-3 justify-content-md-center">-->
+                                <!--                                            <div class="col-lg-12 col-xl-6 col-12 mb-3">-->
+                                <!--                                                <div class="google-btn bg-google">-->
+                                <!--                                                    <div class="google-icon-wrapper ">-->
+                                <!--                                                        <img class="google-icon"-->
+                                <!--                                                            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"-->
+                                <!--                                                            alt="" />-->
+                                <!--                                                    </div>-->
+                                <!--                                                    <a href="{{ route('google.login') }}"-->
+                                <!--                                                        class="btn-text "><b>Sign in with Google</b></a>-->
+                                <!--                                                </div>-->
+                                <!--                                            </div>-->
+                                <!--                                            <div class="col-lg-12 col-md-12 col-xl-6 col-12 mb-3">-->
+                                <!--                                                <div class="google-btn bg-naver">-->
+                                <!--                                                    <div class="google-icon-wrapper ">-->
+                                <!--                                                        <img class="google-icon"-->
+                                <!--                                                            src="{{ asset('aPanel/imgs/naver_green.svg') }}"-->
+                                <!--                                                            alt="" />-->
+                                <!--                                                    </div>-->
+                                <!--                                                    <a href="#" class="btn-text"><b-->
+                                <!--                                                            class="roboto">{{ __('Sign in with Naver') }}</b></a>-->
+                                <!--                                                </div>-->
+                                <!--                                            </div>-->
+                                <!--                                            <div class="col-lg-12 col-md-12 col-xl-12 col-12 mb-3">-->
+                                <!--                                                <div class="google-btn bg-kakao">-->
+                                <!--                                                    <div class="google-icon-wrapper ">-->
+                                <!--                                                        <img class="google-icon "-->
+                                <!--                                                            src="{{ asset('aPanel/imgs/KakaoTalk_logo.svg') }}"-->
+                                <!--                                                            alt="" />-->
+                                <!--                                                    </div>-->
+                                <!--                                                    <a href="javascript:kakaoLogin();" class="btn-text text-dark"><b-->
+                                <!--                                                            class="roboto">{{ __('Sign in with Kakao') }}</b></a>-->
+                                <!--                                                </div>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -276,9 +278,9 @@
             </div>
         </div>
     </div>
-    {{-- Modal --}}
+    {{--Modal - -}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header px-4">
