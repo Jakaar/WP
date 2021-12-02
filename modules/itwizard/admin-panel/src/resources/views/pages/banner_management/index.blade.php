@@ -95,229 +95,8 @@
         @endforeach
     </div>
 @endsection
-
-@section('script')
-    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-    <script>
-        $('#new_table_1').DataTable({})
-        $('#new_table_2').DataTable({})
-        $('#new_table_3').DataTable({})
-        $('#new_table_4').DataTable({})
-        $('#new_table_5').DataTable({})
-        $('.ModalShow').click(function() {
-            $('#AddRoleModal').modal('show')
-        })
-        $('.ModalShowEdit').click(function() {
-            $('#EditRoleModal').modal('show')
-        })
-        $(document).ready(function() {
-            CKEDITOR.replace('ckeditor', {
-                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
-            }); 
-            CKEDITOR.replace('ckeditor1', {
-                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
-            });            
-            $('#createForm').validate({
-                
-                errorPlacement: function(error, element) {
-                    // Add the `invalid-feedback` class to the error element
-                    error.addClass("invalid-feedback");
-                    if (element.prop("type") === "checkbox") {
-                        // error.insertAfter(element.next("label"));
-                    } else {
-                        // error.insertAfter(element);
-                    }
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
-                    const parantId = $(element).attr('data-parent-id');
-                    $('#' + parantId).addClass("text-danger").removeClass("text-success");
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    const parantId = $(element).attr('data-parent-id');
-                    $('#' + parantId).addClass("text-success").removeClass("text-danger");
-                    $(element).addClass("is-valid").removeClass("is-invalid");
-                },
-            });
-            $('#updateForm').validate({
-              
-                errorPlacement: function(error, element) {
-                    // Add the `invalid-feedback` class to the error element
-                    error.addClass("invalid-feedback");
-                    if (element.prop("type") === "checkbox") {
-                        // error.insertAfter(element.next("label"));
-                    } else {
-                        // error.insertAfter(element);
-                    }
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
-                    const parantId = $(element).attr('data-parent-id');
-                    $('#' + parantId).addClass("text-danger").removeClass("text-success");
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    const parantId = $(element).attr('data-parent-id');
-                    $('#' + parantId).addClass("text-success").removeClass("text-danger");
-                    $(element).addClass("is-valid").removeClass("is-invalid");
-
-                },
-            });
-            $('#add_banner').on('click', function() {
-                if ($('#createForm').valid()) {
-                    const data = {
-                        group_name: $('#group_name').val(),
-                        code: $('#code').val(),
-                        editor: CKEDITOR.instances.ckeditor.getData(),
-                        priority: $('#priority').val(),
-                        isEnabled: $('#isEnabled').val(),
-                        daterange: $('#daterange').val(),
-                        target_type: $('#target_type').val(),
-                        type: $('#type').val(),
-                    }
-
-                    const headers = {
-                        'Content-Type': 'multipart/form-data',
-                        'Content-Type': 'Application/json'
-                    }
-                    Axios.post('/api/addbanner', data, {
-                        headers: headers
-                        
-                    }).then((resp) => {
-                        window.location.reload();
-                        Swal.fire(
-                            'Added!',
-                            'Your banner has been added.',
-                            'success'
-                        )
-                        
-                    }).catch((err) => {
-                        Toast.fire({
-                            icon: 'error',
-                            title: err
-                        });
-                    });
-                }
-            })
-
-            $('.DeleteBanner').on('click', function() {
-                Swal.fire({
-                    title: '{{ __('Are you sure?') }}',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: '{{ __('Cancel') }}',
-                    confirmButtonText: '{{ __('Yes Delete It!') }}'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Axios.post('/api/DeleteBanner/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                            $(this).closest('tr').fadeOut();
-                        });
-                    }
-                })
-            });
-
-            $(document).on('click', '.editbtn', function() {
-                var banner_id = $(this).val();
-                //$('#editModal').modal('show');
-                Axios.get('/api/editbanner/' + banner_id).then((resp) => {
-                    $('#banner_id').val(resp.data.id);
-                    $('#code1').val(resp.data.code);
-                    $('#group_name1').val(resp.data.group_name);
-                    $('#isEnabled1').val(resp.data.isEnabled);
-                    $('#priority1').val(resp.data.priority);
-                    $('#daterange').val(resp.data.daterange);
-                    $('#target_type1').val(resp.data.target_type);
-                    $('#type1').val(resp.data.type);
-                    CKEDITOR.instances.ckeditor1.setData(resp.data.banner_content);                
-                });
-            });
-
-            $('#update_banner').on('click', function() {
-                if ($('#updateForm').valid()) {
-                    const data = {
-                        banner_id: $('#banner_id').val(),
-                        group_name1: $('#group_name1').val(),
-                        code1: $('#code1').val(),
-                        ckeditor1: CKEDITOR.instances.ckeditor1.getData(),
-                        priority1: $('#priority1').val(),
-                        isEnabled1: $('#isEnabled1').val(),
-                        daterange: $('#daterange').val(),
-                        target_type1: $('#target_type1').val(),
-                        type1: $('#type1').val(),
-                    }
-                    const headers = {
-                        'Content-Type': 'multipart/form-data',
-                        'Content-Type': 'Application/json'
-                    }
-                    Axios.post('/api/updatebanner', data, {
-                        headers: headers
-                    }).then((resp) => {
-                        Swal.fire(
-                            'Updated!',
-                            'Your banner has been updated.',
-                            'success'
-                        )
-                        setTimeout(function() {
-                            location.reload()
-                        }, 2000);
-                    }).catch((err) => {
-                        Toast.fire({
-                            icon: 'error',
-                            title: err
-                        });
-                    });
-                }
-            })
-
-            $('#reload_page').click(function() {
-                location.reload(true);
-            });
-         
-            $('input[name="daterange"]').daterangepicker({
-                startDate: moment().startOf("month"),
-                endDate: moment().startOf("day").add(32, "day"),
-                locale: {
-                    format: "Y/M/DD hh:mm",
-                    applyLabel: "적용",
-                    cancelLabel: "취소",
-                    daysOfWeek: [
-                        "일",
-                        "월",
-                        "화",
-                        "수",
-                        "목",
-                        "금",
-                        "토"
-                    ],
-                    monthNames: [
-                        "1 /",
-                        "2 /",
-                        "3 /",
-                        "4 /",
-                        "5 /",
-                        "6 /",
-                        "7 /",
-                        "8 /",
-                        "9 /",
-                        "10 /",
-                        "11 /",
-                        "12 /"
-                    ]
-                },
-            });
-
-
-        })
-    </script>
-@endsection
 @section('modal')
-    <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="AddRoleModal" data-bs-backdrop="static" data-bs-focus="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-white shadow shadow-sm">
@@ -400,7 +179,10 @@
                                     <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required readonly >
                                 </div>
                             </div>
-
+                            <div class="mb-3 col-lg-12">
+                                <label class="form-label"> {{ __('Link') }} </label>
+                                <input type="text" class="form-control" placeholder="{{ __('Link') }}" name="link" id="link" data-msg-required="{{ __('This Field is Required') }}" required>
+                            </div>
                             <div class="mb-3 col-lg-12">
                                 <label class="form-label"> {{ __('Banner Content') }} </label>
                                 <textarea  name="ckeditor" id="ckeditor" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
@@ -419,7 +201,7 @@
     </div>
 
     {{-- edit modal --}}
-    <div class="modal fade" id="EditRoleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="EditRoleModal"  data-bs-focus="false" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -502,11 +284,15 @@
                                 <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required readonly>
                             </div>
                         </div>
-                        
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label"> {{ __('Link') }} </label>
+                            <input type="text" class="form-control" placeholder="{{ __('Link') }}" name="link1" id="link1" data-msg-required="{{ __('This Field is Required') }}" required>
+                        </div>
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{ __('Banner Content') }} </label>
                             <textarea  name="ckeditor1" id="ckeditor1" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
                         </div>
+
                     </form>
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-primary border-primary">
@@ -516,4 +302,234 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
+    <script src="{{asset('aPanel/js/ckeditor/ckeditor.js')}}"></script>
+
+    <script>
+        $('#new_table_1').DataTable({})
+        $('#new_table_2').DataTable({})
+        $('#new_table_3').DataTable({})
+        $('#new_table_4').DataTable({})
+        $('#new_table_5').DataTable({})
+        $('.ModalShow').click(function() {
+            $('#AddRoleModal').modal('show')
+        })
+        $('.ModalShowEdit').click(function() {
+            $('#EditRoleModal').modal('show')
+        })
+        $(document).ready(function() {
+
+            CKEDITOR.replace('ckeditor', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            }); 
+            CKEDITOR.replace('ckeditor1', {
+                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            });   
+                                
+            $('#createForm').validate({
+                
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        // error.insertAfter(element.next("label"));
+                    } else {
+                        // error.insertAfter(element);
+                    }
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                    const parantId = $(element).attr('data-parent-id');
+                    $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    const parantId = $(element).attr('data-parent-id');
+                    $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+            });
+            $('#updateForm').validate({
+              
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        // error.insertAfter(element.next("label"));
+                    } else {
+                        // error.insertAfter(element);
+                    }
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                    const parantId = $(element).attr('data-parent-id');
+                    $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    const parantId = $(element).attr('data-parent-id');
+                    $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+
+                },
+            });
+            $('#add_banner').on('click', function() {
+                if ($('#createForm').valid()) {
+                    const data = {
+                        group_name: $('#group_name').val(),
+                        code: $('#code').val(),
+                        editor: CKEDITOR.instances.ckeditor.getData(),
+                        priority: $('#priority').val(),
+                        isEnabled: $('#isEnabled').val(),
+                        daterange: $('#daterange').val(),
+                        target_type: $('#target_type').val(),
+                        link: $('#link').val(),
+                        type: $('#type').val(),
+                    }
+
+                    const headers = {
+                        'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'Application/json'
+                    }
+                    Axios.post('/api/addbanner', data, {
+                        headers: headers
+                        
+                    }).then((resp) => {
+                        Swal.fire(
+                            'Added!',
+                            'Your banner has been added.',
+                            'success'
+                        )
+                        setTimeout(function() {
+                            location.reload()
+                        }, 2000);
+                        
+                    }).catch((err) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err
+                        });
+                    });
+                }
+            })
+
+            $('.DeleteBanner').on('click', function() {
+                Swal.fire({
+                    title: '{{ __('Are you sure?') }}',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: '{{ __('Cancel') }}',
+                    confirmButtonText: '{{ __('Yes Delete It!') }}'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Axios.post('/api/DeleteBanner/' + $(this).attr('key')).then((resp) => {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            $(this).closest('tr').fadeOut();
+                        });
+                    }
+                })
+            });
+
+            $(document).on('click', '.editbtn', function() {
+                var banner_id = $(this).val();
+                //$('#editModal').modal('show');
+                Axios.get('/api/editbanner/' + banner_id).then((resp) => {
+                    $('#banner_id').val(resp.data.id);
+                    $('#code1').val(resp.data.code);
+                    $('#group_name1').val(resp.data.group_name);
+                    $('#isEnabled1').val(resp.data.isEnabled);
+                    $('#priority1').val(resp.data.priority);
+                    $('#daterange').val(resp.data.daterange);
+                    $('#target_type1').val(resp.data.target_type);
+                    $('#type1').val(resp.data.type);
+                    $('#link1').val(resp.data.link);
+                    CKEDITOR.instances.ckeditor1.setData(resp.data.banner_content);                
+                });
+            });
+
+            $('#update_banner').on('click', function() {
+                if ($('#updateForm').valid()) {
+                    const data = {
+                        banner_id: $('#banner_id').val(),
+                        group_name1: $('#group_name1').val(),
+                        code1: $('#code1').val(),
+                        ckeditor1: CKEDITOR.instances.ckeditor1.getData(),
+                        priority1: $('#priority1').val(),
+                        isEnabled1: $('#isEnabled1').val(),
+                        daterange: $('#daterange').val(),
+                        target_type1: $('#target_type1').val(),
+                        type1: $('#type1').val(),
+                        link1: $('#link1').val(),
+                    }
+                    const headers = {
+                        'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'Application/json'
+                    }
+                    Axios.post('/api/updatebanner', data, {
+                        headers: headers
+                    }).then((resp) => {
+                        Swal.fire(
+                            'Updated!',
+                            'Your banner has been updated.',
+                            'success'
+                        )
+                        setTimeout(function() {
+                            location.reload()
+                        }, 2000);
+                    }).catch((err) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err
+                        });
+                    });
+                }
+            })
+
+            $('#reload_page').click(function() {
+                location.reload(true);
+            });
+         
+            $('input[name="daterange"]').daterangepicker({
+                startDate: moment().startOf("month"),
+                endDate: moment().startOf("day").add(32, "day"),
+                locale: {
+                    format: "Y/M/DD hh:mm",
+                    applyLabel: "적용",
+                    cancelLabel: "취소",
+                    daysOfWeek: [
+                        "일",
+                        "월",
+                        "화",
+                        "수",
+                        "목",
+                        "금",
+                        "토"
+                    ],
+                    monthNames: [
+                        "1 /",
+                        "2 /",
+                        "3 /",
+                        "4 /",
+                        "5 /",
+                        "6 /",
+                        "7 /",
+                        "8 /",
+                        "9 /",
+                        "10 /",
+                        "11 /",
+                        "12 /"
+                    ]
+                },
+            });
+
+
+        })
+    </script>
 @endsection

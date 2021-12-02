@@ -1,6 +1,19 @@
 @extends('client.layouts.master')
 @inject('t','App\Helper\Helper')
 @section('content')
+        @if(isset($banners))
+        <div class="container"  style="padding-top:100px;">
+            @foreach ($banners as $banner)
+            @if ($banner->slug=='main-banner' and $banner->type=='Simple')
+            <div class="row">
+                <div class="col-md-12">
+                    {!! $banner->banner_content !!}
+                </div>
+            </div>
+            @endif
+            @endforeach
+        </div>
+        @endif
         @if(isset($BlogDetails))
             <div class="page-header header-filter">
                 <div class="page-header-image" style="background-image: url('{{$BlogDetails->main_img}}');"></div>
