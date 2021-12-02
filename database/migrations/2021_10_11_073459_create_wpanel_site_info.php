@@ -23,8 +23,10 @@ class CreateWpanelSiteInfo extends Migration
             $table->string('email');
             $table->string('site_copyright');
             $table->string('logo')->nullable();
-            $table->text('terms_of_condition');
-            $table->text('privacy');
+            $table->text('terms_of_condition')->nullable();
+            $table->text('privacy')->nullable();
+            $table->text('terms_of_condition_name_url')->nullable();
+            $table->text('privacy_name_url')->nullable();
             $table->string('personal_information_manager');
         });
     }

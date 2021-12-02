@@ -21,7 +21,10 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('client.pages.index');
+        $banners = DB::table('wpanel_banners')
+                    ->where('isEnabled', 'used')
+                    ->get();
+        return view('client.pages.index',compact('banners'));
     }
 //    public function viewer($id, $slug)
 //    {
@@ -141,8 +144,11 @@ class MainController extends Controller
                 {
                     $SinglePageData->data = json_decode($SinglePageData->data, true);
                 }
+                $banners = DB::table('wpanel_banners')
+                    ->where('isEnabled', 'used')
+                    ->first();
 //            dd($SinglePageData->data['en']);
-                return view('client.pages.SinglePage',compact('SinglePageData'));
+                return view('client.pages.SinglePage',compact('SinglePageData','banners'));
             }
         }
     }

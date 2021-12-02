@@ -27,7 +27,7 @@
                     <i class="pe-7s-folder icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                    {{ __('Static File') }}
+                    {{ __('File Management') }}
                     <div class="page-title-subheading"></div>
                 </div>
             </div>

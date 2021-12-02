@@ -64,16 +64,14 @@
                                 @foreach ($data['langs'] as $key => $lang)
                                     <div class="tab-pane fade @if ($key === 0) active show @endif"
                                         id="c_tab-animated1-{{ $lang->id }}">
-                                        
                                         <li class="nav-item">
-                                            {!! json_decode($site_info->terms_of_condition, true)[session()->get('locale')] !!}
+                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[session()->get('locale')]  !!}
                                         </li>
                                         <li>
-                                           {!! json_decode($site_info->privacy, true)[session()->get('locale')] !!}
+                                            {!! json_decode($site_info->privacy_name_url, true)[session()->get('locale')]  !!}
                                         </li>
                                         <li class="nav-item">
-                                            {{ __('Copyright') }} :
-                                            {{ json_decode($site_info->site_copyright, true)[session()->get('locale')] }}
+                                            {{ __('Copyright') }} :   {!! json_decode($site_info->site_copyright, true)[session()->get('locale')]  !!}
                                         </li>
                                     </div>
                                 @endforeach

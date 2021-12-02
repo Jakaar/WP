@@ -1,5 +1,41 @@
 @extends('client.layouts.master')
 @section('content')
+<style>
+    .image {
+        display: none;
+    }
+
+    .editor {
+        display: none;
+    }
+
+    .daterangepicker {
+        z-index: 10000;
+    }
+
+    .ck-editor__editable {
+        min-height: 200px;
+    }
+    .banner{
+	position: absolute;
+	width: 120px;
+	height: 300px;
+	background:url(ads.gif);
+	bottom: 200px;
+    }
+    #banner_l{
+        left: 5px;
+    }
+    #banner_r{
+        right: 5px;
+    }
+
+    .zindex{
+        z-index: -10000;
+    }
+
+    
+</style>
     <header class="header-4 skew-separator">
         <div class="header-wrapper">
             <div class="page-header header-video">
@@ -26,6 +62,15 @@
     </header>
     <div class="section features-4">
         <div class="container">
+            @foreach ($banners as $banner)
+                @if ($banner->slug=='main-banner' and $banner->type=='Simple')
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
             <div class="row">
                 <div class="col-md-8 text-center mx-auto">
                     <h3 class="display-3">Now is our time <small>(지금은 우리의 시간입니다)</small></h3>
@@ -67,6 +112,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row mt-lg-4">
                         <div class="col-md-6">
                             <div class="info info-hover-danger">
@@ -88,6 +134,28 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                @foreach ($banners as $banner)
+                @if ($banner->slug=='vertical-banner' and $banner->type=='Simple')
+                
+                    <div class="col-md-3">                         
+                        <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                    </div>
+              
+                @endif
+                @endforeach
+            </div>
+            <div class="row">
+                @foreach ($banners as $banner)
+                @if ($banner->slug=='horizontal-banner' and $banner->type=='Simple')
+                
+                    <div class="col-md-12">                         
+                        <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                    </div>
+              
+                @endif
+                @endforeach
             </div>
         </div>
     </div>
@@ -663,4 +731,44 @@
             </div>
         </section>
     </div>
+    @foreach ($banners as $banner)
+                @if ($banner->slug=='left-banner' and $banner->type=='Simple')
+                <div id="banner_l" class="banner">
+                    <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                </div>
+                @endif
+            @endforeach
+            @foreach ($banners as $banner)
+                @if ($banner->slug=='right-banner' and $banner->type=='Simple')
+                <div id="banner_r" class="banner">
+                        <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                </div>
+                @endif
+            @endforeach
+@endsection
+@section('script')
+
+<script type="text/javascript">
+	$(function(){
+		var $banner = $('.banner'), $window = $(window);
+		var $topDefault = parseFloat( $banner.css('bottom'), 10 );
+		$window.on('scroll', function(){
+			var $top = $(this).scrollTop();
+			$banner.stop().animate( { bottom: -( $top - $topDefault) }, 1000, 'easeOutBack' );
+		});
+
+		var $wiBanner = $banner.outerWidth() * 2;
+		zindex($('#wrapper').outerWidth());
+		$window.on('resize', function(){
+			zindex($('#wrapper').outerWidth());
+		});
+		function zindex(maxWidth){
+			if( $window.width() <= maxWidth + $wiBanner ) {
+				$banner.addClass('zindex');
+			}else{
+				$banner.removeClass('zindex');
+			}
+		}
+	});
+</script>
 @endsection
