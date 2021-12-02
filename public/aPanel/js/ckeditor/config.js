@@ -44,9 +44,16 @@ CKEDITOR.editorConfig = function( config ) {
         'ckawesome',
         'wenzgmap',
         'youtubebootstrap',
-        'qrc'
+        'qrc',
+        'uploadimage',
+        'pastefromword',
+        'pastetools',
+        'flash'
+
         // 'N1ED-editor'
     ];
+    config.uploadUrl = '/api/ck/file-upload';
+    config.imageUploadUrl = '/api/ck/file-upload/image?type=Images';
     // config.apiKey = "8DVZDFLT";
     config.fillEmptyBlocks = false;
     config.FormatOutput = false;
