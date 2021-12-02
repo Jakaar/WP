@@ -36,9 +36,6 @@ class AppServiceProvider extends ServiceProvider
 
          $site_info = DB::table('wpanel_site_info')->first();
 
-         $title = json_decode($site_info->terms_of_condition, true);
-
-
          view()->share('site_info', $site_info);
 
          view()->share('static', $static);

@@ -140,7 +140,7 @@
                             <div class="mb-3 col-6">
                                 <label for="" class="form-label fw-bold"> {{ __('Top Menu') }} </label>
                                 <select name="" class="form-control form-select" id="m_category_id" name="m_category_id">
-                                    <option value=""> = Select Parent Menu = </option>
+                                    <option value=""> = {{__('Select Parent Menu')}} = </option>
                                     @foreach ($categories as $category)
                                         @if ($category->category == null)
                                             <option value="{{ $category->id }}"> {{ $t->translateText($category->name) }} </option>

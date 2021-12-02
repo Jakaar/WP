@@ -215,7 +215,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 30,
-                'title' =>  '{"mn":"Terms of Use","en":"Terms of Use","kr":"Terms of Use"}',
+                'title' =>  '{"mn":"Ашиглалтын дүрэм","en":"Terms of Use","kr":"이용약관"}',
                 'url' =>  '/cms/terms',
                 'parent_id' => 23,
                 'order' => 1,
@@ -224,7 +224,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 31,
-                'title' =>  '{"mn":"Privacy Policy","en":"Privacy Policy","kr":"Privacy Policy"}',
+                'title' =>  '{"mn":"Хувийн мэдээлэл хамгаалах бодлого","en":"Privacy Policy","kr":"개인정보보호정책"}',
                 'url' =>  '/cms/privacy',
                 'parent_id' => 23,
                 'order' => 2,

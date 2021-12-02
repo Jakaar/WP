@@ -10,25 +10,29 @@
                     {{ __('Privacy Policy') }}
                 </div>
             </div>
+            <div class="page-title-actions">
+                <button type="button" data-bs-toggle="tooltip" title="{{ __('Refresh') }}"
+                    class="btn-shadow me-3 btn btn-info" id="reload_page">
+                    <i class="pe-7s-refresh-2"></i>
+                </button>
+                <div class="d-inline-block">
+                    <button id="policyData" type="button"
+                        class="btn-wide btn-shadow btn btn-outline-success">{{ __('Save') }}</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="mb-3 mt-3">
                 {{-- {{ dd(env('APP_URL')) }} --}}
-                <div class="card-title mb-3">Privacy Policy</div>
+                <div class="card-title mb-3">{{__('Privacy Policy')}}</div>
                 <div class="card-text mb-3">
                    <div> URL: {{  url()->full() }}/policy </div> 
                 </div>
                 <div class="contentEditor">
                     <textarea name="editor2" id="editor2">{!! $site_info->privacy !!}</textarea>
                 </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="float-end">
-                <button id="policyData" type="button"
-                    class="btn-wide btn-shadow btn btn-outline-success mt-2">{{ __('Save') }}</button>
             </div>
         </div>
     </div>
@@ -65,6 +69,9 @@
                     console.log(err);
                 });
             })
+            $('#reload_page').click(function() {
+                location.reload(true);
+            });
         })
     </script>
 @endsection

@@ -7,7 +7,7 @@
                     <i class="pe-7s-info icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                    {{ __('Terms of use') }}
+                    {{ __('Terms of Use') }}
                 </div>
             </div>
             <div class="page-title-actions">
@@ -27,7 +27,7 @@
             <div class="mb-3 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-title  mb-3">Terms of use</div>
+                        <div class="card-title  mb-3">{{__('Terms of Use')}}</div>
                         <div class="card-text  mb-3">URL: {{  url()->full() }}_of_use</div>
                         <div class="contentEditor">
                             <textarea name="editor1" id="editor1">{!! $site_info->terms_of_condition !!}</textarea>
@@ -71,6 +71,9 @@
                     console.log(err);
                 });
             })
+            $('#reload_page').click(function() {
+                location.reload(true);
+            });
         })
     </script>
 @endsection
