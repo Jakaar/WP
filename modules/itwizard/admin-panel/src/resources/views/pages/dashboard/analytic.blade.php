@@ -276,7 +276,7 @@
                     <!--                        <canvas id="polar-chart" height="200"></canvas>-->
                     <!--                    </div>-->
                     <div class="pt-0 card-body">
-                        <div id="chart"></div>
+                        <div id="chart" ></div>
                     </div>
                 </div>
             </div>
@@ -324,7 +324,7 @@
                 series: [{
                     name: '{{__('Banner')}}',
                     type: 'column',
-                    data: resp.data.bData,
+                    data: GraphicData,
                 },
                     {
                         name: '{{__('Content')}}',
@@ -335,7 +335,7 @@
                     width: [0, 4]
                 },
                 // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                labels: resp.data.labels,
+                labels: labelsData,
 
                 yaxis: [{
                     title: {
@@ -366,7 +366,7 @@
                 },
                 series: [{
                     name: '{{__('Banner')}}',
-                    data: resp.data.bData
+                    data: GraphicData
                 }, {
                     name: '{{__('Page Content')}}',
                     data: resp.data.cData
@@ -377,7 +377,7 @@
                     // }
                 ],
                 xaxis: {
-                    categories: resp.data.labels,
+                    categories: labelsData,
                 },
                 yaxis: {
                     title: {
@@ -402,6 +402,7 @@
             // Polar
             const optionsPolar = {
                 series: Qty,
+                 colors:['#e458ca', '#6ee7b1', '#6e82e7','#21a5ca', '#ca7e21', '#ca2121','#ebe700', '#eb0000', '#0000eb', '#00ebdf', '#eb7100', '#9C27B0', '#b400eb', '#2beb00'],
                 chart:
                     {
                         type: 'polarArea',
@@ -412,7 +413,8 @@
                         colors: ['#fff']
                     },
                 fill: {
-                    opacity: 0.8
+                    opacity: 0.8,
+                     // colors: ['#F44336', '#E91E63', '#9C27B0','#F44336', '#E91E63', '#9C27B0','#F44336', '#E91E63', '#9C27B0', '#9C27B0', '#9C27B0', '#9C27B0', '#9C27B0', '#9C27B0'],
                 },
                 yaxis: {
                     show: false

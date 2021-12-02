@@ -22,17 +22,17 @@
                         <div class="accordion" id="accordionExample">
                             @foreach($FAQ as $key=>$item)
                                 <div class="card">
-                                    <div class="card-header" id="headingOne">
+                                    <div class="card-header" id="heading{{$item->id}}">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-link w-100 text-primary text-left" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapseOne">
-                                                How do I order?
+                                            <button class="btn btn-link w-100 text-primary text-left" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                                                {!! $t->translateText($item->question) ?? $item->question !!}
                                                 <i class="ni ni-bold-down float-right pt-1"></i>
                                             </button>
                                         </h5>
                                     </div>
-                                    <div id="collapse{{$item->id}}" class="collapse @if($key === 0) show @endif" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div id="collapse{{$item->id}}" class="collapse @if($key === 0) show @endif" aria-labelledby="heading{{$item->id}}" data-parent="#accordionExample">
                                         <div class="card-body opacity-8">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            {!! $t->translateText($item->answer) ?? $item->answer !!}
                                         </div>
                                     </div>
                                 </div>
