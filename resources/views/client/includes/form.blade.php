@@ -6,7 +6,9 @@
         <div class="divider"></div>
         <div class="col-12">
             <div class="">
-                <div id="fb-editor"></div>
+                <form action="" >
+                    <div id="fb-editor"></div>
+                </form>
             </div>
         </div>
         <div class="col-12">

@@ -15,10 +15,10 @@ class FormController extends Controller
     public function create(Request $request)
     {
 
-$namepieces = explode('/', $request->categories);
+        $namepieces = explode('/', $request->categories);
 
-$category_slug_id1 = implode(' ', array( $namepieces[count($namepieces)-1]));
-$board_master_id2 = implode(' ', array($namepieces[count($namepieces)-2]));
+        $category_slug_id1 = implode(' ', array( $namepieces[count($namepieces)-1]));
+        $board_master_id2 = implode(' ', array($namepieces[count($namepieces)-2]));
 // dd($category_slug_id1,$board_master_id2 );
 
         if($request->status == "on") {
