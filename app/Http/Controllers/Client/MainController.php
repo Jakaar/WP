@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContentCategory;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -86,7 +87,17 @@ class MainController extends Controller
 
         if($uuid)
         {
-            return view('client.pages.CategoryList');
+            $uuid = base64_decode(base64_decode($uuid));
+            $List = null;
+            if(is_numeric($uuid))
+            {
+              $List = DB::table('main__category__page')
+                  ->where('main_category_id', $uuid)
+                  ->where('is_enabled', 1)
+                  ->paginate(15);
+            }
+//            dd($List);
+            return view('client.pages.CategoryList', compact('List'));
         }else{
             if($board->board_type === 'FAQ')
             {
@@ -169,5 +180,24 @@ class MainController extends Controller
         $dId = decrypt($uuid);
 
         return view('client.pages.CategoryList');
+    }
+
+    public function BlogDetail($uuid)
+    {
+        $uuid = base64_decode(base64_decode($uuid));
+        $BlogDetails = DB::table('main__category__page')->where('id', $uuid)->first();
+//        dd($uuid,$BlogDetails);
+        if (\session()->get('locale') === 'kr')
+        {
+            Carbon::setLocale('ko');
+        }else{
+            Carbon::setLocale(session()->get('locale'));
+        }
+        $InCategoryNews = DB::table('main__category__page')
+            ->where('main_category_id', $BlogDetails->main_category_id)
+            ->where('is_enabled', 1)
+            ->get()
+            ->take(3);
+        return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
     }
 }
