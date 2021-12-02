@@ -414,6 +414,9 @@
                 fill: {
                     opacity: 0.8
                 },
+                yaxis: {
+                    show: false
+                },
                 responsive: [{
                     breakpoint: 480,
                     options: {
@@ -421,10 +424,10 @@
                             width: 200
                         },
                         legend: {
-                            position: 'bottom'
+                            position: 'top'
                         }
                     }
-                }]
+                }],
             };
             const chart = new ApexCharts(document.querySelector("#chart"), optionsPolar);
             chart.render();
