@@ -11,6 +11,7 @@ use App\Helper\LogActivity;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use mysql_xdevapi\Table;
+use PhpParser\Node\Stmt\Foreach_;
 
 /**
  *
@@ -42,9 +43,6 @@ class AnalyticController extends Controller
                 'main_product_categories.name'
             )
             ->get();
-
-        $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
-        $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
         for ($i = 0; $i <= 11; $i++) {
 
 //            $months[$i] = Carbon::create()->month($i)->format('M '.$thisYear);
@@ -66,6 +64,6 @@ class AnalyticController extends Controller
         }
 //        dd('e');
 //        $Cdata['page_manage'] = DB::table('wpanel_page_manage')->whereBetween('created_at',[$startMonth,$endMonth])->count();
-        return response()->json(['bData' => $PostData, 'labels' => $months, 'cData' => $ContentData, 'color' => $color, 'Product' => $Product], 200);
+        return response()->json(['bData' => $PostData, 'labels' => $months, 'cData' => $ContentData,  'Product' => $Product], 200);
     }
 }
