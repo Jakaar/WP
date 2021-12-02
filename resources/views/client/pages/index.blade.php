@@ -714,7 +714,7 @@
     @foreach ($banners as $banner)
                 @if ($banner->slug=='left-banner' and $banner->type=='Simple')
                 <div id="banner_l" class="banner">
-                    <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                    {!! $banner->banner_content !!}
                 </div>
                 @endif
             @endforeach
