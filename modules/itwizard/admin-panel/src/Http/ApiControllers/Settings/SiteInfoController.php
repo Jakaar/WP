@@ -13,8 +13,7 @@ class SiteInfoController extends Controller
     {
         LogActivity::addToLog('Updated SiteInfo');
         $savedInfo = DB::table('wpanel_site_info')->take(1);
-        // dd($request);
-        // dd($request->companyName);
+
         $savedInfo->update([
             'company_name' => $request->companyName,
             'site_name' => $request->siteName,

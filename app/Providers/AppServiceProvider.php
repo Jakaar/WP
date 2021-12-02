@@ -32,6 +32,14 @@ class AppServiceProvider extends ServiceProvider
          $static['js'] = DB::table('client_static_file')
              ->where('type_id', 2)
              ->get();
+
+         $site_info = DB::table('wpanel_site_info')->first();
+
+         $title = json_decode($site_info->terms_of_condition, true);
+
+
+         view()->share('site_info', $site_info);
+
          view()->share('static', $static);
          view()->share('Main', $this->GetMenu());
      }
