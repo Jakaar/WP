@@ -109,7 +109,11 @@ class MainController extends Controller
                     ->where('category_id',$id)
                     ->where('is_enable',1)
                     ->get();
-                return view('client.pages.FAQ',compact('content','board','FAQ'));
+                    $datas['form_builded'] = DB::table('form_builded')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->first();
+                return view('client.pages.FAQ',compact('content','board','FAQ','datas'));
             }
             if ($board->board_type === 'Category')
             {
@@ -117,7 +121,11 @@ class MainController extends Controller
                     ->where('category_id', $id)
                     ->where('is_enabled', 1)
                     ->get();
-                return view('client.pages.Category',compact('board','Categories'));
+                    $datas['form_builded'] = DB::table('form_builded')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->first();
+                return view('client.pages.Category',compact('board','Categories','datas'));
             }
             if ($board->board_type === 'Gallery')
             {
@@ -129,7 +137,11 @@ class MainController extends Controller
                     ->where('main__gallery__category.category_id', $id)
                     ->get();
 //            dd($Groups);
-                return view('client.pages.Gallery',compact('content','board','Groups'));
+                    $datas['form_builded'] = DB::table('form_builded')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->first();
+                return view('client.pages.Gallery',compact('content','board','Groups','datas'));
             }
             if ($board->board_type === 'SinglePage')
             {
@@ -147,8 +159,13 @@ class MainController extends Controller
                 $banners = DB::table('wpanel_banners')
                     ->where('isEnabled', 'used')
                     ->first();
+
+                $datas['form_builded'] = DB::table('form_builded')
+                ->where('board_master_id', $slug)
+                ->where('category_id', $id)
+                ->first();
 //            dd($SinglePageData->data['en']);
-                return view('client.pages.SinglePage',compact('SinglePageData','banners'));
+                return view('client.pages.SinglePage',compact('SinglePageData','banners','datas'));
             }
         }
     }

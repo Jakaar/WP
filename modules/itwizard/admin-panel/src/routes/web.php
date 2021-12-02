@@ -75,7 +75,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
     Route::get('/noticeboard/search', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'search']);
-    
+
 
     Route::get('/member_management/users', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
     Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);
@@ -85,7 +85,12 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
 
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
-    Route::get('/suppliers/create',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'CreateShow']);
+    // Route::get('/suppliers/create',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'CreateShow']);
+
+    // form_builded
+    Route::get('/suppliers/create',[Itwizard\Adminpanel\Http\Controllers\FormBuild\FormBuildController::class, 'index']);
+    // form_builded
+    // Route::get('/formcreate',[Itwizard\Adminpanel\Http\Controllers\FormBuild\FormBuildController::class, 'index']);
 
     Route::get('/basic_setting/adminSettings',[PermissionController::class, 'adminSettings']);
     Route::get('/member_management/secessionist',[PermissionController::class, 'secessionist']);

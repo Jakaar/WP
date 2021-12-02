@@ -101,4 +101,7 @@
             </div>
         </div>
     </div>
+    @if(isset($datas['form_builded']))
+        @include('client.includes.form')
+    @endif
 @endsection

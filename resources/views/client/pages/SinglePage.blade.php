@@ -98,4 +98,8 @@
                 {!! $t->translateText($SinglePageData->data) !!}
             </div>
         @endif
+
+        @if(isset($datas['form_builded']))
+            @include('client.includes.form')
+        @endif
 @endsection
