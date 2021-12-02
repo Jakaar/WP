@@ -221,8 +221,8 @@
     "Salary": "급여",
     "Age": "연령",
     "Use Comment": "댓글 사용",
-    "Board Type": "보드 타입",
-    "BOARD TYPE": "보드 타입",
+    "Board Type": "보드 유형",
+    "BOARD TYPE": "보드 유형",
     "Office": "사무소",
     "Board Name": "보드명",
     "Position": "직위",
@@ -794,7 +794,7 @@
     "Edit Language": "언어 수정",
     "Country": "국가",
     "Country code": "국가 코드",
-    "Create Board type": "보드형 생성",
+    "Create Board Type": "보드형 생성",
     "Create Board": "보드 생성",
     "Available Language": "언어 추가",
     "Form Create": "폼 생성 ",
@@ -831,6 +831,10 @@
     "Choose Type": "유형 선택",
     "Text Box": "텍스트 박스",
     "Text Area": "텍스트 영역",
-    "Admin edit & delete": "관리자 편집 및 삭제"
+    "Admin edit & delete": "관리자 편집 및 삭제",
+    "File Management": "파일 관리",
+    "Admin Menu Management": "관리자 메뉴 관리",
+    "Form Name": "폼 이름"
+    
     
     }
