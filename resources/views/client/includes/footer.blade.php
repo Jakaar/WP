@@ -1,8 +1,9 @@
+@inject('t','App\Helper\Helper')
 <footer class="footer">
     <div class="container">
         <div class="content">
             <div class="row">
-                <div class="col-md-3 col-12">
+                <div class="col-md-4 col-12">
                     <div class="column">
                         <h4 class="mt-3">Company</h4>
                         <ul>
@@ -10,19 +11,17 @@
                                 <div class="tab-pane fade @if ($key === 0) active show @endif"
                                     id="c_tab-animated1-{{ $lang->id }}">
                                     <li>
-                                        {{-- <a href="javascript:;"> --}}
-                                        {{ __('Company Name') }} : {{ json_decode($site_info->company_name, true)[$lang->country_code] }}
-                                        {{-- {{ __('Company Name') }} : {{ $site_info->company_name }} --}}
-                                        {{-- </a> --}}
+                                        {{ __('Company Name') }} : {{ json_decode($site_info->company_name, true)[session()->get('locale')] }}
                                     </li>
                                     <li>
-                                        {{ __('Site Name') }} : {{ json_decode($site_info->site_name, true)[$lang->country_code] }}
+                                        {{ __('Site Name') }} : {{ json_decode($site_info->site_name, true)[session()->get('locale')] }}
                                     </li>
                                     <li class="nav-item">
-                                        {{ __('CR Number') }} : {{ $site_info->company_register_number }}
+                                        {{ __('Company Registration Number') }} : {{ $site_info->company_register_number }}
                                     </li>
                                     <li>
-                                        {{ __('Address') }} : {{ json_decode($site_info->address, true)[$lang->country_code] }}
+                                        {{-- {{ dd($lang->country_code) }} --}}
+                                        {{ __('Address') }} : {!! json_decode($site_info->address, true)[session()->get('locale')] !!}
                                     </li>
                                 </div>
                             @endforeach
@@ -54,7 +53,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2 col-6">
+                <div class="col-md-1 col-6">
 
                 </div>
                 <div class="col-md-3 col-6">
@@ -67,20 +66,15 @@
                                         id="c_tab-animated1-{{ $lang->id }}">
                                         
                                         <li class="nav-item">
-                                            {!! json_decode($site_info->terms_of_condition, true)[$lang->country_code] !!}
-                                           {{-- {{ __('Terms of use') }} : {{ json_decode($site_info->terms_of_condition, true)[$lang->country_code] }} --}}
+                                            {!! json_decode($site_info->terms_of_condition, true)[session()->get('locale')] !!}
                                         </li>
                                         <li>
-                                           {{-- {{ __('Privacy Policy') }} :  --}}
-                                           {!! json_decode($site_info->privacy, true)[$lang->country_code] !!}
+                                           {!! json_decode($site_info->privacy, true)[session()->get('locale')] !!}
                                         </li>
                                         <li class="nav-item">
                                             {{ __('Copyright') }} :
-                                            {{ json_decode($site_info->site_copyright, true)[$lang->country_code] }}
+                                            {{ json_decode($site_info->site_copyright, true)[session()->get('locale')] }}
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            {{ __('Personal Information') }} : {{ json_decode($site_info->personal_information_manager, true)[$lang->country_code] }}
-                                        </li> --}}
                                     </div>
                                 @endforeach
                             </ul>
