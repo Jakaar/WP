@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{$css->file_absolute_path}}">
     @endforeach
 
-    <title>IT Wizard | </title>
+    <title>DEVELOPING | ++-++ </title>
     <style>
         body {
             -ms-overflow-style: none; /* for Internet Explorer, Edge */
@@ -36,8 +36,8 @@
             </div>
         @include('client.includes.footer')
 
-        @foreach($static['js'] as $js)
-            <script type="javascript" src="{{$js->file_absolute_path}}"></script>
-        @endforeach
+        <script src="{{asset('/client/static/js/core/jquery.min.js')}}"></script>
+        <script src="{{asset('/client/static/js/core/popper.min.js')}}"></script>
+        <script src="{{asset('/client/static/js/core/bootstrap.min.js')}}"></script>
     </body>
 </html>

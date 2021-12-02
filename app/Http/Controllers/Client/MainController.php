@@ -106,7 +106,7 @@ class MainController extends Controller
                     ->where('category_id',$id)
                     ->where('is_enable',1)
                     ->get();
-                return view('Admin::pages.manage_pages.index',compact('content','board','FAQ'));
+                return view('client.pages.FAQ',compact('content','board','FAQ'));
             }
             if ($board->board_type === 'Category')
             {
@@ -126,7 +126,7 @@ class MainController extends Controller
                     ->where('main__gallery__category.category_id', $id)
                     ->get();
 //            dd($Groups);
-                return view('Admin::pages.manage_pages.index',compact('content','board','Groups'));
+                return view('client.pages.Gallery',compact('content','board','Groups'));
             }
             if ($board->board_type === 'SinglePage')
             {

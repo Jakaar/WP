@@ -288,19 +288,15 @@
                                 <input type="file" class="form-control" name="upload_file" id="upload_file"
                                     data-msg-required="{{ __('This Field is Required') }}" required>
                             </div>
-
                             <div class="mb-3 col-lg-6">
                                 <label for="exampleCity" class="form-label">{{ __('Is Used') }}</label>
                                 <select name="status" id="status" class="form-select form-control"
                                     data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
-                                    <option value="2">{{ __('Used') }}</option>
-                                    <option value="1">{{ __('Not Used') }}</option>
+                                    <option selected value="1">{{ __('Used') }}</option>
+                                    <option value="0">{{ __('Not Used') }}</option>
                                 </select>
                             </div>
-
-
-
                         </form>
                     </div>
 
