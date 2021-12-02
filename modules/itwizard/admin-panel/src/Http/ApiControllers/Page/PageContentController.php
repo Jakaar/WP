@@ -1,6 +1,7 @@
 <?php
 namespace Itwizard\Adminpanel\Http\ApiControllers\Page;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -162,6 +163,15 @@ class PageContentController extends Controller
 
     public function CategoryCreate(Request $request)
     {
-        dd($request->all());
+//        dd(explode('/', $request->url)[5]);
+        DB::table('main__category')->insert([
+            'name' => $request->name,
+            'description' => $request->desc,
+            'main_img' => $request->img,
+            'board_master_id' => $request->board_master_id,
+            'category_id' => explode('/', $request->url)[5],
+        ]);
+        return back()->with(['message'=> __('Category Created')]);
+//        dd($request->all());
     }
 }

@@ -1,16 +1,29 @@
 <div class="main-card mb-3">
+    @if(session()->has('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert">
+            </button>
+            {{session()->get('message')}}
+        </div>
+    @endif
     <div class="row">
-        <div class="col-md-4 col-lg-3 col-xl-2">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Card Title</h5>
-                    This is a wider card with supporting
-                </div>
-                <div class="card-footer">
-                    <a href="" class="">Last updated 3 mins ago</a>
+        @foreach($Groups as $group)
+            <div class="col-md-4 col-lg-3 col-xl-2">
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-outline-danger btn-sm" key=""><i class="pe-7s-trash"></i></button>
+                        <button class="btn btn-outline-info btn-sm" style="margin-left: 5px;"><i class="pe-7s-pen"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{$group->name}}</h5>
+                        <p class="text-truncate">{{$group->description}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{url()->full().'/'.base64_encode($group->id)}}" class="">{{__('Created At ').\Carbon\Carbon::parse($group->created_at)->format('Y-m-d')}}</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 </div>
 
@@ -23,7 +36,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="CategoryForm" method="POST" action="/api/FAQ/create" autocomplete="off">
+                    <form id="CategoryForm" method="POST" action="/api/Content/Category/create" autocomplete="off">
+                        @csrf
+                        <input type="hidden" name="url" value="{{url()->full()}}">
+                        <input type="hidden" name="board_master_id" value="{{$content['type']->board_master_id}}">
                         <div class="row">
                             <div class="col-6">
 {{--                                <label for="galleryContent">{{__('Name')}}</label>--}}
@@ -47,7 +63,7 @@
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{__('Close')}} </button>
-                    <button type="submit" class="btn btn-success UpdateOrCreate"> {{__('Create ')}} </button>
+                    <button type="button" class="btn btn-success UpdateOrCreate"> {{__('Create ')}} </button>
                 </div>
             </div>
         </div>
@@ -56,6 +72,7 @@
 
 @section('script')
     <script>
+
         $(document).ready(function (){
             $('#CategoryForm').validate({
                 ignore: [],
@@ -75,7 +92,12 @@
                     $(element).addClass("is-valid").removeClass("is-invalid");
                 },
             });
-
+            $('.UpdateOrCreate').on('click', function (){
+                if($('#CategoryForm').valid())
+                {
+                    $('#CategoryForm').submit();
+                }
+            })
            $('.ShowModal').on('click', function (){
                $('#CategoryCreate').modal('show');
            })

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContentCategory;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -14,7 +16,7 @@ class MainController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
@@ -64,9 +66,9 @@ class MainController extends Controller
 //        }
 //
 //    }
-    public function viewer($slug, $id)
+    public function viewer($slug, $id, $uuid = null)
     {
-//        dd($slug, $id);
+
         $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 0;
         $content['type'] = DB::table('categories')
@@ -82,50 +84,55 @@ class MainController extends Controller
             ->first();
         $board = DB::table('wpanel_board_master')->where('id', $slug)->first();
 
-        if($board->board_type === 'FAQ')
+        if($uuid)
         {
-            $FAQ = DB::table('main__f_a_q')
-//                ->where('board_master_id',$board)
-                ->where('category_id',$id)
-                ->where('is_enable',1)
-                ->get();
-            return view('Admin::pages.manage_pages.index',compact('content','board','FAQ'));
-        }
-        if ($board->board_type === 'Category')
-        {
-            $content['categories'] = ContentCategory::whereNull('content_category_id')
-                ->where(['board_master_id' => $id])
-                ->with('subCategories')
-                ->get();
-            return view('client.pages.Category',compact('content','board'));
-        }
-        if ($board->board_type === 'Gallery')
-        {
-            $content['categories'] = ContentCategory::whereNull('content_category_id')
-                ->where(['board_master_id' => $id])
-                ->with('subCategories')
-                ->get();
-            $Groups = DB::table('main__gallery__category')
-                ->where('main__gallery__category.category_id', $id)
-                ->get();
-//            dd($Groups);
-            return view('Admin::pages.manage_pages.index',compact('content','board','Groups'));
-        }
-        if ($board->board_type === 'SinglePage')
-        {
-            $content['categories'] = ContentCategory::whereNull('content_category_id')
-                ->where(['board_master_id' => $id])
-                ->with('subCategories')
-                ->get();
-            $SinglePageData = DB::table('main__single_page_data')
-                ->where('category_id', $id)
-                ->first();
-            if (isset($SinglePageData))
+            return view('client.pages.CategoryList');
+        }else{
+            if($board->board_type === 'FAQ')
             {
-                $SinglePageData->data = json_decode($SinglePageData->data, true);
+                $FAQ = DB::table('main__f_a_q')
+//                ->where('board_master_id',$board)
+                    ->where('category_id',$id)
+                    ->where('is_enable',1)
+                    ->get();
+                return view('Admin::pages.manage_pages.index',compact('content','board','FAQ'));
             }
+            if ($board->board_type === 'Category')
+            {
+                $Categories = DB::table('main__category')
+                    ->where('category_id', $id)
+                    ->where('is_enabled', 1)
+                    ->get();
+                return view('client.pages.Category',compact('board','Categories'));
+            }
+            if ($board->board_type === 'Gallery')
+            {
+                $content['categories'] = ContentCategory::whereNull('content_category_id')
+                    ->where(['board_master_id' => $id])
+                    ->with('subCategories')
+                    ->get();
+                $Groups = DB::table('main__gallery__category')
+                    ->where('main__gallery__category.category_id', $id)
+                    ->get();
+//            dd($Groups);
+                return view('Admin::pages.manage_pages.index',compact('content','board','Groups'));
+            }
+            if ($board->board_type === 'SinglePage')
+            {
+                $content['categories'] = ContentCategory::whereNull('content_category_id')
+                    ->where(['board_master_id' => $id])
+                    ->with('subCategories')
+                    ->get();
+                $SinglePageData = DB::table('main__single_page_data')
+                    ->where('category_id', $id)
+                    ->first();
+                if (isset($SinglePageData))
+                {
+                    $SinglePageData->data = json_decode($SinglePageData->data, true);
+                }
 //            dd($SinglePageData->data['en']);
-            return view('client.pages.SinglePage',compact('SinglePageData'));
+                return view('client.pages.SinglePage',compact('SinglePageData'));
+            }
         }
     }
 
@@ -141,66 +148,26 @@ class MainController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|Application|\Illuminate\View\View
      */
-    public function create()
+    public function uuid($id, $slug, $uuid)
     {
-        //
-    }
+        $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
+        $content['detail'] = 0;
+        $content['type'] = DB::table('categories')
+            ->leftJoin('wpanel_board_master','wpanel_board_master.id','categories.board_master_id')
+            ->where('categories.id', $id)
+            ->select(
+                'categories.id',
+                'categories.board_master_id',
+                'wpanel_board_master.id as mId',
+                'wpanel_board_master.isCategory',
+                'wpanel_board_master.board_type'
+            )
+            ->first();
+        $board = DB::table('wpanel_board_master')->where('id', $slug)->first();
+        $dId = decrypt($uuid);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('client.pages.CategoryList');
     }
 }

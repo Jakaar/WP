@@ -61,6 +61,7 @@
 </div>
 @section('script')
     <script src="{{asset('aPanel/js/ckeditor/ckeditor.js')}}"></script>
+
     <script type="text/javascript">
         $(document).ready(function (){
             let lang='{{Session::get('locale')}}';if(lang==='kr'){lang = 'ko'}
@@ -82,4 +83,6 @@
 
         })
     </script>
+
+
 @endsection

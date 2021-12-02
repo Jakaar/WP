@@ -18,3 +18,4 @@ Route::get('lang/{locale}', function ($lang) {
 
 Route::get('/',[\App\Http\Controllers\Client\MainController::class,'index']);
 Route::get('/{id}/{slug}',[\App\Http\Controllers\Client\MainController::class,'viewer']);
+Route::get('/{id}/{slug}/{uuid}',[\App\Http\Controllers\Client\MainController::class,'viewer']);

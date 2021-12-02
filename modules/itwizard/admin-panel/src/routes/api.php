@@ -152,4 +152,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/Gallery/CreateContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreateContent']);
 
     Route::post('/SinglePage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'SinglePageCreate']);
+
+    Route::post('/Content/Category/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'CategoryCreate']);
 });

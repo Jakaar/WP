@@ -17,7 +17,7 @@ class CreateMainCategory extends Migration
             $table->id();
             $table->text('name');
             $table->text('description');
-            $table->string('main_img');
+            $table->string('main_img')->nullable();
             $table->integer('is_enabled')->default('1');
             $table->integer('board_master_id');
             $table->integer('category_id');
