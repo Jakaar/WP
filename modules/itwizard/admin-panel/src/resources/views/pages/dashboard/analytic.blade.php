@@ -119,7 +119,7 @@
     </div>
 </div>
 <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border card-header">
-    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('User')}}</div>
+    <div class="card-header-title fsize-2 text-capitalize fw-normal">{{__('Member')}}</div>
 </div>
 <div class="row">
 
@@ -128,7 +128,7 @@
             class="widget-chart widget-chart2 widget-chart-hover text-start mb-3 card-btm-border card-shadow-primary border-primary card">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <div class="widget-title opacity-5 text-uppercase">{{__('Total User')}}</div>
+                    <div class="widget-title opacity-5 text-uppercase">{{__('Total Member')}}</div>
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>
@@ -159,7 +159,7 @@
             class="widget-chart widget-chart2 text-start mb-3 card-btm-border card-shadow-danger border-danger card widget-chart-hover">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <div class="widget-title opacity-5 text-uppercase">{{__('New User')}}</div>
+                    <div class="widget-title opacity-5 text-uppercase">{{__('New Member')}}</div>
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>

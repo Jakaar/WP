@@ -565,13 +565,13 @@
     "Connection": "접속",
     "Page Url": "페이지 Url",
     "Page Code": "페이지 코드",
-    "Page Content": "페이지 내용",
+    "Page Content": "페이지 콘텐츠",
     "Reset Search": "검색 초기화",
     "Conditional Search": "검색 조건",
     "Date Created": "생성된 날짜",
     "Processing Status": " 상태",
     "Processing status": "처리 상태",
-    "Contents": "내용",
+    "Contents": "콘텐츠",
     "Waiting": "대기",
     "Processing complete": "처리 완료",
     "Type": "종류",
@@ -834,7 +834,9 @@
     "Admin edit & delete": "관리자 편집 및 삭제",
     "File Management": "파일 관리",
     "Admin Menu Management": "관리자 메뉴 관리",
-    "Form Name": "폼 이름"
-    
+    "Form Name": "폼 이름",
+    "Member": "회원",
+    "Total Member": "총 회원",
+    "New Member": "새 회원"
     
     }
