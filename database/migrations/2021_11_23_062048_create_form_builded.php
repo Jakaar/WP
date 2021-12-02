@@ -18,6 +18,9 @@ class CreateFormBuilded extends Migration
             $table->text('form_name');
             $table->integer('is_status');
             $table->integer('receive_email');
+
+            $table->integer('board_master_id');
+            $table->integer('category_id');
             $table->json('data');
             $table->timestamps();
         });

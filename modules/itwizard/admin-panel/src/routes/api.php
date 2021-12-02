@@ -146,6 +146,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/dashboard/GetContent',[\Itwizard\Adminpanel\Http\ApiControllers\Analytic\AnalyticController::class,'GetContentData']);
 
     Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
+    Route::post('/form/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'delete']);
+    Route::post('/form/edit', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'edit']);
+    Route::post('/form/update', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'update']);
+
 
     Route::post('/FAQ/create', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'create']);
     Route::post('/FAQ/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'delete']);
