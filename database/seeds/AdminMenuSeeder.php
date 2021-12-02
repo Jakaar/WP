@@ -224,7 +224,7 @@ class AdminMenuSeeder extends Seeder
             ],
             [
                 'id' => 31,
-                'title' =>  '{"mn":"Хувийн мэдээлэл хамгаалах бодлого","en":"Privacy Policy","kr":"개인정보보호정책"}',
+                'title' =>  '{"mn":"Нууцлалын Бодлого","en":"Privacy Policy","kr":"개인정보보호정책"}',
                 'url' =>  '/cms/privacy',
                 'parent_id' => 23,
                 'order' => 2,

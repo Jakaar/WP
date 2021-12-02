@@ -1,21 +1,6 @@
 @extends('client.layouts.master')
 @section('content')
 <style>
-    .image {
-        display: none;
-    }
-
-    .editor {
-        display: none;
-    }
-
-    .daterangepicker {
-        z-index: 10000;
-    }
-
-    .ck-editor__editable {
-        min-height: 200px;
-    }
     .banner{
 	position: absolute;
 	width: 120px;
@@ -30,11 +15,6 @@
         right: 5px;
     }
 
-    .zindex{
-        z-index: -10000;
-    }
-
-    
 </style>
     <header class="header-4 skew-separator">
         <div class="header-wrapper">
@@ -66,7 +46,7 @@
                 @if ($banner->slug=='main-banner' and $banner->type=='Simple')
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+                            {!! $banner->banner_content !!}
                         </div>
                     </div>
                 @endif
@@ -138,22 +118,22 @@
             <div class="row">
                 @foreach ($banners as $banner)
                 @if ($banner->slug=='vertical-banner' and $banner->type=='Simple')
-                
-                    <div class="col-md-3">                         
+
+                    <div class="col-md-3">
                         <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
                     </div>
-              
+
                 @endif
                 @endforeach
             </div>
             <div class="row">
                 @foreach ($banners as $banner)
                 @if ($banner->slug=='horizontal-banner' and $banner->type=='Simple')
-                
-                    <div class="col-md-12">                         
+
+                    <div class="col-md-12">
                         <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
                     </div>
-              
+
                 @endif
                 @endforeach
             </div>
