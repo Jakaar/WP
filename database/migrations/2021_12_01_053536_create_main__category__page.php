@@ -18,6 +18,7 @@ class CreateMainCategoryPage extends Migration
             $table->integer('is_enabled');
             $table->integer('main_category_id');
             $table->text('name');
+            $table->text('main_img')->nullable();
             $table->text('description');
             $table->longText('data');
             $table->timestamps();

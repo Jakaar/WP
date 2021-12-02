@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
 
          view()->share('static', $static);
          view()->share('Main', $this->GetMenu());
+
      }
 
      public function GetMenu()

@@ -16,6 +16,7 @@ class Helper
             return $word;
 
         $word = is_string($word) ? json_decode($word, true) : $word;
+//        dd($word);
         return $word[$this->locale] ?? null;
     }
     public function link_gen($link)
