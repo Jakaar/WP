@@ -28,9 +28,7 @@
                     <button id="siteInfoEditBtn" type="button" class="btn btn-primary disabler">{{ __('Edit') }}</button>
                     <button id="siteInfoSaveBtn" type="button"
                         class="btn btn-success siteInfoSubmit invisible d-none">{{ __('Save') }}</button>
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -118,7 +116,7 @@
                                                             {{ __('Terms of Service') }}</div>
                                                         <div class="c_product_editor" id="{{ $lang->country_code }}"
                                                             name="c_product_editor">
-                                                            {!! json_decode($site_info->terms_of_condition, true)[$lang->country_code] !!}
+                                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[$lang->country_code] !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -128,7 +126,7 @@
                                                             {{ __('Privacy Policy') }}</div>
                                                         <div class="e_product_editor" id="{{ $lang->country_code }}"
                                                             name="e_product_editor">
-                                                            {!! json_decode($site_info->privacy, true)[$lang->country_code] !!}
+                                                            {!! json_decode($site_info->privacy_name_url, true)[$lang->country_code] !!}
                                                         </div>
                                                     </div>
                                                 </div>

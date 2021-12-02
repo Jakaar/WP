@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\AnalyticController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SeoController;
 use Itwizard\Adminpanel\Http\Controllers\Dashboard\SiteInfoController;
+use Itwizard\Adminpanel\Http\Controllers\Dashboard\termsController;
+use Itwizard\Adminpanel\Http\Controllers\Dashboard\privacyController;
 use Itwizard\Adminpanel\Http\Controllers\Product\ProductCreateController;
 use Itwizard\Adminpanel\Http\Controllers\Profile\MyProfileController;
 use Itwizard\Adminpanel\Http\Controllers\Users\PermissionController;
@@ -52,6 +54,10 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 //    Route::get('/permission/menu_manage', [MenuManageController::class,  'index']);
 
     Route::get('/basic_setting', [SiteInfoController::class,  'index']);
+    Route::get('/terms', [SiteInfoController::class, 'terms']);
+    Route::get('/privacy', [SiteInfoController::class, 'privacy']);
+    Route::get('/terms_of_use', [SiteInfoController::class, 'terms_of_use']);
+    Route::get('/privacy/policy', [SiteInfoController::class, 'privacy_policy']);
     Route::get('/settings/seo_list', [SeoController::class,  'index']);
     Route::get('/settings/contactUs', [\Itwizard\Adminpanel\Http\Controllers\ContactUs\ContactUsController::class,  'index']);
 
