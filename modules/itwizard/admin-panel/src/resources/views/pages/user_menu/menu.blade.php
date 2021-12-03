@@ -194,7 +194,7 @@
                         <div class="modal-header bg-white shadow shadow-sm">
                             <h5 class="modal-title card-title">
                                 {{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i> --}}
-                                {{ __('Create Board') }}
+                                {{ __('Create Menu') }}
                             </h5>
                     </div>
                     <div class="modal-body">
