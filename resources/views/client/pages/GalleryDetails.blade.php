@@ -28,7 +28,7 @@
 
     <div class="container mb-5">
         <div class="row">
-            <div id="target mb-5">
+            <div id="target" class="mb-5">
                 @if($Details)
                     {!! $t->translateText($Details->photos) ?? $Details->photos!!}
                 @endif

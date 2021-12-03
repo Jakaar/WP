@@ -1,7 +1,6 @@
 @extends('client.layouts.master')
 @inject('t','App\Helper\Helper')
 @section('content')
-
     <section class="blogs-2">
         <div class="container-fluid mt-5">
             <div class="row mb-md-5">
