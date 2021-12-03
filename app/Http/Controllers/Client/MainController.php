@@ -227,8 +227,10 @@ class MainController extends Controller
         $InCategoryNews = DB::table('main__category__page')
             ->where('main_category_id', $BlogDetails->main_category_id)
             ->where('is_enabled', 1)
+            ->where('id','!=', $uuid)
             ->get()
             ->take(3);
+//        dd($InCategoryNews);
         return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
     }
     public function GalleryDetail($slug, $id, $uuid)

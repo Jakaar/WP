@@ -19,7 +19,7 @@
                         <p class="text-truncate">{{$group->description}}</p>
                     </div>
                     <div class="card-footer">
-                        <a href="{{url()->full().'/'.base64_encode($group->id)}}" class="">{{__('Created At ').\Carbon\Carbon::parse($group->created_at)->format('Y-m-d')}}</a>
+                        <a href="{{url()->full().'/'.base64_encode(base64_encode($group->id))}}" class="">{{__('Created At ').\Carbon\Carbon::parse($group->created_at)->format('Y-m-d')}}</a>
                     </div>
                 </div>
             </div>
