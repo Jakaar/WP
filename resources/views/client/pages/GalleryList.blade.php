@@ -15,7 +15,7 @@
                 <div class="col-lg-3">
                     <div class="card card-blog card-background" data-animation="zooming">
                         <div class="full-background" style="background-image: url('{{$group->main_img}}')"></div>
-                        <a href="/{{$content['type']->board_master_id.'/'.$content['type']->id}}/gllr/{{base64_encode(base64_encode($group->id))}}">
+                        <a href="/gllr/{{base64_encode(base64_encode($group->id))}}">
                             <div class="card-body">
                                 <div class="content-bottom">
                                     <h6 class="card-category text-white opacity-8 text-truncate">{{$group->description}}</h6>

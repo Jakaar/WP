@@ -174,4 +174,16 @@ class PageContentController extends Controller
         return back()->with(['message'=> __('Category Created')]);
 //        dd($request->all());
     }
+    function GalleryCreate(Request $request)
+    {
+        DB::table('main__gallery__category')->insert([
+            'name' => $request->name,
+            'is_enable' => 1,
+            'description' => $request->description,
+            'main_img' => $request->main_img,
+            'board_master_id' => $request->board_master_id,
+            'category_id' => explode('/', $request->url)[5],
+        ]);
+        return back()->with(['message' => $request->name.' '. __('Created')]);
+    }
 }

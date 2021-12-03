@@ -72,7 +72,7 @@ class MainController extends Controller
 //    }
     public function viewer($slug, $id, $uuid = null)
     {
-
+        $title = DB::table('categories')->where('id', $id)->first();
         $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 0;
         $content['type'] = DB::table('categories')
@@ -86,6 +86,7 @@ class MainController extends Controller
                 'wpanel_board_master.board_type'
             )
             ->first();
+//        dd($content);
         $board = DB::table('wpanel_board_master')->where('id', $slug)->first();
 
         if($uuid)
@@ -100,7 +101,7 @@ class MainController extends Controller
                   ->paginate(15);
             }
 //            dd($List);
-            return view('client.pages.CategoryList', compact('List'));
+            return view('client.pages.CategoryList', compact('List','title'));
         }else{
             if($board->board_type === 'FAQ')
             {
@@ -109,11 +110,13 @@ class MainController extends Controller
                     ->where('category_id',$id)
                     ->where('is_enable',1)
                     ->get();
+
+
                     $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
                     ->first();
-                return view('client.pages.FAQ',compact('content','board','FAQ','datas'));
+                return view('client.pages.FAQ',compact('content','board','FAQ','datas','title'));
             }
             if ($board->board_type === 'Category')
             {
@@ -125,26 +128,30 @@ class MainController extends Controller
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
                     ->first();
-                return view('client.pages.Category',compact('board','Categories','datas'));
+                return view('client.pages.Category',compact('board','Categories','datas','title'));
             }
+
+
+
             if ($board->board_type === 'Gallery')
             {
-                $content['categories'] = ContentCategory::whereNull('content_category_id')
-                    ->where(['board_master_id' => $id])
-                    ->with('subCategories')
-                    ->get();
                 $Groups = DB::table('main__gallery__category')
                     ->where('main__gallery__category.category_id', $id)
                     ->get();
-//            dd($Groups);
-                    $datas['form_builded'] = DB::table('form_builded')
+                $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
                     ->first();
-                return view('client.pages.Gallery',compact('content','board','Groups','datas'));
+
+//                dd($title);
+                return view('client.pages.Gallery',compact('content','board','Groups','datas','title'));
             }
+
+
+
             if ($board->board_type === 'SinglePage')
             {
+
                 $content['categories'] = ContentCategory::whereNull('content_category_id')
                     ->where(['board_master_id' => $id])
                     ->with('subCategories')
@@ -165,7 +172,7 @@ class MainController extends Controller
                 ->where('category_id', $id)
                 ->first();
 //            dd($SinglePageData->data['en']);
-                return view('client.pages.SinglePage',compact('SinglePageData','banners','datas'));
+                return view('client.pages.SinglePage',compact('SinglePageData','banners','datas','title'));
             }
         }
     }
@@ -208,6 +215,7 @@ class MainController extends Controller
     public function BlogDetail($uuid)
     {
         $uuid = base64_decode(base64_decode($uuid));
+//        $title = DB::table('categories')->where('id', $uuid)->first();
         $BlogDetails = DB::table('main__category__page')->where('id', $uuid)->first();
 //        dd($uuid,$BlogDetails);
         if (\session()->get('locale') === 'kr')
@@ -222,5 +230,12 @@ class MainController extends Controller
             ->get()
             ->take(3);
         return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
+    }
+    public function GalleryDetail($slug, $id, $uuid)
+    {
+        $title = DB::table('categories')->where('id', $id)->first();
+        $uuid = base64_decode(base64_decode($uuid));
+        $Details = DB::table('main__gallery__photos')->where('id',$uuid)->first();
+        return \view('client.pages.GalleryDetails', compact('title','Details'));
     }
 }

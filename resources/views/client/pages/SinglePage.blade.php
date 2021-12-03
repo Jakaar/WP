@@ -94,6 +94,18 @@
         @endif
 
         @if(isset($SinglePageData->data))
+            <section class="blogs-2 mb--5">
+                <div class="container-fluid mt-5">
+                    <div class="row">
+                        <div class="col-md-8 mx-auto">
+                            <h3 class="display-3 text-center">{{$t->translateText($title->name)}}</h3>
+                            <p class="lead text-center">{{$t->translateText($title->description)}}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
             <div class="">
                 {!! $t->translateText($SinglePageData->data) !!}
             </div>

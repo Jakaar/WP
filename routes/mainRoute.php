@@ -18,6 +18,7 @@ Route::get('lang/{locale}', function ($lang) {
 });
 
 Route::get('/dtlpgdt/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'BlogDetail']);
+Route::get('/{slug}/{id}/gllr/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'GalleryDetail']);
 
 Route::get('/',[\App\Http\Controllers\Client\MainController::class,'index']);
 Route::get('/{id}/{slug}',[\App\Http\Controllers\Client\MainController::class,'viewer']);

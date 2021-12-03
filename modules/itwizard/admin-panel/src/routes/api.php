@@ -157,6 +157,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/FAQ/update/', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'update']);
 
     Route::post('/Gallery/GetContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryGetContent']);
+    Route::post('/Gallery/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreate']);
     Route::post('/Gallery/CreateContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreateContent']);
 
     Route::post('/SinglePage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'SinglePageCreate']);
