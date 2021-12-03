@@ -86,51 +86,45 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                          <input type="hidden" id="hiddenId">
-                        <div class="col-4">
-                            <label for="form_name" class="form-check-label fw-bold mb-2">{{__('Form Name')}}</label>
-                            <input id="form_name" type="text" class="form-control" placeholder="Form name">
-                        </div>
-                        <div class="mb-3 col-2">
-                            <label for="is_status" class="form-check-label fw-bold mb-2">
-                                {{__('Status')}}
-                            </label>
-                            <div class="clearfix"></div>
-                            <input type="checkbox" data-toggle="toggle" name="is_status" id="is_status" data-size="sm">
-                        </div>
-                        <div class="mb-3 col-2">
-                            <label class="form-check-label fw-bold mb-2">
-                                {{__('Receive Email')}}
-                            </label>
-                            <div class="clearfix"></div>
-                            <input type="checkbox" data-toggle="toggle" name="receive_email" id="receive_email" data-size="sm">
-                        </div>
-                        <div class="col-4">
-                            <label for="form_name" class="form-check-label fw-bold mb-2">{{__('Categories')}}</label>
-                            <input id="categories" type="text" class="form-control" placeholder="input categories">
+                    <form  id="validateCreate">
+                        <div class="row" >
+                            <input type="hidden" id="hiddenId">
+                            <div class="col-4">
+                                <label for="form_name" class="form-check-label fw-bold mb-2">{{__('Form Name')}}</label>
+                                <input id="form_name" type="text" class="form-control" placeholder="Form name" data-msg-required="{{ __('This Field is Required') }}" required>
+                            </div>
 
-                            {{-- <select class="form-select" aria-label="Default select example"> --}}
-                                {{-- <option selected value="0" >Open this select menu</option> --}}
-                                {{-- <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option> --}}
-                                    {{-- @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->id}}</option>
-                                    @endforeach --}}
-                              {{-- </select> --}}
-                        </div>
-                    </div>
+                            <div class="col-4">
+                                <label class="form-label"> {{ __('Categories URL:') }} </label>
+                                <input type="text" class="form-control" placeholder="{{ __('http://localhost:8000/1/1') }}" name="categories" id="categories" data-msg-required="{{ __('This Field is Required') }}" required>
+                            </div>
+                            <div class="mb-3 col-2">
+                                <label for="is_status" class="form-check-label fw-bold mb-2">
+                                    {{__('Status')}}
+                                </label>
+                                <div class="clearfix"></div>
+                                <input type="checkbox" data-toggle="toggle" name="is_status" id="is_status" data-size="sm" >
+                            </div>
+                            <div class="mb-3 col-2">
+                                <label class="form-check-label fw-bold mb-2">
+                                    {{__('Receive Email')}}
+                                </label>
+                                <div class="clearfix"></div>
+                                <input type="checkbox" data-toggle="toggle" name="receive_email" id="receive_email" data-size="sm" >
+                            </div>
 
-                    <div class="row bg-light">
-                        <div class="divider"></div>
-                        <h3>{{__('Build the Form')}}</h3>
-                        <div class="col-12">
-                            <div class="">
-                                <div id="fb-editor"></div>
+                        </div>
+                    </form>
+
+                        <div class="row bg-light">
+                            <div class="divider"></div>
+                            <h3>{{__('Build the Form')}}</h3>
+                            <div class="col-12">
+                                <div class="">
+                                    <div id="fb-editor"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{ __('Close') }} </button>
@@ -148,13 +142,38 @@
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <script>
     $(document).ready(function (){
+        $('#validateCreate').validate({
+
+              errorPlacement: function(error, element) {
+                  // Add the `invalid-feedback` class to the error element
+                  error.addClass("invalid-feedback");
+                  if (element.prop("type") === "checkbox") {
+                      // error.insertAfter(element.next("label"));
+                  } else {
+                      // error.insertAfter(element);
+                  }
+              },
+              highlight: function(element, errorClass, validClass) {
+                  $(element).addClass("is-invalid").removeClass("is-valid");
+                  const parantId = $(element).attr('data-parent-id');
+                  $('#' + parantId).addClass("text-danger").removeClass("text-success");
+              },
+              unhighlight: function(element, errorClass, validClass) {
+                  const parantId = $(element).attr('data-parent-id');
+                  $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                  $(element).addClass("is-valid").removeClass("is-invalid");
+
+              },
+          });
+
 
         const formBuilder = $('#fb-editor').formBuilder({
             disabledActionButtons: ['save']
         });
+        // $("#fb-editor").validate();
         $('.Create').on('click', function (){
-
-            data = {
+            if ($('#validateCreate').valid()) {
+                data = {
                     name:$('#form_name').val(),
                     categories:$('#categories').val(),
                     receive_email:$("input[name='receive_email']:checked").val(),
@@ -163,19 +182,19 @@
 
                 };
                 Axios.post('/api/form/create', data).then((resp) => {
-                    // window.location.reload();
+                    window.location.reload();
 
-                    // Swal.fire({
-                    //     icon: 'success',
-                    //     title: resp.data.msg
-                    // });
-
+                    Swal.fire({
+                        icon: 'success',
+                        title: resp.data.msg
+                    });
                 }).catch((err) => {
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: err
-                    // });
+                    Swal.fire({
+                        icon: 'error',
+                        title: err
+                    });
                 });
+            }
         });
 
         $('.CreateModalShow').on('click', function (){
