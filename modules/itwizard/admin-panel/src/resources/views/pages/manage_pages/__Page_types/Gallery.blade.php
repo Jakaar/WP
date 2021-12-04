@@ -111,8 +111,7 @@
             $('.OpenGroup').click(function (){
                 Axios.post('/api/Gallery/GetContent/'+$(this).attr('key'))
                 .then((resp)=> {
-                    if(resp.data.data)
-                    { $editor.setData(resp.data.data.photos) } else { $editor.setData('') }
+                    if(resp.data.data){ $editor.setData(resp.data.data.photos) } else { $editor.setData('') }
                     $('#GalleryInPhotos').attr('key', $(this).attr('key')).modal('show');
                 }).catch((err) => {
                     Toast.fire({

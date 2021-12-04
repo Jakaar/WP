@@ -174,7 +174,7 @@ class PageContentController extends Controller
         return back()->with(['message'=> __('Category Created')]);
 //        dd($request->all());
     }
-    function GalleryCreate(Request $request)
+    public function GalleryCreate(Request $request)
     {
         DB::table('main__gallery__category')->insert([
             'name' => $request->name,
@@ -185,5 +185,18 @@ class PageContentController extends Controller
             'category_id' => explode('/', $request->url)[5],
         ]);
         return back()->with(['message' => $request->name.' '. __('Created')]);
+    }
+    public function GetPostDetails($id)
+    {
+        $data = DB::table('main__category__page')->where('id', $id)->first();
+        return response()->json($data, 200);
+    }
+    public function GetPostCreateOrUpdate(Request $request, $id)
+    {
+        if ($id)
+        {
+            dd('have');
+        }
+        dd('not have');
     }
 }

@@ -66,6 +66,7 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/manage_pages', [\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'index']);
 //    Route::get('/manage_pages/{slug}/page_content',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content']);
     Route::get('/manage_pages/{id}/{board}',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'detector']);
+    Route::get('/manage_pages/{id}/{board}/{uuid}',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'detector']);
 
     Route::get('/manage_pages/{slug}/page_content/{id}',[\Itwizard\Adminpanel\Http\Controllers\Page\PageManageController::class, 'page_content_details'])
     ->name('page_content');
