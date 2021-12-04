@@ -1,14 +1,9 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Basic Settings')}} @endsection
+@section('title') {{ __('Basic Settings') }} @endsection
 
 @inject('t','App\Helper\Helper')
 @section('content')
-    <style>
-        .ck-editor__editable {
-            min-height: 200px;
-        }
-
-    </style>
+    {{-- {{ dd(env('APP_NAME')) }} --}}
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -65,7 +60,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 col-lg-4">
                                                     <div class="card-title text-uppercase ">{{ __('Company Name') }}</div>
-                                                    <input type="text" class="form-control mb-3"
+                                                    <input type="text" placeholder="{{ __('Company Name') }}" class="form-control mb-3"
                                                         id="companyName{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}" name="companyName"
                                                         maxlength="110"
@@ -100,7 +95,8 @@
                                                         value="{{ json_decode($site_info->personal_information_manager, true)[$lang->country_code] ?? '' }}">
                                                 </div>
                                                 <div class="col-md-6 col-lg-6">
-                                                    <div class="card-title text-uppercase">{{ __('Bussiness Address') }}
+                                                    <div class="card-title text-uppercase">
+                                                        {{ __('Address') }}
                                                     </div>
                                                     <input type="text" class="form-control mb-3"
                                                         id="address{{ $lang->country_code }}"
@@ -109,33 +105,87 @@
                                                         value="{{ json_decode($site_info->address, true)[$lang->country_code] }}">
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-lg-6">
+                                            {{-- <div class="col-md-6 col-lg-6">
                                                     <div class="mb-3">
                                                         <div class="card-title text-uppercase mb-3">
-                                                            {{ __('Terms of Service') }}</div>
+                                                            {{ __('Terms of Use') }}
+                                                            <div class="d-inline-block bg-light ms-3 px-2">
+                                                                <label for="" class="form-label fw-bold">
+                                                                    URL : {{  url()->full() }}
+                                                                </label>
+                                                            </div>
+                                                            <button class="btn btn-outline-info opa disabled" style="float: right;">{{ __('Copy') }}</button>
+                                                        </div>
                                                         <div class="c_product_editor" id="{{ $lang->country_code }}"
                                                             name="c_product_editor">
-                                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[$lang->country_code] !!}
+                                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[$lang->country_code] ?? '' !!}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-lg-6">
                                                     <div class="mb-3">
                                                         <div class="card-title text-uppercase mb-3">
-                                                            {{ __('Privacy Policy') }}</div>
+                                                            {{ __('Privacy Policy') }}
+                                                            <div class="d-inline-block bg-light ms-3 px-2">
+                                                                <label for="" class="form-label fw-bold">
+                                                                    URL : {{  url()->full() }}
+                                                                </label>
+                                                            </div>
+                                                            <button class="btn btn-outline-info opa disabled" style="float: right;">{{ __('Copy') }}</button>
+                                                        </div>
                                                         <div class="e_product_editor" id="{{ $lang->country_code }}"
                                                             name="e_product_editor">
-                                                            {!! json_decode($site_info->privacy_name_url, true)[$lang->country_code] !!}
+                                                            {!! json_decode($site_info->privacy_name_url, true)[$lang->country_code] ?? '' !!}
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </div> --}}
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="card-title text-uppercase">
+                                            {{ __('Terms of Use') }}
+                                        </div>
+                                        <input type="text" class="form-control mb-3" id="termsUse"
+                                            name="termsUse"
+                                            value="{{ strip_tags($site_info->terms_of_condition_name_url) }}">
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="card-title text-uppercase">
+                                            {{ __('Privacy Policy') }}
+                                        </div>
+                                        <input type="text" class="form-control mb-3"
+                                            id="privacy" name="privacy"
+                                            value="{{ strip_tags($site_info->privacy_name_url) }}">
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="card-title text-uppercase">
+                                            {{ __('User Location') }}
+                                        </div>
+                                        <input type="text" class="form-control mb-3"
+                                            id="location" name="location" placeholder="Location">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="card-title text-uppercase">{{ __('Terms of Service (Login)') }}</div>
+                                        <input type="text" class="form-control mb-3" id="termsService"
+                                        name="termsService" placeholder="Terms of Service (Login)">
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="card-title text-uppercase">{{ __('Privacy Policy (Login)') }}</div>
+                                        <input type="text" class="form-control mb-3" id="privacyLogin"
+                                        name="privacyLogin" placeholder="Privacy Policy (Login)">
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="card-title text-uppercase">{{ __('Recieve promotional information') }}</div>
+                                        <input type="text" class="form-control mb-3" id="rpi"
+                                        name="rpi" placeholder="Recieve promotional information">
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Company Registration Number') }}
@@ -165,11 +215,14 @@
                                     <div class="col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="col-lg-12" style="text-align: center;">
-                                                <div class="text card-title mb-2 text-uppercase my-auto">{{ __('Logo') }}
+                                                <div class="text card-title mb-2 text-uppercase my-auto">
+                                                    {{ __('Logo') }}
                                                 </div>
                                                 <button type="button" class="btn btn-outline-info w-100"
                                                     onclick="filemanager.selectFile('logo-photo')">{{ __('Logo Select') }}</button>
-                                                <img class="mw-100 mt-3" src="{{ $site_info->logo }}" style="max-height: 150px; min-width: 250px;" id="logo-photo-preview" alt="">
+                                                <img class="mw-100 mt-3" src="{{ $site_info->logo }}"
+                                                    style="max-height: 150px; min-width: 250px;" id="logo-photo-preview"
+                                                    alt="">
                                                 <input type="hidden" name="logo" id="logo-photo">
                                             </div>
                                         </div>
@@ -196,41 +249,41 @@
                 $('#siteInfoSaveBtn').toggleClass('d-none')
             })
 
-            let c_editor = [];
-            var allEditors = document.querySelectorAll('.c_product_editor');
-            let EditorId = [];
+            // let c_editor = [];
+            // var allEditors = document.querySelectorAll('.c_product_editor');
+            // let EditorId = [];
 
-            $.each(allEditors, function(i, item) {
-                EditorId[i] = allEditors[i].id
+            // $.each(allEditors, function(i, item) {
+            //     EditorId[i] = allEditors[i].id
 
-                ClassicEditor.create(allEditors[i]).then(editor => {
-                        c_editor.push({
-                            name: EditorId[i],
-                            editor
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            });
+            //     ClassicEditor.create(allEditors[i]).then(editor => {
+            //             c_editor.push({
+            //                 name: EditorId[i],
+            //                 editor
+            //             });
+            //         })
+            //         .catch(error => {
+            //             console.error(error);
+            //         });
+            // });
 
-            let e_editor = [];
-            var allEditors2 = document.querySelectorAll('.e_product_editor');
-            let EditorId2 = [];
+            // let e_editor = [];
+            // var allEditors2 = document.querySelectorAll('.e_product_editor');
+            // let EditorId2 = [];
 
-            $.each(allEditors2, function(i, item) {
-                EditorId2[i] = allEditors2[i].id
+            // $.each(allEditors2, function(i, item) {
+            //     EditorId2[i] = allEditors2[i].id
 
-                ClassicEditor.create(allEditors2[i]).then(editor2 => {
-                        e_editor.push({
-                            name: EditorId2[i],
-                            editor2
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            });
+            //     ClassicEditor.create(allEditors2[i]).then(editor2 => {
+            //             e_editor.push({
+            //                 name: EditorId2[i],
+            //                 editor2
+            //             });
+            //         })
+            //         .catch(error => {
+            //             console.error(error);
+            //         });
+            // });
 
             $('.siteInfoSubmit').on('click', function() {
                 const langs = {!! $data['langs'] !!};
@@ -268,24 +321,22 @@
                     bAddress[code] = address;
                 })
 
-                let editorData = {};
+                let terms_url = '<a href="{{ env('APP_URL') }}/terms_of_use">'
 
-                $.each(c_editor, function(i, v) {
-                    let name = v.name;
-                    editorData[name] = v.editor.getData();
-                })
+                let privacy_url = '<a href="{{ env('APP_URL') }}/privacy_policy">'
 
-                let cEditor = JSON.stringify(editorData);
+    
 
-                let editorData2 = {};
-                $.each(e_editor, function(i, v) {
-                    // console.log(v);
-                    let name = v.name;
-                    editorData2[name] = v.editor2.getData();
-                })
+                let terms_data = $('#termsUse').val() + '</a>';
 
-                let eEditor = JSON.stringify(editorData2)
-                // console.log(cEditor);
+                let privacy_data = $('#privacy').val() + '</a>';
+
+                let terms_data_url = terms_url.concat(terms_data);
+
+                let privacy_data_url = privacy_url.concat(privacy_data);
+
+                // alert(terms_data_url);
+
 
                 const data = {
                     companyName: JSON.stringify(cName),
@@ -298,8 +349,12 @@
                     email: $('#email').val(),
                     copyright: JSON.stringify(cRight),
                     logo: $('#logo-photo').val(),
-                    c_product_editor: cEditor,
-                    e_product_editor: eEditor,
+                    terms_use : terms_data_url,
+                    privacy : privacy_data_url,
+                    terms_use_login : $('#termsService').val(),
+                    location : $('#location').val(),
+                    privacy_login : $('#privacyLogin').val(),
+                    recieve_information : $('#rpi').val(),
                 };
 
                 Axios.post('/api/settings/siteinfo/update', data).then((resp) => {

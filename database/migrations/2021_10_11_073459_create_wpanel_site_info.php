@@ -27,7 +27,11 @@ class CreateWpanelSiteInfo extends Migration
             $table->text('privacy')->nullable();
             $table->text('terms_of_condition_name_url')->nullable();
             $table->text('privacy_name_url')->nullable();
-            $table->string('personal_information_manager');
+            $table->text('personal_information_manager');
+            $table->text('location')->nullable();
+            $table->text('terms_of_service_login')->nullable();
+            $table->text('privacy_policy_login')->nullable();
+            $table->text('recieve_promotional_information')->nullable();
         });
     }
 

@@ -20,7 +20,6 @@
                                         {{ __('Company Registration Number') }} : {{ $site_info->company_register_number }}
                                     </li>
                                     <li>
-                                        {{-- {{ dd($lang->country_code) }} --}}
                                         {{ __('Address') }} : {!! json_decode($site_info->address, true)[session()->get('locale')] !!}
                                     </li>
                                 </div>
@@ -65,10 +64,10 @@
                                     <div class="tab-pane fade @if ($key === 0) active show @endif"
                                         id="c_tab-animated1-{{ $lang->id }}">
                                         <li class="nav-item">
-                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[session()->get('locale')]  !!}
+                                            {!! $site_info->terms_of_condition_name_url !!}
                                         </li>
-                                        <li>
-                                            {!! json_decode($site_info->privacy_name_url, true)[session()->get('locale')]  !!}
+                                        <li class="nav-item">
+                                            {!! $site_info->privacy_name_url !!}
                                         </li>
                                         <li class="nav-item">
                                             {{ __('Copyright') }} :   {!! json_decode($site_info->site_copyright, true)[session()->get('locale')]  !!}

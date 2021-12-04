@@ -22,11 +22,15 @@ class SiteInfoSeeder extends Seeder
             'email' => 'You Company email',
             'site_copyright' => '{"mn": "Монгол", "en": "English", "kr": "대한민국"}',
             'logo' => null,
-            'terms_of_condition_name_url' => '{"mn": "Монгол", "en": "English", "kr": "대한민국"}',
-            'privacy_name_url' => '{"mn": "Монгол", "en": "English", "kr": "대한민국"}',
+            'terms_of_condition_name_url' => null,
+            'privacy_name_url' => null,
             'terms_of_condition' => null,
             'privacy' => null,
-            'personal_information_manager' => '{"mn": "Монгол", "en": "English", "kr": "대한민국"}'
+            'personal_information_manager' => '{"mn": "Монгол", "en": "English", "kr": "대한민국"}',
+            'location' => null,
+            'terms_of_service_login' => null,
+            'privacy_policy_login' => null,
+            'recieve_promotional_information' => null
         ]);
     }
 }
