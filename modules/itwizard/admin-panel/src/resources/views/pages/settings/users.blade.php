@@ -10,8 +10,8 @@
                     <i class="pe-7s-users icon-gradient bg-tempting-azure"></i>
                 </div>
                 <div>
-                    {{ __('Member Management') }}
-                    <div class="page-title-subheading">{{ __('User edit & delete') }}</div>
+                    {{ __('Admin Management') }}
+                    <div class="page-title-subheading">{{ __('Admin edit & delete') }}</div>
                 </div>
             </div>
             <div class="page-title-actions">

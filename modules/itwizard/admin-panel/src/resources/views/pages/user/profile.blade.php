@@ -40,20 +40,20 @@
                                 <div class="ms-auto badge rounded-pill bg-info"></div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#profile-settings" class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#profile-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                 <i class="nav-link-icon pe-7s-config"></i>
                                 <span>{{__('Settings')}}</span>
                                 <div class="ms-auto badge bg-success"></div>
                             </a>
-                        </li>
-                        <li class="nav-item">
+                        </li> --}}
+                        {{-- <li class="nav-item">
                             <a href="#profile-msg" class="nav-link" id="v-pills-msg-tab" data-bs-toggle="pill" data-bs-target="#profile-msg" type="button" role="tab" aria-controls="v-pills-msg" aria-selected="false">
                                 <i class="nav-link-icon pe-7s-coffee"></i>
                                 <span>{{__('Messages')}}</span>
 
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
