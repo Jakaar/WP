@@ -21,37 +21,10 @@ class MainController extends Controller
      */
     public function index()
     {
-        $mainbanners = DB::table('wpanel_banners')
-            ->where('isEnabled', 'used')
-            ->where('slug', 'main-banner')
-            ->limit(1)
-            ->get();
-        $verticalbanners = DB::table('wpanel_banners')
-            ->where('isEnabled', 'used')
-            ->where('slug', 'vertical-banner')
-            ->limit(4)
-            ->get();
-        $horizontalbanners = DB::table('wpanel_banners')
-            ->where('isEnabled', 'used')
-            ->where('slug', 'horizontal-banner')
-            ->limit(1)
-            ->get();
-        $leftbanners = DB::table('wpanel_banners')
-            ->where('isEnabled', 'used')
-            ->where('slug', 'left-banner')
-            ->limit(1)
-            ->get();
-        $rightbanners = DB::table('wpanel_banners')
-            ->where('isEnabled', 'used')
-            ->where('slug', 'right-banner')
-            ->limit(2)
-            ->get();
-        $popupbanners = DB::table('wpanel_banners')
-            ->where('isEnabled', 'used')
-            ->where('slug', 'pop-up')
-            ->limit(1)
-            ->get();
-        return view('client.pages.index',compact('mainbanners','verticalbanners','horizontalbanners','leftbanners','rightbanners','popupbanners'));
+        $banners = DB::table('wpanel_banners')
+                    ->where('isEnabled', 'used')
+                    ->get();
+        return view('client.pages.index',compact('banners'));
     }
 //    public function viewer($id, $slug)
 //    {
@@ -99,7 +72,7 @@ class MainController extends Controller
 //    }
     public function viewer($slug, $id, $uuid = null)
     {
-
+        $title = DB::table('categories')->where('id', $id)->first();
         $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 0;
         $content['type'] = DB::table('categories')
@@ -113,8 +86,14 @@ class MainController extends Controller
                 'wpanel_board_master.board_type'
             )
             ->first();
+//        dd($content);
         $board = DB::table('wpanel_board_master')->where('id', $slug)->first();
-
+        if (\session()->get('locale') === 'kr')
+        {
+            Carbon::setLocale('ko');
+        }else{
+            Carbon::setLocale(session()->get('locale'));
+        }
         if($uuid)
         {
             $uuid = base64_decode(base64_decode($uuid));
@@ -127,7 +106,7 @@ class MainController extends Controller
                   ->paginate(15);
             }
 //            dd($List);
-            return view('client.pages.CategoryList', compact('List'));
+            return view('client.pages.CategoryList', compact('List','title'));
         }else{
             if($board->board_type === 'FAQ')
             {
@@ -136,7 +115,13 @@ class MainController extends Controller
                     ->where('category_id',$id)
                     ->where('is_enable',1)
                     ->get();
-                return view('client.pages.FAQ',compact('content','board','FAQ'));
+
+
+                    $datas['form_builded'] = DB::table('form_builded')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->first();
+                return view('client.pages.FAQ',compact('content','board','FAQ','datas','title'));
             }
             if ($board->board_type === 'Category')
             {
@@ -144,22 +129,34 @@ class MainController extends Controller
                     ->where('category_id', $id)
                     ->where('is_enabled', 1)
                     ->get();
-                return view('client.pages.Category',compact('board','Categories'));
+                    $datas['form_builded'] = DB::table('form_builded')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->first();
+                return view('client.pages.Category',compact('board','Categories','datas','title'));
             }
+
+
+
             if ($board->board_type === 'Gallery')
             {
-                $content['categories'] = ContentCategory::whereNull('content_category_id')
-                    ->where(['board_master_id' => $id])
-                    ->with('subCategories')
-                    ->get();
                 $Groups = DB::table('main__gallery__category')
                     ->where('main__gallery__category.category_id', $id)
                     ->get();
-//            dd($Groups);
-                return view('client.pages.Gallery',compact('content','board','Groups'));
+                $datas['form_builded'] = DB::table('form_builded')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->first();
+
+//                dd($title);
+                return view('client.pages.Gallery',compact('content','board','Groups','datas','title'));
             }
+
+
+
             if ($board->board_type === 'SinglePage')
             {
+
                 $content['categories'] = ContentCategory::whereNull('content_category_id')
                     ->where(['board_master_id' => $id])
                     ->with('subCategories')
@@ -171,13 +168,16 @@ class MainController extends Controller
                 {
                     $SinglePageData->data = json_decode($SinglePageData->data, true);
                 }
-                $mainbanners = DB::table('wpanel_banners')
+                $banners = DB::table('wpanel_banners')
                     ->where('isEnabled', 'used')
-                    ->where('slug', 'main-banner')
-                    ->limit(1)
-                    ->get();
+                    ->first();
+
+                $datas['form_builded'] = DB::table('form_builded')
+                ->where('board_master_id', $slug)
+                ->where('category_id', $id)
+                ->first();
 //            dd($SinglePageData->data['en']);
-                return view('client.pages.SinglePage',compact('SinglePageData','mainbanners'));
+                return view('client.pages.SinglePage',compact('SinglePageData','banners','datas','title'));
             }
         }
     }
@@ -220,6 +220,7 @@ class MainController extends Controller
     public function BlogDetail($uuid)
     {
         $uuid = base64_decode(base64_decode($uuid));
+//        $title = DB::table('categories')->where('id', $uuid)->first();
         $BlogDetails = DB::table('main__category__page')->where('id', $uuid)->first();
 //        dd($uuid,$BlogDetails);
         if (\session()->get('locale') === 'kr')
@@ -231,8 +232,22 @@ class MainController extends Controller
         $InCategoryNews = DB::table('main__category__page')
             ->where('main_category_id', $BlogDetails->main_category_id)
             ->where('is_enabled', 1)
+            ->where('id','!=', $uuid)
             ->get()
             ->take(3);
+//        dd($InCategoryNews);
         return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
+    }
+    public function GalleryDetail($slug, $id, $uuid)
+    {
+        $title = DB::table('categories')->where('id', $id)->first();
+        $uuid = base64_decode(base64_decode($uuid));
+        $Details = DB::table('main__gallery__photos')->where('id',$uuid)->first();
+        return \view('client.pages.GalleryDetails', compact('title','Details'));
+    }
+
+    public function products()
+    {
+        return \view('client.pages.products.index');
     }
 }
