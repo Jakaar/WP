@@ -268,8 +268,8 @@ class MainController extends Controller
             ->get()
             ->take(3);
 //        dd('ff');
-        $isComment = (new CommentController)->isComment($BlogDetails->main_category_id);
-//        dd($InCategoryNews);
+        $isComment = (new CommentController)->isComment($BlogDetails->main_category_id, $uuid);
+//        dd($isComment->isComment);
         return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews','isComment'));
     }
     public function GalleryDetail($slug, $id, $uuid)

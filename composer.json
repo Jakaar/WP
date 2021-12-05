@@ -26,7 +26,8 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
-        "santigarcor/laratrust": "^6.3"
+        "santigarcor/laratrust": "^6.3",
+        "tizis/lara-comments": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

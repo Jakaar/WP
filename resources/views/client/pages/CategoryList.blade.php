@@ -16,7 +16,7 @@
                                         </a>
                                     </div>
                                     <div class="card-body">
-                                        <h4 class="card-title">
+                                        <h4 class="card-title text-truncate">
                                             <a href="/dtlpgdt/{{base64_encode(base64_encode($item->id))}}">{{$item->name}}</a>
                                         </h4>
                                         <p class="card-description text-truncate">
