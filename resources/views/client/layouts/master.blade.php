@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
     @foreach($static['css'] as $css)
-        <link rel="stylesheet" href="{{$css->file_absolute_path}}">
+        <link rel="stylesheet" href="/{{$css->file_absolute_path}}">
     @endforeach
 
     <title>DEVELOPING | ++-++ </title>

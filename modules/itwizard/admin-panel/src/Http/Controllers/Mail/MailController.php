@@ -16,9 +16,17 @@ class MailController extends Controller
     }
     public function index()
     {
-        $datas['mailData'] = DB::table('mail')
-        ->where('isEnabled', 1)
+        // $datas['client_data'] = DB::table('client_form_data')
+        // ->where('isEnabled', 1)
+        // ->get();
+
+        $datas['client_data'] = DB::table('client_form_data')
+        ->select('client_form_data.id','client_form_data.submited_at','client_form_data.isEnabled','form_builded.form_name')
+        ->where('client_form_data.isEnabled',1)
+        ->leftJoin('form_builded', 'form_builded.id', '=', 'client_form_data.form_id')
         ->get();
+        // dd($datas['client_data']);
+
 
         $datas['roles'] = DB::table('roles')
         ->select(
@@ -46,6 +54,11 @@ class MailController extends Controller
     public function CreateShow()
     {
         return view('Admin::pages.suppliers.create_form_mail');
+    }
+
+    public function download($name)
+    {
+        return response()->download(storage_path('/app/client/form/files/'.$name), $name);
     }
 
 }

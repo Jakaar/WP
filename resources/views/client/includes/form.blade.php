@@ -1,19 +1,22 @@
-<style>
 
-</style>
 <div class="container " >
     <div class="row " >
         <div class="divider"></div>
         <div class="col-12">
             <div class="">
-                <form action="" >
+                @if(Session::has('success'))
+                <p class="alert alert-success">{{ Session::get('success') }}</p>
+                @endif
+
+                <form  method="post" action="/user_data_send" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="form_id" value="{{$datas['form_builded']->id}}">
                     <div id="fb-editor"></div>
+                    <button type="submit" class="btn btn-primary">{{__('submit')}}</button>
                 </form>
             </div>
         </div>
-        <div class="col-12">
 
-        </div>
     </div>
 </div>
 </div>
@@ -25,16 +28,11 @@
 <script>
     $(document).ready(function (){
         const receivedData = '{!!$datas['form_builded']->data!!}'
-        console.log(receivedData);
         var formRenderOptions = {
             formData: receivedData,
         }
         $('#fb-editor').formRender(formRenderOptions)
     });
-    // jQuery(function($) {
-    //     var fbTemplate = document.getElementById('fb-template');
-    //     $('.fb-render').formRender({
-    //     });
-    // });
+
 </script>
 @endsection

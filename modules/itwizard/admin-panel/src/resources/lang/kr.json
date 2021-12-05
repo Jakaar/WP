@@ -869,7 +869,17 @@
     "Is Active": "활성화 여부",
     "Inactive": "비활성화",
     "Select Parent Category": "부모 카테고리 선택",
-    "Edit Category": "카테고리 편집"
+    "Edit Category": "카테고리 편집",
+    "Select Category": "카테고리를 선택하세요",
+    "Copy Product": "상품 복사",
+    "User Location(Sign Up)": "위치 정보 이용약관 동의(회원가입)",
+    "User Location": "위치 정보 이용약관 동의",
+    "Terms of Use (Sing Up)": "이용약관 동의(회원 가입)",
+    "Privacy Policy (Sign Up)": "개인 정보 수집 및 이용 동의(회원 가입)",
+    "Recieve promotional information(Sign Up)": "프로모션 정보 수신 동의(회원 가입)",
+    "Recieve promotional information": "프로모션 정보 수신 동의",
+    "Banner Location": "배너 위치",
+    "Closing the day": "오늘 하루 닫기"
 
 
     

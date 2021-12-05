@@ -16,7 +16,7 @@ class FormBuildController extends Controller
 
     public function index()
     {
-        $form_builded=DB::table('form_builded')->get();
+        $form_builded=DB::table('form_builded')->where('isEnabled', 1)->get();
         $categories=DB::table('categories') ->where('isEnabled', 1)->get();
         // dd($categories);
         return view('Admin::pages.form_builded.form_builded',compact('form_builded','categories'));

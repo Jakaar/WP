@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMainFAQ extends Migration
+class CreateClientFormDataFile extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateMainFAQ extends Migration
      */
     public function up()
     {
-        Schema::create('main__f_a_q', function (Blueprint $table) {
+        Schema::create('client_form_data_file', function (Blueprint $table) {
             $table->id();
-            $table->text('answer');
-            $table->text('question');
-            $table->integer('is_enable')->default(1);
-            $table->integer('board_master_id');
-            $table->integer('category_id');
+            $table->string('realname');
+            $table->string('file_path');
+            $table->integer('client_form_data_id');
             $table->timestamps();
         });
     }
@@ -31,7 +29,6 @@ class CreateMainFAQ extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('main__f_a_q');
+        Schema::dropIfExists('client_form_data_file');
     }
 }
-//

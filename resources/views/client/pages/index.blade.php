@@ -908,7 +908,7 @@
                 <div class="popup_content">{!! $popupbanner->banner_content !!}</div>
                 
                 <div class="banner_foot">
-                    <span class="banner_close"><a href="#" id="banner_close">Close</a></span>
+                    <span class="banner_close"><a href="#" id="banner_close">{{__('Closing the day')}}</a></span>
                     <span class="banner_hide" id="banner_hide">&times</span>
                 </div>
             </div>
@@ -977,7 +977,7 @@
             document.getElementById("popup_banner").style.display="none";
         }
         var hours = 1;
-        if(new Date().getTime()-items.time>60000)
+        if(new Date().getTime()-items.time>86400000)
         {
             localStorage.removeItem('hidden_banner');
         }

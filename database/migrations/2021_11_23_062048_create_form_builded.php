@@ -21,6 +21,7 @@ class CreateFormBuilded extends Migration
             $table->integer('board_master_id');
             $table->integer('category_id');
             $table->json('data');
+            $table->integer('isEnabled');
             $table->timestamps();
         });
     }
