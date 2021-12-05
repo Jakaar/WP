@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\ContentCategory;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
@@ -112,6 +115,7 @@ class MainController extends Controller
                     $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
+                    ->where('isEnabled',1)
                     ->first();
                 return view('client.pages.FAQ',compact('content','board','FAQ','datas'));
             }
@@ -124,6 +128,7 @@ class MainController extends Controller
                     $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
+                    ->where('isEnabled',1)
                     ->first();
                 return view('client.pages.Category',compact('board','Categories','datas'));
             }
@@ -140,6 +145,7 @@ class MainController extends Controller
                     $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
+                    ->where('isEnabled',1)
                     ->first();
                 return view('client.pages.Gallery',compact('content','board','Groups','datas'));
             }
@@ -163,12 +169,14 @@ class MainController extends Controller
                 $datas['form_builded'] = DB::table('form_builded')
                 ->where('board_master_id', $slug)
                 ->where('category_id', $id)
+                ->where('isEnabled',1)
                 ->first();
-//            dd($SinglePageData->data['en']);
+        //    dd($datas['form_builded'] ->board_master_id,$datas['form_builded'] ->category_id);
                 return view('client.pages.SinglePage',compact('SinglePageData','banners','datas'));
             }
         }
     }
+
 
 
     public function compiler($data, $temp): string
@@ -223,4 +231,51 @@ class MainController extends Controller
             ->take(3);
         return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
     }
+
+    public function client_form_data(Request $request)
+    {
+        // dd($request->file('file-1638705379015-0'));
+       $validated = $request->all();
+       $form_id = $request->form_id;
+       $content = Arr::except($validated, ['_token', 'form_id']);
+       $aa = Arr::except($validated, ['_token', 'form_id']);
+
+       $content= json_encode($content);
+
+      $iId = DB::table('client_form_data')->insertGetId([
+           'content'=>$content,
+           'isEnabled'=>1,
+           'form_id'=>$form_id,
+           'submited_at'=> \Carbon\Carbon::now(),
+       ]);
+
+            $settingValue = [];
+            foreach($aa as $ka=>$j)
+            {
+                if(explode('-',$ka)[0] === 'file' )
+                {
+                     // array_push($settingValue, $j);
+                     $file = $j;
+                     $realName = $file->getClientOriginalName();
+                     $ext = $file->getClientOriginalExtension();
+                     $saveName = uniqid('client_');
+                     // dd($realName, $ext);
+                     try {
+
+                         $file->move(storage_path('app/client/form/files'), $saveName.'.'.$ext);
+                         DB::table('client_form_data_file')->insert([
+                            'realname'=>$realName,
+                            'file_path'=>'app/client/form/files/'.$saveName.'.'.$ext,
+                            'client_form_data_id'=> $iId,
+                        ]);
+                     } catch (Exception $e)
+                     {
+                         dd($e);
+                     }
+                }
+            }
+
+            return back()->with('success', 'Success!');
+    }
+//
 }

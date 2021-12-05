@@ -83,14 +83,12 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
 
     Route::get('/banner',[BannerController::class, 'index'])->middleware(['permission:banner-read']);
 
-
+    //suppliers
     Route::get('/suppliers',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'index']);
-    // Route::get('/suppliers/create',[Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'CreateShow']);
 
     // form_builded
     Route::get('/suppliers/create',[Itwizard\Adminpanel\Http\Controllers\FormBuild\FormBuildController::class, 'index']);
-    // form_builded
-    // Route::get('/formcreate',[Itwizard\Adminpanel\Http\Controllers\FormBuild\FormBuildController::class, 'index']);
+
 
     Route::get('/basic_setting/adminSettings',[PermissionController::class, 'adminSettings']);
     Route::get('/member_management/secessionist',[PermissionController::class, 'secessionist']);
@@ -113,6 +111,8 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/cM', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'index']);
     Route::get('/user_menu', [\Itwizard\Adminpanel\Http\Controllers\Content\ContentController::class, 'menus'])->middleware(['permission:userMenu-read']);
 
+
+    Route::get('/file/download/app/client/form/files/{filename}', [Itwizard\Adminpanel\Http\Controllers\Mail\MailController::class, 'download']);
 //    Route::get('/{slug}/{view}', function ($slug, $view){
 //
 //       return view('Admin::pages.'.$slug.'.'.$view);
