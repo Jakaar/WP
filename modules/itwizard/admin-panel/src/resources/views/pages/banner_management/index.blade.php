@@ -127,8 +127,8 @@
                                 <label for="exampleCity" class="form-label">{{ __('Is Used') }}</label>
                                 <select name="isEnabled" id="isEnabled" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="" >{{ __('Select') }}</option>
-                                    <option value="{{ __('Used') }}" >{{ __('Used') }}</option>
-                                    <option value="{{ __('Not Used') }}">{{ __('Not Used') }}</option>
+                                    <option value="Used" >{{ __('Used') }}</option>
+                                    <option value="Not Used">{{ __('Not Used') }}</option>
                                 </select>
                             </div>
 
