@@ -16,26 +16,153 @@
     .ck-editor__editable {
         min-height: 200px;
     }
+    .main_banner{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 50px;
+        box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
+    }
+    .main_banner img{
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
+    .vertical_banner{
+        width: 100%;
+        height: 400px;
+        box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
+    }
+    .vertical_banner img{
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
+    .horizontal_banner{
+        width: 100%;
+        height: 300px;
+        box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
+    }
+    .horizontal_banner img{
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
     .banner{
 	position: absolute;
 	width: 120px;
 	height: 300px;
-	background:url(ads.gif);
-	bottom: 200px;
+	bottom: 650px;
+    z-index: 1;
+    margin-bottom: 50px;
+    
     }
     #banner_l{
-        left: 5px;
+        box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
+        left: 220px;
+        width: 200px;
+        height: 500px;
     }
+    #banner_l .leftbanner_hide
+    {
+        position: absolute;
+        z-index: 3;
+        right: 8px;
+        bottom: 0px;
+        cursor: pointer;
+        color: #FFF;
+        font-size: 18px;
+    }
+    #banner_l .leftbanner_hide a{
+        color: #fff;
+    }
+    #banner_l img{
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
+ 
     #banner_r{
-        right: 5px;
+        right: 220px;
+        width: 200px;
+        height: 500px;
+        box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
     }
-
-    .zindex{
-        z-index: -10000;
+    #banner_r .rightbanner_hide
+    {
+        position: absolute;
+        z-index: 3;
+        right: 8px;
+        bottom: 0px;
+        cursor: pointer;
+        color: #FFF;
+        font-size: 18px;
     }
+    #banner_r img{
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
+    #popup_banner
+    {
+        top: 40px;
+        position: absolute;
+        z-index: 999;
+    }
+    .popup_banner
+    {
+        width: 400px;
+        height: 600px;       
+        cursor: move;
 
-    
+    }
+    .popup_banner .popup_content 
+    {
+        width: 400px;
+        height: 600px;
+    }
+    .popup_banner .popup_content img
+    {
+        max-width: 100%;
+        max-height: 100%;
+ 
+    }
+    .popup_banner .banner_foot
+    {
+        height: 25px;
+        background-color: #000;
+        position: relative;
+        bottom: 25px;
+    }
+    .popup_banner .banner_foot .banner_hide
+    {
+        position: absolute;
+        z-index: 2;
+        bottom: -2px;
+        right: 10px;
+        font-size: 20px;
+        color: #ffffff;
+        cursor: pointer;
+    }
+    .popup_banner .banner_foot .banner_hide a
+    {
+        color: #fff;
+    }
+    .popup_banner .banner_foot .banner_close
+    {
+        position: absolute;
+        z-index: 1;
+        bottom: -2px;
+        left: 10px;
+        font-size: 16px;
+        color: #ffffff
+    }
+    .popup_banner .banner_foot .banner_close a
+    {
+        color: #FFF;
+    }
 </style>
+
+
     <header class="header-4 skew-separator">
         <div class="header-wrapper">
             <div class="page-header header-video">
@@ -61,16 +188,41 @@
         </div>
     </header>
     <div class="section features-4">
+        
         <div class="container">
-            @foreach ($banners as $banner)
-                @if ($banner->slug=='main-banner' and $banner->type=='Simple')
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
-                        </div>
-                    </div>
-                @endif
+
+
+            @if(isset($leftbanners))
+        
+            @foreach ($leftbanners as $leftbanner)
+                <div id="banner_l" class="banner">
+                    {!! $leftbanner->banner_content !!}
+                    <span class="leftbanner_hide" id="leftbanner_hide">&times</span>
+                </div>
             @endforeach
+            
+            @endif
+            @if(isset($rightbanners))
+            @foreach ($rightbanners as $rightbanner)
+                
+                <div id="banner_r" class="banner">
+                        {!! $rightbanner->banner_content !!}
+                        <span class="rightbanner_hide" id="rightbanner_hide">&times</span>
+                </div>
+                
+            @endforeach
+            @endif
+
+
+            @if(isset($mainbanners))
+            @foreach ($mainbanners as $mainbanner)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main_banner">{!! $mainbanner->banner_content !!}</div>
+                    </div>
+                </div>
+            @endforeach
+            @endif
             <div class="row">
                 <div class="col-md-8 text-center mx-auto">
                     <h3 class="display-3">Now is our time <small>(지금은 우리의 시간입니다)</small></h3>
@@ -135,27 +287,25 @@
                     </div>
                 </div>
             </div>
+
+        </div>
+    </div>
+    <div class="section features-4">
+        <div class="container">
+
+            
+         
+         
             <div class="row">
-                @foreach ($banners as $banner)
-                @if ($banner->slug=='vertical-banner' and $banner->type=='Simple')
+                @if(isset($verticalbanners))
+                    @foreach ($verticalbanners as $verticalbanner)
+
+                        <div class="col-md-3">                         
+                            <div class="vertical_banner">{!! $verticalbanner->banner_content !!}</div>
+                        </div>
                 
-                    <div class="col-md-3">                         
-                        <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
-                    </div>
-              
+                    @endforeach
                 @endif
-                @endforeach
-            </div>
-            <div class="row">
-                @foreach ($banners as $banner)
-                @if ($banner->slug=='horizontal-banner' and $banner->type=='Simple')
-                
-                    <div class="col-md-12">                         
-                        <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
-                    </div>
-              
-                @endif
-                @endforeach
             </div>
         </div>
     </div>
@@ -256,6 +406,25 @@
                 {{--                </button>--}}
             </div>
         </section>
+    </div>
+    <div class="section features-4">
+        <div class="container">
+
+            
+         
+         
+            <div class="row">
+                @if(isset($horizontalbanners))
+                    @foreach ($horizontalbanners as $horizontalbanner)
+
+                        <div class="col-md-12">                         
+                            <div class="horizontal_banner">{!! $horizontalbanner->banner_content !!}</div>
+                        </div>
+                
+                    @endforeach
+                @endif
+            </div>
+        </div>
     </div>
     <div class="section" id="projects">
         <div class="project-1">
@@ -731,44 +900,89 @@
             </div>
         </section>
     </div>
-    @foreach ($banners as $banner)
-                @if ($banner->slug=='left-banner' and $banner->type=='Simple')
-                <div id="banner_l" class="banner">
-                    <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
+        
+        @if(isset($popupbanners))
+        @foreach($popupbanners as $popupbanner)
+        <div id="popup_banner">
+            <div class="popup_banner" >
+                <div class="popup_content">{!! $popupbanner->banner_content !!}</div>
+                
+                <div class="banner_foot">
+                    <span class="banner_close"><a href="#" id="banner_close">Close</a></span>
+                    <span class="banner_hide" id="banner_hide">&times</span>
                 </div>
-                @endif
-            @endforeach
-            @foreach ($banners as $banner)
-                @if ($banner->slug=='right-banner' and $banner->type=='Simple')
-                <div id="banner_r" class="banner">
-                        <a href="{{$banner->link}}" target="{{$banner->target_type}}">{!! $banner->banner_content !!}</a>
-                </div>
-                @endif
-            @endforeach
+            </div>
+        </div>
+        @endforeach
+        @endif
 @endsection
 @section('script')
 
 <script type="text/javascript">
-	$(function(){
-		var $banner = $('.banner'), $window = $(window);
-		var $topDefault = parseFloat( $banner.css('bottom'), 10 );
-		$window.on('scroll', function(){
-			var $top = $(this).scrollTop();
-			$banner.stop().animate( { bottom: -( $top - $topDefault) }, 1000, 'easeOutBack' );
-		});
+    $(document).ready(function(){
+	
+        // var $banner = $('.banner'), $window = $(window);
+		// var $topDefault = parseFloat( $banner.css('bottom'), 1000 );
+		// $window.on('scroll', function(){
+		// 	var $top = $(this).scrollTop();
+		// 	$banner.stop().animate( { bottom: -( $top - $topDefault) }, 1000, 'easeOutBack' );
+		// });
 
-		var $wiBanner = $banner.outerWidth() * 2;
-		zindex($('#wrapper').outerWidth());
-		$window.on('resize', function(){
-			zindex($('#wrapper').outerWidth());
-		});
-		function zindex(maxWidth){
-			if( $window.width() <= maxWidth + $wiBanner ) {
-				$banner.addClass('zindex');
-			}else{
-				$banner.removeClass('zindex');
-			}
-		}
+		// var $wiBanner = $banner.outerWidth() * 2;
+		// zindex($('#wrapper').outerWidth());
+		// $window.on('resize', function(){
+		// 	zindex($('#wrapper').outerWidth());
+		// });
+		// function zindex(maxWidth){
+		// 	if( $window.width() <= maxWidth + $wiBanner ) {
+		// 		$banner.addClass('zindex');
+		// 	}else{
+		// 		$banner.removeClass('zindex');
+		// 	}
+		// }
+	
+        $("#popup_banner").draggable({ handle: ".popup_banner" });
+        // $('#banner_close').on('click', function() {
+        //     document.getElementById("popup_banner").style.display="none";
+        //     localStorage.setItem("hidden_banner", "true");
+            
+            
+        // });
+        $('#banner_hide').on('click', function() {
+            document.getElementById("popup_banner").style.display="none";
+        })
+        // if(localStorage.getItem('hidden_banner')==='true')
+        // {
+        //     document.getElementById("popup_banner").style.display="none";
+        // }
+        $('#leftbanner_hide').on('click', function(){
+            document.getElementById("banner_l").style.display="none";
+        });
+        $('#rightbanner_hide').on('click',function(){
+            document.getElementById("banner_r").style.display="none";
+        })
+
+        $('#banner_close').on('click', function() {
+            var hours = 1;
+            var now = new Date().getTime();
+            document.getElementById("popup_banner").style.display="none";
+            localStorage.setItem('hidden_banner', JSON.stringify({
+            time: new Date().getTime(),
+            data: "true"
+            }));  
+        });
+        let items=JSON.parse(localStorage.getItem('hidden_banner'));
+        if(items.data==='true')
+        {
+            document.getElementById("popup_banner").style.display="none";
+        }
+        var hours = 1;
+        if(new Date().getTime()-items.time>60000)
+        {
+            localStorage.removeItem('hidden_banner');
+        }
+
+    
 	});
 </script>
 @endsection
