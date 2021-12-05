@@ -193,10 +193,33 @@ class PageContentController extends Controller
     }
     public function GetPostCreateOrUpdate(Request $request, $id)
     {
+        $categoryId = base64_decode(base64_decode(explode('/',$request->url)[7]));
         if ($id)
         {
-            dd('have');
+            $item = DB::table('main__category__page')->where('id', $id)->update([
+                'name' => $request->data['name'],
+                'description'=>$request->data['description'],
+                'data' => $request->data['data'],
+                'main_img' => $request->data['main_img'],
+            ]);
+            if ($item)
+            {
+                return response()->json(['msg'=> __('Content Updated'),'type'=>'update'], 200);
+            }
+            return response()->json(['msg' => __('Noting Changed'),'type'=>'update'], 200);
         }
-        dd('not have');
+        $item = DB::table('main__category__page')->insert([
+            'is_enabled' => 1,
+            'main_category_id' => $categoryId,
+            'name' => $request->data['name'],
+            'description'=>$request->data['description'],
+            'data' => $request->data['data'],
+            'main_img' => $request->data['main_img'],
+        ]);
+        if ($item)
+        {
+            return response()->json(['msg'=> __('Content Created'),'type'=>'created'], 200);
+        }
+        return response()->json(['msg' => __('Something Went Wrong')], 500);
     }
 }

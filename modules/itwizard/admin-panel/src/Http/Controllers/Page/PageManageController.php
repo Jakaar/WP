@@ -115,7 +115,9 @@ class PageManageController extends Controller
         if ($uuid)
         {
             $uuid = base64_decode(base64_decode($uuid));
-            $Lists = DB::table('main__category__page')->where('main_category_id', $uuid)
+            $Lists = DB::table('main__category__page')
+                ->where('main_category_id', $uuid)
+                ->orderBy('created_at', 'desc')
                 ->get();
 //            dd($Lists);
             $board->board_type = 'CategoryList';
