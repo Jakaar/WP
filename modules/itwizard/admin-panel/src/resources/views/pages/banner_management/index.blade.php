@@ -136,12 +136,12 @@
                                 <label class="form-label"> {{ __('Banner Location') }} </label>
                                 <select name="group_name" id="group_name" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
-                                    <option value="{{ __('Main Banner') }}">{{ __('Main Banner') }}</option>
-                                    <option value="{{ __('Vertical Banner') }}">{{ __('Vertical Banner') }}</option>
-                                    <option value="{{ __('Horizontal Banner') }}">{{ __('Horizontal Banner') }}</option>
-                                    <option value="{{ __('Left Banner') }}">{{ __('Left Banner') }}</option>
-                                    <option value="{{ __('Right Banner') }}">{{ __('Right Banner') }}</option>
-                                    <option value="{{ __('Pop Up') }}">{{ __('Pop Up') }}</option>
+                                    <option value="Main Banner">{{ __('Main Banner') }}</option>
+                                    <option value="Vertical Banner">{{ __('Vertical Banner') }}</option>
+                                    <option value="Horizontal Banner">{{ __('Horizontal Banner') }}</option>
+                                    <option value="Left Banner">{{ __('Left Banner') }}</option>
+                                    <option value="Right Banner">{{ __('Right Banner') }}</option>
+                                    <option value="Pop Up">{{ __('Pop Up') }}</option>
                                 </select>
                             </div>
 
@@ -222,12 +222,12 @@
                             <label class="form-label"> {{ __('Banner Location') }} </label>
                             <select name="group_name1" id="group_name1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 <option value="">{{ __('Select') }}</option>
-                                <option value="{{ __('Main Banner') }}">{{ __('Main Banner') }}</option>
-                                <option value="{{ __('Vertical Banner') }}">{{ __('Vertical Banner') }}</option>
-                                <option value="{{ __('Horizontal Banner') }}">{{ __('Horizontal Banner') }}</option>
-                                <option value="{{ __('Left Banner') }}">{{ __('Left Banner') }}</option>
-                                <option value="{{ __('Right Banner') }}">{{ __('Right Banner') }}</option>
-                                <option value="{{ __('Pop Up') }}">{{ __('Pop Up') }}</option>
+                                <option value="Main Banner">{{ __('Main Banner') }}</option>
+                                <option value="Vertical Banner">{{ __('Vertical Banner') }}</option>
+                                <option value="Horizontal Banner">{{ __('Horizontal Banner') }}</option>
+                                <option value="Left Banner">{{ __('Left Banner') }}</option>
+                                <option value="Right Banner">{{ __('Right Banner') }}</option>
+                                <option value="Pop Up">{{ __('Pop Up Banner') }}</option>
                             </select>
                         </div>
 
