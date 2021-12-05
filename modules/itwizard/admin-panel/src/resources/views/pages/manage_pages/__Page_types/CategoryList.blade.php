@@ -125,24 +125,24 @@
                 language : lang,
                 height: '600',
             });
-            // $('#CategoryForm').validate({
-            //     ignore: [],
-            //     errorPlacement: function(error, element) {
-            //         // Add the `invalid-feedback` class to the error element
-            //         error.addClass("invalid-feedback");
-            //         if (element.prop("type") === "checkbox") {
-            //             // error.insertAfter(element.next("label"));
-            //         } else {
-            //             // error.insertAfter(element);
-            //         }
-            //     },
-            //     highlight: function(element, errorClass, validClass) {
-            //         $(element).addClass("is-invalid").removeClass("is-valid");
-            //     },
-            //     unhighlight: function(element, errorClass, validClass) {
-            //         $(element).addClass("is-valid").removeClass("is-invalid");
-            //     },
-            // });
+            $('#CategoryForm').validate({
+                ignore: [],
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        // error.insertAfter(element.next("label"));
+                    } else {
+                        // error.insertAfter(element);
+                    }
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+            });
             $('.EditPost').on('click', function (){
                 Axios.post('/api/GetPost/Details/'+$(this).attr('key'))
                     .then((resp) => {
@@ -170,13 +170,33 @@
                    main_img: $('#profile-photo').val(),
                }
                const url = '/'+$(this).attr('key')
-               Axios.post('/api/GetPost/CreateOrUpdate'+url, {
-                   data:data
-               })
-                    .then((resp) => {
-                    }).catch((err) => {
-               })
-                console.log(data);
+               if($('#CategoryForm').valid())
+               {
+                   Axios.post('/api/GetPost/CreateOrUpdate'+url, {
+                       data:data,
+                       url: '{{url()->full()}}'
+                   })
+                       .then((resp) => {
+                           Toast.fire({
+                               icon: 'success',
+                               position: 'top-end',
+                               title: resp.data.msg,
+                           })
+                           $('#EditPost').modal('hide');
+                           if (resp.data.type === 'created')
+                           {
+                               setInterval(()=> {
+                                   location.reload()
+                               }, 900)
+                           }
+                       }).catch((err) => {
+                       Toast.fire({
+                           icon: 'error',
+                           position: 'top-end',
+                           title: '{{__('Something Went Wrong')}}',
+                       })
+                   })
+               }
             });
         });
     </script>
