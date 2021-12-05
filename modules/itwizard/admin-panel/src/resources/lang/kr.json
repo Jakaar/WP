@@ -862,7 +862,14 @@
     "Bulletin Board Type": "게시판 유형",
     "SinglePage": "싱글 페이지",
     "Yes Delete It!": "네, 삭제하겠습니다",
-    "Your notice board has been deleted.": "게시판이 삭제되었습니다"
+    "Your notice board has been deleted.": "게시판이 삭제되었습니다",
+    "Short Description": "간단한 설명",
+    "Create New Product Category": "새 상품 카테고리 생성",
+    "Add Category": "카테고리 추가",
+    "Is Active": "활성화 여부",
+    "Inactive": "비활성화",
+    "Select Parent Category": "부모 카테고리 선택",
+    "Edit Category": "카테고리 편집"
 
 
     
