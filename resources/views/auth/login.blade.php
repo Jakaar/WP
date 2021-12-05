@@ -169,19 +169,19 @@
                                 <span class="d-block">{{ __('Welcome back') }}, </span>
                                 <span>{{ __('Please sign in to your account.') }}</span>
                             </h4>
-                            <h6 class="mt-3">{{ __('No account?') }}
+                            {{-- <h6 class="mt-3">{{ __('No account?') }}
                                 <a href="javascript:void(0);" class="text-primary">{{ __('Sign up now') }}</a>
                             </h6>
-                            <div class="divider row"></div>
+                            <div class="divider row"></div> --}}
 
                             <div class="row">
-                                <div class="col-12 col-lg-6 col-md-12 col-sm-12">
+                                <div class="col-12 col-lg-6 mt-5 col-md-12 col-sm-12">
                                     <form method="POST" action="{{ route('login') }}" class=""
                                         autocomplete="off">
                                         @csrf
                                         <div class="col-md-12">
                                             <div class="position-relative mb-3">
-                                                <label for="email" class="form-label">{{ __('Email') }}</label>
+                                                <label for="email" class="form-label">{{ __('ID') }}</label>
                                                 <input name="email" id="email" value="{{ old('email') }}"
                                                     placeholder="{{ __('Email here') }}" type="email"
                                                     class="form-control @error('email') is-invalid @enderror">
@@ -278,7 +278,7 @@
             </div>
         </div>
     </div>
-    {{--Modal - -}}
+    {{-- {{--Modal - -}} --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -306,7 +306,7 @@
                                         <label for="email"
                                             class="form-label">{{ __('E-Mail Address for recovery password') }}</label>
                                         <input id="emailModal" name="emailModal" type="email"
-                                            placeholder="Email here..."
+                                            placeholder="{{__('Email here...')}}"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                             value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         @error('email')
@@ -316,9 +316,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <h6 class="mb-0">
-                                    <a href="#" class="text-primary">{{ __('Sign in existing account') }}</a>
-                                </h6>
+                                {{-- <h6 class="mb-0">
+                                    <a href="" class="text-primary">{{ __('Sign in existing account') }}</a>
+                                </h6> --}}
                                 <div class="divider"></div>
                             </div>
                             <div class="clearfix">

@@ -174,4 +174,52 @@ class PageContentController extends Controller
         return back()->with(['message'=> __('Category Created')]);
 //        dd($request->all());
     }
+    public function GalleryCreate(Request $request)
+    {
+        DB::table('main__gallery__category')->insert([
+            'name' => $request->name,
+            'is_enable' => 1,
+            'description' => $request->description,
+            'main_img' => $request->main_img,
+            'board_master_id' => $request->board_master_id,
+            'category_id' => explode('/', $request->url)[5],
+        ]);
+        return back()->with(['message' => $request->name.' '. __('Created')]);
+    }
+    public function GetPostDetails($id)
+    {
+        $data = DB::table('main__category__page')->where('id', $id)->first();
+        return response()->json($data, 200);
+    }
+    public function GetPostCreateOrUpdate(Request $request, $id)
+    {
+        $categoryId = base64_decode(base64_decode(explode('/',$request->url)[7]));
+        if ($id)
+        {
+            $item = DB::table('main__category__page')->where('id', $id)->update([
+                'name' => $request->data['name'],
+                'description'=>$request->data['description'],
+                'data' => $request->data['data'],
+                'main_img' => $request->data['main_img'],
+            ]);
+            if ($item)
+            {
+                return response()->json(['msg'=> __('Content Updated'),'type'=>'update'], 200);
+            }
+            return response()->json(['msg' => __('Noting Changed'),'type'=>'update'], 200);
+        }
+        $item = DB::table('main__category__page')->insert([
+            'is_enabled' => 1,
+            'main_category_id' => $categoryId,
+            'name' => $request->data['name'],
+            'description'=>$request->data['description'],
+            'data' => $request->data['data'],
+            'main_img' => $request->data['main_img'],
+        ]);
+        if ($item)
+        {
+            return response()->json(['msg'=> __('Content Created'),'type'=>'created'], 200);
+        }
+        return response()->json(['msg' => __('Something Went Wrong')], 500);
+    }
 }

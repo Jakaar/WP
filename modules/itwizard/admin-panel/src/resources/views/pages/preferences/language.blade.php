@@ -26,7 +26,7 @@
                                 <span class="btn-icon-wrapper pe-2 opacity-7">
                                     <i class="pe-7s-plus"></i>
                                 </span>
-                                {{ __('Create') }}
+                                {{ __('Add Language') }}
                             </button>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                     <th> {{__('ID')}} </th>
                                     <th> {{__('Country')}} </th>
                                     <th> {{__('Country code')}} </th>
-                                    <th> {{__('Created at')}} </th>
+                                    <th> {{__('Add at')}} </th>
                                     <th> {{__('Action')}} </th>
                                 </tr>
                             </thead>
@@ -81,19 +81,19 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title card-title " id="staticBackdropLabel">{{ __('Create Language') }}</h5>
+                <h5 class="modal-title card-title " id="staticBackdropLabel">{{ __('Add Language') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="#" class="row" id="createForm">
                     <input type="hidden" id="hiddenIdLanguage">
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Language name')}}</label>
                         <input id="country" name="country" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country code')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Language code')}}</label>
                         <input id="country_code" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
 
                     </div>
@@ -118,12 +118,12 @@
                 <form action="" class="row" id="updateForm">
                     <input type="hidden" id="hiddenIdLanguage">
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Language name')}}</label>
                         <input id="editCountryName" name="country" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
 
                     <div class="mb-3 col-lg-12">
-                        <label class="form-label fw-bold" for="">{{__('Country code')}}</label>
+                        <label class="form-label fw-bold" for="">{{__('Language code')}}</label>
                         <input id="editCountryCode" name="country_code" type="text" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                     </div>
                 </form>

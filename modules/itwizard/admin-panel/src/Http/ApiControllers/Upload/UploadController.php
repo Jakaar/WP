@@ -15,4 +15,10 @@ class UploadController extends Controller
         $sName = $file->store('/ckfiles/img','public');
         return response()->json(['uploaded'=>true, 'fileName'=>'ck','url'=>asset('storage/'.$sName)], 200);
     }
+    public function FromCKImage(Request $request)
+    {
+        $file = $request->file('upload');
+        $sName = $file->store('/ckfiles/img','public');
+        return response()->json(['uploaded'=>true, 'fileName'=>'ck','url'=>asset('storage/'.$sName)], 200);
+    }
 }

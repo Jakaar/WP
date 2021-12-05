@@ -28,7 +28,7 @@
 {{--                                                <span>Mike John</span>--}}
 {{--                                            </div>--}}
                                             <div class="stats stats-right opacity-8">
-                                                <i class="ni ni-watch-time"></i> 5 min read
+                                                <i class="ni ni-watch-time"></i> {{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}
                                             </div>
                                         </div>
                                     </div>

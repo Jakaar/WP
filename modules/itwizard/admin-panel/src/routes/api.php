@@ -136,6 +136,8 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('/ck/file-upload',[\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCK']);
 
+    Route::post('/ck/file-upload/image', [\Itwizard\Adminpanel\Http\ApiControllers\Upload\UploadController::class, 'FromCKImage']);
+
     Route::post('/reset/password',[\App\Http\Controllers\Auth\PasswordResetController::class, 'ResetRequest' ])->name('reset.password');
     Route::post('/reset/checker',[\App\Http\Controllers\Auth\PasswordResetController::class, 'checker' ]);
     Route::post('/reset/updatePassword',[\App\Http\Controllers\Auth\PasswordResetController::class, 'updatePassword' ]);
@@ -144,6 +146,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/dashboard/GetContent',[\Itwizard\Adminpanel\Http\ApiControllers\Analytic\AnalyticController::class,'GetContentData']);
 
     Route::post('/form/create', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'create']);
+    Route::post('/form/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'delete']);
+    Route::post('/form/edit', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'edit']);
+    Route::post('/form/update', [\Itwizard\Adminpanel\Http\ApiControllers\Form\FormController::class,'update']);
+
 
     Route::post('/FAQ/create', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'create']);
     Route::post('/FAQ/delete/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'delete']);
@@ -151,7 +157,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/FAQ/update/', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'update']);
 
     Route::post('/Gallery/GetContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryGetContent']);
+    Route::post('/Gallery/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreate']);
     Route::post('/Gallery/CreateContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreateContent']);
+
+    Route::post('/GetPost/Details/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostDetails']);
+    Route::post('/GetPost/CreateOrUpdate/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostCreateOrUpdate']);
 
     Route::post('/SinglePage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'SinglePageCreate']);
 

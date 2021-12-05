@@ -517,9 +517,9 @@
     <script>
         $(document).ready(function(){
             $.blockUI.defaults = {
-                 timeout: 2000,
+                 // timeout: 2000,
                 // fadeIn: 200,
-                fadeOut: 400,
+                // fadeOut: 400,
             };
             $.blockUI({ message: $(".body-block-example-1") });
         })

@@ -25,10 +25,12 @@ class SiteInfoController extends Controller
             'email' => $request->email,
             'site_copyright' => $request->copyright,
             'logo' => $request->logo,
-            'terms_of_condition_name_url' => $request->c_product_editor,
-            'privacy_name_url' => $request->e_product_editor,
-            // 'terms_of_condition' => $request->c_product_editor,
-            // 'privacy' => $request->e_product_editor,
+            'terms_of_condition_name_url' => $request->terms_use,
+            'privacy_name_url' => $request->privacy,
+            'location' => $request->location,
+            'terms_of_service_login' => $request->terms_use_login,
+            'privacy_policy_login' => $request->privacy_login,
+            'recieve_promotional_information' => $request->recieve_information,
         ]);
 
         return response()->json(['msg' => 'success', 'data' => $request->all()], 200);

@@ -41,16 +41,37 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserImageUploadUrl = '/api/ck/file-upload';
     // config.allowedContent = true;
     // config.toolbar = [['Source', '-', 'NewPage', '-', 'Templates','fontawesome5']];
+
+    config.imgurClientID = '55d8ba08326ec75';
     config.extraPlugins = [
         'ckawesome',
         'wenzgmap',
         'youtubebootstrap',
-        'qrc'
+        'qrc',
+        'uploadimage',
+        'pastefromword',
+        'pastetools',
+        'flash',
+        'image2',
+        'html5audio',
+        'bgimage',
+        'oembed',
+        'cloudservices',
+
+        // 'slideshow',
+        // 'powermediagallery',
+        // 'easyimage',
+
         // 'N1ED-editor'
     ];
+    config.uploadUrl = '/api/ck/file-upload';
+    config.imageUploadUrl = '/api/ck/file-upload/image?type=Images';
     // config.apiKey = "8DVZDFLT";
     config.fillEmptyBlocks = false;
     config.FormatOutput = false;
+    // Changes the class to "captionedImage".
+    config.image2_captionedClass = 'captionedImage';
+
     // config.ProcessHTMLTags = false ;
     //dialogDefinition.removeContents('Link');
     //dialogDefinition.removeContents('advanced');
