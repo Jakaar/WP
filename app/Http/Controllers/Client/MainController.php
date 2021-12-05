@@ -88,7 +88,12 @@ class MainController extends Controller
             ->first();
 //        dd($content);
         $board = DB::table('wpanel_board_master')->where('id', $slug)->first();
-
+        if (\session()->get('locale') === 'kr')
+        {
+            Carbon::setLocale('ko');
+        }else{
+            Carbon::setLocale(session()->get('locale'));
+        }
         if($uuid)
         {
             $uuid = base64_decode(base64_decode($uuid));
@@ -239,5 +244,10 @@ class MainController extends Controller
         $uuid = base64_decode(base64_decode($uuid));
         $Details = DB::table('main__gallery__photos')->where('id',$uuid)->first();
         return \view('client.pages.GalleryDetails', compact('title','Details'));
+    }
+
+    public function products()
+    {
+        return \view('client.pages.products.index');
     }
 }

@@ -17,6 +17,7 @@ Route::get('lang/{locale}', function ($lang) {
     // }
     return redirect()->back();
 });
+Route::get('/customer/products', [\App\Http\Controllers\Client\MainController::class,'products']);
 
 Route::get('/dtlpgdt/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'BlogDetail']);
 Route::get('/{slug}/{id}/gllr/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'GalleryDetail']);
