@@ -20,8 +20,6 @@ class CreateWpanelBannersTable extends Migration
             $table->text('banner_content')->nullable();
             $table->integer('priority');
             $table->string('daterange');
-            $table->string('target_type');
-            $table->string('type');
             $table->string('slug');
             $table->string('isEnabled');
             $table->timestamps();

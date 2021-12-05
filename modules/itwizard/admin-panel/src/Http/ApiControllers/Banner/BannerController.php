@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Helper\LogActivity;
+use Illuminate\Support\Facades\URL;
 /**
  *
  */
@@ -36,8 +37,6 @@ class BannerController extends Controller
             'priority'=>$request->priority,
             'daterange'=>$request->daterange,
             'slug'=>Str::slug($request->group_name),
-            'target_type'=>$request->target_type,
-            'type'=>$request->type,
             'isEnabled'=>$request->isEnabled,
             "created_at" =>  \Carbon\Carbon::now(), 
             "updated_at" => \Carbon\Carbon::now(), 
@@ -82,8 +81,6 @@ class BannerController extends Controller
             'priority'=>$request->priority1,
             'daterange'=>$request->daterange,
             'isEnabled'=>$request->isEnabled1,
-            'target_type'=>$request->target_type1,
-            'type'=>$request->type1,
             'slug'=>Str::slug($request->group_name1),
             "updated_at" => \Carbon\Carbon::now(),
         ]);

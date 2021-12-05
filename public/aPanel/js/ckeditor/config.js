@@ -31,6 +31,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     // config.uiColor = '#F7B42C';
     config.removeButtons = 'Underline,Subscript,Superscript';
+    config.extraPlugins = 'link';
     config.enterMode =		CKEDITOR.ENTER_BR;		//ì—”í„°í‚¤ ìž…ë ¥ì‹œ br íƒœê·¸ ë³€ê²½
     // Set the most common block elements.
     config.removeDialogTabs = 'image:advanced;link:advanced';

@@ -1,20 +1,25 @@
 @extends('client.layouts.master')
 @inject('t','App\Helper\Helper')
 @section('content')
-{{--        @if(isset($banners))--}}
-{{--        <div class="container"  style="padding-top:100px;">--}}
-{{--            @foreach ($banners as $banner)--}}
-{{--                @if ( $banner->slug=='main-banner' and $banner->type=='Simple')--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-12">--}}
-{{--                        {!! $banner->banner_content !!}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                @endif--}}
-{{--            @endforeach--}}
-{{--        </div>--}}
-{{--        @endif--}}
+        
+
+        @if(isset($mainbanners))
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    @foreach($mainbanners as $mainbanner)
+                    <div class="col-md-12">
+                        {!! $mainbanner->banner_content !!}
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+
+
         @if(isset($BlogDetails))
+        
             <div class="page-header header-filter">
                 <div class="page-header-image" style="background-image: url('{{$BlogDetails->main_img}}');"></div>
                 <div class="container">
@@ -141,26 +146,53 @@
                 </section>
             @endif
         @endif
-
+        @if(isset($leftbanners))
+        @foreach ($leftbanners as $leftbanner)
+            
+            <div id="banner_l" class="banner">
+                {!! $leftbanner->banner_content !!}
+            </div>
+        
+        @endforeach
+        @endif
+        @if(isset($rightbanners))
+        @foreach ($rightbanners as $rightbanner)
+            
+            <div id="banner_r" class="banner">
+                    {!! $leftbanner->banner_content !!}
+            </div>
+            
+        @endforeach
+        @endif
         @if(isset($SinglePageData->data))
-            <section class="blogs-2 mb--5">
-                <div class="container-fluid mt-5">
-                    <div class="row">
-                        <div class="col-md-8 mx-auto">
-                            <h3 class="display-3 text-center">{{$t->translateText($title->name)}}</h3>
-                            <p class="lead text-center">{{$t->translateText($title->description)}}</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
             <div class="">
                 {!! $t->translateText($SinglePageData->data) !!}
             </div>
         @endif
+@endsection
+@section('script')
 
-        @if(isset($datas['form_builded']))
-            @include('client.includes.form')
-        @endif
+<script type="text/javascript">
+	$(function(){
+		var $banner = $('.banner'), $window = $(window);
+		var $topDefault = parseFloat( $banner.css('bottom'), 10 );
+		$window.on('scroll', function(){
+			var $top = $(this).scrollTop();
+			$banner.stop().animate( { bottom: -( $top - $topDefault) }, 1000, 'easeOutBack' );
+		});
+
+		var $wiBanner = $banner.outerWidth() * 2;
+		zindex($('#wrapper').outerWidth());
+		$window.on('resize', function(){
+			zindex($('#wrapper').outerWidth());
+		});
+		function zindex(maxWidth){
+			if( $window.width() <= maxWidth + $wiBanner ) {
+				$banner.addClass('zindex');
+			}else{
+				$banner.removeClass('zindex');
+			}
+		}
+	});
+</script>
 @endsection

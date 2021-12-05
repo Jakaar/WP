@@ -1,6 +1,12 @@
 @extends('Admin::layouts.master')
 @section('title') {{__('Notice Board Management')}} @endsection
 @section('content')
+<style>
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #fff !important; 
+        opacity: 1;
+    }
+</style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -28,41 +34,7 @@
         </div>
     </div>
     <div class="row">
-      <div class="col-md-12 ">
-        <div class="main-card mb-3 card mt-4">
-            <div class="card-body card-btm-border card-shadow-primary border-primary">
-                <table style="width: 100%;" id="BulletInBoard" class="table table-hover table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{__('Board Name')}}</th>
-                        <th>{{__('Board Type')}}</th>
-                        <th>{{__('Use Comment')}}</th>
-                        <th>{{__('Created At')}}</th>
-                        <th>{{__('Action')}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($dataM['board_master'] as $board)
-                            <tr>
-                                <td></td>
-                                <td>{{$board->board_name}}</td>
-                                <td>{{$board->board_type}}</td>
-                                <td>{{$board->isComment}}</td>
-                                <td>{{$board->created_at}}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary EditModalShow editbtn" value="{{ $board->id }}">{{__('Edit')}}</button>
-                                    <button class="btn btn-sm btn-outline-danger DeleteBoard" key="{{ $board->id }}">{{__('Delete')}}</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-    
-                </table>
-            </div>
-        </div>
-      </div>
-        {{-- <div class="col-md-12 ">
+        <div class="col-md-12 ">
             <div class="card-header-title fsize-2 text-capitalize fw-normal mb-2">
                 {{__('Search Condition')}}
             </div>
@@ -75,7 +47,7 @@
                             <input name="daterange" class="form-control" readonly>
                         </div>
                         <div class="col-sm-12 col-md-3">
-                            <h5 class="card-title">{{__('Bulletin Board Type')}}</h5>
+                            <h5 class="card-title">{{__('Board Type')}}</h5>
                             <select class="multiselect-dropdown form-control" name="board_type">
                                 <option value="" selected disabled>{{__('Choose')}}</option>
                                 @foreach($dataM['board_type'] as $type)
@@ -93,34 +65,65 @@
                                 <input class="form-check-input" type="radio" name="isEnabled" id="inlineRadio1" value="">
                                 <label class="form-check-label" for="inlineRadio1">{{__('All')}}</label>
                             </div> --}}
-                            {{-- <div class="form-check form-check-inline">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="isEnabled" id="inlineRadio2" value="2">
                                 <label class="form-check-label" for="inlineRadio2">{{__('Active')}}</label>
-                            </div> --}}
-                            {{-- <div class="form-check form-check-inline">
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="isEnabled" id="inlineRadio3" value="1" >
                                 <label class="form-check-label" for="inlineRadio3">{{__('InActive')}}</label>
-                            </div> --}}
-                        {{-- </div> --}}
-                        {{-- <div class="col-md-1">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
                             <button class="btn btn-primary float-end mt-3">
                                 <span class="btn-icon-wrapper pe-2 opacity-7">
                                     <i class="pe-7s-search"></i>
                                 </span>
                                 {{__('Search')}}
                             </button>
-                        </div> --}}
-                    {{-- </div>
+                        </div>
+                    </div>
                     </form>
                 </div>
-            </div> --}}
-        {{-- <div class="card-header-title fsize-2 text-capitalize fw-normal mb-2">--}}
-        {{-- {{__('Search Condition')}}--}}
-        {{-- <button class="btn btn-info float-end">{{__('Search')}}</button>--}}
-        {{-- </div>--}}
-        {{-- </div> --}}
+            </div>
+{{--            <div class="card-header-title fsize-2 text-capitalize fw-normal mb-2">--}}
+{{--                {{__('Search Condition')}}--}}
+{{--                <button class="btn btn-info float-end">{{__('Search')}}</button>--}}
+{{--            </div>--}}
+        </div>
     </div>
-    
+    <div class="main-card mb-3 card mt-4">
+        <div class="card-body card-btm-border card-shadow-primary border-primary">
+            <table style="width: 100%;" id="BulletInBoard" class="table table-hover table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{{__('Board Name')}}</th>
+                    <th>{{__('Board Type')}}</th>
+                    <th>{{__('Use Comment')}}</th>
+                    <th>{{__('Created At')}}</th>
+                    <th>{{__('Action')}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($dataM['board_master'] as $board)
+                        <tr>
+                            <td></td>
+                            <td>{{$board->board_name}}</td>
+                            <td>{{$board->board_type}}</td>
+                            <td>{{$board->isComment}}</td>
+                            <td>{{$board->created_at}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary EditModalShow editbtn" value="{{ $board->id }}">{{__('Edit')}}</button>
+                                <button class="btn btn-sm btn-outline-danger DeleteBoard" key="{{ $board->id }}">{{__('Delete')}}</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        </div>
+    </div>
 @endsection
 @section('modal')
     <div id="CreateBoardModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -128,7 +131,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-white shadow shadow-sm">
                         <h5 class="modal-title card-title ">
-{{-- <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i>--}}
+{{--                            <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i>--}}
                             {{__('Create Board')}}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -498,7 +501,7 @@
                Axios.post('/api/board/create', data).then((resp) => {
                    $('#CrtBrd')[0].reset();
                    $('#CreateBoardModal').modal('hide');
-                   Swal.fire({
+                   Toast.fire({
                        icon: 'success',
                        title: resp.data.msg
                    })
@@ -518,19 +521,21 @@
                     title: '{{ __('Are you sure?') }}',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
                     cancelButtonText: '{{ __('Cancel') }}',
                     confirmButtonText: '{{ __('Yes Delete It!') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteBoard/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire(
-                                '{{__('Deleted!')}}',
-                                '{{__('Your notice board has been deleted.')}}',
-                                '{{__('success')}}'
-                            )
-                            $(this).closest('tr').fadeOut();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '{{__('Deleted!')}}',
+                                showConfirmButton: false
+                            })
+                            setTimeout(function (){
+                                location.reload()
+                            },2000);
                         });
                     }
                 })
@@ -599,11 +604,11 @@
                     Axios.post('/api/updateboard', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire(
-                            'Updated!',
-                            'Your board has been updated.',
-                            'success'
-                        )
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Updated')}}',
+                            showConfirmButton: false
+                        })
                         setTimeout(function() {
                             location.reload()
                         }, 2000);
