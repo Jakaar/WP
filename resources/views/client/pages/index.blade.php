@@ -977,7 +977,7 @@
             document.getElementById("popup_banner").style.display="none";
         }
         var hours = 1;
-        if(new Date().getTime()-items.time>60000)
+        if(new Date().getTime()-items.time>86400000)
         {
             localStorage.removeItem('hidden_banner');
         }
