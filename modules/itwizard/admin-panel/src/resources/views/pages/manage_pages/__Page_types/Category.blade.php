@@ -19,7 +19,7 @@
                         <p class="text-truncate">{{$group->description}}</p>
                     </div>
                     <div class="card-footer">
-                        <a href="{{url()->full().'/'.base64_encode($group->id)}}" class="">{{__('Created At ').\Carbon\Carbon::parse($group->created_at)->format('Y-m-d')}}</a>
+                        <a href="{{url()->full().'/'.base64_encode(base64_encode($group->id))}}" class="">{{__('Created At ').\Carbon\Carbon::parse($group->created_at)->format('Y-m-d')}}</a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-success border-success">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> {{__('Close')}} </button>
-                    <button type="button" class="btn btn-success UpdateOrCreate"> {{__('Create ')}} </button>
+                    <button type="button" class="btn btn-success UpdateOrCreate"> {{__('Create')}} </button>
                 </div>
             </div>
         </div>

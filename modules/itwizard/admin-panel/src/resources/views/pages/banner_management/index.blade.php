@@ -17,7 +17,17 @@
         .ck-editor__editable {
             min-height: 200px;
         }
-
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #fff !important; 
+            opacity: 1;
+        }
+        .swal2-confirm{
+            background-color: rgb(221, 51, 51) !important;
+            border:none !important;
+        }
+        .swal2-cancel{
+            background-color: #6c757d !important;
+        }
     </style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -117,20 +127,21 @@
                                 <label for="exampleCity" class="form-label">{{ __('Is Used') }}</label>
                                 <select name="isEnabled" id="isEnabled" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="" >{{ __('Select') }}</option>
-                                    <option value="{{ __('Used') }}" >{{ __('Used') }}</option>
-                                    <option value="{{ __('Not Used') }}">{{ __('Not Used') }}</option>
+                                    <option value="Used" >{{ __('Used') }}</option>
+                                    <option value="Not Used">{{ __('Not Used') }}</option>
                                 </select>
                             </div>
 
                             <div class="mb-3 col-lg-6">
-                                <label class="form-label"> {{ __('Banner Group') }} </label>
+                                <label class="form-label"> {{ __('Banner Location') }} </label>
                                 <select name="group_name" id="group_name" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
-                                    <option value="{{ __('Main Banner') }}">{{ __('Main Banner') }}</option>
-                                    <option value="{{ __('Vertical Banner') }}">{{ __('Vertical Banner') }}</option>
-                                    <option value="{{ __('Horizontal Banner') }}">{{ __('Horizontal Banner') }}</option>
-                                    <option value="{{ __('Left Banner') }}">{{ __('Left Banner') }}</option>
-                                    <option value="{{ __('Right Banner') }}">{{ __('Right Banner') }}</option>
+                                    <option value="Main Banner">{{ __('Main Banner') }}</option>
+                                    <option value="Vertical Banner">{{ __('Vertical Banner') }}</option>
+                                    <option value="Horizontal Banner">{{ __('Horizontal Banner') }}</option>
+                                    <option value="Left Banner">{{ __('Left Banner') }}</option>
+                                    <option value="Right Banner">{{ __('Right Banner') }}</option>
+                                    <option value="Pop Up">{{ __('Pop Up') }}</option>
                                 </select>
                             </div>
 
@@ -151,26 +162,10 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3 col-lg-6">
-                                <label class="form-label"> {{ __('Target Type') }} </label>
-                                <select name="target_type" id="target_type" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="">{{ __('Select') }}</option>
-                                    <option value="{{__('_self')}}">{{ __('_self') }}</option>
-                                    <option value="{{__('_blank')}}">{{ __('_blank') }}</option>
-                                    <option value="{{__('_parent')}}">{{ __('_parent') }}</option>
-                                    <option value="{{__('_top')}}">{{ __('_top') }}</option>
-                                </select>
-                            </div>
-                            <div class="mb-3 col-lg-6">
-                                <label class="form-label"> {{ __('Type') }} </label>
-                                <select name="type" id="type" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                    <option value="">{{ __('Select') }}</option>
-                                    <option value="{{__('_Pop Up')}}">{{ __('Pop Up') }}</option>
-                                    <option value="{{__('Simple')}}">{{ __('Simple') }}</option>
-                                </select>
-                            </div>
+                           
+                         
                             
-                            <div class="mb-3 col-lg-12">
+                            <div class="mb-3 col-lg-6">
                                 <label class="form-label"> {{ __('Posting Period') }} </label>
                                 <div class="input-group">
                                     <div class="input-group-text datepicker-trigger">
@@ -179,10 +174,7 @@
                                     <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required readonly >
                                 </div>
                             </div>
-                            <div class="mb-3 col-lg-12">
-                                <label class="form-label"> {{ __('Link') }} </label>
-                                <input type="text" class="form-control" placeholder="{{ __('Link') }}" name="link" id="link" data-msg-required="{{ __('This Field is Required') }}" required>
-                            </div>
+        
                             <div class="mb-3 col-lg-12">
                                 <label class="form-label"> {{ __('Banner Content') }} </label>
                                 <textarea  name="ckeditor" id="ckeditor" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
@@ -227,14 +219,15 @@
                         </div>
 
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Banner Group') }} </label>
+                            <label class="form-label"> {{ __('Banner Location') }} </label>
                             <select name="group_name1" id="group_name1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
                                 <option value="">{{ __('Select') }}</option>
-                                <option value="{{ __('Main Banner') }}">{{ __('Main Banner') }}</option>
-                                <option value="{{ __('Vertical Banner') }}">{{ __('Vertical Banner') }}</option>
-                                <option value="{{ __('Horizontal Banner') }}">{{ __('Horizontal Banner') }}</option>
-                                <option value="{{ __('Left Banner') }}">{{ __('Left Banner') }}</option>
-                                <option value="{{ __('Right Banner') }}">{{ __('Right Banner') }}</option>
+                                <option value="Main Banner">{{ __('Main Banner') }}</option>
+                                <option value="Vertical Banner">{{ __('Vertical Banner') }}</option>
+                                <option value="Horizontal Banner">{{ __('Horizontal Banner') }}</option>
+                                <option value="Left Banner">{{ __('Left Banner') }}</option>
+                                <option value="Right Banner">{{ __('Right Banner') }}</option>
+                                <option value="Pop Up">{{ __('Pop Up Banner') }}</option>
                             </select>
                         </div>
 
@@ -256,26 +249,10 @@
                             </select>
                         </div>
                         
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Target Type') }} </label>
-                            <select name="target_type1" id="target_type1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="">{{ __('Select') }}</option>
-                                <option value="{{__('_self')}}">{{ __('_self') }}</option>
-                                <option value="{{__('_blank')}}">{{ __('_blank') }}</option>
-                                <option value="{{__('_parent')}}">{{ __('_parent') }}</option>
-                                <option value="{{__('_top')}}">{{ __('_top') }}</option>
-                            </select>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Type') }} </label>
-                            <select name="type1" id="type1" class="form-select form-control" data-msg-required="{{ __('This Field is Required') }}" required>
-                                <option value="">{{ __('Select') }}</option>
-                                <option value="{{__('_Pop Up')}}">{{ __('Pop Up') }}</option>
-                                <option value="{{__('Simple')}}">{{ __('Simple') }}</option>
-                            </select>
-                        </div>
+                     
+                   
 
-                        <div class="mb-3 col-lg-12">
+                        <div class="mb-3 col-lg-6">
                             <label class="form-label"> {{ __('Posting Period') }} </label>
                             <div class="input-group">
                                 <div class="input-group-text datepicker-trigger">
@@ -284,10 +261,7 @@
                                 <input type="text" class="form-control" data-toggle="datepicker-icon" name="daterange" id="daterange" placeholder="{{ __('Date Range') }}"  data-msg-required="{{ __('This Field is Required') }}" required readonly>
                             </div>
                         </div>
-                        <div class="mb-3 col-lg-12">
-                            <label class="form-label"> {{ __('Link') }} </label>
-                            <input type="text" class="form-control" placeholder="{{ __('Link') }}" name="link1" id="link1" data-msg-required="{{ __('This Field is Required') }}" required>
-                        </div>
+                   
                         <div class="mb-3 col-lg-12">
                             <label class="form-label"> {{ __('Banner Content') }} </label>
                             <textarea  name="ckeditor1" id="ckeditor1" class="form-control" data-msg-required="{{ __('This Field is Required') }}" required></textarea>
@@ -297,7 +271,7 @@
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-primary border-primary">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="button" class="btn btn-success update-role" id="update_banner">{{ __('Save') }}</button>
+                    <button type="button" class="btn btn-success update-role" id="update_banner">{{ __('Update') }}</button>
                 </div>
             </div>
         </div>
@@ -314,6 +288,7 @@
         $('#new_table_3').DataTable({})
         $('#new_table_4').DataTable({})
         $('#new_table_5').DataTable({})
+        $('#new_table_6').DataTable({})
         $('.ModalShow').click(function() {
             $('#AddRoleModal').modal('show')
         })
@@ -383,9 +358,6 @@
                         priority: $('#priority').val(),
                         isEnabled: $('#isEnabled').val(),
                         daterange: $('#daterange').val(),
-                        target_type: $('#target_type').val(),
-                        link: $('#link').val(),
-                        type: $('#type').val(),
                     }
 
                     const headers = {
@@ -396,11 +368,13 @@
                         headers: headers
                         
                     }).then((resp) => {
-                        Swal.fire(
-                            'Added!',
-                            'Your banner has been added.',
-                            'success'
-                        )
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Added')}}',
+                            showConfirmButton: false
+                            
+                        })
+                        $('#AddRoleModal').modal('hide');
                         setTimeout(function() {
                             location.reload()
                         }, 2000);
@@ -426,12 +400,14 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteBanner/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                            $(this).closest('tr').fadeOut();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '{{__('Deleted!')}}',
+                                showConfirmButton: false
+                            })
+                            setTimeout(function (){
+                                location.reload()
+                            },2000);
                         });
                     }
                 })
@@ -447,9 +423,6 @@
                     $('#isEnabled1').val(resp.data.isEnabled);
                     $('#priority1').val(resp.data.priority);
                     $('#daterange').val(resp.data.daterange);
-                    $('#target_type1').val(resp.data.target_type);
-                    $('#type1').val(resp.data.type);
-                    $('#link1').val(resp.data.link);
                     CKEDITOR.instances.ckeditor1.setData(resp.data.banner_content);                
                 });
             });
@@ -464,9 +437,6 @@
                         priority1: $('#priority1').val(),
                         isEnabled1: $('#isEnabled1').val(),
                         daterange: $('#daterange').val(),
-                        target_type1: $('#target_type1').val(),
-                        type1: $('#type1').val(),
-                        link1: $('#link1').val(),
                     }
                     const headers = {
                         'Content-Type': 'multipart/form-data',
@@ -475,11 +445,11 @@
                     Axios.post('/api/updatebanner', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire(
-                            'Updated!',
-                            'Your banner has been updated.',
-                            'success'
-                        )
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Updated')}}',
+                            showConfirmButton: false
+                        })
                         setTimeout(function() {
                             location.reload()
                         }, 2000);

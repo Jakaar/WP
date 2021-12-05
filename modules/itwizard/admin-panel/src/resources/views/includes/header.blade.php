@@ -427,15 +427,15 @@
 
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
+                                                {{-- <li class="nav-item">
                                                     <a href="/cms/myProfile/#profile-settings" class="nav-link">{{__('Settings')}}</a>
-                                                </li>
-                                                <li class="nav-item">
+                                                </li> --}}
+                                                {{-- <li class="nav-item">
                                                     <a href="/cms/myProfile/#profile-msg" class="nav-link">
                                                         {{__('Messages')}}
                                                         <div class="ms-auto badge bg-danger">1</div>
                                                     </a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </div>
                                     </div>

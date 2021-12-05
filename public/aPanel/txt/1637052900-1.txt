@@ -1,0 +1,32 @@
+$('#add_file').on('click', function() {
+                if ($('#createForm').valid()) {
+                    const headers = {
+                        'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'Application/json'
+                    }
+
+                    const data = {
+                        status: $('#status').val(),
+                        upload_file: $('#upload_file').prop('files')[0].files,
+                    }
+                    console.log(data);
+                    
+                    Axios.post('/api/addfile', {data, 
+                        headers: headers
+                    }).then((resp) => {
+                        Swal.fire(
+                            'Added!',
+                            'Your file has been added.',
+                            'success'
+                        )
+                        setTimeout(function() {
+                            location.reload()
+                        }, 1000);
+                    }).catch((err) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err
+                        });
+                    });
+                }
+            })

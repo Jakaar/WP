@@ -10,7 +10,7 @@
                     <i class="pe-7s-note2 icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div style="color: #222222;">
-                    {{ __('Product Categories') }}
+                    {{ __('Categories Management') }}
                     <div class="page-title-subheading"></div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <span class="btn-icon-wrapper pe-2 opacity-7">
                         <i class="pe-7s-plus"></i>
                     </span>
-                    {{ __('Add Category') }}
+                    {{ __('Create Category') }}
                 </button>
                 {{-- <button class="btn btn-outline-light opacity-3">{{ __('Delete') }}</button> --}}
             </div>
@@ -79,7 +79,7 @@
             <div class="card card-btm-border border-primary mb-3">
                 <div class="card-body">
 
-                    <div class="card-title dataName"></div>
+                    <div class="card-title dataName">{{__('Edit Category')}}</div>
                     <form action="#" class="d-none" id="editForm">
 
                         <div class="widget-content w-100">
@@ -225,7 +225,7 @@
                 Axios.post('/api/category/delete', data).then((resp) => {
                     $('#staticBackdrop').modal('hide')
                     Swal.fire({
-                        title: "Success",
+                        title: "{{__('Success')}}",
                         icon: 'success'
                     })
                     setInterval(() => {
@@ -273,7 +273,7 @@
                     Axios.post('/api/category/create', data).then((resp) => {
                         $('#staticBackdrop').modal('hide')
                         Swal.fire({
-                            title: "Success",
+                            title: "{{__('Success')}}",
                             icon: 'success'
                         })
 
@@ -338,7 +338,7 @@
                 if ($('#editForm').valid()) {
                     Axios.post('/api/category/update', data).then((resp) => {
                         Swal.fire({
-                            title: "Success",
+                            title: "{{__('Success')}}",
                             icon: 'success'
                         })
                         setInterval(() => {

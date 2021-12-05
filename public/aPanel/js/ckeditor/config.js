@@ -31,6 +31,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     // config.uiColor = '#F7B42C';
     config.removeButtons = 'Underline,Subscript,Superscript';
+    config.extraPlugins = 'link';
     config.enterMode =		CKEDITOR.ENTER_BR;		//ì—”í„°í‚¤ ìž…ë ¥ì‹œ br íƒœê·¸ ë³€ê²½
     // Set the most common block elements.
     config.removeDialogTabs = 'image:advanced;link:advanced';
@@ -40,6 +41,8 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserImageUploadUrl = '/api/ck/file-upload';
     // config.allowedContent = true;
     // config.toolbar = [['Source', '-', 'NewPage', '-', 'Templates','fontawesome5']];
+
+    config.imgurClientID = '55d8ba08326ec75';
     config.extraPlugins = [
         'ckawesome',
         'wenzgmap',
@@ -48,7 +51,16 @@ CKEDITOR.editorConfig = function( config ) {
         'uploadimage',
         'pastefromword',
         'pastetools',
-        'flash'
+        'flash',
+        'image2',
+        'html5audio',
+        'bgimage',
+        'oembed',
+        'cloudservices',
+
+        // 'slideshow',
+        // 'powermediagallery',
+        // 'easyimage',
 
         // 'N1ED-editor'
     ];
@@ -57,6 +69,9 @@ CKEDITOR.editorConfig = function( config ) {
     // config.apiKey = "8DVZDFLT";
     config.fillEmptyBlocks = false;
     config.FormatOutput = false;
+    // Changes the class to "captionedImage".
+    config.image2_captionedClass = 'captionedImage';
+
     // config.ProcessHTMLTags = false ;
     //dialogDefinition.removeContents('Link');
     //dialogDefinition.removeContents('advanced');

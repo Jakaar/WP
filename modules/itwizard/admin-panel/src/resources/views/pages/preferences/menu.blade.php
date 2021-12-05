@@ -17,7 +17,7 @@
                     <i class="pe-7s-menu icon-gradient bg-tempting-azure"></i>
                 </div>
                 <div>
-                    {{ __('Admin Menu') }}
+                    {{ __('Admin Menu Management') }}
                     {{-- <div class="page-title-subheading">{{ __('Administrator logger') }}</div> --}}
                 </div>
             </div>
@@ -421,7 +421,7 @@
                             <label for="" class="form-label fw-bold"> {{ __('Set Icon') }} </label>
                             <div class="input-group">
                                 <button class="btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select icon
+                                    {{__('Select icon')}}
                                 </button>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu">
 

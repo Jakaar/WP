@@ -18,7 +18,13 @@
         .ck-editor__editable {
             min-height: 200px;
         }
-
+        .swal2-confirm{
+            background-color: rgb(221, 51, 51) !important;
+            border:none !important;
+        }
+        .swal2-cancel{
+            background-color: #6c757d !important;
+        }
     </style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -240,10 +246,10 @@
                                 '',
                                 'success'
                             )
-                            $(this).closest('tr').fadeOut();
+                            
                             setTimeout(function() {
                                 location.reload()
-                            }, 4000);
+                            }, 2000);
                         });
                     }
                 })
@@ -293,8 +299,8 @@
                                 <select name="status" id="status" class="form-select form-control"
                                     data-msg-required="{{ __('This Field is Required') }}" required>
                                     <option value="">{{ __('Select') }}</option>
-                                    <option selected value="1">{{ __('Used') }}</option>
-                                    <option value="0">{{ __('Not Used') }}</option>
+                                    <option selected value="2">{{ __('Used') }}</option>
+                                    <option value="1">{{ __('Not Used') }}</option>
                                 </select>
                             </div>
                         </form>

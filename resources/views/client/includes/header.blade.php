@@ -25,6 +25,10 @@
                     <i class="ni ni-app d-lg-none"></i>
                     <span class="nav-link-inner--text"><b>{{__('Home')}}</b></span>
                 </a>
+                <a href="/customer/products" class="nav-link">
+                    <i class="ni ni-app d-lg-none"></i>
+                    <span class="nav-link-inner--text"><b>{{__('Products')}}</b></span>
+                </a>
                 @foreach($Main['menu'] as $menu)
                     @if (count($menu->childrenCategories) > 0)
                     <li class="nav-item dropdown">

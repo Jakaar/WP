@@ -160,7 +160,11 @@ Route::post('/client_data_delete',  [Itwizard\Adminpanel\Http\ApiControllers\Mai
     Route::post('/FAQ/update/', [\Itwizard\Adminpanel\Http\ApiControllers\FAQ\FAQController::class,'update']);
 
     Route::post('/Gallery/GetContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryGetContent']);
+    Route::post('/Gallery/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreate']);
     Route::post('/Gallery/CreateContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreateContent']);
+
+    Route::post('/GetPost/Details/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostDetails']);
+    Route::post('/GetPost/CreateOrUpdate/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostCreateOrUpdate']);
 
     Route::post('/SinglePage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'SinglePageCreate']);
 

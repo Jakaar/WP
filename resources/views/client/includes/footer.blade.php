@@ -11,16 +11,15 @@
                                 <div class="tab-pane fade @if ($key === 0) active show @endif"
                                     id="c_tab-animated1-{{ $lang->id }}">
                                     <li>
-                                        {{ __('Company Name') }} : {{ json_decode($site_info->company_name, true)[session()->get('locale')] }}
+                                        {{ __('Company Name') }} : {!!  json_decode($site_info->company_name, true)[session()->get('locale')] ?? '' !!}
                                     </li>
                                     <li>
-                                        {{ __('Site Name') }} : {{ json_decode($site_info->site_name, true)[session()->get('locale')] }}
+                                        {{ __('Site Name') }} : {{ json_decode($site_info->site_name, true)[session()->get('locale')] ?? '' }}
                                     </li>
                                     <li class="nav-item">
-                                        {{ __('Company Registration Number') }} : {{ $site_info->company_register_number }}
+                                        {{ __('Company Registration Number') }} : {!! json_decode($site_info->company_register_number, true) ?? '' !!}
                                     </li>
                                     <li>
-                                        {{-- {{ dd($lang->country_code) }} --}}
                                         {{ __('Address') }} : {!! json_decode($site_info->address, true)[session()->get('locale')] !!}
                                     </li>
                                 </div>
@@ -65,13 +64,13 @@
                                     <div class="tab-pane fade @if ($key === 0) active show @endif"
                                         id="c_tab-animated1-{{ $lang->id }}">
                                         <li class="nav-item">
-                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[session()->get('locale')]  ?? '' !!}
-                                        </li>
-                                        <li>
-                                            {!! json_decode($site_info->privacy_name_url, true)[session()->get('locale')]  ?? '' !!}
+                                            {!! $t->translateText($site_info->terms_of_condition_name_url) ?? $site_info->terms_of_condition_name_url !!}
                                         </li>
                                         <li class="nav-item">
-                                            {{ __('Copyright') }} :   {!! json_decode($site_info->site_copyright, true)[session()->get('locale')] ?? ''  !!}
+                                            {!! $t->translateText($site_info->privacy_name_url) ?? $site_info->privacy_name_url !!}
+                                        </li>
+                                        <li class="nav-item">
+                                            {{ __('Copyright') }} : {!! json_decode($site_info->site_copyright, true)[session()->get('locale')]  !!}
                                         </li>
                                     </div>
                                 @endforeach

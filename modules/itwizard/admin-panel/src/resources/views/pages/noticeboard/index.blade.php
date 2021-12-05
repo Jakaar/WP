@@ -1,6 +1,12 @@
 @extends('Admin::layouts.master')
 @section('title') {{__('Notice Board Management')}} @endsection
 @section('content')
+<style>
+    .form-control:disabled, .form-control[readonly] {
+        background-color: #fff !important; 
+        opacity: 1;
+    }
+</style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -522,12 +528,14 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteBoard/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your notice board has been deleted.',
-                                'success'
-                            )
-                            $(this).closest('tr').fadeOut();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '{{__('Deleted!')}}',
+                                showConfirmButton: false
+                            })
+                            setTimeout(function (){
+                                location.reload()
+                            },2000);
                         });
                     }
                 })
@@ -596,11 +604,11 @@
                     Axios.post('/api/updateboard', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire(
-                            'Updated!',
-                            'Your board has been updated.',
-                            'success'
-                        )
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{__('Updated')}}',
+                            showConfirmButton: false
+                        })
                         setTimeout(function() {
                             location.reload()
                         }, 2000);
