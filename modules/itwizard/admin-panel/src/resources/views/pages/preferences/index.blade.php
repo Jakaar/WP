@@ -12,7 +12,7 @@
                     <i class="fa fa-cogs icon-gradient bg-mixed-hopes"></i>
                 </div>
                 <div>
-                    {{ __('Basic Information') }}
+                    {{ __('Configuration') }}
                     <div class="page-title-subheading"></div>
                 </div>
             </div>
