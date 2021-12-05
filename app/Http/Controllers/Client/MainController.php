@@ -282,6 +282,7 @@ class MainController extends Controller
 
     public function products()
     {
-        return \view('client.pages.products.index');
+        $products = DB::table('main_products')->paginate(4);
+        return \view('client.pages.products.index',compact('products'));
     }
 }
