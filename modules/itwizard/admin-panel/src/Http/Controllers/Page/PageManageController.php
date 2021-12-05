@@ -95,7 +95,7 @@ class PageManageController extends Controller
 //        dd($content,$slug);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
-    public function detector($id, $board)
+    public function detector($id, $board, $uuid = null)
     {
         $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 0;
@@ -112,7 +112,16 @@ class PageManageController extends Controller
             ->first();
         $board = DB::table('wpanel_board_master')->where('id', $board)->first();
 
-        if($board->board_type === 'FAQ')
+        if ($uuid)
+        {
+            $uuid = base64_decode(base64_decode($uuid));
+            $Lists = DB::table('main__category__page')->where('main_category_id', $uuid)
+                ->get();
+//            dd($Lists);
+            $board->board_type = 'CategoryList';
+            return view('Admin::pages.manage_pages.index', compact('content', 'board','Lists'));
+        }
+        if ($board->board_type === 'FAQ')
         {
             $FAQ = DB::table('main__f_a_q')
 //                ->where('board_master_id',$board)
