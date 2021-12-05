@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\Controller;
 use App\Models\ContentCategory;
 use Carbon\Carbon;
@@ -235,8 +236,10 @@ class MainController extends Controller
             ->where('id','!=', $uuid)
             ->get()
             ->take(3);
+//        dd('ff');
+        $isComment = (new CommentController)->isComment($BlogDetails->main_category_id);
 //        dd($InCategoryNews);
-        return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
+        return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews','isComment'));
     }
     public function GalleryDetail($slug, $id, $uuid)
     {

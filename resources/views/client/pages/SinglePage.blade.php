@@ -91,6 +91,55 @@
                     </div>
                 </section>
             </section>
+            @if($isComment)
+                <section class="mt--5 section-blog-info">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 mx-auto">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="h3 mb-0">{{__('Comment')}}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Comments -->
+                                        <div class="mb-1">
+                                            <div class="media media-comment">
+                                                <img alt="Image placeholder" class="media-comment-avatar rounded-circle" src="../assets/img/faces/team-2.jpg">
+                                                <div class="media-body">
+                                                    <div class="media-comment-text">
+                                                        <h6 class="h5 mt-0">Jessica Stones</h6>
+                                                        <p class="text-sm lh-160">I always felt like I could do anything. That’s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down.</p>
+                                                        <div class="icon-actions">
+                                                            <a href="javascript:;" class="like active">
+                                                                <i class="ni ni-like-2"></i>
+                                                                <span class="text-muted">10 likes</span>
+                                                            </a>
+                                                            <a href="javascript:;">
+                                                                <i class="ni ni-curved-next"></i>
+                                                                <span class="text-muted">1 share</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @auth
+                                                <div class="media align-items-center mt-5">
+                                                    <img alt="Image placeholder" class="avatar avatar-lg rounded-circle mb-4" src="{{asset('storage/'.auth()->user()->avatar)}}">
+                                                    <div class="media-body">
+                                                        <form>
+                                                            <textarea class="form-control" placeholder="Write your comment" rows="1"></textarea>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endauth
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
         @endif
 
         @if(isset($SinglePageData->data))
