@@ -296,5 +296,12 @@ class MainController extends Controller
 //        dd($products);
         return \view('client.pages.products.index',compact('products'));
     }
+
+    public function details($code){
+        $model = \App\Product::where('sku',$code)->first();
+        return view('client.pages.products.details',[
+            'model' => $model,
+        ]);
+    }
 //
 }
