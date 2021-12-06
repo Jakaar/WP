@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function DeleteItem($id)
     {
         $name = DB::table('main_products')->where('id', $id)->first();
-//        DB::table('main_products')->where('id', $id)->delete();
+        DB::table('main_products')->where('id', $id)->delete();
         return response()->json(['msg'=> __(':Name Item Has Been Deleted', ['name'=>$name->name])], 200);
     }
     public function MultipleDelete(Request $request)
