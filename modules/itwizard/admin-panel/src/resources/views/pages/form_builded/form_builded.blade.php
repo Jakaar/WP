@@ -183,7 +183,7 @@
 
                 };
                 Axios.post('/api/form/create', data).then((resp) => {
-                    window.location.reload();
+                    // window.location.reload();
                     Swal.fire({
                         icon: 'success',
                         title: resp.data.msg
