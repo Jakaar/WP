@@ -319,7 +319,7 @@ class MainController extends Controller
     }
     public function products()
     {
-        $products = DB::table('main_products')->paginate(4);
+        $products = DB::table('main_products')->where('is_status',1)->paginate(4);
 //        dd($products);
         return \view('client.pages.products.index',compact('products'));
     }
