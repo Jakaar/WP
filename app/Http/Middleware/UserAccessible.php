@@ -23,7 +23,8 @@ class UserAccessible
             return $next($request);
         }
         else{
-            return response()->json(['msg' => 'Auth failed'],403);
+//            return response()->json(['msg' => 'Auth failed'],403);
+            return response()->view('client.auth.error');
         }
     }
 }
