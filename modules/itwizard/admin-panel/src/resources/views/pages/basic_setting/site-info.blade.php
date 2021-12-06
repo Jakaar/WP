@@ -163,35 +163,35 @@
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">
-                                            {{ __('User Location(Sign Up)') }}
+                                            {{ __('User Location') }}
                                         </div>
                                         <input type="text" class="form-control mb-3"
-                                            id="location" name="location" placeholder="{{ __('Location') }}">
+                                            id="location" name="location" placeholder="Location">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Terms of Use (Sing Up)') }}</div>
+                                        <div class="card-title text-uppercase">{{ __('Terms of Service (Login)') }}</div>
                                         <input type="text" class="form-control mb-3" id="termsService"
-                                        name="termsService" placeholder="{{ __('Terms of Use') }}">
+                                        name="termsService" placeholder="Terms of Service (Login)">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Privacy Policy (Sign Up)') }}</div>
+                                        <div class="card-title text-uppercase">{{ __('Privacy Policy (Login)') }}</div>
                                         <input type="text" class="form-control mb-3" id="privacyLogin"
-                                        name="privacyLogin" placeholder="{{ __('Privacy Policy') }}">
+                                        name="privacyLogin" placeholder="Privacy Policy (Login)">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Recieve promotional information(Sign Up)') }}</div>
+                                        <div class="card-title text-uppercase">{{ __('Recieve promotional information') }}</div>
                                         <input type="text" class="form-control mb-3" id="rpi"
-                                        name="rpi" placeholder="{{__('Recieve promotional information')}}">
+                                        name="rpi" placeholder="Recieve promotional information">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4 col-lg-4"> 
+                                    <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Company Registration Number') }}
                                         </div>
                                         <input type="text" class="form-control mb-3" id="companyRegister"
-                                            name="companyRegister" maxlength="50" placeholder="{{__('Company Registration Number')}}"
+                                            name="companyRegister" maxlength="50"
                                             value="{{ $site_info->company_register_number }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">

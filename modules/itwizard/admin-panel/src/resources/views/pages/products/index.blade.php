@@ -681,7 +681,7 @@
                                     const data = resp.data.data;
                                     // console.log(data)
                                     $('#staticBackdrop').modal('show')
-                                    $('#productLabel').html('{{__('Copy Product')}}')
+                                    $('#productLabel').html('{{ __('Copy Product') }}')
                                     $('#product_name').val(data.name)
                                     $('#order').val(data.showing_order)
                                     $('#hit').prop('checked', data.is_hit)
