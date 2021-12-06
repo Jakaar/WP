@@ -21,18 +21,15 @@ class MailController extends Controller
         // ->get();
 
         $datas['client_data'] = DB::table('client_form_data')
-        ->select('client_form_data.id','client_form_data.submited_at','client_form_data.isEnabled','form_builded.form_name')
         ->where('client_form_data.isEnabled',1)
         ->leftJoin('form_builded', 'form_builded.id', '=', 'client_form_data.form_id')
+//            ->select('client_form_data.id','client_form_data.created_at','client_form_data.isEnabled','form_builded.form_name')
         ->get();
-        // dd($datas['client_data']);
+//         dd($datas['client_data']);
 
 
         $datas['roles'] = DB::table('roles')
-        ->select(
-            'name',
-            'id'
-        )
+        ->select( 'name', 'id' )
         ->get();
         foreach($datas['roles'] as $item)
         {

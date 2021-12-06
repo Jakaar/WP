@@ -229,7 +229,17 @@ class MainController extends Controller
             ->where('is_enabled', 1)
             ->get()
             ->take(3);
-        return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews'));
+//        dd('ff');
+        $isComment = (new CommentController)->isComment($BlogDetails->main_category_id, $uuid);
+//        dd($isComment->isComment);
+        return \view('client.pages.SinglePage', compact('BlogDetails','InCategoryNews','isComment'));
+    }
+    public function GalleryDetail($slug, $id, $uuid)
+    {
+        $title = DB::table('categories')->where('id', $id)->first();
+        $uuid = base64_decode(base64_decode($uuid));
+        $Details = DB::table('main__gallery__photos')->where('id',$uuid)->first();
+        return \view('client.pages.GalleryDetails', compact('title','Details'));
     }
 
     public function client_form_data(Request $request)
