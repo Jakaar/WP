@@ -45,32 +45,32 @@
             </thead>
             <tbody>
             @foreach ($users as $user)
-            <tr key="{{ $user->id }}">
-                <td></td>
-                <td>{{ $user->firstname }}</td>
-                <td>{{ $user->lastname }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{$user->phone}}</td>
-                <td>
-                    <div class="">
-                        <div class="widget-content-right widget-content-actions">
-                            @permission('role-update')
-                            <button class=" btn-transition btn btn-outline-primary edit-roles"
-                                    data-bs-toggle="modal" data-bs-target="#editUserModal{{$user->id}}"
-                                    data-id="{{ $user->id }}">
-                                {{ __('View') }}
-                            </button>
-                            @endpermission
-                            @permission('role-delete')
-                            <button class="btn-transition btn btn-outline-danger delete_user"
-                                    data-id="{{ $user->id }}">
-                                {{ __('Delete') }}
-                            </button>
-                            @endpermission
+                <tr key="{{ $user->id }}">
+                    <td></td>
+                    <td>{{ $user->firstname }}</td>
+                    <td>{{ $user->lastname }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{$user->phone}}</td>
+                    <td>
+                        <div class="">
+                            <div class="widget-content-right widget-content-actions">
+                                @permission('role-update')
+                                <button class=" btn-transition btn btn-outline-primary edit-roles"
+                                        data-bs-toggle="modal" data-bs-target="#editUserModal{{$user->id}}"
+                                        data-id="{{ $user->id }}">
+                                    {{ __('View') }}
+                                </button>
+                                @endpermission
+                                @permission('role-delete')
+                                <button class="btn-transition btn btn-outline-danger delete_user"
+                                        data-id="{{ $user->id }}">
+                                    {{ __('Delete') }}
+                                </button>
+                                @endpermission
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
             @endforeach
             </tbody>
         </table>
