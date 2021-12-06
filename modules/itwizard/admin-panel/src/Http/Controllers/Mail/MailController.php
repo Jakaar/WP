@@ -44,7 +44,7 @@ class MailController extends Controller
             )
             ->get();
         }
-        // dd($datas);
+//         dd($datas);
         return view('Admin::pages.suppliers.index', compact('datas'));
 
     }

@@ -95,9 +95,9 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
            'lastname' => 'required',
-           'email' => 'required|email',
+           'email' => 'required|unique:users',
             'password' => 'required',
-            'sex' => 'required'
+            'sex' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -107,6 +107,7 @@ class RegisterController extends Controller
         }
         if ($validator->passes())
         {
+            $request->isEnabled = 1;
             $user = User::create($request->all(),[
                 'firstname',
                 'lastname',
@@ -115,7 +116,9 @@ class RegisterController extends Controller
                 'phone',
                 'user_type',
                 'birthdate',
-                'sex']);
+                'sex',
+                'isEnabled'
+            ]);
             auth()->login($user);
         }
 
