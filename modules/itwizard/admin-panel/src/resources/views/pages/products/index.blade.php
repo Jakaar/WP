@@ -330,7 +330,7 @@
                                         confirmButtonColor: '#3085d6',
                                         cancelButtonColor: '#d33',
                                         cancelButtonText: '{{ __('Cancel') }}',
-                                        confirmButtonText: '{{ __('Yes, Delete it!') }}'
+                                        confirmButtonText: '{{ __('Yes Delete it!') }}'
                                     }).then((result) => {
                                         if (result.isConfirmed) {
                                             Axios.post('/api/product/multiple/delete', JSON.parse(localStorage
