@@ -111,7 +111,7 @@ class PageManageController extends Controller
             )
             ->first();
         $board = DB::table('wpanel_board_master')->where('id', $board)->first();
-
+//        dd($content);
         if ($uuid)
         {
             $uuid = base64_decode(base64_decode($uuid));
