@@ -442,13 +442,13 @@
                 
                 $('.DeleteMenu').on('click', function () {
                     Swal.fire({
-                        title: '{{__('Are you sure?')}}',
+                        title: '{{ __('Are you sure?') }}',
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        cancelButtonText: '{{__('Cancel')}}',
-                        confirmButtonText: '{{__('Delete')}}'
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: '{{ __('Cancel') }}',
+                        confirmButtonText: '{{ __('Yes Delete It!') }}'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Axios.post('/api/DeleteMenu/' + $(this).attr('key')).then((resp) => {

@@ -1,0 +1,223 @@
+header {
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #000;
+}
+.logoTxt {
+    font-weight: bold;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.product-img {
+    width: 100%;
+    height: auto;
+}
+.product_img {
+    padding: 130px 0 100px 0;
+}
+.product_detail {
+    padding: 0 100px;
+}
+.p-0 {
+    padding: 0;
+}
+.icon_btn {
+    height: 5rem;
+    width: 5rem;
+}
+.img_btns {
+    margin-top: -88px;
+    text-align: right;
+    padding-right: 10px;
+}
+.p_title {
+    font-family: Poppins, sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #000;
+}
+.icon_download {
+    height: 26px;
+    float: right;
+    align-items: center;
+    margin-top: 40px;
+    margin-right: 60px;
+}
+.p_txt {
+    font-family: IBM Plex Sans KR, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #000;
+}
+.p_price {
+    font-family: IBM Plex Sans KR, sans-serif;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 35px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #333333;
+    margin: 25px 0;
+}
+.buy_btn {
+    width: 284px;
+    height: 73px;
+    background: #000000;
+    color: #fff;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+.mb-100 {
+    margin-bottom: 100px;
+}
+.mb-150 {
+    margin-bottom: 150px;
+}
+.mt-100 {
+    margin-top: 100px;
+}
+.mt-470 {
+    margin-top: 470px !important;
+}
+.mt-600 {
+    margin-top: 600px !important;
+}
+.custom_select {
+    width: 278px;
+    height: 72px;
+    background: #ECECEC;
+    border-radius: 79px;
+    cursor: pointer;
+}
+.custom_select .select_item {
+    display: none;
+    width: 100%;
+    height: 70px;
+    padding: 0 20px;
+    font-family: IBM Plex Sans KR, sans-serif;
+    font-size: 15px;
+    line-height: 70px;
+    letter-spacing: -0.01em;
+    color: #000000;
+}
+.plus {
+    background: url("/upload/icon_plus.png") no-repeat 90% 50%;
+}
+.minus {
+    background: url("/upload/icon_minus.png") no-repeat 90% 50%;
+}
+
+.custom_select .select_item img {
+    margin-right: 10px;
+}
+.custom_select .select_item.selected {
+    display: block;
+}
+.custom_select_box {
+    display: none;
+    position: absolute;
+    width: 367px;
+    height: 243px;
+    background: #ECECEC;
+    border-radius: 42px;
+    padding: 30px;
+    margin-top: -99px;
+}
+.custom_select_box .select_item {
+    cursor: pointer;
+    padding: 10px;
+}
+.custom_select_box .select_item img {
+    padding-right: 20px;
+}
+
+.custom_line {
+    width: 100%;
+    height: 92px;
+    background: #000000;
+    color: #fff;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 84px;
+    letter-spacing: -0.01em;
+    padding: 0 20px;
+}
+.custom_line img {
+    margin: 0 30px 0 15px;
+}
+.custom_detail {
+    padding-top: 240px;
+}
+.p_a_img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.p_second_img {
+    min-height: 590px;
+    z-index: 2;
+}
+.p_title img {
+    margin-top: -95px;
+}
+.sub_l_Txt {
+    font-family: IBM Plex Sans KR, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: -0.01em;
+}
+.sub_txt {
+     padding-left: 100px;
+     font-family: IBM Plex Sans KR, sans-serif;
+     font-size: 25px;
+     font-style: normal;
+     font-weight: 400;
+     line-height: 45px;
+     letter-spacing: -0.01em;
+     text-align: left;
+ }
+.sub_txt_info {
+    padding: 0 50px;
+    font-family: IBM Plex Sans KR, sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 45px;
+    letter-spacing: -0.01em;
+    text-align: left;
+}
+.b_img {
+    margin: 100px 0;
+    padding-left: 100px;
+}
+
+footer {
+    width: 100%;
+    height: 320px;
+    background: #333333;
+}

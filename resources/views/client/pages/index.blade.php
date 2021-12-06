@@ -23,8 +23,9 @@
         box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
     }
     .main_banner img{
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 5px;
     }
     .vertical_banner{
@@ -33,8 +34,9 @@
         box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
     }
     .vertical_banner img{
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 5px;
     }
     .horizontal_banner{
@@ -43,8 +45,9 @@
         box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
     }
     .horizontal_banner img{
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 5px;
     }
     .banner{
@@ -54,7 +57,7 @@
 	bottom: 650px;
     z-index: 1;
     margin-bottom: 50px;
-    
+
     }
     #banner_l{
         box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
@@ -76,11 +79,12 @@
         color: #fff;
     }
     #banner_l img{
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 5px;
     }
- 
+
     #banner_r{
         right: 220px;
         width: 200px;
@@ -98,8 +102,9 @@
         font-size: 18px;
     }
     #banner_r img{
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 5px;
     }
     #popup_banner
@@ -111,20 +116,21 @@
     .popup_banner
     {
         width: 400px;
-        height: 600px;       
+        height: 600px;
         cursor: move;
 
     }
-    .popup_banner .popup_content 
+    .popup_banner .popup_content
     {
-        width: 400px;
-        height: 600px;
+        width: 400px !important;
+        /*height: 500px;*/
     }
     .popup_banner .popup_content img
     {
-        max-width: 100%;
-        max-height: 100%;
- 
+        width: 100% !important;
+        height: 100%;
+        object-fit: cover;
+
     }
     .popup_banner .banner_foot
     {
@@ -188,28 +194,28 @@
         </div>
     </header>
     <div class="section features-4">
-        
+
         <div class="container">
 
 
             @if(isset($leftbanners))
-        
+
             @foreach ($leftbanners as $leftbanner)
                 <div id="banner_l" class="banner">
                     {!! $leftbanner->banner_content !!}
                     <span class="leftbanner_hide" id="leftbanner_hide">&times</span>
                 </div>
             @endforeach
-            
+
             @endif
             @if(isset($rightbanners))
             @foreach ($rightbanners as $rightbanner)
-                
+
                 <div id="banner_r" class="banner">
                         {!! $rightbanner->banner_content !!}
                         <span class="rightbanner_hide" id="rightbanner_hide">&times</span>
                 </div>
-                
+
             @endforeach
             @endif
 
@@ -293,17 +299,17 @@
     <div class="section features-4">
         <div class="container">
 
-            
-         
-         
+
+
+
             <div class="row">
                 @if(isset($verticalbanners))
                     @foreach ($verticalbanners as $verticalbanner)
 
-                        <div class="col-md-3">                         
+                        <div class="col-md-3">
                             <div class="vertical_banner">{!! $verticalbanner->banner_content !!}</div>
                         </div>
-                
+
                     @endforeach
                 @endif
             </div>
@@ -410,17 +416,17 @@
     <div class="section features-4">
         <div class="container">
 
-            
-         
-         
+
+
+
             <div class="row">
                 @if(isset($horizontalbanners))
                     @foreach ($horizontalbanners as $horizontalbanner)
 
-                        <div class="col-md-12">                         
+                        <div class="col-md-12">
                             <div class="horizontal_banner">{!! $horizontalbanner->banner_content !!}</div>
                         </div>
-                
+
                     @endforeach
                 @endif
             </div>
@@ -900,13 +906,13 @@
             </div>
         </section>
     </div>
-        
+
         @if(isset($popupbanners))
         @foreach($popupbanners as $popupbanner)
         <div id="popup_banner">
             <div class="popup_banner" >
                 <div class="popup_content">{!! $popupbanner->banner_content !!}</div>
-                
+
                 <div class="banner_foot">
                     <span class="banner_close"><a href="#" id="banner_close">Close</a></span>
                     <span class="banner_hide" id="banner_hide">&times</span>
@@ -920,7 +926,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-	
+
         // var $banner = $('.banner'), $window = $(window);
 		// var $topDefault = parseFloat( $banner.css('bottom'), 1000 );
 		// $window.on('scroll', function(){
@@ -940,13 +946,13 @@
 		// 		$banner.removeClass('zindex');
 		// 	}
 		// }
-	
+
         $("#popup_banner").draggable({ handle: ".popup_banner" });
         // $('#banner_close').on('click', function() {
         //     document.getElementById("popup_banner").style.display="none";
         //     localStorage.setItem("hidden_banner", "true");
-            
-            
+
+
         // });
         $('#banner_hide').on('click', function() {
             document.getElementById("popup_banner").style.display="none";
@@ -969,7 +975,7 @@
             localStorage.setItem('hidden_banner', JSON.stringify({
             time: new Date().getTime(),
             data: "true"
-            }));  
+            }));
         });
         let items=JSON.parse(localStorage.getItem('hidden_banner'));
         if(items.data==='true')
@@ -982,7 +988,7 @@
             localStorage.removeItem('hidden_banner');
         }
 
-    
+
 	});
 </script>
 @endsection
