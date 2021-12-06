@@ -68,7 +68,8 @@
                     </tr>
                 </thead>
                 {{-- <tbody class="members-table">
-                    @foreach ($data['users'] as $user)
+
+                    @foreach ($users as $user)
 
                         <tr key="{{ $user->id }}">
                             <td></td>
@@ -541,7 +542,7 @@
         //--  User Edit End --
     </script>
     <script>
-        // Role Update 
+        // Role Update
         $('.role-switcher').click(function() {
             // $(this).addClass('d-none')
             let id = $(this).attr('data-id');

@@ -17,6 +17,14 @@ Route::get('lang/{locale}', function ($lang) {
     // }
     return redirect()->back();
 });
+//Customer register
+Route::get('/customer/register',[\App\Http\Controllers\Auth\RegisterController::class, 'registerForm'])->name('register.form');
+Route::post('/post-registration',[\App\Http\Controllers\Auth\RegisterController::class,'store']);
+//Customer login
+Route::get('/customer/login', [\App\Http\Controllers\Auth\SessionsController::class,'create'])->name('customer.login');
+Route::post('/customers/login', [\App\Http\Controllers\Auth\SessionsController::class,'store'])->name('customers.login');
+Route::get('/logout', [\App\Http\Controllers\Auth\SessionsController::class,'destroy'])->name('customer.logout');
+
 Route::get('/customer/products', [\App\Http\Controllers\Client\MainController::class,'products']);
 
 Route::get('/dtlpgdt/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'BlogDetail']);

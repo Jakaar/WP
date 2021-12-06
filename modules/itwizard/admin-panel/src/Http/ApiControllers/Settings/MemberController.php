@@ -13,13 +13,13 @@ class MemberController extends Controller
     public function update(Request $request)
     {
         try {
+
             $model = \App\User::find($request->user_id);
 
-            if ($request->firstname!= Null || $request->lastname!= Null || $request->email != Null  ) {
                 $model->firstname = $request->firstname;
                 $model->lastname = $request->lastname;
                 $model->email = $request->email;
-            }
+
             if ($request->hasFile('avatar')) {
                 $model->avatar = $request->file('avatar')->store('avatar', 'public');
             }
@@ -36,7 +36,7 @@ class MemberController extends Controller
             return $e;
         }
     }
-    // 
+    //
 
     public function delete(Request $request)
     {
@@ -50,7 +50,13 @@ class MemberController extends Controller
 
     public function singleUserData(Request $request)
     {
-        $data = DB::table('users')->where('id', $request->id)->first();
+       $data = DB::table('users')->where('id', $request->id)->first();
+//        admin
+//        $data = DB::table('role_user')
+//            ->select('role_user.user_id','users.*')
+//            ->leftJoin('roles','role_user.role_id','=','roles.id')
+//            ->where('id',$request->id)
+//            ->get();
         return response()->json(['msg' => 'success', 'data' => $data], 200);
     }
     public function getPermission(Request $request)
@@ -96,7 +102,7 @@ class MemberController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        $user->attachRole('user');
+        $user->attachRole('admin');
 
         return response()->json(['icon'=> 'success', 'msg' => 'success'], 200);
     }

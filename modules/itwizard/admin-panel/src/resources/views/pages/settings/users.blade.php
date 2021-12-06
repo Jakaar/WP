@@ -26,7 +26,7 @@
                         <span class="btn-icon-wrapper pe-2 opacity-7">
                             <i class="pe-7s-plus"></i>
                         </span>
-                        {{ __('Create new member') }}
+                        {{ __('Create new admin') }}
                     </button>
 
 
@@ -43,7 +43,7 @@
                         <div class="text-center">
                             <h3>
                                 <small><i class="lnr-users icon-gradient bg-happy-fisher"></i></small>
-                                <span class="count-up-wrapper">{{ $users->count() }}</span>
+                                <span class="count-up-wrapper">{{ $admins->count() }}</span>
                             </h3>
                         </div>
                     </div>
@@ -80,29 +80,31 @@
                         </tr>
                     </thead>
                     <tbody class="members-table">
-                        @foreach ($users as $user)
 
-                            <tr key="{{ $user->id }}">
+                        @foreach ($users as $admin)
+
+                            <tr key="{{ $admin->id }}">
                                 <td></td>
-                                <td>{{ $user->firstname }}</td>
-                                <td>{{ $user->lastname }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $admin->firstname }}</td>
+                                <td>{{ $admin->lastname }}</td>
+                                <td>{{ $admin->email }}</td>
                                 <td class="">
                                     <div class="mb-3 badgeroles">
-                                        @foreach ($user->roles as $roled)
-                                            <span class="badge bg-success me-2">{{ __($roled->display_name) }}
+                                        @foreach($admin->roles as $roles)
+                                            <span class="badge bg-success me-2">{{ __($roles->display_name) }}
+
                                                 @permission('role-delete')
                                                     <a class="text-danger border-0 ps-2 remove-role" href="javascript:;"
-                                                        data-user="{{ $user->id }}" data-role="{{ $roled->id }}"> <i
+                                                        data-user="{{ $admin->id }}" data-role="{{ $roles->id }}"> <i
                                                             class="fa fa-times"></i> </a>
                                                     @endpermission
                                                 </span>
-                                            @endforeach
+                                        @endforeach
                                         </div>
-                                        <div class="input-group d-none change-role" data-id="{{ $user->id }}">
+                                        <div class="input-group d-none change-role" data-id="{{ $admin->id }}">
                                             <select name="roles" class="form-control form-control-xs roles">
                                                 @foreach ($role as $roles)
-                                                    <option value="{{ $roles->id }}" data-id="{{ $user->id }}">
+                                                    <option value="{{ $roles->id }}" data-id="{{ $admin->id }}">
                                                         {{ __($roles->display_name) }}</option>
                                                 @endforeach
                                             </select>
@@ -121,20 +123,20 @@
                                             @permission('member-update')
                                                 <div class="widget-content-right widget-content-actions">
                                                     <button class=" btn-transition btn btn-outline-primary edituser"
-                                                        data-id="{{ $user->id }}" data-bs-toggle="modal"
+                                                        data-id="{{ $admin->id }}" data-bs-toggle="modal"
                                                         data-bs-target="#editUserModal">
                                                         {{ __('Edit') }}
                                                     </button>
                                                     @endpermission
                                                     @permission('member-delete')
                                                         <button class=" btn-transition btn btn-outline-danger delete_user"
-                                                            data-id="{{ $user->id }}">
+                                                            data-id="{{ $admin->id }}">
                                                             {{ __('Delete') }}
                                                         </button>
                                                         @endpermission
                                                         @permission('role-update')
                                                             <button class=" btn-transition btn btn-outline-secondary role-switcher"
-                                                                data-id="{{ $user->id }}">
+                                                                data-id="{{ $admin->id }}">
                                                                 {{ __('Change Role') }}
                                                             </button>
                                                             @endpermission
@@ -188,8 +190,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header bg-white shadow shadow-sm">
-
-                                        <h5 class="modal-title" id="staticBackdropLabel">{{ __('Create new member') }}</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">{{ __('Create new admin') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -318,7 +319,7 @@
                                 };
                                 Axios.post('/api/single/user/data', data).then((resp) => {
                                     let user = resp.data.data;
-
+                                    console.log(resp.data.data);
                                     $('#changeImage').attr('src', '/storage/' + user.avatar)
                                     if (user.avatar == null) {
                                         user.avatar = '/aPanel/imgs/1.png';
@@ -399,14 +400,14 @@
                                         }).then((resp) => {
                                             console.log(resp)
                                             Swal.fire({
-                                                icon: resp.data.icon,
+                                                icon: 'Success',
                                                 title: '{{__('Success')}}',
                                                 showConfirmButton: false,
                                                 timer: 4000
                                             });
                                         }).catch((err) => {
                                             Swal.fire({
-                                                icon: resp.data.icon,
+                                                icon: 'Error',
                                                 title: err,
                                                 showConfirmButton: false,
                                                 timer: 1500
@@ -557,7 +558,7 @@
                                             user_id: user_id,
                                         }
                                         if (result.value) {
-                                            Axios.post('/api/member/update', {
+                                            Axios.post('/api/user/delete', {
                                                 reason: result.value,
                                                 user_id: user_id
                                             });
@@ -585,7 +586,7 @@
                             //--  User Edit End --
                         </script>
                         <script>
-                            // Role Update 
+                            // Role Update
                             $('.role-switcher').click(function() {
                                 // $(this).addClass('d-none')
                                 let id = $(this).attr('data-id');

@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Member Role Management')}} @endsection
+@section('title') {{__('Admin Role Management')}} @endsection
 
 @section('content')
     <div class="app-page-title">
@@ -9,7 +9,7 @@
                     <i class="pe-7s-way icon-gradient bg-tempting-azure"></i>
                 </div>
                 <div>
-                    {{ __('User Role') }}
+                    {{ __('Admin Role') }}
                     <div class="page-title-subheading">{{ __('User roles manage') }}</div>
                 </div>
             </div>

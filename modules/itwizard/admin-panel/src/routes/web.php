@@ -16,6 +16,7 @@ use Itwizard\Adminpanel\Http\Controllers\StaticFile\StaticFileController;
 use Itwizard\Adminpanel\Http\Controllers\Language\LanguageController;
 use App\Http\Controllers\Auth\GoogleController;
 use Itwizard\Adminpanel\Http\Controllers\LogViewer\LogViewerController;
+use Itwizard\Adminpanel\Http\Controllers\Users\MemberController;
 
 //Route::get('/', function (){
 //    return redirect('/cms/dashboard');
@@ -77,6 +78,8 @@ Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
     Route::get('/noticeboard', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'index']);
     Route::get('/noticeboard/search', [Itwizard\Adminpanel\Http\Controllers\NoticeBoardManagement\MainController::class, 'search']);
 
+    Route::get('/member_manage/users', [MemberController::class, 'Member']);
+    Route::get('/member_management/admin', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
 
     Route::get('/member_management/users', [PermissionController::class, 'Members'])->middleware(['permission:member-read']);
     Route::get('/member_management/permission', [PermissionController::class, 'index'])->middleware(['permission:role-read']);

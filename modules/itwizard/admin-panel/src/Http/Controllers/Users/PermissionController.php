@@ -35,17 +35,37 @@ class PermissionController extends Controller
         return response()->json($data, 200);
     }
 
-    public function Members(){
-        $users = \App\User::with('roles')->orderby('id','DESC')
-             ->where('isEnabled', 1)
-            ->get();
-            // dd($users);
+//    public function Members(){
+//        $users = \App\User::with('roles')->orderby('id','DESC')
+//             ->where('isEnabled', 1)
+//            ->get();
+//            // dd($users);
+//            $role = \App\Models\Role::get();
+//        return view('Admin::pages.settings.users', [
+//            'users' => $users,
+//            'role' => $role,
+//        ]);
+//    }
+
+//Customer controller
+        public function Members(){
+            $admins= DB::table('role_user')
+                ->select('role_user.role_id','role_user.user_id as uid','users.*','roles.*')
+                ->leftJoin('users','role_user.user_id','=','users.id')
+                ->leftJoin('roles','role_user.role_id','=','roles.id')
+                ->where('users.isEnabled',1)
+                ->get();
+            $users = \App\User::where('isEnabled',1)->whereNull('user_type')->get();
+//            $admins = \App\User::with('roles')->orderby('id','DESC')
+//             ->where('isEnabled', 1)
+//            ->get();
             $role = \App\Models\Role::get();
         return view('Admin::pages.settings.users', [
+            'admins'=>$admins,
             'users' => $users,
-            'role' => $role,
-        ]);
-    }
+            'role' => $role
+            ]);
+        }
 
     public function settings(){
         $permission = \App\MOdels\Permission::get();
