@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Static File')}} @endsection
+@section('title') {{ __('Static File') }} @endsection
 
 @section('content')
     <style>
@@ -18,13 +18,16 @@
         .ck-editor__editable {
             min-height: 200px;
         }
-        .swal2-confirm{
+
+        .swal2-confirm {
             background-color: rgb(221, 51, 51) !important;
-            border:none !important;
+            border: none !important;
         }
-        .swal2-cancel{
+
+        .swal2-cancel {
             background-color: #6c757d !important;
         }
+
     </style>
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -180,11 +183,11 @@
                     Axios.post('/api/addfile', data, {
                         headers: headers
                     }).then((resp) => {
-                        Swal.fire(
-                            '{{__('Added!')}}',
-                            '',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: '{{ __('Added!') }}',
+                            icon: 'success',
+                            showConfirmButton: false
+                        })
                         setTimeout(function() {
                             location.reload()
                         }, 2000);
@@ -213,8 +216,8 @@
                         headers: headers
                     }).then((resp) => {
                         Swal.fire(
-                            '{{__('Success')}}',
-                            '{{__('Your file has been updated.')}}',
+                            '{{ __('Success') }}',
+                            '{{ __('Your file has been updated.') }}',
                             'success'
                         )
                         setTimeout(function() {
@@ -237,16 +240,16 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     cancelButtonText: '{{ __('Cancel') }}',
-                    confirmButtonText: '{{ __('Confirm') }}'
+                    confirmButtonText: '{{ __('Yes Delete It!') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/DeleteFile/' + $(this).attr('key')).then((resp) => {
-                            Swal.fire(
-                                '{{__('Deleted!')}}',
-                                '',
-                                'success'
-                            )
-                            
+                            Swal.fire({
+                                title:'{{ __('Deleted!') }}',
+                                icon:'success',
+                                showConfirmButton: false
+                            })
+
                             setTimeout(function() {
                                 location.reload()
                             }, 2000);
