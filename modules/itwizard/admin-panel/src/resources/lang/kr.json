@@ -27,7 +27,7 @@
     "Already have an account?": "이미 계정이 있습니까?",
     "Sign in": "로그인",
     "Create Account": "가입하기",
-    "Home": "집",
+    "Home": "홈",
     "Language": "언어",
     "Enter title": "제목을 입력해 주세요",
     "Enter email": "이메일 주소를 입력해 주세요",
@@ -255,7 +255,9 @@
     "filemanager::filemanager.bulk-delete": "전체 삭제",
     "filemanager::filemanager.bulk-select": "다중 선택",
     "First name": "명",
+    "First Name": "명",
     "Last name": "성",
+    "Last Name": "성",
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
     "Profile": "프로필",
@@ -708,8 +710,8 @@
     "Created Date": "생성 날짜",
     "Updated Date": "업데이트 날짜",
     "Static File": "정적 파일",
-    "Edit Static File": "정적 파일 편집",
-    "Add Static File": "정적 파일 추가",
+    "Edit Static File": "파일 편집",
+    "Add Static File": "파일 추가",
     "Created at": "생성된 날짜",
     "Terms of Service": "서비스 약관",
     "Create Role": "역할 생성",
@@ -874,7 +876,9 @@
     "User Location (Sign Up)": "위치정보 이용약관(회원 가입)",
     "Terms of Service (Sign Up)": "이용약관(회원 가입)",
     "Privacy Policy (Sign Up)": "개인정보 수집 이용(회원 가입)",
-    "Recieve promotional information(Sign Up)": "프로모션 정보 수신(회원 가입)"
+    "Recieve promotional information(Sign Up)": "프로모션 정보 수신(회원 가입)",
+    "Create new user": "새 회원 생성",
+    "Manage your users": "회원 관리"
 
 
     

@@ -72,7 +72,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/permission/adminCreate', [\Itwizard\Adminpanel\Http\ApiControllers\Users\PermissionController::class, 'adminCreate']);
 
 
-    Route::group(['middleware' => 'user_accessible'], function () {
+
         Route::post('/preferences/create', [PreferencesController::class, 'create']);
         Route::post('/preferences/update', [PreferencesController::class, 'update']);
         Route::post('/preferences/delete', [PreferencesController::class, 'delete']);
@@ -84,7 +84,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/preferences/menu/single',[PreferencesController::class, 'menuSingle']);
         Route::post('/preferences/menu/delete',[PreferencesController::class, 'menuDelete']);
 
-    });
+
 
     Route::post('/preferences/board_type/create', [PreferencesController::class, 'createBoardType']);
     Route::post('/preferences/board_type/delete',[PreferencesController::class, 'deleteBoardType']);
@@ -173,7 +173,7 @@ Route::post('/client_data_delete',  [Itwizard\Adminpanel\Http\ApiControllers\Mai
 
     Route::post('/Content/Category/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'CategoryCreate']);
 
-    Route::post('/comment/create', function (){
-        return response()->json('', 200);
+    Route::post('/comment/create', function (Request $request){
+        return response()->json($request->all(), 200);
     });
 });

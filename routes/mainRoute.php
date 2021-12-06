@@ -26,6 +26,7 @@ Route::post('/customers/login', [\App\Http\Controllers\Auth\SessionsController::
 Route::get('/logout', [\App\Http\Controllers\Auth\SessionsController::class,'destroy'])->name('customer.logout');
 
 Route::get('/customer/products', [\App\Http\Controllers\Client\MainController::class,'products']);
+Route::get('/customer/product/{code}',[\App\Http\Controllers\Client\MainController::class,'details']);
 
 Route::get('/dtlpgdt/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'BlogDetail']);
 Route::get('/{slug}/{id}/gllr/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'GalleryDetail']);
