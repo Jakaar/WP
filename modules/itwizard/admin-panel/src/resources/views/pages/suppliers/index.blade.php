@@ -466,11 +466,13 @@
                     delete_id: delete_id
                 }
                 Swal.fire({
-                    title: '{{__('Are you sure?')}}',
-                    showDenyButton: true,
-                    showCancelButton: false,
-                    confirmButtonText: "{{__('Ok')}}",
-                    denyButtonText: `{{__('Cancel')}}`,
+                    title: '{{ __('Are you sure?') }}',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: '{{ __('Cancel') }}',
+                    confirmButtonText: '{{ __('Yes Delete It!') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/client_data_delete', data).then((resp) => {

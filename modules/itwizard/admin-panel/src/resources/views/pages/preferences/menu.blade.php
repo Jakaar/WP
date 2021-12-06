@@ -241,8 +241,9 @@
                 if ($('#menu').valid()) {
                     Axios.post('/api/preferences/menu/updates', data).then((resp) => {
                         Swal.fire({
+                            title: "{{ __('Success') }}",
                             icon: 'success',
-                            title: '{{__('Success')}}',
+                            showConfirmButton: false,
                         })
                         $('#staticBackdrop').modal('hide')
                         setInterval(() => {
@@ -311,8 +312,9 @@
                     Axios.post('/api/preferences/menu/update', data).then((resp) => {
                         // Menu drag end drop success msg
                         Swal.fire({
+                            title: "{{ __('Success') }}",
                             icon: 'success',
-                            title: '{{__('Success') }}'
+                            showConfirmButton: false,
                         });
                     }).catch((err) => {
                         console.log(err)
@@ -356,7 +358,8 @@
                         Swal.fire(
                             '{{__('success')}}',
                             '',
-                            resp.data.msg
+                            resp.data.msg,
+                            showConfirmButton: false,
                             );
                         setInterval(() => {
                             window.location.reload()
