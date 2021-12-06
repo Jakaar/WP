@@ -225,8 +225,9 @@
                 Axios.post('/api/category/delete', data).then((resp) => {
                     $('#staticBackdrop').modal('hide')
                     Swal.fire({
-                        title: "{{__('Success')}}",
-                        icon: 'success'
+                            title: "{{ __('Deleted') }}",
+                            icon: 'success',
+                            showConfirmButton: false,
                     })
                     setInterval(() => {
                         window.location.reload()
@@ -273,8 +274,9 @@
                     Axios.post('/api/category/create', data).then((resp) => {
                         $('#staticBackdrop').modal('hide')
                         Swal.fire({
-                            title: "{{__('Success')}}",
-                            icon: 'success'
+                            title: "{{ __('Success') }}",
+                            icon: 'success',
+                            showConfirmButton: false,
                         })
 
                         setInterval(() => {
@@ -338,8 +340,9 @@
                 if ($('#editForm').valid()) {
                     Axios.post('/api/category/update', data).then((resp) => {
                         Swal.fire({
-                            title: "{{__('Success')}}",
-                            icon: 'success'
+                            title: "{{ __('Success') }}",
+                            icon: 'success',
+                            showConfirmButton: false,
                         })
                         setInterval(() => {
                             window.location.reload()

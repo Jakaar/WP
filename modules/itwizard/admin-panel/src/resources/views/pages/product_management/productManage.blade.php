@@ -712,7 +712,7 @@
         $('.DeleteButton').click(function() {
             let id = $(this).attr('key')
             Swal.fire({
-                title: '{{ __(' Are you sure ? ') }}',
+                title: '{{ __('Are you sure ? ') }}',
                 icon : 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

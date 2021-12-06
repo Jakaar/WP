@@ -51,8 +51,9 @@
                 console.log(data);
                 Axios.post('/api/settings/siteinfo/termsUpdate', data).then((resp) => {
                     Swal.fire({
-                            title: "Success",
-                            icon: 'success'
+                            title: "{{ __('Success') }}",
+                            icon: 'success',
+                            showConfirmButton: false,
                         })
 
                         setInterval(() => {

@@ -360,21 +360,15 @@
                     $('#siteInfoSaveBtn').toggleClass('d-none')
                     $('#siteInfoEditBtn').toggleClass('d-none')
                     $('#fldst').attr('disabled', 'disabled');
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-                    Toast.fire({
-                        icon: 'success',
-                        title: resp.data.msg
-                    })
+                    Swal.fire({
+                            title: "{{ __('Success') }}",
+                            icon: 'success',
+                            showConfirmButton: false,
+                        })
+
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1000);
                 }).catch((err) => {
                     console.log(err);
                 });
