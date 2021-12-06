@@ -321,9 +321,9 @@
                     bAddress[code] = address;
                 })
 
-                let terms_url = '<a href="{{ env('APP_URL') }}/terms_of_use">'
+                let terms_url = '<a href="/terms_of_use">'
 
-                let privacy_url = '<a href="{{ env('APP_URL') }}/privacy_policy">'
+                let privacy_url = '<a href="/privacy_policy">'
 
     
 
@@ -335,7 +335,7 @@
 
                 let privacy_data_url = privacy_url.concat(privacy_data);
 
-                // alert(terms_data_url);
+                alert(terms_data_url);
 
 
                 const data = {
