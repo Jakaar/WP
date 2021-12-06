@@ -105,7 +105,7 @@ body {
     display: none;
 }
 .form-wizard .wizard-fieldset.show {
-    display: block;
+    display: block !important;
 }
 .form-wizard .wizard-form-error {
     display: none;
