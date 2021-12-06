@@ -255,7 +255,9 @@
     "filemanager::filemanager.bulk-delete": "전체 삭제",
     "filemanager::filemanager.bulk-select": "다중 선택",
     "First name": "명",
+    "First Name": "명",
     "Last name": "성",
+    "Last Name": "성",
     "Confirm password": "비밀번호 확인",
     "Change Password": "비밀번호 번경",
     "Profile": "프로필",
@@ -874,7 +876,9 @@
     "User Location (Sign Up)": "위치정보 이용약관(회원 가입)",
     "Terms of Service (Sign Up)": "이용약관(회원 가입)",
     "Privacy Policy (Sign Up)": "개인정보 수집 이용(회원 가입)",
-    "Recieve promotional information(Sign Up)": "프로모션 정보 수신(회원 가입)"
+    "Recieve promotional information(Sign Up)": "프로모션 정보 수신(회원 가입)",
+    "Create new user": "새 회원 생성",
+    "Manage your users": "회원 관리"
 
 
     
