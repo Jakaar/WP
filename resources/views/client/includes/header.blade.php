@@ -70,9 +70,9 @@
                             <b>{{ auth()->user()->email }}</b></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">
-                            <b>Profile</b>
-                        </a>
+<!--                        <a class="dropdown-item" href="#">-->
+<!--                            <b>Profile</b>-->
+<!--                        </a>-->
                         <a class="dropdown-item" href="{{route('customer.logout')}}">
                             <b>Logout</b>
                         </a>
