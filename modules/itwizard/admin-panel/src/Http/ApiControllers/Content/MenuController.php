@@ -36,6 +36,7 @@ class MenuController extends Controller
                     'target' => $request->OpenType,
                     'board_master_id'=>$request->board_id,
                     'isEnabled' => 1,
+                    'description' => $request->description,
                     'menu_url' => asset('')
                 ]);
 //                dd($getId);
@@ -48,6 +49,7 @@ class MenuController extends Controller
                     'target'=>$request->OpenType,
                     'board_master_id'=>$request->board_id,
                     'isEnabled'=> 1,
+                    'description' => $request->description,
                     'menu_url'=> asset('')
                 ]);
                 return response()->json(['msg' => __('success'),'details'=>'Main menu created, id is:'.$getId], 200);
