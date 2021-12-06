@@ -75,7 +75,7 @@ class MainController extends Controller
 //    }
     public function viewer($slug, $id, $uuid = null)
     {
-
+        $title = DB::table('categories')->where('id', $id)->first();
         $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 0;
         $content['type'] = DB::table('categories')
@@ -121,6 +121,7 @@ class MainController extends Controller
             }
             if ($board->board_type === 'Category')
             {
+//                $title = DB::table('categories')->where('id', $id)->first();
                 $Categories = DB::table('main__category')
                     ->where('category_id', $id)
                     ->where('is_enabled', 1)
@@ -130,10 +131,12 @@ class MainController extends Controller
                     ->where('category_id', $id)
                     ->where('isEnabled',1)
                     ->first();
-                return view('client.pages.Category',compact('board','Categories','datas'));
+                return view('client.pages.Category',compact('board','Categories','datas','title'));
             }
             if ($board->board_type === 'Gallery')
             {
+
+
                 $content['categories'] = ContentCategory::whereNull('content_category_id')
                     ->where(['board_master_id' => $id])
                     ->with('subCategories')
@@ -147,7 +150,7 @@ class MainController extends Controller
                     ->where('category_id', $id)
                     ->where('isEnabled',1)
                     ->first();
-                return view('client.pages.Gallery',compact('content','board','Groups','datas'));
+                return view('client.pages.Gallery',compact('content','board','Groups','datas','title'));
             }
             if ($board->board_type === 'SinglePage')
             {
