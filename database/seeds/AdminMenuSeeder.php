@@ -20,7 +20,8 @@ class AdminMenuSeeder extends Seeder
                 'order' => 1,
                 'is_active' => 1,
                 'icon' => null,
-            ], [
+            ], 
+            [
                 'id' => 2,
                 'title' => '{"mn":"Үндсэн тохиргоо ","en":"Basic Settings","kr":"기본설정"}',
                 'url' => '/cms/basic_setting',
@@ -28,7 +29,8 @@ class AdminMenuSeeder extends Seeder
                 'order' => 7,
                 'is_active' => 1,
                 'icon' => null,
-            ], [
+            ], 
+            [
                 'id' => 3,
                 'title' => '{"mn":"Тохиргоо","en":"Configuration","kr":"환경설정"}',
                 'url' => '/cms/preferences',
@@ -36,7 +38,17 @@ class AdminMenuSeeder extends Seeder
                 'order' => 1,
                 'is_active' => 1,
                 'icon' => 'pe-7s-settings',
-            ], [
+            ], 
+            [
+                'id' => 27,
+                'title' => '{"mn":"Тохиргоо","en":"Configuration","kr":"환경설정"}',
+                'url' => '/cms/preferences',
+                'parent_id' => 3,
+                'order' => 1,
+                'is_active' => 1,
+                'icon' => 'pe-7s-settings',
+            ],
+            [
                 'id' => 4,
                 'title' => '{"mn":"Хуудас удирдах","en":"Page manage","kr":"페이지 관리"}',
                 'url' => '/cms/manage_pages',
@@ -44,7 +56,8 @@ class AdminMenuSeeder extends Seeder
                 'order' => 4,
                 'is_active' => 1,
                 'icon' => null,
-            ], [
+            ], 
+            [
                 'id' => 5,
                 'title' => '{"mn":"И-Мейл удирдах","en":"Form Mail Manage","kr":"폼메일 관리"}',
                 'url' => '/cms/suppliers',
@@ -79,7 +92,8 @@ class AdminMenuSeeder extends Seeder
                 'order' => 6,
                 'is_active' => 1,
                 'icon' => null,
-            ], [
+            ], 
+            [
                 'id' => 9,
                 'title' => '{"mn":"Бүтээгдэхүүний удирдлага","en":"Product Manage","kr":"상품 관리"}',
                 'url' => '/cms/products',
@@ -87,7 +101,8 @@ class AdminMenuSeeder extends Seeder
                 'order' => 7,
                 'is_active' => 1,
                 'icon' => null,
-            ], [
+            ], 
+            [
                 'id' => 10,
                 'title' => '{"mn":"Баннер удирдах","en":"Banner Manage","kr":"배너관리"}',
                 'url' => '/cms/banner',
@@ -95,15 +110,8 @@ class AdminMenuSeeder extends Seeder
                 'order' => 8,
                 'is_active' => 1,
                 'icon' => null,
-            ], [
-                'id' => 11,
-                'title' => '{"mn":"Гишүүн удирдлага","en":"User Manage","kr":"회원 관리"}',
-                'url' => '/cms/#',
-                'parent_id' => null,
-                'order' => 9,
-                'is_active' => 1,
-                'icon' => null,
-            ],
+            ], 
+           
             [
 
                 'id' => 12,
@@ -162,42 +170,6 @@ class AdminMenuSeeder extends Seeder
                 'icon' => 'pe-7s-tools',
             ],
             [
-                'id' => 18,
-                'title' => '{"mn":"Aдмин удирдлага","en":"Admin Manage","kr":"관리자 관리"}',
-                'url' => '/cms/member_management/users',
-                'parent_id' => 16,
-                'order' => 1,
-                'is_active' => 1,
-                'icon' => null,
-            ],
-            [
-                'id' => 19,
-                'title' => '{"mn":"Хэрэглэгчийн эрх","en":"Member Role Management","kr":"회원 역할 관리"}',
-                'url' => '/cms/member_management/permission',
-                'parent_id' => 16,
-                'order' => 2,
-                'is_active' => 1,
-                'icon' => 'pe-7s-way',
-            ],
-            [
-                'id' => 20,
-                'title' => '{"mn":"Гарсан гишүүн","en":"Withdrawal member","kr":"탈퇴 회원"}',
-                'url' => '/cms/member_management/secessionist',
-                'parent_id' => 16,
-                'order' => 3,
-                'is_active' => 1,
-                'icon' => 'pe-7s-delete-user',
-            ],
-            [
-                'id' => 21,
-                'title' => '{"mn":"Эрхийн тохиргоо","en":"Permission settings","kr":"권한 설정"}',
-                'url' => '/cms/member_management/settings',
-                'parent_id' => 16,
-                'order' => 4,
-                'is_active' => 1,
-                'icon' => 'pe-7s-settings',
-            ],
-            [
                 'id' => 22,
                 'title' => '{"mn":"Хэрэглэгчийн цэс","en":"User menu","kr":"사용자 메뉴 관리"}',
                 'url' => '/cms/user_menu',
@@ -211,9 +183,18 @@ class AdminMenuSeeder extends Seeder
                 'title' => '{"mn":"Категорийн удирдлага","en":"Category Management","kr":"카테고리 관리"}',
                 'url' => '/cms/categories',
                 'parent_id' => 9,
-                'order' => 1,
+                'order' => 2,
                 'is_active' => 1,
                 'icon' => 'pe-7s-note2'
+            ],
+            [
+                'id' => 28,
+                'title' => '{"mn":"Бүтээгдэхүүний удирдлага","en":"Product Management","kr":"상품 관리"}',
+                'url' => '/cms/products',
+                'parent_id' => 9,
+                'order' => 1,
+                'is_active' => 1,
+                'icon' => 'pe-7s-box2',
             ],
             [
                 'id' => 24,
@@ -233,15 +214,54 @@ class AdminMenuSeeder extends Seeder
                 'is_active' => 1,
                 'icon' => null,
             ],
-/*            [
+            [
                 'id' => 26,
-                'title' => '{"mn":"Бүтээгдэхүүний удирдлага","en":"Product Management","kr":"상품 관리"}',
-                'url' => '/cms/products',
+                'title' => '{"mn":"Хэрэглэгчийн удирдлага","en":"Member Manage","kr":"회원 관리"}',
+                'url' => '/cms/member_manage/users',
                 'parent_id' => null,
-                'order' => 7,
+                'order' => 12,
                 'is_active' => 1,
-                'icon' => 'pe-7s-box2',
-            ],*/
+                'icon' => null,
+            ],
+
+            [
+                'id' => 18,
+                'title' => '{"mn":"Aдмин удирдлага","en":"Admin Manage","kr":"관리자 관리"}',
+                'url' => '/cms/member_management/users',
+                'parent_id' => 3,
+                'order' => 6,
+                'is_active' => 1,
+                'icon' => null,
+            ],
+            [
+                'id' => 19,
+                'title' => '{"mn":"Хэрэглэгчийн эрх","en":"Member Role Management","kr":"회원 역할 관리"}',
+                'url' => '/cms/member_management/permission',
+                'parent_id' => 18,
+                'order' => 2,
+                'is_active' => 1,
+                'icon' => 'pe-7s-way',
+            ],
+            [
+                'id' => 20,
+                'title' => '{"mn":"Гарсан гишүүн","en":"Withdrawal member","kr":"탈퇴 회원"}',
+                'url' => '/cms/member_management/secessionist',
+                'parent_id' => 18,
+                'order' => 3,
+                'is_active' => 1,
+                'icon' => 'pe-7s-delete-user',
+            ],
+            [
+                'id' => 21,
+                'title' => '{"mn":"Эрхийн тохиргоо","en":"Permission settings","kr":"권한 설정"}',
+                'url' => '/cms/member_management/settings',
+                'parent_id' => 18,
+                'order' => 4,
+                'is_active' => 1,
+                'icon' => 'pe-7s-settings',
+            ],
+
+           
         ]);
     }
 }
