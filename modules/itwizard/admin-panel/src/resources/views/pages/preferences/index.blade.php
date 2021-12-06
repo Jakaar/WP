@@ -355,7 +355,7 @@
                         <textarea name="" id="options_editor" cols="30" rows="10" class="form-control d-none my-3"
                             placeholder="Enter your input's options, example: { { options: { 'key' : 'value' } } }"></textarea>
                         <div class="float-end">
-                            <a href="javascript:;" id="open_options" class="me-2"> Options <i
+                            <a href="javascript:;" id="open_options" class="me-2"> {{ __('Options') }} <i
                                     class="fa fa-angle-double-down" id="openclose" aria-hidden="true"></i> </a>
                             <button type="button" class="btn btn-success" id="add_new_setting">
                                 <span class="btn-icon-wrapper pe-2 opacity-7">
