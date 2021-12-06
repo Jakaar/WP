@@ -95,8 +95,8 @@
                             </div>
 
                             <div class="col-4">
-                                <label class="form-label"> {{ __('Categories URL:') }} </label>
-                                <input type="text" class="form-control" placeholder="{{ __('http://localhost:8000/1/1') }}" name="categories" id="categories" data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label class="form-label"> {{ __('Page URL:') }} </label>
+                                <input type="text" class="form-control" placeholder="{{ __('http://localhost:8000/1/1') }}" name="url" id="url" data-msg-required="{{ __('This Field is Required') }}" required>
                             </div>
                             <div class="mb-3 col-2">
                                 <label for="is_status" class="form-check-label fw-bold mb-2">
@@ -106,7 +106,7 @@
                                 <input type="checkbox" data-toggle="toggle" name="is_status" id="is_status" data-size="sm" >
                             </div>
                             <div class="mb-3 col-2">
-                                <label class="form-check-label fw-bold mb-2">
+                                <label for="receive_email" class="form-check-label fw-bold mb-2">
                                     {{__('Receive Email')}}
                                 </label>
                                 <div class="clearfix"></div>
@@ -165,17 +165,18 @@
 
               },
           });
-
-
-        const formBuilder = $('#fb-editor').formBuilder({
-            disabledActionButtons: ['save']
-        });
+            var options = {
+                disabledSubtypes: {
+                    button: ['button'],
+                },
+            }
+        const formBuilder = $('#fb-editor').formBuilder(options);
         // $("#fb-editor").validate();
         $('.Create').on('click', function (){
             if ($('#validateCreate').valid()) {
-                data = {
+                const data = {
                     name:$('#form_name').val(),
-                    categories:$('#categories').val(),
+                    url:$('#url').val(),
                     receive_email:$("input[name='receive_email']:checked").val(),
                     status:$("input[name='is_status']:checked").val(),
                     data: JSON.stringify(formBuilder.actions.getData()),
@@ -183,7 +184,6 @@
                 };
                 Axios.post('/api/form/create', data).then((resp) => {
                     window.location.reload();
-
                     Swal.fire({
                         icon: 'success',
                         title: resp.data.msg
@@ -200,17 +200,17 @@
         $('.CreateModalShow').on('click', function (){
            $('#staticBackdrop').modal('show')
 
-            // $('.modal-footer').removeClass('card-shadow-primary border-primary')
-            // $('.modal-footer').addClass('card-shadow-success border-success ')
-            // $('.Create').removeClass('d-none')
-            // $('.Update').addClass('d-none')
-            // $("#is_statusEdit").attr("id", "is_status");
-            // $("#form_nameEdit").attr("id", "form_name");
-            // $("#receive_emailEdit").attr("id", "receive_email");
-            // $('#is_status').val(' ')
-            // $('#form_name').val(' ')
-            // $('#receive_email').val(' ')
-
+            $('.modal-footer').removeClass('card-shadow-primary border-primary')
+            $('.modal-footer').addClass('card-shadow-success border-success ')
+            $('.Create').removeClass('d-none')
+            $('.Update').addClass('d-none')
+            $("#is_statusEdit").attr("id", "is_status");
+            $("#form_nameEdit").attr("id", "form_name");
+            $("#receive_emailEdit").attr("id", "receive_email");
+            $('#is_status').val(' ')
+            $('#form_name').val(' ')
+            $('#receive_email').val(' ')
+            $('#url').val('')
 
         })
 
@@ -222,73 +222,115 @@
 
 
 
-        // $('.edit').click(function() {
-        //     $('#staticBackdrop').modal('show')
-        //         $('.Update').removeClass('d-none')
-        //         $('.Create').addClass('d-none')
-        //         $('.modal-footer').removeClass('card-shadow-success border-success')
-        //         $('.modal-footer').addClass('card-shadow-primary border-primary')
+        $('.edit').click(function() {
+            $('#staticBackdrop').modal('show')
+                $('.Update').removeClass('d-none')
+                $('.Create').addClass('d-none')
+                $('.modal-footer').removeClass('card-shadow-success border-success')
+                $('.modal-footer').addClass('card-shadow-primary border-primary')
+                $("#url").attr("id", "urlEdit");
+                $("#form_name").attr("id", "form_nameEdit");
 
-        //         $("#form_name").attr("id", "form_nameEdit");
-        //         $("#is_status").attr("id", "is_statusEdit");
-        //         $("#receive_email").attr("id", "receive_emailEdit");
+                $("#is_status").attr("id", "is_statusEdit");
+                $('#is_status').attr('name', 'is_statusEdit');
+
+                $("#receive_email").attr("id", "receive_emailEdit");
+                $('#receive_email').attr('name', 'receive_emailEdit');
 
 
-        //     const edit_id = $(this).attr('data-id');
-        //     const data = {
-        //         edit_id: edit_id,
-        //     }
-        //     Axios.post('/api/form/edit', data).then((resp) => {
-        //         // console.log(resp);
-        //         $('#hiddenId').val(resp.data.data.id)
-        //         $('#form_nameEdit').val(resp.data.data.form_name)
-                // formBuilder.actions.setData(JSON.parse(resp.data.data.data));
-        //         // $('#editCountryCode').val(resp.data.data.country_code)
-        //         if (resp.data.data.is_status == 0) {
-        //                 $('#is_statusEdit').bootstrapToggle('off')
-        //             } else {
-        //                 $('#is_statusEdit').bootstrapToggle('on')
-        //         }
 
-        //         if (resp.data.data.receive_email == 0) {
-        //                 $('#receive_emailEdit').bootstrapToggle('off')
-        //             } else {
-        //                 $('#receive_emailEdit').bootstrapToggle('on')
-        //         }
-        //     }).catch((err) => {
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: err
-        //         });
-        //     });
+            const edit_id = $(this).attr('data-id');
+            const data = {
+                edit_id: edit_id,
+            }
+            Axios.post('/api/form/edit', data).then((resp) => {
+                // console.log(resp);
+                $('#hiddenId').val(resp.data.data.id)
+                $('#form_nameEdit').val(resp.data.data.form_name)
+                $('#urlEdit').val(resp.data.data.board_master_id+'/'+resp.data.data.category_id)
 
-        // });
+                formBuilder.actions.setData(JSON.parse(resp.data.data.data));
+                // $('#editCountryCode').val(resp.data.data.country_code)
+                if (resp.data.data.is_status == 0) {
+                        $('#is_statusEdit').bootstrapToggle('off')
+                        // $('#is_statusEdit').val('off')
+                    } else {
+                        $('#is_statusEdit').bootstrapToggle('on')
+                        // $('#is_statusEdit').val('on')
+                }
 
-        // $('.update').click(function() {
-        //     // if ($('#validateUpdate').valid()) {
-        //         let data = {
-        //             id: $('#hiddenId').val(),
-        //             name: $('#form_nameEdit').val(),
-        //             data: JSON.stringify(formBuilderEdit.actions.getData()),
+                if (resp.data.data.receive_email == 0) {
+                        $('#receive_emailEdit').bootstrapToggle('off')
+                        // $('#receive_emailEdit').val('off')
 
-        //             receive_email:$("input[name='receive_emailEdit']:checked").val(),
-        //             status:$("input[name='is_statusEdit']:checked").val(),
-        //         }
-        //         Axios.post('/api/form/update', data).then((resp) => {
-        //             Swal.fire({
-        //                 icon: 'success',
-        //                 title: resp.data.msg
-        //             });
-        //             window.location.reload()
+                    } else {
+                        $('#receive_emailEdit').bootstrapToggle('on')
+                        // $('#receive_emailEdit').val('on')
 
-        //         }).catch((err) => {
-        //             Swal.fire({
-        //                 icon: 'error',
-        //                 title: err
-        //             });
-        //         });
-        //     //  }
-        // })
+                }
+            }).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: err
+                });
+            });
+//check checkbox value1
+            $("#is_statusEdit").change(function() {
+                if(this.checked) {
+                    $('#is_statusEdit').val('on')
+                }else{
+                    $('#is_statusEdit').val('off')
+                }
+            });
+            $("#receive_emailEdit").change(function() {
+                if(this.checked) {
+                    $('#receive_emailEdit').val('on')
+                }else{
+                    $('#receive_emailEdit').val('off')
+                }
+            });
+        });
+
+        $('.Update').click(function() {
+// check checkbox value2
+            $("#is_statusEdit").change(function() {
+                if(this.checked) {
+                    $('#is_statusEdit').val('on')
+                }else{
+                    $('#is_statusEdit').val('off')
+                }
+            });
+            $("#receive_emailEdit").change(function() {
+                if(this.checked) {
+                    $('#receive_emailEdit').val('on')
+                }else{
+                    $('#receive_emailEdit').val('off')
+                }
+            });
+
+                const data = {
+                    id: $('#hiddenId').val(),
+                    name: $('#form_nameEdit').val(),
+                    url:$('#urlEdit').val(),
+                    data: JSON.stringify(formBuilder.actions.getData()),
+                    receive_email:$('#receive_emailEdit').val(),
+                    status:$('#is_statusEdit').val(),
+                }
+
+                Axios.post('/api/form/update', data).then((resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: resp.data.msg
+                    });
+                    window.location.reload()
+
+                }).catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: err
+                    });
+                });
+        })
 
     });
 

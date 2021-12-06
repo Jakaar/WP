@@ -19,7 +19,7 @@
                             <div class="card-body">
                                 <div class="content-bottom">
                                     <h6 class="card-category text-white opacity-8 text-truncate">{{$group->description}}</h6>
-                                    <h5 class="card-title">{{$group->name}}</h5>
+                                    <h5 class="card-title text-truncate">{{$group->name}}</h5>
                                 </div>
                             </div>
                         </a>

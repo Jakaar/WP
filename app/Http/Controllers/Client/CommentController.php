@@ -11,13 +11,66 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|\Illuminate\Http\Response|object
      */
-    public function isComment($id)
+    public function isComment($id, $postId = null)
     {
+//        dd($postId);
         $check = DB::table('main__category')->where('id', $id)->select('board_master_id')->first();
         $isComment = DB::table('wpanel_board_master')->where('id', $check->board_master_id)->first();
-        return $isComment->isComment;
+        if ($isComment->isComment)
+        {
+            $isComment->data = DB::table('_comments')
+                ->where('_comments.post_id', $postId)
+                ->whereNull('parent_id')
+                ->leftJoin('users', 'users.id','=','_comments.user_id')
+                ->select([
+                    '_comments.id',
+                    '_comments.comment',
+                    '_comments.created_at',
+                    'users.firstname',
+                    'users.lastname',
+                    'users.avatar',
+                ])
+                ->get();
+            foreach ($isComment->data as $childComments)
+            {
+                $childComments->childs = DB::table('_comments')
+                    ->where('parent_id', $childComments->id)
+                    ->leftJoin('users', 'users.id','=','_comments.user_id')
+                    ->select([
+                        '_comments.id',
+                        '_comments.comment',
+                        '_comments.created_at',
+                        'users.firstname',
+                        'users.lastname',
+                        'users.avatar',
+                    ])
+                    ->get();
+                if ($childComments->childs)
+                {
+                    foreach ($childComments->childs as $childComments2)
+                    {
+                        $childComments2->childs = DB::table('_comments')
+                            ->where('parent_id', $childComments2->id)
+                            ->leftJoin('users', 'users.id','=','_comments.user_id')
+                            ->select([
+                                '_comments.id',
+                                '_comments.comment',
+                                '_comments.created_at',
+                                'users.firstname',
+                                'users.lastname',
+                                'users.avatar',
+                            ])
+                            ->get();
+                    }
+                }
+            }
+//            dd($isComment->data);
+            return $isComment;
+        }
+//        dd('no');
+        return null;
     }
 
     /**

@@ -27,5 +27,8 @@ Route::get('/privacy_policy', [SiteInfoController::class, 'privacy_policy']);
 Route::get('/',[\App\Http\Controllers\Client\MainController::class,'index']);
 Route::get('/{id}/{slug}',[\App\Http\Controllers\Client\MainController::class,'viewer']);
 Route::get('/{id}/{slug}/{uuid}',[\App\Http\Controllers\Client\MainController::class,'viewer']);
+//user data
+Route::post('/user_data_send',[\App\Http\Controllers\Client\MainController::class, 'client_form_data']);
+
 
 

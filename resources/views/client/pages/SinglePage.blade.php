@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 @inject('t','App\Helper\Helper')
 @section('content')
-        
+
 
         @if(isset($mainbanners))
         <section class="section">
@@ -19,7 +19,7 @@
 
 
         @if(isset($BlogDetails))
-        
+
             <div class="page-header header-filter">
                 <div class="page-header-image" style="background-image: url('{{$BlogDetails->main_img}}');"></div>
                 <div class="container">
@@ -75,7 +75,7 @@
                                             <div class="col-lg-8">
                                                 <div class="card-body">
                                                     <h3 class="card-title">
-                                                        <a href="javascript:;">{{$iNews->name}}</a>
+                                                        <a href="javascript:;" >{{$iNews->name}}</a>
                                                     </h3>
                                                     <p class="card-description">
                                                         {{$iNews->description}}
@@ -108,25 +108,26 @@
                                     <div class="card-body">
                                         <!-- Comments -->
                                         <div class="mb-1">
-                                            <div class="media media-comment">
-                                                <img alt="Image placeholder" class="media-comment-avatar rounded-circle" src="../assets/img/faces/team-2.jpg">
-                                                <div class="media-body">
-                                                    <div class="media-comment-text">
-                                                        <h6 class="h5 mt-0">Jessica Stones</h6>
-                                                        <p class="text-sm lh-160">I always felt like I could do anything. That’s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down.</p>
-                                                        <div class="icon-actions">
-                                                            <a href="javascript:;" class="like active">
-                                                                <i class="ni ni-like-2"></i>
-                                                                <span class="text-muted">10 likes</span>
-                                                            </a>
-                                                            <a href="javascript:;">
-                                                                <i class="ni ni-curved-next"></i>
-                                                                <span class="text-muted">1 share</span>
-                                                            </a>
+                                            @foreach($isComment->data as $comment)
+                                                <div class="media media-comment">
+                                                    <img alt="Image placeholder" class="media-comment-avatar rounded-circle"
+                                                         src="@if($comment->avatar){{asset('storage/'.$comment->avatar)}}@else{{asset('aPanel/imgs/1.png')}}@endif">
+                                                    <div class="media-body">
+                                                        <div class="media-comment-text">
+                                                            <h6 class="h5 mt-0">{{$comment->firstname ?? __('Guest')}}</h6>
+                                                            <p class="text-sm lh-160">
+                                                                {{$comment->comment}}
+                                                            </p>
+                                                            <div class="icon-actions">
+                                                                <a href="javascript:;">
+                                                                    <i class="ni ni-curved-next"></i>
+                                                                    <span class="text-muted">{{__('Reply')}}</span>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
                                             @auth
                                                 <div class="media align-items-center mt-5">
                                                     <img alt="Image placeholder" class="avatar avatar-lg rounded-circle mb-4" src="{{asset('storage/'.auth()->user()->avatar)}}">
@@ -148,20 +149,20 @@
         @endif
         @if(isset($leftbanners))
         @foreach ($leftbanners as $leftbanner)
-            
+
             <div id="banner_l" class="banner">
                 {!! $leftbanner->banner_content !!}
             </div>
-        
+
         @endforeach
         @endif
         @if(isset($rightbanners))
         @foreach ($rightbanners as $rightbanner)
-            
+
             <div id="banner_r" class="banner">
                     {!! $leftbanner->banner_content !!}
             </div>
-            
+
         @endforeach
         @endif
         @if(isset($SinglePageData->data))
