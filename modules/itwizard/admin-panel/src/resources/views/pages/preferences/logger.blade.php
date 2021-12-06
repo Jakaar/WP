@@ -59,7 +59,7 @@
                         </td>
                         <td> {{$log->ip}} </td>
                         <td> {{$log->agent}} </td>
-                        <td> {{$log->user->firstname}}  {{$log->user->lastname}} </td>
+                        <td> {{$log->user->firstname ?? 'NULL'}}  {{$log->user->lastname ?? 'NULL'}} </td>
                         <td> {{ $log->created_at }} </td>
                     </tr>
                     @endforeach
