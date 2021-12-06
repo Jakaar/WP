@@ -324,8 +324,6 @@
                 let terms_url = '<a href="http://{{ env('APP_URL') }}/terms_of_use">'
                 let privacy_url = '<a href="http://{{ env('APP_URL') }}/privacy_policy">'
 
-    
-
                 let terms_data = $('#termsUse').val() + '</a>';
 
                 let privacy_data = $('#privacy').val() + '</a>';

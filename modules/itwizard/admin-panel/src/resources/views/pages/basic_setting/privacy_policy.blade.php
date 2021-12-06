@@ -21,8 +21,8 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         window.print();
-    </script>
+    </script> --}}
 
 @endsection
