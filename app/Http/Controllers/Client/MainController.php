@@ -290,5 +290,11 @@ class MainController extends Controller
 
             return back()->with('success', 'Success!');
     }
+    public function products()
+    {
+        $products = DB::table('main_products')->paginate(4);
+//        dd($products);
+        return \view('client.pages.products.index',compact('products'));
+    }
 //
 }
