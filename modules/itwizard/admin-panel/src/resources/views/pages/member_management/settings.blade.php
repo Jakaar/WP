@@ -59,13 +59,13 @@
                                             @permission('permission-update')
                                             <button class="btn-outline-primary btn editPermission" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop" data-id="{{ $permissions->id }}">
-                                                {{ 'Edit' }}
+                                                {{ __('Edit') }}
                                             </button>
                                             @endpermission
                                             @permission('permission-delete')
                                             <button class="btn-outline-danger btn-link btn deletePermission"
                                                 data-id="{{ $permissions->id }}">
-                                                {{ 'Delete' }}
+                                                {{ __('Delete') }}
                                             </button>
                                             @endpermission
                                             {{-- <button class="border-0 btn-transition btn btn-outline-primary role-switcher" data-id="1">
