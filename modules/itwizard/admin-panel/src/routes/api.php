@@ -172,4 +172,8 @@ Route::post('/client_data_delete',  [Itwizard\Adminpanel\Http\ApiControllers\Mai
     Route::post('/SinglePage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'SinglePageCreate']);
 
     Route::post('/Content/Category/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'CategoryCreate']);
+
+    Route::post('/comment/create', function (){
+        return response()->json('', 200);
+    });
 });

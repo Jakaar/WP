@@ -119,7 +119,7 @@
                                                                 {{$comment->comment}}
                                                             </p>
                                                             <div class="icon-actions">
-                                                                <a href="javascript:;">
+                                                                <a href="javascript:;" key="{{$comment->id}}" class="commentReply">
                                                                     <i class="ni ni-curved-next"></i>
                                                                     <span class="text-muted">{{__('Reply')}}</span>
                                                                 </a>
@@ -132,8 +132,12 @@
                                                 <div class="media align-items-center mt-5">
                                                     <img alt="Image placeholder" class="avatar avatar-lg rounded-circle mb-4" src="{{asset('storage/'.auth()->user()->avatar)}}">
                                                     <div class="media-body">
-                                                        <form>
-                                                            <textarea class="form-control" placeholder="Write your comment" rows="1"></textarea>
+                                                        <form action="">
+                                                            <textarea class="form-control" id="commentData" placeholder="{{__('Write your comment')}}" rows="1"></textarea>
+                                                            <button type="button" class="btn btn-outline-default float-right comment">
+                                                                <span class="" role="status" aria-hidden="true"></span>
+                                                                {{__('Comment')}}
+                                                            </button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -149,11 +153,9 @@
         @endif
         @if(isset($leftbanners))
         @foreach ($leftbanners as $leftbanner)
-
             <div id="banner_l" class="banner">
                 {!! $leftbanner->banner_content !!}
             </div>
-
         @endforeach
         @endif
         @if(isset($rightbanners))
@@ -172,7 +174,7 @@
         @endif
 @endsection
 @section('script')
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		var $banner = $('.banner'), $window = $(window);
@@ -195,5 +197,22 @@
 			}
 		}
 	});
+    $(document).ready(function (){
+       $('.comment').on('click', function (){
+           $(this).children('span').addClass('spinner-border spinner-border-sm')
+           $(this).attr('disabled', true)
+           if ($('#commentData').val())
+           {
+               axios.post('/api/comment/create', {data:$('#commentData').val()})
+               .then((resp) => {
+                   $(this).children('span').removeClass('spinner-border spinner-border-sm')
+                   $(this).attr('disabled', false)
+               })
+           } else {
+               alert('null')
+           }
+
+       });
+    });
 </script>
 @endsection
