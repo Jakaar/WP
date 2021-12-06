@@ -36,7 +36,7 @@ Route::group(['prefix'=>'cms', 'middleware' => ['auth','role:owner']],function()
 
 });
 
-Route::group(['prefix'=>'cms','middleware'=>'auth'], function (){
+Route::group(['prefix'=>'cms','middleware'=>['auth','user_accessible']], function (){
     Route::get('/', function (){
         return redirect('/cms/dashboard');
     });

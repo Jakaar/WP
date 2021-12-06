@@ -16,11 +16,14 @@ class UserAccessible
      */
     public function handle($request, Closure $next)
     {
-        // $user = \App\User::where('id',$request->header('user_id'))->first();
-        // if(!$user){
-        //     return response()->json(['msg' => 'Auth failed'],403);
-        // }
-        
-        return $next($request);
+
+        $user = \App\User::where('id',Auth::user()->id)->first();
+
+        if($user->user_type == null){
+            return $next($request);
+        }
+        else{
+            return response()->json(['msg' => 'Auth failed'],403);
+        }
     }
 }
