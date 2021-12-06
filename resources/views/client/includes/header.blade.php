@@ -63,6 +63,26 @@
                         @endforeach
                     </div>
                 </li>
+                @if( auth()->check() )
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">
+                        <span class="nav-link-inner--text">
+                            <b>{{ auth()->user()->email }}</b></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">
+                            <b>Profile</b>
+                        </a>
+                        <a class="dropdown-item" href="{{route('customer.logout')}}">
+                            <b>Logout</b>
+                        </a>
+                    </div>
+                </li>
+                @else
+                <a href="{{route('customer.login')}}" class="nav-link">
+                    <i class="ni ni-circle-08"></i>
+                    <b>Login</b></a>
+                @endif
             </ul>
         </div>
     </div>
