@@ -24,10 +24,37 @@ class MainController extends Controller
      */
     public function index()
     {
-        $banners = DB::table('wpanel_banners')
-                    ->where('isEnabled', 'used')
-                    ->get();
-        return view('client.pages.index',compact('banners'));
+        $mainbanners = DB::table('wpanel_banners')
+            ->where('isEnabled', 'used')
+            ->where('slug', 'main-banner')
+            ->limit(1)
+            ->get();
+        $verticalbanners = DB::table('wpanel_banners')
+            ->where('isEnabled', 'used')
+            ->where('slug', 'vertical-banner')
+            ->limit(4)
+            ->get();
+        $horizontalbanners = DB::table('wpanel_banners')
+            ->where('isEnabled', 'used')
+            ->where('slug', 'horizontal-banner')
+            ->limit(1)
+            ->get();
+        $leftbanners = DB::table('wpanel_banners')
+            ->where('isEnabled', 'used')
+            ->where('slug', 'left-banner')
+            ->limit(1)
+            ->get();
+        $rightbanners = DB::table('wpanel_banners')
+            ->where('isEnabled', 'used')
+            ->where('slug', 'right-banner')
+            ->limit(2)
+            ->get();
+        $popupbanners = DB::table('wpanel_banners')
+            ->where('isEnabled', 'used')
+            ->where('slug', 'pop-up')
+            ->limit(1)
+            ->get();
+        return view('client.pages.index',compact('mainbanners','verticalbanners','horizontalbanners','leftbanners','rightbanners','popupbanners'));
     }
 //    public function viewer($id, $slug)
 //    {
