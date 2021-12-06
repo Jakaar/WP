@@ -16,8 +16,8 @@ class CreateClientFormData extends Migration
         Schema::create('client_form_data', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->integer('board_master_id');
-            $table->integer('category_id');
+            $table->timestamp('submited_at');
+            $table->integer('form_id');
             $table->integer('isEnabled');
             $table->timestamps();
         });
