@@ -1,6 +1,11 @@
 
 @extends('client.layouts.master')
 @section('content')
+<style>
+    .skew-separator.skew-mini:after {
+        background-color: #172b4d!important;
+    }
+</style>
 <div class="section-shaped my-0 skew-separator skew-mini">
     <div class="page-header page-header-small header-filter">
         <div class="page-header-image" style="background-image: url('/client/static/img/unsplashs.jpg');">
@@ -17,9 +22,9 @@
         </div>
     </div>
 </div>
-<section class="upper bg-default">
+<section class="upper bg-default" >
     <div class="container ">
-        <div class="col-lg-5 col-md-8 mx-auto p-3">
+        <div class="col-lg-5 col-md-8 mx-auto p-3" style="top: -200px; z-index: 2" >
             <div class="card bg-secondary shadow border-0">
                 <div class="card-header bg-white pb-5">
                     <div class="text-muted text-center mb-3"><small>Login with</small></div>
@@ -80,10 +85,9 @@
 </section>
 @endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
-
     window.Kakao.init("1266f5594789e7ea0dfc2bc963ac71c7");
     // const axios = require('axios');
     // window.axios = require('axios');
@@ -101,7 +105,12 @@
                             type: "get",
                             data: test ,
                             success: function (response) {
-                               //
+                               location.href = '/'
+                                swal({
+                                    title: "Congrats!",
+                                    text: "Successfully logged in",
+                                    type: "success"
+                                });
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 console.log(textStatus, errorThrown);
