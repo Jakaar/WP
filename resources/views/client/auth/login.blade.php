@@ -24,10 +24,13 @@
                 <div class="card-header bg-white pb-5">
                     <div class="text-muted text-center mb-3"><small>Login with</small></div>
                     <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
+<!--                        <a href="#" class="btn btn-neutral btn-icon">-->
+<!--                            <span class="btn-inner--icon"><img src="/client/static/img/kakao.png"></span>-->
+<!--                            <span class="btn-inner--text">Kakao</span>-->
+<!--                        </a>-->
+                        <a href="javascript:kakaoLogin();" class="btn-text text-dark btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="/client/static/img/kakao.png"></span>
                             <span class="btn-inner--text">Kakao</span>
-                        </a>
                         <a href="#" class="btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="/client/static/img/google.svg"></span>
                             <span class="btn-inner--text">Google</span>
@@ -75,4 +78,45 @@
         </div>
     </div>
 </section>
+@endsection
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+
+    window.Kakao.init("1266f5594789e7ea0dfc2bc963ac71c7");
+    // const axios = require('axios');
+    // window.axios = require('axios');
+    function kakaoLogin() {
+        window.Kakao.Auth.login({
+            scope: 'profile_image,account_email,gender',
+            success: function(authObj) {
+                window.Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: res => {
+                        const kakao_account = res.kakao_account;
+                        const test = kakao_account
+                        $.ajax({
+                            url : '/loginKakao',
+                            type: "get",
+                            data: test ,
+                            success: function (response) {
+                               //
+                                Swal.fire({
+                                    icon: 'success',
+                                    title:'{{__('Success')}}',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection
