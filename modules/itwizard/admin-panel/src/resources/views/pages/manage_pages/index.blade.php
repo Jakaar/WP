@@ -58,7 +58,7 @@
         @foreach ($content['data'] as $page)
             <div class=" @if ($page->child->count() != null) btn-group dropleft @endif me-2">
                 <a href="/cms/manage_pages/{{ $page->id }}/{{$page->board_master_id}}"
-                   class="btn btn-outline-primary px-4 @if (Request::getRequestURi() == '/cms/manage_pages/' . $page->id . '/page_content') active @endif"> {!! $t->translateText($page->name) !!} </a>
+                   class="btn btn-outline-primary px-4 @if (Request::getRequestURi() == '/cms/manage_pages/' . $page->id . '/'.$page->board_master_id.'') active @endif"> {!! $t->translateText($page->name) !!} </a>
                 @if ($page->child->count() != null)
                     <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
                             class="dropdown-toggle-split dropdown-toggle btn btn-outline-primary ">
