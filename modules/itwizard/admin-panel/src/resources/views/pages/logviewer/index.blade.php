@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Form Mail Manage')}} @endsection
+@section('title') {{__('Login Attempts')}} @endsection
 
 @section('content')
 <div class="app-main__inner p-0">
@@ -13,7 +13,7 @@
                             </div>
                             
                             <div>
-                                {{__('Available log')}}
+                                {{__('Login Attempts')}}
                                 <div class="page-title-subheading"></div>
                             </div>
                         </div>

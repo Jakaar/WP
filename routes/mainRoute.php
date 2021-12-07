@@ -23,6 +23,7 @@ Route::get('/loginKakao', [App\Http\Controllers\Auth\KakaoController::class,'sto
 //Customer register
 Route::get('/customer/register',[\App\Http\Controllers\Auth\RegisterController::class, 'registerForm'])->name('register.form');
 Route::post('/post-registration',[\App\Http\Controllers\Auth\RegisterController::class,'store']);
+Route::get('/userCheck',[\App\Http\Controllers\Auth\RegisterController::class,'checkUser']);
 //Customer login
 Route::get('/customer/login', [\App\Http\Controllers\Auth\SessionsController::class,'create'])->name('customer.login');
 Route::post('/customers/login', [\App\Http\Controllers\Auth\SessionsController::class,'store'])->name('customers.login');
