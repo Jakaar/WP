@@ -165,11 +165,24 @@
 
               },
           });
-            var options = {
-                disabledSubtypes: {
-                    button: ['button'],
-                },
-            }
+        const options = {
+            disabledActionButtons: ['save'],
+            i18n: {
+                @if(session()->get('locale') === 'kr')
+                locale: 'ko-KR',
+                @elseif(session()->get('locale') === 'en')
+                locale: 'en-US',
+                @else
+                locale: 'en-US',
+                @endif
+                location: '{{asset('aPanel/i18')}}',
+                extension: '.lang',
+                // override: {
+                //    'kr': {}
+                // }
+            },
+        };
+        console.log(options)
         const formBuilder = $('#fb-editor').formBuilder(options);
         // $("#fb-editor").validate();
         $('.Create').on('click', function (){
