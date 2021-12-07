@@ -107,13 +107,13 @@
                                                     name="c_email" id="c_email" autocomplete="off" required>
                                             </div>
                                             <div class="col-lg-6 mb-3">
-                                                <label class="form-label"> {{ __('Phone') }} </label>
+                                                <label class="form-label"> {{ __('Phone number') }} </label>
                                                 <input type="text" class="form-control" placeholder="{{ __('Phone') }} "
                                                     name="c_phone" id="c_phone" autocomplete="off"
                                                     data-inputmask="'mask': '[999-]9999-9999'" required>
                                             </div>
                                             <div class="col-lg-6 mb-3">
-                                                <label for="birthdate" class="form-label">Birthdate</label>
+                                                <label for="birthdate" class="form-label">{{__('Birthdate')}}</label>
                                                 <input type="date" class="form-control air-datepicker" name="c_birthdate"
                                                     autocomplete="off" id="c_birthdate">
                                             </div>
