@@ -60,7 +60,8 @@
                                             <div class="row">
                                                 <div class="col-md-4 col-lg-4">
                                                     <div class="card-title text-uppercase ">{{ __('Company Name') }}</div>
-                                                    <input type="text" placeholder="{{ __('Company Name') }}" class="form-control mb-3"
+                                                    <input type="text" placeholder="{{ __('Company Name') }}"
+                                                        class="form-control mb-3"
                                                         id="companyName{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}" name="companyName"
                                                         maxlength="110"
@@ -149,41 +150,41 @@
                                         <div class="card-title text-uppercase">
                                             {{ __('Terms of Use') }}
                                         </div>
-                                        <input type="text" class="form-control mb-3" id="termsUse"
-                                            name="termsUse"
+                                        <input type="text" class="form-control mb-3" id="termsUse" name="termsUse"
                                             value="{{ strip_tags($site_info->terms_of_condition_name_url) }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">
                                             {{ __('Privacy Policy') }}
                                         </div>
-                                        <input type="text" class="form-control mb-3"
-                                            id="privacy" name="privacy"
+                                        <input type="text" class="form-control mb-3" id="privacy" name="privacy"
                                             value="{{ strip_tags($site_info->privacy_name_url) }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">
                                             {{ __('User Location (Sign Up)') }}
                                         </div>
-                                        <input type="text" class="form-control mb-3"
-                                            id="location" name="location" placeholder=" {{ __('User Location (Sign Up)') }}">
+                                        <input type="text" class="form-control mb-3" id="location" name="location"
+                                            placeholder=" {{ __('User Location (Sign Up)') }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Terms of Service (Sign Up)') }}</div>
-                                        <input type="text" class="form-control mb-3" id="termsService"
-                                        name="termsService" placeholder="{{ __('Terms of Service (Sign Up)') }}">
+                                        <div class="card-title text-uppercase">{{ __('Terms of Service (Sign Up)') }}
+                                        </div>
+                                        <input type="text" class="form-control mb-3" id="termsService" name="termsService"
+                                            placeholder="{{ __('Terms of Service (Sign Up)') }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Privacy Policy (Sign Up)') }}</div>
-                                        <input type="text" class="form-control mb-3" id="privacyLogin"
-                                        name="privacyLogin" placeholder="{{ __('Privacy Policy (Sign Up)') }}">
+                                        <input type="text" class="form-control mb-3" id="privacyLogin" name="privacyLogin"
+                                            placeholder="{{ __('Privacy Policy (Sign Up)') }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Recieve promotional information(Sign Up)') }}</div>
-                                        <input type="text" class="form-control mb-3" id="rpi"
-                                        name="rpi" placeholder="{{ __('Recieve promotional information(Sign Up)') }}">
+                                        <div class="card-title text-uppercase">
+                                            {{ __('Recieve promotional information(Sign Up)') }}</div>
+                                        <input type="text" class="form-control mb-3" id="rpi" name="rpi"
+                                            placeholder="{{ __('Recieve promotional information(Sign Up)') }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -196,9 +197,9 @@
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Phone Number') }}</div>
-                                        <input type="tel" data-inputmask="'mask': '[9-]AAA-999'" im-insert="true"
+                                        <input type="tel" data-inputmask="'mask': '[999-]9999-9999'" im-insert="true"
                                             class="form-control mb-3 input-mask-trigger" id="phone" name="phone"
-                                            maxlength="50" value="{{ $site_info->phone_number }}">
+                                            maxlength="13" value="{{ $site_info->phone_number }}" inputmode="text">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Representative Email') }}</div>
@@ -345,12 +346,12 @@
                     email: $('#email').val(),
                     copyright: JSON.stringify(cRight),
                     logo: $('#logo-photo').val(),
-                    terms_use : terms_data_url,
-                    privacy : privacy_data_url,
-                    terms_use_login : $('#termsService').val(),
-                    location : $('#location').val(),
-                    privacy_login : $('#privacyLogin').val(),
-                    recieve_information : $('#rpi').val(),
+                    terms_use: terms_data_url,
+                    privacy: privacy_data_url,
+                    terms_use_login: $('#termsService').val(),
+                    location: $('#location').val(),
+                    privacy_login: $('#privacyLogin').val(),
+                    recieve_information: $('#rpi').val(),
                 };
 
                 Axios.post('/api/settings/siteinfo/update', data).then((resp) => {
@@ -359,14 +360,14 @@
                     $('#siteInfoEditBtn').toggleClass('d-none')
                     $('#fldst').attr('disabled', 'disabled');
                     Swal.fire({
-                            title: "{{ __('Success') }}",
-                            icon: 'success',
-                            showConfirmButton: false,
-                        })
+                        title: "{{ __('Success') }}",
+                        icon: 'success',
+                        showConfirmButton: false,
+                    })
 
-                        setInterval(() => {
-                            window.location.reload()
-                        }, 1000);
+                    setInterval(() => {
+                        window.location.reload()
+                    }, 1000);
                 }).catch((err) => {
                     console.log(err);
                 });
@@ -375,5 +376,11 @@
                 location.reload(true);
             });
         });
+    </script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(":input").inputmask();
+        })
     </script>
 @endsection
