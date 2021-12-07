@@ -759,7 +759,7 @@
     "Read Dashboard": "대시보드 읽기",
     "Reason": "이유",
     "Deleted date": "삭제된 날짜",
-    "Create New Permission": "새 역할 생성",
+    "Create New Permission": "새 권한 생성",
     "Permission name": "권한 이름",
     "Add Banner": "배너 추가",
     "Edit Banner": "배너 편집",
@@ -880,7 +880,16 @@
     "Create new user": "새 회원 생성",
     "Manage your users": "회원 관리",
     "Create new admin": "새 관리자 생성",
-    "Firstname": "이름"
+    "Firstname": "이름",
+    "Admin Role": "관리자 역할",
+    "Edit Permission Settings": "권한 설정 편집",
+    "Form id": "폼 아이디",
+    "Submited date": "발송 날짜",
+    "Email Send": "이메일 발송",
+    "Form Mail Name": "폼메일 이름",
+    "Page URL:": "페이지 URL:",
+    "Receive Email": "이메일 수신"
+    
 
 
     

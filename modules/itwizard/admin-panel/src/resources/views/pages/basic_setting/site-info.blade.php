@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-md-12 col-lg-12">
                                 <div class="row">
-                                    <div class="col-md-4 col-lg-4">
+                                    <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">
                                             {{ __('Terms of Use') }}
                                         </div>
@@ -153,7 +153,7 @@
                                             name="termsUse"
                                             value="{{ strip_tags($site_info->terms_of_condition_name_url) }}">
                                     </div>
-                                    <div class="col-md-4 col-lg-4">
+                                    <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">
                                             {{ __('Privacy Policy') }}
                                         </div>
@@ -161,16 +161,17 @@
                                             id="privacy" name="privacy"
                                             value="{{ strip_tags($site_info->privacy_name_url) }}">
                                     </div>
-                                    <div class="col-md-4 col-lg-4">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">
                                             {{ __('User Location (Sign Up)') }}
                                         </div>
                                         <input type="text" class="form-control mb-3"
                                             id="location" name="location" placeholder=" {{ __('User Location (Sign Up)') }}">
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-4">
+                                    {{-- <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Terms of Service (Sign Up)') }}</div>
                                         <input type="text" class="form-control mb-3" id="termsService"
                                         name="termsService" placeholder="{{ __('Terms of Service (Sign Up)') }}">
@@ -179,8 +180,8 @@
                                         <div class="card-title text-uppercase">{{ __('Privacy Policy (Sign Up)') }}</div>
                                         <input type="text" class="form-control mb-3" id="privacyLogin"
                                         name="privacyLogin" placeholder="{{ __('Privacy Policy (Sign Up)') }}">
-                                    </div>
-                                    <div class="col-md-4 col-lg-4">
+                                    </div> --}}
+                                    <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">{{ __('Recieve promotional information(Sign Up)') }}</div>
                                         <input type="text" class="form-control mb-3" id="rpi"
                                         name="rpi" placeholder="{{ __('Recieve promotional information(Sign Up)') }}">

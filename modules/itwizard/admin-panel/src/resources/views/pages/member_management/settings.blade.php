@@ -254,8 +254,8 @@
                     <form action="#" id="edit_permission" class="row">
                         <input type="hidden" id="u_id">
                         <div class="mb-3 col-lg-6">
-                            <label class="form-label"> {{ __('Role name') }} </label>
-                            <input type="text" class="form-control" placeholder="{{ __('Role name') }}"
+                            <label class="form-label"> {{ __('Permission name') }} </label>
+                            <input type="text" class="form-control" placeholder="{{ __('Permission name') }}"
                                 name="u_role_name" id="u_role_name" readonly="true">
                         </div>
                         <div class="mb-3 col-lg-6">
