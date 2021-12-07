@@ -108,16 +108,16 @@ class RegisterController extends Controller
         if ($validator->passes())
         {
             $request->isEnabled = 1;
-            $user = User::create($request->all(),[
-                'firstname',
-                'lastname',
-                'email',
-                'password',
-                'phone',
-                'user_type',
-                'birthdate',
-                'sex',
-                'isEnabled'
+            $user = User::create([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'phone'  => $request->phone,
+                'user_type' => 'customer',
+                'birthdate' => $request->birthdate,
+                'sex' => $request->sex,
+                'isEnabled'  => 1
             ]);
             auth()->login($user);
         }

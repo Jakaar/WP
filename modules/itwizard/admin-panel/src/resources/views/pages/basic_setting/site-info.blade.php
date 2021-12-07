@@ -161,16 +161,8 @@
                                             id="privacy" name="privacy"
                                             value="{{ strip_tags($site_info->privacy_name_url) }}">
                                     </div>
-
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 col-lg-6">
-                                        <div class="card-title text-uppercase">
-                                            {{ __('User Location (Sign Up)') }}
-                                        </div>
-                                        <input type="text" class="form-control mb-3"
-                                            id="location" name="location" placeholder=" {{ __('User Location (Sign Up)') }}">
-                                    </div>
                                     {{-- <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Terms of Service (Sign Up)') }}</div>
                                         <input type="text" class="form-control mb-3" id="termsService"
@@ -181,6 +173,13 @@
                                         <input type="text" class="form-control mb-3" id="privacyLogin"
                                         name="privacyLogin" placeholder="{{ __('Privacy Policy (Sign Up)') }}">
                                     </div> --}}
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="card-title text-uppercase">
+                                            {{ __('User Location (Sign Up)') }}
+                                        </div>
+                                        <input type="text" class="form-control mb-3"
+                                            id="location" name="location" placeholder=" {{ __('User Location (Sign Up)') }}">
+                                    </div>
                                     <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">{{ __('Recieve promotional information(Sign Up)') }}</div>
                                         <input type="text" class="form-control mb-3" id="rpi"
@@ -197,9 +196,9 @@
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Phone Number') }}</div>
-                                        <input type="tel" data-inputmask="'mask': '[9-]AAA-999'" im-insert="true"
+                                        <input type="tel" data-inputmask="'mask': '[999-]9999-9999'" im-insert="true"
                                             class="form-control mb-3 input-mask-trigger" id="phone" name="phone"
-                                            maxlength="50" value="{{ $site_info->phone_number }}">
+                                            maxlength="13" value="{{ $site_info->phone_number }}" inputmode="text">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Representative Email') }}</div>
@@ -348,9 +347,9 @@
                     logo: $('#logo-photo').val(),
                     terms_use : terms_data_url,
                     privacy : privacy_data_url,
-                    terms_use_login : $('#termsService').val(),
+                    // terms_use_login : $('#termsService').val(),
                     location : $('#location').val(),
-                    privacy_login : $('#privacyLogin').val(),
+                    // privacy_login : $('#privacyLogin').val(),
                     recieve_information : $('#rpi').val(),
                 };
 
@@ -376,5 +375,11 @@
                 location.reload(true);
             });
         });
+    </script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(":input").inputmask();
+        })
     </script>
 @endsection

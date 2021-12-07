@@ -20,7 +20,7 @@
                     class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
                     <i class="pe-7s-refresh-2"></i>
                 </button>
-                    @permission('product-create')
+                @permission('product-create')
                     <button type="button" class="search-icon btn-shadow btn btn-success ModalShow">
                         <span class="btn-icon-wrapper pe-2 opacity-7">
                             <i class="pe-7s-plus"></i>
@@ -29,7 +29,7 @@
                     </button>
                     <button class="btn btn-outline-info opa disabled">{{ __('Copy') }}</button>
                     @endpermission
-                     @permission('product-delete')
+                    @permission('product-delete')
                         <button class="btn btn-outline-danger multipleDelete">{{ __('Delete') }}</button>
                         @endpermission
                     </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="mt-5 row justify-content-center">
                             <div class="col-12">
-                                @if (session()->has('message'))
+                                {{-- @if (session()->has('message'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <button type="button" class="btn-close" aria-label="Close"
                                             data-bs-dismiss="alert"></button>
@@ -69,7 +69,7 @@
                                             data-bs-dismiss="alert"></button>
                                         {{ __(session()->get('updated')) }}
                                     </div>
-                                @endif
+                                @endif --}}
                                 <table style="width: 100%;" id="ProductTable" class="table table-hover table-striped">
                                     <thead>
                                         <tr>
@@ -335,11 +335,13 @@
                                         if (result.isConfirmed) {
                                             Axios.post('/api/product/multiple/delete', JSON.parse(localStorage
                                                 .getItem('items'))).then((resp) => {
-                                                Swal.fire(
-                                                    '{{ __('Deleted') }}',
-                                                    resp.data.msg,
-                                                    'success'
-                                                )
+                                                Swal.fire({
+                                                    title: '{{ __('Deleted') }}',
+                                                    text: resp.data.msg,
+                                                    icon: 'success',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                })
                                                 $.each(JSON.parse(localStorage.getItem('items')), function(
                                                     i, v) {
                                                     $('.remover-' + v).fadeOut();
@@ -380,15 +382,17 @@
                                     confirmButtonColor: '#3085d6',
                                     cancelButtonColor: '#d33',
                                     cancelButtonText: '{{ __('Cancel') }}',
-                                    confirmButtonText: '{{ __('Yes, Delete it!') }}'
+                                    confirmButtonText: '{{ __('Yes Delete it!') }}'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         Axios.post('/api/product/delete/' + $(this).attr('key')).then((resp) => {
-                                            Swal.fire(
-                                                '{{ __('Deleted') }}',
-                                                resp.data.msg,
-                                                'success'
-                                            )
+                                            Swal.fire({
+                                                title: '{{ __('Deleted') }}',
+                                                text: resp.data.msg,
+                                                icon: 'success',
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            })
                                             $(this).closest('tr').fadeOut();
                                         })
                                     }
@@ -746,5 +750,32 @@
                                 theme: "bootstrap-5",
                             });
                         });
+
+                        @if (session()->has('message'))
+                            Swal.fire({
+                            title: " {{ __(session()->get('message')) }}",
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                        @endif
+
+                        @if (session()->has('errorA'))
+                            Swal.fire({
+                            title: "{{ __(session()->get('errorA')) }}",
+                            icon: 'delete',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                        @endif
+
+                        @if (session()->has('updated'))
+                            Swal.fire({
+                            title: "{{ __(session()->get('updated')) }}",
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                        @endif
                     </script>
                 @endsection

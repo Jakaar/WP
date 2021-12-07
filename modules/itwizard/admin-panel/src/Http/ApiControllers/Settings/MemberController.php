@@ -16,19 +16,15 @@ class MemberController extends Controller
 
             $model = \App\User::find($request->user_id);
 
-                $model->firstname = $request->firstname;
-                $model->lastname = $request->lastname;
-                $model->email = $request->email;
+            $model->firstname = $request->firstname;
+            $model->lastname = $request->lastname;
+            $model->email = $request->email;
 
             if ($request->hasFile('avatar')) {
                 $model->avatar = $request->file('avatar')->store('avatar', 'public');
             }
             if ($request->input('password') != null) {
                 $model->password = Hash::make($request->password);
-            }
-            if ($request->reason!= Null) {
-                $model->reason = $request->reason;
-                $model->deleted_at = \Carbon\Carbon::now();
             }
             $model->save();
             return response()->json(['icon' => 'success', 'msg' => 'success'], 200);
@@ -42,21 +38,24 @@ class MemberController extends Controller
     {
         // $model = \App\User::where('id', $request->user_id);
         // $model->delete();
+
         DB::table('users')->where('id', $request->user_id)->update([
-            'isEnabled' => 0
+            'isEnabled' => 0,
+            'reason' => $request->reason,
+            'deleted_at' => now()->format('y-m-d h:i:s')
         ]);
         return response()->json(['msg' => 'success', 'data' => $request->all()], 200);
     }
 
     public function singleUserData(Request $request)
     {
-       $data = DB::table('users')->where('id', $request->id)->first();
-//        admin
-//        $data = DB::table('role_user')
-//            ->select('role_user.user_id','users.*')
-//            ->leftJoin('roles','role_user.role_id','=','roles.id')
-//            ->where('id',$request->id)
-//            ->get();
+        $data = DB::table('users')->where('id', $request->id)->first();
+        //        admin
+        //        $data = DB::table('role_user')
+        //            ->select('role_user.user_id','users.*')
+        //            ->leftJoin('roles','role_user.role_id','=','roles.id')
+        //            ->where('id',$request->id)
+        //            ->get();
         return response()->json(['msg' => 'success', 'data' => $data], 200);
     }
     public function getPermission(Request $request)
@@ -87,8 +86,9 @@ class MemberController extends Controller
         return response()->json(['msg' => 'success'], 200);
     }
 
-    public function permissionSettingsDelete(Request $request){
-        $model = \App\Models\Permission::where('id',$request->id);
+    public function permissionSettingsDelete(Request $request)
+    {
+        $model = \App\Models\Permission::where('id', $request->id);
         $model->delete();
         return response()->json(['msg' => 'success'], 200);
     }
@@ -104,6 +104,6 @@ class MemberController extends Controller
         $user->save();
         $user->attachRole('admin');
 
-        return response()->json(['icon'=> 'success', 'msg' => 'success'], 200);
+        return response()->json(['icon' => 'success', 'msg' => 'success'], 200);
     }
 }

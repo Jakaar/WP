@@ -515,13 +515,15 @@
     </div>
     <script type="text/javascript" src="{{ asset('aPanel/js/main.js') }}"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $.blockUI.defaults = {
-                 // timeout: 2000,
-                // fadeIn: 200,
-                // fadeOut: 400,
+                timeout: 2000,
+                fadeIn: 200,
+                fadeOut: 400,
             };
-            $.blockUI({ message: $(".body-block-example-1") });
+            $.blockUI({
+                message: $(".body-block-example-1")
+            });
         })
     </script>
     <script>
@@ -626,11 +628,10 @@
     @endif
     <script>
         $(document).ready(function() {
-            Axios.defaults.headers.common = {
-                "user_id": '{{ Auth::user()->id }}'
-            }
+            Axios.defaults.headers.common['Authorization'] = '{{ Auth::user()->id }}';
         })
     </script>
+
     @yield('script')
     @yield('modal')
 </body>

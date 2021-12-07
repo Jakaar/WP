@@ -28,8 +28,6 @@ class SiteInfoSeeder extends Seeder
             'privacy' => null,
             'personal_information_manager' => '{"mn": "Монгол", "en": "English", "kr": "정보를 입력하세요"}',
             'location' => null,
-            'terms_of_service_login' => null,
-            'privacy_policy_login' => null,
             'recieve_promotional_information' => null
         ]);
     }
