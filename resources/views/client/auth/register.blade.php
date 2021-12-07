@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
-                                    <input id="firstname" name="firstname" class="form-control" type="text" required>
+                                    <input id="firstname" name="firstname" class="form-control" type="text" required autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
-                                    <input id="email" name="email" class="form-control" type="email" required>
+                                    <input id="email" name="email" class="form-control" type="email" required autocomplete="off">
                                     <small for="" id="email_error" class="text-danger"></small>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
-                                    <input id="phone" name="phone" class="form-control" type="text" required>
+                                    <input id="phone" name="phone" class="form-control" type="text" required autocomplete="off">
                                     <small for="" id="phone_error" class="text-danger"></small>
                                 </div>
                             </div>
@@ -95,8 +95,7 @@
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
-                                    <input id="password" name="password" class="form-control" type="password"
-                                        required="required">
+                                    <input id="password" name="password" class="form-control" type="password" required="required" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -106,8 +105,7 @@
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
-                                    <input id="confirm_password" name="confirm_password" class="form-control"
-                                        type="password" required="required">
+                                    <input id="confirm_password" name="confirm_password" class="form-control" type="password" required="required" autocomplete="off">
                                 </div>
                             </div>
                         </div>
