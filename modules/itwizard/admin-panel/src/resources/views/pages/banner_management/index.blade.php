@@ -370,7 +370,7 @@
                     }).then((resp) => {
                         Swal.fire({
                             icon: 'success',
-                            title: '{{__('Added')}}',
+                            title: '{{__('Added!')}}',
                             showConfirmButton: false
                             
                         })
@@ -447,7 +447,7 @@
                     }).then((resp) => {
                         Swal.fire({
                             icon: 'success',
-                            title: '{{__('Updated')}}',
+                            title: '{{__('Updated!')}}',
                             showConfirmButton: false
                         })
                         setTimeout(function() {

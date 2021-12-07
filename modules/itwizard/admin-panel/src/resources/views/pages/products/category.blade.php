@@ -225,7 +225,7 @@
                 Axios.post('/api/category/delete', data).then((resp) => {
                     $('#staticBackdrop').modal('hide')
                     Swal.fire({
-                            title: "{{ __('Deleted') }}",
+                            title: "{{ __('Deleted!') }}",
                             icon: 'success',
                             showConfirmButton: false,
                     })
