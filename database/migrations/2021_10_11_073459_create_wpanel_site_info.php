@@ -14,23 +14,21 @@ class CreateWpanelSiteInfo extends Migration
     public function up()
     {
         Schema::create('wpanel_site_info', function (Blueprint $table) {
-            $table->string('company_name');
-            $table->string('site_name');
-            $table->string('fax');
-            $table->string('company_register_number');
-            $table->string('phone_number');
-            $table->string('address');
-            $table->string('email');
-            $table->string('site_copyright');
+            $table->string('company_name')->nullable();
+            $table->string('site_name')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('company_register_number')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('site_copyright')->nullable();
             $table->string('logo')->nullable();
             $table->text('terms_of_condition')->nullable();
             $table->text('privacy')->nullable();
             $table->text('terms_of_condition_name_url')->nullable();
             $table->text('privacy_name_url')->nullable();
-            $table->text('personal_information_manager');
+            $table->text('personal_information_manager')->nullable();
             $table->text('location')->nullable();
-            $table->text('terms_of_service_login')->nullable();
-            $table->text('privacy_policy_login')->nullable();
             $table->text('recieve_promotional_information')->nullable();
         });
     }

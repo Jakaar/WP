@@ -28,8 +28,6 @@ class SiteInfoController extends Controller
             'terms_of_condition_name_url' => $request->terms_use,
             'privacy_name_url' => $request->privacy,
             'location' => $request->location,
-            'terms_of_service_login' => $request->terms_use_login,
-            'privacy_policy_login' => $request->privacy_login,
             'recieve_promotional_information' => $request->recieve_information,
         ]);
 

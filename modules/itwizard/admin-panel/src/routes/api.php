@@ -27,6 +27,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/updateboard', [BoardMasterController::class, 'updateboard']);
 
     Route::post('/profile/update', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'update']);
+    
     Route::post('/profile/updatePassword', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'updatePassword']);
 
     Route::post('/settings/siteinfo/update', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\SiteInfoController::class, 'update']);
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'api'], function () {
 //    Customer
     Route::post('/customer/create',[\Itwizard\Adminpanel\Http\ApiControllers\Customer\CustomerController::class,'create']);
     Route::post('/customer/delete', [\Itwizard\Adminpanel\Http\ApiControllers\Customer\CustomerController::class, 'delete']);
+    Route::post('/customer/member_update', [\Itwizard\Adminpanel\Http\ApiControllers\Customer\CustomerController::class, 'member_update']);
 //    Admin
     Route::post('/addbanner', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class, 'addbanner']);
     Route::post('/DeleteBanner/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Banner\BannerController::class, 'DeleteBanner']);
