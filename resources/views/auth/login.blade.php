@@ -184,7 +184,7 @@
                                                 <label for="email" class="form-label">{{ __('ID') }}</label>
                                                 <input name="email" id="email" value="{{ old('email') }}"
                                                     placeholder="{{ __('Email here') }}" type="email"
-                                                    class="form-control @error('email') is-invalid @enderror">
+                                                    class="form-control @error('email') is-invalid @enderror" autocomplete="off">
                                             </div>
                                             @error('email')
                                                 <div class="card p-2 mb-2 alert-danger fade show" role="alert">
@@ -199,7 +199,7 @@
                                                     class="form-label">{{ __('Password') }}</label>
                                                 <input name="password" id="password"
                                                     placeholder="{{ __('Password here') }}" type="password"
-                                                    class="form-control @error('password') is-invalid @enderror">
+                                                    class="form-control @error('password') is-invalid @enderror" autocomplete="off">
                                             </div>
                                             @error('password')
                                                 <div class="card p-2 mb-2 alert-danger fade show" role="alert">
@@ -308,7 +308,7 @@
                                         <input id="emailModal" name="emailModal" type="email"
                                             placeholder="{{__('Email here...')}}"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            value="{{ old('email') }}" required autocomplete="email" autofocus autocomplete="off">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -364,7 +364,7 @@
                                         <label for="email"
                                             class="form-label"><strong>{{ __('One-Time Password') }}</strong></label>
                                         <input class="form-control" id="OTP" type="password" name="OTP"
-                                            placeholder="One-Time Password" autofocus required>
+                                            placeholder="One-Time Password" autofocus required autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="divider"></div>
@@ -414,11 +414,11 @@
                                         <label
                                             class="form-label mt-3"><strong>{{ __('New Password') }}</strong></label>
                                         <input class="form-control" type="password" id="NewPassword"
-                                            name="NewPassword" placeholder="New Password" autofocus required>
+                                            name="NewPassword" placeholder="New Password" autofocus required autocomplete="off">
                                         <label
                                             class="form-label mt-3"><strong>{{ __('Confirm Password') }}</strong></label>
                                         <input class="form-control" type="password" id="ConfirmPassword"
-                                            name="ConfirmPassword" placeholder="Confirm Password" autofocus required>
+                                            name="ConfirmPassword" placeholder="Confirm Password" autofocus required autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="divider"></div>

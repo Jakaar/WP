@@ -54,7 +54,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email" name="email">
+                                <input class="form-control" placeholder="Email" type="email" name="email" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password" name="password">
+                                <input class="form-control" placeholder="Password" type="password" name="password" autocomplete="off">
                             </div>
                         </div>
                         <div class="custom-control custom-control-alternative custom-checkbox">
@@ -86,7 +86,7 @@
 @endsection
 @section('script')
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     window.Kakao.init("1266f5594789e7ea0dfc2bc963ac71c7");
     // const axios = require('axios');
@@ -105,10 +105,11 @@
                             type: "get",
                             data: test ,
                             success: function (response) {
-                                swal({
-                                    title: "Congrats!",
-                                    text: "Successfully logged in",
-                                    type: "success"
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Successfully logged in',
+                                    icon: 'success',
+                                    showConfirmButton:false,
                                 });
                                 setInterval(function (){
                                     location.href = '/'
