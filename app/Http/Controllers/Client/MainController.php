@@ -276,7 +276,8 @@ class MainController extends Controller
     {
         $title = DB::table('categories')->where('id', $id)->first();
         $uuid = base64_decode(base64_decode($uuid));
-        $Details = DB::table('main__gallery__photos')->where('id',$uuid)->first();
+        $Details = DB::table('main__gallery__photos')->where('gallery_id',$uuid)->first();
+//        dd($Details, $uuid,$slug, $id);
         return \view('client.pages.GalleryDetails', compact('title','Details'));
     }
 

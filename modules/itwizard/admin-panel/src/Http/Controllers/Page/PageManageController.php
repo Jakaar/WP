@@ -111,8 +111,16 @@ class PageManageController extends Controller
                 'wpanel_board_master.board_type'
             )
             ->first();
+//        dd($id, $board, $uuid = null);
+        if (!$board)
+        {
+            $board = DB::table('categories')->where('id','=', $id)->first();
+//            dd($board);
+            return $this->detector($id, $board->board_master_id);
+        }
+//        dd($board);
         $board = DB::table('wpanel_board_master')->where('id', $board)->first();
-//        dd($content);
+
         if ($uuid)
         {
             $uuid = base64_decode(base64_decode($uuid));

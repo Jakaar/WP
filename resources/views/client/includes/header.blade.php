@@ -35,8 +35,8 @@
                     @if (count($menu->childrenCategories) > 0)
                         <li class="nav-item gg ">
                             <a href="/{{ $menu->board_master_id }}/{{ $menu->id }}" class="nav-link">
-                                <i class="ni ni-app d-lg-none"></i>
-                                <span class="nav-link-inner--text"><b>{!! $t->translateText($menu->name) !!}</b></span>
+{{--                                <i class="ni ni-app d-lg-none"></i>--}}
+                                <span class="nav-link-inner-text"><b>{!! $t->translateText($menu->name) !!}</b></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 @foreach ($menu->childrenCategories as $childCategory)
