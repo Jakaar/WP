@@ -102,12 +102,6 @@
                             data: test ,
                             success: function (response) {
                                //
-                                Swal.fire({
-                                    icon: 'success',
-                                    title:'{{__('Success')}}',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 console.log(textStatus, errorThrown);
