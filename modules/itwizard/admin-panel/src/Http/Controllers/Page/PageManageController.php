@@ -4,6 +4,7 @@ namespace Itwizard\Adminpanel\Http\Controllers\Page;
 use App\Category;
 use App\Helper\Helper;
 use App\Models\ContentCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -110,8 +111,16 @@ class PageManageController extends Controller
                 'wpanel_board_master.board_type'
             )
             ->first();
+//        dd($id, $board, $uuid = null);
+        if (!$board)
+        {
+            $board = DB::table('categories')->where('id','=', $id)->first();
+//            dd($board);
+            return $this->detector($id, $board->board_master_id);
+        }
+//        dd($board);
         $board = DB::table('wpanel_board_master')->where('id', $board)->first();
-//        dd($content);
+
         if ($uuid)
         {
             $uuid = base64_decode(base64_decode($uuid));
@@ -170,6 +179,21 @@ class PageManageController extends Controller
                 $SinglePageData->data = json_decode($SinglePageData->data, true);
             }
             return view('Admin::pages.manage_pages.index',compact('content','board','SinglePageData'));
+        }
+        if ($board->board_type === 'Notice')
+        {
+            if (\session()->get('locale') === 'kr')
+            {
+                Carbon::setLocale('ko');
+            }else{
+                Carbon::setLocale(session()->get('locale'));
+            }
+            $notices = DB::table('_notice')
+                ->where('category_id', $id)
+                ->select('title','id','created_at')
+                ->get();
+//            dd($notices);
+            return view('Admin::pages.manage_pages.index',compact('content','board','notices'));
         }
 
     }

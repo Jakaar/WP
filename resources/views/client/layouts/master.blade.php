@@ -78,7 +78,7 @@
                 transform: rotate(-45deg) translateY(1rem);
                 z-index: -5;
                 border-radius: 0.2rem;
-            
+
         }
         .gg:hover .dropdown-menu a{
             transition: .2s;
