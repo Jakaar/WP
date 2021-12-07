@@ -759,7 +759,7 @@
     "Read Dashboard": "대시보드 읽기",
     "Reason": "이유",
     "Deleted date": "삭제된 날짜",
-    "Create New Permission": "새 역할 생성",
+    "Create New Permission": "새 권한 생성",
     "Permission name": "권한 이름",
     "Add Banner": "배너 추가",
     "Edit Banner": "배너 편집",
@@ -843,7 +843,7 @@
     "Top Menu": "상위 메뉴",
     "Select Parent Menu": "부모 메뉴 선택",
     "Terms of Use": "이용약관",
-    "Unset": "안 사용",
+    "Unset": "비사용",
     "Is Enabled": "사용",
     "Create in Group Photos": "사진 그룹 생성",
     "Write Here": "설명을 입력해 주세요",
@@ -878,7 +878,19 @@
     "Privacy Policy (Sign Up)": "개인정보 수집 이용(회원 가입)",
     "Recieve promotional information(Sign Up)": "프로모션 정보 수신(회원 가입)",
     "Create new user": "새 회원 생성",
-    "Manage your users": "회원 관리"
+    "Manage your users": "회원 관리",
+    "Create new admin": "새 관리자 생성",
+    "Firstname": "이름",
+    "Admin Role": "관리자 역할",
+    "Edit Permission Settings": "권한 설정 편집",
+    "Form id": "폼 아이디",
+    "Submited date": "발송 날짜",
+    "Email Send": "이메일 발송",
+    "Form Mail Name": "폼메일 이름",
+    "Page URL:": "페이지 URL:",
+    "Receive Email": "이메일 수신",
+    "Birthdate": "생년월일"
+    
 
 
     
