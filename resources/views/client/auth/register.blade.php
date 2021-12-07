@@ -50,6 +50,7 @@
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
                                     <input id="email" name="email" class="form-control" type="email" required>
+                                    <small for="" id="email_error" class="text-danger"></small>
                                 </div>
                             </div>
                         </div>
@@ -60,6 +61,7 @@
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
                                     <input id="phone" name="phone" class="form-control" type="text" required>
+                                    <small for="" id="phone_error" class="text-danger"></small>
                                 </div>
                             </div>
                         </div>
@@ -244,15 +246,20 @@
                     const check = $('#register').valid();
                     let data = {
                         phone: $('#phone').val(),
+                        email: $('#email').val(),
                     }
                     $.ajax({
                         url: '/userCheck',
                         type: "get",
                         data: data,
                         success: function(response) {
-                            if(response.msg == true){
+                            $('#email_error').html('')
+                            $('#phone_error').html('')
+                            if(response.msg){
                                 $('#register').submit()
                             }
+                                $('#email_error').html(response.email_msg)
+                                $('#phone_error').html(response.phone_msg)
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(textStatus, errorThrown);

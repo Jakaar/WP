@@ -105,28 +105,13 @@ class RegisterController extends Controller
         
         if($user_phone == 1)
         {
-            return response()->json(['icon' => 'danger', 'msg' => 'This number already registered']);
+            return response()->json(['icon' => 'danger', 'phone_msg' => 'This number already registered']);
         }
         if($user_email == 1)
         {
-          return response()->json(['icon' => 'danger', 'msg' => 'This email already registered']);
+          return response()->json(['icon' => 'danger', 'email_msg' => 'This email already registered']);
         }
         return response()->json(['msg' => true]);
-        //     $request->isEnabled = 1;
-        //     $user = User::create([
-        //         'firstname' => $request->firstname,
-        //         'lastname' => $request->lastname,
-        //         'email' => $request->email,
-        //         'password' => bcrypt($request->password),
-        //         'phone'  => $request->phone,
-        //         'user_type' => 'customer',
-        //         'birthdate' => $request->birthdate,
-        //         'sex' => $request->sex,
-        //         'isEnabled'  => 1
-        //     ]);
-        //     auth()->login($user);
-        //     return redirect()->to('/');
-        // // $phone_check = DB::table('users')->where('phone',$request->phone)->first();
     }
 
     public function rules()
