@@ -222,4 +222,45 @@ class PageContentController extends Controller
         }
         return response()->json(['msg' => __('Something Went Wrong')], 500);
     }
+
+    public function GetNoticeCreateOrUpdate(Request $request, $id)
+    {
+//        dd($request->all(), $id);
+        if ($id){
+            $item = DB::table('_notice')->where('id', $id)->first();
+            if ($item)
+            {
+                $item = DB::table('_notice')->where('id', $id)
+                    ->update([
+                        'title' => $request->data['name'],
+                        'content' => $request->data['content'],
+                        'isEnabled' => 1,
+                        'category_id' => explode('/', $request->url)[5],
+                        'board_master_id' => explode('/', $request->url)[6],
+                    ]);
+                if ($item) {
+                    return response()->json(['msg' => __('Content Updated'), 'type' => 'update'], 200);
+                }
+            }
+            return response()->json(['msg' => __('Noting Changed'),'type'=>'update'], 200);
+//            dd(explode('/', $request->url)[5]);
+        }
+        $item = DB::table('_notice')->insert([
+            'title' => $request->data['name'],
+            'content' => $request->data['content'],
+            'isEnabled' => 1,
+            'category_id' => explode('/', $request->url)[5],
+            'board_master_id' => explode('/', $request->url)[6],
+        ]);
+        if ($item)
+        {
+            return response()->json(['msg'=> __('Content Created'),'type'=>'created'], 200);
+        }
+        return response()->json(['msg' => __('Something Went Wrong')], 500);
+    }
+    public function GetNotice($id)
+    {
+        $data = DB::table('_notice')->where('id', $id)->first();
+        return response()->json($data, 200);
+    }
 }

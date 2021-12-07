@@ -27,7 +27,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/updateboard', [BoardMasterController::class, 'updateboard']);
 
     Route::post('/profile/update', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'update']);
-    
+
     Route::post('/profile/updatePassword', [\Itwizard\Adminpanel\Http\ApiControllers\User\ProfileController::class, 'updatePassword']);
 
     Route::post('/settings/siteinfo/update', [\Itwizard\Adminpanel\Http\ApiControllers\Settings\SiteInfoController::class, 'update']);
@@ -168,8 +168,11 @@ Route::post('/client_data_delete',  [Itwizard\Adminpanel\Http\ApiControllers\Mai
     Route::post('/Gallery/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreate']);
     Route::post('/Gallery/CreateContent/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class,'GalleryCreateContent']);
 
-    Route::post('/GetPost/Details/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostDetails']);
+
     Route::post('/GetPost/CreateOrUpdate/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostCreateOrUpdate']);
+
+    Route::post('/GetNotice/Details/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetNotice']);
+    Route::post('/GetNotice/CreateOrUpdate/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetNoticeCreateOrUpdate']);
 
     Route::post('/SinglePage/create', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'SinglePageCreate']);
 

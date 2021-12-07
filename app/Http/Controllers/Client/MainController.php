@@ -171,7 +171,6 @@ class MainController extends Controller
                 $Groups = DB::table('main__gallery__category')
                     ->where('main__gallery__category.category_id', $id)
                     ->get();
-//            dd($Groups);
                     $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
@@ -201,8 +200,17 @@ class MainController extends Controller
                 ->where('category_id', $id)
                 ->where('isEnabled',1)
                 ->first();
-        //    dd($datas['form_builded'] ->board_master_id,$datas['form_builded'] ->category_id);
                 return view('client.pages.SinglePage',compact('SinglePageData','banners','datas'));
+            }
+            if ($board->board_type === 'Notice')
+            {
+                $Notice = DB::table('_notice')
+                    ->where('board_master_id', $slug)
+                    ->where('category_id', $id)
+                    ->where('isEnabled',1)
+                    ->orderBy('id', 'desc')
+                    ->paginate(15);
+                return \view('client.pages.Notice', compact('title','Notice'));
             }
         }
     }
