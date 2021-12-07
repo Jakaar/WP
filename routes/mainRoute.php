@@ -17,6 +17,9 @@ Route::get('lang/{locale}', function ($lang) {
     // }
     return redirect()->back();
 });
+
+Route::get('/loginKakao', [App\Http\Controllers\Auth\KakaoController::class,'store']);
+
 //Customer register
 Route::get('/customer/register',[\App\Http\Controllers\Auth\RegisterController::class, 'registerForm'])->name('register.form');
 Route::post('/post-registration',[\App\Http\Controllers\Auth\RegisterController::class,'store']);

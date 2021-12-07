@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -77,33 +78,29 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-//      dd($request->all());
 //        $this->validate(request->all(), [
 //            'firstname' => 'required',
 //            'lastname' => 'required',
 //            'email' => 'required|email',
 //            'password' => 'required'
 //        ]);
-
 //        $validated = $request->validate([
 //            'firstname' => 'required',
 //            'lastname' => 'required',
 //            'email' => 'required|email',
 //            'password' => 'required'
 //        ]);
-//        dd($request->all());
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
-           'lastname' => 'required',
            'email' => 'required|unique:users',
+            'phone' => 'required|unique:users',
             'password' => 'required',
             'sex' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return redirect('/')
-                ->withErrors($validator)
-                ->withInput();
+            dd($validator);
+            return Redirect::back()->withErrors($validator)->withInput();
         }
         if ($validator->passes())
         {
@@ -124,5 +121,12 @@ class RegisterController extends Controller
 
 
         return redirect()->to('/');
+    }
+    public function rules()
+    {
+        return [
+            'email' => 'required|unique:users',
+            'phone' => 'required|unique:users'
+        ];
     }
 }

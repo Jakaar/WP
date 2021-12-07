@@ -12,37 +12,48 @@ use App\User;
 
 class KakaoController extends Controller
 {
-
-
     public function check(){
         try {
             $user = Socialite::driver('kakao')->user();
             $finduser = User::where('email', $user->email)->first();
             if($finduser){
                 Auth::login($finduser);
-                return redirect('/cms');
+                return redirect('/');
             }else{
                 $newUser = User::create([
                     'email' => $user->email,
                     'avatar'=> $user->avatar,
+                    'user_type'=> 'customer',
+                    'isEnabled'=> 1,
                 ]);
                 Auth::login($newUser);
-                return redirect('/cms');
+                return redirect('/');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
         }
     }
     public function store(Request $request){
+
         try {
+
             $findUser = User::where('email',$request->email)->first();
+
             if (isset($findUser)){
 //                dd('dd');
+
                 Auth::login($findUser);
                 return response()->json(['msg'=>__('success')], 200);
             }else{
-                $msg = ['msg'=> __('You not have a access')];
-                return response()->json($msg, 401);
+                $newUser = User::create([
+                    'email' => $request->email,
+                    'gender'=> $request->gender,
+                    'user_type'=> 'customer',
+                    'isEnabled'=> 1,
+                ]);
+//                dd($newUser);
+                Auth::login($newUser);
+                return response()->json(['msg'=>__('success')], 200);
             }
         }catch (Exception $e) {
             dd($e->getMessage());
