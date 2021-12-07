@@ -307,9 +307,9 @@
 
                                     <label for="" class="fw-bold form-label"> {{ __('Name') }} </label>
                                     <input type="text" name="info_name" class="form-control"
-                                        placeholder="Name" id="info_name" required
+                                        placeholder="{{__('Name')}}" id="info_name" required
                                         data-msg-required=" {{ __('This Field is Required') }} "
-                                        data-parent-id="tab-c1-{{ $lang->id }}">
+                                        data-parent-id="tab-c1-{{ $lang->id }}" autocomplete="off">
 
                                 </div>
                             @endforeach
@@ -317,7 +317,7 @@
                     </div>
                     <div class="mb-3 col-lg-3">
                         <label for="" class="fw-bold form-label"> {{ __('Key') }} </label>
-                        <input type="text" class="form-control" placeholder="Key" id="info_key" required
+                        <input type="text" class="form-control" placeholder="{{__('Key')}}" autocomplete="off" id="info_key" required
                             data-msg-required=" {{ __('This Field is Required') }}  ">
                     </div>
                     <div class="mb-3 col-lg-3">
@@ -353,7 +353,7 @@
                     </div>
                     <div class="col-lg-12">
                         <textarea name="" id="options_editor" cols="30" rows="10" class="form-control d-none my-3"
-                            placeholder="Enter your input's options, example: { { options: { 'key' : 'value' } } }"></textarea>
+                            placeholder="{{__('Enter your input s options, example')}}: { { options: { 'key' : 'value' } } }"></textarea>
                         <div class="float-end">
                             <a href="javascript:;" id="open_options" class="me-2"> {{ __('Options') }} <i
                                     class="fa fa-angle-double-down" id="openclose" aria-hidden="true"></i> </a>

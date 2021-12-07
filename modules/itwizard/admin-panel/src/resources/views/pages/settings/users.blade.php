@@ -201,12 +201,12 @@
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('First name') }} </label>
                                                         <input type="text" class="form-control" name="firstname" id="c-firstname"
-                                                            name="firstname" placeholder="{{ __('First name') }}">
+                                                            name="firstname" placeholder="{{ __('First name') }}" autocomplete="off">
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Last name') }} </label>
                                                         <input type="text" class="form-control" placeholder="{{ __('Last name') }}"
-                                                            name="lastname" id="c-lastname">
+                                                            name="lastname" id="c-lastname" autocomplete="off">
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Email') }} </label>

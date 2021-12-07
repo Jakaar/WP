@@ -501,10 +501,11 @@
                Axios.post('/api/board/create', data).then((resp) => {
                    $('#CrtBrd')[0].reset();
                    $('#CreateBoardModal').modal('hide');
-                   Toast.fire({
-                       icon: 'success',
-                       title: resp.data.msg
-                   })
+                   Swal.fire({
+                                                icon: 'success',
+                                                title:' {{__('Board successfully created')}}',
+                                                showConfirmButton: false,
+                                            });
                    setTimeout(function() {
                         location.reload()
                     }, 2000);
@@ -606,7 +607,7 @@
                     }).then((resp) => {
                         Swal.fire({
                             icon: 'success',
-                            title: '{{__('Updated')}}',
+                            title: '{{__('Updated!')}}',
                             showConfirmButton: false
                         })
                         setTimeout(function() {
