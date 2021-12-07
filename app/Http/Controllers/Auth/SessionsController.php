@@ -9,6 +9,9 @@ class SessionsController extends Controller
 {
     public function create()
     {
+//        dd(auth()->user());
+        if (auth()->user())
+            return redirect('/');
         return view('client.auth.login');
     }
 

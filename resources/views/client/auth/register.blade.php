@@ -1,9 +1,10 @@
 @extends('client.layouts.master')
-@section('style')
-    <link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet"
-        type="text/css" />
-@endsection
 @section('content')
+<style>
+    .skew-separator.skew-mini:after {
+        background-color: #7AA092!important;
+    }
+</style>
     <div class="section-shaped my-0 skew-separator skew-mini">
         <div class="page-header page-header-small header-filter">
             <div class="page-header-image" style="background-image: url('/client/static/img/pages/georgie.jpg');">
@@ -205,7 +206,7 @@
                            maxlength: "{{ __('Name is too long') }} "
                     },
                         email:{
-                            required: "Please enter your email"   
+                            required: "Please enter your email"
                     },
                         phone:{
                             required : "Please enter your phone",
@@ -216,7 +217,7 @@
                     },
                         birthday:{
                             required: "Please enter your birthday",
-                        
+
                     },
                         confirm_password:{
                             required: "Password must be filled",

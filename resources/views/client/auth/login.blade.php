@@ -105,12 +105,15 @@
                             type: "get",
                             data: test ,
                             success: function (response) {
-                               location.href = '/'
                                 swal({
                                     title: "Congrats!",
                                     text: "Successfully logged in",
                                     type: "success"
                                 });
+                                setInterval(function (){
+                                    location.href = '/'
+                                }, 1000);
+
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 console.log(textStatus, errorThrown);
