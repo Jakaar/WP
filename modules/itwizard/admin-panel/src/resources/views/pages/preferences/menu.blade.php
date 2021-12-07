@@ -356,10 +356,9 @@
                     Axios.post('/api/preferences/menu/create', data).then((resp) => {
                         $('#staticBackdrop').modal('hide')
                         Swal.fire(
-                            '{{__('success')}}',
-                            '',
-                            resp.data.msg,
-                            showConfirmButton: false,
+                           { title : "{{__('success')}}",
+                            icon : 'success',
+                            showConfirmButton: false}
                             );
                         setInterval(() => {
                             window.location.reload()
