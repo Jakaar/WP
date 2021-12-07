@@ -72,7 +72,7 @@
                         <tr>
                             <th>{{ __('ID') }}</th>
                             <th>{{ __('Firstname') }}</th>
-                            <th>{{ __('lastname') }}</th>
+                            <th>{{ __('Lastname') }}</th>
                             <th>{{ __('Email') }}</th>
                             <th>{{ __('Roles') }}</th>
                             {{-- <th>{{ __('Status') }}</th> --}}
@@ -227,7 +227,7 @@
                                     </div>
                                     <div class="modal-footer card-btm-border card-shadow-success border-success">
                                         <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                                        <button type="button" class="btn btn-success" id="create_member">{{ __('Create member') }}</button>
+                                        <button type="button" class="btn btn-success" id="create_member">{{ __('Create') }}</button>
                                     </div>
                                 </div>
                             </div>

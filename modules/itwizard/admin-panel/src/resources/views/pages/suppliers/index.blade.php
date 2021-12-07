@@ -1,70 +1,76 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Form Mail Manage')}} @endsection
+@section('title') {{ __('Form Mail Manage') }} @endsection
 
 @section('content')
-<style>
-  .ck-editor__editable {
-        min-height: 200px;
-    }
-    .select2-container--default .select2-selection--multiple{
-        width: 625px;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .select2-container--default .select2-selection--multiple{
-        width: 308px;
+    <style>
+        .ck-editor__editable {
+            min-height: 200px;
         }
-    }
-    @media only screen and (min-width: 600px) {
-        .select2-container--default .select2-selection--multiple{
-        width: 308px;
-        }
-    }
-    @media only screen and (min-width: 768px) {
-        .select2-container--default .select2-selection--multiple{
-        width: 457px;
-        }
-    }
-    @media only screen and (min-width: 992px) {
-        .select2-container--default .select2-selection--multiple{
-        width: 476px;
-        }
-    }
-    @media only screen and (min-width: 1200px) {
-        .select2-container--default .select2-selection--multiple{
-        width: 625px;
-        }
-    }
-    .select2-container--default.select2-container--focus .select2-selection--multiple{
 
-        border: solid #ced4da 1px  !important;
-        outline: 0  !important;
-    }
+        .select2-container--default .select2-selection--multiple {
+            width: 625px;
+        }
 
-    .select2-container--default .select2-selection--multiple .select2-selection__choice{
-    background-color: #e0f3ff  !important;
-        border: 1px solid #94d5ff  !important;
-    }
+        @media only screen and (max-width: 600px) {
+            .select2-container--default .select2-selection--multiple {
+                width: 308px;
+            }
+        }
 
+        @media only screen and (min-width: 600px) {
+            .select2-container--default .select2-selection--multiple {
+                width: 308px;
+            }
+        }
 
-</style>
-<div class="app-page-title">
-    <div class="page-title-wrapper">
-        <div class="page-title-heading">
-            <div class="page-title-icon">
-                <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
+        @media only screen and (min-width: 768px) {
+            .select2-container--default .select2-selection--multiple {
+                width: 457px;
+            }
+        }
+
+        @media only screen and (min-width: 992px) {
+            .select2-container--default .select2-selection--multiple {
+                width: 476px;
+            }
+        }
+
+        @media only screen and (min-width: 1200px) {
+            .select2-container--default .select2-selection--multiple {
+                width: 625px;
+            }
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+
+            border: solid #ced4da 1px !important;
+            outline: 0 !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #e0f3ff !important;
+            border: 1px solid #94d5ff !important;
+        }
+
+    </style>
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
+                </div>
+                <div>
+                    {{ __('Mail list') }} {{ Config::get('setting.Mail Form_mail') }}
+                    <div class="page-title-subheading"></div>
+                </div>
             </div>
-            <div>
-                {{ __('Mail list') }} {{Config::get('setting.Mail Form_mail')}}
-                <div class="page-title-subheading"></div>
-            </div>
-        </div>
-        <div class="page-title-actions">
-            <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom" class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
-                <i class="pe-7s-refresh-2"></i>
-            </button>
+            <div class="page-title-actions">
+                <button id="reload_page" type="button" data-bs-toggle="tooltip" title="" data-bs-placement="bottom"
+                    class="btn-shadow me-3 btn btn-info" data-bs-original-title="Refresh">
+                    <i class="pe-7s-refresh-2"></i>
+                </button>
 
-            {{-- @permission('mail-create')
+                {{-- @permission('mail-create')
             <button type="button" class="search-icon btn-shadow btn btn-success" data-bs-toggle="modal"  data-bs-target="#staticBackdrop" >
                 <span class="btn-icon-wrapper pe-2 opacity-7">
                     <i class="pe-7s-plus"></i>
@@ -72,62 +78,117 @@
                 {{ __('Create a Form Mail') }}
             </button>
             @endpermission --}}
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div id="fb-editor"></div>
+    <div class="row">
+        <div class="col-12">
+            <div id="fb-editor"></div>
+        </div>
     </div>
-</div>
-<div class="card card-btm-border border-primary">
-    <div class="card-body">
-        <table class="table table-striped table-hover" id="BasicTable">
-            <thead>
-                <th> {{ __('Number') }} </th>
-                <th> {{ __('Form id') }} </th>
-                {{-- <th> {{ __('Board master') }} </th> --}}
-                <th> {{ __('Submited date') }} </th>
-                <th> {{ __('Action') }} </th>
-                <th> {{ __('Email Send') }} </th>
-            </thead>
-            <tbody>
+    <div class="card mb-3">
+        <div class="card-body">
+            <ul class="body-tabs body-tabs-layout tabs-animated nav" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($datas['group'] as $key => $group)
 
-                @foreach ($datas['client_data'] as $c_data)
-                <tr>
-                    {{-- {{dd($c_data)}} --}}
-                    <td>{{$c_data->id}}</td>
-                    <td>{{$c_data->form_name}}</td>
-                    <td>{{$c_data->submited_at}}</td>
-                    <td>
-                        {{-- @permission('mail-edit') --}}
-                        <button class="btn-outline-primary btn view" data-id="{{$c_data->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-                            {{ __('view') }}
-                        </button>
-                        {{-- @endpermission --}}
-                        {{-- @permission('mail-delete') --}}
-                        <button class="btn-outline-danger btn-link btn client_data_delete" data-id="{{$c_data->id}}">
-                            {{ __('Delete') }}
-                        </button>
-                        {{-- @endpermission --}}
-                    </td>
-                    <td>
-                        <button class="btn-outline-primary btn getSendData" data-id="{{$c_data->id}}" data-bs-toggle="modal" data-bs-target="#staticBackdropSent">
-                            {{ __('Send') }}
-                        </button>
-                    </td>
-
-                </tr>
+                    <li class="nav-item   text-uppercase" role="presentation">
+                        <a class="nav-link pt-2 pb-2 @if ($counter == 0) active @endif" id="t-{{ $group[0]->form_id }}-tab"
+                            data-bs-toggle="tab" data-bs-target="#t-{{ $group[0]->form_id }}" type="button" role="tab"
+                            aria-controls="t-{{ $group[0]->form_id }}" @if ($counter == 0) aria-selected="true" @else aria-selected="false" @endif
+                            style="font-weight: 500;">{{ $key }}</a>
+                    </li>
+                    @php
+                        $counter++;
+                    @endphp
                 @endforeach
-
-            </tbody>
-        </table>
+            </ul>
+        </div>
     </div>
-</div>
+    <div class="card card-btm-border border-primary mb-3">
+        <div class="card-body">
+
+            <div class="tab-content mt-4" id="navcontent">
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($datas['group'] as $key => $group)
+                    <div class="tab-pane fade @if ($counter == 0) active show @endif" id="t-{{ $group[0]->form_id }}" role="tabpanel"
+                        aria-labelledby="t-{{ $group[0]->form_id }}-tab">
+                        <table class="table table-striped table-hover BasicTable" id="">
+                            <thead>
+                                <th> {{ __('Number') }} </th>
+                                <th> {{ __('Form id') }} </th>
+
+                                <th> {{ __('Submited date') }} </th>
+                                <th> {{ __('Status') }} </th>
+                                <th> {{ __('Action') }} </th>
+                                <th> {{ __('Email Send') }} </th>
+                            </thead>
+                            <tbody>
+                                @foreach ($datas['client_data'][$key] as $c_data)
+                                    <tr>
+                                        <td>{{ $c_data->id }}</td>
+                                        <td>{{ $c_data->builder->form_name ?? '' }}</td>
+                                        <td>{{ $c_data->submited_at }}</td>
+                                        <td>
+                                            @switch($c_data->is_active)
+                                                @case('waiting')
+                                                    <span class="badge text-warning"> {{ __($c_data->is_active) }} </span>
+                                                @break
+                                                @case('process')
+                                                    <span class="badge text-info"> {{ __($c_data->is_active) }} </span>
+
+                                                @break
+                                                @case('complete')
+                                                    <span class="badge text-success"> {{ __($c_data->is_active) }} </span>
+
+                                                @break
+                                                @default
+                                                    <span class="badge text-warning"> {{ __('In Waiting') }} </span>
+                                            @endswitch
+                                        </td>
+                                        <td>
+                                            {{-- @permission('mail-edit') --}}
+                                            <button class="btn-outline-primary btn view" data-id="{{ $c_data->id }}"
+                                                data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
+                                                {{ __('view') }}
+                                            </button>
+                                            {{-- @endpermission --}}
+                                            {{-- @permission('mail-delete') --}}
+                                            <button class="btn-outline-danger btn-link btn client_data_delete"
+                                                data-id="{{ $c_data->id }}">
+                                                {{ __('Delete') }}
+                                            </button>
+                                            {{-- @endpermission --}}
+                                        </td>
+                                        <td>
+                                            <button class="btn-outline-primary btn getSendData"
+                                                data-id="{{ $c_data->id }}" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdropSent">
+                                                {{ __('Send') }}
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @php
+                            $counter++;
+                        @endphp
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 @endsection
 @section('modal')
-<!--create Modal -->
-{{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!--create Modal -->
+    {{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-white shadow shadow-sm">
@@ -156,37 +217,63 @@
     </div>
 </div> --}}
 
-{{-- view modal --}}
-<div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
+    {{-- view modal --}}
+    <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-white shadow shadow-sm">
+                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="row">
+                        <input type="hidden" id="mid">
+                        <button type="button" class="btn btn-primary btn-sm rounded-0" class="card-title"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            {{ __('User Question') }} <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="collapse" id="collapseExample">
+                            <div class="w-100  p-3  overflow-auto ">
+                                <fieldset disabled="disabled">
+                                    <div id="fb_editor"></div>
+                                </fieldset>
+                                <div id="downloadBtn"></div>
+                            </div>
+
+                        </div>
+                        <div class="divider"></div>
+                        <div class="mb-3">
+                            <div for="" class="card-title"> {{ __('Answer') }} </div>
+                            <textarea name="answer" id="answer" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="card-title"> {{ __('Status') }} </div>
+                            <select name="status" id="status" class="form-control form-select">
+                                <option value="waiting"> {{ __('Waiting') }} </option>
+                                <option value="process"> {{ __('In Process') }} </option>
+                                <option value="complete"> {{ __('Completed') }} </option>
+                            </select>
+                        </div>
+                        {{-- <pre><code id="markup"></code></pre> --}}
+                    </form>
+                </div>
+
+                <div class="modal-footer card-btm-border card-shadow-primary border-primary">
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-success" id="saveAnswer"> {{ __('Save') }} </button>
+
+                    {{-- <button type="button" class="btn btn-success updateMail">{{__('Save Changes')}}</button> --}}
+                </div>
+
             </div>
-            <div class="modal-body">
-                <form action="" class="row" id="validateForm">
-
-                    <fieldset disabled="disabled">
-                        <div id="fb_editor"></div>
-                    </fieldset>
-                    <div id="downloadBtn"></div>
-{{-- <pre><code id="markup"></code></pre> --}}
-                </form>
-            </div>
-
-            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
-                {{-- <button type="button" class="btn btn-success updateMail">{{__('Save Changes')}}</button> --}}
-            </div>
-
         </div>
     </div>
-</div>
 
-<!-- edit modal -->
-{{-- <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <!-- edit modal -->
+    {{-- <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-white shadow shadow-sm">
@@ -220,63 +307,72 @@
         </div>
     </div>
 </div> --}}
-<!-- send modal -->
-<div class="modal fade staticBackdropSent " id="staticBackdropSent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-    <div class="modal-dialog modal-lg ">
-        <div class="modal-content  ">
-            <div class="modal-header bg-white shadow shadow-sm">
-                <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
+    <!-- send modal -->
+    <div class="modal fade staticBackdropSent " id="staticBackdropSent" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content  ">
+                <div class="modal-header bg-white shadow shadow-sm">
+                    <h5 class="modal-title card-title" id="staticBackdropLabel">{{ __('Form mail management') }}</h5>
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <form action="" class="row" id="validateForm">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <form action="" class="row" id="validateForm">
 
-                    <input type="hidden" id="idMail">
-                    <div class="mb-3 col-lg-2">
+                        <input type="hidden" id="idMail">
+                        <div class="mb-3 col-lg-2">
                             <div class="form-check d-inline-block  fw-bold">
-                            <input type="checkbox" value="all_checked" id="all_name"  class="form-check-input" checked data-msg-required="{{ __('This Field is Required') }}" required>
-                            <label for="all_name" class="form-check-label"> {{__('All')}} </label></div>
-                    </div>
+                                <input type="checkbox" value="all_checked" id="all_name" class="form-check-input" checked
+                                    data-msg-required="{{ __('This Field is Required') }}" required>
+                                <label for="all_name" class="form-check-label"> {{ __('All') }} </label>
+                            </div>
+                        </div>
 
 
-                    <div class=" mb-3 col-lg-10 form-check">
-                        <div class="form-group">
-                            <label for="roleMultiSelect" class="fw-bold">{{__('Multiple select email')}}</label>
-                            <select multiple="multiple" class="form-control select2 w-100 roleMultiSelect " id="roleMultiSelect" disabled>
-                                @foreach ($datas['roles'] as $item)
-                                    <optgroup label={{$item->name}}>
-                                        @foreach($item->roles as $user)
-                                            <option value="{{$user->email}}">{{$user->email ?? ''}}</option>
-                                        @endforeach
-                                    </optgroup>
-                                @endforeach
+                        <div class=" mb-3 col-lg-10 form-check">
+                            <div class="form-group">
+                                <label for="roleMultiSelect"
+                                    class="fw-bold">{{ __('Multiple select email') }}</label>
+                                <select multiple="multiple" class="form-control select2 w-100 roleMultiSelect "
+                                    id="roleMultiSelect" disabled>
+                                    @foreach ($datas['roles'] as $item)
+                                        <optgroup label={{ $item->name }}>
+                                            @foreach ($item->roles as $user)
+                                                <option value="{{ $user->email }}">{{ $user->email ?? '' }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-check-label fw-bold"
+                                for="flexSwitchCheckChecked">{{ __('Email') }}</label>
+                            <input id="inputEmail" type="email" class="form-control" placeholder="example@example.com"
+                                data-msg-required="{{ __('This Field is Required') }}" required>
+                        </div>
+
+                        <!-- subsribe -->
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-check-label fw-bold"
+                                for="flexSwitchCheckChecked">{{ __('Mailing') }}</label>
+                            <select class="form-select" aria-label="Default " id="subscribe" disabled>
+                                <option value="1">{{ __('Only members who have agreed to receive') }}</option>
+                                <option value="2">{{ __('All') }}</option>
                             </select>
                         </div>
-                    </div>
-
-                    <div class="mb-3 col-lg-12">
-                        <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Email')}}</label>
-                        <input id="inputEmail" type="email" class="form-control" placeholder="example@example.com" data-msg-required="{{ __('This Field is Required') }}" required>
-                    </div>
-
-                    <!-- subsribe -->
-                    <div class="mb-3 col-lg-12">
-                        <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">{{__('Mailing')}}</label>
-                        <select class="form-select" aria-label="Default " id="subscribe" disabled>
-                            <option value="1">{{__('Only members who have agreed to receive')}}</option>
-                            <option value="2">{{__('All')}}</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer card-btm-border card-shadow-primary border-primary">
-                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{__('Close')}}</button>
-                <button type="button" class="btn btn-success sendMail1  " >{{__('Send')}}</button>
+                    </form>
+                </div>
+                <div class="modal-footer card-btm-border card-shadow-primary border-primary">
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-success sendMail1  ">{{ __('Send') }}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
 @section('script')
@@ -291,43 +387,46 @@
     <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
 
     <script>
-          $('#reload_page').click(function() {
-                location.reload(true);
-            });
+        $('#reload_page').click(function() {
+            location.reload(true);
+        });
 
-            $(document).ready(function() {
-                $('#validateForm').validate({
+        $(document).ready(function() {
+            $('#validateForm').validate({
 
-                    errorPlacement: function(error, element) {
-                        // Add the `invalid-feedback` class to the error element
-                        error.addClass("invalid-feedback");
-                        if (element.prop("type") === "checkbox") {
-                            // error.insertAfter(element.next("label"));
-                        } else {
-                            // error.insertAfter(element);
-                        }
-                    },
-                    highlight: function(element, errorClass, validClass) {
-                        $(element).addClass("is-invalid").removeClass("is-valid");
-                        const parantId = $(element).attr('data-parent-id');
-                        $('#' + parantId).addClass("text-danger").removeClass("text-success");
-                    },
-                    unhighlight: function(element, errorClass, validClass) {
-                        const parantId = $(element).attr('data-parent-id');
-                        $('#' + parantId).addClass("text-success").removeClass("text-danger");
-                        $(element).addClass("is-valid").removeClass("is-invalid");
-                    },
-                });
+                errorPlacement: function(error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        // error.insertAfter(element.next("label"));
+                    } else {
+                        // error.insertAfter(element);
+                    }
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                    const parantId = $(element).attr('data-parent-id');
+                    $('#' + parantId).addClass("text-danger").removeClass("text-success");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    const parantId = $(element).attr('data-parent-id');
+                    $('#' + parantId).addClass("text-success").removeClass("text-danger");
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                },
             });
+        });
 
         $(document).ready(function() {
             $('.select2').select2({
                 dropdownParent: $('#staticBackdropSent')
             });
-            CKEDITOR.replace('ckeditor', {
-                filebrowserBrowseUrl: filemanager.ckBrowseUrl,
-            });
-            CKEDITOR.replace('ckeditor1', {
+            // CKEDITOR.replace('ckeditor', {
+            //     filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            // });
+            // CKEDITOR.replace('ckeditor1', {
+            //     filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            // });
+            CKEDITOR.replace('answer', {
                 filebrowserBrowseUrl: filemanager.ckBrowseUrl,
             });
 
@@ -345,7 +444,7 @@
         //         Axios.post('/api/mail/create', data).then((resp) => {
         //             Swal.fire({
         //                 icon: 'success',
-        //                 title:'{{__('Success')}}',
+        //                 title:'{{ __('Success') }}',
         //                 showConfirmButton: false
         //             });
         //             $('#adminAddModal').modal('hide').removeAttr('key');
@@ -367,7 +466,7 @@
         $(document).ready(function() {
 
             var data_id = 0;
-            var allMail= $('#all_name').val() ; // 0s ylgaatai utga opj ipwel buh mail hayg ru ywna
+            var allMail = $('#all_name').val(); // 0s ylgaatai utga opj ipwel buh mail hayg ru ywna
             var subscribe = 0;
             $('.getSendData').click(function() {
                 data_id = $(this).data('id'); //form mail id
@@ -392,12 +491,12 @@
             });
 
             // multiple selected and unselected
-            $(".select2").on('select2:unselect',function(){
+            $(".select2").on('select2:unselect', function() {
                 $('#all_name').removeAttr('disabled');
                 $('#subscribe').removeAttr('disabled');
                 subscribe = $('#subscribe').val();
             })
-            $('.select2').on('select2:select', function () {
+            $('.select2').on('select2:select', function() {
                 $('#all_name').attr('disabled', 'disabled');
                 allMail = 0;
                 $('#subscribe').attr('disabled', 'disabled');
@@ -433,14 +532,14 @@
                     all_mail: allMail,
                     send_id: data_id,
                     input_email: $('#inputEmail').val(),
-                    subscribe:  subscribe,
+                    subscribe: subscribe,
 
                     select_email: $('#roleMultiSelect').val(), //multiselect
                 };
                 Axios.post('/api/mail/send', data).then((resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title:'{{__('Success')}}',
+                        title: '{{ __('Success') }}',
                         showConfirmButton: false
                     });
                     setTimeout(function() {
@@ -476,15 +575,16 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Axios.post('/api/client_data_delete', data).then((resp) => {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '{{__('Deleted!')}}',
-                                showConfirmButton: false})
-                            $('tr[key=' + delete_id + ']').remove()
-                            setTimeout(function() {
-                                location.reload()
-                            }, 2000);
-                        })
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '{{ __('Deleted!') }}',
+                                    showConfirmButton: false
+                                })
+                                $('tr[key=' + delete_id + ']').remove()
+                                setTimeout(function() {
+                                    location.reload()
+                                }, 2000);
+                            })
                             .catch((err) => {
                                 Swal.fire({
                                     icon: 'error',
@@ -536,80 +636,123 @@
         })
     </script> --}}
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
             // const formBuilder = $('#fb_editor').formBuilder();
             $('.view').click(function() {
-
                 const view_id = $(this).attr('data-id');
+                console.log(view_id)
+                $('#mid').val(view_id)
+                CKEDITOR.instances.answer.setData()
+                $('#status').val('').change()
 
-                Axios.get('/api/client_view/'+ view_id).then((resp) => {
-                     const reata= resp.data.data.data;
-                        var formRenderOptions = {
-                            formData: reata,
-                        }
-                        $('#fb_editor').formRender(formRenderOptions)
+                Axios.get('/api/client_view/' + view_id).then((resp) => {
+                    const reata = resp.data.data.data;
 
-                        if(resp.data.data.file_path){
-                            const html = `<a href="/cms/file/download/`+resp.data.data.file_path+`" class="btn btn-sm btn-info">Download File</a>`;
-                            $('#downloadBtn').html(html)
-                        }
+                    CKEDITOR.instances.answer.setData(resp.data.data.answer)
+                    $('#status').val(resp.data.data.is_active).change()
+
+                    var formRenderOptions = {
+                        formData: reata,
+                    }
+                    $('#fb_editor').formRender(formRenderOptions)
+
+                    if (resp.data.data.file_path) {
+                        const html = `<a href="/cms/file/download/` + resp.data.data.file_path +
+                            `" class="btn btn-sm btn-info">Download File</a>`;
+                        $('#downloadBtn').html(html)
+                    }
 
                 }).catch((err) => {
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: err
-                    // });
+                    Swal.fire({
+                        icon: 'error',
+                        title: err
+                    });
                 });
             });
         })
 
         // $(document).ready(function() {
-            // $('.editMail').click(function() {
-            //     const main_edit_id = $(this).attr('data-id');
-            //     const data = {
-            //         main_edit_id: main_edit_id,
-            //     }
-            //     Axios.post('/api/mail/edit', data).then((resp) => {
-            //                            // Swal.fire({
+        // $('.editMail').click(function() {
+        //     const main_edit_id = $(this).attr('data-id');
+        //     const data = {
+        //         main_edit_id: main_edit_id,
+        //     }
+        //     Axios.post('/api/mail/edit', data).then((resp) => {
+        //                            // Swal.fire({
 
-            //         $('#editMailTitle').val(resp.data.data.title)
-            //         CKEDITOR.instances.ckeditor1.setData(resp.data.data.content);
+        //         $('#editMailTitle').val(resp.data.data.title)
+        //         CKEDITOR.instances.ckeditor1.setData(resp.data.data.content);
 
-            //     }).catch((err) => {
-            //         Swal.fire({
-            //             icon: 'error',
-            //             title: err
-            //         });
-            //     });
-            // })
+        //     }).catch((err) => {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: err
+        //         });
+        //     });
+        // })
 
-            // $('.updateMail').click(function() {
-            //     if ($('#validateForm').valid()) {
+        // $('.updateMail').click(function() {
+        //     if ($('#validateForm').valid()) {
 
-            //         let data = {
-            //             id: $('#idMail').val(),
-            //             title: $('#editMailTitle').val(),
-            //             content: CKEDITOR.instances.ckeditor1.getData(),
+        //         let data = {
+        //             id: $('#idMail').val(),
+        //             title: $('#editMailTitle').val(),
+        //             content: CKEDITOR.instances.ckeditor1.getData(),
 
-            //         }
-            //         Axios.post('/api/mail/update', data).then((resp) => {
-            //             Swal.fire({
-            //                 icon: 'success',
-            //                 title: '{{__('Success')}}',
-            //                 showConfirmButton: false
-            //             });
-            //             window.location.reload()
+        //         }
+        //         Axios.post('/api/mail/update', data).then((resp) => {
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: '{{ __('Success') }}',
+        //                 showConfirmButton: false
+        //             });
+        //             window.location.reload()
 
-            //         }).catch((err) => {
-            //             Swal.fire({
-            //                 icon: 'error',
-            //                 title: err
-            //             });
+        //         }).catch((err) => {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: err
+        //             });
 
-            //         });
-            //     }
-            // })
+        //         });
+        //     }
+        // })
 
-    //     })
+        //     })
+    </script>
+    {{-- Answer save Action --}}
+    <script>
+        $(document).ready(function() {
+            $('#saveAnswer').click(function() {
+                let answer = CKEDITOR.instances.answer.getData()
+                let status = $('#status').val()
+                const data = {
+                    answer: answer,
+                    status: status,
+                    id: $('#mid').val()
+                }
+
+                Axios.post('/api/question/answer', data).then((resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '{{ __('Success') }}',
+                        showConfirmButton: false
+                    });
+                    setInterval(() => {
+                        window.location.reload()
+                    }, 1500);
+                }).catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: err,
+                        showConfirmButton: false
+                    });
+                });
+            })
+        })
+    </script>
+    <script>
+            $('.BasicTable').DataTable({});
+
     </script>
 @endsection

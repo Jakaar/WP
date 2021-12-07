@@ -8,7 +8,9 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Auth\DB;
 
 class RegisterController extends Controller
 {
@@ -77,36 +79,6 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-//      dd($request->all());
-//        $this->validate(request->all(), [
-//            'firstname' => 'required',
-//            'lastname' => 'required',
-//            'email' => 'required|email',
-//            'password' => 'required'
-//        ]);
-
-//        $validated = $request->validate([
-//            'firstname' => 'required',
-//            'lastname' => 'required',
-//            'email' => 'required|email',
-//            'password' => 'required'
-//        ]);
-//        dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'firstname' => 'required',
-           'lastname' => 'required',
-           'email' => 'required|unique:users',
-            'password' => 'required',
-            'sex' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        if ($validator->passes())
-        {
             $request->isEnabled = 1;
             $user = User::create([
                 'firstname' => $request->firstname,
@@ -120,9 +92,33 @@ class RegisterController extends Controller
                 'isEnabled'  => 1
             ]);
             auth()->login($user);
-        }
-
 
         return redirect()->to('/');
+    }
+
+    public function checkUser(Request $request)
+
+    {
+        $user_phone = \App\User::where('phone',$request->phone)->count();
+        // dd($user_phone);
+        $user_email = \App\User::where('email',$request->email)->count();
+        
+        if($user_phone == 1)
+        {
+            return response()->json(['icon' => 'danger', 'phone_msg' => 'This number already registered']);
+        }
+        if($user_email == 1)
+        {
+          return response()->json(['icon' => 'danger', 'email_msg' => 'This email already registered']);
+        }
+        return response()->json(['msg' => true]);
+    }
+
+    public function rules()
+    {
+        return [
+            'email' => 'required|unique:users',
+            'phone' => 'required|unique:users'
+        ];
     }
 }

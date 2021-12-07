@@ -1,9 +1,14 @@
 
 @extends('client.layouts.master')
 @section('content')
+<style>
+    .skew-separator.skew-mini:after {
+        background-color: #7AA092!important;
+    }
+</style>
 <div class="section-shaped my-0 skew-separator skew-mini">
     <div class="page-header page-header-small header-filter">
-        <div class="page-header-image" style="background-image: url('/client/static/img/unsplashs.jpg');">
+        <div class="page-header-image" style="background-image: url('/client/static/img/sections/unsplashs.jpg');">
         </div>
         <div class="container">
             <div class="header-body text-center mb-7">
@@ -17,17 +22,20 @@
         </div>
     </div>
 </div>
-<section class="upper bg-default">
+<section class="upper"  style="background-color: #7AA092!important;">
     <div class="container ">
-        <div class="col-lg-5 col-md-8 mx-auto p-3">
+        <div class="col-lg-5 col-md-8 mx-auto p-3" style="top: -200px; z-index: 2" >
             <div class="card bg-secondary shadow border-0">
                 <div class="card-header bg-white pb-5">
                     <div class="text-muted text-center mb-3"><small>Login with</small></div>
                     <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
+<!--                        <a href="#" class="btn btn-neutral btn-icon">-->
+<!--                            <span class="btn-inner--icon"><img src="/client/static/img/kakao.png"></span>-->
+<!--                            <span class="btn-inner--text">Kakao</span>-->
+<!--                        </a>-->
+                        <a href="javascript:kakaoLogin();" class="btn-text text-dark btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="/client/static/img/kakao.png"></span>
                             <span class="btn-inner--text">Kakao</span>
-                        </a>
                         <a href="#" class="btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="/client/static/img/google.svg"></span>
                             <span class="btn-inner--text">Google</span>
@@ -75,4 +83,46 @@
         </div>
     </div>
 </section>
+@endsection
+@section('script')
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+    window.Kakao.init("1266f5594789e7ea0dfc2bc963ac71c7");
+    // const axios = require('axios');
+    // window.axios = require('axios');
+    function kakaoLogin() {
+        window.Kakao.Auth.login({
+            scope: 'profile_image,account_email,gender',
+            success: function(authObj) {
+                window.Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: res => {
+                        const kakao_account = res.kakao_account;
+                        const test = kakao_account
+                        $.ajax({
+                            url : '/loginKakao',
+                            type: "get",
+                            data: test ,
+                            success: function (response) {
+                                swal({
+                                    title: "Congrats!",
+                                    text: "Successfully logged in",
+                                    type: "success"
+                                });
+                                setInterval(function (){
+                                    location.href = '/'
+                                }, 1000);
+
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection

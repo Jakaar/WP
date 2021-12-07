@@ -50,12 +50,6 @@ class MemberController extends Controller
     public function singleUserData(Request $request)
     {
         $data = DB::table('users')->where('id', $request->id)->first();
-        //        admin
-        //        $data = DB::table('role_user')
-        //            ->select('role_user.user_id','users.*')
-        //            ->leftJoin('roles','role_user.role_id','=','roles.id')
-        //            ->where('id',$request->id)
-        //            ->get();
         return response()->json(['msg' => 'success', 'data' => $data], 200);
     }
     public function getPermission(Request $request)

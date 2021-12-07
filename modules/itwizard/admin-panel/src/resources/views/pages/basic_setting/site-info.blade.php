@@ -3,7 +3,6 @@
 
 @inject('t','App\Helper\Helper')
 @section('content')
-    {{-- {{ dd(env('APP_NAME')) }} --}}
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -29,9 +28,6 @@
     </div>
     <div class="mbg-3 h-auto ps-0 pe-0 bg-transparent no-border ">
         <div class=" row">
-            {{-- <div class="col-lg-6 col-sm-6 mt-3"> --}}
-            {{-- <div class="page-title-heading fsize-2 text-capitalize fw-normal">{{ __('Company Information Setting') }}</div> --}}
-            {{-- </div> --}}
             <div class="col-lg-6 col-sm-6">
                 <ul class="nav tabs-animated body-tabs body-tabs-layout body-tabs-animated nav">
                     @foreach ($data['langs'] as $key => $lang)
@@ -64,7 +60,7 @@
                                                         id="companyName{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}" name="companyName"
                                                         maxlength="110"
-                                                        value="{{ json_decode($site_info->company_name, true)[$lang->country_code] }}">
+                                                        value="{{ json_decode($site_info->company_name, true)[$lang->country_code] }}" placeholder="{{ __('Company Name') }}">
                                                 </div>
                                                 <div class="col-md-4 col-lg-4">
                                                     <div class="card-title text-uppercase">{{ __('Site Name') }}</div>
@@ -72,7 +68,7 @@
                                                         id="siteName{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}" name="siteName"
                                                         maxlength="110"
-                                                        value="{{ json_decode($site_info->site_name, true)[$lang->country_code] }}">
+                                                        value="{{ json_decode($site_info->site_name, true)[$lang->country_code] }}" placeholder="{{ __('Site Name') }}">
                                                 </div>
                                                 <div class="col-md-4 col-lg-4">
                                                     <div class="card-title text-uppercase">{{ __('Copyright') }}</div>
@@ -80,7 +76,7 @@
                                                         id="copyright{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}" name="copyright"
                                                         maxlength="110"
-                                                        value="{{ json_decode($site_info->site_copyright, true)[$lang->country_code] }}">
+                                                        value="{{ json_decode($site_info->site_copyright, true)[$lang->country_code] }}" placeholder="{{ __('Copyright') }}">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -92,7 +88,7 @@
                                                         id="personalInformation{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}"
                                                         name="personalInformation" maxlength="50"
-                                                        value="{{ json_decode($site_info->personal_information_manager, true)[$lang->country_code] ?? '' }}">
+                                                        value="{{ json_decode($site_info->personal_information_manager, true)[$lang->country_code] ?? '' }}" placeholder="{{ __('Personal Information Manager') }}">
                                                 </div>
                                                 <div class="col-md-6 col-lg-6">
                                                     <div class="card-title text-uppercase">
@@ -102,43 +98,9 @@
                                                         id="address{{ $lang->country_code }}"
                                                         data-parent-id="tab-c1-{{ $lang->id }}" name="address"
                                                         maxlength="110"
-                                                        value="{{ json_decode($site_info->address, true)[$lang->country_code] }}">
+                                                        value="{{ json_decode($site_info->address, true)[$lang->country_code] }}" placeholder="{{ __('Address') }}">
                                                 </div>
                                             </div>
-                                            {{-- <div class="col-md-6 col-lg-6">
-                                                    <div class="mb-3">
-                                                        <div class="card-title text-uppercase mb-3">
-                                                            {{ __('Terms of Use') }}
-                                                            <div class="d-inline-block bg-light ms-3 px-2">
-                                                                <label for="" class="form-label fw-bold">
-                                                                    URL : {{  url()->full() }}
-                                                                </label>
-                                                            </div>
-                                                            <button class="btn btn-outline-info opa disabled" style="float: right;">{{ __('Copy') }}</button>
-                                                        </div>
-                                                        <div class="c_product_editor" id="{{ $lang->country_code }}"
-                                                            name="c_product_editor">
-                                                            {!! json_decode($site_info->terms_of_condition_name_url, true)[$lang->country_code] ?? '' !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <div class="mb-3">
-                                                        <div class="card-title text-uppercase mb-3">
-                                                            {{ __('Privacy Policy') }}
-                                                            <div class="d-inline-block bg-light ms-3 px-2">
-                                                                <label for="" class="form-label fw-bold">
-                                                                    URL : {{  url()->full() }}
-                                                                </label>
-                                                            </div>
-                                                            <button class="btn btn-outline-info opa disabled" style="float: right;">{{ __('Copy') }}</button>
-                                                        </div>
-                                                        <div class="e_product_editor" id="{{ $lang->country_code }}"
-                                                            name="e_product_editor">
-                                                            {!! json_decode($site_info->privacy_name_url, true)[$lang->country_code] ?? '' !!}
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                         </div>
                                     @endforeach
                                 </div>
@@ -151,7 +113,7 @@
                                         </div>
                                         <input type="text" class="form-control mb-3" id="termsUse"
                                             name="termsUse"
-                                            value="{{ strip_tags($site_info->terms_of_condition_name_url) }}">
+                                            value="{{ strip_tags($site_info->terms_of_condition_name_url) }}" placeholder="{{ __('Terms of Use') }}">
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">
@@ -159,20 +121,10 @@
                                         </div>
                                         <input type="text" class="form-control mb-3"
                                             id="privacy" name="privacy"
-                                            value="{{ strip_tags($site_info->privacy_name_url) }}">
+                                            value="{{ strip_tags($site_info->privacy_name_url) }}" placeholder="{{ __('Privacy Policy') }}">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    {{-- <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Terms of Service (Sign Up)') }}</div>
-                                        <input type="text" class="form-control mb-3" id="termsService"
-                                        name="termsService" placeholder="{{ __('Terms of Service (Sign Up)') }}">
-                                    </div>
-                                    <div class="col-md-4 col-lg-4">
-                                        <div class="card-title text-uppercase">{{ __('Privacy Policy (Sign Up)') }}</div>
-                                        <input type="text" class="form-control mb-3" id="privacyLogin"
-                                        name="privacyLogin" placeholder="{{ __('Privacy Policy (Sign Up)') }}">
-                                    </div> --}}
                                     <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">
                                             {{ __('User Location (Sign Up)') }}
@@ -192,25 +144,25 @@
                                         </div>
                                         <input type="text" class="form-control mb-3" id="companyRegister"
                                             name="companyRegister" maxlength="50"
-                                            value="{{ $site_info->company_register_number }}">
+                                            value="{{ $site_info->company_register_number }}" placeholder="{{ __('Company Registration Number') }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Phone Number') }}</div>
                                         <input type="tel" data-inputmask="'mask': '[999-]9999-9999'" im-insert="true"
                                             class="form-control mb-3 input-mask-trigger" id="phone" name="phone"
-                                            maxlength="13" value="{{ $site_info->phone_number }}" inputmode="text">
+                                            maxlength="13" value="{{ $site_info->phone_number }}" inputmode="text" placeholder="{{ __('Phone Number') }}">
                                     </div>
                                     <div class="col-md-4 col-lg-4">
                                         <div class="card-title text-uppercase">{{ __('Representative Email') }}</div>
                                         <input type="text" class="form-control mb-3" id="email" name="email" maxlength="110"
-                                            value="{{ $site_info->email }}">
+                                            value="{{ $site_info->email }}" placeholder="{{ __('Representative Email') }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6">
                                         <div class="card-title text-uppercase">{{ __('Fax Number') }}</div>
                                         <input type="text" class="form-control mb-3" id="fax" name="fax" maxlength="50"
-                                            value="{{ $site_info->fax ?? '' }}">
+                                            value="{{ $site_info->fax ?? '' }}" placeholder="{{ __('Fax Number') }}">
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <div class="row">
@@ -248,42 +200,6 @@
                         'disabled')
                 $('#siteInfoSaveBtn').toggleClass('d-none')
             })
-
-            // let c_editor = [];
-            // var allEditors = document.querySelectorAll('.c_product_editor');
-            // let EditorId = [];
-
-            // $.each(allEditors, function(i, item) {
-            //     EditorId[i] = allEditors[i].id
-
-            //     ClassicEditor.create(allEditors[i]).then(editor => {
-            //             c_editor.push({
-            //                 name: EditorId[i],
-            //                 editor
-            //             });
-            //         })
-            //         .catch(error => {
-            //             console.error(error);
-            //         });
-            // });
-
-            // let e_editor = [];
-            // var allEditors2 = document.querySelectorAll('.e_product_editor');
-            // let EditorId2 = [];
-
-            // $.each(allEditors2, function(i, item) {
-            //     EditorId2[i] = allEditors2[i].id
-
-            //     ClassicEditor.create(allEditors2[i]).then(editor2 => {
-            //             e_editor.push({
-            //                 name: EditorId2[i],
-            //                 editor2
-            //             });
-            //         })
-            //         .catch(error => {
-            //             console.error(error);
-            //         });
-            // });
 
             $('.siteInfoSubmit').on('click', function() {
                 const langs = {!! $data['langs'] !!};
@@ -347,9 +263,7 @@
                     logo: $('#logo-photo').val(),
                     terms_use : terms_data_url,
                     privacy : privacy_data_url,
-                    // terms_use_login : $('#termsService').val(),
                     location : $('#location').val(),
-                    // privacy_login : $('#privacyLogin').val(),
                     recieve_information : $('#rpi').val(),
                 };
 

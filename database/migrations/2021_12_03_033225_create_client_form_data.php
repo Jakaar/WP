@@ -19,6 +19,8 @@ class CreateClientFormData extends Migration
             $table->timestamp('submited_at');
             $table->integer('form_id');
             $table->integer('isEnabled');
+            $table->string('is_active')->nullable();
+            $table->longtext('answer')->nullable();
             $table->timestamps();
         });
     }
