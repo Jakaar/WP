@@ -23,7 +23,9 @@ class ContentController extends Controller
             ->where('isEnabled', 1)
             ->with('childrenCategories')
             ->get();
-        $main['board'] = DB::table('wpanel_board_master')->get();
+        $main['board'] = DB::table('wpanel_board_master')
+            ->where('isEnabled', 1)
+            ->get();
 //        dd($categories);
         return view('Admin::pages.user_menu.menu', compact('categories','main'));
     }

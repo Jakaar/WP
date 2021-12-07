@@ -237,7 +237,7 @@
                                         @endforeach
                                     </select>
                                     @if(count($main['board']) == 0)
-                                    <small class="text-danger"> {{ __('Notice Board page is not created.') }}  <a href="/cms/noticeboard">{{ __('Click here') }}</a> </small>
+                                        <small class="text-danger"> {{ __('Notice Board page is not created.') }}  <a href="/cms/noticeboard">{{ __('Click here') }}</a> </small>
                                     @endif
                                 </div>
                             </div>
@@ -249,11 +249,11 @@
                                 <div class="col-6">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="blank" name="target" value="1">
-                                        <label class="form-check-label" for="blank">{{ __('Current Tab') }}</label>
+                                        <label class="form-check-label" for="blank">{{ __('New Tab') }}</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="current" name="target" value="0" checked>
-                                        <label class="form-check-label" for="current">{{ __('New Tab') }}</label>
+                                        <label class="form-check-label" for="current">{{ __('Current Tab') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@
                             $('#m_name'+v.country_code).val(JSON.parse(resp.data.data.name)[v.country_code])
                             $('#menu_label').html(JSON.parse(resp.data.data.name)['{{ Session::get("locale") }}'])
                         })
-                        
+
                         $('input[name=target]').prop('checked', false);
                         $('input[name=use]').prop('checked', false);
                         $('#m_id').val(resp.data.data.id);
@@ -336,7 +336,7 @@
                     let langs = {!! $data['langs'] !!}
                     let title_data = {};
                     $.each(langs , function(i, v){
-                        title_data[v.country_code] = $('#m_name'+v.country_code).val() 
+                        title_data[v.country_code] = $('#m_name'+v.country_code).val()
                     })
                     if (m_check === true) {
                         const data = {
@@ -439,7 +439,7 @@
 
                     }
                 })
-                
+
                 $('.DeleteMenu').on('click', function () {
                     Swal.fire({
                         title: '{{ __('Are you sure?') }}',
