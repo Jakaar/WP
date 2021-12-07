@@ -178,4 +178,6 @@ Route::post('/client_data_delete',  [Itwizard\Adminpanel\Http\ApiControllers\Mai
     Route::post('/comment/create', function (Request $request){
         return response()->json($request->all(), 200);
     });
+
+    Route::post('/question/answer',[\Itwizard\Adminpanel\Http\ApiControllers\FAQ\QAAController::class,'answer']);
 });
