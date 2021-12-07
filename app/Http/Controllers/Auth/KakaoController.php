@@ -47,8 +47,9 @@ class KakaoController extends Controller
             }else{
                 $newUser = User::create([
                     'email' => $request->email,
-                    'gender'=> $request->gender,
+                    'sex'=> $request->gender,
                     'user_type'=> 'customer',
+//                    'avatar'=> $request->profile->profile_image_url,
                     'isEnabled'=> 1,
                 ]);
 //                dd($newUser);
