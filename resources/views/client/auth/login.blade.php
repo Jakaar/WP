@@ -3,12 +3,12 @@
 @section('content')
 <style>
     .skew-separator.skew-mini:after {
-        background-color: #172b4d!important;
+        background-color: #7AA092!important;
     }
 </style>
 <div class="section-shaped my-0 skew-separator skew-mini">
     <div class="page-header page-header-small header-filter">
-        <div class="page-header-image" style="background-image: url('/client/static/img/unsplashs.jpg');">
+        <div class="page-header-image" style="background-image: url('/client/static/img/sections/unsplashs.jpg');">
         </div>
         <div class="container">
             <div class="header-body text-center mb-7">
@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<section class="upper bg-default" >
+<section class="upper"  style="background-color: #7AA092!important;">
     <div class="container ">
         <div class="col-lg-5 col-md-8 mx-auto p-3" style="top: -200px; z-index: 2" >
             <div class="card bg-secondary shadow border-0">
