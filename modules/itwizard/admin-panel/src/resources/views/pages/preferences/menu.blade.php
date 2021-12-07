@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Admin Menu')}} @endsection
+@section('title') {{ __('Admin Menu') }} @endsection
 
 @inject('t','App\Helper\Helper')
 @section('content')
@@ -149,11 +149,11 @@
                     id: $(this).data('id'),
                 }
                 Swal.fire({
-                    title: '{{__('Do you want to delete the menu?')}}',
+                    title: '{{ __('Do you want to delete the menu?') }}',
                     showDenyButton: true,
                     showCancelButton: false,
-                    confirmButtonText: '{{__('Delete')}}',
-                    denyButtonText: '{{__('Cancel')}}',
+                    confirmButtonText: '{{ __('Delete') }}',
+                    denyButtonText: '{{ __('Cancel') }}',
 
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
@@ -167,12 +167,16 @@
                                 title: err
                             });
                         });
-                        Swal.fire('{{__('Deleted!')}}', '', 'success')
+                        Swal.fire({
+                            title : '{{ __('Deleted!') }}',
+                            icon : 'success',
+                            showConfirmButton: false
+                        })
                         setInterval(() => {
                             window.location.reload()
                         }, 1000);
                     } else if (result.isDenied) {
-                        Swal.fire('{{__('Changes are not saved')}}', '', 'info')
+                        Swal.fire('{{ __('Changes are not saved') }}', '', 'info')
                     }
                 })
             })
@@ -320,7 +324,8 @@
                         console.log(err)
                         Swal.fire({
                             icon: 'error',
-                            title: err
+                            title: err,
+
                         });
                     });
 
@@ -355,11 +360,11 @@
                     })) {
                     Axios.post('/api/preferences/menu/create', data).then((resp) => {
                         $('#staticBackdrop').modal('hide')
-                        Swal.fire(
-                           { title : "{{__('success')}}",
-                            icon : 'success',
-                            showConfirmButton: false}
-                            );
+                        Swal.fire({
+                            title: "{{ __('success') }}",
+                            icon: 'success',
+                            showConfirmButton: false
+                        });
                         setInterval(() => {
                             window.location.reload()
                         }, 1500);
@@ -423,7 +428,7 @@
                             <label for="" class="form-label fw-bold"> {{ __('Set Icon') }} </label>
                             <div class="input-group">
                                 <button class="btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{__('Select icon')}}
+                                    {{ __('Select icon') }}
                                 </button>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu">
 
@@ -1654,8 +1659,10 @@
                     </form>
                 </div>
                 <div class="modal-footer card-btm-border" id="modal_footer">
-                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                    <button type="button" class="btn btn-success  d-none" id="updateAction"> {{ __('Update') }} </button>
+                    <button type="button" class="btn btn-outline-info"
+                        data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-success  d-none" id="updateAction"> {{ __('Update') }}
+                    </button>
                     <button type="button" class="btn btn-success" id="action"> {{ __('Save') }} </button>
                 </div>
             </div>
