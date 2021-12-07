@@ -556,12 +556,7 @@
                                     if (result.isConfirmed) {
                                         const data = {
                                             user_id: user_id,
-                                        }
-                                        if (result.value) {
-                                            Axios.post('/api/user/delete', {
-                                                reason: result.value,
-                                                user_id: user_id
-                                            });
+                                            reason: result.value,
                                         }
                                         Axios.post('/api/user/delete', data).then((resp) => {
                                             $('tr[key=' + user_id + ']').remove()
