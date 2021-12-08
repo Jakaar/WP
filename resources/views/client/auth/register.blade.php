@@ -134,7 +134,7 @@
                          <label for="terms"><a href="#">{{__('Terms and Conditions.')}}</a><span class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px; width:100%; border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
-                            {{ $site_info->terms_of_condition ?? '' }}
+                            {!! $site_info->terms_of_condition ?? '' !!}
                         </div>
                     </div>
                     <div class="tacbox options mt-3 col-lg-12">
@@ -144,7 +144,7 @@
                                 class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
-                            {{ $site_info->privacy ?? '' }}
+                            {!! $site_info->privacy ?? '' !!}
                         </div>
                     </div>
 
