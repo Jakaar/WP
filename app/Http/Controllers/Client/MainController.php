@@ -349,9 +349,9 @@ class MainController extends Controller
             ->where('_notice.id', '=',$uuid)
 //            ->leftJoin('categories','categories.id','=','_notice.category_id')
             ->first();
-        $title = DB::table('categories')->where('id', $Details)
+        $title = DB::table('categories')->where('id', $Details->category_id)->first();
 //        dd($Details);
-        return \view('client.pages.NoticeSingle', compact('Details'));
+        return \view('client.pages.NoticeSingle', compact('Details','title'));
 
     }
 //
