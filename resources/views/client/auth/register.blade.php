@@ -24,7 +24,7 @@
     </div>
     <section class="upper">
         <div class="bg-secondary">
-            <div class="col-lg-5 col-md-8 mx-auto bg-white card mb-0"
+            <div class="col-lg-4 col-md-8 mx-auto bg-white card mb-0"
                 style="position: relative;    top: -100px;    z-index: 2;">
                 <div class="section">
                     <header>
@@ -35,20 +35,20 @@
                     <form method="POST" action="/post-registration" id="register">
                         @csrf
                         <div class="row ">
-                            <div class="offset-md-2 col-md-2 align-self-center">
+                            <div class="offset-md-1 col-md-2 align-self-center">
                                 <label class="labels" for="firstname"> {{__('Full Name')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <input id="firstname" name="firstname" class="form-control" type="text" required autocomplete="off">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class=" offset-md-2 col-md-2 align-self-center">
+                            <div class=" offset-md-1 col-md-2 align-self-center">
                                 <label class="labels" for="#email">{{__('Email Adress')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <input id="email" name="email" class="form-control" type="email" required autocomplete="off">
                                     <small for="" id="email_error" class="text-danger"></small>
@@ -56,10 +56,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="offset-md-2 col-md-2 align-self-center">
+                            <div class="offset-md-1 col-md-2 align-self-center">
                                 <label class="labels" for="#phone">{{__('Phone Number')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <input id="phone" name="phone" class="form-control" type="text" required autocomplete="off">
                                     <small for="" id="phone_error" class="text-danger"></small>
@@ -67,10 +67,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="offset-md-2 col-md-2 align-self-center">
+                            <div class="offset-md-1 col-md-2 align-self-center">
                                 <label class="labels">{{__('Gender')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <select class="form-control" data-trigger="" name="sex" id="sex" required>
                                         <option value="male">{{__('Male')}}</option>
@@ -80,30 +80,30 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="offset-md-2 col-md-2 align-self-center">
+                            <div class="offset-md-1 col-md-2 align-self-center">
                                 <label class="labels" for="birthdate">{{__('Birthday')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <input type="date" class="form-control" id="birthdate" required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="offset-md-2 col-md-2 align-self-center">
+                            <div class="offset-md-1 col-md-2 align-self-center">
                                 <label class="labels" for="#password">{{__('Password')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <input id="password" name="password" class="form-control" type="password" required="required" autocomplete="off">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="offset-md-2 col-md-2 align-self-center">
+                            <div class="offset-md-1 col-md-2 align-self-center">
                                 <label class="labels" for="#confirm_password">{{__('Confirm Password')}}</label>
                             </div>
-                            <div class="col-md-6 align-self-center">
+                            <div class="col-md-8 align-self-center">
                                 <div class="form-group">
                                     <input id="confirm_password" name="confirm_password" class="form-control" type="password" required="required" autocomplete="off">
                                 </div>
@@ -131,7 +131,7 @@
                     <div class="tacbox options col-lg-12">
                         <input class="checkbox1" id="terms" type="checkbox" name="checkbox1" class="wizard-required"
                             value="0">
- <label for="terms"><a href="#">{{__('Terms and Conditions.')}}</a><span class="text-warning">({{__('required')}})</span></label>
+                         <label for="terms"><a href="#">{{__('Terms and Conditions.')}}</a><span class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px; width:100%; border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
                             {{ $site_info->terms_of_condition ?? '' }}
