@@ -10,9 +10,9 @@
                         @foreach($List as $item)
                             <div class="col-lg-4 col-md-6">
                                 <div class="card card-blog card-plain">
-                                    <div class="card-image shadow">
-                                        <a href="javascript:;">
-                                            <img class="img rounded" src="{{$item->main_img}}">
+                                    <div class="card-image shadow" style="height: 200px;">
+                                        <a href="/dtlpgdt/{{base64_encode(base64_encode($item->id))}}">
+                                            <img class="img rounded" src="{{$item->main_img}}" alt="" style="height: 100%; object-fit: cover">
                                         </a>
                                     </div>
                                     <div class="card-body">
