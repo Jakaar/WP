@@ -106,8 +106,8 @@
                             data: test ,
                             success: function (response) {
                                 Swal.fire({
-                                    title: 'Success!',
-                                    text: 'Successfully logged in',
+                                    title: '{{__('Success!')}}',
+                                    text: '{{__('Successfully logged in')}}',
                                     icon: 'success',
                                     showConfirmButton:false,
                                 });
