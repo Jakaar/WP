@@ -558,7 +558,8 @@
 
                 if ($('#addNewItemForm').valid({
                         ignore: ""
-                    })) {
+                    })) 
+                    {
                     Axios.post('/api/preferences/create', data).then((resp) => {
                         Swal.fire({
                             icon: 'success',

@@ -39,7 +39,8 @@ class AnalyticController extends Controller
         $dataC['active_product'] = DB::table('main_products')->where('is_status',1)->count();
         $dataC['inactive_product'] = DB::table('main_products')->where('is_status',0)->count();
         // $data['users_count'] = DB::table('users')->whereBetween('created_at', [$startOfWeek, $endOfWeek])->get()->count();
-
+        $dataC['visit'] = DB::table('log_activities')->whereBetween('created_at',array($startOfWeek, $endOfWeek))->select('ip',DB::raw('count(*) as total'))->groupBy('ip')->get();
+      
         return view('Admin::pages.dashboard.analytic',compact('dataC'));
     }
 }
