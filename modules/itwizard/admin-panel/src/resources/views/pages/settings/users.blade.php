@@ -402,7 +402,7 @@
                                         }).then((resp) => {
                                             console.log(resp)
                                             Swal.fire({
-                                                icon: 'Success',
+                                                icon: 'success',
                                                 title: '{{ __('Success') }}',
                                                 showConfirmButton: false,
                                                 timer: 4000
@@ -521,10 +521,10 @@
                                         Axios.post('/api/member/create', data).then((resp) => {
                                             Swal.fire({
                                                 title: resp.data.msg,
-                                                icon : resp.data.icon,
+                                                icon: resp.data.icon,
                                             })
 
-                                            if(resp.data.success){
+                                            if (resp.data.success) {
                                                 setInterval(() => {
                                                     window.location.reload()
                                                 }, 1500);
