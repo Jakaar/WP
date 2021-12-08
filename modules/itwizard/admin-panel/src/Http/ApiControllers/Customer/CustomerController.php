@@ -11,9 +11,17 @@ class CustomerController extends Controller
 {
     public function create(Request $request)
     {
+        $check = \App\User::where('email', $request->email)->count();
+        $phone = \App\User::where('phone', $request->phone)->count();
 
+        if($check > 0){
+            return response()->json(['icon'=> 'error', 'msg' => 'Email already registered'], 200);
+        }
+        if($phone > 0){
+            return response()->json(['icon'=> 'error', 'msg' => 'Phone Number already registered'], 200);
+
+        }
         $user = new \App\User;
-        
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->email = $request->email;
@@ -21,9 +29,10 @@ class CustomerController extends Controller
         $user->birthdate= $request->birthdate;
         $user->user_type= $request->user_type;
         $user->password = Hash::make($request->password);
+        $user->isEnabled = 1;
         $user->save();
 
-        return response()->json(['icon'=> 'success', 'msg' => 'success'], 200);
+        return response()->json(['success'=> true, 'icon'=> 'success', 'msg' => 'success'], 200);
     }
     public function delete(Request $request)
     {

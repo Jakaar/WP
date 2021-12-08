@@ -91,7 +91,7 @@ class MemberController extends Controller
     {
         $user_email = \App\User::where('email',$request->email)->count();
 
-        if($user_email == 1)
+        if($user_email > 0)
         {
           return response()->json(['icon' => 'error', 'msg' => 'This email already registered']);
         }
@@ -102,6 +102,7 @@ class MemberController extends Controller
             $user->lastname = $request->lastname;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->isEnabled = 1;
             $user->save();
             $user->attachRole('admin');
     

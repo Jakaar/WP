@@ -72,8 +72,7 @@
                     <thead>
                         <tr>
                             <th>{{ __('ID') }}</th>
-                            <th>{{ __('Firstname') }}</th>
-                            <th>{{ __('Lastname') }}</th>
+                            <th>{{ __('Name') }}</th>
                             <th>{{ __('Email') }}</th>
                             <th>{{ __('Roles') }}</th>
                             {{-- <th>{{ __('Status') }}</th> --}}
@@ -87,7 +86,6 @@
                             <tr key="{{ $admin->id }}">
                                 <td></td>
                                 <td>{{ $admin->firstname }}</td>
-                                <td>{{ $admin->lastname }}</td>
                                 <td>{{ $admin->email }}</td>
                                 <td class="">
                                     <div class="mb-3 badgeroles">
@@ -200,16 +198,12 @@
                                             <!-- <div class="col-lg-4">                                                                                                                                                                                                                                                          </div> -->
                                             <div class="col-lg-12">
                                                 <div class="row">
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label"> {{ __('First name') }} </label>
+                                                    <div class="col-lg-12 mb-3">
+                                                        <label class="form-label"> {{ __('Name') }} </label>
                                                         <input type="text" class="form-control" name="firstname" id="c-firstname"
-                                                            name="firstname" placeholder="{{ __('First name') }}" autocomplete="off">
+                                                            name="firstname" placeholder="{{ __('Name') }}" autocomplete="off">
                                                     </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label"> {{ __('Last name') }} </label>
-                                                        <input type="text" class="form-control" placeholder="{{ __('Last name') }}"
-                                                            name="lastname" id="c-lastname" autocomplete="off">
-                                                    </div>
+                                                    
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Email') }} </label>
                                                         <input type="text" class="form-control" placeholder="{{ __('Email') }} "
@@ -259,16 +253,16 @@
                                             </div>
                                             <div class="col-lg-8">
                                                 <div class="row">
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label"> {{ __('First name') }} </label>
+                                                    <div class="col-lg-12 mb-3">
+                                                        <label class="form-label"> {{ __('Name') }} </label>
                                                         <input type="text" class="form-control" name="firstname" id="firstname"
                                                             name="firstname" placeholder="{{ __('First name') }}">
                                                     </div>
-                                                    <div class="col-lg-6 mb-3">
+                                                    {{-- <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Last name') }} </label>
                                                         <input type="text" class="form-control" placeholder="{{ __('Last name') }}"
                                                             name="lastname" id="lastname">
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label"> {{ __('Email') }} </label>
                                                         <input type="text" class="form-control" placeholder="{{ __('Email') }} "
