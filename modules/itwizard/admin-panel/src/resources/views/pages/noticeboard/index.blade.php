@@ -274,11 +274,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesEnabled" name="isEnabled" value="2" checked data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <input class="form-check-input" type="radio" id="yesEnabled" name="isEnabled" value="1" checked data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noEnabled" name="isEnabled" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <input class="form-check-input" type="radio" id="noEnabled" name="isEnabled" value="2" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -442,11 +442,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="yesEnabled1" name="isEnabled1" value="2" data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <input class="form-check-input" type="radio" id="yesEnabled1" name="isEnabled1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="yesEnabled">{{__('Yes')}}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="noEnabled1" name="isEnabled1" value="1" data-msg-required="{{ __('This Field is Required') }}" required>
+                                    <input class="form-check-input" type="radio" id="noEnabled1" name="isEnabled1" value="2" data-msg-required="{{ __('This Field is Required') }}" required>
                                     <label class="form-check-label" for="noEnabled">{{__('No')}}</label>
                                 </div>
                             </div>
@@ -576,7 +576,7 @@
                     {$('#yesCategory1').prop('checked', true);}
                     else
                     {$('#noCategory1').prop('checked', true);}
-                    if(resp.data.isEnabled==2)
+                    if(resp.data.isEnabled==1)
                     {$('#yesEnabled1').prop('checked', true);}
                     else
                     {$('#noEnabled1').prop('checked', true);}       

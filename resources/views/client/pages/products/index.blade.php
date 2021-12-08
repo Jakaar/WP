@@ -193,7 +193,7 @@
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}" @if($category->id == Request::input('category')) selected @endif >{{ $category->name }}</option>
                                             @include('client.pages.products._category', ['subcategories' =>
-                                            $category->child,
+                                            $category->childs,
                                             'parent' => $category->name])
 
                                         @endforeach

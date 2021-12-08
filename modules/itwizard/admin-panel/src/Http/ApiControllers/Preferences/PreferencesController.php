@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Helper\LogActivity;
+use Illuminate\Support\Facades\Artisan;
+
 
 class PreferencesController extends Controller
 {
@@ -14,7 +16,7 @@ class PreferencesController extends Controller
     {
         try {
             LogActivity::addToLog('Created Preferences');
-            \Artisan::call("config:cache");
+            Artisan::call("config:cache");
             $model = DB::table('wpanel_settings')->insert([
                 'display_name' => $request->name,
                 'key' => $request->key,
@@ -23,7 +25,7 @@ class PreferencesController extends Controller
                 'group' => $request->group,
                 'details' => $request->details,
             ]);
-            \Artisan::call("config:cache");
+            Artisan::call("config:cache");
 
             return response()->json(['msg' => 'success'], 200);
         } catch (\Exception $e) {

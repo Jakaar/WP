@@ -56,7 +56,7 @@ class ProductCreateController extends Controller
     }
     public function SaveProduct($validated, $rand)
     {
-//        dd($validated, $rand);
+    //    dd($validated, $rand);
         try {
             DB::table('main_products')->insertGetId([
                 'category_id' => $validated['category_id'],
@@ -77,6 +77,7 @@ class ProductCreateController extends Controller
                 'description' => $validated['description'],
                 'main_img' => $validated['main_img'],
                 'other_photos' => $validated['thumbnail'],
+                'created_at' => now()->format('Y-m-d h:i:s'),
             ]);
             return true;
         } catch (\Exception $exception)
@@ -108,6 +109,7 @@ class ProductCreateController extends Controller
                 'description' => $validated['description'],
                 'main_img' => $validated['main_img'],
                 'other_photos' => $validated['thumbnail'],
+                'updated_at' => now()->format('Y-m-d h:i:s'),
             ]);
             return back()->with('updated','Code:'.$request->sku.' Name:'.$validated['name'].' Item Has Been Updated');
         }
@@ -129,6 +131,7 @@ class ProductCreateController extends Controller
             'price' => $validated['price'],
             'description' => $validated['description'],
             'other_photos' => $validated['thumbnail'],
+            'updated_at' => now()->format('Y-m-d h:i:s'),
         ]);
         return back()->with('updated',$request->sku.' '.$validated['name'].' Item Has Been Updated');
     }

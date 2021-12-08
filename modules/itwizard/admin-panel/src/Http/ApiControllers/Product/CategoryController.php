@@ -19,11 +19,11 @@ class CategoryController extends Controller
 
         $model = \App\ProductCategory::where('id', $request->id)->first();
         if ($model->parent_id != null) {
-            $data = \App\ProductCategory::where('id', $model->parent_id)->where('is_active',1)->first();
-            $parent = \App\ProductCategory::where('parent_id', $data->parent_id)->where('is_active',1)->get();
+            $data = \App\ProductCategory::where('id', $model->parent_id)->whereIn('is_active',[1,2])->first();
+            $parent = \App\ProductCategory::where('parent_id', $data->parent_id)->whereIn('is_active',[1,2])->get();
         }
         else{
-            $parent = \App\ProductCategory::where('parent_id',null)->where('is_active',1)->get();
+            $parent = \App\ProductCategory::where('parent_id',null)->whereIn('is_active',[1,2])->get();
         }
 
         return response()->json([
@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         try {
             $model = \App\ProductCategory::find($request->id);
-            $model->is_active = 2;
+            $model->is_active = 0;
             $model->save();
             return response()->json(['msg', 'Success']);
         } catch (\Exception $e) {
