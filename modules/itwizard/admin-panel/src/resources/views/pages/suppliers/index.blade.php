@@ -129,46 +129,50 @@
 
                             </thead>
                             <tbody>
-                                @foreach ($datas['client_data'][$key] as $c_data)
-                                    <tr>
-                                        <td>{{ $c_data->id }}</td>
-                                        <td>{{ $c_data->builder->form_name ?? '' }}</td>
-                                        <td>{{ $c_data->submited_at }}</td>
-                                        <td>
-                                            @switch($c_data->is_active)
-                                                @case('waiting')
-                                                    <span class="badge text-warning"> {{ __($c_data->is_active) }} </span>
-                                                @break
-                                                @case('process')
-                                                    <span class="badge text-info"> {{ __($c_data->is_active) }} </span>
+                                
+                                    @foreach ($datas['client_data'][$key] as $c_data)
+                                        <tr>
+                                            <td>{{ $c_data->id }}</td>
+                                            <td>{{ $c_data->builder->form_name ?? '' }}</td>
+                                            <td>{{ $c_data->submited_at }}</td>
+                                            <td>
+                                                @switch($c_data->is_active)
+                                                    @case('waiting')
+                                                        <span class="badge text-warning"> {{ __($c_data->is_active) }}
+                                                        </span>
+                                                    @break
+                                                    @case('process')
+                                                        <span class="badge text-info"> {{ __($c_data->is_active) }} </span>
 
-                                                @break
-                                                @case('complete')
-                                                    <span class="badge text-success"> {{ __($c_data->is_active) }} </span>
+                                                    @break
+                                                    @case('complete')
+                                                        <span class="badge text-success"> {{ __($c_data->is_active) }}
+                                                        </span>
 
-                                                @break
-                                                @default
-                                                    <span class="badge text-warning"> {{ __('In Waiting') }} </span>
-                                            @endswitch
-                                        </td>
-                                        <td>
-                                            {{-- @permission('mail-edit') --}}
-                                            <button class="btn-outline-primary btn view" data-id="{{ $c_data->id }}"
-                                                data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-                                                {{ __('view') }}
-                                            </button>
-                                            {{-- @endpermission --}}
-                                            {{-- @permission('mail-delete') --}}
-                                            <button class="btn-outline-danger btn-link btn client_data_delete"
-                                                data-id="{{ $c_data->id }}">
-                                                {{ __('Delete') }}
-                                            </button>
-                                            {{-- @endpermission --}}
-                                        </td>
+                                                    @break
+                                                    @default
+                                                        <span class="badge text-warning"> {{ __('In Waiting') }} </span>
+                                                @endswitch
+                                            </td>
+                                            <td>
+                                                {{-- @permission('mail-edit') --}}
+                                                <button class="btn-outline-primary btn view" data-id="{{ $c_data->id }}"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
+                                                    {{ __('view') }}
+                                                </button>
+                                                {{-- @endpermission --}}
+                                                {{-- @permission('mail-delete') --}}
+                                                <button class="btn-outline-danger btn-link btn client_data_delete"
+                                                    data-id="{{ $c_data->id }}">
+                                                    {{ __('Delete') }}
+                                                </button>
+                                                {{-- @endpermission --}}
+                                            </td>
 
 
-                                    </tr>
-                                @endforeach
+                                        </tr>
+                                    @endforeach
+                                
                             </tbody>
                         </table>
                         @php
@@ -667,9 +671,11 @@
                         })
                     })
                     $('#downloadBtn').html('')
-                    $.each(files, function (index, data){
-                        $('#downloadBtn').append('<a href="'+data.file_path+'" class="btn btn-info btn-sm"> {{ __("Download File") }}</a>')
-                        
+                    $.each(files, function(index, data) {
+                        $('#downloadBtn').append('<a href="' + data.file_path +
+                            '" class="btn btn-info btn-sm"> {{ __('Download File') }}</a>'
+                            )
+
                     })
                     const reata = builder;
                     $('.getSendData').attr('data-email', resp.data.email)
