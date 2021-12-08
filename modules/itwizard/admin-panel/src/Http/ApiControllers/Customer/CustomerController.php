@@ -21,6 +21,7 @@ class CustomerController extends Controller
         $user->birthdate= $request->birthdate;
         $user->user_type= $request->user_type;
         $user->password = Hash::make($request->password);
+        $user->isEnabled = 1;
         $user->save();
 
         return response()->json(['icon'=> 'success', 'msg' => 'success'], 200);

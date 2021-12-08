@@ -35,8 +35,8 @@
                     <thead>
                         <tr>
                             <th>{{ __('ID') }}</th>
-                            <th>{{ __('First Name') }}</th>
-                            <th>{{ __('Last Name') }}</th>
+                            <th>{{ __('Name') }}</th>
+                            {{-- <th>{{ __('Last Name') }}</th> --}}
                             <th>{{ __('Email') }}</th>
                             <th>{{ __('Phone') }}</th>
 
@@ -48,7 +48,7 @@
                             <tr key="{{ $user->id }}">
                                 <td></td>
                                 <td>{{ $user->firstname }}</td>
-                                <td>{{ $user->lastname }}</td>
+                                {{-- <td>{{ $user->lastname }}</td> --}}
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>
@@ -91,16 +91,16 @@
                                     <!-- <div class="col-lg-4">                                                                                                                                                                                                                                                          </div> -->
                                     <div class="col-lg-12">
                                         <div class="row">
-                                            <div class="col-lg-6 mb-3">
-                                                <label class="form-label"> {{ __('First name') }} </label>
+                                            <div class="col-lg-12 mb-3">
+                                                <label class="form-label"> {{ __('Name') }} </label>
                                                 <input type="text" class="form-control" name="c_firstname" id="c_firstname"
-                                                    placeholder="{{ __('First name') }}" required>
+                                                    placeholder="{{ __('Name') }}" required>
                                             </div>
-                                            <div class="col-lg-6 mb-3">
+                                            {{-- <div class="col-lg-6 mb-3">
                                                 <label class="form-label"> {{ __('Last name') }} </label>
                                                 <input type="text" class="form-control" placeholder="{{ __('Last name') }}"
                                                     name="c_lastname" id="c_lastname" required>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-lg-6 mb-3">
                                                 <label class="form-label"> {{ __('Email') }} </label>
                                                 <input type="text" class="form-control" placeholder="{{ __('Email') }} "
@@ -151,16 +151,16 @@
                                     <input type="hidden" id="v_id">
                                     <div class="col-lg-12">
                                         <div class="row">
-                                            <div class="col-lg-6 mb-3">
-                                                <label class="form-label"> {{ __('First name') }} </label>
+                                            <div class="col-lg-12 mb-3">
+                                                <label class="form-label"> {{ __('Name') }} </label>
                                                 <input type="text" class="form-control" name="v_firstname" id="v_firstname"
-                                                    placeholder="{{ __('First name') }}">
+                                                    placeholder="{{ __('Name') }}">
                                             </div>
-                                            <div class="col-lg-6 mb-3">
+                                            {{-- <div class="col-lg-6 mb-3">
                                                 <label class="form-label"> {{ __('Last name') }} </label>
                                                 <input type="text" class="form-control" placeholder="{{ __('Last name') }}"
                                                     name="v_lastname" id="v_lastname">
-                                            </div>
+                                            </div> --}}
                                             <div class="col-lg-6 mb-3">
                                                 <label class="form-label"> {{ __('Email') }} </label>
                                                 <input type="text" class="form-control" placeholder="{{ __('Email') }} "

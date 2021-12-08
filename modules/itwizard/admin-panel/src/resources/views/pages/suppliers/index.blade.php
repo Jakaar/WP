@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{ __('Form Mail Manage') }} @endsection
+@section('title') {{ __('Q&A') }} @endsection
 
 @section('content')
     <style>
@@ -57,10 +57,10 @@
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
+                    <i class="fa fa-question-circle icon-gradient bg-mixed-hopes"></i>
                 </div>
                 <div>
-                    {{ __('Mail list') }}
+                    {{ __('Q&A') }}
                     <div class="page-title-subheading"></div>
                 </div>
             </div>
