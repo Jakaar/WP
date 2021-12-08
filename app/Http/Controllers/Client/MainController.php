@@ -149,22 +149,29 @@ class MainController extends Controller
             }
             if ($board->board_type === 'Category')
             {
+                if (\session()->get('locale') === 'kr')
+                {
+                    Carbon::setLocale('ko');
+                }else{
+                    Carbon::setLocale(session()->get('locale'));
+                }
 //                $title = DB::table('categories')->where('id', $id)->first();
                 $Categories = DB::table('main__category')
                     ->where('category_id', $id)
                     ->where('is_enabled', 1)
                     ->get();
-                    $datas['form_builded'] = DB::table('form_builded')
+                $latest = DB::table('main__category__page')->latest('created_at')->get()->take(6);
+//                dd($latest);
+                $datas['form_builded'] = DB::table('form_builded')
                     ->where('board_master_id', $slug)
                     ->where('category_id', $id)
                     ->where('isEnabled',1)
                     ->first();
-                return view('client.pages.Category',compact('board','Categories','datas','title'));
+
+                return view('client.pages.Category',compact('board','Categories','datas','title','latest'));
             }
             if ($board->board_type === 'Gallery')
             {
-
-
                 $content['categories'] = ContentCategory::whereNull('content_category_id')
                     ->where(['board_master_id' => $id])
                     ->with('subCategories')
@@ -177,6 +184,7 @@ class MainController extends Controller
                     ->where('category_id', $id)
                     ->where('isEnabled',1)
                     ->first();
+//                    dd('hi');
                 return view('client.pages.Gallery',compact('content','board','Groups','datas','title'));
             }
             if ($board->board_type === 'SinglePage')

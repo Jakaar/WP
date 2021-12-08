@@ -38,162 +38,30 @@
             <div class="col-md-10 mx-auto">
                 <h2 class="title mb-5">{{ __('Latest Posts') }}</h2>
                 <div class="row">
+                    @foreach($latest as $last)
                     <div class="col-lg-4 col-md-6">
                         <div class="card card-blog card-plain">
                             <div class="card-image shadow">
-                                <a href="javascript:;">
-                                    <img class="img rounded" src="{{asset('client/static/img/sections/mark-harrison.jpg')}}">
+                                <a href="{{'/dtlpgdt/'.base64_encode(base64_encode($last->id))}}">
+                                    <img class="img rounded" src="{{asset('client/static/img/sections/mark-harrison.jpg')}}" alt="">
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="javascript:;">That’s One Way To Ditch Your Passenger</a>
+                                <h4 class="card-title text-truncate">
+                                    <a href="{{'/dtlpgdt/'.base64_encode(base64_encode($last->id))}}">{{$last->name}}</a>
                                 </h4>
-                                <p class="card-description">
-                                    As near as we can tell, this guy must have thought he was going over backwards and tapped the rear...
+                                <p class="card-description text-truncate">
+                                    {{$last->description}}
                                 </p>
                                 <div class="card-footer">
-                                    <div class="author">
-                                        <img src="{{asset('client/static/img/faces/team-3.jpg')}}" alt="..." class="avatar img-raised">
-                                        <span>Mike John</span>
-                                    </div>
                                     <div class="stats stats-right opacity-8">
-                                        <i class="ni ni-watch-time"></i> 5 min read
+                                        <i class="ni ni-watch-time"></i> {{\Carbon\Carbon::parse($last->created_at)->diffForHumans()}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-blog card-plain">
-                            <div class="card-image shadow">
-                                <a href="javascript:;">
-                                    <img class="img rounded" src="{{asset('client/static/img/sections/twk-tt.jpg')}}">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="javascript:;">Shark Week: How to Watch It Scientist</a>
-                                </h4>
-                                <p class="card-description">
-                                    Just when you thought it was safe to turn on your television, the Discovery Channel's "Shark Week"...
-                                </p>
-                                <div class="card-footer">
-                                    <div class="author">
-                                        <img src="{{asset('client/static/img/faces/team-2.jpg')}}" alt="..." class="avatar img-raised">
-                                        <span>Jona Zmud</span>
-                                    </div>
-                                    <div class="stats stats-right opacity-8">
-                                        <i class="ni ni-watch-time"></i> 5 min read
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-blog card-plain">
-                            <div class="card-image shadow">
-                                <a href="javascript:;">
-                                    <img class="img rounded" src="{{asset('client/static/img/sections/pawel-nolbert.jpg')}}">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="javascript:;">Who's Afraid of the Self-Driving Car?</a>
-                                </h4>
-                                <p class="card-description">
-                                    It's been 60 years since the cover of Popular Mechanics magazine gave us the promise of flying cars...
-                                </p>
-                                <div class="card-footer">
-                                    <div class="author">
-                                        <img src="{{asset('client/static/img/faces/team-5.jpg')}}" alt="..." class="avatar img-raised">
-                                        <span>Marc Oliver</span>
-                                    </div>
-                                    <div class="stats stats-right opacity-8">
-                                        <i class="ni ni-favourite-28"></i> 2.4K
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-blog card-plain">
-                            <div class="card-image shadow">
-                                <a href="javascript:;">
-                                    <img class="img rounded" src="{{asset('client/static/img/sections/mark-harrison.jpg')}}">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="javascript:;">That’s One Way To Ditch Your Passenger</a>
-                                </h4>
-                                <p class="card-description">
-                                    As near as we can tell, this guy must have thought he was going over backwards and tapped the rear...
-                                </p>
-                                <div class="card-footer">
-                                    <div class="author">
-                                        <img src="{{asset('client/static/img/faces/team-3.jpg')}}" alt="..." class="avatar img-raised">
-                                        <span>Mike John</span>
-                                    </div>
-                                    <div class="stats stats-right opacity-8">
-                                        <i class="ni ni-watch-time"></i> 5 min read
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-blog card-plain">
-                            <div class="card-image shadow">
-                                <a href="javascript:;">
-                                    <img class="img rounded" src="{{asset('client/static/img/sections/pawel-nolbert.jpg')}}">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="javascript:;">Who's Afraid of the Self-Driving Car?</a>
-                                </h4>
-                                <p class="card-description">
-                                    It's been 60 years since the cover of Popular Mechanics magazine gave us the promise of flying cars...
-                                </p>
-                                <div class="card-footer">
-                                    <div class="author">
-                                        <img src="{{asset('client/static/img/faces/team-5.jpg')}}" alt="..." class="avatar img-raised">
-                                        <span>Marc Oliver</span>
-                                    </div>
-                                    <div class="stats stats-right opacity-8">
-                                        <i class="ni ni-favourite-28"></i> 2.4K
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-blog card-plain">
-                            <div class="card-image shadow">
-                                <a href="javascript:;">
-                                    <img class="img rounded" src="{{asset('client/static/img/sections/pawel-nolbert.jpg')}}">
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="javascript:;">Who's Afraid of the Self-Driving Car?</a>
-                                </h4>
-                                <p class="card-description">
-                                    It's been 60 years since the cover of Popular Mechanics magazine gave us the promise of flying cars...
-                                </p>
-                                <div class="card-footer">
-                                    <div class="author">
-                                        <img src="{{asset('client/static/img/faces/team-5.jpg')}}" alt="..." class="avatar img-raised">
-                                        <span>Marc Oliver</span>
-                                    </div>
-                                    <div class="stats stats-right opacity-8">
-                                        <i class="ni ni-favourite-28"></i> 2.4K
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
