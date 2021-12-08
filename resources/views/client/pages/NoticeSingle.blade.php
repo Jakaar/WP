@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col-12">
-                            {{$Details->content}}
+                            {!! $Details->content !!}
                         </div>
                     </div>
                 </div>
