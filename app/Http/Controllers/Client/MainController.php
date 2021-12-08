@@ -102,6 +102,7 @@ class MainController extends Controller
 //    }
     public function viewer($slug, $id, $uuid = null)
     {
+//        dd($slug, $id, $uuid);
         $title = DB::table('categories')->where('id', $id)->first();
         $content['data'] = \App\UserMenu::whereNull('category_id')->where('isEnabled',1)->get();
         $content['detail'] = 0;
@@ -339,6 +340,19 @@ class MainController extends Controller
         return view('client.pages.products.details',[
             'model' => $model,
         ]);
+    }
+
+    public function NoticeDetail($uuid)
+    {
+        $uuid = base64_decode(base64_decode($uuid));
+        $Details = DB::table('_notice')
+            ->where('_notice.id', '=',$uuid)
+//            ->leftJoin('categories','categories.id','=','_notice.category_id')
+            ->first();
+        $title = DB::table('categories')->where('id', $Details)
+//        dd($Details);
+        return \view('client.pages.NoticeSingle', compact('Details'));
+
     }
 //
 }
