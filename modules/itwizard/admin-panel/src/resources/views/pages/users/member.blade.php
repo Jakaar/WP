@@ -318,13 +318,17 @@
 
                                 $('#staticBackdrop').modal('hide')
                                 Axios.post('/api/customer/create', data).then((resp) => {
-                                    window.location.reload();
+                                    
                                     Swal.fire({
                                         icon: resp.data.icon,
-                                        title: '{{ __('Success') }}',
+                                        title:  resp.data.msg,
                                         showConfirmButton: false,
-                                        timer: 4000
+                                        timer: 2000
                                     });
+                                    if(resp.data.success){
+                                        window.location.reload();
+                                    }
+
                                 }).catch((err) => {
                                     Swal.fire({
                                         icon: 'error',
