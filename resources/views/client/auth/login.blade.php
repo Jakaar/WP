@@ -15,7 +15,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                         <h1 class="text-white">{{__('Welcome!')}}</h1>
-                        <p class="text-lead text-white">{{__('Use these awesome forms to login or create new account in your project for free.')}}</p>
+                        {{-- <p class="text-lead text-white">{{__('Use these awesome forms to login or create new account in your project for free.')}}</p> --}}
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="card-body px-lg-5 py-lg-5">
                     <div class="text-center text-muted mb-4">
-                        <small>Or login with credentials</small>
+                        {{-- <small>Or login with credentials</small> --}}
                     </div>
                     <form method="POST" action="{{route('customers.login')}}">
 <!--                        {{ csrf_field() }}-->
@@ -54,7 +54,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email" name="email" autocomplete="off">
+                                <input class="form-control" placeholder="{{__('Email')}}" type="email" name="email" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password" name="password" autocomplete="off">
+                                <input class="form-control" placeholder="{{__('Password')}}" type="password" name="password" autocomplete="off">
                             </div>
                         </div>
                         <div class="custom-control custom-control-alternative custom-checkbox">

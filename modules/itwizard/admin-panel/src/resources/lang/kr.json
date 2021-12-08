@@ -893,8 +893,27 @@
     "Enter your input s options, example": "옵션의 정보를 입력하세요. 예:",
     "Board successfully created": "보드가 생성되었습니다",
     "Build the Form": "폼 생성",
-    "Successfully saved": "추가되었습니다"
-    
+    "Successfully saved": "추가되었습니다",
+    "Welcome!": "환영합니다",
+    "Login with": "SNS 로그인",
+    "Kakao": "카카오",
+    "Google": "구글",
+    "Remember me": "로그인 상태 유지",
+    "Do you have an account ?": "계정이 있으십니까?",
+    "required": "필수",
+    "Privacy Policy()": "개인 정보 수집 및 이용 동의",
+    "Terms and Conditions()": "이용약관 동의",
+    "Terms of Service, Privacy Policy agree": "이용약관, 개인 정보 수집 및 이용 동의",
+    "Sign Up": "회원 가입",
+    "Full Name": "성명",
+    "Gender": "성별",
+    "Email Adress": "이메일 주소",
+    "Birthday": "생년월일",
+    "Confirm Password": "비밀번호 확인",
+    "Sign Up Now": "가입하기",
+    "General information": "기본 정보",
+    "Male": "남자",
+    "Female": "여자"
 
 
     

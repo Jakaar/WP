@@ -13,9 +13,9 @@
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
                         <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                            <h1 class="text-white">{{__('Register')}}</h1>
+                            {{-- <h1 class="text-white">{{__('Sign Up')}}</h1>
                             <p class="text-lead text-white">{{__('That’s the main thing people are controlled by! Thoughts - their
-                                perception of themselves!')}}</p>
+                                perception of themselves!')}}</p> --}}
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         @csrf
                         <div class="row ">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="firstname"> {{__('Name')}}</label>
+                                <label class="labels" for="firstname"> {{__('Full Name')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="row">
                             <div class=" offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="#email">{{__('Email')}}</label>
+                                <label class="labels" for="#email">{{__('Email Adress')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="row">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="#phone">{{__('Phone')}}</label>
+                                <label class="labels" for="#phone">{{__('Phone Number')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -113,7 +113,7 @@
                 </div>
                 <div class="row mt-5 mb-5">
                     <div class="col-md-12 text-center">
-                        <button class="btn btn-primary" type="button" id="r_changes">{{__('Save Changes')}}</button>
+                        <button class="btn btn-primary" type="button" id="r_changes">{{__('Sign Up Now')}}</button>
                         <button class="btn btn-outline-primary" type="reset">{{__('Cancel')}}</button>
                     </div>
                 </div>
@@ -125,13 +125,13 @@
         <div class='modal-dialog modal-lg modal-dialog-scrollable' role='document'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h3 class='modal-title' id='exampleModalLabel'>{{__('Supplier information')}}</h3>
+                    <h3 class='modal-title' id='exampleModalLabel'>{{__('Terms of Service, Privacy Policy agree')}}</h3>
                 </div>
                 <div class='modal-body'>
                     <div class="tacbox options col-lg-12">
                         <input class="checkbox1" id="terms" type="checkbox" name="checkbox1" class="wizard-required"
                             value="0">
- <label for="terms"> {{__('I agree to these')}} <a href="#">{{__('Terms and Conditions')}}</a><span class="text-warning">({{__('required')}})</span></label>
+ <label for="terms"><a href="#">{{__('Terms and Conditions()')}}</a><span class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px; width:100%; border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
                             {{ $site_info->terms_of_condition ?? '' }}
@@ -140,7 +140,7 @@
                     <div class="tacbox options mt-3 col-lg-12">
                         <input class="checkbox2" id="privacy" type="checkbox" name="checkbox2" class="wizard-required"
                             value="0">
-                        <label for="privacy"> {{__('I agree to these')}} <a href="#">{{__('Privacy')}}</a><span
+                        <label for="privacy"> <a href="#">{{__('Privacy Policy()')}}</a><span
                                 class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
@@ -148,7 +148,7 @@
                         </div>
                     </div>
 
-                    <button class='btn mt-3 btn-primary btn-save-change ml-3' id="saveChanges">{{__('Save changes')}}</button>
+                    <button class='btn mt-3 btn-primary btn-save-change ml-3' id="saveChanges">{{__('Confirm')}}</button>
                 </div>
 
             </div>

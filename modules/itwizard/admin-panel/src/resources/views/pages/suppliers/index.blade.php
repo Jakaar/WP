@@ -60,7 +60,7 @@
                     <i class="pe-7s-mail icon-gradient bg-mixed-hopes"></i>
                 </div>
                 <div>
-                    {{ __('Mail list') }} {{ Config::get('setting.Mail Form_mail') }}
+                    {{ __('Mail list') }}
                     <div class="page-title-subheading"></div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                                 <th> {{ __('Submited date') }} </th>
                                 <th> {{ __('Status') }} </th>
                                 <th> {{ __('Action') }} </th>
-                                <th> {{ __('Email Send') }} </th>
+
                             </thead>
                             <tbody>
                                 @foreach ($datas['client_data'][$key] as $c_data)
@@ -165,13 +165,7 @@
                                             </button>
                                             {{-- @endpermission --}}
                                         </td>
-                                        <td>
-                                            <button class="btn-outline-primary btn getSendData"
-                                                data-id="{{ $c_data->id }}" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdropSent">
-                                                {{ __('Send') }}
-                                            </button>
-                                        </td>
+
 
                                     </tr>
                                 @endforeach
@@ -262,8 +256,19 @@
                 </div>
 
                 <div class="modal-footer card-btm-border card-shadow-primary border-primary">
+                    <div class="float-start">
+                        <p class="text-danger m-0 p-0">
+                            Save the answer first if you send a email
+                        </p>
+                    </div>
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">{{ __('Close') }}</button>
                     <button type="button" class="btn btn-success" id="saveAnswer"> {{ __('Save') }} </button>
+
+                    <button class="btn-primary btn getSendData px-4" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdropSent">
+                        {{ __('Send E-Mail') }}
+                    </button>
+
 
                     {{-- <button type="button" class="btn btn-success updateMail">{{__('Save Changes')}}</button> --}}
                 </div>
@@ -321,16 +326,15 @@
                     <form action="" class="row" id="validateForm">
 
                         <input type="hidden" id="idMail">
-                        <div class="mb-3 col-lg-2">
+                        {{-- <div class="mb-3 col-lg-2">
                             <div class="form-check d-inline-block  fw-bold">
                                 <input type="checkbox" value="all_checked" id="all_name" class="form-check-input" checked
                                     data-msg-required="{{ __('This Field is Required') }}" required>
                                 <label for="all_name" class="form-check-label"> {{ __('All') }} </label>
                             </div>
-                        </div>
+                        </div> --}}
 
-
-                        <div class=" mb-3 col-lg-10 form-check">
+                        {{-- <div class=" mb-3 col-lg-10 form-check">
                             <div class="form-group">
                                 <label for="roleMultiSelect"
                                     class="fw-bold">{{ __('Multiple select email') }}</label>
@@ -346,7 +350,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="mb-3 col-lg-12">
                             <label class="form-check-label fw-bold"
@@ -356,14 +360,14 @@
                         </div>
 
                         <!-- subsribe -->
-                        <div class="mb-3 col-lg-12">
+                        {{-- <div class="mb-3 col-lg-12">
                             <label class="form-check-label fw-bold"
                                 for="flexSwitchCheckChecked">{{ __('Mailing') }}</label>
                             <select class="form-select" aria-label="Default " id="subscribe" disabled>
                                 <option value="1">{{ __('Only members who have agreed to receive') }}</option>
                                 <option value="2">{{ __('All') }}</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
                 <div class="modal-footer card-btm-border card-shadow-primary border-primary">
@@ -470,6 +474,8 @@
             var subscribe = 0;
             $('.getSendData').click(function() {
                 data_id = $(this).data('id'); //form mail id
+                data_email = $(this).data('email')
+                $('#inputEmail').val(data_email)
             })
 
             // all checked selected and unchecked
@@ -640,27 +646,47 @@
             // const formBuilder = $('#fb_editor').formBuilder();
             $('.view').click(function() {
                 const view_id = $(this).attr('data-id');
+                $('.getSendData').attr('data-id', view_id)
+
                 console.log(view_id)
                 $('#mid').val(view_id)
                 CKEDITOR.instances.answer.setData()
                 $('#status').val('').change()
 
                 Axios.get('/api/client_view/' + view_id).then((resp) => {
-                    const reata = resp.data.data.data;
 
-                    CKEDITOR.instances.answer.setData(resp.data.data.answer)
-                    $('#status').val(resp.data.data.is_active).change()
+                    const builder = JSON.parse(resp.data.builder.data);
+                    let datas = JSON.parse(resp.data.content);
+                    let files = resp.data.files;
+                    $.each(datas, function(i, v) {
+                        builder.filter(function(item) {
+                            if (item.name == i) {
+                                item.value = v;
+                            }
+
+                        })
+                    })
+                    $('#downloadBtn').html('')
+                    $.each(files, function (index, data){
+                        $('#downloadBtn').append('<a href="'+data.file_path+'" class="btn btn-info btn-sm"> {{ __("Download File") }}</a>')
+                        
+                    })
+                    const reata = builder;
+                    $('.getSendData').attr('data-email', resp.data.email)
+
+                    CKEDITOR.instances.answer.setData(resp.data.answer)
+                    $('#status').val(resp.data.is_active).change()
 
                     var formRenderOptions = {
                         formData: reata,
                     }
                     $('#fb_editor').formRender(formRenderOptions)
 
-                    if (resp.data.data.file_path) {
-                        const html = `<a href="/cms/file/download/` + resp.data.data.file_path +
-                            `" class="btn btn-sm btn-info">Download File</a>`;
-                        $('#downloadBtn').html(html)
-                    }
+                    // if (resp.data.data.file_path) {
+                    //     const html = `<a href="/cms/file/download/` + resp.data.data.file_path +
+                    //         `" class="btn btn-sm btn-info">Download File</a>`;
+                    //     $('#downloadBtn').html(html)
+                    // }
 
                 }).catch((err) => {
                     Swal.fire({
@@ -752,7 +778,6 @@
         })
     </script>
     <script>
-            $('.BasicTable').DataTable({});
-
+        $('.BasicTable').DataTable({});
     </script>
 @endsection
