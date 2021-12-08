@@ -16,7 +16,7 @@
         </span>
     </a>
     <ul>
-        @foreach ($child_category->childs as $childCategory)
+        @foreach ($child_category->child as $childCategory)
             @include('Admin::pages.products.child_category', ['child_category' => $childCategory])
         @endforeach
     </ul>

@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Categories Management')}} @endsection
+@section('title') {{ __('Categories Management') }} @endsection
 
 @inject('t','App\Helper\Helper')
 @section('content')
@@ -79,7 +79,7 @@
             <div class="card card-btm-border border-primary mb-3">
                 <div class="card-body">
 
-                    <div class="card-title dataName">{{__('Edit Category')}}</div>
+                    <div class="card-title dataName">{{ __('Edit Category') }}</div>
                     <form action="#" class="d-none" id="editForm">
 
                         <div class="widget-content w-100">
@@ -116,7 +116,7 @@
                             <label class="form-label fw-bold"> {{ __('Is Active') }} </label>
                             <select name="is_active" id="e_is_active" class="form-control form-select">
                                 <option value="1"> {{ __('Active') }} </option>
-                                <option value="0"> {{ __('Inactive') }} </option>
+                                <option value="2"> {{ __('Inactive') }} </option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -151,7 +151,7 @@
                             <label for="is_active" class="form-label fw-bold"> {{ __('Is Active') }} </label>
                             <select name="is_active" id="is_active" class="form-control form-select">
                                 <option value="1"> {{ __('Active') }} </option>
-                                <option value="0"> {{ __('Inactive') }} </option>
+                                <option value="2"> {{ __('Inactive') }} </option>
                             </select>
                         </div>
                     </form>
@@ -204,8 +204,8 @@
                         )
                     }
 
-                        $('#e_parent_id').val(resp.data.data.parent_id).change()
-                  
+                    $('#e_parent_id').val(resp.data.data.parent_id).change()
+
 
                 }).catch((error) => {
                     Toast.fire({
@@ -222,22 +222,41 @@
                 const data = {
                     id: $(this).data('key')
                 }
-                Axios.post('/api/category/delete', data).then((resp) => {
-                    $('#staticBackdrop').modal('hide')
-                    Swal.fire({
-                            title: "{{ __('Deleted!') }}",
-                            icon: 'success',
-                            showConfirmButton: false,
-                    })
-                    setInterval(() => {
-                        window.location.reload()
-                    }, 1000);
-                }).catch((error) => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: error
-                    });
-                });
+
+
+                Swal.fire({
+                    title: '{{ __('Do you want to delete role?') }}',
+                    cancelButtonColor: '#212529',
+                    confirmButtonColor: '#dc3545',
+                    showCancelButton: true,
+                    confirmButtonText: '{{ __('Delete') }}',
+                    cancelButtonText: '{{ __('Cancel') }}'
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        Axios.post('/api/category/delete', data).then((resp) => {
+                            $('#staticBackdrop').modal('hide')
+                            Swal.fire({
+                                title: "{{ __('Deleted!') }}",
+                                icon: 'success',
+                                showConfirmButton: false,
+                            })
+                            setInterval(() => {
+                                window.location.reload()
+                            }, 1000);
+                        }).catch((error) => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: error
+                            });
+                        });
+                        Swal.fire('{{ __('Deleted!') }}', '', 'success')
+                    } else if (result.isDenied) {
+                        Swal.fire('{{ __('Changes are not saved') }}', '', 'info')
+                    }
+                })
+
+
             })
 
             $('.saveCategory').click(function() {
