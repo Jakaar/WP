@@ -8,4 +8,7 @@ class Role extends LaratrustRole
 {
     public $guarded = [];
 
+    public function users(){
+        return $this->belongsToMany('\App\User','role_user')->where('isEnabled',1);
+    }
 }
