@@ -1,11 +1,13 @@
 @extends('client.layouts.master')
 @inject('t','App\Helper\Helper')
 @section('content')
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
     <section class="blogs-2">
         <div class="container-fluid mt-5">
             <div class="row mb-md-5">
                 <div class="col-md-8 mx-auto">
-                    <h3 class="display-3 text-center">{!! $t->translateText($title->name) !!}</h3>
+                    <h3 class="display-3 text-center">{{$Details->title}}</h3>
                     <p class="lead text-center">{!! $t->translateText($title->description) !!}</p>
                 </div>
             </div>
@@ -15,73 +17,32 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
-                        <form action="">
-                            <div class="row justify-content-center">
-                                <div class="col-2">
-                                    {{--                                <label for="">{{__('Search')}}</label>--}}
-                                    <select name="type" id="" class="form-control">
-                                        <option value="all" selected>{{__('All')}}</option>
-                                        <option value="title">{{__('Title')}}</option>
-                                        <option value="content">{{__('Content')}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" name="value" class="form-control" placeholder="{{__('Search')}}">
-                                </div>
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-outline-success">{{__('Search')}}</button>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="socializer" data-features="32px,opacity,bg-none,pad" data-sites="facebook,twitter,reddit,print,email,whatsapp,instagram"></div>
+{{--                                <div id="fb-root"></div>--}}
+                                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="i1YFmakE"></script>
+                            </div>
+                            <div class="col-6"><div class="float-right">
+                                    <span class="text-muted small">{{$Details->created_at}} | {{\Carbon\Carbon::make($Details->created_at)->diffForHumans()}}</span>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-{{--                    <div class="card-header">--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-1">--}}
-{{--                                #--}}
-{{--                            </div>--}}
-{{--                            <div class="col-9">--}}
-{{--                                {{__('Title')}}--}}
-{{--                            </div>--}}
-{{--                            <div class="col-2">--}}
-{{--                                {{__('Date')}}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                     <div class="card-body">
                         <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table text-left">
-                                    <thead class="bg-gradient-lighter">
-                                    <tr>
-                                        <th scope="col" class="text-left text-dark">#</th>
-                                        <th scope="col" class="text-left text-dark">{{__('Title')}}</th>
-                                        <th scope="col" class="text-left text-dark">{{__('Date')}}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($Notice as $key=>$item)
-                                            <tr>
-                                                <td>{{$key + 1}}</td>
-                                                <td class="col-10"><a href="/Notice/Single/{{$item->id}}" class="btn btn-link text-default btn-sm">{{$item->title}}</a></td>
-                                                <td class="text-right">
-                                                    {!! \Carbon\Carbon::make($item->created_at)->format('Y-m-d')!!}
-                                                    <span class="small text-muted">{{\Carbon\Carbon::make($item->created_at)->diffForHumans()}}</span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <div class="float-right">
-                                    {{$Notice->links()}}
-                                </div>
-                            </div>
+                            {{$Details->content}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/js/socializer.min.js"></script>
+    <script>
+        (function(){
+            socializer( '.socializer' );
+        }());
+    </script>
 @endsection
