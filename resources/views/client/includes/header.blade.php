@@ -76,7 +76,7 @@
                             <!--                            <b>Profile</b>-->
                             <!--                        </a>-->
                             <a class="dropdown-item" href="{{ route('customer.logout') }}">
-                                <b>{{(__'Logout')}}</b>
+                                <b>{{__('Logout')}}</b>
                             </a>
                         </div>
                     </li>
