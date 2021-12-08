@@ -237,16 +237,8 @@
                     bAddress[code] = address;
                 })
 
-                let terms_url = '<a href="http://{{ env('APP_URL') }}/terms_of_use">'
-                let privacy_url = '<a href="http://{{ env('APP_URL') }}/privacy_policy">'
-
-                let terms_data = $('#termsUse').val() + '</a>';
-
-                let privacy_data = $('#privacy').val() + '</a>';
-
-                let terms_data_url = terms_url.concat(terms_data);
-
-                let privacy_data_url = privacy_url.concat(privacy_data);
+                let terms_url = `<a href="{!! env('APP_URL') !!}/terms_of_use">`+$('#termsUse').val()+`</a>`
+                let privacy_url = `<a href="{{ env('APP_URL') }}/privacy_policy">`+$('#privacy').val()+`</a>`
 
 
 
@@ -261,12 +253,11 @@
                     email: $('#email').val(),
                     copyright: JSON.stringify(cRight),
                     logo: $('#logo-photo').val(),
-                    terms_use : terms_data_url,
-                    privacy : privacy_data_url,
+                    terms_use : terms_url,
+                    privacy : privacy_url,
                     location : $('#location').val(),
                     recieve_information : $('#rpi').val(),
                 };
-
                 Axios.post('/api/settings/siteinfo/update', data).then((resp) => {
 
                     $('#siteInfoSaveBtn').toggleClass('d-none')
@@ -277,10 +268,9 @@
                             icon: 'success',
                             showConfirmButton: false,
                         })
-
                         setInterval(() => {
                             window.location.reload()
-                        }, 1000);
+                        }, 600);
                 }).catch((err) => {
                     console.log(err);
                 });
