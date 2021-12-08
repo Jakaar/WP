@@ -89,15 +89,23 @@ class MemberController extends Controller
 
     public function create(Request $request)
     {
+        $user_email = \App\User::where('email',$request->email)->count();
 
-        $user = new \App\User;
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-        $user->attachRole('admin');
-
-        return response()->json(['icon' => 'success', 'msg' => 'success'], 200);
+        if($user_email == 1)
+        {
+          return response()->json(['icon' => 'error', 'msg' => 'This email already registered']);
+        }
+        else
+        {
+            $user = new \App\User;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $user->attachRole('admin');
+    
+            return response()->json(['success' => true,'icon' => 'success', 'msg' => 'success'], 200);
+        }
     }
 }

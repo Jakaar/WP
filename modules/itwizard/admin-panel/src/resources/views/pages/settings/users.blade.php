@@ -1,5 +1,5 @@
 @extends('Admin::layouts.master')
-@section('title') {{__('Member Management')}} @endsection
+@section('title') {{ __('Member Management') }} @endsection
 
 @section('content')
 
@@ -67,7 +67,8 @@
         </div>
         <div class=" mb-3 card card-btm-border border-primary">
             <div class="card-body">
-                <table style="width: 100%;" id="UserPermissionTable" class="table table-hover table-striped table-bordered text-center">
+                <table style="width: 100%;" id="UserPermissionTable"
+                    class="table table-hover table-striped table-bordered text-center">
                     <thead>
                         <tr>
                             <th>{{ __('ID') }}</th>
@@ -90,7 +91,7 @@
                                 <td>{{ $admin->email }}</td>
                                 <td class="">
                                     <div class="mb-3 badgeroles">
-                                        @foreach($admin->roles as $roles)
+                                        @foreach ($admin->roles as $roles)
                                             <span class="badge bg-success me-2">{{ __($roles->display_name) }}
 
                                                 @permission('role-delete')
@@ -99,7 +100,7 @@
                                                             class="fa fa-times"></i> </a>
                                                     @endpermission
                                                 </span>
-                                        @endforeach
+                                            @endforeach
                                         </div>
                                         <div class="input-group d-none change-role" data-id="{{ $admin->id }}">
                                             <select name="roles" class="form-control form-control-xs roles">
@@ -110,7 +111,8 @@
                                             </select>
                                             <button class="btn btn-success btn-sm change-role-success"> <i
                                                     class="pe-7s-check"></i> </button>
-                                            <button class="btn btn-danger btn-sm cancel-role"> <i class="pe-7s-close"></i> </button>
+                                            <button class="btn btn-danger btn-sm cancel-role"> <i class="pe-7s-close"></i>
+                                            </button>
                                         </div>
                                     </td>
                                     {{-- <td>
@@ -353,13 +355,13 @@
                                             },
                                         },
                                         messages: {
-                                            firstname: "{{__('Please enter your firstname')}}",
-                                            lastname: "{{__('Please enter your lastname')}}",
+                                            firstname: "{{ __('Please enter your firstname') }}",
+                                            lastname: "{{ __('Please enter your lastname') }}",
                                             password: {
-                                                required: "{{__('Please provide a password')}}",
-                                                minlength: "{{__('Your password must be at least 6 characters long')}}",
+                                                required: "{{ __('Please provide a password') }}",
+                                                minlength: "{{ __('Your password must be at least 6 characters long') }}",
                                             },
-                                            email: "{{__('Please enter a valid email address')}}",
+                                            email: "{{ __('Please enter a valid email address') }}",
                                         },
                                         errorElement: "em",
                                         errorPlacement: function(error, element) {
@@ -401,7 +403,7 @@
                                             console.log(resp)
                                             Swal.fire({
                                                 icon: 'Success',
-                                                title: '{{__('Success')}}',
+                                                title: '{{ __('Success') }}',
                                                 showConfirmButton: false,
                                                 timer: 4000
                                             });
@@ -432,12 +434,12 @@
                                     let badge = $(this)
 
                                     Swal.fire({
-                                        title: '{{__('Do you want to delete role?')}}',
+                                        title: '{{ __('Do you want to delete role?') }}',
                                         cancelButtonColor: '#212529',
                                         confirmButtonColor: '#dc3545',
                                         showCancelButton: true,
-                                        confirmButtonText: '{{__('Delete')}}',
-                                        cancelButtonText: '{{__('Cancel')}}'
+                                        confirmButtonText: '{{ __('Delete') }}',
+                                        cancelButtonText: '{{ __('Cancel') }}'
                                     }).then((result) => {
                                         /* Read more about isConfirmed, isDenied below */
                                         if (result.isConfirmed) {
@@ -452,9 +454,9 @@
                                                     title: err
                                                 });
                                             });
-                                            Swal.fire('{{__('Deleted!')}}', '', 'success')
+                                            Swal.fire('{{ __('Deleted!') }}', '', 'success')
                                         } else if (result.isDenied) {
-                                            Swal.fire('{{__('Changes are not saved')}}', '', 'info')
+                                            Swal.fire('{{ __('Changes are not saved') }}', '', 'info')
                                         }
                                     })
 
@@ -479,13 +481,13 @@
                                         },
                                     },
                                     messages: {
-                                        firstname: "{{__('Please enter your firstname')}}",
-                                        lastname: "{{__('Please enter your lastname')}}",
+                                        firstname: "{{ __('Please enter your firstname') }}",
+                                        lastname: "{{ __('Please enter your lastname') }}",
                                         password: {
-                                            required: "{{__('Please enter your a password')}}",
-                                            minlength: "{{__('Your password must be at least 6 characters long')}}",
+                                            required: "{{ __('Please enter your a password') }}",
+                                            minlength: "{{ __('Your password must be at least 6 characters long') }}",
                                         },
-                                        email: "{{__('Please enter a valid email address')}}",
+                                        email: "{{ __('Please enter a valid email address') }}",
                                     },
                                     errorElement: "em",
                                     errorPlacement: function(error, element) {
@@ -517,34 +519,28 @@
                                     if (check == true) {
                                         $('#staticBackdrop').modal('hide')
                                         Axios.post('/api/member/create', data).then((resp) => {
-                                            window.location.reload();
                                             Swal.fire({
-                                                icon: resp.data.icon,
-                                                title: '{{__('Success')}}',
-                                                showConfirmButton: false,
-                                                timer: 4000
-                                            });
-                                        }).catch((err) => {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: err,
-                                                showConfirmButton: false,
-                                                timer: 2000
-                                            });
-                                        });
+                                                title: resp.data.msg,
+                                                icon : resp.data.icon,
+                                            })
+
+                                            if(resp.data.success){
+                                                setInterval(() => {
+                                                    window.location.reload()
+                                                }, 1500);
+                                            }
+                                        })
                                     }
-
-
                                 })
                             })
 
                             $('.delete_user').click(function() {
                                 const user_id = $(this).attr('data-id');
                                 Swal.fire({
-                                    title: '{{__('Reason')}}',
+                                    title: '{{ __('Reason') }}',
                                     input: 'textarea',
                                     // inputLabel: 'Reason',
-                                    inputPlaceholder: '{{__('Type your message here...')}}',
+                                    inputPlaceholder: '{{ __('Type your message here...') }}',
                                     inputAttributes: {
                                         'aria-label': 'Type your message here'
                                     },
@@ -560,7 +556,7 @@
                                         }
                                         Axios.post('/api/user/delete', data).then((resp) => {
                                             $('tr[key=' + user_id + ']').remove()
-                                            Swal.fire('{{__('Deleted!')}}', '', 'success')
+                                            Swal.fire('{{ __('Deleted!') }}', '', 'success')
                                             setTimeout(function() {
                                                 location.reload()
                                             }, 3000);
@@ -574,7 +570,7 @@
                                         });
 
                                     } else if (result.isDenied) {
-                                        Swal.fire('{{__('Cancelled')}}', '', 'info')
+                                        Swal.fire('{{ __('Cancelled') }}', '', 'info')
                                     }
                                 })
                             })
@@ -627,7 +623,7 @@
                                 $(this).parent().parent().find('.role-switcher').removeClass('d-none')
                                 $(this).parent().parent().find('.role-switcher').html(text)
                             })
-                            $('.cancel-role').click(function(){
+                            $('.cancel-role').click(function() {
                                 $(this).parent().addClass('d-none')
                             })
                             //Role update End

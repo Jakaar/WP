@@ -148,7 +148,8 @@
                         </div>
                     </div>
 
-                    <button class='btn mt-3 btn-primary btn-save-change ml-3' id="saveChanges">{{__('Confirm')}}</button>
+                    <button class="btn mt-3 btn-primary"  style="float: right" id="saveChanges">{{__('Confirm')}}</button>
+                    <a class="btn mt-3 btn-danger btn-save-change mr-2" style="float: right" id="cancel" href="/">{{__('Cancel')}}</a>
                 </div>
 
             </div>
