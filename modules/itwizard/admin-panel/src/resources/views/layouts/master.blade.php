@@ -10,6 +10,7 @@
     <title>{{ env('APP_NAME') }} | {{ env('ORG_NAME') }} - @yield('title')</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="/client/static/img/favicon.ico">
     <link rel="reconnect" href="https://fonts.googleapis.com">
     <link rel="reconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
