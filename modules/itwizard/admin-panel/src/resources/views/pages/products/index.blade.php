@@ -157,8 +157,8 @@
                                                 @if ($category->count() != 0)
                                                     @foreach ($category as $categories)
                                                         <option value="{{ $categories->id }}"> {{ $categories->name }} </option>
-                                                        @if ($categories->child->count() != 0)
-                                                            @foreach ($categories->child as $child)
+                                                        @if ($categories->childs->count() != 0)
+                                                            @foreach ($categories->childs as $child)
                                                                 @include('Admin::pages.products.categoryDropdown',[
                                                                 'children' => $child,
                                                                 'parent' => $categories->name
