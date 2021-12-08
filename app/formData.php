@@ -11,4 +11,9 @@ class formData extends Model
     public function builder(){
         return $this->belongsTo('\App\formBuilder','form_id');
     }
+
+    public function files(){
+        return $this->hasMany('\App\formDatafile','client_form_data_id');
+    }
+
 }

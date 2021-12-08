@@ -125,13 +125,15 @@ class MailController extends Controller
         // ->leftJoin('form_builded', 'client_form_data.form_id', '=', 'form_builded.id')
         // ->first();
 
-        $data = DB::table('client_form_data')
-            ->where('client_form_data.id', $id)
-            ->leftJoin('form_builded', 'form_builded.id', '=', 'client_form_data.form_id')
-            ->leftJoin('client_form_data_file', 'client_form_data_file.client_form_data_id', '=', 'client_form_data.id')
-            ->first();
+        // $data = DB::table('client_form_data')
+        //     ->where('client_form_data.id', $id)
+        //     ->leftJoin('form_builded', 'form_builded.id', '=', 'client_form_data.form_id')
+        //     ->leftJoin('client_form_data_file', 'client_form_data_file.client_form_data_id', '=', 'client_form_data.id')
+        //     ->first();
 
-        // dd($data);
+        return $data = \App\formData::with(['builder','files'])->where('id',$id)->first();
+
+        dd($data);
 
 
         $js = [];
@@ -166,7 +168,6 @@ class MailController extends Controller
                         }
                     }
                 } else {
-
                     $item->value = $settingValue[$tooluur];
                     $tooluur++;
                 }
@@ -185,7 +186,10 @@ class MailController extends Controller
 
 
         $data->data = json_encode($processing);
-        // dd($data);
+        dd($data);
+
+        
+
 
         return response()->json(['msg' => __('success'), 'data' => $data], 200);
     }
