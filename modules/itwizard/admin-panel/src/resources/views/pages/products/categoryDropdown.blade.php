@@ -3,7 +3,7 @@
     @php
         $parents = $parent . ' -> ' . $children->name
     @endphp
-    @foreach ($children->child as $sub)
+    @foreach ($children->childs as $sub)
         @include('Admin::pages.products.categoryDropdown',[
             'children' => $sub,
             'parent' => $parents,
