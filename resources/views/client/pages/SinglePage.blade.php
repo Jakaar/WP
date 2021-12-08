@@ -61,7 +61,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-10 col-md-8 mx-auto">
-                                <h2 class="title mb-5">Related Stories</h2>
+                                <h2 class="title mb-5">{{__('Related Stories')}}</h2>
                                 @foreach($InCategoryNews as $iNews)
                                     <div class="card card-blog card-plain blog-horizontal mb-5">
                                         <div class="row">
