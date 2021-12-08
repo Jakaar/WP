@@ -159,43 +159,62 @@
             @endsection
             @section('script')
                 <script>
-                    $(document).ready(function() {
-                        $(document).on('click', '.removePermission', function() {
-                            const data = {
-                                id: $(this).data('id')
+                    $(document).on('click', '.removePermission', function() {
+                        const data = {
+                            id: $(this).data('id')
+                        }
+                        Swal.fire({
+                            title: 'Do you want to delete a user?',
+                            showDenyButton: true,
+                            showCancelButton: false,
+                            confirmButtonText: "{{ __('Delete') }}",
+                            denyButtonText: `{{ __('Cancel') }}`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Axios.post('/api/permission/settings/delete', data).then((resp) => {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: '{{ __('Success') }}',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    setInterval(() => {
+                                        window.location.reload()
+                                    }, 1500);
+
+                                }).catch((err) => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: err,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                });
+
+                            } else if (result.isDenied) {
+                                Swal.fire('{{ __('Changes are not saved') }}', '', 'info')
                             }
-                            Swal.fire({
-                                title: 'Do you want to delete a user?',
-                                showDenyButton: true,
-                                showCancelButton: false,
-                                confirmButtonText: "{{ __('Delete') }}",
-                                denyButtonText: `{{ __('Cancel') }}`,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    Axios.post('/api/permission/settings/delete', data).then((resp) => {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: '{{ __('Success') }}',
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        })
-                                        setInterval(() => {
-                                            window.location.reload()
-                                        }, 1500);
+                        })
 
-                                    }).catch((err) => {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: err,
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        })
-                                    });
+                    });
 
-                                } else if (result.isDenied) {
-                                    Swal.fire('{{ __('Changes are not saved') }}', '', 'info')
-                                }
-                            })
+
+                    $(document).on('click', '.editPermission', function() {
+                        let id = $(this).data('id');
+                        const data = {
+                            id: id,
+                        }
+                        Axios.post('/api/permission/get', data).then((resp) => {
+                            let user = resp.data.data;
+
+                            $('#u_role_name').val(user.name)
+                            $('#u_display_name').val(user.display_name)
+                            $('#u_description').text(user.description)
+                            // $('#u_menu_url').val(user.url)
+                            $('#u_id').val(user.id)
+
+                        }).catch((err) => {
+                            console.log(err);
                         });
                     })
                 </script>
@@ -204,26 +223,6 @@
                 </script>
                 <script>
                     $(document).ready(function() {
-
-                        $('.editPermission').click(function() {
-                            let id = $(this).data('id');
-                            const data = {
-                                id: id,
-                            }
-
-                            Axios.post('/api/permission/get', data).then((resp) => {
-                                let user = resp.data.data;
-
-                                $('#u_role_name').val(user.name)
-                                $('#u_display_name').val(user.display_name)
-                                $('#u_description').text(user.description)
-                                // $('#u_menu_url').val(user.url)
-                                $('#u_id').val(user.id)
-
-                            }).catch((err) => {
-                                console.log(err);
-                            });
-                        })
 
                         $('#permission_update').click(function() {
                             const data = {
