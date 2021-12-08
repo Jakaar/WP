@@ -241,7 +241,6 @@
                 let privacy_url = `<a href="{{ env('APP_URL') }}/privacy_policy">`+$('#privacy').val()+`</a>`
 
 
-
                 const data = {
                     companyName: JSON.stringify(cName),
                     siteName: JSON.stringify(sName),

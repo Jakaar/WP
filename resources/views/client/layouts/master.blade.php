@@ -49,7 +49,7 @@
     <script src="{{ asset('/client/static/js/core/jquery.min.js') }}"></script>
     <script src="{{ asset('/client/static/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('/client/static/js/core/bootstrap.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>--}}
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <style>
         .gg {
@@ -92,7 +92,15 @@
 
     </style>
     @yield('script')
-
+    <script>
+        $(document).ready(function (){
+            $(document).bind('keypress', function(event) {
+                if( event.which === 65 && event.shiftKey ) {
+                    location.href = '/cms'
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>

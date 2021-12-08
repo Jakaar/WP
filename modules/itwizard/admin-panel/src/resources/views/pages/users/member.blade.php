@@ -169,7 +169,7 @@
                                             <div class="col-lg-6 mb-3">
                                                 <label class="form-label"> {{ __('Phone') }} </label>
                                                 <input type="text" class="form-control" placeholder="{{ __('Phone') }} "
-                                                    name="v_phone" id="v_phone" autocomplete="off">
+                                                    name="v_phone" id="v_phone" data-inputmask="'mask': '[999-]9999-9999'" autocomplete="off">
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label class="form-label"> {{ __('Birthdate') }} </label>
@@ -241,7 +241,7 @@
                             },
                         });
 
-                        //view validate 
+                        //view validate
 
                         $('#view_user_form').validate({
                             rules: {
@@ -282,7 +282,7 @@
                             },
                         });
 
-                        // Single User Data 
+                        // Single User Data
 
                         $('.editUser').click(function() {
                             const user_id = $(this).data('id');
