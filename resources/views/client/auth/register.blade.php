@@ -114,7 +114,7 @@
                 <div class="row mt-5 mb-5">
                     <div class="col-md-12 text-center">
                         <button class="btn btn-primary" type="button" id="r_changes">{{__('Sign Up Now')}}</button>
-                        <button class="btn btn-outline-primary" type="reset">{{__('Cancel')}}</button>
+                        <a class="btn btn-outline-primary" type="reset" href="/">{{__('Cancel')}}</a>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                     </div>
 
                     <button class="btn mt-3 btn-primary"  style="float: right" id="saveChanges">{{__('Confirm')}}</button>
-                    <a class="btn mt-3 btn-danger btn-save-change mr-2" style="float: right" id="cancel" href="/">{{__('Cancel')}}</a>
+                    <a class=" mt-3 btn btn-outline-primary mr-2" style="float: right" id="cancel" href="/">{{__('Cancel')}}</a>
                 </div>
 
             </div>
