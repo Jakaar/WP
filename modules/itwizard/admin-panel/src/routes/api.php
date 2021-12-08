@@ -170,6 +170,7 @@ Route::post('/client_data_delete',  [Itwizard\Adminpanel\Http\ApiControllers\Mai
 
 
     Route::post('/GetPost/CreateOrUpdate/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostCreateOrUpdate']);
+    Route::post('/GetPost/Details/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetPostDetails']);
 
     Route::post('/GetNotice/Details/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetNotice']);
     Route::post('/GetNotice/CreateOrUpdate/{id}', [\Itwizard\Adminpanel\Http\ApiControllers\Page\PageContentController::class, 'GetNoticeCreateOrUpdate']);
