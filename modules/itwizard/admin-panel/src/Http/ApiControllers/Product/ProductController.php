@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         foreach ($request->all() as $item)
         {
-//            DB::table('main_products')->where('id', $item)->delete();
+           DB::table('main_products')->where('id', $item)->delete();
         }
         return response()->json(['msg'=> __('Selected Items Has Been Deleted')], 200);
     }
