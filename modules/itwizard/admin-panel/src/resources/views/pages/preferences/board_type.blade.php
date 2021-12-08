@@ -162,7 +162,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Axios.post('/api/preferences/board_type/delete', data).then((resp) => {
-                            Swal.fire("{{__('Deleted!')}}", '', 'success')
+                            Swal.fire({
+                            title:"{{__('Deleted!')}}",
+                            icon: 'success',
+                            showConfirmButton: false
+                            })
                             $('tr[key=' + delete_id + ']').remove()
                                 location.reload()
                         })
@@ -188,12 +192,10 @@
                 };
                 Axios.post('/api/preferences/board_type/create', data).then((resp) => {
                     window.location.reload();
-                    Swal.fire(
-                        "{{__('Added!')}}",
-                        {
-                            icon: resp.data.icon,
-                            title: resp.data.msg,
-
+                    Swal.fire({
+                        title: "{{__('Added!')}}",
+                        icon: 'success',
+                        showConfirmButton: false,
                         });
 
                 }).catch((err) => {

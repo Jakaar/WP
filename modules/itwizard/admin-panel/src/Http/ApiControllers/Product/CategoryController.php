@@ -19,11 +19,11 @@ class CategoryController extends Controller
 
         $model = \App\ProductCategory::where('id', $request->id)->first();
         if ($model->parent_id != null) {
-            $data = \App\ProductCategory::where('id', $model->parent_id)->first();
-            $parent = \App\ProductCategory::where('parent_id', $data->parent_id)->get();
+            $data = \App\ProductCategory::where('id', $model->parent_id)->where('is_active',1)->first();
+            $parent = \App\ProductCategory::where('parent_id', $data->parent_id)->where('is_active',1)->get();
         }
         else{
-            $parent = \App\ProductCategory::where('parent_id',null)->get();
+            $parent = \App\ProductCategory::where('parent_id',null)->where('is_active',1)->get();
         }
 
         return response()->json([

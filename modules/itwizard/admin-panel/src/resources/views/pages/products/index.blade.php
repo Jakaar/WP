@@ -330,7 +330,7 @@
                                         confirmButtonColor: '#3085d6',
                                         cancelButtonColor: '#d33',
                                         cancelButtonText: '{{ __('Cancel') }}',
-                                        confirmButtonText: '{{ __('Yes Delete it!') }}'
+                                        confirmButtonText: '{{ __('Yes Delete It!') }}'
                                     }).then((result) => {
                                         if (result.isConfirmed) {
                                             Axios.post('/api/product/multiple/delete', JSON.parse(localStorage
@@ -366,10 +366,10 @@
 
                             $('.enabler').change(function() {
                                 Axios.post('/api/product/status/' + $(this).attr('key')).then((resp) => {
-                                    Toast.fire({
+                                    Swal.fire({
                                         icon: 'success',
-                                        position: 'top-end',
-                                        title: resp.data.msg
+                                        title: resp.data.msg,
+                                        showConfirmButton:false
                                     })
                                 })
                             });
@@ -382,12 +382,12 @@
                                     confirmButtonColor: '#3085d6',
                                     cancelButtonColor: '#d33',
                                     cancelButtonText: '{{ __('Cancel') }}',
-                                    confirmButtonText: '{{ __('Yes Delete it!') }}'
+                                    confirmButtonText: '{{ __('Yes Delete It!') }}'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         Axios.post('/api/product/delete/' + $(this).attr('key')).then((resp) => {
                                             Swal.fire({
-                                                title: '{{ __('Deleted') }}',
+                                                title: '{{ __('Deleted!') }}',
                                                 text: resp.data.msg,
                                                 icon: 'success',
                                                 showConfirmButton: false,
@@ -753,7 +753,7 @@
 
                         @if (session()->has('message'))
                             Swal.fire({
-                            title: " {{ __(session()->get('message')) }}",
+                            title: " {{ __('Successfully saved') }}",
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 1500

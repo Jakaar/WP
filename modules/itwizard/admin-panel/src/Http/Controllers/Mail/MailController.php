@@ -20,13 +20,10 @@ class MailController extends Controller
         // ->where('isEnabled', 1)
         // ->get();
 
-        $datas['client_data'] = DB::table('client_form_data')
-        ->where('client_form_data.isEnabled',1)
-        ->leftJoin('form_builded', 'form_builded.id', '=', 'client_form_data.form_id')
-//            ->select('client_form_data.id','client_form_data.created_at','client_form_data.isEnabled','form_builded.form_name')
-        ->get();
-//         dd($datas['client_data']);
+        $datas['client_data'] = \App\formData::with('builder')->where('isEnabled',1)->orderby('id','DESC')->get()->groupby('builder.form_name');
+        $datas['group'] = \App\formData::with('builder')->get()->groupBy('builder.form_name');
 
+        // return $datas['group'];
 
         $datas['roles'] = DB::table('roles')
         ->select( 'name', 'id' )

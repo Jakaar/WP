@@ -286,13 +286,14 @@ class MainController extends Controller
         // dd($request->file('file-1638705379015-0'));
        $validated = $request->all();
        $form_id = $request->form_id;
-       $content = Arr::except($validated, ['_token', 'form_id']);
-       $aa = Arr::except($validated, ['_token', 'form_id']);
+       $content = Arr::except($validated, ['_token', 'form_id','_email']);
+       $aa = Arr::except($validated, ['_token', 'form_id','_email']);
 
        $content= json_encode($content);
 
       $iId = DB::table('client_form_data')->insertGetId([
            'content'=>$content,
+           'email' => $request->_email,
            'isEnabled'=>1,
            'form_id'=>$form_id,
            'submited_at'=> \Carbon\Carbon::now(),

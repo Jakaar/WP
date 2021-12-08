@@ -14,8 +14,8 @@
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                        <h1 class="text-white">Welcome!</h1>
-                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+                        <h1 class="text-white">{{__('Welcome!')}}</h1>
+                        <p class="text-lead text-white">{{__('Use these awesome forms to login or create new account in your project for free.')}}</p>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         <div class="col-lg-5 col-md-8 mx-auto p-3" style="top: -200px; z-index: 2" >
             <div class="card bg-secondary shadow border-0">
                 <div class="card-header bg-white pb-5">
-                    <div class="text-muted text-center mb-3"><small>Login with</small></div>
+                    <div class="text-muted text-center mb-3"><small>{{__('Login with')}}</small></div>
                     <div class="btn-wrapper text-center">
 <!--                        <a href="#" class="btn btn-neutral btn-icon">-->
 <!--                            <span class="btn-inner--icon"><img src="/client/static/img/kakao.png"></span>-->
@@ -35,10 +35,10 @@
 <!--                        </a>-->
                         <a href="javascript:kakaoLogin();" class="btn-text text-dark btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="/client/static/img/kakao.png"></span>
-                            <span class="btn-inner--text">Kakao</span>
+                            <span class="btn-inner--text">{{__('Kakao')}}</span>
                         <a href="#" class="btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="/client/static/img/google.svg"></span>
-                            <span class="btn-inner--text">Google</span>
+                            <span class="btn-inner--text">{{__('Google')}}</span>
                         </a>
                     </div>
                 </div>
@@ -67,15 +67,15 @@
                         </div>
                         <div class="custom-control custom-control-alternative custom-checkbox">
                             <input class="custom-control-input" id=" customCheckLogin2" type="checkbox">
-                            <label class="custom-control-label" for=" customCheckLogin2"><span class="text-default opacity-5">Remember me</span></label>
+                            <label class="custom-control-label" for=" customCheckLogin2"><span class="text-default opacity-5">{{__('Remember me')}}</span></label>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary my-4">Login</button>
+                            <button type="submit" class="btn btn-primary my-4">{{__('Login')}}</button>
                         </div>
                     </form>
                     <div class="text-center text-muted mb-4">
-                        <small><b>Do you have an account ?
-                            <a href="{{route('register.form')}}">Sign up now</a></b>
+                        <small><b>{{__('Do you have an account ?')}}
+                            <a href="{{route('register.form')}}">{{__('Sign up now')}}</a></b>
                         </small>
                     </div>
                 </div>

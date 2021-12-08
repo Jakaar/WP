@@ -354,7 +354,7 @@
                                 }
                                 Axios.post('/api/customer/member_update', vData).then((resp) => {
                                     Swal.fire({
-                                        title: "{{ __('Updated') }}",
+                                        title: "{{ __('Updated!') }}",
                                         icon: 'success',
                                         showConfirmButton: false,
                                     })

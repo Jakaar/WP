@@ -93,7 +93,6 @@ class PageManageController extends Controller
             ->where(['board_master_id' => $id])
             ->with('subCategories')
             ->get();
-//        dd($content,$slug);
         return view('Admin::pages.manage_pages.manage_pages',compact('content'));
     }
     public function detector($id, $board, $uuid = null)
@@ -111,24 +110,25 @@ class PageManageController extends Controller
                 'wpanel_board_master.board_type'
             )
             ->first();
-//        dd($id, $board, $uuid = null);
         if (!$board)
         {
             $board = DB::table('categories')->where('id','=', $id)->first();
-//            dd($board);
             return $this->detector($id, $board->board_master_id);
         }
-//        dd($board);
         $board = DB::table('wpanel_board_master')->where('id', $board)->first();
-
         if ($uuid)
         {
+            if (!$board)
+            {
+                $board = DB::table('categories')->where('id','=', $id)->first();
+                return $this->detector($id, $board->board_master_id, $uuid);
+            }
+//            dd($board);
             $uuid = base64_decode(base64_decode($uuid));
             $Lists = DB::table('main__category__page')
                 ->where('main_category_id', $uuid)
                 ->orderBy('created_at', 'desc')
                 ->get();
-//            dd($Lists);
             $board->board_type = 'CategoryList';
             return view('Admin::pages.manage_pages.index', compact('content', 'board','Lists'));
         }
@@ -192,7 +192,6 @@ class PageManageController extends Controller
                 ->where('category_id', $id)
                 ->select('title','id','created_at')
                 ->get();
-//            dd($notices);
             return view('Admin::pages.manage_pages.index',compact('content','board','notices'));
         }
 

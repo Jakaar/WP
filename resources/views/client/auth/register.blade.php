@@ -13,9 +13,9 @@
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
                         <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                            <h1 class="text-white">Register</h1>
-                            <p class="text-lead text-white">That’s the main thing people are controlled by! Thoughts - their
-                                perception of themselves!</p>
+                            <h1 class="text-white">{{__('Register')}}</h1>
+                            <p class="text-lead text-white">{{__('That’s the main thing people are controlled by! Thoughts - their
+                                perception of themselves!')}}</p>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 style="position: relative;    top: -100px;    z-index: 2;">
                 <div class="section">
                     <header>
-                        <h2 class="text-uppercase text-center">General information</h2>
+                        <h2 class="text-uppercase text-center">{{__('General information')}}</h2>
                     </header>
                     <hr class="line-primary ">
                     <br>
@@ -36,7 +36,7 @@
                         @csrf
                         <div class="row ">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="firstname"> Name</label>
+                                <label class="labels" for="firstname"> {{__('Name')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="row">
                             <div class=" offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="#email">Email</label>
+                                <label class="labels" for="#email">{{__('Email')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="row">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="#phone">Phone</label>
+                                <label class="labels" for="#phone">{{__('Phone')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -68,20 +68,20 @@
                         </div>
                         <div class="row">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels">Gender</label>
+                                <label class="labels">{{__('Gender')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
                                     <select class="form-control" data-trigger="" name="sex" id="sex" required>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="male">{{__('Male')}}</option>
+                                        <option value="female">{{__('Female')}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="birthdate">Birthday</label>
+                                <label class="labels" for="birthdate">{{__('Birthday')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -91,7 +91,7 @@
                         </div>
                         <div class="row">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="#password">Password</label>
+                                <label class="labels" for="#password">{{__('Password')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -101,7 +101,7 @@
                         </div>
                         <div class="row">
                             <div class="offset-md-2 col-md-2 align-self-center">
-                                <label class="labels" for="#confirm_password">Confirm Password</label>
+                                <label class="labels" for="#confirm_password">{{__('Confirm Password')}}</label>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
@@ -113,8 +113,8 @@
                 </div>
                 <div class="row mt-5 mb-5">
                     <div class="col-md-12 text-center">
-                        <button class="btn btn-primary" type="button" id="r_changes">Save Changes</button>
-                        <button class="btn btn-outline-primary" type="reset">Cancel</button>
+                        <button class="btn btn-primary" type="button" id="r_changes">{{__('Save Changes')}}</button>
+                        <button class="btn btn-outline-primary" type="reset">{{__('Cancel')}}</button>
                     </div>
                 </div>
             </div>
@@ -125,14 +125,13 @@
         <div class='modal-dialog modal-lg modal-dialog-scrollable' role='document'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h3 class='modal-title' id='exampleModalLabel'>Supplier information</h3>
+                    <h3 class='modal-title' id='exampleModalLabel'>{{__('Supplier information')}}</h3>
                 </div>
                 <div class='modal-body'>
                     <div class="tacbox options col-lg-12">
                         <input class="checkbox1" id="terms" type="checkbox" name="checkbox1" class="wizard-required"
                             value="0">
-                        <label for="terms"> I agree to these <a href="#">Terms and
-                                Conditions</a><span class="text-warning">(required)</span></label>
+ <label for="terms"> {{__('I agree to these')}} <a href="#">{{__('Terms and Conditions')}}</a><span class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px; width:100%; border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
                             {{ $site_info->terms_of_condition ?? '' }}
@@ -141,15 +140,15 @@
                     <div class="tacbox options mt-3 col-lg-12">
                         <input class="checkbox2" id="privacy" type="checkbox" name="checkbox2" class="wizard-required"
                             value="0">
-                        <label for="privacy"> I agree to these <a href="#">Privacy</a><span
-                                class="text-warning">(required)</span></label>
+                        <label for="privacy"> {{__('I agree to these')}} <a href="#">{{__('Privacy')}}</a><span
+                                class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
                             {{ $site_info->privacy ?? '' }}
                         </div>
                     </div>
 
-                    <button class='btn mt-3 btn-primary btn-save-change ml-3' id="saveChanges">Save changes</button>
+                    <button class='btn mt-3 btn-primary btn-save-change ml-3' id="saveChanges">{{__('Save changes')}}</button>
                 </div>
 
             </div>
