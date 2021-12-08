@@ -11,4 +11,11 @@ class Product extends Model
     public function category(){
         return $this->belongsTo('\App\ProductCategory');
     }
+
+    public function scopeFilter($query, $category){
+        if($category){
+           return $query->where('category_id',$category);
+        } 
+        return $query;
+    }
 }

@@ -328,11 +328,16 @@ class MainController extends Controller
 
             return back()->with('success', 'Success!');
     }
-    public function products()
+    public function products(Request $request)
     {
-        $products = DB::table('main_products')->where('is_status',1)->paginate(4);
+        $products =\App\Product::where('is_status',1)->filter($request->category)->paginate(4);
+        $category = \App\ProductCategory::whereNull('parent_id')->get();
+
 //        dd($products);
-        return \view('client.pages.products.index',compact('products'));
+        return \view('client.pages.products.index',[
+            'products' => $products,
+            'categories' => $category
+        ]);
     }
 
     public function details($code){
