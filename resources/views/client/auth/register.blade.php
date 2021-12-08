@@ -124,14 +124,14 @@
         aria-labelledby='exampleModalLabel' aria-hidden='true'>
         <div class='modal-dialog modal-lg modal-dialog-scrollable' role='document'>
             <div class='modal-content'>
-                <div class='modal-header'>
-                    <h3 class='modal-title' id='exampleModalLabel'>{{__('Terms of Service, Privacy Policy agree')}}</h3>
+                <div class="modal-header " style="align-self: center">
+                    <h3 class='modal-title text-center' id='exampleModalLabel'>{{__('Terms of Service, Privacy Policy Agree')}}</h3>
                 </div>
                 <div class='modal-body'>
                     <div class="tacbox options col-lg-12">
                         <input class="checkbox1" id="terms" type="checkbox" name="checkbox1" class="wizard-required"
                             value="0">
- <label for="terms"><a href="#">{{__('Terms and Conditions()')}}</a><span class="text-warning">({{__('required')}})</span></label>
+ <label for="terms"><a href="#">{{__('Terms and Conditions.')}}</a><span class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px; width:100%; border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
                             {{ $site_info->terms_of_condition ?? '' }}
@@ -140,7 +140,7 @@
                     <div class="tacbox options mt-3 col-lg-12">
                         <input class="checkbox2" id="privacy" type="checkbox" name="checkbox2" class="wizard-required"
                             value="0">
-                        <label for="privacy"> <a href="#">{{__('Privacy Policy()')}}</a><span
+                        <label for="privacy"> <a href="#">{{__('Privacy Policy.')}}</a><span
                                 class="text-warning">({{__('required')}})</span></label>
                         <div
                             style="height:120px;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
