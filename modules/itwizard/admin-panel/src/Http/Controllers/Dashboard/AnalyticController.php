@@ -29,11 +29,11 @@ class AnalyticController extends Controller
         $endOfWeek = $today->endOfWeek()->format('Y-m-d H:i');
 
 
-        $dataC['users'] = DB::table('users')->where('isEnabled', 1)->count();
+        $dataC['users'] = DB::table('users')->where('isEnabled', 1)->where('user_type', 'customer')->count();
 
         $dataC['total_admin'] = DB::table('role_user')->where('role_id',2)->count();
 
-        $dataC['new_user'] = DB::table('users')->whereBetween('created_at',[ $startOfWeek,$endOfWeek])->get()->count();
+        $dataC['new_user'] = DB::table('users')->whereBetween('created_at',[ $startOfWeek,$endOfWeek])->where('user_type','customer')->get()->count();
         $dataC['total_product'] = DB::table('main_products')->count();
         $dataC['new_product'] =DB::table('main_products')->whereBetween('created_at',[$startOfWeek,$endOfWeek])->get()->count();
         $dataC['active_product'] = DB::table('main_products')->where('is_status',1)->count();
