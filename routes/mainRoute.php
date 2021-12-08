@@ -29,9 +29,12 @@ Route::get('/customer/login', [\App\Http\Controllers\Auth\SessionsController::cl
 Route::post('/customers/login', [\App\Http\Controllers\Auth\SessionsController::class,'store'])->name('customers.login');
 Route::get('/logout', [\App\Http\Controllers\Auth\SessionsController::class,'destroy'])->name('customer.logout');
 
+
+
 Route::get('/customer/products', [\App\Http\Controllers\Client\MainController::class,'products']);
 Route::get('/customer/product/{code}',[\App\Http\Controllers\Client\MainController::class,'details']);
 
+Route::get('/Notice/Single/{uuid}',[\App\Http\Controllers\Client\MainController::class,'NoticeDetail']);
 Route::get('/dtlpgdt/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'BlogDetail']);
 Route::get('/{slug}/{id}/gllr/{uuid}/', [\App\Http\Controllers\Client\MainController::class,'GalleryDetail']);
 Route::get('/terms_of_use', [SiteInfoController::class, 'terms_of_use']);

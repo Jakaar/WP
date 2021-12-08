@@ -21,7 +21,8 @@ class MailController extends Controller
         // ->get();
 
         $datas['client_data'] = \App\formData::with('builder')->where('isEnabled',1)->orderby('id','DESC')->get()->groupby('builder.form_name');
-        $datas['group'] = \App\formData::with('builder')->get()->groupBy('builder.form_name');
+        $datas['group'] = \App\formData::where('isEnabled',1)->with('builder')->get()->groupBy('builder.form_name');
+
 
         // return $datas['group'];
 

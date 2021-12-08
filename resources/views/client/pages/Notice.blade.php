@@ -65,7 +65,7 @@
                                         @foreach($Notice as $key=>$item)
                                             <tr>
                                                 <td>{{$key + 1}}</td>
-                                                <td class="col-10"><a href="/Notice/Single/{{$item->id}}" class="btn btn-link text-default btn-sm">{{$item->title}}</a></td>
+                                                <td class="col-10"><a href="/Notice/Single/{{base64_encode(base64_encode($item->id))}}" class="btn btn-link text-default btn-sm">{{$item->title}}</a></td>
                                                 <td class="text-right">
                                                     {!! \Carbon\Carbon::make($item->created_at)->format('Y-m-d')!!}
                                                     <span class="small text-muted">{{\Carbon\Carbon::make($item->created_at)->diffForHumans()}}</span>
