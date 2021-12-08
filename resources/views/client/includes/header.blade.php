@@ -76,14 +76,14 @@
                             <!--                            <b>Profile</b>-->
                             <!--                        </a>-->
                             <a class="dropdown-item" href="{{ route('customer.logout') }}">
-                                <b>Logout</b>
+                                <b>{{(__'Logout')}}</b>
                             </a>
                         </div>
                     </li>
                 @else
                     <a href="{{ route('customer.login') }}" class="nav-link">
                         <i class="ni ni-circle-08"></i>
-                        <b>Login</b></a>
+                        <b>{{__('Login')}}</b></a>
                 @endif
             </ul>
         </div>
