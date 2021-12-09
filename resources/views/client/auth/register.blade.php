@@ -26,7 +26,7 @@
         <div class="bg-secondary">
             <div class="col-lg-4 col-md-8 mx-auto bg-white card mb-0"
                 style="position: relative;    top: -100px;    z-index: 2;">
-                <div class="section">
+                <div class="section pb-0" >
                     <header>
                         <h2 class="text-uppercase text-center">{{__('General information')}}</h2>
                     </header>
@@ -114,7 +114,7 @@
                 <div class="row mt-5 mb-5">
                     <div class="col-md-12 text-center">
                         <button class="btn btn-primary" type="button" id="r_changes">{{__('Sign Up Now')}}</button>
-                        <a class="btn btn-outline-primary" type="reset" href="/">{{__('Cancel')}}</a>
+                        <a class="btn btn-outline-primary" type="reset" href="{{route('customer.login')}}">{{__('Cancel')}}</a>
                     </div>
                 </div>
             </div>
