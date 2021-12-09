@@ -153,7 +153,7 @@
     "Date": "날짜",
     "News Categories": "뉴스 카테고리",
     "All News": "모든 뉴스",
-    "Category": "범주",
+    "Category": "카테고리",
     "Created At": "생성된 날짜",
     "Refresh": "새로 고침",
     "Create News": "뉴스 게시하기",
@@ -913,8 +913,14 @@
     "Sign Up Now": "가입하기",
     "General information": "기본 정보",
     "Male": "남자",
-    "Female": "여자"
-
+    "Female": "여자",
+    "Save the answer first if you send a email": "전자 메일을 보낼 경우 먼저 답변을 저장하십시오",
+    "Send E-Mail": "이메일 발송",
+    "Edit Board": "보드 편집",
+    "Question": "질문",
+    "Answer": "답변",
+    "EDIT": "편집",
+    "Edit & Open": "편집 & 열기"
 
     
     }
