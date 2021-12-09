@@ -169,30 +169,35 @@
 </style>
 
 
-    <header class="header-4 skew-separator">
-        <div class="header-wrapper">
-            <div class="page-header header-video">
-                <div class="overlay"></div>
-                <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-                    <source src="{{asset('client/static/media/header-video.mp4')}}" type="video/mp4">
-                </video>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-7 mx-auto">
-                            {{--                        <h1 class="video-text">People stories</h1>--}}
-                            <img class="video-text w-50" src="{{asset('/client/static/img/logo.png')}}" alt="">
-                            {{--                        <h1 class="display-3 text-white">Боломжоо нээ!</h1>--}}
-                            {{--                        <a href="" class="btn btn-warning btn-icon mt-3 mb-sm-0">--}}
-                            {{--                            <span class="btn-inner--icon">--}}
-                            {{--                                <i class="ni ni-button-play"></i>--}}
-                            {{--                            </span>--}}
-                            {{--                        </a>--}}
-                        </div>
+<header class="header-4 skew-separator">
+    <div class="header-wrapper">
+        <div class="page-header header-video">
+            <div class="overlay"
+                 style="background:url('https://i.ibb.co/mvStLt1/mainbg-01-dark.jpg'); background-repeat: no-repeat; background-size:cover; opacity:1;">
+            </div>
+            {{-- <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="{{asset('client/static/media/header-video.mp4')}}" type="video/mp4">
+            </video> --}}
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-lg-7 mx-auto">
+                        <h1 class="text-white"> SIBIZI CORPORATION</h1>
+                        <p style="font-size: 22px;" class="text-white">기술을 넘어서 이해를 바탕으로
+                            파트너에게 최적의 비즈니스 환경을 제공합니다.</p>
+                        {{-- <h1 class="video-text">People stories</h1> --}}
+                        {{-- <img class="video-text w-50" src="{{asset('/client/static/img/logo.png')}}" alt=""> --}}
+                        {{-- <h1 class="display-3 text-white">Боломжоо нээ!</h1> --}}
+                        {{-- <a href="" class="btn btn-warning btn-icon mt-3 mb-sm-0"> --}}
+                        {{-- <span class="btn-inner--icon"> --}}
+                        {{-- <i class="ni ni-button-play"></i> --}}
+                        {{-- </span> --}}
+                        {{-- </a> --}}
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
     <div class="section features-4">
 
         <div class="container">
