@@ -1,6 +1,9 @@
 @extends('client.layouts.master')
 @section('content')
 <style>
+    .skew-separator:after {
+        z-index: 0 !important;
+    }
     .image {
         display: none;
     }
