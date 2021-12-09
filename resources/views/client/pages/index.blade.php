@@ -612,7 +612,7 @@
                             </div>
                             <div class="card-body text-center p-4">
                                 <a href="javascript:;">
-                                    <img src="/client/static/img/tim.png" alt="Circle image" class="img-fluid rounded-circle shadow" style="width: 100px;">
+                                    <img src="/client/static/img/Tim.png" alt="Circle image" class="img-fluid rounded-circle shadow" style="width: 100px;">
                                 </a>
                                 <h4 class="card-title mt-3 mb-0">CreativeTim</h4>
                                 <p class="card-description">We are developing the best design projects. </p>
