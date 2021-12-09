@@ -339,9 +339,8 @@ class MainController extends Controller
     public function products(Request $request)
     {
         $products =\App\Product::where('is_status',1)->filter($request->category)->paginate(4);
-        $category = \App\ProductCategory::whereNull('parent_id')->get();
+        $category = \App\ProductCategory::whereNull('parent_id')->where('is_active', 1)->get();
 
-//        dd($products);
         return \view('client.pages.products.index',[
             'products' => $products,
             'categories' => $category
