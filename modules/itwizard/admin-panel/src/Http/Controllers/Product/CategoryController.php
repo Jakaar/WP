@@ -16,7 +16,7 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        $items = \App\ProductCategory::where('is_active','!=',2)->where('parent_id',null)->orderby('order','asc')->get();
+        $items = \App\ProductCategory::whereIn('is_active',[1,2])->where('parent_id',null)->orderby('order','asc')->get();
         return view('Admin::pages.products.category',[
             'items' => $items
         ]);

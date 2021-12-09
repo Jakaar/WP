@@ -13,7 +13,7 @@ class formData extends Model
     }
 
     public function files(){
-        return $this->hasMany('\App\formDatafile','client_form_data_id');
+        return $this->hasMany('\App\formDataFile','client_form_data_id');
     }
 
 }
