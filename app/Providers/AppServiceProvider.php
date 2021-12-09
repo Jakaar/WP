@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
      public function GetMenu()
      {
-         Session::put('locale', 'en');
+         Session::put('locale', 'kr');
          $Main['menu'] = Category::whereNull('category_id')
              ->where('isEnabled', 1)
              ->with('childrenCategories')
