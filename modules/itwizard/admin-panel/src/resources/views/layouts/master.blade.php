@@ -533,6 +533,11 @@
     </script>
     <script>
         $(document).ready(function() {
+            $(document).bind('keypress', function(event) {
+                if( event.which === 65 && event.shiftKey ) {
+                    location.href = '/'
+                }
+            });
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
