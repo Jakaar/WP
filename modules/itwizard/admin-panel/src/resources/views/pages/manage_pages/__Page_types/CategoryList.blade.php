@@ -118,7 +118,7 @@
     <script src="{{asset('aPanel/js/ckeditor/ckeditor.js')}}"></script>
     <script>
         $(document).ready(function (){
-            $('#ListTable').DataTable({});
+            $('#ListTable').DataTable(DatatableOptions{{session()->get('locale')}});
             let lang='{{Session::get('locale')}}';if(lang==='kr'){lang = 'ko'}
             const $editor = CKEDITOR.replace('CreateContent', {
                 filebrowserBrowseUrl:filemanager.ckBrowseUrl,

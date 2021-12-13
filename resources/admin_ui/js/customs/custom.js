@@ -787,3 +787,18 @@ window.option1 = {
     }
 }
 //End Datatable Options
+window.DatatableOptionskr = {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Korean.json'
+    }
+}
+window.DatatableOptionsmn = {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Mongolian.json'
+    }
+}
+window.DatatableOptionsen= {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/English.json'
+    }
+}
