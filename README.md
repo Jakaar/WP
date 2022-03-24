@@ -39,22 +39,30 @@ CMS-ийн UI Болон Page гэх мэт зүйлс нь Modules Folder до�
 <br/>
 
     2. cd WP
+<br>
 
-`3. cp .env.example .env`
+    3. cp .env.example .env
+<br>
 
-`4. одоо Database ээ .env дээрээ тохируулана, wpanel.sql file ийг import хийнэ.`
+    4. одоо Database ээ .env дээрээ тохируулана, wpanel.sql file ийг import хийнэ.
+<br>
 
-`5. php artisan key:generate`
+    5. php artisan key:generate
+<br>
 
-`6. php artisan migrate`
+    6. php artisan migrate
+<br>
 
-`7. php artisan db:seed`
+    7. php artisan db:seed
+<br>
 
-`8. npm install`
+    8. npm install
+<br>
 
-`9. npm run dev`
+    9. npm run dev
+<br>
 
-`10. php artisan serve` [localhost:8000/cms](http://localhost:8000/cms) дээр асна. 
+`10. php artisan serve `[localhost:8000/cms](http://localhost:8000/cms) дээр асна. 
 
 #### Username: `admin@admin.com `
 #### Password: `admin123 `
