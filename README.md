@@ -35,9 +35,10 @@ CMS-ийн UI Болон Page гэх мэт зүйлс нь Modules Folder до�
 </p>
 
 ### 2.  Installation
-`1. git clone https://github.com/Jakaar/WP.git`
+    1. git clone https://github.com/Jakaar/WP.git 
+<br/>
 
-`2. cd WP`
+    2. cd WP
 
 `3. cp .env.example .env`
 
