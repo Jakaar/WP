@@ -28,10 +28,10 @@ CMS-ийн UI Болон Page гэх мэт зүйлс нь Modules Folder до�
 
 Татах холбоосууд.
 <p align="center">
-<a href="https://getcomposer.org/"><img src="https://getcomposer.org/img/logo-composer-transparent5.png" alt="Composer" width="50"></a>  |
+<a href="https://getcomposer.org/"><img src="https://getcomposer.org/img/logo-composer-transparent5.png" alt="Composer" width="50"></a>|
 <a href="https://www.php.net/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png?20180502235434" alt="PHP" width="80"></a>|
 <a href="https://nodejs.org/en/"><img src="https://nodejs.org/static/images/logo.svg" alt="PHP" width="80"></a>|
-<a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.logo.wine%2Flogo%2FMySQL&psig=AOvVaw0pdvuCLq_AIslUr1z0mHGZ&ust=1648522065989000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLjGjrPl5_YCFQAAAAAdAAAAABAD"><img src="	https://seeklogo.com/images/M/MySQL-logo-F6FF285A58-seeklogo.com.png" alt="PHP" width="80"></a>
+<a href="https://www.mysql.com/"><img src="https://www.logo.wine/a/logo/MySQL/MySQL-Logo.wine.svg" alt="PHP" width="80"></a>
 </p>
 
 ### 2.  Installation
