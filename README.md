@@ -62,7 +62,9 @@ CMS-ийн UI Болон Page гэх мэт зүйлс нь Modules Folder до�
     9. npm run dev
 <br>
 
-`10. php artisan serve `[localhost:8000/cms](http://localhost:8000/cms) дээр асна. 
+    10. php artisan serve 
+
+[localhost:8000/cms](http://localhost:8000/cms) дээр асна.
 
 #### Username: `admin@admin.com `
 #### Password: `admin123 `
